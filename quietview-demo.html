@@ -34,7 +34,7 @@ nav{padding:12px 0;flex:1}
 .nav-l2 .chevron{font-size:14px;transition:transform .2s;color:#ccc;flex-shrink:0}
 .nav-l2.open .chevron{transform:rotate(90deg)}
 .nav-l2-children{overflow:hidden;max-height:0;transition:max-height .2s ease}
-.nav-l2-children.open{max-height:300px}
+.nav-l2-children.open{max-height:500px}
 .nav-l3{display:flex;align-items:center;padding:6px 20px 6px 36px;font-size:16px;color:#9A9188;cursor:pointer;user-select:none;transition:background .15s,color .15s}
 .nav-l3:hover{background:#F8F5F1;color:#2D2826}
 .nav-l3.active{background:#F5F0EA;color:#6B5840;font-weight:500;border-left:3px solid #8B7355;padding-left:33px}
@@ -645,11 +645,12 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
     for (var i = 0; i < items.length; i++) {
       if (items[i].panel) { firstPanel = items[i].panel; break; }
       if (items[i].children && items[i].children.length) {
-        openL2[tab] = items[i].id;
+        openL2[tab] = items[i].id;  // 展开第一个L2
         firstPanel = items[i].children[0].panel;
         break;
       }
     }
+    // 确保其他L2也折叠（只展开第一个）
     if (firstPanel) showPanel(firstPanel);
     else renderNav(tab);
   });

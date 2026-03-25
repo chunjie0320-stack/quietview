@@ -1,0 +1,31 @@
+# 私人配置文件（不推送）
+AGENTS.md
+SOUL.md
+USER.md
+MEMORY.md
+HEARTBEAT.md
+IDENTITY.md
+TOOLS.md
+.openclaw/
+opc-projects/
+memory/
+
+# 临时文件
+*.png
+*.jpg
+*.jpeg
+captured_data*.json
+cdp_capture*.py
+after_close*.png
+activity-data-report.skill
+activity-data-report/
+data_616314_daily.json
+report_616314.html
+venue-search-demo/
+player_demo*.html
+news_20260325.json
+
+# 脚本工具
+s3_upload_*.py
+__pycache__/
+*.pyc

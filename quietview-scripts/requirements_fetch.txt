@@ -1,0 +1,14 @@
+# quietview.me 数据抓取脚本依赖
+# 安装：pip install -r requirements_fetch.txt
+
+# 核心依赖
+akshare>=1.12.0          # A股数据接口（行情、新闻）
+requests>=2.28.0         # HTTP请求（备用，jina用curl故不直接依赖）
+
+# 数据处理（akshare间接依赖，显式声明保证版本）
+pandas>=1.5.0            # 数据表格处理
+numpy>=1.23.0            # 数值计算
+
+# 可选：如果改用Python直接请求（替代curl）
+# httpx>=0.24.0          # 现代异步HTTP客户端（可选）
+# aiohttp>=3.8.0         # 异步HTTP（可选，批量抓取时用）

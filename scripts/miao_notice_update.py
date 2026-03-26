@@ -312,8 +312,8 @@ def ensure_html_panel(date_str, data):
                   f"var currentPanel = '{panel_id}';", html)
 
     # div 自查
-    import html as html_lib
-    class _P(html_lib.parser.HTMLParser):
+    import html.parser as _html_parser
+    class _P(_html_parser.HTMLParser):
         def __init__(self): super().__init__(); self.d = 0
         def handle_starttag(self, t, a):
             if t == 'div': self.d += 1

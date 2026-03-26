@@ -1035,14 +1035,22 @@ showPanel('panel-daily-brief-20260326');
   // 如果 NAV_DATA 里没有今日日期，自动追加 tab 并创建 panel 容器
   (function ensureTodayTab() {
     var investTabs = NAV_DATA['invest'] || [];
-    var exists = investTabs.some(function(t) { return t.id === 'daily-brief-' + dateStr; });
+    // 检查 daily-brief children 里是否已有今天（静态NAV_DATA已含时跳过）
+    var dailyBriefGroup = investTabs.find(function(t) { return t.id === 'daily-brief'; });
+    var existsInChildren = dailyBriefGroup && dailyBriefGroup.children &&
+      dailyBriefGroup.children.some(function(c) { return c.id === 'daily-brief-' + dateStr; });
+    var exists = existsInChildren;
     if (!exists) {
       var todayEntry = {
         id: 'daily-brief-' + dateStr,
         label: String(today.getMonth() + 1).padStart(2, '0') + '月' + String(today.getDate()).padStart(2, '0') + '日',
         panel: 'panel-daily-brief-' + dateStr
       };
-      investTabs.unshift(todayEntry);
+      if (dailyBriefGroup && dailyBriefGroup.children) {
+        dailyBriefGroup.children.unshift(todayEntry);
+      } else {
+        investTabs.unshift(todayEntry);
+      }
       NAV_DATA['invest'] = investTabs;
 
       // 创建 panel 容器（如果不存在）

@@ -1,15 +1,8 @@
 {
   "date": "20260327",
-  "generated_at": "2026-03-27T00:16:30.966590+08:00",
+  "generated_at": "2026-03-27T00:17:50.620026+08:00",
   "voice": [],
   "news": [
-    {
-      "title": "中国地震台网正式测定：03月26日22时18分在日本本州东部远海（北纬39.…",
-      "body": "中国地震台网正式测定：03月26日22时18分在日本本州东部远海（北纬39.45度，东经143.65度）发生6.3级地震，震源深度10千米。",
-      "time": "22:45",
-      "source": "财联社",
-      "tag": "综合"
-    },
     {
       "title": "华虹公司：2025年净利润3.77亿元 同比下降1.04%",
       "body": "《科创板日报》26日讯，华虹公司(688347.SH)发布2025年年度报告，全年实现营业收入172.91亿元，同比增长20.18%；归属于上市公司股东的净利润3.77亿元，同比下降1.04%。公司2025年8寸和12寸平均产能利用率均保持在100%以上，其中华虹制造项目（FAB9）自2024年底开",
@@ -107,222 +100,229 @@
       "time": "23:53",
       "source": "财联社",
       "tag": "地缘局势"
+    },
+    {
+      "title": "土耳其在3月20日的前两周内售出或交换了58吨黄金。",
+      "body": "土耳其在3月20日的前两周内售出或交换了58吨黄金。",
+      "time": "23:59",
+      "source": "财联社",
+      "tag": "国际市场"
     }
   ],
   "ai_voice": [
     {
       "title": "金融Agent再获近2亿加码！启明红杉高瓴集体押注，5个月内连获两轮融资",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392684.html"
     },
     {
       "title": "1段话喊来13个“程序员”，阿里Qoder新模式让我躺着当CTO",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392281.html"
     },
     {
       "title": "谷歌新论文把内存股价干崩了！KV cache压缩6倍，网友：硅谷成真了 profile-avatar",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392215.html"
     },
     {
       "title": "它石智航用“吉尼斯纪录”交卷真干活的具身大脑，丁文超：从来没有Plan B",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392137.html"
     },
     {
       "title": "第一批“首席龙虾官”，月薪6万",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392128.html"
     },
     {
       "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392121.html"
     },
     {
       "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392105.html"
     },
     {
       "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392024.html"
     },
     {
       "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/391890.html"
     },
     {
       "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/391830.html"
     },
     {
       "title": "从模型到现实：具身智能生态的龙岗实践｜技术沙龙精彩回顾",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "糟糕，大佬45年前论文，被判AI生成",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "内存股集体大跌，原因竟是谷歌这篇一年前的论文",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "ICLR 2026 Oral | Revela：用语言建模重新定义稠密检索器训练",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "WWW 2026｜快手新研究：当强化学习遇见语义ID，让推荐系统学会“高瞻远瞩”！",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "打破具身世界模型可执行性鸿沟 ！港中深-跨维智能团队提出EVA框架，用强化学习让视频世界模型真正“动”起来",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "AI写CUDA算子准确率92%，到国产芯片只剩4%？上交方法直线拉升，DeepSeek也适用",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "为蛋白质宇宙「编目」——DIAMOND DeepClust实现190亿序列的超快聚类",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "阿里云百炼上线三方视频生成模型，PixVerse首发登陆",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "当Sora 2意外停摆，这个国产视频生成创业团队，直接「开源」三连击",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "The Stochastic Gap: A Markovian Framework for Pre-Deployment Reliability and Oversight-Cost Auditing in Agentic Artificial Intelligence",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24582"
     },
     {
       "title": "Completeness of Unbounded Best-First Minimax and Descent Minimax",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24572"
     },
     {
       "title": "From Liar Paradox to Incongruent Sets: A Normal Form for Self-Reference",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24527"
     },
     {
       "title": "Multi-Agent Reasoning with Consistency Verification Improves Uncertainty Calibration in Medical MCQA",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24481"
     },
     {
       "title": "AI-Supervisor: Autonomous AI Research Supervision via a Persistent Research World Model",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24402"
     },
     {
       "title": "Polynomial Speedup in Diffusion Models with the Multilevel Euler-Maruyama Method",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24594"
     },
     {
       "title": "DreamerAD: Efficient Reinforcement Learning via Latent World Model for Autonomous Driving",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24587"
     },
     {
       "title": "Scaling Recurrence-aware Foundation Models for Clinical Records via Next-Visit Prediction",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24562"
     },
     {
       "title": "UI-Voyager: A Self-Evolving GUI Agent Learning via Failed Experience",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24533"
     },
     {
       "title": "No Single Metric Tells the Whole Story: A Multi-Dimensional Evaluation Framework for Uncertainty Attributions",
       "body": "",
-      "time": "00:16",
+      "time": "00:20",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24524"
     }
   ],
   "miao_notice": {
-    "content": "今日焦点：中国地震台网正式测定：03月26日22时18分在日本本州东部。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
-    "label": "🐱 喵子告知 · 2026.03.27 00:16"
+    "content": "今日焦点：华虹公司：2025年净利润3.77亿元 同比下降1.04%。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+    "label": "🐱 喵子告知 · 2026.03.27 00:17"
   }
 }

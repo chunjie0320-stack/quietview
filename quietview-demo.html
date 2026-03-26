@@ -150,8 +150,8 @@ nav{padding:12px 0;flex:1}
       </div>
       <div class="card">
         <div id="miao-notice" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
-          <span class="miao-bubble-label">🐱 喵子告知 · 2026.03.26 21:17</span>
-          今天信号密集，喵子挑三条最值得盯的：**AI侧**，Gemini 2.5 Pro发布、豆包日活破亿、字节Seed烧钱不设上限——模型军备赛进入"谁先做烂谁先出局"的淘汰赛阶段，应用层融资热但盈利逻辑还没跑通，泡沫正在分化，此刻进场要认真看续费率；**地缘侧**，以色列打掉伊朗革命卫队海军情报头子，中东局势真不是演的，油价和黄金在"停火预期"和"风险溢价"之间反复拉扯，别赌单边；**政策侧**，三部委联手推氢能试点、险资真金白银布局硬科技、低空监管收紧同步来——这是"扶持+规范"同时落地的节奏，合规能力从加分项变成了门槛。<br><br>喵子的判断：今晚最大的确定性是**AI基础设施继续吃资源**，不确定性是**中东周末有变数**。招商轮船、海天这类高股息标的的业绩都稳，跌不到哪里去，但也别指望靠它们吃行情。周四周五熬住，别被情绪带着割肉。🐾
+          <span class="miao-bubble-label">🐱 喵子告知 · 2026.03.26 22:00</span>
+          今晚信号三条线：**AI军备赛**Gemini 2.5 Pro、豆包日活破亿、字节Seed烧钱不设上限——模型层进入淘汰赛，应用层融资热但盈利逻辑没跑通，进场得看续费率别只看故事；**地缘火药桶**以色列干掉伊朗海军情报头子，中东不是演戏，油价黄金在"停火预期"和"风险溢价"之间反复横跳，赌单边容易打脸；**政策双轨**氢能试点+险资布局硬科技+低空监管收紧一起来，扶持和规范同步落地，合规从加分变门槛。<br><br>喵子判断：确定性在AI基建继续吃资源，不确定性是中东周末有变数。招商轮船、海天业绩稳，高股息跌不到哪去但也别指望吃大行情。周四周五熬住，别被情绪带节奏割肉。🐾
         </div>
         <div class="two-col">
           <div>
@@ -372,7 +372,7 @@ nav{padding:12px 0;flex:1}
         <div class="page-header-divider"></div>
       </div>
       <div class="card">
-        <div class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
+        <div id="miao-notice-20260326" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
           <span class="miao-bubble-label">🐱 喵子告知 · 2026.03.26 07:00</span>
           中东局势出现微妙转机——伊朗拒绝停战方案，提了5个条件，但美伊谈判还在通过第三方推进，万斯本周末飞巴基斯坦谈退出方案。油价昨夜回落（WTI 90.3，布伦特 102.2），市场在消化停火预期，黄金继续高位（4505）。短期别急着做方向。<br><br>
           国内值得关注：险资集体表态布局硬科技——半导体、AI、先进制造、生物医药全覆盖，"耐心资本"不是说说而已，这是国家战略的真金白银落地。低空经济方向，人民日报今日划红线，监管趋严。<br><br>
@@ -380,8 +380,8 @@ nav{padding:12px 0;flex:1}
         </div>
         <div class="two-col">
           <div>
-            <div class="col-title">行业资讯<span class="col-count-badge">· 10</span></div>
-            <div class="timeline">
+            <div class="col-title">行业资讯<span class="col-count-badge" id="news-count-20260326">· 10</span></div>
+            <div class="timeline" id="timeline-news-20260326">
               <div class="tl-item">
                 <div class="tl-dot"></div>
                 <div class="tl-time">23:06</div>
@@ -915,6 +915,141 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
 openL2.invest = 'daily-brief';
 renderNav('invest');
 showPanel('panel-daily-brief-20260326');
+</script>
+
+<!-- 动态数据加载：fetch 今日 JSON，渲染行业声音/资讯/喵子告知 -->
+<script>
+(function() {
+  var today = new Date();
+  var dateStr = today.getFullYear() +
+    String(today.getMonth() + 1).padStart(2, '0') +
+    String(today.getDate()).padStart(2, '0');
+
+  // 如果 NAV_DATA 里没有今日日期，自动追加 tab 并创建 panel 容器
+  (function ensureTodayTab() {
+    var investTabs = NAV_DATA['invest'] || [];
+    var exists = investTabs.some(function(t) { return t.id === 'daily-brief-' + dateStr; });
+    if (!exists) {
+      var todayEntry = {
+        id: 'daily-brief-' + dateStr,
+        label: String(today.getMonth() + 1).padStart(2, '0') + '月' + String(today.getDate()).padStart(2, '0') + '日',
+        panel: 'panel-daily-brief-' + dateStr
+      };
+      investTabs.unshift(todayEntry);
+      NAV_DATA['invest'] = investTabs;
+
+      // 创建 panel 容器（如果不存在）
+      if (!document.getElementById('panel-daily-brief-' + dateStr)) {
+        var panel = document.createElement('div');
+        panel.className = 'content-panel';
+        panel.id = 'panel-daily-brief-' + dateStr;
+        panel.innerHTML = [
+          '<div class="page-header">',
+          '  <h1>每日简报</h1>',
+          '  <div class="sub">' + today.getFullYear() + '.' +
+              String(today.getMonth()+1).padStart(2,'0') + '.' +
+              String(today.getDate()).padStart(2,'0') +
+              ' · 行业资讯 &amp; 行业声音</div>',
+          '  <div class="page-header-divider"></div>',
+          '</div>',
+          '<div class="card">',
+          '  <div id="miao-notice-' + dateStr + '" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">',
+          '    <span class="miao-bubble-label">🐱 喵子告知 · 加载中…</span>',
+          '    <span>数据加载中，请稍候…</span>',
+          '  </div>',
+          '  <div class="two-col">',
+          '    <div>',
+          '      <div class="col-title">行业资讯<span class="col-count-badge" id="news-count-' + dateStr + '">· 0</span></div>',
+          '      <div class="timeline" id="timeline-news-' + dateStr + '">',
+          '        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>',
+          '      </div>',
+          '    </div>',
+          '    <div class="two-col-divider"></div>',
+          '    <div>',
+          '      <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-' + dateStr + '">· 0</span></div>',
+          '      <div class="timeline" id="timeline-voice-' + dateStr + '">',
+          '        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>',
+          '      </div>',
+          '    </div>',
+          '  </div>',
+          '</div>'
+        ].join('\n');
+        var main = document.getElementById('main');
+        if (main) main.insertBefore(panel, main.firstChild);
+      }
+      // 重新渲染导航
+      renderNav('invest');
+    }
+  })();
+
+  // fetch 今日数据 JSON
+  fetch('data/' + dateStr + '.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      renderVoice(data.voice || []);
+      renderNews(data.news || []);
+      renderMiaoNotice(data.miao_notice);
+    })
+    .catch(function(e) { console.warn('数据加载失败，显示静态内容', e); });
+
+  function renderVoice(items) {
+    var container = document.querySelector('#timeline-voice-' + dateStr);
+    if (!container) return;
+    container.innerHTML = items.map(function(item) {
+      return [
+        '<div class="tl-item">',
+        '  <div class="tl-dot"></div>',
+        '  <div class="tl-time">' + escHtml(item.time) + '</div>',
+        '  <div class="tl-tag" style="background:' + escHtml(item.color || '') + ';color:' + escHtml(item.text_color || '') + ';">' + escHtml(item.source) + '</div>',
+        '  <div class="tl-title">' + escHtml(item.title) + '</div>',
+        item.digest ? '  <div class="tl-body">' + escHtml(item.digest) + '</div>' : '',
+        item.link ? '  <a class="tl-source" href="' + escAttr(item.link) + '" target="_blank">→ 阅读原文</a>' : '',
+        '</div>'
+      ].join('\n');
+    }).join('');
+    var badge = document.querySelector('#voice-count-' + dateStr);
+    if (badge) badge.textContent = '· ' + items.length;
+  }
+
+  function renderNews(items) {
+    var container = document.querySelector('#timeline-news-' + dateStr);
+    if (!container) return;
+    container.innerHTML = items.map(function(item) {
+      return [
+        '<div class="tl-item">',
+        '  <div class="tl-dot"></div>',
+        '  <div class="tl-time">' + escHtml(item.time) + '</div>',
+        '  <div class="tl-tag">' + escHtml(item.source || '财联社') + '</div>',
+        '  <div class="tl-title">' + escHtml(item.title) + '</div>',
+        item.body ? '  <div class="tl-body">' + escHtml(item.body) + '</div>' : '',
+        '</div>'
+      ].join('\n');
+    }).join('');
+    var badge = document.querySelector('#news-count-' + dateStr);
+    if (badge) badge.textContent = '· ' + items.length;
+  }
+
+  function renderMiaoNotice(notice) {
+    if (!notice) return;
+    // 优先使用带日期后缀的 id，回退到通用 #miao-notice（20260325 panel）
+    var el = document.querySelector('#miao-notice-' + dateStr) || document.querySelector('#miao-notice');
+    if (!el) return;
+    el.innerHTML = '<span class="miao-bubble-label">' + escHtml(notice.label) + '</span>' + notice.content;
+  }
+
+  // XSS 防护：HTML 转义
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function escAttr(str) {
+    if (!str) return '';
+    // 只允许 http/https 开头，防止 javascript: 注入
+    var s = String(str).trim();
+    if (!/^https?:\/\//i.test(s)) return '#';
+    return s.replace(/"/g,'&quot;');
+  }
+})();
 </script>
 </body>
 </html>

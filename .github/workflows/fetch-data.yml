@@ -26,12 +26,14 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests feedparser
+        run: pip install requests feedparser PyNaCl
 
       - name: Fetch all data
         env:
           WX_TOKEN: ${{ secrets.WX_TOKEN }}
           WX_COOKIE: ${{ secrets.WX_COOKIE }}
+          WEIBO_SUB: ${{ secrets.WEIBO_SUB }}
+          WEIBO_SUBP: ${{ secrets.WEIBO_SUBP }}
         run: |
           cd $GITHUB_WORKSPACE
           python3 scripts/fetch_all.py

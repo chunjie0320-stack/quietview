@@ -902,8 +902,9 @@ showPanel('panel-daily-brief-20260326');
 
   // fetch 今日数据 JSON
   fetch('data/' + dateStr + '.json')
-    .then(function(r) { return r.json(); })
+    .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(data) {
+      if (!data) return; // JSON 文件不存在，静态内容兜底
       renderVoice(data.voice || []);
       renderNews(data.news || []);
       renderMiaoNotice(data.miao_notice);
@@ -937,9 +938,10 @@ showPanel('panel-daily-brief-20260326');
         '<div class="tl-item">',
         '  <div class="tl-dot"></div>',
         '  <div class="tl-time">' + escHtml(item.time) + '</div>',
-        '  <div class="tl-tag">' + escHtml(item.source || '财联社') + '</div>',
+        '  <div class="tl-tag">' + escHtml(item.tag || item.source || '财联社') + '</div>',
         '  <div class="tl-title">' + escHtml(item.title) + '</div>',
         item.body ? '  <div class="tl-body">' + escHtml(item.body) + '</div>' : '',
+        item.link ? '  <a class="tl-source" href="' + escAttr(item.link) + '" target="_blank">→ ' + escHtml(item.source||'原文') + '</a>' : '',
         '</div>'
       ].join('\n');
     }).join('');

@@ -62,25 +62,35 @@ NOISE_KEYWORDS = [
 # ══════════════════════════════════════════════════════════════════════════════
 
 def load_wx_cookie():
-    """优先从环境变量读取，fallback 到本地文件"""
+    """
+    优先从环境变量 WX_COOKIE（完整 cookie 字符串）读取。
+    fallback 到本地 ~/.openclaw/weibo/cookies.env，
+    从 WX_SLAVE_SID / WX_SLAVE_USER / WX_BIZUIN 字段构造 cookie。
+    """
     token = os.environ.get('WX_TOKEN', '').strip()
     cookie = os.environ.get('WX_COOKIE', '').strip()
 
-    if not token or not cookie:
-        cookie_file = os.path.expanduser('~/.openclaw/weibo/wx_cookies.env')
+    if not cookie:
+        cookie_file = os.path.expanduser('~/.openclaw/weibo/cookies.env')
         if os.path.exists(cookie_file):
+            env_map = {}
             with open(cookie_file, encoding='utf-8') as f:
                 for line in f:
                     line = line.strip()
-                    if not line or line.startswith('#'):
+                    if not line or line.startswith('#') or '=' not in line:
                         continue
-                    if '=' in line:
-                        k, v = line.split('=', 1)
-                        k, v = k.strip(), v.strip()
-                        if k == 'WX_TOKEN':
-                            token = v
-                        elif k == 'WX_COOKIE':
-                            cookie = v
+                    k, v = line.split('=', 1)
+                    env_map[k.strip()] = v.strip()
+            # 支持完整 cookie 字段
+            if env_map.get('WX_COOKIE'):
+                cookie = env_map['WX_COOKIE']
+            elif env_map.get('WX_SLAVE_SID'):
+                sid  = env_map.get('WX_SLAVE_SID', '')
+                user = env_map.get('WX_SLAVE_USER', '')
+                biz  = env_map.get('WX_BIZUIN', '')
+                cookie = f"slave_sid={sid}; slave_user={user}; bizuin={biz}"
+            if not token and env_map.get('WX_TOKEN'):
+                token = env_map['WX_TOKEN']
 
     return token, cookie
 
@@ -352,6 +362,106 @@ def _parse_cls_markdown(content, limit=15):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# 模块 2B：微博（刘煜辉）
+# ══════════════════════════════════════════════════════════════════════════════
+
+def get_weibo_voice():
+    """抓取刘煜辉微博最新3条，返回 voice 格式列表"""
+    print("── 微博（刘煜辉）──")
+    sub = os.environ.get('WEIBO_SUB', '').strip()
+    subp = os.environ.get('WEIBO_SUBP', '').strip()
+
+    # fallback 到本地文件
+    if not sub:
+        cookie_file = os.path.expanduser('~/.openclaw/weibo/cookies.env')
+        if os.path.exists(cookie_file):
+            with open(cookie_file, encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith('#') or '=' not in line:
+                        continue
+                    k, v = line.split('=', 1)
+                    k, v = k.strip(), v.strip()
+                    if k == 'WEIBO_SUB':
+                        sub = v
+                    elif k == 'WEIBO_SUBP':
+                        subp = v
+
+    if not sub:
+        print("  ⚠️  无 WEIBO_SUB，跳过微博抓取")
+        return []
+
+    import urllib.request
+    uid = '2337530130'
+    url = (f'https://m.weibo.cn/api/container/getIndex'
+           f'?type=uid&value={uid}&containerid=107603{uid}')
+    headers = {
+        'User-Agent': ('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)'
+                       ' AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+                       ' MicroMessenger/8.0.44 WeChat/iPhone'),
+        'Cookie': f'SUB={sub}; SUBP={subp}',
+        'Referer': f'https://m.weibo.cn/u/{uid}',
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+    }
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        print(f"  ⚠️  微博请求失败: {e}")
+        return []
+
+    cards = data.get('data', {}).get('cards', [])
+    results = []
+    now = datetime.now(CST)
+
+    for card in cards:
+        mblog = card.get('mblog', {})
+        if not mblog:
+            continue
+        text_raw = mblog.get('text', '')
+        # 去除HTML标签
+        text = re.sub(r'<[^>]+>', '', text_raw).strip()
+        text = re.sub(r'\s+', ' ', text).strip()
+        if len(text) < 10:
+            continue
+
+        created = mblog.get('created_at', '')
+        # 解析微博时间（格式如 "Thu Mar 26 12:34:56 +0800 2026"）
+        try:
+            from email.utils import parsedate
+            import time as _time
+            parsed = parsedate(created)
+            if parsed:
+                ts = _time.mktime(parsed)
+                time_str = datetime.fromtimestamp(ts, CST).strftime('%H:%M')
+            else:
+                time_str = now.strftime('%H:%M')
+        except Exception:
+            time_str = now.strftime('%H:%M')
+
+        title = text[:60] + ('…' if len(text) > 60 else '')
+        body = text[:200]
+        link = f"https://weibo.com/{uid}/{mblog.get('bid', '')}"
+
+        results.append({
+            'source': '刘煜辉',
+            'title': title,
+            'digest': body,
+            'link': link,
+            'time': time_str,
+            'color': 'rgba(198,40,40,.1)',
+            'text_color': '#c62828',
+        })
+        if len(results) >= 3:
+            break
+
+    print(f"  ✅ 刘煜辉微博: {len(results)} 条")
+    return results
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # 模块 3：AI 行业声音（量子位 + 机器之心 + arxiv cs.AI/cs.LG）
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -573,6 +683,9 @@ def main():
 
     # 1. 微信公众号（投资·行业声音）
     voice = get_voice()
+
+    # 1B. 微博（刘煜辉）补充进 voice
+    voice.extend(get_weibo_voice())
 
     # 2. 财联社（投资·行业资讯）
     news = fetch_cls_news(limit=15)

@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QuietView</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;background:#FAF8F5;color:#2D2826;height:100vh;overflow:hidden;display:flex;flex-direction:column}
@@ -142,57 +141,6 @@ nav{padding:12px 0;flex:1}
   </div>
 
   <div id="main">
-
-    <!-- 行情看板 -->
-    <div class="content-panel" id="panel-market-board">
-      <div class="page-header">
-        <h1>行情看板</h1>
-        <div class="sub">市场概览 · 2026.03.25</div>
-        <div class="page-header-divider"></div>
-      </div>
-      <div class="charts-grid">
-        <div class="chart-box chart-full">
-          <div class="chart-box-header">
-            <div class="chart-box-title-wrap">
-              <div class="chart-box-title">上证指数 · SH000001</div>
-              <div class="chart-price" id="sh-price">3,258.47</div>
-              <div class="chart-change-tag" id="sh-change">+0.82%</div>
-            </div>
-            <div class="chart-period-btns" id="sh-period">
-              <button class="period-btn active" data-period="day">日</button>
-              <button class="period-btn" data-period="week">周</button>
-              <button class="period-btn" data-period="month">月</button>
-            </div>
-          </div>
-          <div class="chart-dom" id="chart-sh"></div>
-        </div>
-        <div class="chart-box">
-          <div class="chart-box-header">
-            <div class="chart-box-title-wrap">
-              <div class="chart-box-title">科创50 · SH000688</div>
-              <div class="chart-price" id="star-price">947.32</div>
-              <div class="chart-change-tag up" id="star-change">+1.24%</div>
-            </div>
-            <div class="chart-period-btns" id="star-period">
-              <button class="period-btn active" data-period="day">日</button>
-              <button class="period-btn" data-period="week">周</button>
-              <button class="period-btn" data-period="month">月</button>
-            </div>
-          </div>
-          <div class="chart-dom" id="chart-star"></div>
-        </div>
-        <div class="chart-box">
-          <div class="chart-box-header">
-            <div class="vix-header-wrap">
-              <div class="chart-box-title">VIX 恐慌指数</div>
-              <div class="vix-current-val" id="vix-current">当前 —</div>
-            </div>
-          </div>
-          <div class="chart-dom" id="chart-vix"></div>
-        </div>
-      </div>
-    </div>
-
     <!-- 每日简报 2026.03.25 -->
     <div class="content-panel" id="panel-daily-brief-20260325">
       <div class="page-header">
@@ -784,11 +732,6 @@ nav{padding:12px 0;flex:1}
 var NAV_DATA = {
   invest: [
     {
-      id: 'market-board',
-      label: '行情看板',
-      panel: 'panel-market-board'
-    },
-    {
       id: 'daily-brief',
       label: '每日简报',
       children: [
@@ -901,9 +844,6 @@ function showPanel(panelId) {
   if (target) target.classList.add('active');
   renderNav(currentTab);
   // init charts if market board
-  if (panelId === 'panel-market-board') {
-    setTimeout(initCharts, 50);
-  }
 }
 
 // ── 切换 Tab ──────────────────────────────────────────
@@ -931,124 +871,6 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
 });
 
 // ── ECharts 图表 ─────────────────────────────────────
-var chartsInited = false;
-var chartSH, chartStar, chartVix;
-
-function genKData(base, count, vol) {
-  var data = [];
-  var v = base;
-  for (var i = 0; i < count; i++) {
-    var open = v;
-    var close = v + (Math.random() - 0.48) * vol;
-    var high = Math.max(open, close) + Math.random() * vol * 0.3;
-    var low = Math.min(open, close) - Math.random() * vol * 0.3;
-    data.push([open.toFixed(2), close.toFixed(2), low.toFixed(2), high.toFixed(2)]);
-    v = close;
-  }
-  return data;
-}
-
-function genDates(count) {
-  var dates = [];
-  var d = new Date('2026-01-01');
-  for (var i = 0; i < count; i++) {
-    d.setDate(d.getDate() + 1);
-    // skip weekends
-    while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1);
-    dates.push(d.toISOString().slice(0, 10));
-  }
-  return dates;
-}
-
-var PALETTE = { up: '#E05E5E', down: '#4DAA6A', line: '#8B7355', area: 'rgba(139,115,85,0.08)', grid: '#F0EDE8', label: '#B8B0A4' };
-
-function kOption(dates, data) {
-  return {
-    animation: true,
-    grid: { top: 10, right: 16, bottom: 36, left: 56 },
-    xAxis: { type: 'category', data: dates, axisLine: { lineStyle: { color: PALETTE.grid } }, axisTick: { show: false }, axisLabel: { color: PALETTE.label, fontSize: 10, interval: Math.floor(dates.length / 5) } },
-    yAxis: { type: 'value', scale: true, splitLine: { lineStyle: { color: PALETTE.grid, type: 'dashed' } }, axisLabel: { color: PALETTE.label, fontSize: 10 }, axisLine: { show: false } },
-    series: [{
-      type: 'candlestick', data: data,
-      itemStyle: {
-        color: PALETTE.up, color0: PALETTE.down,
-        borderColor: PALETTE.up, borderColor0: PALETTE.down
-      }
-    }],
-    tooltip: { trigger: 'axis', axisPointer: { type: 'cross' }, backgroundColor: '#FEFEFE', borderColor: '#EDE8E2', textStyle: { color: '#2D2826', fontSize: 12 } }
-  };
-}
-
-function vixLineOption(dates, vals) {
-  return {
-    animation: true,
-    grid: { top: 10, right: 16, bottom: 36, left: 48 },
-    xAxis: { type: 'category', data: dates, axisLine: { lineStyle: { color: PALETTE.grid } }, axisTick: { show: false }, axisLabel: { color: PALETTE.label, fontSize: 10, interval: Math.floor(dates.length / 5) } },
-    yAxis: { type: 'value', scale: true, splitLine: { lineStyle: { color: PALETTE.grid, type: 'dashed' } }, axisLabel: { color: PALETTE.label, fontSize: 10 }, axisLine: { show: false } },
-    series: [{
-      type: 'line', data: vals, smooth: true,
-      lineStyle: { color: '#C08050', width: 1.5 },
-      areaStyle: { color: 'rgba(192,128,80,0.08)' },
-      symbol: 'none'
-    }],
-    tooltip: { trigger: 'axis', backgroundColor: '#FEFEFE', borderColor: '#EDE8E2', textStyle: { color: '#2D2826', fontSize: 12 } }
-  };
-}
-
-function initCharts() {
-  if (chartsInited) return;
-  chartsInited = true;
-
-  var dates60 = genDates(60);
-  var shData = genKData(3200, 60, 18);
-  var starData = genKData(920, 60, 12);
-
-  chartSH = echarts.init(document.getElementById('chart-sh'), null, { renderer: 'canvas' });
-  chartSH.setOption(kOption(dates60, shData));
-
-  chartStar = echarts.init(document.getElementById('chart-star'), null, { renderer: 'canvas' });
-  chartStar.setOption(kOption(dates60, starData));
-
-  // VIX
-  var vixDates = genDates(90);
-  var vixVals = [];
-  var vv = 18;
-  for (var i = 0; i < 90; i++) {
-    vv += (Math.random() - 0.48) * 1.5;
-    vv = Math.max(10, Math.min(45, vv));
-    vixVals.push(+vv.toFixed(2));
-  }
-  var lastVix = vixVals[vixVals.length - 1];
-  document.getElementById('vix-current').textContent = '当前 ' + lastVix.toFixed(2);
-
-  chartVix = echarts.init(document.getElementById('chart-vix'), null, { renderer: 'canvas' });
-  chartVix.setOption(vixLineOption(vixDates, vixVals));
-
-  // period buttons
-  function bindPeriodBtns(containerId, chartInst, base, vol) {
-    var container = document.getElementById(containerId);
-    if (!container) return;
-    container.querySelectorAll('.period-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        container.querySelectorAll('.period-btn').forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        var period = btn.getAttribute('data-period');
-        var count = period === 'day' ? 60 : period === 'week' ? 120 : 240;
-        var newDates = genDates(count);
-        var newData = genKData(base, count, vol);
-        chartInst.setOption(kOption(newDates, newData));
-      });
-    });
-  }
-  bindPeriodBtns('sh-period', chartSH, 3200, 18);
-  bindPeriodBtns('star-period', chartStar, 920, 12);
-
-  window.addEventListener('resize', function() {
-    chartSH && chartSH.resize();
-    chartStar && chartStar.resize();
-    chartVix && chartVix.resize();
-  });
-}
 
 // ── 初始化 ────────────────────────────────────────────
 // 默认：投资Tab，展开每日简报，选中今日，显示今日简报

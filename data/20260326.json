@@ -1,22 +1,8 @@
 {
   "date": "20260326",
-  "generated_at": "2026-03-26T23:19:32.852573+08:00",
+  "generated_at": "2026-03-26T23:22:01.265967+08:00",
   "voice": [],
   "news": [
-    {
-      "title": "海南超6600项商品实现零关税",
-      "body": "明天，海南自由贸易港将迎来封关满百天。今天下午，在博鳌论坛上，海南省政府披露了封关百日以来的发展成效。海南省政府秘书长、新闻发言人蔡强表示：“自全岛封关运作以来，当前‘零关税’商品的税目比例从21%提高到了74%，有6631项商品已经全部实现了‘零关税’。封关百日来，新增备案外贸企业7503家，同比",
-      "time": "22:18",
-      "source": "财联社",
-      "tag": "部委动态"
-    },
-    {
-      "title": "具身智能领域首个行业标准正式发布",
-      "body": "中国信息通信研究院联合40余家单位共同起草的具身智能领域首个行业标准今天（3月26日）正式发布，该标准为具身智能领域构建了统一基准测试框架，标志着具身智能评测迈入“有标可依”的新阶段。据了解，这项标准聚焦人工智能关键基础技术和具身智能基准测试方法，同时明确了具身智能系统框架和能力要求，将于2026年",
-      "time": "22:20",
-      "source": "财联社",
-      "tag": "科技AI"
-    },
     {
       "title": "国防部新闻发言人就近期中东局势答记者问",
       "body": "国防部3月26日下午举行例行记者会。有记者问，以色列防长称，他和总理内塔尼亚胡授权军方在无需批准的情况下，就可以击毙任何被列为目标的伊朗高级官员。请问对此有何评论？\n\n蒋斌表示，这样的言论和行径严重违反国际法，违背人类良知与道义。从杀害他国领导人到肆意攻击平民目标，迷信武力得不到安全，只会陷入仇恨更",
@@ -107,222 +93,236 @@
       "time": "22:54",
       "source": "财联社",
       "tag": "国际市场"
+    },
+    {
+      "title": "从婴配龙头到全龄营养引领者 飞鹤发布2025年度财报营收181.1亿元",
+      "body": "中国飞鹤（06186.HK）发布2025年业绩，全年营业收入181.1亿元，净利润20.9亿元，在行业调整期交出稳健答卷。欧睿数据显示，飞鹤婴配粉连续7年位居中国销量第一。财报显示，飞鹤正在从单一品类龙头，向“全龄营养引领者”进行系统性转型。",
+      "time": "23:05",
+      "source": "财联社",
+      "tag": "A股走势"
+    },
+    {
+      "title": "特朗普再次表态：伊朗正与美方对话",
+      "body": "记者获悉，当地时间26日，美国总统特朗普表示，伊朗正与美方进行对话。特朗普称，他们将拭目以待，看能否达成一份恰当的协议，并开启霍尔木兹海峡。伊朗必须达成协议，否则将面临美国持续的猛烈攻势。 (央视新闻)",
+      "time": "23:09",
+      "source": "财联社",
+      "tag": "地缘局势"
     }
   ],
   "ai_voice": [
     {
       "title": "金融Agent再获近2亿加码！启明红杉高瓴集体押注，5个月内连获两轮融资",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392684.html"
     },
     {
       "title": "1段话喊来13个“程序员”，阿里Qoder新模式让我躺着当CTO",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392281.html"
     },
     {
       "title": "谷歌新论文把内存股价干崩了！KV cache压缩6倍，网友：硅谷成真了 profile-avatar",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392215.html"
     },
     {
       "title": "它石智航用“吉尼斯纪录”交卷真干活的具身大脑，丁文超：从来没有Plan B",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392137.html"
     },
     {
       "title": "第一批“首席龙虾官”，月薪6万",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392128.html"
     },
     {
       "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392121.html"
     },
     {
       "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392105.html"
     },
     {
       "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/392024.html"
     },
     {
       "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/391890.html"
     },
     {
       "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "量子位",
       "link": "https://www.qbitai.com/2026/03/391830.html"
     },
     {
       "title": "从模型到现实：具身智能生态的龙岗实践｜技术沙龙精彩回顾",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "糟糕，大佬45年前论文，被判AI生成",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "内存股集体大跌，原因竟是谷歌这篇一年前的论文",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "ICLR 2026 Oral | Revela：用语言建模重新定义稠密检索器训练",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "WWW 2026｜快手新研究：当强化学习遇见语义ID，让推荐系统学会“高瞻远瞩”！",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "打破具身世界模型可执行性鸿沟 ！港中深-跨维智能团队提出EVA框架，用强化学习让视频世界模型真正“动”起来",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "AI写CUDA算子准确率92%，到国产芯片只剩4%？上交方法直线拉升，DeepSeek也适用",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "为蛋白质宇宙「编目」——DIAMOND DeepClust实现190亿序列的超快聚类",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "阿里云百炼上线三方视频生成模型，PixVerse首发登陆",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "当Sora 2意外停摆，这个国产视频生成创业团队，直接「开源」三连击",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "机器之心",
       "link": "https://www.jiqizhixin.com"
     },
     {
       "title": "The Stochastic Gap: A Markovian Framework for Pre-Deployment Reliability and Oversight-Cost Auditing in Agentic Artificial Intelligence",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24582"
     },
     {
       "title": "Completeness of Unbounded Best-First Minimax and Descent Minimax",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24572"
     },
     {
       "title": "From Liar Paradox to Incongruent Sets: A Normal Form for Self-Reference",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24527"
     },
     {
       "title": "Multi-Agent Reasoning with Consistency Verification Improves Uncertainty Calibration in Medical MCQA",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24481"
     },
     {
       "title": "AI-Supervisor: Autonomous AI Research Supervision via a Persistent Research World Model",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.AI",
       "link": "https://arxiv.org/abs/2603.24402"
     },
     {
       "title": "Polynomial Speedup in Diffusion Models with the Multilevel Euler-Maruyama Method",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24594"
     },
     {
       "title": "DreamerAD: Efficient Reinforcement Learning via Latent World Model for Autonomous Driving",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24587"
     },
     {
       "title": "Scaling Recurrence-aware Foundation Models for Clinical Records via Next-Visit Prediction",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24562"
     },
     {
       "title": "UI-Voyager: A Self-Evolving GUI Agent Learning via Failed Experience",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24533"
     },
     {
       "title": "No Single Metric Tells the Whole Story: A Multi-Dimensional Evaluation Framework for Uncertainty Attributions",
       "body": "",
-      "time": "23:19",
+      "time": "23:22",
       "source": "arxiv cs.LG",
       "link": "https://arxiv.org/abs/2603.24524"
     }
   ],
   "miao_notice": {
-    "content": "地缘博弈又添新变量：海南超6600项商品实现零关税。喵子建议仓位别贪，留子弹等机会。",
-    "label": "🐱 喵子告知 · 2026.03.26 23:19"
+    "content": "今日焦点：国防部新闻发言人就近期中东局势答记者问。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+    "label": "🐱 喵子告知 · 2026.03.26 23:22"
   }
 }

@@ -1,443 +1,328 @@
 {
   "date": "20260327",
-  "generated_at": "2026-03-27T18:03:29.703984",
-  "voice": [
-    {
-      "source": "卓哥投研笔记",
-      "title": "美团会是AI时代的Winner？",
-      "digest": "",
-      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486457&idx=1&sn=ae8dda689e10beb3fc8a97929be0120e&chksm=c331edaaf44664bcd052b6d966064bbab8f28e89d45b279fc37760b5b825eb641bf245876723#rd",
-      "time": "17:06",
-      "color": "rgba(46,125,50,.1)",
-      "text_color": "#2e7d32"
-    },
-    {
-      "source": "财躺平",
-      "title": "按计划88仓，交易员也崩溃了",
-      "digest": "",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488107&idx=1&sn=330c87bf4431c90a2a6df3be4877577d&chksm=fa1a97eecd6d1ef8e40a60c4f9c9691b2da801fb60db163a4fde339e98685b2582adb5899a97#rd",
-      "time": "15:50",
-      "color": "rgba(224,123,57,.12)",
-      "text_color": "#e07b39"
-    },
-    {
-      "source": "方伟看十年",
-      "title": "拼多多25年财报简评：“重仓供应链，三年再造一个拼多多”",
-      "digest": "分享一篇文章：",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489440&idx=1&sn=12f85a1f378f33c0aeedb5bd86be0f51&chksm=fe58f504c92f7c12627f4e4d022d115e030e002425d67de8fe5e75ea3fde6a5bf3bbb4dbdb51#rd",
-      "time": "09:11",
-      "color": "rgba(106,27,154,.1)",
-      "text_color": "#6a1b9a"
-    },
-    {
-      "source": "中金点睛",
-      "title": "中金 | 资产大挪移：重新定义安全资产",
-      "digest": "地缘风险频发，中国资产安全属性凸显",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=1&sn=24445cdc73979bb219b18dc012a2bad7&chksm=eadd2e13ddaaa705ff32961514753dfd557924d1411a3ec5646b0dc7a571c49a96d3da6ba461#rd",
-      "time": "07:35",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
-    },
-    {
-      "source": "中金点睛",
-      "title": "中金 • 全球研究 | 美股软件聚焦：AI范式冲击下软件行业的格局重塑——是终结还是新生？",
-      "digest": "本篇报告旨在深入探讨“AI颠覆软件论”下软件细分赛道的“去”与“留”以及判断在AI冲击下行业未来如何演变，最终落脚当下板块投资价值。",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=2&sn=0f0d5c91c14223c0f2226534d5514134&chksm=eadd2e13ddaaa705414f3e2e8be0284270275b834976ff1231aad6170f2b6dece1ff96b7e69d#rd",
-      "time": "07:35",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
-    },
-    {
-      "source": "中金点睛",
-      "title": "中金 • REITs | 基于续期与扩募假设下REITs定价模型思考",
-      "digest": "新形势下，我们认为传统单项目、基于静态假设的折现现金流（DCF）定价模型或难以准确反映REITs的真实内在价值。我们尝试提出一种考虑续期及扩募的两阶段REITs定价模型。",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=3&sn=de76a616c6e26f58934b3263d74b49e3&chksm=eadd2e13ddaaa705265b1c4f305ac20dabbbd79fe5588ae96b31863a75f960b4c4c30e2d24ec#rd",
-      "time": "07:35",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
-    },
-    {
-      "source": "中金点睛",
-      "title": "中金 | 在线音乐跟踪观察：持续关注竞争与AI影响，静待估值修复",
-      "digest": "我们认为，音乐板块长期增长逻辑不改，多元化收入具潜力，行业具备估值修复潜力。",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=4&sn=83b1c46cc0757513a580798cc2024ddd&chksm=eadd2e13ddaaa705ca191867ebd61079c7ba9bb51d2d6e401859c6084b0b14756230c9977de3#rd",
-      "time": "07:35",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
-    }
-  ],
+  "generated_at": "2026-03-27T20:00:13.967089+08:00",
+  "voice": [],
   "news": [
     {
-      "time": "17:36",
-      "tag": "A股走势",
-      "title": "腾讯控股于3月27日以3.007亿港元回购了61万股股票。",
-      "body": "",
+      "title": "中国保险行业协会发布《保险产品适当性管理自律规范》",
+      "body": "中国保险行业协会3月27日发布《保险产品适当性管理自律规范》。《自律规范》旨在构建统一、科学、可操作的适当性管理标准，以“卖者尽责”为出发点，通过构建覆盖产品、人员、客户、销售、内控的全链条自律框架，致力于从源头上化解销售误导与产品错配风险，提升销售行为的专业性和规范性。《自律规范》的制定紧密围绕消",
+      "time": "19:33",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327110",
-      "link": "https://www.cls.cn/detail/2327110"
+      "tag": "国内经济"
     },
     {
-      "time": "17:38",
-      "tag": "市场动态",
-      "title": "隧道股份旗下上海城建市政工程集团增资至20亿",
-      "body": "天眼查显示，近日，上海城建市政工程（集团）有限公司发生工商变更，注册资本由15亿人民币增至20亿人民币。 经营范围包括市政、建筑及水利工程的承包施工，对外承包工程，工程技术咨询服务等，由隧道股份全资持股。",
+      "title": "印度10年期基准国债收益率收于6.9419%，为2024年7月25日以来的最…",
+      "body": "印度10年期基准国债收益率收于6.9419%，为2024年7月25日以来的最高水平。",
+      "time": "19:35",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327121",
-      "link": "https://www.cls.cn/detail/2327121"
+      "tag": "综合"
     },
     {
-      "time": "17:39",
-      "tag": "部委动态",
-      "title": "印度税务官员表示，柴油、汽油及航空涡轮燃料出口税将每两周复核调整一次。",
-      "body": "",
+      "title": "150家券商实现总营收5412亿、净利2194亿 投顾业务大幅增长",
+      "body": "证券业2025年经营总体情况出炉。中证协最新披露，经过统计以及相关未经审计财务报表数据显示，150家券商2025年度实现营业收入5411.71亿元，净利润2194.39亿元。150家券商总资产14.83万亿元，净资产3.34万亿元，净资本2.44万亿元。其中，代理买卖证券业务净收入（含交易单元席位租",
+      "time": "19:37",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327123",
-      "link": "https://www.cls.cn/detail/2327123"
+      "tag": "A股走势"
     },
     {
-      "time": "17:41",
-      "tag": "部委动态",
-      "title": "柳化股份：拟投资2.9亿元建设20万吨/年全酸性流化床过氧化氢项目",
-      "body": "柳化股份(600423.SH)公告称，公司拟投资建设20万吨/年全酸性流化床过氧化氢项目，总投资约2.9亿元，资金来源为企业自筹。项目建成后，公司过氧化氢产能将由16万吨/年提升至36万吨/年以上，有助于提升主业规模、核心竞争力及盈利能力。该项目已通过董事会审议，尚需提交股东大会批准。公告提示，项目",
+      "title": "比亚迪电子2025全年营收1,794.8亿元，同比增长1.22%，市场预估1…",
+      "body": "比亚迪电子2025全年营收1,794.8亿元，同比增长1.22%，市场预估1,850.8亿元；全年净利润35.1亿元，同比下降17.6%，市场预估47亿元；每股末期股息0.156元。",
+      "time": "19:38",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327128",
-      "link": "https://www.cls.cn/detail/2327128"
+      "tag": "A股走势"
     },
     {
-      "time": "17:42",
-      "tag": "部委动态",
-      "title": "韩国多地出现垃圾袋“抢购潮”",
-      "body": "韩国实行垃圾计量收费，民众需购买专用垃圾袋。在中东局势持续紧张背景下，一些韩国民众担忧制造塑料产品的关键原料供应不足，多地出现垃圾袋“抢购潮”，一些超市采取了限购措施。韩国媒体26日报道，韩国政府计划将垃圾袋列为“核心管控品目”以监测供需情况，但强调现阶段库存充足、无需囤货。 (央视新闻)",
+      "title": "世嘉科技：拟1.3亿元收购光彩芯辰6.94%股权 标的公司来自海外客户的800G以上光模块产品出货量开始增加",
+      "body": "世嘉科技(002796.SZ)公告称，公司拟以1.3亿元收购金帝联合控股集团有限公司持有的光彩芯辰(浙江)科技有限公司6.9365%股权。交易完成后，公司对光彩芯辰的持股比例将由20%增至26.9365%。标的公司是一家专注于光通信领域传输和接入技术的高新技术企业，专业从事以光模块、AOC、AEC等",
+      "time": "19:39",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327133",
-      "link": "https://www.cls.cn/detail/2327133"
+      "tag": "国际市场"
     },
     {
-      "time": "17:42",
-      "tag": "部委动态",
-      "title": "外汇局：2025年末我国对外净资产40713亿美元",
-      "body": "国家外汇管理局公布2025年末我国国际投资头寸表，2025年末，我国对外金融资产117860亿美元，对外负债77147亿美元，对外净资产40713亿美元。\n\n在对外金融资产中，直接投资资产35787亿美元，证券投资资产19875亿美元，金融衍生工具资产261亿美元，其他投资资产24494亿美元，储备",
+      "title": "德国外长称美伊代表可能会在巴基斯坦会晤",
+      "body": "德国外交部长约翰·瓦德富尔27日说，据他所知，美国和伊朗在间接接触，而且有直接会晤的考虑。“（美伊）有间接接触，还有双方直接会晤方面的准备，”瓦德富尔说，“这可能很快在巴基斯坦发生。”巴基斯坦外交部长达尔26日证实，美伊间接谈判正通过由巴基斯坦传递信息的方式进行。 (央视新闻)",
+      "time": "19:41",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327132",
-      "link": "https://www.cls.cn/detail/2327132"
+      "tag": "地缘局势"
     },
     {
-      "time": "17:45",
-      "tag": "市场动态",
-      "title": "南向资金今日净卖出近29亿港元 盈富基金遭卖出居前",
-      "body": "南向资金今日净卖出28.83亿港元。其中，盈富基金、阿里巴巴-W分别遭净卖出35.56亿港元、6.56亿港元；泡泡玛特获净买入约4.57亿港元。",
+      "title": "上交所下发关于海南天然橡胶产业集团股份有限公司的监管工作函，涉及对象：上市公…",
+      "body": "上交所下发关于海南天然橡胶产业集团股份有限公司的监管工作函，涉及对象：上市公司，董事，高级管理人员，中介机构及其相关人员。",
+      "time": "19:42",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327139",
-      "link": "https://www.cls.cn/detail/2327139"
+      "tag": "A股走势"
     },
     {
-      "time": "17:44",
-      "tag": "市场动态",
-      "title": "德国30年期国债收益率上涨5个基点至3.56%，为2011年以来最高水平。",
-      "body": "",
+      "title": "沙特推出金融新举措促进经济转型",
+      "body": "据沙特通讯社26日报道，沙特资本市场管理局当天宣布，将允许此前仅限私募发行的融资投资基金面向公众发行，并允许其在主板市场和平行市场上市交易。沙特资本市场管理局表示，此次调整的目的是强化投资基金作为沙特资本市场融资渠道的作用，并推出更多支持经济增长、满足投资者需求的融资产品。沙特中央银行也于26日宣布",
+      "time": "19:42",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327138",
-      "link": "https://www.cls.cn/detail/2327138"
+      "tag": "部委动态"
     },
     {
-      "time": "17:47",
-      "tag": "A股走势",
-      "title": "分红险演示利率拟下调至3.5%",
-      "body": "从相关渠道获悉，人身险行业就调降分红险演示利率达成共识，拟进一步降低至3.5%，以防范销售误导与利差损风险。演示利率是保险公司销售分红险产品中进行未来利益演示时所采用的利率水平，目前分红险演示利率最高为3.9%。演示利率过高容易导致销售误导和隐形“刚兑”压力。（上证报）",
+      "title": "供给缺口将成为甲醇价格的核心支撑",
+      "body": "在港口库存持续下滑的同时，国内供应端表现积极。截至3月18日当周，国内甲醇装置开工率回升至92.8%，达到历史高位。当前国内甲醇市场呈现“进口骤减、国内满产”的结构性特征。港口库存持续去化，印证了进口缩量的实质性影响；而国内开工率已触及历史高位，意味着供应端几无增量空间。一旦进口缺口持续扩大，国内将",
+      "time": "19:47",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327142",
-      "link": "https://www.cls.cn/detail/2327142"
+      "tag": "国内经济"
     },
     {
-      "time": "17:48",
-      "tag": "A股走势",
-      "title": "中国太保苏少军：董事会建议每股分红1.15元 较上年度增长6.5%",
-      "body": "财联社3月27日讯 在今日举办的中国太保业绩发布会上，太保集团董事会秘书苏少军表示，中国太保高度重视投资者回报，本次董事会建议每股派发1.15元现金红利，较上年度增长6.5%。苏少军指出，每股分红额的增速主要参考当期营业额表现，这一分红政策可以有效释缓新会计准则实施后，净利润波动带给分红的不确定影响",
+      "title": "欧洲央行的Wünsch表示，4月加息并非完全不可能，不想押注于4月会发生的情…",
+      "body": "欧洲央行的Wünsch表示，4月加息并非完全不可能，不想押注于4月会发生的情况。",
+      "time": "19:47",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327134",
-      "link": "https://www.cls.cn/detail/2327134"
+      "tag": "部委动态"
     },
     {
-      "time": "17:50",
-      "tag": "国际市场",
-      "title": "日本首相高市早苗表示，将通过允许更多使用煤炭来节省液化天然气。",
-      "body": "",
+      "title": "OpenAI疯狂挖苹果墙角 苹果砸重金留人防跳槽",
+      "body": "据彭博社报道，苹果公司本周向iPhone硬件设计师发放股票激励，以防止员工跳槽至OpenAI等人工智能初创公司。知情人士透露，苹果向iPhone产品设计团队多名员工发放价值20万至40万美元的“特别奖金”，以股票形式发放、分四年归属，员工需留任四年才能获得全部收益，最终回报或随股价更高。报道称，苹果",
+      "time": "19:48",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327148",
-      "link": "https://www.cls.cn/detail/2327148"
+      "tag": "A股走势"
     },
     {
-      "time": "18:00",
-      "tag": "市场动态",
-      "title": "张成中同志任应急管理部党委书记",
-      "body": "2026年3月27日下午，中央组织部有关负责同志出席应急管理部领导干部会议，宣布中央决定：张成中同志任应急管理部党委书记。",
+      "title": "伊朗外长谴责美军拿周边国家平民当“人盾”",
+      "body": "伊朗外交部长阿拉格齐当地时间26日指责美军把海湾阿拉伯国家合作委员会（海合会）成员国的平民当作“人盾”，呼吁这些国家的酒店拒绝美军的预订。阿拉格齐在社交媒体上发文说：“自这场战争开始以来，美军士兵逃离在海合会国家的军事基地，躲进酒店和办公场所。”海合会成立于1981年，总部设在沙特阿拉伯首都利雅得，",
+      "time": "19:52",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327158",
-      "link": "https://www.cls.cn/detail/2327158"
+      "tag": "地缘局势"
     },
     {
-      "time": "18:01",
-      "tag": "科技AI",
-      "title": "大摩力挺存储股：AI驱动存储供需失衡 周期或更持久",
-      "body": "摩根士丹利称，存储股近期回调是健康的，本轮周期的强度将比市场预期的更持久。大摩分析师认为，谷歌TurboQuant只是正常技术进步（非颠覆性），OpenAI放弃Sora反映了算力不足和存储不足问题。摩根士丹利给予美光和闪迪的目标价分别为520美元和690美元。",
+      "title": "美国交通部宣布对港口领域投入近5亿美元资金。",
+      "body": "美国交通部宣布对港口领域投入近5亿美元资金。",
+      "time": "19:55",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327162",
-      "link": "https://www.cls.cn/detail/2327162"
+      "tag": "国际市场"
     },
     {
-      "time": "18:00",
-      "tag": "科技AI",
-      "title": "华脉科技：拟1亿元投资芯慧微电子 布局FPGA芯片",
-      "body": "华脉科技(603042.SH)公告称，公司拟以自有资金1亿元认购芯慧微电子(山东)有限公司新增注册资本85.5854万元，交易完成后将持有其6.4103%股权，不纳入合并报表范围。目标公司是一家专注于国产性能FPGA芯片及相关IP的设计和销售的企业，其开发的采用28nm工艺FPGA芯片已经量产，在国",
+      "title": "中央网信办副主任王京涛：优化完善数据出境管理的各项制度",
+      "body": "中央网信办副主任、国家互联网信息办公室副主任王京涛在2026中关村论坛年会“数据跨境流动创新发展论坛”上表示，坚持高质量发展和高水平安全良性互动，持续深化高效、便利、安全的数据跨境流动机制。具体而言，王京涛表示，要科学处理好促进数据流动应用与保障数据安全的关系，充分发挥国家数据出境安全管理专项工作机",
+      "time": "19:56",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327157",
-      "link": "https://www.cls.cn/detail/2327157"
+      "tag": "综合"
     },
     {
-      "time": "17:45",
-      "tag": "部委动态",
-      "title": "外汇局：2月中国外汇市场总计成交18.15万亿元人民币 等值2.61万亿美元",
-      "body": "国家外汇管理局统计数据显示，2026年2月，中国外汇市场（不含外币对市场，下同）总计成交18.15万亿元人民币（等值2.61万亿美元）。其中，银行对客户市场成交3.31万亿元人民币（等值0.48万亿美元），银行间市场成交14.84万亿元人民币（等值2.14万亿美元）；即期市场累计成交7.12万亿元人",
+      "title": "3月27日周五《新闻联播》要闻22条",
+      "body": "今天《新闻联播》主要内容有：\n1、中共中央政治局召开会议 审议《中国共产党地方委员会工作条例》 中共中央总书记习近平主持会议；\n2、【新思想引领新征程】长江经济带共绘高质量发展新图景；\n3、李强主持召开国务院常务会议，学习贯彻习近平总书记在深入推进雄安新区高质量建设和发展座谈会上的重要讲话精神，听取",
+      "time": "19:56",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327140",
-      "link": "https://www.cls.cn/detail/2327140"
+      "tag": "部委动态"
     }
   ],
   "ai_voice": [
     {
-      "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
+      "title": "钉钉CLI开源！首批开放10项核心产品能力，原生支持ClaudeCode等",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392121.html",
-      "url": "https://www.qbitai.com/2026/03/392121.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392828.html"
     },
     {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "title": "开会也能“装龙虾”？阶跃StepClaw承包GDPS 2026全场人气",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392105.html",
-      "url": "https://www.qbitai.com/2026/03/392105.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392819.html"
     },
     {
-      "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
+      "title": "NeurIPS滑跪认错！一切都是误会，已纠正",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392024.html",
-      "url": "https://www.qbitai.com/2026/03/392024.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392814.html"
     },
     {
-      "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
+      "title": "高通公司展望个人AI发展：多终端体验将以AI和用户为中心",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391890.html",
-      "url": "https://www.qbitai.com/2026/03/391890.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392790.html"
     },
     {
-      "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
+      "title": "林俊旸离职后首次发声！复盘千问的弯路，指出AI的新路",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391830.html",
-      "url": "https://www.qbitai.com/2026/03/391830.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392770.html"
     },
     {
-      "title": "OpenAI关停Sora！25个月从封神到退场",
+      "title": "阿里QoderWork打通钉钉、微信、飞书 手机端可直接召唤桌面AI助手",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391799.html",
-      "url": "https://www.qbitai.com/2026/03/391799.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392760.html"
     },
     {
-      "title": "AI全链路加持！一加15T打造全能小屏，售价4299元起",
+      "title": "这群在知乎上“造人”的年轻人，决定让AI替你交朋友",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391775.html",
-      "url": "https://www.qbitai.com/2026/03/391775.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392697.html"
     },
     {
-      "title": "龙虾爆火之后，AI初创的全球化机会来了吗？｜线下沙龙报名",
+      "title": "阿里云百炼上线三方视频生成模型，PixVerse首发登陆",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391760.html",
-      "url": "https://www.qbitai.com/2026/03/391760.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392692.html"
     },
     {
-      "title": "黄仁勋暴论核弹：AGI已经实现，Ilya错了，程序员有10亿",
+      "title": "金融Agent再获近2亿加码！启明红杉高瓴集体押注，5个月内连获两轮融资",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391750.html",
-      "url": "https://www.qbitai.com/2026/03/391750.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392684.html"
     },
     {
-      "title": "你的模型真的会”举一反三”吗？RoboChallenge Table30 V2 正式发布，泛化时代开幕",
+      "title": "1段话喊来13个“程序员”，阿里Qoder新模式让我躺着当CTO",
+      "body": "",
+      "time": "20:00",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391744.html",
-      "url": "https://www.qbitai.com/2026/03/391744.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392281.html"
     },
     {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "title": "美图2025财报深度解读：AI Agent如何重构美图？",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Suno、Udio都被它干翻！中国AI音乐模型拿下AA全球榜单双料冠军",
+      "title": "在知乎写代码的那群「非程序员」，让AI学会了替人组局",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "ICLR 2026 Oral｜中科院团队提出新框架「SparseRL」，深度强化学习可自动生成高性能CUDA代码",
+      "title": "深度机智发布全新具身通用智能大模型 给机器人装上“物理常识”",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Arm自造芯片了：是块AGI CPU，面向AI智能体",
+      "title": "aiX-apply-4B逆袭DeepSeek-V3.2！aiXcoder发布代码变更应用模型，单卡推理提效15倍",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "当用户与算法共同进化——华盛顿大学等建立可预测并引导人机协同适应的计算框架",
+      "title": "CHI 2026 Best Paper｜社会模拟迈入可控、可量化时代：为AI Agent加上「认知滑条」",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Sand.ai开源发布MagiCompiler：突破局部编译界限，定义训推性能上限",
+      "title": "AI颠覆细胞代谢通路重建，西湖大学等单位联合提出AI虚拟代谢",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Ψ₀刚刚开源了！迈向通用人形机器人的基座模型",
+      "title": "专访中科第五纪黄岩：在具身智能的狂热中，做一位技术实干家",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "我在微信免费养「龙虾」，玩到上瘾，这组CP太强了",
+      "title": "CCF与淘天这个基金，单项资助30万，支持你研究「龙虾」",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "突发｜立即检查你的Python库！LiteLLM被投毒，Karpathy警告，马斯克关注",
+      "title": "不止Deep，更要Wide：清华、无问芯穹发布多智能体系统WideSeek-R1，4B模型比肩671B模型！",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "对抗KV Cache压缩的脆弱性：两行代码以最坏风险控制防御底层假设崩塌",
+      "title": "林俊旸离职后首度发声：万字复盘，大模型下一站「智能体式思考」",
+      "body": "",
+      "time": "20:00",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Mecha-nudges for Machines",
+      "title": "Training the Knowledge Base through Evidence Distillation and Write-Back Enrichment",
+      "body": "",
+      "time": "20:00",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23433",
-      "url": "https://arxiv.org/abs/2603.23433",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://arxiv.org/abs/2603.25737"
     },
     {
-      "title": "Bilevel Autoresearch: Meta-Autoresearching Itself",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23420",
-      "url": "https://arxiv.org/abs/2603.23420",
+      "title": "Back to Basics: Revisiting ASR in the Age of Voice Agents",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "20:00",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25727"
     },
     {
-      "title": "Beyond Preset Identities: How Agents Form Stances and Boundaries in Generative Societies",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23406",
-      "url": "https://arxiv.org/abs/2603.23406",
+      "title": "R-C2: Cycle-Consistent Reinforcement Learning Improves Multimodal Reasoning",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "20:00",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25720"
     },
     {
-      "title": "RelayS2S: A Dual-Path Speculative Generation for Real-Time Dialogue",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23346",
-      "url": "https://arxiv.org/abs/2603.23346",
+      "title": "Agent Factories for High Level Synthesis: How Far Can General-Purpose Coding Agents Go in Hardware Optimization?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "20:00",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25719"
     },
     {
-      "title": "LLM Olympiad: Why Model Evaluation Needs a Sealed Exam",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23292",
-      "url": "https://arxiv.org/abs/2603.23292",
+      "title": "Is Mathematical Problem-Solving Expertise in Large Language Models Associated with Assessment Performance?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "20:00",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25633"
+    },
+    {
+      "title": "Neural Network Conversion of Machine Learning Pipelines",
+      "body": "",
+      "time": "20:00",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25699"
+    },
+    {
+      "title": "A Unified Memory Perspective for Probabilistic Trustworthy AI",
+      "body": "",
+      "time": "20:00",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25692"
+    },
+    {
+      "title": "On Neural Scaling Laws for Weather Emulation through Continual Training",
+      "body": "",
+      "time": "20:00",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25687"
+    },
+    {
+      "title": "Longitudinal Digital Phenotyping for Early Cognitive-Motor Screening",
+      "body": "",
+      "time": "20:00",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25673"
+    },
+    {
+      "title": "Uncertainty-Guided Label Rebalancing for CPS Safety Monitoring",
+      "body": "",
+      "time": "20:00",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25670"
     }
   ],
-  "miao_notice": [
-    {
-      "content": "今天最值得盯的信号有两个：一是日本10年期国债收益率创1999年来新高，美元兑日元逼近160，日本央行加息预期持续发酵，全球资金再平衡压力在积累；二是中东局势升温推高油价，霍尔木兹海峡受阻，能源供应链风险真实存在，不是市场在炒概念。\n\nA股港股层面，山金国际赴港上市撞上金价高位，时机选得很精；超声电子400G光模块量产、800G在跟进，光模块这条线还没走完；中金\"资产大挪移\"点名中国资产安全属性凸显，外资重新给中国资产定价这件事正在进行中。\n\n喵子判断：当前宏观噪音多，但核心逻辑清晰——黄金/能源/算力基础设施三条线依然有支撑，日元和油价是近期最需要动态跟踪的两个外部变量，别被地缘新闻带跑节奏，盯住结构性机会。🐾",
-      "label": "🐱 喵子告知 · 2026.03.27 18:01"
-    },
-    {
-      "content": "大宗市场有动静：利弗莫尔证券显示，山金国际黄金股份有限公司向港交所提交上市申。喵子提示，避险情绪来了要跟，但别上杠杆。",
-      "label": "🐱 喵子告知 · 2026.03.27 15:45"
-    }
-  ]
+  "miao_notice": {
+    "content": "今日焦点：中国保险行业协会发布《保险产品适当性管理自律规范》。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+    "label": "🐱 喵子告知 · 2026.03.27 20:00"
+  }
 }

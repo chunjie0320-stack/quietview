@@ -29,3 +29,10 @@ news_20260325.json
 s3_upload_*.py
 __pycache__/
 *.pyc
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

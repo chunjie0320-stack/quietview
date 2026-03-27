@@ -47,7 +47,7 @@ def load_today_data(date_str):
 
 def extract_from_html(date_str):
     """从 HTML 提取当天资讯，作为fallback"""
-    html_path = os.path.join(REPO_DIR, "quietview-demo.html")
+    html_path = os.path.join(REPO_DIR, "index.html")
     with open(html_path, encoding='utf-8') as f:
         html = f.read()
 
@@ -184,7 +184,7 @@ def update_json(data, path, notice_content, slot_label):
 
 def ensure_html_panel(date_str, data):
     """如果 HTML 里没有当天的静态 panel，自动创建并插入"""
-    html_path = os.path.join(REPO_DIR, "quietview-demo.html")
+    html_path = os.path.join(REPO_DIR, "index.html")
     with open(html_path, encoding='utf-8') as f:
         html = f.read()
 
@@ -367,7 +367,7 @@ def _update_active_panel(html_path, html, date_str):
 def git_push(date_str, slot_label, html_changed=False):
     files = [f"data/{date_str}.json"]
     if html_changed:
-        files.append("quietview-demo.html")
+        files.append("index.html")
     for f in files:
         subprocess.run(['git', 'add', f], cwd=REPO_DIR, check=True)
     result = subprocess.run(

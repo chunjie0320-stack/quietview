@@ -1,7 +1,57 @@
 {
   "date": "20260326",
   "generated_at": "2026-03-26T23:22:01.265967+08:00",
-  "voice": [],
+  "voice": [
+    {
+      "source": "财躺平",
+      "title": "无心",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488097&idx=1&sn=51a818b103317ad272e0929d68a55f78&chksm=fa1a97e4cd6d1ef2bac713202784f2d2af725a3c9ed7e47df5509a5daab069da63922c6cbc4b#rd",
+      "timestamp": 1774517203
+    },
+    {
+      "source": "卓哥投研笔记",
+      "title": "除了宇树，美团其实投了大半个中国AI独角兽，或与被投企业相互敞开所有商业、技术场景",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486444&idx=1&sn=5fe524ea830d50f77bf1565fb8f83c35&chksm=c331edbff44664a9ad58a161c77095698a2401ac2b620fe8b24d7aaec6d8c2716609a6eff74b#rd",
+      "timestamp": 1774506865
+    },
+    {
+      "source": "方伟看十年",
+      "title": "美团大涨14%，但外卖大战今年都不会结束",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489438&idx=1&sn=c547451c1ad6cd65d848a36dac48dffc&chksm=fe58f53ac92f7c2c8a1d674f7f2805088fdd0fba19fccd8d680c5f9e016da98cc54a20994917#rd",
+      "timestamp": 1774487297
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：油价上升对经济的影响",
+      "digest": "近期美以对伊朗的军事打击推动油价上涨，各方高度关注其经济影响。这是中金研究部2011年1季度发布的两篇报告。相较当时，本轮石油供给降幅较大，全球地缘政治经济环境也已变化，但原分析框架对思考油价影响经济的机制仍有参考价值。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=1&sn=cf64389e049c488d839277a4dca9a5e4&chksm=eadd2151ddaaa847527bfa4df7926b41f30fda53eabeba47ef932dc59807aa7a886174e64963#rd",
+      "timestamp": 1774481596
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 中东变局下的全球区域行业情景推演",
+      "digest": "近期中东局势升级，霍尔木兹海峡通行明显受阻，市场对能源运输、供应链稳定及全球增长前景的担忧有所上升。当前局势仍然有较大不确定性，本文从全球区域以及行业的角度，分不同情景推演不同局势下可能的演变路径。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=2&sn=71e54f03450979447f2ba78dc8d51814&chksm=eadd2151ddaaa8471dfd888fd7ad8de8078427e2635d862fb4b86a30435d311ec9abf574f2d4#rd",
+      "timestamp": 1774481596
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 十五五下的财政：短期支持与财税改革",
+      "digest": "今年为十五五规划开局之年，财政政策面临着短期稳增长与中期改革的双重任务。我们预计2026年财政仍偏紧平衡，实际力度或较2025年小幅回升，同时支出结构优化，支出向科教、民生等领域倾斜。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=3&sn=d0a73a39e07c52d75b78557b57cb3eae&chksm=eadd2151ddaaa847a55b74e7af74e1bd7f524768c807fa555141152ff584b2bd015b8520a162#rd",
+      "timestamp": 1774481596
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 2026年日本“春斗”点评",
+      "digest": "2026年的春斗结果支持日本央行进一步加息，但是考虑到中东地区的不确定，我们认为日本央行的下次加息或在6月前后。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=4&sn=e601d327b6fa3fad4d7eef682f6c57c5&chksm=eadd2151ddaaa847b33c2a6c3957047c5bc1555bc3c30341cd3967d334ec66dd517b3afd6896#rd",
+      "timestamp": 1774481596
+    }
+  ],
   "news": [
     {
       "title": "国防部新闻发言人就近期中东局势答记者问",

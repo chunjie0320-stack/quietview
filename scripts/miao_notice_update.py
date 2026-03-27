@@ -331,6 +331,9 @@ def ensure_html_panel(date_str, data):
     # 同步确保 ai-voice panel 也存在
     ensure_ai_voice_panel(date_str, data)
 
+    # 同步确保 miao 自言自语 panel 也存在
+    ensure_miao_panel(date_str)
+
     return True  # 新建了
 
 
@@ -422,6 +425,81 @@ def ensure_ai_voice_panel(date_str, data):
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f"  ✅ ai-voice panel {date_str} 创建完成，共 {len(ai_voice)} 条")
+    return True
+
+
+def ensure_miao_panel(date_str):
+    """检查并新建 panel-miao-{date_str}（喵子自言自语面板）"""
+    html_path = os.path.join(REPO_DIR, "index.html")
+    with open(html_path, encoding='utf-8') as f:
+        html = f.read()
+
+    panel_id = f"panel-miao-{date_str}"
+    if panel_id in html:
+        print(f"  [miao_panel] {panel_id} 已存在，跳过创建")
+        return False
+
+    print(f"  [miao_panel] {panel_id} 不存在，开始创建...")
+
+    date_dot = f"{date_str[:4]}.{date_str[4:6]}.{date_str[6:]}"
+    new_panel = (
+        f'    <!-- 成长 > 喵子自言自语 {date_dot} -->\n'
+        f'    <div class="content-panel" id="{panel_id}">\n'
+        f'      <div class="page-header">\n'
+        f'        <h1>喵子自言自语</h1>\n'
+        f'        <div class="sub">{date_dot}</div>\n'
+        f'        <div class="page-header-divider"></div>\n'
+        f'      </div>\n'
+        f'      <div class="miao-card">\n'
+        f'        <div class="miao-card-header">\n'
+        f'          <span class="miao-card-time">今日</span>\n'
+        f'        </div>\n'
+        f'        <div class="miao-card-body">今日喵子还没说话 🐾</div>\n'
+        f'      </div>\n'
+        f'    </div>\n\n'
+    )
+
+    # 插入位置：在现有最新一天的 miao panel 之前
+    m = re.search(r'    <!-- 成长 > 喵子自言自语 \d{4}\.\d{2}\.\d{2} -->', html)
+    if m:
+        html = html[:m.start()] + new_panel + html[m.start():]
+    else:
+        # fallback: 在第一个 panel-miao- 前插入
+        m2 = re.search(r'<div class="content-panel" id="panel-miao-\d{8}">', html)
+        if m2:
+            html = html[:m2.start()] + new_panel + html[m2.start():]
+        else:
+            print(f"  [miao_panel] 找不到插入位置，跳过创建")
+            return False
+
+    # 更新 NAV_DATA：在 miao-thoughts children 里加入新条目
+    nav_m = re.search(r"\{ id: 'miao-\d{8}',", html)
+    if nav_m:
+        existing_entry = html[nav_m.start():html.find('}', nav_m.start()) + 1]
+        label_month = date_str[4:6]
+        label_day = date_str[6:]
+        new_nav = f"{{ id: 'miao-{date_str}', label: '{label_month}月{label_day}日', panel: '{panel_id}' }}"
+        if new_nav not in html:
+            html = html.replace(existing_entry, new_nav + ',\n        ' + existing_entry, 1)
+    else:
+        print(f"  [miao_panel] 未找到 nav miao 条目，跳过nav更新")
+
+    # div 自查
+    from html.parser import HTMLParser as _HP
+    class _P(_HP):
+        def __init__(self): super().__init__(); self.d = 0
+        def handle_starttag(self, t, a):
+            if t == 'div': self.d += 1
+        def handle_endtag(self, t):
+            if t == 'div': self.d -= 1
+    p = _P(); p.feed(html)
+    if p.d != 0:
+        raise ValueError(f"miao panel div depth={p.d}, aborting!")
+    print(f"  [miao_panel] div depth OK (0)")
+
+    with open(html_path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f"  ✅ miao panel {date_str} 创建完成")
     return True
 
 

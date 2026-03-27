@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高达3.0 产品框架图</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0f1424;
+    --surface: #141929;
+    --surface2: #1a2035;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #f5a623;
+    --accent2: #e8872e;
+    --blue: #4a9eff;
+    --blue2: #2d7dd2;
+    --green: #3ecf8e;
+    --purple: #9b59b6;
+    --red: #e74c3c;
+    --cyan: #1abc9c;
+    --text: #e8eaf0;
+    --text2: #9aa0b4;
+    --text3: #6b7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 32px;
+  }
+
+  /* 顶部 header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-header .badge {
+    display: inline-block;
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .page-header h1 {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #fff 0%, #9aa0b4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    color: var(--text2);
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  /* 外层流程条 */
+  .flow-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+  .flow-node {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    white-space: nowrap;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .flow-node.highlight {
+    background: rgba(245,166,35,0.15);
+    border-color: rgba(245,166,35,0.4);
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .flow-arrow {
+    width: 32px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border2), var(--border2));
+    position: relative;
+    flex-shrink: 0;
+  }
+  .flow-arrow::after {
+    content: '▶';
+    position: absolute;
+    right: -6px;
+    top: -7px;
+    color: var(--text3);
+    font-size: 10px;
+  }
+
+  /* 主体三栏 */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr 220px;
+    gap: 20px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* 左侧：上游依赖 */
+  .side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .side-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    padding: 0 4px;
+    margin-bottom: 4px;
+  }
+  .side-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .side-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+  .side-card.blue::before { background: var(--blue); }
+  .side-card.green::before { background: var(--green); }
+  .side-card.purple::before { background: var(--purple); }
+  .side-card.red::before { background: var(--red); }
+  .side-card.cyan::before { background: var(--cyan); }
+  .side-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .side-card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .tag {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .connector-right {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text3);
+    font-size: 11px;
+  }
+
+  /* 中间：高达核心 */
+  .core-panel {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(245,166,35,0.05);
+  }
+  .core-header {
+    background: linear-gradient(135deg, rgba(245,166,35,0.15) 0%, rgba(232,135,46,0.08) 100%);
+    border-bottom: 1px solid rgba(245,166,35,0.2);
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .core-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .core-title h2 {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--accent);
+  }
+  .core-title p {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 2px;
+  }
+  .core-url {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--text3);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  /* 核心层级 */
+  .hierarchy {
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hierarchy-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hierarchy-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 10px;
+  }
+  .h-node {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 10px 16px;
+    flex: 1;
+    position: relative;
+  }
+  .h-node .h-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .h-node .h-desc {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 3px;
+  }
+  .h-node.l1 { border-color: rgba(245,166,35,0.3); }
+  .h-node.l2 { border-color: rgba(74,158,255,0.3); }
+  .h-node.l3 { border-color: rgba(62,207,142,0.3); }
+  .h-node.l4 { border-color: rgba(155,89,182,0.3); }
+  .h-badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-right: 10px;
+  }
+  .h-badge.l1 { background: rgba(245,166,35,0.2); color: var(--accent); }
+  .h-badge.l2 { background: rgba(74,158,255,0.2); color: var(--blue); }
+  .h-badge.l3 { background: rgba(62,207,142,0.2); color: var(--green); }
+  .h-badge.l4 { background: rgba(155,89,182,0.2); color: var(--purple); }
+  .h-arrow {
+    font-size: 11px;
+    color: var(--text3);
+    margin: 0 8px;
+    flex-shrink: 0;
+  }
+  .h-indent {
+    width: 16px;
+    flex-shrink: 0;
+  }
+
+  /* 功能模块网格 */
+  .features-grid {
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .features-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .features-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .feat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 14px 12px;
+    transition: border-color 0.2s;
+  }
+  .feat-card:hover {
+    border-color: var(--border2);
+  }
+  .feat-icon {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .feat-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .feat-items {
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.6;
+  }
+  .feat-card.active {
+    border-color: rgba(245,166,35,0.25);
+    background: rgba(245,166,35,0.04);
+  }
+  .feat-card.active .feat-name { color: var(--accent); }
+
+  /* 组件体系 */
+  .components {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .comp-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .comp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .comp-group {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .comp-group-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text2);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .comp-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .comp-dot.orange { background: var(--accent); }
+  .comp-dot.blue { background: var(--blue); }
+  .comp-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .comp-tag {
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  /* AI能力 */
+  .ai-section {
+    padding: 20px 28px;
+  }
+  .ai-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .ai-card {
+    background: rgba(74,158,255,0.06);
+    border: 1px solid rgba(74,158,255,0.15);
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .ai-card .ai-icon { font-size: 16px; margin-bottom: 6px; }
+  .ai-card .ai-name { font-size: 11px; font-weight: 700; color: var(--blue); }
+  .ai-card .ai-desc { font-size: 10px; color: var(--text3); margin-top: 3px; line-height: 1.4; }
+
+  /* 右侧：下游产出 */
+  .output-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    padding: 0 4px;
+    margin-bottom: 12px;
+  }
+
+  /* 底部：数据层 */
+  .data-bar {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 28px;
+  }
+  .data-bar-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .data-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .data-card .dc-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+  .data-card .dc-items {
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.6;
+  }
+  .data-card.highlight-data {
+    background: rgba(62,207,142,0.06);
+    border-color: rgba(62,207,142,0.2);
+  }
+  .data-card.highlight-data .dc-name { color: var(--green); }
+
+  /* 兜底页特殊标注 */
+  .ddb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+  .pulse {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* 迁移来源 */
+  .migration-note {
+    max-width: 1200px;
+    margin: 12px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .migration-node {
+    background: rgba(155,89,182,0.1);
+    border: 1px solid rgba(155,89,182,0.2);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: #b07fd4;
+  }
+  .migration-arrow {
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .migration-target {
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* 连接线提示 */
+  .conn-hint {
+    font-size: 11px;
+    color: var(--text3);
+    text-align: center;
+    margin: 8px 0;
+    letter-spacing: 1px;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 6px 0;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="page-header">
+  <div class="badge">营销搭建系统 · 产品框架图</div>
+  <h1>高达平台 3.0 · GUNDAM</h1>
+  <p>营销活动全链路「组装台」— 将券、供给、创意整合为可视化活动落地页</p>
+</div>
+
+<!-- 营销全链路流程条 -->
+<div class="flow-bar">
+  <div class="flow-node">招商 / 选品</div>
+  <div class="flow-arrow"></div>
+  <div class="flow-node">制券 / 供给配置</div>
+  <div class="flow-arrow"></div>
+  <div class="flow-node highlight">⚙️ 高达搭建</div>
+  <div class="flow-arrow"></div>
+  <div class="flow-node">发布 / 灰度</div>
+  <div class="flow-arrow"></div>
+  <div class="flow-node">投放 / 推广</div>
+  <div class="flow-arrow"></div>
+  <div class="flow-node">数据复盘</div>
+</div>
+
+<!-- 迁移来源说明 -->
+<div class="migration-note">
+  <div class="migration-node">高达 2.0</div>
+  <div class="migration-arrow">+</div>
+  <div class="migration-node">魔方</div>
+  <div class="migration-arrow">+</div>
+  <div class="migration-node">Maker</div>
+  <div class="migration-arrow">━━ 搭建融合 2025 ━━▶</div>
+  <div class="migration-target">高达 3.0 · React 统一技术栈</div>
+</div>
+
+<div class="conn-hint" style="margin: 16px auto; max-width: 1200px;">▼</div>
+
+<!-- 主体三栏 -->
+<div class="main-grid">
+
+  <!-- 左侧：上游系统 -->
+  <div class="side-panel">
+    <div class="side-title">上游依赖系统</div>
+
+    <div class="side-card blue">
+      <h4>🎫 制券系统</h4>
+      <div class="tags">
+        <span class="tag">先富</span>
+        <span class="tag">Next</span>
+        <span class="tag">鲸湾</span>
+      </div>
+    </div>
+
+    <div class="side-card green">
+      <h4>🏪 供给系统</h4>
+      <div class="tags">
+        <span class="tag">韦恩</span>
+        <span class="tag">胶囊</span>
+        <span class="tag">Next</span>
+      </div>
+    </div>
+
+    <div class="side-card purple">
+      <h4>🎨 创意中心</h4>
+      <div class="tags">
+        <span class="tag">图片/素材</span>
+        <span class="tag">图生码</span>
+      </div>
+    </div>
+
+    <div class="side-card cyan">
+      <h4>🧩 玩法中心</h4>
+      <div class="tags">
+        <span class="tag">领券</span>
+        <span class="tag">抽奖</span>
+        <span class="tag">抢购</span>
+        <span class="tag">投票</span>
+        <span class="tag">报名</span>
+      </div>
+    </div>
+
+    <div class="side-card red">
+      <h4>🎯 权益中心</h4>
+      <div class="tags">
+        <span class="tag">代金券</span>
+        <span class="tag">红包</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 中间：高达核心 -->
+  <div class="core-panel">
+    <!-- 顶部标题 -->
+    <div class="core-header">
+      <div class="core-icon">⚙️</div>
+      <div class="core-title">
+        <h2>高达 3.0 搭建平台</h2>
+        <p>营销活动页面搭建 · 发布 · 管理一体化工具</p>
+      </div>
+      <div class="core-url">gundam.sankuai.com</div>
+    </div>
+
+    <!-- 核心层级 -->
+    <div class="hierarchy">
+      <div class="hierarchy-title">数据层级结构</div>
+
+      <div class="hierarchy-row">
+        <div class="h-badge l1">L1</div>
+        <div class="h-node l1">
+          <div class="h-label">活动（Activity）</div>
+          <div class="h-desc">最高管理单元，如：双11大促、818神券节</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;margin:0 0 6px 38px;color:var(--text3);font-size:11px;">└─ 1 活动 包含 N 个 ▼</div>
+
+      <div class="hierarchy-row">
+        <div class="h-indent"></div>
+        <div class="h-badge l2">L2</div>
+        <div class="h-node l2">
+          <div class="h-label">分期（Phase）</div>
+          <div class="h-desc">时间波段：预热期 / 正式期 / 返场期 · 自动定时切换页面</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;margin:0 0 6px 54px;color:var(--text3);font-size:11px;">└─ 1 分期 包含 N 个 ▼</div>
+
+      <div class="hierarchy-row">
+        <div style="width:32px; flex-shrink:0;"></div>
+        <div class="h-badge l3">L3</div>
+        <div class="h-node l3">
+          <div class="h-label">页面（Page）= 会场 = 落地页</div>
+          <div class="h-desc">用户实际看到的页面实体 · 可定投不同人群/城市</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;margin:0 0 6px 70px;color:var(--text3);font-size:11px;">└─ 1 页面 拥有 N 个 ▼</div>
+
+      <div class="hierarchy-row">
+        <div style="width:48px; flex-shrink:0;"></div>
+        <div class="h-badge l4">L4</div>
+        <div class="h-node l4">
+          <div class="h-label">版本（Version）</div>
+          <div class="h-desc">页面内容快照 · 支持迭代更新 + 一键回滚</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心功能模块 -->
+    <div class="features-grid">
+      <div class="features-title">核心功能模块</div>
+      <div class="features-row">
+        <div class="feat-card active">
+          <div class="feat-icon">🏗️</div>
+          <div class="feat-name">可视化搭建</div>
+          <div class="feat-items">拖拽组件编辑器<br>结构树 + 画布<br>多人协同（锁定）</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📅</div>
+          <div class="feat-name">分期定投</div>
+          <div class="feat-items">定时切换分期<br>人群/城市定投<br>投放链接不变</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🚀</div>
+          <div class="feat-name">发布与灰度</div>
+          <div class="feat-items">灰度发布验证<br>版本回滚<br>发布前配置巡检</div>
+        </div>
+      </div>
+      <div class="features-row">
+        <div class="feat-card">
+          <div class="feat-icon">🔍</div>
+          <div class="feat-name">质量保障（灯塔）</div>
+          <div class="feat-items">配置巡检（P0）<br>内容合规检查<br>真机检测报告</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📊</div>
+          <div class="feat-name">数据报表</div>
+          <div class="feat-items">页面/组件 PV·UV<br>供给曝光/点击<br>活动效果分析</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">👥</div>
+          <div class="feat-name">团队权限管理</div>
+          <div class="feat-items">运营团队维度<br>超管 / 成员角色<br>游客受限发布</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 组件体系 -->
+    <div class="components">
+      <div class="comp-title">组件体系 · 高达3.0 共 926+ 个</div>
+      <div class="comp-grid">
+        <div class="comp-group">
+          <div class="comp-group-title">
+            <div class="comp-dot orange"></div>
+            公共组件（平台维护）
+          </div>
+          <div class="comp-list">
+            <span class="comp-tag">领券</span>
+            <span class="comp-tag">抽奖</span>
+            <span class="comp-tag">抢购</span>
+            <span class="comp-tag">投票</span>
+            <span class="comp-tag">报名</span>
+            <span class="comp-tag">订阅</span>
+            <span class="comp-tag">评论</span>
+            <span class="comp-tag">图文展示</span>
+          </div>
+        </div>
+        <div class="comp-group">
+          <div class="comp-group-title">
+            <div class="comp-dot blue"></div>
+            业务组件（各业务研发）
+          </div>
+          <div class="comp-list">
+            <span class="comp-tag">外卖供给</span>
+            <span class="comp-tag">到餐</span>
+            <span class="comp-tag">闪购</span>
+            <span class="comp-tag">小象</span>
+            <span class="comp-tag">医药</span>
+            <span class="comp-tag">酒旅</span>
+            <span class="comp-tag">金融</span>
+            <span class="comp-tag">猫眼</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI能力 -->
+    <div class="ai-section">
+      <div class="ai-title">🤖 AI 智能化能力（规划/建设中）</div>
+      <div class="ai-grid">
+        <div class="ai-card">
+          <div class="ai-icon">🖼️</div>
+          <div class="ai-name">AI智能搭建</div>
+          <div class="ai-desc">图生码<br>智能生成会场</div>
+        </div>
+        <div class="ai-card">
+          <div class="ai-icon">🔎</div>
+          <div class="ai-name">活动诊断</div>
+          <div class="ai-desc">望闻问切<br>质效双保障</div>
+        </div>
+        <div class="ai-card">
+          <div class="ai-icon">🎯</div>
+          <div class="ai-name">超个性化引擎</div>
+          <div class="ai-desc">千人千面<br>配置态AI生成</div>
+        </div>
+        <div class="ai-card">
+          <div class="ai-icon">📈</div>
+          <div class="ai-name">数据智能</div>
+          <div class="ai-desc">投后复盘<br>人群匹配分析</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右侧：输出 & 流量场域 -->
+  <div class="side-panel">
+    <div class="output-title">输出 & 流量场域</div>
+
+    <div class="side-card blue">
+      <h4>📱 活动落地页</h4>
+      <div class="tags">
+        <span class="tag">H5页面</span>
+        <span class="tag">SSG/SSR</span>
+        <span class="tag">多端适配</span>
+      </div>
+    </div>
+
+    <div class="side-card green">
+      <h4>📢 投放渠道</h4>
+      <div class="tags">
+        <span class="tag">广告系统</span>
+        <span class="tag">资源位</span>
+        <span class="tag">push/弹窗</span>
+      </div>
+    </div>
+
+    <div class="side-card orange" style="border-left: 3px solid var(--accent); background: rgba(245,166,35,0.05);">
+      <h4>♻️ 兜底页（Player）</h4>
+      <div class="tags">
+        <span class="tag">活动结束承接</span>
+      </div>
+      <div class="ddb-badge">
+        <div class="pulse"></div>
+        日均 52万UV · 峰值 350万
+      </div>
+    </div>
+
+    <div class="side-card red">
+      <h4>🎪 营销会场</h4>
+      <div class="tags">
+        <span class="tag">神券节</span>
+        <span class="tag">神会员</span>
+        <span class="tag">常态运营</span>
+      </div>
+    </div>
+
+    <div class="side-card cyan">
+      <h4>🏢 服务业务方</h4>
+      <div class="tags">
+        <span class="tag">CLC内部</span>
+        <span class="tag">小象</span>
+        <span class="tag">金融</span>
+        <span class="tag">猫眼</span>
+        <span class="tag">酒旅</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 底部：数据层 -->
+<div class="data-bar">
+  <div class="data-bar-title">📊 智能数据中心（建设中）</div>
+  <div class="data-grid">
+    <div class="data-card highlight-data">
+      <div class="dc-name">页面流量指标</div>
+      <div class="dc-items">页面曝光 PV/UV<br>停留时长<br>跳出率</div>
+    </div>
+    <div class="data-card highlight-data">
+      <div class="dc-name">组件流量指标</div>
+      <div class="dc-items">组件曝光/点击<br>供给曝光数<br>商家曝光数</div>
+    </div>
+    <div class="data-card">
+      <div class="dc-name">分析维度</div>
+      <div class="dc-items">日期 / 活动ID<br>业务三级<br>投放点位 / 城市</div>
+    </div>
+    <div class="data-card">
+      <div class="dc-name">营销效果</div>
+      <div class="dc-items">成单率 / 转化率<br>供给消耗监控<br>权益消费报警</div>
+    </div>
+    <div class="data-card">
+      <div class="dc-name">数据链路</div>
+      <div class="dc-items">实时上报通道<br>离线数据仓库<br>Persona 人群圈选</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

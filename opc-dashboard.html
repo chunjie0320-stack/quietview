@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OPC 工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base:       #0d1117;
+      --bg-surface:    #161b22;
+      --bg-card:       #1c2128;
+      --bg-card-hover: #21262d;
+      --bg-overlay:    rgba(0,0,0,0.72);
+      --border:        #30363d;
+      --border-light:  #21262d;
+      --text-primary:  #e6edf3;
+      --text-secondary:#8b949e;
+      --text-muted:    #484f58;
+      --green:         #3fb950;
+      --green-dim:     #1a4228;
+      --blue:          #58a6ff;
+      --blue-dim:      #1a2d4a;
+      --red:           #f85149;
+      --red-dim:       #3a1519;
+      --orange:        #d29922;
+      --orange-dim:    #3a2a08;
+      --font-ui:       'Inter', system-ui, sans-serif;
+      --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
+      --radius:        8px;
+      --radius-sm:     5px;
+      --transition:    0.18s ease;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .app { display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ── Top Bar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #1f6feb 0%, #388bfd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      height: 36px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 0 8px;
+    }
+
+    .stat-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .stat-count {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .stat-label { color: var(--text-secondary); }
+
+    /* Controls */
+    .topbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-ui);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      transition: all var(--transition);
+      white-space: nowrap;
+      user-select: none;
+      outline: none;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: #6e7681;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-icon { font-style: normal; }
+
+    /* Auto-refresh toggle */
+    .auto-refresh-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all var(--transition);
+      user-select: none;
+    }
+
+    .auto-refresh-wrap:hover {
+      border-color: #6e7681;
+    }
+
+    .auto-refresh-wrap span {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .toggle {
+      position: relative;
+      width: 32px;
+      height: 18px;
+    }
+
+    .toggle input { display: none; }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 100px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      transition: all var(--transition);
+    }
+
+    .toggle input:checked + .toggle-track { background: #1a4228; border-color: var(--green); }
+    .toggle input:checked ~ .toggle-thumb, .toggle input:checked + .toggle-track + .toggle-thumb {
+      background: var(--green);
+      left: 16px;
+    }
+
+    /* Fix: toggle-thumb needs to be positioned correctly */
+    .toggle-thumb-el {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      transition: all var(--transition);
+      pointer-events: none;
+    }
+    .toggle input:checked ~ .toggle-thumb-el { background: var(--green); left: 16px; }
+
+    /* Countdown badge */
+    .refresh-countdown {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--green);
+      min-width: 24px;
+      text-align: right;
+      display: none;
+    }
+
+    .refresh-countdown.visible { display: block; }
+
+    /* Timestamp */
+    .last-updated {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── Main content ── */
+    .main {
+      flex: 1;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 28px 60px;
+    }
+
+    /* Section header */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Agent Grid ── */
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Agent Card ── */
+    .agent-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      position: relative;
+    }
+
+    .agent-card:hover {
+      border-color: #6e7681;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .agent-card.status-running { border-left: 3px solid var(--green); }
+    .agent-card.status-done    { border-left: 3px solid var(--blue); }
+    .agent-card.status-timeout { border-left: 3px solid var(--red); }
+    .agent-card.status-error   { border-left: 3px solid var(--red); }
+
+    /* Card header */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 18px 12px;
+    }
+
+    /* Status indicator */
+    .status-indicator {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .status-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    /* Running: pulsing green */
+    .status-running .status-dot { background: var(--green); }
+    .status-running::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    @keyframes pulse-ring {
+      0%   { transform: scale(0.7); opacity: 0.6; }
+      70%  { transform: scale(1.8); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* Done: blue */
+    .status-done .status-dot { background: var(--blue); }
+
+    /* Timeout/Error: red */
+    .status-timeout .status-dot,
+    .status-error .status-dot { background: var(--red); }
+
+    /* Card body */
+    .card-body { flex: 1; min-width: 0; }
+
+    .agent-label {
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 8px;
+      border-radius: 20px;
+      font-family: var(--font-ui);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-running  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(63,185,80,0.25); }
+    .badge-done     { background: var(--blue-dim);   color: var(--blue);   border: 1px solid rgba(88,166,255,0.25); }
+    .badge-timeout  { background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(248,81,73,0.25); }
+    .badge-error    { background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(248,81,73,0.25); }
+
+    .task-summary {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Meta row */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 18px 12px;
+      padding-left: 40px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .meta-icon { font-style: normal; font-size: 11px; }
+
+    /* Actions row */
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px 14px;
+      padding-left: 40px;
+    }
+
+    .btn-stop {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid rgba(248,81,73,0.4);
+      background: rgba(248,81,73,0.08);
+      color: var(--red);
+      transition: all var(--transition);
+      outline: none;
+    }
+
+    .btn-stop:hover {
+      background: rgba(248,81,73,0.18);
+      border-color: var(--red);
+      box-shadow: 0 0 8px rgba(248,81,73,0.2);
+    }
+
+    .btn-stop:active { transform: scale(0.97); }
+
+    .btn-stop:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-expand {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      transition: all var(--transition);
+      outline: none;
+      margin-left: auto;
+    }
+
+    .btn-expand:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: #6e7681;
+    }
+
+    .expand-icon {
+      display: inline-block;
+      transition: transform var(--transition);
+      font-style: normal;
+    }
+
+    .expanded .expand-icon { transform: rotate(180deg); }
+
+    /* Log panel */
+    .log-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .log-panel.open { max-height: 320px; }
+
+    .log-inner {
+      border-top: 1px solid var(--border-light);
+      padding: 14px 18px;
+      background: rgba(0,0,0,0.25);
+    }
+
+    .log-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .log-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .log-lines-count {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    .log-content {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 220px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .log-content::-webkit-scrollbar { width: 4px; }
+    .log-content::-webkit-scrollbar-track { background: transparent; }
+    .log-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* Log line coloring */
+    .log-line-success { color: var(--green); }
+    .log-line-warn    { color: var(--orange); }
+    .log-line-error   { color: var(--red); }
+    .log-line-info    { color: var(--text-secondary); }
+
+    /* ── Modal / Dialog ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-overlay);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      width: 420px;
+      max-width: 90vw;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      transform: translateY(-12px) scale(0.97);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .modal-agent-name {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .modal-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .modal-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-align: left;
+    }
+
+    .modal-option:hover { border-color: #6e7681; background: var(--bg-card-hover); }
+
+    .modal-option.selected {
+      border-color: var(--blue);
+      background: var(--blue-dim);
+    }
+
+    .option-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    .option-content { flex: 1; }
+
+    .option-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .option-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-modal-cancel {
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      transition: all var(--transition);
+      outline: none;
+    }
+
+    .btn-modal-cancel:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+
+    .btn-modal-confirm {
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(248,81,73,0.5);
+      background: rgba(248,81,73,0.15);
+      color: var(--red);
+      transition: all var(--transition);
+      outline: none;
+    }
+
+    .btn-modal-confirm:hover {
+      background: rgba(248,81,73,0.28);
+      border-color: var(--red);
+    }
+
+    /* ── Toast Notification ── */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      font-size: 13px;
+      color: var(--text-primary);
+      min-width: 280px;
+      animation: toast-in 0.2s ease forwards;
+    }
+
+    @keyframes toast-in {
+      from { transform: translateX(20px); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+
+    .toast-icon { font-size: 15px; flex-shrink: 0; }
+
+    /* ── Empty state ── */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      color: var(--text-muted);
+      gap: 12px;
+    }
+
+    .empty-icon { font-size: 42px; }
+    .empty-text { font-size: 14px; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .agent-grid { grid-template-columns: 1fr; }
+      .topbar { padding: 0 16px; gap: 10px; }
+      .main { padding: 20px 16px 40px; }
+      .stats { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .topbar-controls { gap: 6px; }
+      .last-updated { display: none; }
+    }
+
+    /* ── Terminated card overlay ── */
+    .agent-card.terminated {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .terminated-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: var(--red-dim);
+      color: var(--red);
+      border: 1px solid rgba(248,81,73,0.3);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    /* Spin animation for refresh icon */
+    .spinning { animation: spin 0.7s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* Running card shimmer bar */
+    .card-progress {
+      height: 2px;
+      background: var(--border-light);
+      overflow: hidden;
+    }
+
+    .card-progress-bar {
+      height: 100%;
+      width: 30%;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      animation: shimmer 2s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { transform: translateX(-200%); }
+      100% { transform: translateX(500%); }
+    }
+
+    .status-done .card-progress-bar   { background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+    .status-timeout .card-progress-bar { display: none; }
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <div class="brand-title">OPC 工作台</div>
+        <div class="brand-sub">ONE-PERSON COMPANY · AGENT MONITOR</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats" id="statsBar">
+      <div class="stat-item">
+        <div class="stat-dot" style="background:var(--green)"></div>
+        <span class="stat-count" id="countRunning">0</span>
+        <span class="stat-label">进行中</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-dot" style="background:var(--blue)"></div>
+        <span class="stat-count" id="countDone">0</span>
+        <span class="stat-label">完成</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-dot" style="background:var(--red)"></div>
+        <span class="stat-count" id="countStuck">0</span>
+        <span class="stat-label">卡住</span>
+      </div>
+    </div>
+
+    <span class="last-updated" id="lastUpdated">--:--:--</span>
+
+    <div class="topbar-controls">
+      <!-- Manual refresh -->
+      <button class="btn" id="btnRefresh" onclick="manualRefresh()">
+        <i class="btn-icon" id="refreshIcon">↻</i> 刷新
+      </button>
+
+      <!-- Auto refresh toggle -->
+      <label class="auto-refresh-wrap" for="autoToggle" title="每10秒自动刷新">
+        <span>自动刷新</span>
+        <div class="toggle">
+          <input type="checkbox" id="autoToggle" onchange="toggleAutoRefresh(this.checked)" />
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb-el"></div>
+        </div>
+        <span class="refresh-countdown" id="refreshCountdown"></span>
+      </label>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="section-header">
+      <span class="section-title">Active Agents</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="agent-grid" id="agentGrid">
+      <!-- Cards injected by JS -->
+    </div>
+  </main>
+
+</div>
+
+<!-- STOP MODAL -->
+<div class="modal-overlay" id="stopModal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <i class="modal-icon">⚠️</i>
+    <div class="modal-title">停止 Agent</div>
+    <div class="modal-agent-name" id="modalAgentName">agent-name</div>
+    <div class="modal-desc">选择停止方式：</div>
+    <div class="modal-options">
+      <button class="modal-option" id="optTakeover" onclick="selectOption('takeover')">
+        <span class="option-icon">🤝</span>
+        <div class="option-content">
+          <div class="option-title">主 Agent 接管</div>
+          <div class="option-desc">停止子 agent，将当前任务上下文移交给主 agent 继续执行，保留进度。</div>
+        </div>
+      </button>
+      <button class="modal-option" id="optTerminate" onclick="selectOption('terminate')">
+        <span class="option-icon">💀</span>
+        <div class="option-content">
+          <div class="option-title">直接终止</div>
+          <div class="option-desc">立即终止 agent，不保留状态。任务进度将丢失，无法恢复。</div>
+        </div>
+      </button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-modal-confirm" id="btnConfirmStop" onclick="confirmStop()" disabled>确认停止</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ─────────────────────────────────────────
+//  MOCK DATA
+// ─────────────────────────────────────────
+const MOCK_AGENTS = [
+  {
+    id: 'agent-001',
+    label: "opc-agent-a-frontend",
+    status: "running",
+    runtime: "2m 45s",
+    task: "[OPC 角色卡] - 角色：前端工程师 Agent A - 改造 quietview-demo.html，行业声音/资讯/喵子告知区块改为动态 fetch JSON 渲染",
+    log: "✅ 备份完成: quietview-demo.html.bak.20260326215420\n读取 HTML 结构...\n找到 timeline-voice-20260325...\n注入动态 JS 脚本...\n✅ div depth=0 自查通过\n文件保存成功"
+  },
+  {
+    id: 'agent-002',
+    label: "opc-agent-b-backend",
+    status: "running",
+    runtime: "3m 12s",
+    task: "[OPC 角色卡] - 角色：后端工程师 Agent B - 整合数据抓取脚本，创建统一 JSON 输出，编写 GitHub Actions workflow",
+    log: "读取 scripts/ 目录...\n整合 wx_voice_updater.py...\n整合 cls_news_updater.py...\n创建 fetch_all.py...\n创建 .github/workflows/fetch-data.yml...\n配置 cron: '0 */6 * * *'...\n等待 workflow 触发..."
+  },
+  {
+    id: 'agent-003',
+    label: "quietview-fix-news",
+    status: "done",
+    runtime: "13m",
+    task: "修复 quietview-demo.html 的行业资讯/行业声音定时更新问题。现有脚本整合+HTML结构修复",
+    log: "✅ 所有任务完成\n- 行业声音: 5条\n- 行业资讯: 10条\n- div depth=0\n- git push 成功\n✅ 部署完成"
+  },
+  {
+    id: 'agent-004',
+    label: "wx-voice-update",
+    status: "timeout",
+    runtime: "1m",
+    task: "立即执行一次行业声音公众号抓取并更新 quietview-demo.html",
+    log: "⚠️ 任务超时\n已抓取: 财躺平 ✅\n已抓取: 卓哥投研笔记 ✅\n正在处理: 中金点睛...\n[TIMEOUT] 超过最大执行时间限制"
+  }
+];
+
+// ─────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────
+let agents = JSON.parse(JSON.stringify(MOCK_AGENTS)); // deep copy
+let autoRefreshInterval = null;
+let countdownInterval = null;
+let countdownVal = 10;
+let pendingStopId = null;
+let selectedOption = null;
+
+// ─────────────────────────────────────────
+//  RENDER
+// ─────────────────────────────────────────
+function getStatusLabel(status) {
+  const map = { running: '进行中', done: '完成', timeout: '超时', error: '错误' };
+  return map[status] || status;
+}
+
+function colorizeLog(log) {
+  return log.split('\n').map(line => {
+    if (line.startsWith('✅') || line.includes('完成') || line.includes('成功') || line.includes('push 成功')) {
+      return `<span class="log-line-success">${escHtml(line)}</span>`;
+    } else if (line.startsWith('⚠️') || line.includes('超时') || line.includes('TIMEOUT') || line.includes('警告')) {
+      return `<span class="log-line-warn">${escHtml(line)}</span>`;
+    } else if (line.startsWith('❌') || line.includes('ERROR') || line.includes('失败')) {
+      return `<span class="log-line-error">${escHtml(line)}</span>`;
+    } else {
+      return `<span class="log-line-info">${escHtml(line)}</span>`;
+    }
+  }).join('\n');
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function truncateTask(task, max = 80) {
+  if (task.length <= max) return task;
+  return task.slice(0, max) + '…';
+}
+
+function renderCard(agent) {
+  const statusClass = `status-${agent.status}`;
+  const badgeClass  = `badge-${agent.status}`;
+  const isActive    = agent.status === 'running';
+  const isDone      = agent.status === 'done';
+  const logLines    = agent.log.split('\n').length;
+  const coloredLog  = colorizeLog(agent.log);
+
+  return `
+  <div class="agent-card ${statusClass}" id="card-${agent.id}" data-id="${agent.id}">
+    <!-- Progress shimmer -->
+    <div class="card-progress">
+      <div class="card-progress-bar"></div>
+    </div>
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="status-indicator ${statusClass}">
+        <div class="status-dot"></div>
+      </div>
+      <div class="card-body">
+        <div class="agent-label">
+          ${escHtml(agent.label)}
+          <span class="status-badge ${badgeClass}">${getStatusLabel(agent.status)}</span>
+        </div>
+        <div class="task-summary" title="${escHtml(agent.task)}">${escHtml(truncateTask(agent.task))}</div>
+      </div>
+    </div>
+
+    <!-- Meta -->
+    <div class="card-meta">
+      <div class="meta-item">
+        <i class="meta-icon">⏱</i>
+        <span>${escHtml(agent.runtime)}</span>
+      </div>
+      <div class="meta-item">
+        <i class="meta-icon">📋</i>
+        <span>${logLines} 行日志</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="card-actions">
+      <button class="btn-stop" onclick="openStopModal('${agent.id}')" ${!isActive ? 'disabled' : ''}>
+        ⬛ 停止
+      </button>
+      <button class="btn-expand" id="expandBtn-${agent.id}" onclick="toggleLog('${agent.id}')">
+        <span>日志</span>
+        <i class="expand-icon">▾</i>
+      </button>
+    </div>
+
+    <!-- Log Panel -->
+    <div class="log-panel" id="log-${agent.id}">
+      <div class="log-inner">
+        <div class="log-header">
+          <span class="log-title">Process Log</span>
+          <span class="log-lines-count">${logLines} lines</span>
+        </div>
+        <div class="log-content" id="logContent-${agent.id}">${coloredLog}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderAll() {
+  const grid = document.getElementById('agentGrid');
+  if (agents.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="empty-icon">🤖</div>
+        <div class="empty-text">暂无 Agent 运行</div>
+      </div>`;
+  } else {
+    grid.innerHTML = agents.map(renderCard).join('');
+  }
+  updateStats();
+  updateTimestamp();
+}
+
+function updateStats() {
+  const running = agents.filter(a => a.status === 'running').length;
+  const done    = agents.filter(a => a.status === 'done').length;
+  const stuck   = agents.filter(a => a.status === 'timeout' || a.status === 'error').length;
+  document.getElementById('countRunning').textContent = running;
+  document.getElementById('countDone').textContent    = done;
+  document.getElementById('countStuck').textContent   = stuck;
+}
+
+function updateTimestamp() {
+  const now = new Date();
+  const hms = now.toTimeString().slice(0,8);
+  document.getElementById('lastUpdated').textContent = '更新于 ' + hms;
+}
+
+// ─────────────────────────────────────────
+//  LOG TOGGLE
+// ─────────────────────────────────────────
+function toggleLog(id) {
+  const panel = document.getElementById(`log-${id}`);
+  const btn   = document.getElementById(`expandBtn-${id}`);
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('expanded', !isOpen);
+
+  // Auto-scroll to bottom of log
+  if (!isOpen) {
+    setTimeout(() => {
+      const content = document.getElementById(`logContent-${id}`);
+      if (content) content.scrollTop = content.scrollHeight;
+    }, 320);
+  }
+}
+
+// ─────────────────────────────────────────
+//  STOP MODAL
+// ─────────────────────────────────────────
+function openStopModal(id) {
+  const agent = agents.find(a => a.id === id);
+  if (!agent) return;
+  pendingStopId = id;
+  selectedOption = null;
+  document.getElementById('modalAgentName').textContent = agent.label;
+  document.getElementById('optTakeover').classList.remove('selected');
+  document.getElementById('optTerminate').classList.remove('selected');
+  document.getElementById('btnConfirmStop').disabled = true;
+  document.getElementById('stopModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('stopModal').classList.remove('open');
+  pendingStopId = null;
+  selectedOption = null;
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('stopModal')) closeModal();
+}
+
+function selectOption(opt) {
+  selectedOption = opt;
+  document.getElementById('optTakeover').classList.toggle('selected', opt === 'takeover');
+  document.getElementById('optTerminate').classList.toggle('selected', opt === 'terminate');
+  document.getElementById('btnConfirmStop').disabled = false;
+}
+
+function confirmStop() {
+  if (!pendingStopId || !selectedOption) return;
+  const agent = agents.find(a => a.id === pendingStopId);
+  closeModal();
+
+  if (selectedOption === 'takeover') {
+    // Simulate: mark as done + update log
+    agent.status = 'done';
+    agent.log += '\n[主 Agent 接管] 任务上下文已移交，子 agent 停止运行';
+    showToast('🤝', `已停止 ${agent.label}，主 Agent 接管中`);
+  } else {
+    // Terminate: mark as error + dim card
+    agent.status = 'error';
+    agent.log += '\n[已终止] Agent 强制停止，任务进度已丢失';
+    showToast('💀', `已终止 ${agent.label}`);
+  }
+  renderAll();
+}
+
+// ─────────────────────────────────────────
+//  REFRESH
+// ─────────────────────────────────────────
+function manualRefresh() {
+  const icon = document.getElementById('refreshIcon');
+  icon.classList.add('spinning');
+
+  // Simulate async fetch — in real mode, call OpenClaw API here
+  setTimeout(() => {
+    icon.classList.remove('spinning');
+    // Simulate slight change in running agents
+    agents.forEach(a => {
+      if (a.status === 'running') {
+        // Tick up runtime for demo
+        const parts = a.runtime.match(/(\d+)m\s+(\d+)s/);
+        if (parts) {
+          let m = parseInt(parts[1]), s = parseInt(parts[2]) + 5;
+          if (s >= 60) { m++; s -= 60; }
+          a.runtime = `${m}m ${s}s`;
+          a.log += '\n...';
+        }
+      }
+    });
+    renderAll();
+    showToast('✅', '数据已刷新');
+  }, 600);
+}
+
+function toggleAutoRefresh(enabled) {
+  const cd = document.getElementById('refreshCountdown');
+  if (enabled) {
+    cd.classList.add('visible');
+    countdownVal = 10;
+    cd.textContent = `${countdownVal}s`;
+
+    countdownInterval = setInterval(() => {
+      countdownVal--;
+      if (countdownVal <= 0) {
+        countdownVal = 10;
+        manualRefresh();
+      }
+      cd.textContent = `${countdownVal}s`;
+    }, 1000);
+  } else {
+    cd.classList.remove('visible');
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+  }
+}
+
+// ─────────────────────────────────────────
+//  TOAST
+// ─────────────────────────────────────────
+function showToast(icon, message, durationMs = 3000) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<span class="toast-icon">${icon}</span><span>${escHtml(message)}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.transition = 'opacity 0.3s ease';
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 300);
+  }, durationMs);
+}
+
+// ─────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  showToast('🚀', 'OPC 工作台已就绪 · Mock 数据模式', 2500);
+});
+</script>
+</body>
+</html>

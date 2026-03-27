@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", sans-serif; background: #f0f2f5; color: #333; }
+.header { background: linear-gradient(135deg, #ff6034, #ff8c00); color: white; padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
+.api-badge { background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.4); padding: 2px 10px; border-radius: 20px; font-size: 11px; margin-left: auto; }
+.layout { display: grid; grid-template-columns: 290px 1fr 310px; gap: 14px; padding: 14px; }
+.card { background: white; border-radius: 12px; padding: 14px; box-shadow: 0 1px 5px rgba(0,0,0,.07); margin-bottom: 12px; }
+.card-title { font-size: 11px; color: #bbb; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+/* 手机 */
+.phone { width: 255px; background: #1a1a1a; border-radius: 34px; padding: 10px; box-shadow: 0 8px 30px rgba(0,0,0,.3); margin: 0 auto; }
+.phone-notch { width: 72px; height: 7px; background: #333; border-radius: 4px; margin: 0 auto 7px; }
+.phone-screen { background: white; border-radius: 24px; overflow: hidden; }
+.app-hd { background: linear-gradient(135deg, #ff6034, #ff8c00); padding: 10px 12px 8px; color: white; }
+.app-hd-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 14px; font-weight: 700; }
+.search-bar { background: rgba(255,255,255,.95); border-radius: 18px; padding: 5px 10px; font-size: 11px; color: #666; display: flex; align-items: center; gap: 5px; }
+.app-tabs { display: flex; border-bottom: 1px solid #f0f0f0; }
+.app-tab { flex: 1; text-align: center; padding: 7px 4px; font-size: 11px; color: #999; }
+.app-tab.active { color: #ff6034; border-bottom: 2px solid #ff6034; font-weight: 600; }
+.pitem { display: flex; align-items: center; gap: 7px; padding: 7px 8px; border-radius: 7px; margin: 4px 6px; border: 1px solid #f5f5f5; }
+.pitem.r1 { border-left: 3px solid #ff6034; background: #fff8f5; }
+.pitem.r2 { border-left: 3px solid #ff9500; background: #fffaf2; }
+.pitem.r3 { border-left: 3px solid #ffd600; background: #fffff5; }
+.pitem.r4, .pitem.r5 { background: #fafafa; }
+.pemoji { font-size: 20px; }
+.pname { font-size: 10px; font-weight: 500; }
+.pshop { font-size: 9px; color: #999; }
+.pprice { color: #ff6034; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.ptag { font-size: 8px; background: #fff0ec; color: #ff6034; padding: 1px 4px; border-radius: 2px; }
+.rb { background: #ff6034; color: white; font-size: 8px; padding: 1px 3px; border-radius: 2px; }
+/* 中栏 */
+.user-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.ubtn { text-align: center; padding: 10px 6px; border-radius: 10px; border: 2px solid #eee; background: white; }
+.ubtn.active { border-color: #ff6034; background: #fff0ec; }
+.ubtn-av { font-size: 22px; }
+.ubtn-nm { font-size: 12px; font-weight: 600; margin-top: 3px; }
+.ubtn-ds { font-size: 10px; color: #999; }
+.label-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lbl { font-size: 10px; padding: 2px 7px; border-radius: 20px; margin: 2px; display: inline-block; }
+.c1 { background: #f0f4ff; color: #4a6cf7; }
+.c2 { background: #fff0ec; color: #ff6034; }
+.c3 { background: #f0faf5; color: #2db47d; }
+.c4 { background: #fdf5ff; color: #9b59b6; }
+.ldim-title { font-size: 10px; color: #bbb; font-weight: 600; margin-bottom: 4px; }
+.wrow { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+.wlabel { font-size: 10px; color: #666; width: 48px; flex-shrink: 0; }
+.wtrack { flex: 1; height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
+.wbar { height: 100%; border-radius: 3px; }
+.wval { font-size: 10px; color: #999; width: 24px; text-align: right; }
+.kw-row { display: flex; gap: 6px; }
+.kw-btn { flex: 1; padding: 8px 4px; text-align: center; border-radius: 8px; border: 2px solid #eee; font-size: 12px; background: white; }
+.kw-btn.active { border-color: #ff6034; background: #ff6034; color: white; }
+/* 行为推荐 */
+.ritem { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; margin-bottom: 5px; border-left: 3px solid #ff6034; background: #fff8f5; }
+.ritem-emoji { font-size: 18px; }
+.ritem-info { flex: 1; min-width: 0; }
+.ritem-name { font-size: 11px; font-weight: 500; }
+.ritem-reason { font-size: 10px; color: #999; margin-top: 1px; }
+.ritem-price { color: #ff6034; font-size: 12px; font-weight: 700; }
+.boost-tag { font-size: 9px; background: #ff6034; color: white; padding: 1px 4px; border-radius: 3px; }
+/* 右栏 */
+.log-list { max-height: 380px; overflow: hidden; }
+.log-entry { padding: 8px 10px; border-radius: 6px; margin-bottom: 5px; border-left: 3px solid #f0f0f0; background: #fafafa; font-size: 11px; line-height: 1.5; }
+.log-entry.search { border-left-color: #4a6cf7; background: #f7f9ff; }
+.log-entry.click { border-left-color: #2db47d; background: #f5fdf9; }
+.log-entry.switch { border-left-color: #ff9500; background: #fffaf2; }
+.ltag { display: inline-block; font-size: 9px; padding: 1px 4px; border-radius: 3px; margin-left: 4px; }
+.ltag.search { background: #e8edff; color: #4a6cf7; }
+.ltag.click { background: #e8f7f0; color: #2db47d; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.stat { background: #fafafa; border-radius: 8px; padding: 8px; text-align: center; }
+.stat-num { font-size: 22px; font-weight: 700; color: #ff6034; }
+.stat-lbl { font-size: 10px; color: #999; margin-top: 2px; }
+.btag { font-size: 10px; padding: 2px 8px; border-radius: 20px; background: #fff0ec; color: #ff6034; display: inline-block; margin: 2px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <span style="font-size:22px">🛒</span>
+  <div>
+    <div style="font-size:17px;font-weight:600">画像驱动的个性化搜索 Demo v3</div>
+    <div style="font-size:11px;opacity:.85">行为数据 + 用户画像 → 动态个性化推荐</div>
+  </div>
+  <div class="api-badge">✅ Persona 真实标签接口</div>
+</div>
+
+<div class="layout">
+
+<!-- 左栏：手机预览（小美，搜索沙拉后状态） -->
+<div>
+  <div class="card">
+    <div class="card-title">📱 APP 预览（小美视角）</div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="app-hd">
+          <div class="app-hd-top"><span>🍜 美团外卖</span><span style="font-size:11px">🧕 小美</span></div>
+          <div class="search-bar">🔍 <span style="color:#333">沙拉</span> <span style="margin-left:auto;background:#ff6034;color:white;padding:2px 8px;border-radius:12px;font-size:10px">搜索</span></div>
+        </div>
+        <div class="app-tabs">
+          <div class="app-tab active">搜索结果</div>
+          <div class="app-tab">为你推荐</div>
+        </div>
+        <div style="padding: 4px 0 8px">
+          <!-- 小美搜沙拉：健康精品优先 -->
+          <div class="pitem r1"><span class="pemoji">🥗</span><div style="flex:1"><div class="pname">牛油果鸡胸肉沙拉 <span class="rb">#1</span></div><div class="pshop">超级碗</div><div><span class="ptag">高健康·精品</span></div></div><span class="pprice">¥48</span></div>
+          <div class="pitem r2"><span class="pemoji">🥗</span><div style="flex:1"><div class="pname">日式海草豆腐沙拉 <span class="rb">#2</span></div><div class="pshop">轻食工坊</div><div><span class="ptag">高健康·精品</span></div></div><span class="pprice">¥29</span></div>
+          <div class="pitem r3"><span class="pemoji">🥗</span><div style="flex:1"><div class="pname">凯撒沙拉套餐 <span class="rb">#3</span></div><div class="pshop">肥卡厨房</div><div><span class="ptag">综合</span></div></div><span class="pprice">¥21</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 中栏 -->
+<div>
+  <!-- 用户选择 -->
+  <div class="card">
+    <div class="card-title">👤 当前用户</div>
+    <div class="user-row">
+      <div class="ubtn active"><div class="ubtn-av">🧕</div><div class="ubtn-nm">小美</div><div class="ubtn-ds">白领女性</div></div>
+      <div class="ubtn"><div class="ubtn-av">🧑‍💻</div><div class="ubtn-nm">阿强</div><div class="ubtn-ds">程序员</div></div>
+      <div class="ubtn"><div class="ubtn-av">👩‍🎓</div><div class="ubtn-nm">学妹</div><div class="ubtn-ds">在校学生</div></div>
+      <div class="ubtn"><div class="ubtn-av">🧔</div><div class="ubtn-nm">老王</div><div class="ubtn-ds">中年商务</div></div>
+    </div>
+  </div>
+
+  <!-- 画像标签 -->
+  <div class="card">
+    <div class="card-title">🏷️ Persona 画像标签（真实接口）</div>
+    <div class="label-grid">
+      <div>
+        <div class="ldim-title">品类/健康偏好</div>
+        <span class="lbl c1">餐饮品类意向心智(25657)</span>
+        <span class="lbl c1">轻食偏好(24482)</span>
+        <span class="lbl c1">养生偏好(24503)</span>
+      </div>
+      <div>
+        <div class="ldim-title">消费能力</div>
+        <span class="lbl c3">消费力·高消(40301)</span>
+        <span class="lbl c3">消费力得分·高(38351)</span>
+      </div>
+      <div>
+        <div class="ldim-title">口味偏好</div>
+        <span class="lbl c4">甜味偏好(25074)</span>
+        <span class="lbl c4">清淡味</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 权重 -->
+  <div class="card">
+    <div class="card-title">⚖️ 偏好权重</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div>
+        <div class="ldim-title">健康度</div>
+        <div class="wrow"><div class="wlabel">高</div><div class="wtrack"><div class="wbar" style="width:88%;background:#2db47d"></div></div><div class="wval">2.8x</div></div>
+        <div class="wrow"><div class="wlabel">中</div><div class="wtrack"><div class="wbar" style="width:47%;background:#ffd600"></div></div><div class="wval">1.5x</div></div>
+        <div class="wrow"><div class="wlabel">低</div><div class="wtrack"><div class="wbar" style="width:22%;background:#ff6034"></div></div><div class="wval">0.7x</div></div>
+      </div>
+      <div>
+        <div class="ldim-title">价格</div>
+        <div class="wrow"><div class="wlabel">中价</div><div class="wtrack"><div class="wbar" style="width:63%;background:#ffd600"></div></div><div class="wval">2.0x</div></div>
+        <div class="wrow"><div class="wlabel">高价</div><div class="wtrack"><div class="wbar" style="width:56%;background:#ff9500"></div></div><div class="wval">1.8x</div></div>
+        <div class="wrow"><div class="wlabel">低价</div><div class="wtrack"><div class="wbar" style="width:28%;background:#ccc"></div></div><div class="wval">0.9x</div></div>
+      </div>
+      <div>
+        <div class="ldim-title">口味</div>
+        <div class="wrow"><div class="wlabel">清淡</div><div class="wtrack"><div class="wbar" style="width:100%;background:#2db47d"></div></div><div class="wval">2.0x</div></div>
+        <div class="wrow"><div class="wlabel">甜</div><div class="wtrack"><div class="wbar" style="width:90%;background:#e91e63"></div></div><div class="wval">1.8x</div></div>
+        <div class="wrow"><div class="wlabel">辣</div><div class="wtrack"><div class="wbar" style="width:30%;background:#ff6034"></div></div><div class="wval">0.6x</div></div>
+      </div>
+      <div>
+        <div class="ldim-title">品质</div>
+        <div class="wrow"><div class="wlabel">精品</div><div class="wtrack"><div class="wbar" style="width:73%;background:#9b59b6"></div></div><div class="wval">2.2x</div></div>
+        <div class="wrow"><div class="wlabel">大众</div><div class="wtrack"><div class="wbar" style="width:31%;background:#ccc"></div></div><div class="wval">1.0x</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 快捷搜索 -->
+  <div class="card">
+    <div class="card-title">🔍 快捷搜索</div>
+    <div class="kw-row">
+      <div class="kw-btn">🍔<br><span style="font-size:10px">汉堡</span></div>
+      <div class="kw-btn">🧋<br><span style="font-size:10px">奶茶</span></div>
+      <div class="kw-btn active">🥗<br><span style="font-size:10px">沙拉</span></div>
+      <div class="kw-btn">🍗<br><span style="font-size:10px">炸鸡</span></div>
+      <div class="kw-btn">🍱<br><span style="font-size:10px">米饭</span></div>
+    </div>
+  </div>
+
+  <!-- 行为增强推荐 -->
+  <div class="card">
+    <div class="card-title">🎯 行为增强推荐 <span style="font-size:10px;color:#bbb;font-weight:400">（历史点击 + Persona 标签综合）</span></div>
+    <!-- 小美历史：点了低卡鸡肉堡、藜麦鸡胸肉堡（健康精品）→ 推荐同类未看过的 -->
+    <div class="ritem">
+      <div class="ritem-emoji">🍵</div>
+      <div class="ritem-info">
+        <div class="ritem-name">低糖桂花乌龙 <span class="boost-tag">🎯推荐</span></div>
+        <div class="ritem-reason">与你点击过的健康度一致 · 精品</div>
+      </div>
+      <div class="ritem-price">¥25</div>
+    </div>
+    <div class="ritem">
+      <div class="ritem-emoji">🥗</div>
+      <div class="ritem-info">
+        <div class="ritem-name">有机糙米健康套餐</div>
+        <div class="ritem-reason">符合健康偏好 · 与历史行为相符</div>
+      </div>
+      <div class="ritem-price">¥42</div>
+    </div>
+    <div class="ritem">
+      <div class="ritem-emoji">🍵</div>
+      <div class="ritem-info">
+        <div class="ritem-name">玉露清香茉莉无糖</div>
+        <div class="ritem-reason">高健康 · 清淡味（历史偏好）</div>
+      </div>
+      <div class="ritem-price">¥30</div>
+    </div>
+    <div class="ritem">
+      <div class="ritem-emoji">🍗</div>
+      <div class="ritem-info">
+        <div class="ritem-name">烤炸鸡腿低脂版</div>
+        <div class="ritem-reason">低脂健康 · 精品品质</div>
+      </div>
+      <div class="ritem-price">¥36</div>
+    </div>
+    <div style="font-size:10px;color:#bbb;margin-top:8px;text-align:center">基于 4 次点击行为 + Persona 标签综合计算</div>
+  </div>
+</div>
+
+<!-- 右栏：行为数据记录 -->
+<div>
+  <div class="card">
+    <div class="card-title">📊 行为数据记录</div>
+    <div class="log-list">
+      <div class="log-entry click">
+        <span style="color:#bbb;font-size:10px">09:26:44</span><span class="ltag click">点击</span><br>
+        <div style="margin-top:2px"><b>🧕 小美</b> · 点击「🥗牛油果鸡胸肉沙拉」¥48</div>
+        <div style="color:#bbb;font-size:10px">健康:高 价格:中 品质:精品 口味:清淡 · 本次第1次</div>
+      </div>
+      <div class="log-entry search">
+        <span style="color:#bbb;font-size:10px">09:26:41</span><span class="ltag search">搜索</span><br>
+        <div style="margin-top:2px"><b>🧕 小美</b> · 搜索「沙拉」</div>
+        <div style="color:#bbb;font-size:10px">权重: 健康2.8x 低价0.9x 辣0.6x</div>
+      </div>
+      <div class="log-entry click">
+        <span style="color:#bbb;font-size:10px">09:26:35</span><span class="ltag click">点击</span><br>
+        <div style="margin-top:2px"><b>🧕 小美</b> · 点击「🍔黑松露安格斯牛堡」¥78</div>
+        <div style="color:#bbb;font-size:10px">健康:中 价格:高 品质:精品 口味:咸鲜 · 本次第1次</div>
+      </div>
+      <div class="log-entry click">
+        <span style="color:#bbb;font-size:10px">09:26:31</span><span class="ltag click">点击</span><br>
+        <div style="margin-top:2px"><b>🧕 小美</b> · 点击「🥗藜麦鸡胸肉堡」¥45</div>
+        <div style="color:#bbb;font-size:10px">健康:高 价格:中 品质:精品 口味:清淡 · 本次第1次</div>
+      </div>
+      <div class="log-entry click">
+        <span style="color:#bbb;font-size:10px">09:26:27</span><span class="ltag click">点击</span><br>
+        <div style="margin-top:2px"><b>🧕 小美</b> · 点击「🥙低卡鸡肉堡·全麦」¥38</div>
+        <div style="color:#bbb;font-size:10px">健康:高 价格:中 品质:精品 口味:清淡 · 本次第1次</div>
+      </div>
+      <div class="log-entry search">
+        <span style="color:#bbb;font-size:10px">09:26:22</span><span class="ltag search">搜索</span><br>
+        <div style="margin-top:2px"><b>🧕 小美</b> · 搜索「汉堡」</div>
+        <div style="color:#bbb;font-size:10px">权重: 健康2.8x 低价0.9x 辣0.6x</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📈 会话统计</div>
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">搜索次数</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">商品点击</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-lbl">用户切换</div></div>
+      <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">搜索词数</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧠 行为偏好推断</div>
+    <div>
+      <span class="btag">偏好高健康度商品×3</span>
+      <span class="btag">中价区间×3</span>
+      <span class="btag">精品品质×4</span>
+      <span class="btag">清淡/咸鲜味×4</span>
+      <span class="btag">搜过: 汉堡/沙拉</span>
+    </div>
+  </div>
+</div>
+
+</div>
+</body></html>

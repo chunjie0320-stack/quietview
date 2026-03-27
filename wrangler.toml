@@ -1,0 +1,8 @@
+name = "quietview"
+main = "worker-quietview-new.js"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "quietview-db"
+database_id = "d71bc9c0-8550-4f7b-95ea-5840eb48dd1c"

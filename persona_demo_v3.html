@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>画像驱动的个性化搜索 Demo v3</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #333; }
+
+/* ===== Header ===== */
+.header {
+  background: linear-gradient(135deg, #ff6034, #ff8c00);
+  color: white; padding: 16px 24px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 2px 8px rgba(255,96,52,0.3);
+}
+.header h1 { font-size: 18px; font-weight: 600; }
+.header .sub { font-size: 11px; opacity: .85; margin-top: 2px; }
+.api-badge { background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.4); padding: 2px 10px; border-radius: 20px; font-size: 11px; margin-left: auto; }
+
+/* ===== 三栏布局 ===== */
+.layout { display: grid; grid-template-columns: 300px 1fr 320px; gap: 16px; padding: 16px; min-height: calc(100vh - 60px); }
+
+/* ===== 通用卡片 ===== */
+.card { background: white; border-radius: 12px; padding: 14px; box-shadow: 0 1px 5px rgba(0,0,0,.07); }
+.card + .card { margin-top: 12px; }
+.card-title { font-size: 11px; color: #bbb; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+
+/* ===== 左栏：手机 APP 预览 ===== */
+.col-left { display: flex; flex-direction: column; gap: 0; }
+.col-left .card { padding: 14px 14px 10px; }
+.phone-wrap { display: flex; justify-content: center; }
+.phone {
+  width: 270px;
+  background: #1a1a1a; border-radius: 40px;
+  padding: 14px 12px 14px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.35);
+  display: inline-block;
+}
+.phone-notch { width: 80px; height: 8px; background: #333; border-radius: 4px; margin: 0 auto 8px; }
+.phone-screen {
+  background: white; border-radius: 28px;
+  overflow: hidden;
+  /* iPhone 14 Pro 比例 ~2.17:1，内容宽 246px → 高 534px */
+  height: 534px;
+  display: flex; flex-direction: column;
+}
+.app-header {
+  background: linear-gradient(135deg, #ff6034, #ff8c00);
+  padding: 12px 14px 8px;
+  color: white;
+  flex-shrink: 0;
+}
+.app-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.app-logo { font-size: 16px; font-weight: 700; }
+.app-user { font-size: 11px; opacity: .9; }
+.search-bar {
+  background: rgba(255,255,255,.95); border-radius: 20px;
+  padding: 6px 12px; display: flex; align-items: center; gap: 6px;
+  color: #999; font-size: 12px;
+}
+.search-bar input { border: none; outline: none; flex: 1; font-size: 12px; color: #333; background: transparent; }
+.search-btn { background: #ff6034; color: white; border: none; border-radius: 14px; padding: 4px 10px; font-size: 11px; cursor: pointer; }
+
+.app-tabs { display: flex; border-bottom: 1px solid #f0f0f0; flex-shrink: 0; }
+.app-tab { flex: 1; text-align: center; padding: 8px 4px; font-size: 11px; color: #999; cursor: pointer; border-bottom: 2px solid transparent; }
+.app-tab.active { color: #ff6034; border-bottom-color: #ff6034; font-weight: 600; }
+
+.app-products { padding: 8px; overflow-y: auto; flex: 1; scrollbar-width: none; }
+.app-products::-webkit-scrollbar { display: none; }
+.app-product-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px; border-radius: 8px; margin-bottom: 6px;
+  border: 1px solid #f5f5f5; cursor: pointer; transition: all .15s;
+}
+.app-product-item:hover { background: #fff8f5; border-color: #ffd0c0; }
+.app-product-item.r1 { border-left: 3px solid #ff6034; }
+.app-product-item.r2 { border-left: 3px solid #ff9500; }
+.app-product-item.r3 { border-left: 3px solid #ffd600; }
+.app-item-emoji { font-size: 22px; flex-shrink: 0; }
+.app-item-body { flex: 1; min-width: 0; }
+.app-item-name { font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.app-item-shop { font-size: 10px; color: #999; margin-top: 1px; }
+.app-item-price { color: #ff6034; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.rank-badge { background: #ff6034; color: white; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 4px; margin-left: 2px; }
+.app-item-tag { font-size: 9px; background: #fff0ec; color: #ff6034; padding: 1px 5px; border-radius: 3px; margin-top: 2px; display: inline-block; }
+.app-empty { text-align: center; padding: 30px; color: #ccc; font-size: 12px; }
+
+/* ===== 中栏：用户画像 ===== */
+.col-mid { display: flex; flex-direction: column; gap: 12px; }
+
+.user-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.user-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 10px 8px; border-radius: 10px; border: 2px solid #eee;
+  background: white; cursor: pointer; transition: all .15s;
+}
+.user-btn:hover { border-color: #ffd0c0; background: #fff8f5; }
+.user-btn.active { border-color: #ff6034; background: #fff0ec; }
+.user-btn-avatar { font-size: 24px; }
+.user-btn-name { font-size: 12px; font-weight: 600; }
+.user-btn-desc { font-size: 10px; color: #999; text-align: center; }
+
+.profile-panel { }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.label-dim { }
+.label-dim-title { font-size: 10px; color: #bbb; font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
+.labels { display: flex; flex-wrap: wrap; gap: 4px; }
+.label { font-size: 10px; padding: 2px 7px; border-radius: 20px; }
+.label.c1 { background: #f0f4ff; color: #4a6cf7; }
+.label.c2 { background: #fff0ec; color: #ff6034; }
+.label.c3 { background: #f0faf5; color: #2db47d; }
+.label.c4 { background: #fdf5ff; color: #9b59b6; }
+
+.weight-bars { }
+.weight-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.weight-label { font-size: 11px; color: #666; width: 56px; flex-shrink: 0; }
+.weight-bar-wrap { flex: 1; height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
+.weight-bar { height: 100%; border-radius: 3px; transition: width .4s; }
+.weight-val { font-size: 10px; color: #999; width: 24px; text-align: right; }
+
+.search-panel { }
+.kw-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px; }
+.kw-btn {
+  padding: 8px 4px; border-radius: 8px; border: 2px solid #eee;
+  background: white; font-size: 12px; cursor: pointer; text-align: center;
+  transition: all .15s; color: #555;
+}
+.kw-btn:hover { border-color: #ffd0c0; }
+.kw-btn.active { border-color: #ff6034; background: #ff6034; color: white; }
+
+/* 历史行为推荐区 */
+.behavior-reco { }
+.behavior-reco-list { display: flex; flex-direction: column; gap: 6px; }
+.reco-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: 8px; background: #fafafa;
+  border-left: 3px solid #ff6034;
+}
+.reco-item.behavior-boost { background: #fff8f5; border-left-color: #ff6034; }
+.reco-item.no-behavior { background: #fafafa; border-left-color: #eee; }
+.reco-emoji { font-size: 18px; }
+.reco-info { flex: 1; min-width: 0; }
+.reco-name { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reco-reason { font-size: 10px; color: #999; margin-top: 1px; }
+.reco-price { color: #ff6034; font-size: 12px; font-weight: 700; }
+.boost-tag { font-size: 9px; background: #ff6034; color: white; padding: 1px 5px; border-radius: 3px; }
+
+/* ===== 右栏：数据记录区 ===== */
+.col-right { display: flex; flex-direction: column; gap: 0; }
+.log-panel { flex: 1; display: flex; flex-direction: column; }
+.log-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.log-clear { font-size: 11px; color: #ff6034; cursor: pointer; border: 1px solid #ff6034; padding: 2px 8px; border-radius: 4px; }
+.log-list { flex: 1; overflow-y: auto; max-height: 480px; font-size: 11px; }
+.log-entry {
+  padding: 8px 10px; border-radius: 6px; margin-bottom: 5px;
+  border-left: 3px solid #f0f0f0; background: #fafafa;
+  line-height: 1.5;
+}
+.log-entry.type-search { border-left-color: #4a6cf7; background: #f7f9ff; }
+.log-entry.type-click { border-left-color: #2db47d; background: #f5fdf9; }
+.log-entry.type-switch { border-left-color: #ff9500; background: #fffaf2; }
+.log-time { color: #bbb; font-size: 10px; }
+.log-user { font-weight: 600; }
+.log-detail { color: #666; margin-top: 2px; }
+.log-tag { display: inline-block; font-size: 9px; padding: 1px 4px; border-radius: 3px; margin-left: 4px; }
+.log-tag.search { background: #e8edff; color: #4a6cf7; }
+.log-tag.click { background: #e8f7f0; color: #2db47d; }
+.log-tag.switch { background: #fff3e0; color: #ff9500; }
+
+.stats-panel { margin-top: 10px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.stat-item { background: #fafafa; border-radius: 8px; padding: 8px 10px; text-align: center; }
+.stat-num { font-size: 20px; font-weight: 700; color: #ff6034; }
+.stat-label { font-size: 10px; color: #999; margin-top: 2px; }
+
+.behavior-summary { margin-top: 10px; }
+.behavior-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.behavior-tag { font-size: 10px; padding: 2px 8px; border-radius: 20px; background: #fff0ec; color: #ff6034; }
+
+/* 响应式 */
+@media (max-width: 1200px) {
+  .layout { grid-template-columns: 260px 1fr 280px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span style="font-size:22px">🛒</span>
+  <div>
+    <div class="h1" style="font-size:17px;font-weight:600">画像驱动的个性化搜索 Demo v3</div>
+    <div class="sub">行为数据 + 用户画像 → 动态个性化推荐 · 左侧 APP 预览 · 中间画像分析 · 右侧行为记录</div>
+  </div>
+  <div class="api-badge" style="margin-left:auto">✅ Persona 真实标签接口</div>
+</div>
+
+<div class="layout">
+
+  <!-- ===== 左栏：手机 APP 预览 ===== -->
+  <div class="col-left">
+    <div class="card">
+      <div class="card-title">📱 APP 预览（模拟用户视角）</div>
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="app-header">
+              <div class="app-header-top">
+                <div class="app-logo">🍜 美团外卖</div>
+                <div class="app-user" id="appUser">请选择用户</div>
+              </div>
+              <div class="search-bar">
+                <span>🔍</span>
+                <input type="text" id="appSearchInput" placeholder="搜索美食...">
+                <button class="search-btn" onclick="doAppSearch()">搜索</button>
+              </div>
+            </div>
+            <div class="app-tabs">
+              <div class="app-tab active" onclick="switchTab('search', this)">搜索结果</div>
+              <div class="app-tab" onclick="switchTab('reco', this)">为你推荐</div>
+            </div>
+            <div class="app-products" id="appProducts">
+              <div id="appEmptyState" style="padding:14px 12px">
+                <div style="text-align:center;margin-bottom:12px">
+                  <div style="font-size:24px;margin-bottom:4px">🍜</div>
+                  <div style="font-weight:600;color:#333;font-size:12px">美团外卖</div>
+                  <div style="font-size:10px;color:#bbb;margin-top:2px">选择用户后个性化搜索</div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;justify-content:center">
+                  <span style="background:#fff0ec;color:#ff6034;font-size:9px;padding:3px 8px;border-radius:14px">🍔 汉堡</span>
+                  <span style="background:#fff0ec;color:#ff6034;font-size:9px;padding:3px 8px;border-radius:14px">🧋 奶茶</span>
+                  <span style="background:#fff0ec;color:#ff6034;font-size:9px;padding:3px 8px;border-radius:14px">🥗 沙拉</span>
+                  <span style="background:#fff0ec;color:#ff6034;font-size:9px;padding:3px 8px;border-radius:14px">🍗 炸鸡</span>
+                  <span style="background:#fff0ec;color:#ff6034;font-size:9px;padding:3px 8px;border-radius:14px">🍱 米饭</span>
+                </div>
+                <div style="background:#f7f7f7;border-radius:8px;padding:8px 10px">
+                  <div style="font-size:9px;color:#bbb;margin-bottom:5px">🔥 今日热卖</div>
+                  <div style="font-size:10px;color:#333;display:flex;justify-content:space-between;margin-bottom:4px"><span>🍔 麦辣鸡腿堡套餐</span><span style="color:#ff6034;font-weight:600">¥19.9</span></div>
+                  <div style="font-size:10px;color:#333;display:flex;justify-content:space-between;margin-bottom:4px"><span>🧋 黑糖珍珠波波奶茶</span><span style="color:#ff6034;font-weight:600">¥22</span></div>
+                  <div style="font-size:10px;color:#333;display:flex;justify-content:space-between;margin-bottom:4px"><span>🥗 牛油果鸡胸肉沙拉</span><span style="color:#ff6034;font-weight:600">¥48</span></div>
+                  <div style="font-size:10px;color:#333;display:flex;justify-content:space-between"><span>🍗 香脆炸鸡桶10件</span><span style="color:#ff6034;font-weight:600">¥39.9</span></div>
+                </div>
+                <div style="margin-top:10px;background:#f7f7f7;border-radius:8px;padding:8px 10px">
+                  <div style="font-size:9px;color:#bbb;margin-bottom:5px">⭐ 猜你喜欢</div>
+                  <div style="font-size:10px;color:#333;display:flex;justify-content:space-between;margin-bottom:4px"><span>🍱 招牌黑椒牛肉饭</span><span style="color:#ff6034;font-weight:600">¥26</span></div>
+                  <div style="font-size:10px;color:#333;display:flex;justify-content:space-between"><span>🧋 原味珍珠奶茶大杯</span><span style="color:#ff6034;font-weight:600">¥6</span></div>
+                </div>
+              </div>
+            </div>
+            <!-- 底部导航栏 -->
+            <div style="display:flex;border-top:1px solid #f0f0f0;flex-shrink:0;background:white;padding:4px 0 2px">
+              <div style="flex:1;text-align:center;font-size:9px;color:#ff6034"><div style="font-size:14px;line-height:1.4">🏠</div>首页</div>
+              <div style="flex:1;text-align:center;font-size:9px;color:#bbb"><div style="font-size:14px;line-height:1.4">🔍</div>发现</div>
+              <div style="flex:1;text-align:center;font-size:9px;color:#bbb"><div style="font-size:14px;line-height:1.4">🛒</div>订单</div>
+              <div style="flex:1;text-align:center;font-size:9px;color:#bbb"><div style="font-size:14px;line-height:1.4">👤</div>我的</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 中栏：用户画像 + 搜索控制 ===== -->
+  <div class="col-mid">
+
+    <!-- 用户选择 -->
+    <div class="card">
+      <div class="card-title">👤 切换用户</div>
+      <div class="user-selector" id="userSelector"></div>
+    </div>
+
+    <!-- 画像标签 -->
+    <div class="card" id="profileCard">
+      <div class="card-title">🏷️ Persona 画像标签（真实接口）</div>
+      <div id="profileContent" style="color:#ccc;font-size:12px;text-align:center;padding:20px">选择用户后加载画像</div>
+    </div>
+
+    <!-- 偏好权重可视化 -->
+    <div class="card" id="weightCard">
+      <div class="card-title">⚖️ 偏好权重（排序依据）</div>
+      <div id="weightContent" style="color:#ccc;font-size:12px;text-align:center;padding:16px">选择用户后展示</div>
+    </div>
+
+    <!-- 关键词搜索 -->
+    <div class="card">
+      <div class="card-title">🔍 快速搜索</div>
+      <div class="kw-grid" id="kwGrid"></div>
+    </div>
+
+    <!-- 基于行为的推荐 -->
+    <div class="card">
+      <div class="card-title">🎯 行为增强推荐 <span style="font-size:10px;color:#bbb;font-weight:400">（结合历史点击 + 画像标签）</span></div>
+      <div id="behaviorReco" style="color:#ccc;font-size:12px;text-align:center;padding:16px">搜索并点击商品后，生成个性化推荐</div>
+    </div>
+
+  </div>
+
+  <!-- ===== 右栏：数据记录区 ===== -->
+  <div class="col-right">
+    <div class="card log-panel">
+      <div class="log-header">
+        <div class="card-title" style="margin-bottom:0">📊 行为数据记录</div>
+        <span class="log-clear" onclick="clearLog()">清空</span>
+      </div>
+      <div class="log-list" id="logList">
+        <div style="color:#ccc;font-size:11px;text-align:center;padding:20px">操作后此处记录行为数据</div>
+      </div>
+    </div>
+
+    <div class="card stats-panel">
+      <div class="card-title">📈 会话统计</div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-num" id="statSearch">0</div><div class="stat-label">搜索次数</div></div>
+        <div class="stat-item"><div class="stat-num" id="statClick">0</div><div class="stat-label">商品点击</div></div>
+        <div class="stat-item"><div class="stat-num" id="statSwitch">0</div><div class="stat-label">用户切换</div></div>
+        <div class="stat-item"><div class="stat-num" id="statKw">0</div><div class="stat-label">搜索词数</div></div>
+      </div>
+    </div>
+
+    <div class="card behavior-summary">
+      <div class="card-title">🧠 行为偏好推断</div>
+      <div id="behaviorInfer" style="color:#ccc;font-size:11px;text-align:center;padding:12px">暂无行为数据</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// 数据：4类用户画像（基于 Persona 真实标签 ID）
+// ============================================================
+const USERS = [
+  {
+    id: 'xiamei', name: '小美', avatar: '🧕', desc: '白领女性',
+    color: '#4a6cf7',
+    personaLabels: {
+      '品类/健康偏好': { color:'c1', labels:['餐饮品类意向心智(25657)', '轻食偏好(24482)', '养生偏好(24503)'] },
+      '消费能力':      { color:'c3', labels:['消费力·高消(40301)', '消费力得分·高(38351)'] },
+      '口味偏好':      { color:'c4', labels:['甜味偏好(25074)', '清淡味'] },
+    },
+    weights: {
+      health:  { 高:2.8, 中:1.5, 低:0.7 },
+      price:   { 低:0.9, 中:2.0, 高:1.8 },
+      quality: { 精品:2.2, 大众:1.0 },
+      taste:   { 清淡:2.0, 甜:1.8, 辣:0.6, 咸鲜:1.2 },
+    }
+  },
+  {
+    id: 'aqiang', name: '阿强', avatar: '🧑‍💻', desc: '程序员',
+    color: '#ff9500',
+    personaLabels: {
+      '优惠敏感度': { color:'c2', labels:['近90天优惠敏感度(16346)', '优惠敏感度(33785)'] },
+      '品类/频次':  { color:'c1', labels:['外卖到餐品类(17974)', '购买频次·高频(19936)'] },
+      '口味偏好':   { color:'c4', labels:['麻辣味偏好(25062)'] },
+    },
+    weights: {
+      health:  { 高:0.8, 中:1.3, 低:1.8 },
+      price:   { 低:2.8, 中:1.6, 高:0.5 },
+      quality: { 精品:0.8, 大众:2.2 },
+      taste:   { 清淡:0.8, 甜:0.9, 辣:2.5, 咸鲜:1.8 },
+    }
+  },
+  {
+    id: 'xuemei', name: '学妹', avatar: '👩‍🎓', desc: '在校学生',
+    color: '#2db47d',
+    personaLabels: {
+      '奶茶偏好':  { color:'c4', labels:['奶茶偏好人群(24476)', '奶茶品类偏好强度·高(25517)'] },
+      '优惠敏感':  { color:'c2', labels:['优惠敏感·极敏感(33785)'] },
+      '消费能力':  { color:'c3', labels:['全景消费GMV·低消(27610)'] },
+      '口味偏好':  { color:'c1', labels:['甜味(25074)', '奥尔良味(25070)'] },
+    },
+    weights: {
+      health:  { 高:1.0, 中:1.4, 低:2.0 },
+      price:   { 低:3.2, 中:1.3, 高:0.3 },
+      quality: { 精品:0.7, 大众:2.8 },
+      taste:   { 清淡:0.8, 甜:2.6, 辣:1.4, 咸鲜:1.0 },
+    }
+  },
+  {
+    id: 'laowang', name: '老王', avatar: '🧔', desc: '中年商务',
+    color: '#9b59b6',
+    personaLabels: {
+      '消费能力':  { color:'c4', labels:['消费力·超高消(38351)', '消费排名Top10%(38350)'] },
+      '品类偏好':  { color:'c1', labels:['近30天外卖品类偏好(16650)'] },
+      '口味/活跃': { color:'c2', labels:['麻辣味偏好(25062)', '奥尔良味(25070)', '活跃用户(14409)'] },
+    },
+    weights: {
+      health:  { 高:1.5, 中:1.2, 低:1.0 },
+      price:   { 低:0.6, 中:1.4, 高:2.8 },
+      quality: { 精品:3.0, 大众:0.9 },
+      taste:   { 清淡:0.9, 甜:0.8, 辣:2.2, 咸鲜:2.0 },
+    }
+  }
+];
+
+// ============================================================
+// 商品数据（22件，4维标签）
+// ============================================================
+const PRODUCTS = [
+  { id:1,  emoji:'🍔', name:'麦辣鸡腿堡套餐',   shop:'麦当劳',        price:19.9, sales:5200,  keywords:['汉堡','快餐','鸡腿'], tags:{health:'低',price:'低',quality:'大众',taste:'辣'} },
+  { id:2,  emoji:'🍔', name:'黑松露安格斯牛堡',   shop:'汉克斯精品汉堡', price:78,   sales:280,   keywords:['汉堡','牛肉','精品'], tags:{health:'中',price:'高',quality:'精品',taste:'咸鲜'} },
+  { id:3,  emoji:'🥙', name:'低卡鸡肉堡·全麦',  shop:'轻食工坊',       price:38,   sales:760,   keywords:['汉堡','低卡','健康','轻食'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:4,  emoji:'🍔', name:'香辣双层牛肉堡',    shop:'汉堡王',         price:29.9, sales:3100,  keywords:['汉堡','牛肉','辣'], tags:{health:'低',price:'低',quality:'大众',taste:'辣'} },
+  { id:5,  emoji:'🥗', name:'藜麦鸡胸肉堡',     shop:'FitFood',        price:45,   sales:520,   keywords:['汉堡','鸡胸肉','健身','健康'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:6,  emoji:'🍔', name:'学生超值三件套',    shop:'口福快餐',        price:14.9, sales:6800,  keywords:['汉堡','超值','学生'], tags:{health:'低',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:7,  emoji:'🧋', name:'黑糖珍珠波波奶茶',  shop:'茶百道',          price:22,   sales:9200,  keywords:['奶茶','黑糖','珍珠','甜'], tags:{health:'低',price:'中',quality:'大众',taste:'甜'} },
+  { id:8,  emoji:'🍵', name:'玉露清香茉莉无糖',  shop:'喜茶',            price:30,   sales:2100,  keywords:['奶茶','无糖','茶','健康'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:9,  emoji:'🧋', name:'原味珍珠奶茶大杯',  shop:'蜜雪冰城',        price:6,    sales:15000, keywords:['奶茶','珍珠','便宜','甜'], tags:{health:'低',price:'低',quality:'大众',taste:'甜'} },
+  { id:10, emoji:'🍓', name:'芝士草莓多肉拿铁',  shop:'奈雪的茶',        price:38,   sales:1400,  keywords:['奶茶','草莓','芝士','精品'], tags:{health:'低',price:'高',quality:'精品',taste:'甜'} },
+  { id:11, emoji:'🍵', name:'低糖桂花乌龙',     shop:'霸王茶姬',         price:25,   sales:3300,  keywords:['奶茶','低糖','清香','健康'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:12, emoji:'🥗', name:'牛油果鸡胸肉沙拉',  shop:'超级碗',           price:48,   sales:580,   keywords:['沙拉','健康','减脂','轻食'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:13, emoji:'🥗', name:'日式海草豆腐沙拉',  shop:'轻食工坊',        price:29,   sales:380,   keywords:['沙拉','健康','日式','素食'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:14, emoji:'🥗', name:'凯撒沙拉套餐',     shop:'肥卡厨房',         price:21,   sales:1300,  keywords:['沙拉','套餐'], tags:{health:'中',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:15, emoji:'🍗', name:'香脆炸鸡桶10件',   shop:'肯德基',            price:39.9, sales:7200,  keywords:['炸鸡','香脆','套餐'], tags:{health:'低',price:'中',quality:'大众',taste:'咸鲜'} },
+  { id:16, emoji:'🍗', name:'韩式酱香炸鸡半只',  shop:'bb.q CHICKEN',      price:99,   sales:380,   keywords:['炸鸡','韩式','辣','精品'], tags:{health:'低',price:'高',quality:'精品',taste:'辣'} },
+  { id:17, emoji:'🍗', name:'2件套学生价',      shop:'华莱士',             price:12.9, sales:11000, keywords:['炸鸡','超值','便宜','学生'], tags:{health:'低',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:18, emoji:'🍗', name:'烤炸鸡腿低脂版',   shop:'FitFood',            price:36,   sales:490,   keywords:['炸鸡','健康','低脂','健身'], tags:{health:'高',price:'中',quality:'精品',taste:'咸鲜'} },
+  { id:19, emoji:'🍱', name:'招牌黑椒牛肉饭',   shop:'饭扫光',             price:26,   sales:3200,  keywords:['米饭','牛肉','盖饭'], tags:{health:'中',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:20, emoji:'🥗', name:'有机糙米健康套餐',  shop:'轻食工坊',           price:42,   sales:350,   keywords:['米饭','健康','有机','糙米'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:21, emoji:'🍱', name:'学生快手拌饭',     shop:'食堂来了',            price:10.9, sales:9800,  keywords:['米饭','拌饭','学生','便宜'], tags:{health:'低',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:22, emoji:'🍱', name:'烤鸭精品套餐',     shop:'全聚德外卖',          price:88,   sales:420,   keywords:['米饭','烤鸭','精品'], tags:{health:'中',price:'高',quality:'精品',taste:'咸鲜'} },
+];
+
+const KEYWORDS = [
+  {kw:'汉堡',emoji:'🍔'},{kw:'奶茶',emoji:'🧋'},{kw:'沙拉',emoji:'🥗'},
+  {kw:'炸鸡',emoji:'🍗'},{kw:'米饭',emoji:'🍱'},
+];
+
+// ============================================================
+// 全局状态
+// ============================================================
+let currentUser = null;
+let currentKw = null;
+let currentTab = 'search';
+const behaviorLog = [];       // 行为日志
+const clickedProducts = {};   // { userId -> { productId: count } }
+const searchHistory = {};     // { userId -> [kw, ...] }
+const stats = { search: 0, click: 0, switch: 0, kw: new Set() };
+
+// ============================================================
+// 工具函数
+// ============================================================
+function now() {
+  return new Date().toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+}
+
+function scoreProduct(p, user, behaviorBoost = 0) {
+  const w = user.weights;
+  let s = 1.0;
+  s *= (w.health[p.tags.health] || 1.0);
+  s *= (w.price[p.tags.price] || 1.0);
+  s *= (w.quality[p.tags.quality] || 1.0);
+  s *= (w.taste[p.tags.taste] || 1.0);
+  s *= (1 + Math.log10(p.sales + 1) * 0.04);
+  s += behaviorBoost;
+  return s;
+}
+
+function getReason(p, user) {
+  const w = user.weights;
+  const r = [];
+  if ((w.health[p.tags.health]||1) > 2.0) r.push(p.tags.health + '健康');
+  if ((w.price[p.tags.price]||1) > 2.0) r.push(p.tags.price + '价');
+  if ((w.quality[p.tags.quality]||1) > 2.0) r.push(p.tags.quality);
+  if ((w.taste[p.tags.taste]||1) > 2.0) r.push(p.tags.taste + '味');
+  return r.slice(0, 2).join('·') || '综合';
+}
+
+// ============================================================
+// 行为记录
+// ============================================================
+function addLog(type, user, detail, extra) {
+  const entry = { type, user: user.name, detail, extra, time: now() };
+  behaviorLog.unshift(entry);
+
+  const typeMap = { search:'搜索', click:'点击', switch:'切换用户' };
+  const tagClass = type;
+  const tagText = typeMap[type] || type;
+
+  const div = document.createElement('div');
+  div.className = `log-entry type-${type}`;
+  div.innerHTML = `
+    <span class="log-time">${entry.time}</span>
+    <span class="log-tag ${tagClass}">${tagText}</span><br>
+    <div class="log-detail"><b>${user.avatar} ${user.name}</b> · ${detail}</div>
+    ${extra ? `<div style="color:#bbb;font-size:10px;margin-top:2px">${extra}</div>` : ''}
+  `;
+
+  const list = document.getElementById('logList');
+  if (list.firstChild && list.firstChild.style && !list.firstChild.style) return;
+  if (list.innerHTML.includes('操作后此处')) list.innerHTML = '';
+  list.insertBefore(div, list.firstChild);
+
+  updateStats();
+  updateBehaviorInfer();
+}
+
+function updateStats() {
+  document.getElementById('statSearch').textContent = stats.search;
+  document.getElementById('statClick').textContent = stats.click;
+  document.getElementById('statSwitch').textContent = stats.switch;
+  document.getElementById('statKw').textContent = stats.kw.size;
+}
+
+function updateBehaviorInfer() {
+  if (!currentUser) return;
+  const uid = currentUser.id;
+  const clicks = clickedProducts[uid] || {};
+  const searches = searchHistory[uid] || [];
+
+  if (Object.keys(clicks).length === 0 && searches.length === 0) {
+    document.getElementById('behaviorInfer').innerHTML = '<span style="color:#ccc">暂无行为数据</span>';
+    return;
+  }
+
+  // 从点击记录推断偏好
+  const clickedList = Object.entries(clicks).sort((a,b)=>b[1]-a[1]).map(([id]) => PRODUCTS.find(p=>p.id===parseInt(id))).filter(Boolean);
+  const healthPref = {}, pricePref = {}, tastePref = {};
+  clickedList.forEach(p => {
+    healthPref[p.tags.health] = (healthPref[p.tags.health]||0) + 1;
+    pricePref[p.tags.price] = (pricePref[p.tags.price]||0) + 1;
+    tastePref[p.tags.taste] = (tastePref[p.tags.taste]||0) + 1;
+  });
+
+  const topHealth = Object.entries(healthPref).sort((a,b)=>b[1]-a[1])[0];
+  const topPrice  = Object.entries(pricePref).sort((a,b)=>b[1]-a[1])[0];
+  const topTaste  = Object.entries(tastePref).sort((a,b)=>b[1]-a[1])[0];
+
+  const tags = [];
+  if (topHealth) tags.push(`偏好${topHealth[0]}健康度商品×${topHealth[1]}`);
+  if (topPrice) tags.push(`${topPrice[0]}价区间×${topPrice[1]}`);
+  if (topTaste) tags.push(`${topTaste[0]}味偏好×${topTaste[1]}`);
+  if (searches.length) tags.push(`搜过: ${[...new Set(searches)].slice(-3).join('/')}`);
+
+  document.getElementById('behaviorInfer').innerHTML =
+    `<div class="behavior-tags">${tags.map(t=>`<span class="behavior-tag">${t}</span>`).join('')}</div>`;
+}
+
+function clearLog() {
+  document.getElementById('logList').innerHTML = '<div style="color:#ccc;font-size:11px;text-align:center;padding:20px">操作后此处记录行为数据</div>';
+  stats.search = 0; stats.click = 0; stats.switch = 0; stats.kw = new Set();
+  Object.keys(clickedProducts).forEach(k => delete clickedProducts[k]);
+  Object.keys(searchHistory).forEach(k => delete searchHistory[k]);
+  updateStats();
+  document.getElementById('behaviorInfer').innerHTML = '<span style="color:#ccc">暂无行为数据</span>';
+  document.getElementById('behaviorReco').innerHTML = '<div style="color:#ccc;font-size:12px;text-align:center;padding:16px">搜索并点击商品后，生成个性化推荐</div>';
+}
+
+// ============================================================
+// 渲染用户选择器
+// ============================================================
+function renderUserSelector() {
+  document.getElementById('userSelector').innerHTML = USERS.map(u => `
+    <button class="user-btn" id="ubtn-${u.id}" onclick="selectUser('${u.id}')">
+      <span class="user-btn-avatar">${u.avatar}</span>
+      <div class="user-btn-name">${u.name}</div>
+      <div class="user-btn-desc">${u.desc}</div>
+    </button>
+  `).join('');
+}
+
+// ============================================================
+// 选择用户
+// ============================================================
+function selectUser(userId) {
+  const user = USERS.find(u => u.id === userId);
+  if (!user) return;
+
+  const prevUser = currentUser;
+  currentUser = user;
+
+  document.querySelectorAll('.user-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`ubtn-${userId}`).classList.add('active');
+  document.getElementById('appUser').textContent = `${user.avatar} ${user.name}`;
+  document.getElementById('appSearchInput').placeholder = `搜索${user.name}喜欢的...`;
+
+  if (prevUser && prevUser.id !== userId) {
+    stats.switch++;
+    addLog('switch', user, `从 ${prevUser.avatar}${prevUser.name} 切换到 ${user.avatar}${user.name}`, `偏好: 健康${user.weights.health['高']}x / 低价${user.weights.price['低']}x / 辣味${user.weights.taste['辣']}x`);
+  }
+
+  renderProfile(user);
+  renderWeights(user);
+  updateBehaviorInfer();
+
+  // 刷新当前搜索结果
+  if (currentKw) doSearch(currentKw);
+  if (currentTab === 'reco') renderRecoTab();
+}
+
+// ============================================================
+// 渲染画像标签
+// ============================================================
+function renderProfile(user) {
+  const html = Object.entries(user.personaLabels).map(([dim, {color, labels}]) => `
+    <div class="label-dim" style="margin-bottom:10px">
+      <div class="label-dim-title">${dim}</div>
+      <div class="labels">${labels.map(l => `<span class="label ${color}">${l}</span>`).join('')}</div>
+    </div>
+  `).join('');
+  document.getElementById('profileContent').innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">${
+    Object.entries(user.personaLabels).map(([dim, {color, labels}]) => `
+      <div>
+        <div class="label-dim-title" style="font-size:10px;color:#bbb;font-weight:600;margin-bottom:4px">${dim}</div>
+        <div class="labels">${labels.map(l=>`<span class="label ${color}">${l}</span>`).join('')}</div>
+      </div>
+    `).join('')
+  }</div>`;
+}
+
+// ============================================================
+// 渲染权重条
+// ============================================================
+function renderWeights(user) {
+  const w = user.weights;
+  const dims = [
+    { label:'健康度', vals: w.health,  max: 3.2, pairs:[['高','#2db47d'],['中','#ffd600'],['低','#ff6034']] },
+    { label:'价格',   vals: w.price,   max: 3.2, pairs:[['低','#2db47d'],['中','#ffd600'],['高','#ff6034']] },
+    { label:'品质',   vals: w.quality, max: 3.2, pairs:[['精品','#9b59b6'],['大众','#ff9500']] },
+    { label:'口味',   vals: w.taste,   max: 3.0, pairs:[['辣','#ff6034'],['咸鲜','#ff9500'],['清淡','#2db47d'],['甜','#e91e63']] },
+  ];
+  document.getElementById('weightContent').innerHTML = dims.map(d => `
+    <div style="margin-bottom:8px">
+      <div style="font-size:10px;color:#bbb;margin-bottom:4px">${d.label}</div>
+      ${d.pairs.map(([k, c]) => `
+        <div class="weight-row">
+          <div class="weight-label" style="font-size:10px">${k}</div>
+          <div class="weight-bar-wrap">
+            <div class="weight-bar" style="width:${Math.min(100, ((d.vals[k]||0)/d.max)*100)}%;background:${c}"></div>
+          </div>
+          <div class="weight-val">${(d.vals[k]||0).toFixed(1)}x</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// 关键词按钮
+// ============================================================
+function renderKeywords() {
+  document.getElementById('kwGrid').innerHTML = KEYWORDS.map(k => `
+    <button class="kw-btn" id="kbtn-${k.kw}" onclick="doSearch('${k.kw}')">
+      ${k.emoji}<br><span style="font-size:11px">${k.kw}</span>
+    </button>
+  `).join('');
+}
+
+// ============================================================
+// 搜索逻辑
+// ============================================================
+function doSearch(kw) {
+  if (!currentUser) {
+    alert('请先选择用户！');
+    return;
+  }
+  currentKw = kw;
+  currentTab = 'search';
+
+  // 更新按钮
+  document.querySelectorAll('.kw-btn').forEach(b => b.classList.remove('active'));
+  const kb = document.getElementById(`kbtn-${kw}`);
+  if (kb) kb.classList.add('active');
+  document.getElementById('appSearchInput').value = kw;
+
+  // 更新 tab
+  document.querySelectorAll('.app-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('.app-tab').classList.add('active');
+
+  // 记录行为
+  stats.search++;
+  stats.kw.add(kw);
+  if (!searchHistory[currentUser.id]) searchHistory[currentUser.id] = [];
+  searchHistory[currentUser.id].push(kw);
+
+  addLog('search', currentUser, `搜索「${kw}」`, `权重: 健康${currentUser.weights.health['高']}x 低价${currentUser.weights.price['低']}x 辣${currentUser.weights.taste['辣']}x`);
+
+  // 过滤 + 排序
+  const matched = PRODUCTS.filter(p => p.keywords.some(k2 => k2.includes(kw) || kw.includes(k2)));
+  const uid = currentUser.id;
+  const clicks = clickedProducts[uid] || {};
+
+  const ranked = matched.map(p => {
+    const clickBoost = (clicks[p.id] || 0) * 0.3;
+    return { ...p, score: scoreProduct(p, currentUser, clickBoost), reason: getReason(p, currentUser) };
+  }).sort((a, b) => b.score - a.score);
+
+  renderAppProducts(ranked);
+  renderBehaviorReco();
+  updateBehaviorInfer();
+}
+
+function doAppSearch() {
+  const val = document.getElementById('appSearchInput').value.trim();
+  if (!val) return;
+  // 尝试匹配关键词
+  const found = KEYWORDS.find(k => k.kw === val || val.includes(k.kw));
+  if (found) doSearch(found.kw);
+  else {
+    // 自由搜索
+    if (!currentUser) { alert('请先选择用户！'); return; }
+    currentKw = val;
+    stats.search++;
+    stats.kw.add(val);
+    if (!searchHistory[currentUser.id]) searchHistory[currentUser.id] = [];
+    searchHistory[currentUser.id].push(val);
+    addLog('search', currentUser, `搜索「${val}」（自由搜索）`, '');
+    const matched = PRODUCTS.filter(p => p.name.includes(val) || p.keywords.some(k=>k.includes(val)));
+    const ranked = matched.map(p => ({...p, score:scoreProduct(p,currentUser,0), reason:getReason(p,currentUser)})).sort((a,b)=>b.score-a.score);
+    renderAppProducts(ranked);
+  }
+}
+
+// ============================================================
+// 渲染 APP 商品列表
+// ============================================================
+function renderAppProducts(ranked) {
+  const es = document.getElementById('appEmptyState');
+  if (es) es.style.display = 'none';
+  if (!ranked.length) {
+    document.getElementById('appProducts').innerHTML = '<div class="app-empty">😕 没有匹配商品</div>';
+    return;
+  }
+  document.getElementById('appProducts').innerHTML = ranked.map((p, i) => `
+    <div class="app-product-item r${i+1}" onclick="clickProduct(${p.id})">
+      <div class="app-item-emoji">${p.emoji}</div>
+      <div class="app-item-body">
+        <div class="app-item-name">${p.name} ${i<3?`<span class="rank-badge">#${i+1}</span>`:''}</div>
+        <div class="app-item-shop">${p.shop}</div>
+        <div><span class="app-item-tag">${p.reason}</span></div>
+      </div>
+      <div class="app-item-price">¥${p.price}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// 点击商品
+// ============================================================
+function clickProduct(productId) {
+  if (!currentUser) return;
+  const p = PRODUCTS.find(p => p.id === productId);
+  if (!p) return;
+  const uid = currentUser.id;
+  if (!clickedProducts[uid]) clickedProducts[uid] = {};
+  clickedProducts[uid][productId] = (clickedProducts[uid][productId] || 0) + 1;
+
+  stats.click++;
+  addLog('click', currentUser, `点击「${p.emoji}${p.name}」¥${p.price}`,
+    `健康:${p.tags.health} 价格:${p.tags.price} 品质:${p.tags.quality} 口味:${p.tags.taste} · 本次第${clickedProducts[uid][productId]}次`);
+
+  // 刷新行为推荐
+  renderBehaviorReco();
+  updateBehaviorInfer();
+
+  // 视觉反馈
+  const items = document.querySelectorAll('.app-product-item');
+  items.forEach(item => {
+    if (item.getAttribute('onclick') === `clickProduct(${productId})`) {
+      item.style.background = '#e8f5e9';
+      setTimeout(() => { item.style.background = ''; }, 600);
+    }
+  });
+}
+
+// ============================================================
+// 行为增强推荐（结合历史点击 + 标签权重）
+// ============================================================
+function renderBehaviorReco() {
+  if (!currentUser) return;
+  const uid = currentUser.id;
+  const clicks = clickedProducts[uid] || {};
+
+  if (Object.keys(clicks).length === 0) {
+    document.getElementById('behaviorReco').innerHTML =
+      '<div style="color:#ccc;font-size:12px;text-align:center;padding:16px">点击商品后，此处生成行为增强推荐</div>';
+    return;
+  }
+
+  // 推断用户实时偏好（从点击历史）
+  const clickedList = Object.entries(clicks).map(([id, cnt]) => ({p: PRODUCTS.find(p=>p.id===parseInt(id)), cnt})).filter(x=>x.p);
+  const healthCount = {}, priceCount = {}, tasteCount = {}, qualityCount = {};
+  clickedList.forEach(({p, cnt}) => {
+    healthCount[p.tags.health] = (healthCount[p.tags.health]||0) + cnt;
+    priceCount[p.tags.price] = (priceCount[p.tags.price]||0) + cnt;
+    tasteCount[p.tags.taste] = (tasteCount[p.tags.taste]||0) + cnt;
+    qualityCount[p.tags.quality] = (qualityCount[p.tags.quality]||0) + cnt;
+  });
+
+  // 动态权重 = 标签权重 * 0.6 + 行为推断权重 * 0.4
+  function behaviorWeight(dim, val) {
+    const total = Object.values(dim).reduce((a,b)=>a+b,0)||1;
+    return (dim[val]||0) / total;
+  }
+
+  const clickedIds = new Set(Object.keys(clicks).map(Number));
+  const scored = PRODUCTS
+    .filter(p => !clickedIds.has(p.id)) // 过滤已点击过的
+    .map(p => {
+      const baseScore = scoreProduct(p, currentUser, 0);
+      const behaviorBoost =
+        behaviorWeight(healthCount, p.tags.health) * 1.5 +
+        behaviorWeight(priceCount, p.tags.price) * 1.5 +
+        behaviorWeight(tasteCount, p.tags.taste) * 1.2 +
+        behaviorWeight(qualityCount, p.tags.quality) * 1.0;
+      const finalScore = baseScore * 0.6 + behaviorBoost * 3.0;
+      const reasons = [];
+      if (behaviorWeight(healthCount, p.tags.health) > 0.4) reasons.push('与你点击过的健康度一致');
+      if (behaviorWeight(priceCount, p.tags.price) > 0.4) reasons.push('符合你的价格偏好');
+      if (behaviorWeight(tasteCount, p.tags.taste) > 0.4) reasons.push('口味与历史相符');
+      const reasonText = reasons[0] || '综合画像 + 行为推断';
+      return { ...p, finalScore, reasonText };
+    })
+    .sort((a, b) => b.finalScore - a.finalScore)
+    .slice(0, 4);
+
+  if (!scored.length) {
+    document.getElementById('behaviorReco').innerHTML = '<div style="color:#ccc;font-size:12px;text-align:center;padding:16px">暂无可推荐商品（已浏览全部）</div>';
+    return;
+  }
+
+  document.getElementById('behaviorReco').innerHTML = `
+    <div class="behavior-reco-list">
+      ${scored.map((p,i) => `
+        <div class="reco-item behavior-boost" onclick="clickProduct(${p.id})">
+          <div class="reco-emoji">${p.emoji}</div>
+          <div class="reco-info">
+            <div class="reco-name">${p.name}</div>
+            <div class="reco-reason">${p.reasonText}</div>
+          </div>
+          <div>
+            <div class="reco-price">¥${p.price}</div>
+            ${i===0?'<div style="text-align:right"><span class="boost-tag">🎯推荐</span></div>':''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="font-size:10px;color:#bbb;margin-top:8px;text-align:center">基于 ${Object.values(clicks).reduce((a,b)=>a+b,0)} 次点击行为 + Persona 标签综合计算</div>
+  `;
+}
+
+// ============================================================
+// "为你推荐" tab
+// ============================================================
+function switchTab(tab, el) {
+  currentTab = tab;
+  document.querySelectorAll('.app-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  if (tab === 'reco') renderRecoTab();
+  else if (currentKw) doSearch(currentKw);
+  else document.getElementById('appProducts').innerHTML = '<div class="app-empty">👆 点击关键词搜索</div>';
+}
+
+function renderRecoTab() {
+  if (!currentUser) {
+    document.getElementById('appProducts').innerHTML = '<div class="app-empty">请先选择用户</div>';
+    return;
+  }
+  const uid = currentUser.id;
+  const clicks = clickedProducts[uid] || {};
+  const clickedIds = new Set(Object.keys(clicks).map(Number));
+
+  // 全量商品，基于画像 + 行为排序
+  const scored = PRODUCTS.map(p => {
+    const clickBoost = (clicks[p.id]||0) * 0.4;
+    return { ...p, score: scoreProduct(p, currentUser, clickBoost), reason: getReason(p, currentUser) };
+  }).sort((a,b) => b.score - a.score).slice(0, 8);
+
+  document.getElementById('appProducts').innerHTML = scored.map((p, i) => `
+    <div class="app-product-item r${Math.min(i+1,6)}" onclick="clickProduct(${p.id})">
+      <div class="app-item-emoji">${p.emoji}</div>
+      <div class="app-item-body">
+        <div class="app-item-name">${p.name} ${i<3?`<span class="rank-badge">#${i+1}</span>`:''} ${clicks[p.id]?`<span style="font-size:9px;background:#e8f5e9;color:#2db47d;padding:1px 4px;border-radius:3px">看过${clicks[p.id]}次</span>`:''}</div>
+        <div class="app-item-shop">${p.shop}</div>
+        <div><span class="app-item-tag">${p.reason}</span></div>
+      </div>
+      <div class="app-item-price">¥${p.price}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// 初始化
+// ============================================================
+renderUserSelector();
+renderKeywords();
+</script>
+</body>
+</html>

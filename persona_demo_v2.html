@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'PingFang SC', -apple-system, sans-serif; background: #f5f6fa; padding: 24px; }
+
+h2 { text-align: center; color: #ff6034; font-size: 22px; margin-bottom: 6px; }
+.subtitle { text-align: center; color: #999; font-size: 13px; margin-bottom: 24px; }
+.keyword-tag { display: inline-block; background: #ff6034; color: white; padding: 2px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+.api-tag { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+
+.users-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+.user-card { background: white; border-radius: 12px; padding: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+.user-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.user-avatar { font-size: 28px; }
+.user-name { font-weight: 600; font-size: 14px; }
+.user-desc { color: #999; font-size: 11px; margin-top: 1px; }
+
+.label-section { margin-top: 8px; }
+.label-section-title { font-size: 10px; color: #bbb; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+.labels { display: flex; flex-wrap: wrap; gap: 4px; }
+.label { font-size: 10px; padding: 2px 7px; border-radius: 20px; }
+.label.dim1 { background: #f0f4ff; color: #4a6cf7; }
+.label.dim2 { background: #fff0ec; color: #ff6034; }
+.label.dim3 { background: #f0faf5; color: #2db47d; }
+.label.dim4 { background: #fdf5ff; color: #9b59b6; }
+
+.keywords-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.kw-btn { padding: 6px 16px; border-radius: 20px; border: 2px solid #e8e8e8; background: white; font-size: 13px; cursor: pointer; font-weight: 500; transition: all .15s; color: #555; }
+.kw-btn.active { border-color: #ff6034; background: #ff6034; color: white; }
+
+.results-section { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+.results-title { font-size: 13px; color: #888; margin-bottom: 14px; }
+.results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+.result-col-header { display: flex; align-items: center; gap: 6px; padding-bottom: 8px; border-bottom: 2px solid #f5f5f5; margin-bottom: 10px; font-size: 13px; font-weight: 600; }
+.result-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; border-left: 3px solid #f0f0f0; }
+.result-item.r1 { background: #fff8f5; border-left-color: #ff6034; }
+.result-item.r2 { background: #fffaf2; border-left-color: #ff9500; }
+.result-item.r3 { background: #fffff5; border-left-color: #ffd600; }
+.result-item.r4, .result-item.r5, .result-item.r6 { background: #fafafa; }
+
+.rank-dot { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; color: #999; background: #f0f0f0; }
+.r1 .rank-dot { background: #ff6034; color: white; }
+.r2 .rank-dot { background: #ff9500; color: white; }
+.r3 .rank-dot { background: #ffd600; color: #333; }
+
+.item-emoji { font-size: 16px; flex-shrink: 0; }
+.item-info { flex: 1; min-width: 0; }
+.item-name { font-size: 11px; color: #333; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item-price { color: #ff6034; font-size: 12px; font-weight: 600; margin-top: 1px; }
+.item-reason { color: #bbb; font-size: 10px; font-weight: 400; }
+
+.insight-section { background: linear-gradient(135deg, #fff8f5, #fff); border: 1px solid #ffe0d6; border-radius: 10px; padding: 14px 18px; margin-top: 14px; font-size: 13px; color: #555; line-height: 1.9; }
+.highlight { color: #ff6034; font-weight: 600; }
+.diff-marker { display: inline-block; background: #ffe0d6; color: #ff6034; padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; margin: 0 2px; }
+</style>
+</head><body>
+
+<h2>🛒 画像驱动的个性化搜索 Demo v2</h2>
+<div class="subtitle">基于 <span class="api-tag">✅ Persona 真实标签</span> 重构的人群 &amp; Mock 商品数据 · 4维标签驱动排序</div>
+
+<div class="users-grid" id="usersGrid"></div>
+<div class="keywords-row" id="keywordsRow"></div>
+
+<div class="results-section">
+  <div class="results-title" id="resultsTitle">点击上方关键词查看个性化排序对比</div>
+  <div class="results-grid" id="resultsGrid"></div>
+  <div class="insight-section" id="insightSection" style="display:none"></div>
+</div>
+
+<script>
+const USERS = [
+  {
+    id: 'xiamei', name: '小美', avatar: '🧕', desc: '一线城市 · 白领女性',
+    personaLabels: {
+      '品类/健康偏好': ['餐饮品类意向心智(25657)', '轻食偏好人群(24482)', '养生偏好人群(24503)'],
+      '消费能力': ['消费力分层·高消(40301)', '消费力总得分·高(38351)'],
+      '口味偏好': ['甜味偏好(25074)', '清淡味'],
+    },
+    weights: {
+      health: { 高:2.8, 中:1.5, 低:0.7 },
+      price:  { 低:0.9, 中:2.0, 高:1.8 },
+      quality:{ 精品:2.2, 大众:1.0 },
+      taste:  { 清淡:2.0, 甜:1.8, 辣:0.6, 咸鲜:1.2 },
+    }
+  },
+  {
+    id: 'aqiang', name: '阿强', avatar: '🧑‍💻', desc: '二线城市 · 程序员',
+    personaLabels: {
+      '优惠敏感度': ['近90天交易优惠敏感度(16346)', '优惠敏感度(33785)'],
+      '品类偏好': ['近90天外卖到餐品类下单(17974)', '购买频次分层·高频(19936)'],
+      '口味偏好': ['麻辣味偏好人群(25062)'],
+    },
+    weights: {
+      health: { 高:0.8, 中:1.3, 低:1.8 },
+      price:  { 低:2.8, 中:1.6, 高:0.5 },
+      quality:{ 精品:0.8, 大众:2.2 },
+      taste:  { 清淡:0.8, 甜:0.9, 辣:2.5, 咸鲜:1.8 },
+    }
+  },
+  {
+    id: 'xuemei', name: '学妹', avatar: '👩‍🎓', desc: '三线城市 · 在校学生',
+    personaLabels: {
+      '奶茶偏好': ['奶茶偏好人群(24476)', '奶茶品类偏好强度·高(25517)'],
+      '优惠敏感': ['优惠敏感度·极敏感(33785)'],
+      '消费能力': ['全景年度消费GMV·低消(27610)'],
+      '口味偏好': ['甜味偏好(25074)', '奥尔良味(25070)'],
+    },
+    weights: {
+      health: { 高:1.0, 中:1.4, 低:2.0 },
+      price:  { 低:3.2, 中:1.3, 高:0.3 },
+      quality:{ 精品:0.7, 大众:2.8 },
+      taste:  { 清淡:0.8, 甜:2.6, 辣:1.4, 咸鲜:1.0 },
+    }
+  },
+  {
+    id: 'laowang', name: '老王', avatar: '🧔', desc: '一线城市 · 中年商务',
+    personaLabels: {
+      '消费能力': ['消费力总得分·超高消(38351)', '消费力排名指数·Top10%(38350)'],
+      '品类偏好': ['最近30天外卖二级品类偏好(16650)'],
+      '口味偏好': ['麻辣味偏好(25062)', '奥尔良味偏好(25070)'],
+      '活跃度': ['活跃用户·末单0-21天(14409)'],
+    },
+    weights: {
+      health: { 高:1.5, 中:1.2, 低:1.0 },
+      price:  { 低:0.6, 中:1.4, 高:2.8 },
+      quality:{ 精品:3.0, 大众:0.9 },
+      taste:  { 清淡:0.9, 甜:0.8, 辣:2.2, 咸鲜:2.0 },
+    }
+  }
+];
+
+const PRODUCTS = [
+  { id:1,  emoji:'🍔', name:'麦辣鸡腿堡套餐',   shop:'麦当劳',       price:19.9, rating:4.8, sales:5200,  keywords:['汉堡','快餐','鸡腿'], tags:{health:'低',price:'低',quality:'大众',taste:'辣'} },
+  { id:2,  emoji:'🍔', name:'黑松露安格斯牛堡',  shop:'汉克斯精品汉堡',price:78,   rating:4.9, sales:280,   keywords:['汉堡','牛肉','精品'], tags:{health:'中',price:'高',quality:'精品',taste:'咸鲜'} },
+  { id:3,  emoji:'🥙', name:'低卡鸡肉堡·全麦', shop:'轻食工坊',      price:38,   rating:4.7, sales:760,   keywords:['汉堡','低卡','健康','轻食'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:4,  emoji:'🍔', name:'香辣双层牛肉堡',   shop:'汉堡王',       price:29.9, rating:4.6, sales:3100,  keywords:['汉堡','牛肉','辣'], tags:{health:'低',price:'低',quality:'大众',taste:'辣'} },
+  { id:5,  emoji:'🥗', name:'藜麦鸡胸肉堡',    shop:'FitFood健身餐', price:45,   rating:4.8, sales:520,   keywords:['汉堡','鸡胸肉','健身','健康'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:6,  emoji:'🍔', name:'学生超值三件套',   shop:'口福快餐',      price:14.9, rating:4.3, sales:6800,  keywords:['汉堡','超值','学生'], tags:{health:'低',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:7,  emoji:'🧋', name:'黑糖珍珠波波奶茶', shop:'茶百道',        price:22,   rating:4.9, sales:9200,  keywords:['奶茶','黑糖','珍珠','甜'], tags:{health:'低',price:'中',quality:'大众',taste:'甜'} },
+  { id:8,  emoji:'🍵', name:'玉露清香茉莉无糖', shop:'喜茶',          price:30,   rating:4.8, sales:2100,  keywords:['奶茶','无糖','茶','健康'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:9,  emoji:'🧋', name:'原味珍珠奶茶大杯', shop:'蜜雪冰城',      price:6,    rating:4.4, sales:15000, keywords:['奶茶','珍珠','便宜','甜'], tags:{health:'低',price:'低',quality:'大众',taste:'甜'} },
+  { id:10, emoji:'🍓', name:'芝士草莓多肉拿铁', shop:'奈雪的茶',      price:38,   rating:4.9, sales:1400,  keywords:['奶茶','草莓','芝士','精品'], tags:{health:'低',price:'高',quality:'精品',taste:'甜'} },
+  { id:11, emoji:'🍵', name:'低糖桂花乌龙',    shop:'霸王茶姬',      price:25,   rating:4.8, sales:3300,  keywords:['奶茶','低糖','清香','健康'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:12, emoji:'🥗', name:'牛油果鸡胸肉沙拉', shop:'超级碗',        price:48,   rating:4.9, sales:580,   keywords:['沙拉','健康','减脂','轻食'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:13, emoji:'🥗', name:'日式海草豆腐沙拉', shop:'轻食工坊',      price:29,   rating:4.7, sales:380,   keywords:['沙拉','健康','日式','素食'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:14, emoji:'🥗', name:'凯撒沙拉套餐',    shop:'肥卡厨房',      price:21,   rating:4.4, sales:1300,  keywords:['沙拉','套餐'], tags:{health:'中',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:15, emoji:'🍗', name:'香脆炸鸡桶10件',  shop:'肯德基',        price:39.9, rating:4.7, sales:7200,  keywords:['炸鸡','香脆','套餐'], tags:{health:'低',price:'中',quality:'大众',taste:'咸鲜'} },
+  { id:16, emoji:'🍗', name:'韩式酱香炸鸡半只',shop:'bb.q CHICKEN',  price:99,   rating:4.9, sales:380,   keywords:['炸鸡','韩式','辣','精品'], tags:{health:'低',price:'高',quality:'精品',taste:'辣'} },
+  { id:17, emoji:'🍗', name:'2件套学生价',     shop:'华莱士',        price:12.9, rating:4.2, sales:11000, keywords:['炸鸡','超值','便宜','学生'], tags:{health:'低',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:18, emoji:'🍗', name:'烤炸鸡腿低脂版',  shop:'FitFood',       price:36,   rating:4.8, sales:490,   keywords:['炸鸡','健康','低脂','健身'], tags:{health:'高',price:'中',quality:'精品',taste:'咸鲜'} },
+  { id:19, emoji:'🍱', name:'招牌黑椒牛肉饭',  shop:'饭扫光',        price:26,   rating:4.6, sales:3200,  keywords:['米饭','牛肉','盖饭'], tags:{health:'中',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:20, emoji:'🥗', name:'有机糙米健康套餐', shop:'轻食工坊',      price:42,   rating:4.8, sales:350,   keywords:['米饭','健康','有机','糙米'], tags:{health:'高',price:'中',quality:'精品',taste:'清淡'} },
+  { id:21, emoji:'🍱', name:'学生快手拌饭',    shop:'食堂来了',      price:10.9, rating:4.1, sales:9800,  keywords:['米饭','拌饭','学生','便宜'], tags:{health:'低',price:'低',quality:'大众',taste:'咸鲜'} },
+  { id:22, emoji:'🍱', name:'烤鸭精品套餐',    shop:'全聚德外卖',    price:88,   rating:4.9, sales:420,   keywords:['米饭','烤鸭','精品'], tags:{health:'中',price:'高',quality:'精品',taste:'咸鲜'} },
+];
+
+const KEYWORDS = [
+  {kw:'汉堡',emoji:'🍔'}, {kw:'奶茶',emoji:'🧋'}, {kw:'沙拉',emoji:'🥗'},
+  {kw:'炸鸡',emoji:'🍗'}, {kw:'米饭',emoji:'🍱'},
+];
+
+function renderUsers() {
+  const dimColors = ['dim1','dim2','dim3','dim4'];
+  document.getElementById('usersGrid').innerHTML = USERS.map(u => `
+    <div class="user-card">
+      <div class="user-header">
+        <span class="user-avatar">${u.avatar}</span>
+        <div><div class="user-name">${u.name}</div><div class="user-desc">${u.desc}</div></div>
+      </div>
+      ${Object.entries(u.personaLabels).map(([dim,labels],di)=>`
+        <div class="label-section">
+          <div class="label-section-title">${dim}</div>
+          <div class="labels">${labels.map(l=>`<span class="label ${dimColors[di]}">${l}</span>`).join('')}</div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function renderKeywords() {
+  document.getElementById('keywordsRow').innerHTML = KEYWORDS.map(k=>
+    `<button class="kw-btn" onclick="doSearch('${k.kw}')">${k.emoji} ${k.kw}</button>`).join('');
+}
+
+function scoreProduct(p, user) {
+  const w = user.weights;
+  let s = 1.0;
+  s *= (w.health[p.tags.health]||1.0);
+  s *= (w.price[p.tags.price]||1.0);
+  s *= (w.quality[p.tags.quality]||1.0);
+  s *= (w.taste[p.tags.taste]||1.0);
+  s *= (1 + Math.log10(p.sales+1)*0.04);
+  return s;
+}
+
+function getReason(p, user) {
+  const w = user.weights;
+  const reasons = [];
+  if ((w.health[p.tags.health]||1)>2.0) reasons.push(p.tags.health+'健康');
+  if ((w.price[p.tags.price]||1)>2.0) reasons.push(p.tags.price+'价');
+  if ((w.quality[p.tags.quality]||1)>2.0) reasons.push(p.tags.quality);
+  if ((w.taste[p.tags.taste]||1)>2.0) reasons.push(p.tags.taste+'味');
+  return reasons.slice(0,2).join('·') || '综合';
+}
+
+function doSearch(kw) {
+  document.querySelectorAll('.kw-btn').forEach(btn=>btn.classList.toggle('active', btn.textContent.includes(kw)));
+  const matched = PRODUCTS.filter(p=>p.keywords.some(k=>k.includes(kw)||kw.includes(k)));
+  if (!matched.length) return;
+
+  const allRanked = USERS.map(u=>({
+    user: u,
+    ranked: [...matched].map(p=>({...p, score:scoreProduct(p,u), reason:getReason(p,u)})).sort((a,b)=>b.score-a.score)
+  }));
+
+  document.getElementById('resultsTitle').textContent = `搜索「${kw}」匹配 ${matched.length} 件商品 · 4位用户个性化排序对比（同一商品池，结果各不同）`;
+
+  document.getElementById('resultsGrid').innerHTML = allRanked.map(({user,ranked})=>`
+    <div class="result-col">
+      <div class="result-col-header"><span>${user.avatar}</span><span>${user.name}</span><span style="color:#bbb;font-size:11px;font-weight:400">${user.desc}</span></div>
+      ${ranked.map((p,i)=>`
+        <div class="result-item r${i+1}">
+          <div class="rank-dot">${i+1}</div>
+          <div class="item-emoji">${p.emoji}</div>
+          <div class="item-info">
+            <div class="item-name" title="${p.name}">${p.name}</div>
+            <div class="item-price">¥${p.price} <span class="item-reason">${p.reason}</span></div>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+
+  const tops = allRanked.map(({user,ranked})=>({user,top:ranked[0]}));
+  const uniqueTops = [...new Set(tops.map(t=>t.top.name))];
+  let insight = `💡 <b>洞察</b>：搜索「${kw}」—— `;
+  insight += tops.map(({user,top})=>`<span class="highlight">${user.avatar}${user.name}</span> 首推 <span class="diff-marker">${top.name} ¥${top.price}</span>（${top.reason}）`).join('；');
+  insight += '。';
+  if (uniqueTops.length > 1) {
+    insight += `<br>🎯 <b>4人首推各不相同</b>，同关键词呈现差异化结果——这正是 Persona 标签驱动个性化排序的核心价值。`;
+  }
+  insight += `<br><span style="color:#bbb;font-size:11px">标签维度：健康度·价格敏感·品质偏好·口味偏好 | 标签 ID 均来自 Persona 真实接口 | 商品数据 Mock</span>`;
+
+  document.getElementById('insightSection').innerHTML = insight;
+  document.getElementById('insightSection').style.display = 'block';
+}
+
+renderUsers();
+renderKeywords();
+setTimeout(()=>doSearch('汉堡'), 50);
+</script>
+</body></html>

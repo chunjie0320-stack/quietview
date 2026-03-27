@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>quietview.me — 投资</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1a1a1a;
+    --muted: #666;
+    --light: #999;
+    --highlight: #0052cc;
+    --bg: #fafafa;
+    --sidebar-bg: #ffffff;
+    --border: #e8e8e8;
+    --card-bg: #ffffff;
+    --sidebar-w: 200px;
+
+    /* source colors */
+    --c-caitangping: #e07b39;
+    --c-zhuoge: #2e7d32;
+    --c-zhongjin: #1565c0;
+    --c-fangwei: #6a1b9a;
+    --c-liuyuhui: #c62828;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-size: 14px;
+    color: var(--primary);
+    background: var(--bg);
+    line-height: 1.65;
+  }
+
+  /* ── Layout ── */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .site-brand {
+    padding: 20px 18px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    user-select: none;
+  }
+
+  .nav-section {
+    padding: 8px 0;
+  }
+
+  .nav-group-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 0;
+  }
+  .nav-group-label:hover { background: #f5f5f5; }
+  .nav-group-label.active { color: var(--highlight); }
+  .nav-group-label.collapsed { color: var(--light); font-weight: 500; }
+
+  .nav-arrow {
+    font-size: 10px;
+    color: var(--light);
+    transition: transform 0.2s;
+  }
+  .nav-group-label.collapsed .nav-arrow { transform: rotate(-90deg); }
+
+  .nav-children {
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .nav-children.collapsed-children { max-height: 0 !important; }
+
+  .nav-item {
+    display: block;
+    padding: 5px 18px 5px 30px;
+    font-size: 12.5px;
+    color: var(--light);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border-left: 2px solid transparent;
+  }
+  .nav-item:hover { color: var(--muted); background: #f7f7f7; }
+  .nav-item.active {
+    color: var(--highlight);
+    font-weight: 600;
+    border-left: 2px solid var(--highlight);
+    background: #f0f4ff;
+  }
+  .nav-item.dev { color: #c5c5c5; cursor: default; }
+  .nav-item.dev:hover { background: transparent; color: #c5c5c5; }
+
+  /* ── Main ── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-width: 0;
+    padding: 36px 48px 60px;
+    max-width: 860px;
+  }
+
+  /* ── Page header ── */
+  .page-header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+  }
+  .page-subtitle {
+    margin-top: 4px;
+    font-size: 12.5px;
+    color: var(--light);
+  }
+
+  /* ── Date group ── */
+  .date-group { margin-bottom: 32px; }
+
+  .date-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--light);
+  }
+  .date-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    padding-left: 22px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  /* ── Card ── */
+  .card-wrap {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .card-wrap::before {
+    content: '';
+    position: absolute;
+    left: -17px;
+    top: 14px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .card-wrap:hover::before { border-color: var(--highlight); }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-color: #d0d0d0;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    gap: 8px;
+  }
+
+  .card-time-source {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--light);
+  }
+  .card-time { font-variant-numeric: tabular-nums; }
+  .card-dot { color: #ccc; }
+
+  .source-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 3px;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .card-summary {
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-summary.no-summary {
+    color: var(--light);
+    font-style: italic;
+  }
+
+  /* ── Yesterday toggle ── */
+  .yesterday-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 8px;
+  }
+  .yesterday-toggle .date-label { margin-bottom: 0; flex: 1; }
+  .toggle-btn {
+    font-size: 11px;
+    color: var(--light);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .toggle-btn:hover { background: #f0f0f0; color: var(--muted); }
+
+  /* collapsed yesterday */
+  .yesterday-content { overflow: hidden; transition: max-height 0.3s ease; }
+
+  /* ── Mobile hamburger ── */
+  .hamburger {
+    display: none;
+    position: fixed;
+    top: 12px; left: 12px;
+    z-index: 200;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 99;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    .hamburger { display: block; }
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay.open { display: block; }
+    .main {
+      margin-left: 0;
+      padding: 60px 18px 48px;
+    }
+  }
+
+  @media (max-width: 1000px) and (min-width: 701px) {
+    .main { padding: 30px 28px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile hamburger -->
+<button class="hamburger" id="hamburger" aria-label="菜单">☰</button>
+<div class="sidebar-overlay" id="overlay"></div>
+
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="site-brand">quietview.me</div>
+
+    <div class="nav-section">
+
+      <!-- 投资 group -->
+      <div class="nav-group-label active" id="grp-invest" onclick="toggleGroup('invest')">
+        <span>投资</span>
+        <span class="nav-arrow" id="arrow-invest">▾</span>
+      </div>
+      <div class="nav-children" id="children-invest" style="max-height:200px">
+        <span class="nav-item dev">行情看板</span>
+        <span class="nav-item dev">资讯</span>
+        <span class="nav-item active" id="nav-voices">行业声音</span>
+        <span class="nav-item dev">每日简报</span>
+      </div>
+
+      <!-- 成长 group -->
+      <div class="nav-group-label collapsed" id="grp-growth" onclick="toggleGroup('growth')">
+        <span>成长</span>
+        <span class="nav-arrow" id="arrow-growth">▾</span>
+      </div>
+      <div class="nav-children collapsed-children" id="children-growth" style="max-height:0">
+        <span class="nav-item dev">读书笔记</span>
+        <span class="nav-item dev">复盘日记</span>
+      </div>
+
+      <!-- AI group -->
+      <div class="nav-group-label collapsed" id="grp-ai" onclick="toggleGroup('ai')">
+        <span>AI</span>
+        <span class="nav-arrow" id="arrow-ai">▾</span>
+      </div>
+      <div class="nav-children collapsed-children" id="children-ai" style="max-height:0">
+        <span class="nav-item dev">工具导航</span>
+        <span class="nav-item dev">提示词库</span>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ── Main content ── -->
+  <main class="main">
+    <div class="page-header">
+      <div class="page-title">行业声音</div>
+      <div class="page-subtitle">来自各位老师的最新观点</div>
+    </div>
+
+    <!-- ══ TODAY 2026-03-25 ══ -->
+    <div class="date-group">
+      <div class="date-label">今日 · 2026-03-25</div>
+
+      <div class="timeline" id="timeline-today">
+
+        <!-- 1. 财躺平 17:01 -->
+        <div class="card-wrap">
+          <div class="card">
+            <div class="card-meta">
+              <div class="card-time-source">
+                <span class="card-time">17:01</span>
+                <span class="card-dot">·</span>
+                <span>财躺平</span>
+              </div>
+              <span class="source-tag" style="background:var(--c-caitangping)">财躺平</span>
+            </div>
+            <div class="card-title">犹豫中的复苏</div>
+            <div class="card-summary">今天A股还不错，灾后重建式的上涨比下跌慢，还可能反复磨底。周四周五熬过去，下周会好一些。不能割肉，要乐观。均衡配置下跌时也安心——煤炭今天跌了但三月整体涨了很多。市场就像阻尼振动：不要因为自己的股票不是涨得最好的而PUA自己，每个板块有自己的节奏。</div>
+          </div>
+        </div>
+
+        <!-- 2. 卓哥投研笔记 13:56 -->
+        <div class="card-wrap">
+          <div class="card">
+            <div class="card-meta">
+              <div class="card-time-source">
+                <span class="card-time">13:56</span>
+                <span class="card-dot">·</span>
+                <span>卓哥投研笔记</span>
+              </div>
+              <span class="source-tag" style="background:var(--c-zhuoge)">卓哥投研笔记</span>
+            </div>
+            <div class="card-title">美团迎来解放军</div>
+            <div class="card-summary">经济日报发文《外卖大战该结束了》，被市监转发，措辞极严厉，直指与中央提振消费背道而驰。外卖大战三宗原罪：导致通缩（餐饮价格打回10年前）、内卷（商家牺牲品质）、影响就业。预计三家平台都要挨罚，但各有轻重。</div>
+          </div>
+        </div>
+
+        <!-- 3. 方伟看十年 09:30 -->
+        <div class="card-wrap">
+          <div class="card">
+            <div class="card-meta">
+              <div class="card-time-source">
+                <span class="card-time">09:30</span>
+                <span class="card-dot">·</span>
+                <span>方伟看十年</span>
+              </div>
+              <span class="source-tag" style="background:var(--c-fangwei)">方伟看十年</span>
+            </div>
+            <div class="card-title">"贵"就是错</div>
+            <div class="card-summary">估值的核心逻辑——"贵"本身就是风险，无论标的多优质。<span style="color:var(--light);font-size:12px">（原文需扫码查看）</span></div>
+          </div>
+        </div>
+
+        <!-- 4. 中金点睛 07:35 — 油价 -->
+        <div class="card-wrap">
+          <div class="card">
+            <div class="card-meta">
+              <div class="card-time-source">
+                <span class="card-time">07:35</span>
+                <span class="card-dot">·</span>
+                <span>中金点睛</span>
+              </div>
+              <span class="source-tag" style="background:var(--c-zhongjin)">中金点睛</span>
+            </div>
+            <div class="card-title">油价冲击会导致央行加息潮吗？</div>
+            <div class="card-summary">伊朗局势升级推动油价再涨，欧美央行"超级央行周"集体释放鹰派信号，市场加息预期升温。中金认为：市场存在明显预期差——"大缓和"后地缘冲突的二次通胀效应已大幅下降，本轮油价冲击对美联储决策的意义更多源于金融市场脆弱性，而非滞胀风险本身。</div>
+          </div>
+        </div>
+
+        <!-- 5. 中金点睛 07:35 — 农牧业 -->
+        <div class="card-wrap">
+          <div class="card">
+            <div class="card-meta">
+              <div class="card-time-source">
+                <span class="card-time">07:35</span>
+                <span class="card-dot">·</span>
+                <span>中金点睛</span>
+              </div>
+              <span class="source-tag" style="background:var(--c-zhongjin)">中金点睛</span>
+            </div>
+            <div class="card-title">中国农牧业大航海时代</div>
+            <div class="card-summary">中国农牧业下半场：从国内存量博弈走向全球价值链重构。中国农牧龙头凭借极致成本效率向亚非拉输出，饲料/养殖出海空间巨大（亚非拉饲料市场近5亿吨），当地集中度极低（CR5仅6.6%），中国龙头具备先发优势。</div>
+          </div>
+        </div>
+
+        <!-- 6. 中金点睛 07:35 — AI游戏 -->
+        <div class="card-wrap">
+          <div class="card">
+            <div class="card-meta">
+              <div class="card-time-source">
+                <span class="card-time">07:35</span>
+                <span class="card-dot">·</span>
+                <span>中金点睛</span>
+              </div>
+              <span class="source-tag" style="background:var(--c-zhongjin)">中金点睛</span>
+            </div>
+            <div class="card-title">AI对游戏行业的影响</div>
+            <div class="card-summary">市场高估了AI模型对游戏产业的短期颠覆力，低估其长期赋能价值。Genie3等世界模型本质是内容生成工具，未触及游戏核心（玩法设计/数值平衡/长线运营）。头部游戏厂商内容护城河仍强，外包美术/音频/代码环节面临冲击，利润池向创意与管理上游迁移。</div>
+          </div>
+        </div>
+
+      </div><!-- /timeline-today -->
+    </div><!-- /date-group today -->
+
+
+    <!-- ══ YESTERDAY 2026-03-24 — collapsible ══ -->
+    <div class="date-group">
+      <div class="yesterday-toggle" onclick="toggleYesterday()">
+        <div class="date-label" style="flex:1;margin-bottom:0">昨日 · 2026-03-24</div>
+        <button class="toggle-btn" id="yday-btn">收起 ▴</button>
+      </div>
+
+      <div class="yesterday-content" id="yesterday-content" style="max-height:600px">
+        <div class="timeline" style="margin-top:12px">
+
+          <!-- 财躺平 17:03 -->
+          <div class="card-wrap">
+            <div class="card">
+              <div class="card-meta">
+                <div class="card-time-source">
+                  <span class="card-time">17:03</span>
+                  <span class="card-dot">·</span>
+                  <span>财躺平</span>
+                </div>
+                <span class="source-tag" style="background:var(--c-caitangping)">财躺平</span>
+              </div>
+              <div class="card-title">嗯</div>
+              <div class="card-summary no-summary">原文极短，暂无摘要。</div>
+            </div>
+          </div>
+
+          <!-- 方伟看十年 09:30 -->
+          <div class="card-wrap">
+            <div class="card">
+              <div class="card-meta">
+                <div class="card-time-source">
+                  <span class="card-time">09:30</span>
+                  <span class="card-dot">·</span>
+                  <span>方伟看十年</span>
+                </div>
+                <span class="source-tag" style="background:var(--c-fangwei)">方伟看十年</span>
+              </div>
+              <div class="card-title">为什么说茅台的商业模式在很多方面比可乐好？</div>
+              <div class="card-summary no-summary">暂无摘要。</div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /yesterday-content -->
+    </div><!-- /date-group yesterday -->
+
+  </main>
+</div><!-- /layout -->
+
+<script>
+  /* ── Nav group toggle ── */
+  function toggleGroup(id) {
+    const children = document.getElementById('children-' + id);
+    const arrow = document.getElementById('arrow-' + id);
+    const label = document.getElementById('grp-' + id);
+
+    const isCollapsed = children.classList.contains('collapsed-children');
+    if (isCollapsed) {
+      children.style.maxHeight = children.scrollHeight + 'px';
+      children.classList.remove('collapsed-children');
+      label.classList.remove('collapsed');
+      if (id === 'invest') label.classList.add('active');
+    } else {
+      children.style.maxHeight = '0px';
+      children.classList.add('collapsed-children');
+      label.classList.remove('active');
+      label.classList.add('collapsed');
+    }
+  }
+
+  /* ── Yesterday toggle ── */
+  let ydayOpen = true;
+  function toggleYesterday() {
+    const content = document.getElementById('yesterday-content');
+    const btn = document.getElementById('yday-btn');
+    if (ydayOpen) {
+      content.style.maxHeight = '0';
+      btn.textContent = '展开 ▾';
+    } else {
+      content.style.maxHeight = content.scrollHeight + 120 + 'px';
+      btn.textContent = '收起 ▴';
+    }
+    ydayOpen = !ydayOpen;
+  }
+
+  /* ── Mobile sidebar ── */
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+
+  /* ── Trim overflow summaries as safety net ── */
+  document.querySelectorAll('.card-summary:not(.no-summary)').forEach(el => {
+    const maxLen = 220;
+    if (el.textContent.trim().length > maxLen) {
+      el.textContent = el.textContent.trim().slice(0, maxLen) + '…';
+    }
+  });
+</script>
+</body>
+</html>

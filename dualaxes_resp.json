@@ -1,0 +1,1033 @@
+{
+  "code": 0,
+  "msg": null,
+  "data": {
+    "dataList": [
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "205",
+          "showValue": "205"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.012821396567174468",
+          "showValue": "0.012821396567174468"
+        },
+        "日(id)-wcA6": {
+          "value": "20260215",
+          "showValue": "20260215"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "14507",
+          "showValue": "14507"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "935",
+          "showValue": "935"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "24",
+          "showValue": "24"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.0019457055498934494",
+          "showValue": "0.0019457055498934494"
+        },
+        "日(id)-wcA6": {
+          "value": "20260216",
+          "showValue": "20260216"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "10793",
+          "showValue": "10793"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "439",
+          "showValue": "439"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "18",
+          "showValue": "18"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.001412180052956752",
+          "showValue": "0.001412180052956752"
+        },
+        "日(id)-wcA6": {
+          "value": "20260217",
+          "showValue": "20260217"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "11330",
+          "showValue": "11330"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "491",
+          "showValue": "491"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "21",
+          "showValue": "21"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.0015705435825844167",
+          "showValue": "0.0015705435825844167"
+        },
+        "日(id)-wcA6": {
+          "value": "20260218",
+          "showValue": "20260218"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "11461",
+          "showValue": "11461"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "531",
+          "showValue": "531"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "213",
+          "showValue": "213"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "1.0453690152623876E-4",
+          "showValue": "1.0453690152623876E-4"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.0102446163495714",
+          "showValue": "0.0102446163495714"
+        },
+        "日(id)-wcA6": {
+          "value": "20260219",
+          "showValue": "20260219"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "2",
+          "showValue": "2"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "19132",
+          "showValue": "19132"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1018",
+          "showValue": "1018"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "193",
+          "showValue": "193"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "5.8878944889307586E-5",
+          "showValue": "5.8878944889307586E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.009950541686292981",
+          "showValue": "0.009950541686292981"
+        },
+        "日(id)-wcA6": {
+          "value": "20260220",
+          "showValue": "20260220"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "1",
+          "showValue": "1"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16984",
+          "showValue": "16984"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1014",
+          "showValue": "1014"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "287",
+          "showValue": "287"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.015120071153276016",
+          "showValue": "0.015120071153276016"
+        },
+        "日(id)-wcA6": {
+          "value": "20260221",
+          "showValue": "20260221"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16865",
+          "showValue": "16865"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1059",
+          "showValue": "1059"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "256",
+          "showValue": "256"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.014472225643552161",
+          "showValue": "0.014472225643552161"
+        },
+        "日(id)-wcA6": {
+          "value": "20260222",
+          "showValue": "20260222"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16238",
+          "showValue": "16238"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1095",
+          "showValue": "1095"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "311",
+          "showValue": "311"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.015672273992496672",
+          "showValue": "0.015672273992496672"
+        },
+        "日(id)-wcA6": {
+          "value": "20260223",
+          "showValue": "20260223"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16526",
+          "showValue": "16526"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1195",
+          "showValue": "1195"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "349",
+          "showValue": "349"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "6.0860568437709206E-5",
+          "showValue": "6.0860568437709206E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.01904935792100298",
+          "showValue": "0.01904935792100298"
+        },
+        "日(id)-wcA6": {
+          "value": "20260224",
+          "showValue": "20260224"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "1",
+          "showValue": "1"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16431",
+          "showValue": "16431"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1143",
+          "showValue": "1143"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "197",
+          "showValue": "197"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.011513714866237725",
+          "showValue": "0.011513714866237725"
+        },
+        "日(id)-wcA6": {
+          "value": "20260225",
+          "showValue": "20260225"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "14765",
+          "showValue": "14765"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "930",
+          "showValue": "930"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "194",
+          "showValue": "194"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.01089264917448791",
+          "showValue": "0.01089264917448791"
+        },
+        "日(id)-wcA6": {
+          "value": "20260226",
+          "showValue": "20260226"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "14597",
+          "showValue": "14597"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "850",
+          "showValue": "850"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "227",
+          "showValue": "227"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.013144382830149928",
+          "showValue": "0.013144382830149928"
+        },
+        "日(id)-wcA6": {
+          "value": "20260227",
+          "showValue": "20260227"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "14607",
+          "showValue": "14607"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "866",
+          "showValue": "866"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "303",
+          "showValue": "303"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "1.9388863037071507E-4",
+          "showValue": "1.9388863037071507E-4"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.010276097409647899",
+          "showValue": "0.010276097409647899"
+        },
+        "日(id)-wcA6": {
+          "value": "20260228",
+          "showValue": "20260228"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "5",
+          "showValue": "5"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "25788",
+          "showValue": "25788"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1175",
+          "showValue": "1175"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "378",
+          "showValue": "378"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "5.990534954771461E-5",
+          "showValue": "5.990534954771461E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.019529143952554964",
+          "showValue": "0.019529143952554964"
+        },
+        "日(id)-wcA6": {
+          "value": "20260301",
+          "showValue": "20260301"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "1",
+          "showValue": "1"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16693",
+          "showValue": "16693"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1270",
+          "showValue": "1270"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "332",
+          "showValue": "332"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.018909410729991204",
+          "showValue": "0.018909410729991204"
+        },
+        "日(id)-wcA6": {
+          "value": "20260302",
+          "showValue": "20260302"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "15918",
+          "showValue": "15918"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1116",
+          "showValue": "1116"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "282",
+          "showValue": "282"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.015446693146712062",
+          "showValue": "0.015446693146712062"
+        },
+        "日(id)-wcA6": {
+          "value": "20260303",
+          "showValue": "20260303"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "15861",
+          "showValue": "15861"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1002",
+          "showValue": "1002"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "283",
+          "showValue": "283"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.01604487346725802",
+          "showValue": "0.01604487346725802"
+        },
+        "日(id)-wcA6": {
+          "value": "20260304",
+          "showValue": "20260304"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "15332",
+          "showValue": "15332"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "988",
+          "showValue": "988"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "213",
+          "showValue": "213"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "6.793016778751444E-5",
+          "showValue": "6.793016778751444E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.012635011208477685",
+          "showValue": "0.012635011208477685"
+        },
+        "日(id)-wcA6": {
+          "value": "20260305",
+          "showValue": "20260305"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "2",
+          "showValue": "2"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "14721",
+          "showValue": "14721"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "882",
+          "showValue": "882"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "242",
+          "showValue": "242"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.013267721440139529",
+          "showValue": "0.013267721440139529"
+        },
+        "日(id)-wcA6": {
+          "value": "20260306",
+          "showValue": "20260306"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16054",
+          "showValue": "16054"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "995",
+          "showValue": "995"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "361",
+          "showValue": "361"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "6.144393241167435E-5",
+          "showValue": "6.144393241167435E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.01923195084485407",
+          "showValue": "0.01923195084485407"
+        },
+        "日(id)-wcA6": {
+          "value": "20260307",
+          "showValue": "20260307"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "1",
+          "showValue": "1"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16275",
+          "showValue": "16275"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "988",
+          "showValue": "988"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "472",
+          "showValue": "472"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "5.9171597633136094E-5",
+          "showValue": "5.9171597633136094E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.02437869822485207",
+          "showValue": "0.02437869822485207"
+        },
+        "日(id)-wcA6": {
+          "value": "20260308",
+          "showValue": "20260308"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "1",
+          "showValue": "1"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16900",
+          "showValue": "16900"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1164",
+          "showValue": "1164"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "899",
+          "showValue": "899"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "1.1157725609211818E-4",
+          "showValue": "1.1157725609211818E-4"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.018432562706417924",
+          "showValue": "0.018432562706417924"
+        },
+        "日(id)-wcA6": {
+          "value": "20260309",
+          "showValue": "20260309"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "6",
+          "showValue": "6"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "44812",
+          "showValue": "44812"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "2520",
+          "showValue": "2520"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "477",
+          "showValue": "477"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "3.9521005414377744E-5",
+          "showValue": "3.9521005414377744E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.017073074339011184",
+          "showValue": "0.017073074339011184"
+        },
+        "日(id)-wcA6": {
+          "value": "20260310",
+          "showValue": "20260310"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "1",
+          "showValue": "1"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "25303",
+          "showValue": "25303"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1423",
+          "showValue": "1423"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "270",
+          "showValue": "270"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "5.018568704205561E-5",
+          "showValue": "5.018568704205561E-5"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.011643079393756901",
+          "showValue": "0.011643079393756901"
+        },
+        "日(id)-wcA6": {
+          "value": "20260311",
+          "showValue": "20260311"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "1",
+          "showValue": "1"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "19926",
+          "showValue": "19926"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1053",
+          "showValue": "1053"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "257",
+          "showValue": "257"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "1.520604186730194E-4",
+          "showValue": "1.520604186730194E-4"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.011657965431598156",
+          "showValue": "0.011657965431598156"
+        },
+        "日(id)-wcA6": {
+          "value": "20260312",
+          "showValue": "20260312"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "3",
+          "showValue": "3"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "19729",
+          "showValue": "19729"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1130",
+          "showValue": "1130"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "204",
+          "showValue": "204"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "1.8964536317087047E-4",
+          "showValue": "1.8964536317087047E-4"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.011125861306024401",
+          "showValue": "0.011125861306024401"
+        },
+        "日(id)-wcA6": {
+          "value": "20260313",
+          "showValue": "20260313"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "3",
+          "showValue": "3"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "15819",
+          "showValue": "15819"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "915",
+          "showValue": "915"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "390",
+          "showValue": "390"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.019293351929335192",
+          "showValue": "0.019293351929335192"
+        },
+        "日(id)-wcA6": {
+          "value": "20260314",
+          "showValue": "20260314"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "17208",
+          "showValue": "17208"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1262",
+          "showValue": "1262"
+        }
+      },
+      {
+        "高达_订单量_间接-Bf4P": {
+          "value": "278",
+          "showValue": "278"
+        },
+        "高达_访购率_直接-4dse": {
+          "value": "0.0",
+          "showValue": "0.0"
+        },
+        "高达_访购率_间接-DKTS": {
+          "value": "0.01479677842292564",
+          "showValue": "0.01479677842292564"
+        },
+        "日(id)-wcA6": {
+          "value": "20260315",
+          "showValue": "20260315"
+        },
+        "高达_订单量_直接-8mD6": {
+          "value": "0",
+          "showValue": "0"
+        },
+        "曝光设备数-Cj2j": {
+          "value": "16017",
+          "showValue": "16017"
+        },
+        "点菜页曝光设备数-Rnpb": {
+          "value": "1090",
+          "showValue": "1090"
+        }
+      }
+    ],
+    "title": {
+      "高达_订单量_间接-Bf4P": {
+        "key": "高达_订单量_间接-Bf4P",
+        "text": "高达_订单量_间接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_订单量_间接"
+      },
+      "高达_访购率_直接-4dse": {
+        "key": "高达_访购率_直接-4dse",
+        "text": "高达_访购率_直接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_访购率_直接"
+      },
+      "高达_访购率_间接-DKTS": {
+        "key": "高达_访购率_间接-DKTS",
+        "text": "高达_访购率_间接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_访购率_间接"
+      },
+      "日(id)-wcA6": {
+        "key": "日(id)-wcA6",
+        "text": "日(id)",
+        "dataType": "STRING",
+        "columnType": 1,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "日(id)"
+      },
+      "高达_订单量_直接-8mD6": {
+        "key": "高达_订单量_直接-8mD6",
+        "text": "高达_订单量_直接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_订单量_直接"
+      },
+      "曝光设备数-Cj2j": {
+        "key": "曝光设备数-Cj2j",
+        "text": "高达_曝光设备数",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "曝光设备数"
+      },
+      "点菜页曝光设备数-Rnpb": {
+        "key": "点菜页曝光设备数-Rnpb",
+        "text": "高达_商家主页_曝光设备数",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "点菜页曝光设备数"
+      }
+    },
+    "dataTitle": [
+      {
+        "key": "日(id)-wcA6",
+        "text": "日(id)",
+        "dataType": "STRING",
+        "columnType": 1,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "日(id)"
+      },
+      {
+        "key": "曝光设备数-Cj2j",
+        "text": "高达_曝光设备数",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "曝光设备数"
+      },
+      {
+        "key": "点菜页曝光设备数-Rnpb",
+        "text": "高达_商家主页_曝光设备数",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "点菜页曝光设备数"
+      },
+      {
+        "key": "高达_订单量_直接-8mD6",
+        "text": "高达_订单量_直接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_订单量_直接"
+      },
+      {
+        "key": "高达_订单量_间接-Bf4P",
+        "text": "高达_订单量_间接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_订单量_间接"
+      },
+      {
+        "key": "高达_访购率_直接-4dse",
+        "text": "高达_访购率_直接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_访购率_直接"
+      },
+      {
+        "key": "高达_访购率_间接-DKTS",
+        "text": "高达_访购率_间接",
+        "dataType": "STRING",
+        "columnType": 2,
+        "originIndex": "",
+        "originDim": "",
+        "desc": "",
+        "originalKey": "高达_访购率_间接"
+      }
+    ],
+    "stat": null,
+    "taskId": null,
+    "queryPlan": [
+      "SELECT inner_union.`日(id)-wcA6` AS `日(id)-wcA6`, inner_union.`曝光设备数-Cj2j` AS `曝光设备数-Cj2j`, inner_union.`点菜页曝光设备数-Rnpb` AS `点菜页曝光设备数-Rnpb`, inner_union.`高达_订单量_直接-8mD6` AS `高达_订单量_直接-8mD6`, inner_union.`高达_订单量_间接-Bf4P` AS `高达_订单量_间接-Bf4P`,  (  COALESCE(`高达_订单设备数_直接`,0)  /  COALESCE(`曝光设备数`,0)  ) AS `高达_访购率_直接-4dse`,  (  COALESCE(`高达_订单设备数_间接`,0)  /  COALESCE(`曝光设备数`,0)  ) AS `高达_访购率_间接-DKTS`\nFROM (SELECT inner_union.`日(id)-wcA6` AS `日(id)-wcA6`, SUM(inner_union.`曝光设备数`) AS `曝光设备数`, SUM(inner_union.`曝光设备数-Cj2j`) AS `曝光设备数-Cj2j`, SUM(inner_union.`点菜页曝光设备数`) AS `点菜页曝光设备数`, SUM(inner_union.`点菜页曝光设备数-Rnpb`) AS `点菜页曝光设备数-Rnpb`, SUM(inner_union.`高达_订单设备数_直接`) AS `高达_订单设备数_直接`, SUM(inner_union.`高达_订单设备数_间接`) AS `高达_订单设备数_间接`, SUM(inner_union.`高达_订单量_直接`) AS `高达_订单量_直接`, SUM(inner_union.`高达_订单量_直接-8mD6`) AS `高达_订单量_直接-8mD6`, SUM(inner_union.`高达_订单量_间接`) AS `高达_订单量_间接`, SUM(inner_union.`高达_订单量_间接-Bf4P`) AS `高达_订单量_间接-Bf4P`\nFROM (SELECT  t_meta_5247.`dt` AS `日(id)-wcA6`, NULL AS `曝光设备数`, NULL AS `曝光设备数-Cj2j`, NULL AS `点菜页曝光设备数`, NULL AS `点菜页曝光设备数-Rnpb`, COUNT(DISTINCT t_meta_5247.`gd_direct_ord_uv`) AS `高达_订单设备数_直接`, COUNT(DISTINCT t_meta_5247.`gd_indirect_ord_uv`) AS `高达_订单设备数_间接`, SUM(t_meta_5247.`gd_direct_ord_num`) AS `高达_订单量_直接`, SUM( t_meta_5247.`gd_direct_ord_num`) AS `高达_订单量_直接-8mD6`, SUM(t_meta_5247.`gd_indirect_ord_num`) AS `高达_订单量_间接`, SUM( t_meta_5247.`gd_indirect_ord_num`) AS `高达_订单量_间接-Bf4P`\nFROM mart_waimai.topic_gd_pageview_ord_d as t_meta_5247\nWHERE ((t_meta_5247.`dt` BETWEEN '20260215' AND '20260315') AND (t_meta_5247.`gaoda_group_id` IN (102) AND t_meta_5247.`gaoda_page_id` IN (616314)))\nGROUP BY 1\nUNION ALL\nSELECT  t_meta_5259.`dt` AS `日(id)-wcA6`, COUNT(DISTINCT t_meta_5259.`expose_uv`) AS `曝光设备数`, COUNT(DISTINCT  t_meta_5259.`expose_uv`) AS `曝光设备数-Cj2j`, COUNT(DISTINCT t_meta_5259.`poi_home_uv`) AS `点菜页曝光设备数`, COUNT(DISTINCT  t_meta_5259.`poi_home_uv`) AS `点菜页曝光设备数-Rnpb`, NULL AS `高达_订单设备数_直接`, NULL AS `高达_订单设备数_间接`, NULL AS `高达_订单量_直接`, NULL AS `高达_订单量_直接-8mD6`, NULL AS `高达_订单量_间接`, NULL AS `高达_订单量_间接-Bf4P`\nFROM mart_waimai.topic_gd_pageview_flow_d as t_meta_5259\nWHERE ((t_meta_5259.`dt` BETWEEN '20260215' AND '20260315') AND (t_meta_5259.`gaoda_group_id` IN (102) AND t_meta_5259.`gaoda_page_id` IN (616314)))\nGROUP BY 1) inner_union\nGROUP BY 1) inner_union\nORDER BY `日(id)-wcA6` asc "
+    ],
+    "totalCount": 29,
+    "useCache": true,
+    "queryEngineParam": "{\"misId\":\"zhengchunjie\",\"query\":{\"apiId\":0,\"busiUnit\":100,\"datasetIdSize\":0,\"datesetId\":[\"2178\"],\"datesetIdIterator\":[\"2178\"],\"datesetIdSize\":1,\"dims\":[\"日(id)-wcA6\"],\"dimsIterator\":[\"日(id)-wcA6\"],\"dimsSize\":1,\"dynamicParams\":{},\"dynamicParamsSize\":0,\"filters\":[{\"keyType\":0,\"left\":{\"key\":\"日(id)\",\"keyType\":0,\"predicateOp\":0,\"setKey\":true,\"setKeyType\":true,\"setLeft\":false,\"setLogicalOp\":false,\"setPredicateOp\":false,\"setRight\":false,\"setType\":true,\"setValue\":false,\"type\":3,\"valueSize\":0},\"predicateOp\":2,\"right\":{\"keyType\":0,\"predicateOp\":0,\"setKey\":false,\"setKeyType\":false,\"setLeft\":false,\"setLogicalOp\":false,\"setPredicateOp\":false,\"setRight\":false,\"setType\":true,\"setValue\":true,\"type\":4,\"value\":[{\"setVal\":true,\"val\":\"20260215\"},{\"setVal\":true,\"val\":\"20260315\"}],\"valueIterator\":[{\"$ref\":\"$.query.filters[0].right.value[0]\"},{\"$ref\":\"$.query.filters[0].right.value[1]\"}],\"valueSize\":2},\"setKey\":false,\"setKeyType\":false,\"setLeft\":true,\"setLogicalOp\":false,\"setPredicateOp\":true,\"setRight\":true,\"setType\":true,\"setValue\":false,\"type\":2,\"valueSize\":0},{\"keyType\":0,\"left\":{\"keyType\":0,\"left\":{\"key\":\"高达团队(id)\",\"keyType\":0,\"predicateOp\":0,\"setKey\":true,\"setKeyType\":true,\"setLeft\":false,\"setLogicalOp\":false,\"setPredicateOp\":false,\"setRight\":false,\"setType\":true,\"setValue\":false,\"type\":3,\"valueSize\":0},\"predicateOp\":4,\"right\":{\"keyType\":0,\"predicateOp\":0,\"setKey\":false,\"setKeyType\":false,\"setLeft\":false,\"setLogicalOp\":false,\"setPredicateOp\":false,\"setRight\":false,\"setType\":true,\"setValue\":true,\"type\":4,\"value\":[{\"setVal\":true,\"val\":\"102\"}],\"valueIterator\":[{\"$ref\":\"$.query.filters[1].left.right.value[0]\"}],\"valueSize\":1},\"setKey\":false,\"setKeyType\":false,\"setLeft\":true,\"setLogicalOp\":false,\"setPredicateOp\":true,\"setRight\":true,\"setType\":true,\"setValue\":false,\"type\":2,\"valueSize\":0},\"logicalOp\":\"and\",\"predicateOp\":0,\"right\":{\"keyType\":0,\"left\":{\"key\":\"高达活动(id)\",\"keyType\":0,\"predicateOp\":0,\"setKey\":true,\"setKeyType\":true,\"setLeft\":false,\"setLogicalOp\":false,\"setPredicateOp\":false,\"setRight\":false,\"setType\":true,\"setValue\":false,\"type\":3,\"valueSize\":0},\"predicateOp\":4,\"right\":{\"keyType\":0,\"predicateOp\":0,\"setKey\":false,\"setKeyType\":false,\"setLeft\":false,\"setLogicalOp\":false,\"setPredicateOp\":false,\"setRight\":false,\"setType\":true,\"setValue\":true,\"type\":4,\"value\":[{\"setVal\":true,\"val\":\"616314\"}],\"valueIterator\":[{\"$ref\":\"$.query.filters[1].right.right.value[0]\"}],\"valueSize\":1},\"setKey\":false,\"setKeyType\":false,\"setLeft\":true,\"setLogicalOp\":false,\"setPredicateOp\":true,\"setRight\":true,\"setType\":true,\"setValue\":false,\"type\":2,\"valueSize\":0},\"setKey\":false,\"setKeyType\":true,\"setLeft\":true,\"setLogicalOp\":true,\"setPredicateOp\":false,\"setRight\":true,\"setType\":true,\"setValue\":false,\"type\":1,\"valueSize\":0}],\"filtersIterator\":[{\"$ref\":\"$.query.filters[0]\"},{\"$ref\":\"$.query.filters[1]\"}],\"filtersSize\":2,\"indexFiltersSize\":0,\"indexes\":[\"曝光设备数-Cj2j\",\"点菜页曝光设备数-Rnpb\",\"高达_订单量_直接-8mD6\",\"高达_订单量_间接-Bf4P\",\"高达_访购率_直接-4dse\",\"高达_访购率_间接-DKTS\"],\"indexesIterator\":[\"曝光设备数-Cj2j\",\"点菜页曝光设备数-Rnpb\",\"高达_订单量_直接-8mD6\",\"高达_订单量_间接-Bf4P\",\"高达_访购率_直接-4dse\",\"高达_访购率_间接-DKTS\"],\"indexesSize\":6,\"isMock\":0,\"isPage\":false,\"metas\":{\"aggrInfo\":[{\"aggrType\":8,\"indexCode\":\"曝光设备数-Cj2j\",\"indexDesc\":\"\",\"indexName\":\"高达_曝光设备数\",\"orginIndexCode\":\"曝光设备数\",\"setAggrType\":true,\"setIndexCode\":true,\"setIndexDesc\":true,\"setIndexName\":true,\"setOrginIndexCode\":true},{\"aggrType\":8,\"indexCode\":\"点菜页曝光设备数-Rnpb\",\"indexDesc\":\"\",\"indexName\":\"高达_商家主页_曝光设备数\",\"orginIndexCode\":\"点菜页曝光设备数\",\"setAggrType\":true,\"setIndexCode\":true,\"setIndexDesc\":true,\"setIndexName\":true,\"setOrginIndexCode\":true},{\"aggrType\":4,\"indexCode\":\"高达_订单量_直接-8mD6\",\"indexDesc\":\"\",\"indexName\":\"高达_订单量_直接\",\"orginIndexCode\":\"高达_订单量_直接\",\"setAggrType\":true,\"setIndexCode\":true,\"setIndexDesc\":true,\"setIndexName\":true,\"setOrginIndexCode\":true},{\"aggrType\":4,\"indexCode\":\"高达_订单量_间接-Bf4P\",\"indexDesc\":\"\",\"indexName\":\"高达_订单量_间接\",\"orginIndexCode\":\"高达_订单量_间接\",\"setAggrType\":true,\"setIndexCode\":true,\"setIndexDesc\":true,\"setIndexName\":true,\"setOrginIndexCode\":true}],\"aggrInfoIterator\":[{\"$ref\":\"$.query.metas.aggrInfo[0]\"},{\"$ref\":\"$.query.metas.aggrInfo[1]\"},{\"$ref\":\"$.query.metas.aggrInfo[2]\"},{\"$ref\":\"$.query.metas.aggrInfo[3]\"}],\"aggrInfoSize\":4,\"customizeInfo\":[{\"columnCode\":\"日(id)-wcA6\",\"columnName\":\"日(id)\",\"columnType\":1,\"formula\":\"[日(id)-wcA6] = [日(id)]\",\"setColumnCode\":true,\"setColumnDesc\":false,\"setColumnName\":true,\"setColumnType\":true,\"setFormula\":true,\"setGroupDim\":false},{\"columnCode\":\"高达_访购率_直接-4dse\",\"columnName\":\"高达_访购率_直接\",\"columnType\":0,\"formula\":\"[高达_访购率_直接-4dse] = [高达_访购率_直接]\",\"setColumnCode\":true,\"setColumnDesc\":false,\"setColumnName\":true,\"setColumnType\":true,\"setFormula\":true,\"setGroupDim\":false},{\"columnCode\":\"高达_访购率_间接-DKTS\",\"columnName\":\"高达_访购率_间接\",\"columnType\":0,\"formula\":\"[高达_访购率_间接-DKTS] = [高达_访购率_间接]\",\"setColumnCode\":true,\"setColumnDesc\":false,\"setColumnName\":true,\"setColumnType\":true,\"setFormula\":true,\"setGroupDim\":false}],\"customizeInfoIterator\":[{\"$ref\":\"$.query.metas.customizeInfo[0]\"},{\"$ref\":\"$.query.metas.customizeInfo[1]\"},{\"$ref\":\"$.query.metas.customizeInfo[2]\"}],\"customizeInfoSize\":3,\"dateInfoSize\":0,\"derivedIndexInfoSize\":0,\"extraDimNameListSize\":0,\"setAggrInfo\":true,\"setCustomizeInfo\":true,\"setDateInfo\":false,\"setDerivedIndexInfo\":false,\"setExtraDimNameList\":false},\"onlineVersionType\":2,\"orgFiltersSize\":0,\"pageNum\":1,\"pageSize\":100,\"queryFeatures\":{\"aggrInfoSize\":0,\"customizeInfoSize\":0,\"dateGroupInfoSize\":0,\"dateInfoSize\":0,\"derivedIndexInfoSize\":0,\"dimGroupInfoSize\":0,\"finRateInfoSize\":0,\"indexGroupInfoSize\":0,\"rateTypesSize\":0,\"ratiosSize\":0,\"referenceValueInfoSize\":0,\"setAggrInfo\":false,\"setContribution\":false,\"setCustomizeInfo\":false,\"setDataFormatInfo\":false,\"setDateGroupInfo\":false,\"setDateInfo\":false,\"setDayAvgCalInfo\":false,\"setDerivedIndexInfo\":false,\"setDimGroupInfo\":false,\"setDrillInfo\":false,\"setDtRefInfo\":false,\"setFinRateInfo\":false,\"setIndexGroupInfo\":false,\"setRateTypes\":false,\"setRatios\":false,\"setReferenceValueInfo\":false,\"setSortInfo\":true,\"setStatInfo\":false,\"setTopN\":false,\"setTotalRowInfo\":false,\"setXbrRateInfo\":false,\"setXbrXtdInfo\":false,\"sortInfo\":[{\"key\":\"日(id)-wcA6\",\"setKey\":true,\"setSortType\":true,\"sortType\":1}],\"sortInfoIterator\":[{\"$ref\":\"$.query.queryFeatures.sortInfo[0]\"}],\"sortInfoSize\":1,\"statInfoSize\":0,\"xbrRateInfoSize\":0,\"xbrXtdInfoSize\":0},\"queryMode\":1,\"queryType\":1,\"resultDataFormat\":false,\"retryable\":false,\"setApiId\":false,\"setAppCode\":false,\"setBusiUnit\":true,\"setDatasetId\":false,\"setDatasource\":false,\"setDatesetId\":true,\"setDims\":true,\"setDsl\":false,\"setDynamicParams\":true,\"setExpectQueryEngine\":false,\"setFilters\":true,\"setIndexFilters\":false,\"setIndexes\":true,\"setIsMock\":false,\"setIsPage\":false,\"setMetas\":true,\"setOnlineVersionType\":false,\"setOrgFilters\":false,\"setPageNum\":true,\"setPageSize\":true,\"setQueryFeatures\":true,\"setQueryId\":false,\"setQueryMode\":true,\"setQueryType\":true,\"setResultDataFormat\":false,\"setRetryable\":true,\"setUseCache\":true,\"useCache\":true},\"queryDomain\":\"PREVIEW\",\"setMisId\":true,\"setQuery\":true,\"setQueryDomain\":true,\"setSubmiter\":true,\"setUid\":true,\"submiter\":{\"appkey\":\"com.sankuai.readata.dashboard.server\",\"extraSize\":0,\"name\":\"com.sankuai.readata.dashboard.server\",\"setAppkey\":true,\"setExtra\":false,\"setName\":true,\"setToken\":true,\"token\":\"nIjYgsktqOjL8tOk\"},\"uid\":85388}",
+    "oneServiceResponse": null,
+    "useSubsetCache": null,
+    "curCount": 29
+  }
+}

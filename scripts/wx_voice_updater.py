@@ -1,539 +1,461 @@
 #!/usr/bin/env python3
 """
-微信公众号行业声音抓取脚本 v2（搜狗方案）
-使用搜狗微信搜索 + 美团内网代理，无需微信 cookie。
+微信公众号行业声音抓取脚本 v3（微信Cookie方案）
+使用 mp.weixin.qq.com/cgi-bin/appmsg 接口，只取当天发布的文章。
 
 目标公众号：
-  - 财躺平          (搜索关键词: 财躺平)
-  - 卓哥投研笔记    (搜索关键词: 卓哥投研笔记)
-  - 中金点睛        (搜索关键词: 中金点睛)
-  - 方伟看十年      (搜索关键词: 方伟看十年)
-  - 刘煜辉          (搜索关键词: 刘煜辉 宏观)
+  - 财躺平          fakeid: MzUyNTU4NzY5MA==
+  - 卓哥投研笔记    fakeid: Mzk0MzY0OTU5Ng==
+  - 中金点睛        fakeid: MzI3MDMzMjg0MA==
+  - 方伟看十年      fakeid: MzU5NzAzMDg1OQ==
+  - 刘煜辉的高维宏观 fakeid: MzYzNzAzODcwNw==
++ 刘煜辉微博       UID: 2337530130
 
 用法：
-  python3 wx_voice_updater.py --test          # 只测试「财躺平」一个
-  python3 wx_voice_updater.py --all           # 全量抓取所有公众号
-  python3 wx_voice_updater.py --all --output result.json
-  python3 wx_voice_updater.py --date YYYY-MM-DD  # 更新指定日期的 HTML
-  python3 wx_voice_updater.py --dry-run       # 不写文件，只打印
-
-输出格式（JSON list）：
-  [{"title": str, "author": str, "content": str, "url": str, "timestamp": int}, ...]
+  python3 wx_voice_updater.py             # 更新今天的数据
+  python3 wx_voice_updater.py --dry-run   # 只打印，不写文件
+  python3 wx_voice_updater.py --date YYYYMMDD  # 指定日期
 """
 
-import re
 import sys
 import os
 import json
 import time
-import shutil
 import subprocess
-import urllib.request
-import urllib.error
-from datetime import datetime
-from html.parser import HTMLParser
+from datetime import datetime, timezone, timedelta
 
 # ─── 配置 ─────────────────────────────────────────────────────────────────────
 
-PROXY       = "http://squid-admin:catpaw@nocode-openclaw-squid.sankuai.com:443"
-SLEEP_SEC   = 1.5
-HTML_PATH   = "/root/.openclaw/workspace/index.html"
-REPO_DIR    = "/root/.openclaw/workspace"
-STATE_FILE  = "/root/.openclaw/weibo/wx_voice_state.json"
+PROXY    = "http://squid-admin:catpaw@nocode-openclaw-squid.sankuai.com:443"
+REPO_DIR = "/root/.openclaw/workspace"
+COOKIES_ENV = "/root/.openclaw/weibo/cookies.env"
+SLEEP_SEC = 1.0
 
 ACCOUNTS = [
     {
-        "name":    "财躺平",
-        "query":   "财躺平",
-        "author":  "财躺平",
-        "color":   "rgba(224,123,57,.12)",
+        "name":       "财躺平",
+        "fakeid":     "MzUyNTU4NzY5MA==",
+        "color":      "rgba(224,123,57,.12)",
         "text_color": "#e07b39",
     },
     {
-        "name":    "卓哥投研笔记",
-        "query":   "卓哥投研笔记",
-        "author":  "卓哥",
-        "color":   "rgba(46,125,50,.1)",
+        "name":       "卓哥投研笔记",
+        "fakeid":     "Mzk0MzY0OTU5Ng==",
+        "color":      "rgba(46,125,50,.1)",
         "text_color": "#2e7d32",
     },
     {
-        "name":    "中金点睛",
-        "query":   "中金点睛",
-        "author":  "中金点睛",
-        "color":   "rgba(21,101,192,.1)",
+        "name":       "中金点睛",
+        "fakeid":     "MzI3MDMzMjg0MA==",
+        "color":      "rgba(21,101,192,.1)",
         "text_color": "#1565c0",
     },
     {
-        "name":    "方伟看十年",
-        "query":   "方伟看十年",
-        "author":  "方伟",
-        "color":   "rgba(106,27,154,.1)",
+        "name":       "方伟看十年",
+        "fakeid":     "MzU5NzAzMDg1OQ==",
+        "color":      "rgba(106,27,154,.1)",
         "text_color": "#6a1b9a",
     },
     {
-        "name":    "刘煜辉的高维宏观",
-        "query":   "刘煜辉 宏观",
-        "author":  "刘煜辉",
-        "color":   "rgba(198,40,40,.1)",
+        "name":       "刘煜辉的高维宏观",
+        "fakeid":     "MzYzNzAzODcwNw==",
+        "color":      "rgba(198,40,40,.1)",
         "text_color": "#c62828",
     },
 ]
 
-# ─── requests Session（带代理）────────────────────────────────────────────────
+# ─── 工具函数 ─────────────────────────────────────────────────────────────────
 
-try:
-    import requests as _req
-    HAS_REQUESTS = True
-except ImportError:
-    HAS_REQUESTS = False
-
-
-def build_session():
-    if not HAS_REQUESTS:
-        raise RuntimeError("缺少 requests 库，请运行: pip3 install requests")
-    import requests
-    s = requests.Session()
-    s.proxies = {"http": PROXY, "https": PROXY}
-    s.headers.update({
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
-        ),
-        "Accept-Language": "zh-CN,zh;q=0.9",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    })
-    return s
+def load_cookies():
+    """从 cookies.env 加载微信 cookie"""
+    env = {}
+    with open(COOKIES_ENV) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                k, v = line.split('=', 1)
+                env[k.strip()] = v.strip()
+    return env
 
 
-# ─── 搜狗搜索 ────────────────────────────────────────────────────────────────
-
-def sogou_search_links(session, keyword, page=1):
-    """
-    搜索搜狗微信，返回 /link?url=... 列表
-    """
-    try:
-        resp = session.get(
-            "https://weixin.sogou.com/weixin",
-            params={"query": keyword, "type": "2", "ie": "utf8", "page": page},
-            timeout=15,
-        )
-        resp.raise_for_status()
-    except Exception as e:
-        err = str(e)
-        if "timed out" in err.lower() or "timeout" in err.lower():
-            raise RuntimeError(
-                f"搜狗请求超时 (keyword={keyword})。\n"
-                "  可能原因：沙箱/CI 网络不可访问 weixin.sogou.com。\n"
-                "  解决方案：\n"
-                "    1. 确认代理 PROXY 配置可访问搜狗\n"
-                "    2. 在 GitHub Actions 环境中运行（有外网访问权）\n"
-                "    3. 或临时修改 PROXY 为可用代理"
-            )
-        raise
-
-    if "antispider" in resp.url or "antispider" in resp.text:
-        raise RuntimeError(f"搜狗触发反爬验证 (keyword={keyword})")
-
-    links = re.findall(r'href="(/link\?[^"]+)"', resp.text)
-    seen, result = set(), []
-    for lnk in links:
-        clean = lnk.replace("&amp;", "&")
-        if clean not in seen:
-            seen.add(clean)
-            result.append(clean)
-    return result
-
-
-def resolve_sogou_link(session, link_path):
-    """
-    访问搜狗 /link 页，从 JS 拼出真实 mp.weixin.qq.com 链接
-    """
-    resp = session.get(
-        "https://weixin.sogou.com" + link_path,
-        headers={"Referer": "https://weixin.sogou.com/weixin"},
-        timeout=15,
-    )
-    if "antispider" in resp.url:
-        return None
-
-    parts = re.findall(r"url \+= '([^']+)'", resp.text)
-    if not parts:
-        return None
-    return "".join(parts).replace("@", "")
-
-
-def fetch_wx_article(session, article_url):
-    """
-    抓取 mp.weixin.qq.com 文章正文，使用 MicroMessenger UA 伪装
-    """
-    resp = session.get(
-        article_url,
-        headers={
-            "User-Agent": (
-                "Mozilla/5.0 (Linux; Android 14; Pixel 8) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/120.0.0.0 Mobile Safari/537.36 "
-                "MicroMessenger/8.0.45"
-            ),
-            "Referer": "https://mp.weixin.qq.com/",
-        },
-        timeout=20,
-    )
-    resp.raise_for_status()
-    content = resp.text
-
-    # 标题
-    title_m = (
-        re.search(r'og:title[^>]+content="([^"]+)"', content)
-        or re.search(r'content="([^"]+)"[^>]+og:title', content)
-        or re.search(r'id="activity-name"[^>]*>.*?<span[^>]*>([^<]+)</span>', content, re.DOTALL)
-    )
-    title = title_m.group(1).strip() if title_m else ""
-
-    # 作者/公众号名
-    author_m = (
-        re.search(r'og:article:author[^>]+content="([^"]+)"', content)
-        or re.search(r'content="([^"]+)"[^>]+og:article:author', content)
-        or re.search(r'var\s+nickname\s*=\s*"([^"]+)"', content)
-        or re.search(r'id="js_name"[^>]*>\s*([^<\n]+?)\s*</', content)
-    )
-    author = author_m.group(1).strip() if author_m else ""
-
-    # 发布时间戳
-    ts_m = re.search(r'var\s+ct\s*=\s*"?(\d+)"?', content)
-    timestamp = int(ts_m.group(1)) if ts_m else int(time.time())
-
-    # 正文
-    body_start = content.find('id="js_content"')
-    if body_start >= 0:
-        snippet = content[body_start:body_start + 30000]
-        snippet = re.sub(r"<script[^>]*>.*?</script>", "", snippet, flags=re.DOTALL)
-        snippet = re.sub(r"<style[^>]*>.*?</style>", "", snippet, flags=re.DOTALL)
-        text = re.sub(r"<[^>]+>", "", snippet)
-        text = re.sub(r"&nbsp;", " ", text)
-        text = re.sub(r"&amp;", "&", text)
-        text = re.sub(r"&lt;", "<", text)
-        text = re.sub(r"&gt;", ">", text)
-        text = re.sub(r"\s+", " ", text).strip()
+def today_ts_range(date_str=None):
+    """返回指定日期（Asia/Shanghai）的 unix timestamp 范围 [start, end)"""
+    tz = timezone(timedelta(hours=8))
+    if date_str:
+        dt = datetime.strptime(date_str, "%Y%m%d").replace(tzinfo=tz)
     else:
-        text = ""
-
-    return {
-        "title":     title,
-        "author":    author,
-        "content":   text[:2000],   # 截断到2000字避免太大
-        "url":       article_url,
-        "timestamp": timestamp,
-    }
+        dt = datetime.now(tz).replace(hour=0, minute=0, second=0, microsecond=0)
+    start = int(dt.timestamp())
+    end   = start + 86400
+    return start, end
 
 
-# ─── 核心抓取逻辑 ─────────────────────────────────────────────────────────────
-
-def fetch_account(session, acct, max_articles=2):
+def fetch_wx_articles(fakeid, cookie_str, token, proxy, date_start, date_end):
     """
-    抓取单个公众号最新 max_articles 篇文章
-    返回格式兼容 JSON list：[{title, author, content, url, timestamp}, ...]
+    调微信公众号管理后台接口，分页拉取文章，返回当天发布的文章列表。
+    每次拉5篇，直到遇到比 date_start 还早的文章则停止。
     """
-    keyword = acct["query"]
-    author_hint = acct["author"]
-    name = acct["name"]
-
-    print(f"  🔍 搜索「{name}」(query={keyword})...", file=sys.stderr)
-    link_paths = sogou_search_links(session, keyword)
-    print(f"     找到 {len(link_paths)} 个搜狗链接", file=sys.stderr)
+    import urllib.request
+    import urllib.error
 
     articles = []
-    for lp in link_paths:
-        if len(articles) >= max_articles:
-            break
+    begin = 0
+    count = 5
+    max_pages = 10  # 最多翻10页，防止无限循环
 
-        time.sleep(SLEEP_SEC)
+    for _ in range(max_pages):
+        url = (
+            f"https://mp.weixin.qq.com/cgi-bin/appmsg"
+            f"?action=list_ex&begin={begin}&count={count}"
+            f"&fakeid={fakeid}&type=9&query=&token={token}"
+            f"&lang=zh_CN&f=json&ajax=1"
+        )
+        req = urllib.request.Request(url)
+        req.add_header("Cookie", cookie_str)
+        req.add_header("Referer", "https://mp.weixin.qq.com/")
+        req.add_header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36")
 
-        wx_url = resolve_sogou_link(session, lp)
-        if not wx_url:
-            continue
-        if "mp.weixin.qq.com" not in wx_url:
-            continue
+        # 设置代理
+        proxy_handler = urllib.request.ProxyHandler({
+            "http": proxy, "https": proxy
+        })
+        opener = urllib.request.build_opener(proxy_handler)
 
         try:
-            time.sleep(SLEEP_SEC)
-            art = fetch_wx_article(session, wx_url)
+            resp = opener.open(req, timeout=15)
+            data = json.loads(resp.read().decode("utf-8"))
         except Exception as e:
-            print(f"     ⚠️  抓取失败 ({wx_url[:60]}): {e}", file=sys.stderr)
-            continue
+            print(f"  ⚠️  请求失败: {e}", file=sys.stderr)
+            break
 
-        if not art["title"]:
-            continue
+        if data.get("base_resp", {}).get("ret") != 0:
+            print(f"  ⚠️  接口返回错误: {data.get('base_resp')}", file=sys.stderr)
+            break
 
-        # 宽松作者过滤：标题里有公众号关键词，或 author 字段包含 author_hint
-        title_match = any(kw in art["title"] for kw in [name, keyword.split()[0]])
-        author_match = author_hint.split()[0] in art.get("author", "")
-        if not (title_match or author_match):
-            # 进一步宽松：只要搜到的就算
-            pass  # 实践中搜狗结果已经足够精准，不做硬过滤
+        items = data.get("app_msg_list", [])
+        if not items:
+            break
 
-        # 补充 name 字段（用于 HTML 渲染）
-        art["name"] = name
+        found_old = False
+        for item in items:
+            create_time = item.get("create_time", 0)
+            if create_time < date_start:
+                found_old = True
+                break
+            if create_time < date_end:
+                articles.append(item)
 
-        articles.append(art)
-        print(f"     ✅ [{art['author']}] {art['title'][:40]}", file=sys.stderr)
+        if found_old:
+            break
+
+        begin += count
+        time.sleep(SLEEP_SEC)
 
     return articles
 
 
-# ─── HTML 更新逻辑（与原脚本兼容）───────────────────────────────────────────
+def fetch_weibo_today(uid, sub_cookie, subp_cookie, proxy, date_start, date_end):
+    """拉取微博用户今天的帖子"""
+    import urllib.request
 
-def _escape(s):
-    if not s:
-        return ''
-    return (s.replace('&', '&amp;').replace('<', '&lt;')
-             .replace('>', '&gt;').replace('"', '&quot;'))
+    url = f"https://m.weibo.cn/api/container/getIndex?uid={uid}&type=uid&value={uid}&containerid=107603{uid}&count=10&page=1"
+    req = urllib.request.Request(url)
+    req.add_header("Cookie", f"SUB={sub_cookie}; SUBP={subp_cookie}")
+    req.add_header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15")
+    req.add_header("Referer", "https://m.weibo.cn/")
 
+    proxy_handler = urllib.request.ProxyHandler({"http": proxy, "https": proxy})
+    opener = urllib.request.build_opener(proxy_handler)
 
-def articles_to_html(articles, accounts_map):
-    html_parts = []
-    for art in articles:
-        name = art.get("name", "")
-        acct = accounts_map.get(name, {})
-        color = acct.get("color", "rgba(100,100,100,.1)")
-        text_color = acct.get("text_color", "#555")
-        link = art.get("url", "")
-        ts = art.get("timestamp", 0)
-        time_str = datetime.fromtimestamp(ts).strftime("%H:%M") if ts else datetime.now().strftime("%H:%M")
+    posts = []
+    try:
+        resp = opener.open(req, timeout=15)
+        data = json.loads(resp.read().decode("utf-8"))
+        cards = data.get("data", {}).get("cards", [])
+        for card in cards:
+            mblog = card.get("mblog", {})
+            if not mblog:
+                continue
+            # 解析时间
+            created_at = mblog.get("created_at", "")
+            try:
+                # 微博时间格式: "Thu Mar 27 10:30:00 +0800 2026"
+                from email.utils import parsedate_to_datetime
+                dt = parsedate_to_datetime(created_at)
+                ts = int(dt.timestamp())
+            except Exception:
+                continue
 
-        # 正文摘要（取前150字）
-        body = art.get("content", "")[:150]
+            if ts < date_start or ts >= date_end:
+                continue
 
-        source_html = (
-            f'<a class="tl-source" href="{_escape(link)}" target="_blank">→ 阅读原文</a>'
-            if link else '<span class="tl-source">→ 微信公众号</span>'
-        )
-        body_html = f'<div class="tl-body">{_escape(body)}</div>\n                ' if body else ''
+            # 清理正文html
+            text = mblog.get("text", "")
+            import re
+            text = re.sub(r'<[^>]+>', '', text).strip()
 
-        html_parts.append(
-            f'\n<div class="tl-item">\n'
-            f'                <div class="tl-dot"></div>\n'
-            f'                <div class="tl-time">{_escape(time_str)}</div>\n'
-            f'                <div class="tl-tag" style="background:{color};color:{text_color};">{_escape(name)}</div>\n'
-            f'                <div class="tl-title">{_escape(art["title"])}</div>\n'
-            f'                {body_html}{source_html}\n'
-            f'              </div>'
-        )
-    return ''.join(html_parts)
+            mid = mblog.get("mid", mblog.get("id", ""))
+            posts.append({
+                "source":     "刘煜辉微博",
+                "title":      text[:60] + ("..." if len(text) > 60 else ""),
+                "digest":     text[:200],
+                "link":       f"https://m.weibo.cn/status/{mid}",
+                "time":       datetime.fromtimestamp(ts, tz=timezone(timedelta(hours=8))).strftime("%H:%M"),
+                "color":      "rgba(198,40,40,.1)",
+                "text_color": "#c62828",
+            })
+    except Exception as e:
+        print(f"  ⚠️  微博请求失败: {e}", file=sys.stderr)
 
-
-def update_html(html_path, articles, accounts_map, target_date_str):
-    with open(html_path, encoding='utf-8') as f:
-        html = f.read()
-
-    inject_key = f"voice_{target_date_str}"
-    items_html = articles_to_html(articles, accounts_map)
-    count = len(articles)
-
-    pattern = rf'(<!-- INJECT:{inject_key} -->)(.*?)(<!-- /INJECT:{inject_key} -->)'
-    new_html, n = re.subn(pattern, rf'\g<1>{items_html}\n              \g<3>', html, flags=re.DOTALL)
-
-    if n == 0:
-        print(f"  ⚠️  未找到 INJECT:{inject_key} 标记，HTML 不更新", file=sys.stderr)
-        return 0
-
-    badge_id = f"voice-count-{target_date_str}"
-    new_html = re.sub(
-        rf'(<span class="col-count-badge" id="{badge_id}">)[^<]*(</span>)',
-        rf'\g<1>· {count}\g<2>',
-        new_html
-    )
-
-    with open(html_path, 'w', encoding='utf-8') as f:
-        f.write(new_html)
-
-    print(f"  ✅ HTML 更新：{inject_key}，共 {count} 条")
-    return count
+    return posts
 
 
-def verify_divs(html_path):
-    class DivChecker(HTMLParser):
-        def __init__(self):
-            super().__init__()
-            self.depth = 0
-        def handle_starttag(self, tag, attrs):
-            if tag == 'div': self.depth += 1
-        def handle_endtag(self, tag):
-            if tag == 'div': self.depth -= 1
+def ensure_html_panel(date_str, html_path):
+    """确保 HTML 里有当天的 panel（如果没有则插入）"""
+    with open(html_path, encoding="utf-8") as f:
+        content = f.read()
 
-    with open(html_path, encoding='utf-8') as f:
-        html = f.read()
-    c = DivChecker()
-    c.feed(html)
-    if c.depth != 0:
-        raise ValueError(f"div depth={c.depth}，不为0！")
-    print("  ✅ div depth 自查通过 (depth=0)")
+    if f'id="panel-daily-brief-{date_str}"' in content:
+        return  # 已存在
+
+    # 从 miao_notice_update.py 里的逻辑一致，此处简化：只补 INJECT 标记
+    # 实际 panel 由 miao_notice_update.py 的 ensure_html_panel 创建
+    print(f"  ℹ️  panel-daily-brief-{date_str} 不存在，跳过 HTML 更新（由 miao_notice_update.py 创建）", file=sys.stderr)
 
 
-def update_json_voice(articles, accounts_map, target_date_str):
-    """同步更新 data/YYYYMMDD.json 的 voice 字段"""
-    json_path = os.path.join(REPO_DIR, "data", f"{target_date_str}.json")
+def update_json_voice(date_str, voice_items, dry_run=False):
+    """更新 data/YYYYMMDD.json 的 voice 字段"""
+    json_path = os.path.join(REPO_DIR, "data", f"{date_str}.json")
+
     if os.path.exists(json_path):
-        with open(json_path, 'r', encoding='utf-8') as f:
+        with open(json_path, encoding="utf-8") as f:
             day_data = json.load(f)
     else:
-        day_data = {"date": target_date_str, "generated_at": datetime.now().isoformat(),
-                    "voice": [], "news": [], "ai_voice": [], "miao_notice": []}
+        day_data = {
+            "date": date_str,
+            "generated_at": datetime.now().isoformat(),
+            "voice": [], "news": [], "ai_voice": [], "miao_notice": []
+        }
 
-    voice_items = []
-    for art in articles:
-        voice_items.append({
-            "title":   art.get("title", ""),
-            "author":  art.get("author", art.get("name", "")),
-            "summary": art.get("content", "")[:200],
-            "link":    art.get("url", ""),
-            "tag":     art.get("name", ""),
-            "date":    datetime.fromtimestamp(art.get("timestamp", 0)).strftime("%Y-%m-%d") if art.get("timestamp") else "",
-        })
+    # 兜底话术
+    if not voice_items:
+        voice_items = [{
+            "source":     "",
+            "title":      "今天还没有新文章哟 🐾",
+            "digest":     "",
+            "link":       "",
+            "time":       "",
+            "color":      "",
+            "text_color": "#999",
+        }]
 
     day_data["voice"] = voice_items
     day_data["generated_at"] = datetime.now().isoformat()
+
+    if dry_run:
+        print(f"[dry-run] voice {len(voice_items)} 条：", file=sys.stderr)
+        for v in voice_items:
+            print(f"  [{v.get('source','')}] {v.get('title','')[:60]} ({v.get('time','')})", file=sys.stderr)
+        return json_path
+
     os.makedirs(os.path.dirname(json_path), exist_ok=True)
-    with open(json_path, 'w', encoding='utf-8') as f:
+    with open(json_path, "w", encoding="utf-8") as f:
         json.dump(day_data, f, ensure_ascii=False, indent=2)
-    print(f"  ✅ JSON voice 更新完成: data/{target_date_str}.json ({len(voice_items)}条)", file=sys.stderr)
+    print(f"  ✅ JSON voice 更新完成: data/{date_str}.json ({len(voice_items)}条)", file=sys.stderr)
     return json_path
 
 
-def git_push(count, target_date_str, json_updated=False):
-    now_str = datetime.now().strftime("%Y.%m.%d %H:%M")
-    files_to_add = ['index.html']
-    if json_updated:
-        files_to_add.append(f'data/{target_date_str}.json')
-    for f in files_to_add:
-        subprocess.run(['git', 'add', f], cwd=REPO_DIR, check=True)
-    result = subprocess.run(
-        ['git', 'commit', '-m', f'auto: 行业声音更新 {target_date_str} {now_str} ({count}条)'],
-        cwd=REPO_DIR, capture_output=True, text=True
+def update_html_inject(date_str, voice_items, html_path, dry_run=False):
+    """更新 HTML 里 INJECT:voice_{date_str} 区域"""
+    import re
+
+    with open(html_path, encoding="utf-8") as f:
+        content = f.read()
+
+    inject_key = f"voice_{date_str}"
+    pattern = re.compile(
+        r'(<!-- INJECT:' + inject_key + r' -->)(.*?)(<!-- /INJECT:' + inject_key + r' -->)',
+        re.DOTALL
     )
-    if result.returncode != 0:
-        if 'nothing to commit' in result.stdout + result.stderr:
-            print("  ⚠️  无变化，跳过 commit")
-            return
-        raise RuntimeError(f"git commit 失败: {result.stderr}")
-    subprocess.run(['git', 'push'], cwd=REPO_DIR, check=True)
-    print("  ✅ git push 完成")
+
+    if not pattern.search(content):
+        print(f"  ⚠️  INJECT:{inject_key} 标记不存在，跳过 HTML 更新", file=sys.stderr)
+        return False
+
+    # 生成 HTML 片段
+    def esc(s):
+        return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+    items_html = []
+    for item in voice_items:
+        parts = [
+            '<div class="tl-item">',
+            '  <div class="tl-dot"></div>',
+        ]
+        if item.get("time"):
+            parts.append(f'  <div class="tl-time">{esc(item["time"])}</div>')
+        if item.get("source"):
+            style = f'background:{item.get("color","")};color:{item.get("text_color","")};'
+            parts.append(f'  <div class="tl-tag" style="{style}">{esc(item["source"])}</div>')
+        parts.append(f'  <div class="tl-title">{esc(item["title"])}</div>')
+        if item.get("digest"):
+            parts.append(f'  <div class="tl-body">{esc(item["digest"])}</div>')
+        if item.get("link"):
+            parts.append(f'  <a class="tl-source" href="{esc(item["link"])}" target="_blank">→ 阅读原文</a>')
+        parts.append('</div>')
+        items_html.append('\n'.join(parts))
+
+    new_inner = '\n' + '\n'.join(items_html) + '\n'
+    new_content = pattern.sub(
+        r'\g<1>' + new_inner + r'\3',
+        content
+    )
+
+    # 更新 badge
+    badge_pattern = re.compile(r'(id="voice-count-' + date_str + r'">)[^<]*(</span>)')
+    real_count = len([v for v in voice_items if v.get("source")])  # 不算兜底
+    new_content = badge_pattern.sub(r'\g<1>· ' + str(real_count) + r'\2', new_content)
+
+    if dry_run:
+        print(f"[dry-run] HTML inject {inject_key}: {len(voice_items)} 条", file=sys.stderr)
+        return True
+
+    bak = html_path + ".bak." + datetime.now().strftime("%Y%m%d%H%M%S")
+    import shutil
+    shutil.copy2(html_path, bak)
+
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(new_content)
+
+    # div depth 自查
+    depth = 0
+    max_depth = 0
+    for line in new_content.splitlines():
+        depth += line.count('<div') - line.count('</div')
+        if depth > max_depth:
+            max_depth = depth
+    if depth != 0:
+        print(f"  ⚠️  div depth 自查失败！depth={depth}，回滚", file=sys.stderr)
+        shutil.copy2(bak, html_path)
+        return False
+
+    print(f"  ✅ HTML inject 更新完成: {inject_key}", file=sys.stderr)
+    return True
 
 
-# ─── 状态管理 ─────────────────────────────────────────────────────────────────
+def git_push(date_str, count, dry_run=False):
+    if dry_run:
+        print("[dry-run] 跳过 git push", file=sys.stderr)
+        return
+    now_str = datetime.now().strftime("%Y.%m.%d %H:%M")
+    msg = f"auto: 行业声音更新 {date_str} {now_str} ({count}条)"
+    subprocess.run(["git", "add", "-A"], cwd=REPO_DIR, check=True)
+    result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=REPO_DIR)
+    if result.returncode == 0:
+        print("  ℹ️  无变更，跳过 commit", file=sys.stderr)
+        return
+    subprocess.run(["git", "commit", "-m", msg], cwd=REPO_DIR, check=True)
+    # pull --rebase 防止冲突
+    subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=REPO_DIR, check=False)
+    subprocess.run(["git", "push"], cwd=REPO_DIR, check=True)
+    print(f"  ✅ git push 完成: {msg}", file=sys.stderr)
 
-def load_state():
-    if os.path.exists(STATE_FILE):
-        with open(STATE_FILE, encoding='utf-8') as f:
-            return json.load(f)
-    return {"published_links": [], "last_run": ""}
 
-
-def save_state(state):
-    os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
-    with open(STATE_FILE, 'w', encoding='utf-8') as f:
-        json.dump(state, f, ensure_ascii=False, indent=2)
-
-
-# ─── 主入口 ───────────────────────────────────────────────────────────────────
+# ─── 主流程 ───────────────────────────────────────────────────────────────────
 
 def main():
-    import argparse
-    parser = argparse.ArgumentParser(description="微信公众号抓取（搜狗方案）")
-    parser.add_argument("--test",    action="store_true", help="只测试「财躺平」一个公众号")
-    parser.add_argument("--all",     action="store_true", help="全量抓取所有公众号")
-    parser.add_argument("--date",    default=None,        help="目标日期 YYYY-MM-DD（更新HTML用）")
-    parser.add_argument("--dry-run", action="store_true", help="不写入文件，只打印结果")
-    parser.add_argument("--output",  default=None,        help="JSON 输出到指定文件（默认 stdout）")
-    args = parser.parse_args()
+    dry_run = "--dry-run" in sys.argv
+    date_str = None
+    for arg in sys.argv[1:]:
+        if arg.startswith("--date="):
+            date_str = arg.split("=", 1)[1]
+        elif arg == "--date" and sys.argv.index(arg) + 1 < len(sys.argv):
+            date_str = sys.argv[sys.argv.index(arg) + 1]
 
-    # 日期处理
-    if args.date:
-        target_dt = datetime.strptime(args.date, "%Y-%m-%d")
-    else:
-        target_dt = datetime.now()
-    target_date_str = target_dt.strftime("%Y%m%d")
+    tz = timezone(timedelta(hours=8))
+    if date_str is None:
+        date_str = datetime.now(tz).strftime("%Y%m%d")
 
-    # 确定要抓的公众号列表
-    if args.test:
-        targets = [ACCOUNTS[0]]   # 只跑财躺平
-        print(f"[TEST MODE] 只测试「{targets[0]['name']}」...", file=sys.stderr)
-    else:
-        targets = ACCOUNTS
-        print(f"[FULL MODE] 抓取 {len(targets)} 个公众号...", file=sys.stderr)
+    date_start, date_end = today_ts_range(date_str)
+    print(f"▶ 抓取日期: {date_str} ({datetime.fromtimestamp(date_start, tz)} ~ {datetime.fromtimestamp(date_end, tz)})", file=sys.stderr)
 
-    session = build_session()
-    accounts_map = {a["name"]: a for a in ACCOUNTS}
-    all_articles = []
+    # 加载 cookie
+    env = load_cookies()
+    slave_sid  = env.get("WX_SLAVE_SID", "")
+    slave_user = env.get("WX_SLAVE_USER", "")
+    token      = env.get("WX_TOKEN", "")
+    weibo_sub  = env.get("WEIBO_SUB", "")
+    weibo_subp = env.get("WEIBO_SUBP", "")
+    weibo_uid  = env.get("WEIBO_TARGET_UID", "2337530130")
 
-    for acct in targets:
+    cookie_str = f"slave_user={slave_user}; slave_sid={slave_sid}"
+
+    all_voice = []
+
+    # 抓微信各公众号
+    for acct in ACCOUNTS:
+        print(f"  📰 抓取: {acct['name']} ...", file=sys.stderr)
         try:
-            arts = fetch_account(session, acct, max_articles=2)
-            all_articles.extend(arts)
+            articles = fetch_wx_articles(
+                fakeid=acct["fakeid"],
+                cookie_str=cookie_str,
+                token=token,
+                proxy=PROXY,
+                date_start=date_start,
+                date_end=date_end,
+            )
+            print(f"    → {len(articles)} 篇", file=sys.stderr)
+            for art in articles:
+                ts = art.get("create_time", 0)
+                all_voice.append({
+                    "source":     acct["name"],
+                    "title":      art.get("title", ""),
+                    "digest":     art.get("digest", "")[:200],
+                    "link":       art.get("link", ""),
+                    "time":       datetime.fromtimestamp(ts, tz=tz).strftime("%H:%M") if ts else "",
+                    "color":      acct["color"],
+                    "text_color": acct["text_color"],
+                })
         except Exception as e:
-            print(f"  ❌ 抓取「{acct['name']}」失败: {e}", file=sys.stderr)
+            print(f"    ⚠️  {acct['name']} 抓取异常: {e}", file=sys.stderr)
+        time.sleep(SLEEP_SEC)
 
-    print(f"\n共抓取 {len(all_articles)} 篇文章", file=sys.stderr)
+    # 抓刘煜辉微博
+    print(f"  📰 抓取: 刘煜辉微博 ...", file=sys.stderr)
+    try:
+        weibo_posts = fetch_weibo_today(
+            uid=weibo_uid,
+            sub_cookie=weibo_sub,
+            subp_cookie=weibo_subp,
+            proxy=PROXY,
+            date_start=date_start,
+            date_end=date_end,
+        )
+        print(f"    → {len(weibo_posts)} 条", file=sys.stderr)
+        all_voice.extend(weibo_posts)
+    except Exception as e:
+        print(f"    ⚠️  微博抓取异常: {e}", file=sys.stderr)
 
-    if not all_articles:
-        print("  ⚠️  未获取到任何文章", file=sys.stderr)
-        sys.exit(1)
+    # 按时间排序（倒序，最新在前）
+    def sort_key(v):
+        t = v.get("time", "")
+        return t if t else "00:00"
+    all_voice.sort(key=sort_key, reverse=True)
 
-    # ── JSON 输出 ──
-    output_data = []
-    for art in all_articles:
-        output_data.append({
-            "title":     art.get("title", ""),
-            "author":    art.get("author", art.get("name", "")),
-            "content":   art.get("content", ""),
-            "url":       art.get("url", ""),
-            "timestamp": art.get("timestamp", 0),
-            "name":      art.get("name", ""),   # 公众号标识
-        })
+    print(f"\n📊 今日行业声音共 {len(all_voice)} 条", file=sys.stderr)
 
-    if args.output:
-        with open(args.output, 'w', encoding='utf-8') as f:
-            json.dump(output_data, f, ensure_ascii=False, indent=2)
-        print(f"  ✅ 结果写入 {args.output}", file=sys.stderr)
-    elif args.dry_run or args.test:
-        # test/dry-run 时输出到 stdout
-        print(json.dumps(output_data, ensure_ascii=False, indent=2))
-    else:
-        # 默认：输出 JSON 到 stdout
-        print(json.dumps(output_data, ensure_ascii=False, indent=2))
+    # 更新 JSON
+    html_path = os.path.join(REPO_DIR, "index.html")
+    update_json_voice(date_str, all_voice, dry_run=dry_run)
 
-    # ── HTML 更新（非 test/dry-run 模式，且有 HTML 文件时）──
-    if not args.test and not args.dry_run and os.path.exists(HTML_PATH):
-        backup_path = f"{HTML_PATH}.bak.{datetime.now().strftime('%Y%m%d%H%M%S')}"
-        shutil.copy2(HTML_PATH, backup_path)
-        print(f"  备份 HTML: {os.path.basename(backup_path)}", file=sys.stderr)
+    # 更新 HTML inject
+    update_html_inject(date_str, all_voice if all_voice else [{
+        "source": "", "title": "今天还没有新文章哟 🐾",
+        "digest": "", "link": "", "time": "", "color": "", "text_color": "#999",
+    }], html_path, dry_run=dry_run)
 
-        count = update_html(HTML_PATH, all_articles, accounts_map, target_date_str)
-        # 同步更新 JSON（无论HTML是否变化）
-        update_json_voice(all_articles, accounts_map, target_date_str)
-        if count > 0:
-            verify_divs(HTML_PATH)
-            git_push(count, target_date_str, json_updated=True)
-        else:
-            # HTML无变化但JSON有更新，单独push JSON
-            subprocess.run(['git', 'add', f'data/{target_date_str}.json'], cwd=REPO_DIR, check=True)
-            result = subprocess.run(['git', 'commit', '-m', f'auto: 行业声音JSON更新 {target_date_str}'],
-                                    cwd=REPO_DIR, capture_output=True, text=True)
-            if result.returncode == 0:
-                subprocess.run(['git', 'push'], cwd=REPO_DIR, check=True)
-                print("  ✅ JSON-only push 完成")
-
-        # 更新状态
-        state = load_state()
-        new_links = [a["url"] for a in all_articles if a.get("url")]
-        state["published_links"] = list(
-            set(state.get("published_links", [])) | set(new_links)
-        )[-500:]
-        state["last_run"] = datetime.now().isoformat()
-        save_state(state)
-
-    print(f"[DONE]", file=sys.stderr)
+    # git push
+    git_push(date_str, len(all_voice), dry_run=dry_run)
 
 
 if __name__ == "__main__":

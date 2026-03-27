@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>画像驱动的个性化搜索 Demo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6fa; color: #1a1a1a; min-height: 100vh; }
+
+.header {
+  background: white; border-bottom: 1px solid #eee;
+  padding: 0 28px; height: 56px;
+  display: flex; align-items: center; gap: 14px;
+}
+.header-logo { display: flex; align-items: center; gap: 8px; }
+.header-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: #ff6034; }
+.header-logo h1 { font-size: 15px; font-weight: 700; color: #1a1a1a; letter-spacing: -.3px; }
+.header-desc { font-size: 12px; color: #999; }
+.header-sep { width: 1px; height: 18px; background: #eee; }
+.api-badge {
+  margin-left: auto; display: flex; align-items: center; gap: 5px;
+  background: #f0faf5; border: 1px solid #b8ead4;
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 11px; color: #2db47d; font-weight: 500;
+}
+.api-badge::before { content: '●'; font-size: 8px; }
+
+.layout {
+  display: grid; grid-template-columns: 320px 1fr;
+  gap: 20px; padding: 20px 28px;
+  min-height: calc(100vh - 56px); align-items: start;
+}
+
+/* 左栏 */
+.col-left { position: sticky; top: 20px; }
+.phone-card { background: white; border-radius: 16px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.phone-card-label {
+  font-size: 10px; color: #bbb; font-weight: 600; letter-spacing: .6px;
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.phone-card-label::after { content: ''; flex: 1; height: 1px; background: #f0f0f0; }
+.phone-wrap { display: flex; justify-content: center; }
+.phone {
+  width: 250px; background: #111; border-radius: 40px; padding: 14px 10px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.28), inset 0 0 0 1px #2a2a2a;
+}
+.phone-notch { width: 68px; height: 7px; background: #000; border-radius: 4px; margin: 0 auto 10px; }
+.phone-screen { background: white; border-radius: 28px; overflow: hidden; height: 490px; display: flex; flex-direction: column; }
+
+.page { width: 100%; height: 100%; display: flex; flex-direction: column; }
+.page.hidden { display: none; }
+
+/* 首页 */
+#page-home .home-header {
+  background: linear-gradient(150deg, #ff5019 0%, #ff8c00 100%);
+  padding: 10px 12px 8px; flex-shrink: 0;
+}
+.home-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.home-logo { font-size: 14px; font-weight: 700; color: white; }
+.home-user { font-size: 10px; color: rgba(255,255,255,.85); }
+
+.home-search-trigger {
+  background: white; border-radius: 8px; padding: 0 10px; height: 33px;
+  display: flex; align-items: center; gap: 6px; cursor: pointer;
+  box-shadow: 0 1px 6px rgba(0,0,0,.12);
+}
+.home-search-trigger .s-icon { color: #ccc; font-size: 12px; }
+.home-search-trigger .s-placeholder { font-size: 12px; color: #bbb; flex: 1; }
+.home-search-trigger .s-hot { font-size: 10px; color: #ff6034; background: #fff0ec; padding: 2px 6px; border-radius: 4px; }
+
+.home-products { flex: 1; overflow-y: auto; padding: 10px 10px 6px; scrollbar-width: none; }
+.home-products::-webkit-scrollbar { display: none; }
+.home-section-title { font-size: 11px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+.accent { color: #ff6034; }
+
+/* 商品卡 */
+.product-card {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 9px 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;
+}
+.product-card:last-child { border-bottom: none; }
+.product-card:active { opacity: .8; }
+.product-img-wrap {
+  width: 48px; height: 48px; border-radius: 8px;
+  background: #fff5f0; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; border: 1.5px solid #f0f0f0;
+}
+.product-card.rank-1 .product-img-wrap { border-color: #ff6034; }
+.product-card.rank-2 .product-img-wrap { border-color: #ff9500; }
+.product-card.rank-3 .product-img-wrap { border-color: #ffc200; }
+.product-body { flex: 1; min-width: 0; }
+.product-name { font-size: 12px; font-weight: 600; color: #1a1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.product-shop { font-size: 10px; color: #aaa; margin-top: 1px; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
+.product-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; background: #fff0ec; color: #ff6034; border: 1px solid #ffd5c8; }
+.product-tag.health { background: #f0faf5; color: #2db47d; border-color: #b8ead4; }
+.product-tag.cheap { background: #fffbe6; color: #d4780a; border-color: #ffe58f; }
+.product-right { flex-shrink: 0; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.product-price { color: #ff6034; font-size: 13px; font-weight: 700; }
+.product-price .unit { font-size: 10px; font-weight: 400; }
+.product-rating { font-size: 9px; color: #aaa; }
+.rank-badge { font-size: 9px; font-weight: 700; color: white; padding: 1px 5px; border-radius: 3px; background: #ff6034; }
+.rank-badge.r2 { background: #ff9500; }
+.rank-badge.r3 { background: #ffc200; color: #333; }
+
+/* 搜索落地页 */
+#page-search .search-header {
+  background: white; border-bottom: 1px solid #f0f0f0;
+  padding: 8px 10px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 6px; width: 100%;
+}
+.search-back-btn {
+  width: 26px; height: 26px; border-radius: 50%; border: none;
+  background: #f5f5f5; cursor: pointer; font-size: 13px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #555;
+}
+.search-input-wrap {
+  flex: 1; min-width: 0; background: #f5f5f5; border-radius: 8px; height: 32px;
+  display: flex; align-items: center; padding: 0 8px; gap: 5px;
+  border: 1.5px solid transparent; transition: border-color .15s; overflow: hidden;
+}
+.search-input-wrap:focus-within { border-color: #ff6034; background: white; }
+.search-icon { color: #ccc; font-size: 12px; flex-shrink: 0; }
+.search-input-wrap input { border: none; outline: none; background: transparent; font-size: 12px; flex: 1; min-width: 0; }
+.search-submit-btn {
+  background: #ff6034; color: white; border: none; border-radius: 6px;
+  padding: 0 10px; height: 32px; font-size: 11px; font-weight: 600;
+  cursor: pointer; flex-shrink: 0; white-space: nowrap;
+}
+.search-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 12px 10px; width: 100%; scrollbar-width: none; }
+.search-body::-webkit-scrollbar { display: none; }
+
+.section-label { font-size: 11px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+.clear-btn { font-size: 10px; color: #bbb; font-weight: 400; margin-left: auto; cursor: pointer; }
+.history-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.history-tag { font-size: 11px; padding: 4px 11px; background: #f5f5f5; border-radius: 20px; color: #555; cursor: pointer; }
+.history-tag:hover { background: #fff0ec; color: #ff6034; }
+.hot-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.hot-item { display: flex; align-items: center; gap: 6px; padding: 5px 4px; border-radius: 6px; cursor: pointer; }
+.hot-item:hover { background: #f9f9f9; }
+.hot-rank { font-size: 12px; font-weight: 700; width: 16px; color: #ff6034; flex-shrink: 0; }
+.hot-rank.grey { color: #ccc; }
+.hot-name { font-size: 11px; color: #333; flex: 1; }
+.hot-badge { font-size: 9px; padding: 1px 4px; border-radius: 3px; background: #ff3b30; color: white; flex-shrink: 0; }
+.hot-badge.new { background: #ff9500; }
+.result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.result-title { font-size: 12px; font-weight: 600; color: #333; }
+.result-persona-badge { font-size: 10px; background: #fff0ec; color: #ff6034; padding: 2px 8px; border-radius: 20px; }
+.result-empty { text-align: center; padding: 28px 10px; color: #ccc; font-size: 12px; }
+
+/* 右栏 */
+.col-right { display: flex; flex-direction: column; gap: 14px; }
+.panel { background: white; border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+.panel-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.panel-title { font-size: 13px; font-weight: 700; color: #1a1a1a; display: flex; align-items: center; gap: 6px; }
+.panel-act { font-size: 11px; color: #bbb; cursor: pointer; }
+.panel-act:hover { color: #ff6034; }
+.panel-divider { height: 1px; background: #f5f5f5; margin: 14px 0; }
+
+/* 用户选择 */
+.user-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.user-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 10px 6px; border-radius: 12px; border: 2px solid #f0f0f0;
+  background: #fafafa; cursor: pointer; transition: all .15s;
+}
+.user-btn:hover { border-color: #ffd5c8; }
+.user-btn.active { border-color: #ff6034; background: #fff0ec; }
+.user-btn .ubavatar { font-size: 22px; }
+.user-btn .ubname { font-size: 12px; font-weight: 600; color: #555; }
+.user-btn .ubdesc { font-size: 10px; color: #bbb; }
+.user-btn.active .ubname { color: #ff6034; }
+
+/* 画像标签 */
+.label-dim-label { font-size: 10px; color: #bbb; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; margin-bottom: 5px; }
+.labels { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.labels:last-child { margin-bottom: 0; }
+.label { font-size: 11px; padding: 3px 9px; border-radius: 20px; cursor: default; }
+.label.c1 { background: #f0f4ff; color: #4a6cf7; border: 1px solid #d0dcff; }
+.label.c2 { background: #fff0ec; color: #ff6034; border: 1px solid #ffd5c8; }
+.label.c3 { background: #f0faf5; color: #2db47d; border: 1px solid #b8ead4; }
+.label.c4 { background: #fdf5ff; color: #9b59b6; border: 1px solid #e0c6f5; }
+
+/* 权重 */
+.weight-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.weight-row:last-child { margin-bottom: 0; }
+.weight-name { font-size: 12px; color: #555; width: 52px; flex-shrink: 0; }
+.weight-track { flex: 1; height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
+.weight-fill { height: 100%; border-radius: 3px; transition: width .5s cubic-bezier(.4,0,.2,1); }
+.weight-val { font-size: 11px; color: #bbb; width: 28px; text-align: right; }
+
+/* 跨用户对比 */
+.comp-kw { font-size: 12px; color: #888; margin-bottom: 10px; }
+.comp-kw strong { color: #333; }
+.comparison-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f5f5f5; }
+.comparison-row:last-child { border-bottom: none; }
+.comp-user { font-size: 12px; font-weight: 600; color: #444; white-space: nowrap; min-width: 44px; }
+.comp-items { display: flex; flex-wrap: wrap; gap: 4px; }
+.comp-item { font-size: 11px; color: #888; background: #f5f5f5; padding: 2px 7px; border-radius: 4px; }
+.comp-item.top { color: #ff6034; background: #fff0ec; font-weight: 500; }
+
+/* 行为日志 */
+.log-list { display: flex; flex-direction: column; gap: 7px; max-height: 220px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #eee transparent; }
+.log-entry { display: flex; gap: 8px; align-items: flex-start; }
+.log-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.type-search .log-dot { background: #4a6cf7; }
+.type-click .log-dot { background: #ff6034; }
+.type-switch .log-dot { background: #2db47d; }
+.log-content { flex: 1; }
+.log-time { font-size: 10px; color: #ccc; }
+.log-detail { font-size: 11px; color: #555; margin-top: 1px; }
+
+/* 行为偏好 */
+.behavior-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.behavior-chip { font-size: 11px; padding: 4px 10px; background: #f0f4ff; border-radius: 20px; color: #4a6cf7; border: 1px solid #d0dcff; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">
+    <div class="dot"></div>
+    <h1>画像驱动的个性化搜索</h1>
+  </div>
+  <div class="header-sep"></div>
+  <div class="header-desc">Persona 真实标签 × 用户画像权重 → 同词不同序</div>
+  <div class="api-badge">Persona 真实标签接口</div>
+</div>
+
+<div class="layout">
+
+  <!-- 左栏：手机 -->
+  <div class="col-left">
+    <div class="phone-card">
+      <div class="phone-card-label">📱 APP 预览（模拟用户视角）</div>
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+
+            <!-- 首页 -->
+            <div class="page" id="page-home">
+              <div class="home-header">
+                <div class="home-title-row">
+                  <div class="home-logo">🍜 美团外卖</div>
+                  <div class="home-user" id="home-user-label">👩‍💼 小美</div>
+                </div>
+                <div class="home-search-trigger" id="btn-to-search">
+                  <span class="s-icon">🔍</span>
+                  <span class="s-placeholder" id="search-trigger-text">搜索美食…</span>
+                  <span class="s-hot" id="search-trigger-hot">推荐</span>
+                </div>
+              </div>
+              <div class="home-products">
+                <div class="home-section-title">🔥 <span class="accent" id="home-reco-title">为你推荐</span></div>
+                <div id="home-product-list"></div>
+              </div>
+            </div>
+
+            <!-- 搜索落地页 -->
+            <div class="page hidden" id="page-search">
+              <div class="search-header">
+                <button class="search-back-btn" id="btn-back-home">←</button>
+                <div class="search-input-wrap">
+                  <span class="search-icon">🔍</span>
+                  <input type="text" id="search-input" placeholder="搜索美食、商家…" autocomplete="off">
+                </div>
+                <button class="search-submit-btn" id="btn-search-submit">搜索</button>
+              </div>
+              <div class="search-body">
+                <div id="section-initial">
+                  <div id="history-section">
+                    <div class="section-label">🕐 历史搜索 <span class="clear-btn" id="btn-clear-history">清空</span></div>
+                    <div class="history-tags" id="history-tags"></div>
+                  </div>
+                  <div class="section-label">🔥 热门搜索</div>
+                  <div class="hot-list">
+                    <div class="hot-item" onclick="fillSearch('汉堡')"><span class="hot-rank">1</span><span class="hot-name">汉堡</span><span class="hot-badge">热</span></div>
+                    <div class="hot-item" onclick="fillSearch('炸鸡')"><span class="hot-rank">2</span><span class="hot-name">炸鸡</span><span class="hot-badge">热</span></div>
+                    <div class="hot-item" onclick="fillSearch('奶茶')"><span class="hot-rank">3</span><span class="hot-name">奶茶</span></div>
+                    <div class="hot-item" onclick="fillSearch('沙拉')"><span class="hot-rank">4</span><span class="hot-name">沙拉</span></div>
+                    <div class="hot-item" onclick="fillSearch('米饭')"><span class="hot-rank grey">5</span><span class="hot-name">米饭</span><span class="hot-badge new">新</span></div>
+                    <div class="hot-item" onclick="fillSearch('披萨')"><span class="hot-rank grey">6</span><span class="hot-name">披萨</span></div>
+                  </div>
+                </div>
+                <div id="section-results" style="display:none">
+                  <div class="result-header">
+                    <span class="result-title" id="result-title">搜索结果</span>
+                    <span class="result-persona-badge" id="result-persona-badge"></span>
+                  </div>
+                  <div id="search-result-list"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右栏：控制面板 -->
+  <div class="col-right">
+
+    <!-- 切换用户 -->
+    <div class="panel">
+      <div class="panel-hd">
+        <div class="panel-title">👤 切换用户</div>
+      </div>
+      <div class="user-grid">
+        <button class="user-btn" data-user="xiaomei" onclick="selectUser('xiaomei')">
+          <div class="ubavatar">👩‍💼</div><div class="ubname">小美</div><div class="ubdesc">白领女性</div>
+        </button>
+        <button class="user-btn" data-user="aqiang" onclick="selectUser('aqiang')">
+          <div class="ubavatar">👨‍💻</div><div class="ubname">阿强</div><div class="ubdesc">程序员</div>
+        </button>
+        <button class="user-btn" data-user="xuemei" onclick="selectUser('xuemei')">
+          <div class="ubavatar">👩‍🎓</div><div class="ubname">学妹</div><div class="ubdesc">在校学生</div>
+        </button>
+        <button class="user-btn" data-user="laowang" onclick="selectUser('laowang')">
+          <div class="ubavatar">👔</div><div class="ubname">老王</div><div class="ubdesc">商务人士</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- 画像 + 权重（合并） -->
+    <div class="panel" id="profile-panel">
+      <div class="panel-hd">
+        <div class="panel-title">🏷 Persona 画像标签 <span style="font-size:10px;font-weight:400;color:#bbb;margin-left:4px">真实接口</span></div>
+      </div>
+      <div id="profile-labels">
+        <div style="text-align:center;color:#ccc;font-size:12px;padding:14px 0">选择用户后加载画像</div>
+      </div>
+      <div class="panel-divider"></div>
+      <div class="panel-title" style="font-size:12px;margin-bottom:10px">⚖️ 偏好权重</div>
+      <div id="weight-bars">
+        <div style="color:#ccc;font-size:12px">选择用户后显示</div>
+      </div>
+    </div>
+
+    <!-- 跨用户对比 -->
+    <div class="panel" id="comparison-panel" style="display:none">
+      <div class="panel-hd">
+        <div class="panel-title">🔄 跨用户对比</div>
+      </div>
+      <div id="comparison-body"></div>
+    </div>
+
+    <!-- 行为记录 + 偏好推断（合并） -->
+    <div class="panel">
+      <div class="panel-hd">
+        <div class="panel-title">📋 行为记录</div>
+        <span class="panel-act" onclick="clearLog()">清空</span>
+      </div>
+      <div class="log-list" id="log-list">
+        <div style="text-align:center;padding:16px;color:#ddd;font-size:12px">操作后此处记录行为数据</div>
+      </div>
+      <div class="panel-divider"></div>
+      <div class="panel-title" style="font-size:12px;margin-bottom:10px">🧠 行为偏好推断</div>
+      <div id="behavior-tags-wrap">
+        <div style="font-size:12px;color:#ccc">暂无行为数据</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const USERS = {
+  xiaomei: {
+    name:'小美', emoji:'👩‍💼', desc:'白领女性',
+    priceWeight:0.3, healthWeight:0.8, qualityWeight:0.7,
+    labelQueries:['外卖偏好','健康饮食偏好','品质消费'],
+    categoryBonus:{ '沙拉':0.3, '轻食':0.2 }
+  },
+  aqiang: {
+    name:'阿强', emoji:'👨‍💻', desc:'程序员',
+    priceWeight:0.8, healthWeight:0.3, qualityWeight:0.5,
+    labelQueries:['价格敏感度','高频下单用户','外卖消费频次'],
+    categoryBonus:{ '汉堡':0.15, '炸鸡':0.1 }
+  },
+  xuemei: {
+    name:'学妹', emoji:'👩‍🎓', desc:'在校学生',
+    priceWeight:0.9, healthWeight:0.4, qualityWeight:0.3,
+    labelQueries:['价格敏感度','学生消费','优惠券使用'],
+    categoryBonus:{ '奶茶':0.1 }
+  },
+  laowang: {
+    name:'老王', emoji:'👔', desc:'商务人士',
+    priceWeight:0.2, healthWeight:0.6, qualityWeight:0.8,
+    labelQueries:['高消费用户','品质偏好','商务消费'],
+    categoryBonus:{ '沙拉':0.15, '米饭':0.1 }
+  }
+};
+
+const PRODUCTS = [
+  { id:1,  name:'藜麦牛肉汉堡',       shop:'绿厨坊',     emoji:'🍔', price:38,   priceLevel:2, healthScore:0.9,  qualityScore:0.8, baseScore:0.70, category:'汉堡', tags:['高蛋白','低卡'],   searchKeys:['汉堡','牛肉'] },
+  { id:2,  name:'麦辣鸡腿堡套餐',     shop:'快乐鸡',     emoji:'🍔', price:19.9, priceLevel:1, healthScore:0.3,  qualityScore:0.5, baseScore:0.75, category:'汉堡', tags:['超值套餐'],        searchKeys:['汉堡','炸鸡','套餐'] },
+  { id:3,  name:'招牌芝士厚牛堡',     shop:'牛堡王',     emoji:'🍔', price:42,   priceLevel:3, healthScore:0.4,  qualityScore:0.9, baseScore:0.72, category:'汉堡', tags:['双层芝士'],        searchKeys:['汉堡','牛肉'] },
+  { id:4,  name:'黑麦全谷物素食堡',   shop:'素食星球',   emoji:'🥙', price:35,   priceLevel:2, healthScore:0.95, qualityScore:0.75,baseScore:0.65, category:'汉堡', tags:['素食','全谷物'],   searchKeys:['汉堡','素食','健康'] },
+  { id:5,  name:'经典双层牛肉堡',     shop:'城堡汉堡',   emoji:'🍔', price:25,   priceLevel:1, healthScore:0.45, qualityScore:0.65,baseScore:0.78, category:'汉堡', tags:['经典'],           searchKeys:['汉堡','牛肉'] },
+  { id:6,  name:'黑糖珍珠波波奶茶',   shop:'茶颜雀',     emoji:'🧋', price:22,   priceLevel:2, healthScore:0.3,  qualityScore:0.7, baseScore:0.80, category:'奶茶', tags:['招牌'],           searchKeys:['奶茶','珍珠','黑糖'] },
+  { id:7,  name:'抹茶燕麦拿铁',       shop:'绿意茶馆',   emoji:'🍵', price:28,   priceLevel:2, healthScore:0.75, qualityScore:0.8, baseScore:0.70, category:'奶茶', tags:['低糖','燕麦'],    searchKeys:['奶茶','抹茶','健康'] },
+  { id:8,  name:'原味珍珠奶茶大杯',   shop:'蜜雪冰城',   emoji:'🧋', price:6,    priceLevel:1, healthScore:0.25, qualityScore:0.4, baseScore:0.82, category:'奶茶', tags:['超便宜'],         searchKeys:['奶茶','珍珠'] },
+  { id:9,  name:'芋泥爆珠珍珠',       shop:'古茗',       emoji:'🧋', price:18,   priceLevel:1, healthScore:0.35, qualityScore:0.65,baseScore:0.76, category:'奶茶', tags:['芋泥'],           searchKeys:['奶茶','芋泥','珍珠'] },
+  { id:10, name:'牛油果鸡胸肉沙拉',   shop:'轻食研究所', emoji:'🥗', price:48,   priceLevel:3, healthScore:0.95, qualityScore:0.85,baseScore:0.68, category:'沙拉', tags:['健康','高蛋白'],  searchKeys:['沙拉','牛油果','鸡胸'] },
+  { id:11, name:'蔬菜水果沙拉',       shop:'清新食堂',   emoji:'🥗', price:32,   priceLevel:2, healthScore:0.85, qualityScore:0.65,baseScore:0.65, category:'沙拉', tags:['素食','维C'],     searchKeys:['沙拉','蔬菜','水果'] },
+  { id:12, name:'帝王蟹沙拉',         shop:'海鲜主义',   emoji:'🦀', price:88,   priceLevel:3, healthScore:0.7,  qualityScore:0.95,baseScore:0.60, category:'沙拉', tags:['顶级食材'],       searchKeys:['沙拉','海鲜'] },
+  { id:13, name:'香脆炸鸡桶10件',     shop:'肯德鸡',     emoji:'🍗', price:39.9, priceLevel:2, healthScore:0.25, qualityScore:0.7, baseScore:0.82, category:'炸鸡', tags:['超值','家庭装'],  searchKeys:['炸鸡','套餐'] },
+  { id:14, name:'香烤鸡腿排（低脂）', shop:'健康鸡',     emoji:'🍗', price:28,   priceLevel:2, healthScore:0.75, qualityScore:0.75,baseScore:0.70, category:'炸鸡', tags:['低脂','烤制'],    searchKeys:['炸鸡','鸡腿','健康'] },
+  { id:15, name:'脆皮鸡翅中6件',      shop:'翅膀先生',   emoji:'🍗', price:22,   priceLevel:1, healthScore:0.3,  qualityScore:0.6, baseScore:0.76, category:'炸鸡', tags:['香脆'],           searchKeys:['炸鸡','鸡翅'] },
+  { id:16, name:'招牌黑椒牛肉饭',     shop:'饭堂',       emoji:'🍱', price:26,   priceLevel:2, healthScore:0.5,  qualityScore:0.75,baseScore:0.78, category:'米饭', tags:['招牌'],           searchKeys:['米饭','牛肉','盖浇'] },
+  { id:17, name:'三文鱼亲子丼',       shop:'日料研究所', emoji:'🍣', price:58,   priceLevel:3, healthScore:0.8,  qualityScore:0.9, baseScore:0.65, category:'米饭', tags:['日料','高端'],    searchKeys:['米饭','日料','三文鱼'] },
+  { id:18, name:'番茄鸡蛋盖浇饭',     shop:'家常菜',     emoji:'🍳', price:12,   priceLevel:1, healthScore:0.55, qualityScore:0.5, baseScore:0.72, category:'米饭', tags:['家常','经济'],    searchKeys:['米饭','家常','盖浇'] },
+  { id:19, name:'黑松露牛肉披萨',     shop:'芝士工坊',   emoji:'🍕', price:88,   priceLevel:3, healthScore:0.5,  qualityScore:0.95,baseScore:0.62, category:'披萨', tags:['顶级','黑松露'],  searchKeys:['披萨','牛肉'] },
+  { id:20, name:'玛格丽特披萨',       shop:'意式小馆',   emoji:'🍕', price:45,   priceLevel:3, healthScore:0.55, qualityScore:0.8, baseScore:0.68, category:'披萨', tags:['经典意式'],       searchKeys:['披萨'] },
+  { id:21, name:'芝心培根披萨',       shop:'必胜客',     emoji:'🍕', price:62,   priceLevel:3, healthScore:0.3,  qualityScore:0.75,baseScore:0.70, category:'披萨', tags:['芝心'],           searchKeys:['披萨','培根'] },
+  { id:22, name:'素食蔬菜披萨',       shop:'素食星球',   emoji:'🍕', price:38,   priceLevel:2, healthScore:0.8,  qualityScore:0.65,baseScore:0.63, category:'披萨', tags:['素食','健康'],    searchKeys:['披萨','素食'] },
+  { id:23, name:'6寸个人披萨',        shop:'快拿',       emoji:'🍕', price:18,   priceLevel:1, healthScore:0.35, qualityScore:0.45,baseScore:0.71, category:'披萨', tags:['小份','经济'],    searchKeys:['披萨'] },
+];
+
+let currentUser = null;
+let searchHistory = ['汉堡', '奶茶', '沙拉'];
+let currentPage = 'home';
+let behaviorClicks = [];
+
+// 导航
+document.getElementById('btn-to-search').addEventListener('click', () => goToSearch());
+document.getElementById('btn-back-home').addEventListener('click', () => goToHome());
+document.getElementById('btn-search-submit').addEventListener('click', () => doSearch());
+document.getElementById('search-input').addEventListener('keydown', e => { if (e.key==='Enter') doSearch(); });
+document.getElementById('search-input').addEventListener('input', e => { if (!e.target.value.trim()) showInitialState(); });
+document.getElementById('btn-clear-history').addEventListener('click', clearHistory);
+
+function goToSearch(prefill) {
+  document.getElementById('page-home').classList.add('hidden');
+  document.getElementById('page-search').classList.remove('hidden');
+  currentPage = 'search';
+  showInitialState();
+  if (prefill) { document.getElementById('search-input').value = prefill; setTimeout(doSearch, 50); }
+  else setTimeout(() => document.getElementById('search-input').focus(), 80);
+}
+function goToHome() {
+  document.getElementById('page-search').classList.add('hidden');
+  document.getElementById('page-home').classList.remove('hidden');
+  document.getElementById('search-input').value = '';
+  currentPage = 'home';
+}
+function showInitialState() {
+  document.getElementById('section-initial').style.display = '';
+  document.getElementById('section-results').style.display = 'none';
+  renderHistory();
+}
+
+// 搜索
+function fillSearch(kw) { document.getElementById('search-input').value = kw; doSearch(); }
+function doSearch() {
+  const kw = document.getElementById('search-input').value.trim();
+  if (!kw) return;
+  if (!currentUser) {
+    const inp = document.getElementById('search-input');
+    inp.placeholder = '请先切换用户！';
+    setTimeout(() => inp.placeholder = '搜索美食、商家…', 1500);
+    return;
+  }
+  if (!searchHistory.includes(kw)) { searchHistory.unshift(kw); if (searchHistory.length > 8) searchHistory.pop(); }
+  renderHistory();
+  addLog('search', `${currentUser.emoji} ${currentUser.name} 搜索「${kw}」`);
+  const matched = PRODUCTS.filter(p =>
+    p.name.includes(kw) || p.category.includes(kw) ||
+    p.searchKeys.some(k => k.includes(kw) || kw.includes(k)) ||
+    p.tags.some(t => t.includes(kw))
+  );
+  const scored = matched.map(p => ({ ...p, score: scoreProduct(p, currentUser) })).sort((a,b) => b.score - a.score);
+  renderSearchResults(scored, kw);
+  updateComparison(kw, matched);
+}
+
+function scoreProduct(product, user) {
+  let s = product.baseScore;
+  s += product.healthScore * user.healthWeight * 0.3;
+  s -= (product.priceLevel - 1) * user.priceWeight * 0.25;
+  s += product.qualityScore * user.qualityWeight * 0.2;
+  s += (user.categoryBonus[product.category] || 0);
+  s += (Math.random() - 0.5) * 0.06;
+  return Math.max(0, Math.min(1, s));
+}
+
+function productCardHtml(p, i, showRating) {
+  const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'';
+  const rankBadge = i<3 ? `<div class="rank-badge ${i===1?'r2':i===2?'r3':''}">#${i+1}</div>` : '';
+  const tagHtml = p.tags.slice(0,2).map(t => {
+    const cls = ['健康','低卡','低脂','素食','全谷物','高蛋白','低糖'].includes(t)?'health':['超值','超便宜','经济','超便宜'].includes(t)?'cheap':'';
+    return `<span class="product-tag ${cls}">${t}</span>`;
+  }).join('');
+  return `<div class="product-card ${rankClass}" onclick="clickProduct(${p.id},'${p.name}')">
+    <div class="product-img-wrap">${p.emoji}</div>
+    <div class="product-body">
+      <div class="product-name">${p.name}</div>
+      <div class="product-shop">${p.shop}</div>
+      <div class="product-tags">${tagHtml}</div>
+    </div>
+    <div class="product-right">
+      <div class="product-price"><span class="unit">¥</span>${p.price}</div>
+      ${showRating ? `<div class="product-rating">★ ${(4.0+p.qualityScore).toFixed(1)}</div>` : ''}
+      ${rankBadge}
+    </div>
+  </div>`;
+}
+
+function renderSearchResults(items, kw) {
+  document.getElementById('section-initial').style.display = 'none';
+  document.getElementById('section-results').style.display = '';
+  document.getElementById('result-title').textContent = `"${kw}" 的搜索结果（${items.length}个）`;
+  document.getElementById('result-persona-badge').textContent = `${currentUser.emoji} ${currentUser.name}`;
+  const list = document.getElementById('search-result-list');
+  if (items.length === 0) { list.innerHTML = `<div class="result-empty"><div>🔍</div>没有找到相关商品</div>`; return; }
+  list.innerHTML = items.map((p,i) => productCardHtml(p,i,true)).join('');
+}
+
+function renderHomeProducts() {
+  if (!currentUser) return;
+  const allScored = PRODUCTS.map(p => ({...p, score:scoreProduct(p,currentUser)})).sort((a,b)=>b.score-a.score).slice(0,8);
+  document.getElementById('home-reco-title').innerHTML = `<span class="accent">为${currentUser.name}推荐</span>`;
+  document.getElementById('home-user-label').textContent = `${currentUser.emoji} ${currentUser.name}`;
+  document.getElementById('search-trigger-hot').textContent = allScored[0].category;
+  document.getElementById('home-product-list').innerHTML = allScored.map((p,i) => productCardHtml(p,i,false)).join('');
+}
+
+// 用户选择
+function selectUser(uid, silent) {
+  currentUser = USERS[uid];
+  document.querySelectorAll('.user-btn').forEach(b => b.classList.toggle('active', b.dataset.user===uid));
+  document.getElementById('home-user-label').textContent = `${currentUser.emoji} ${currentUser.name}`;
+  if (!silent) addLog('switch', `切换到 ${currentUser.emoji} ${currentUser.name}（${currentUser.desc}）`);
+  renderWeights();
+  renderHomeProducts();
+  loadPersonaLabels();
+  if (currentPage === 'search') showInitialState();
+}
+
+// 权重
+function renderWeights() {
+  const u = currentUser;
+  const bars = [
+    { label:'价格敏感', val:u.priceWeight, color:'#ff9500' },
+    { label:'健康偏好', val:u.healthWeight, color:'#2db47d' },
+    { label:'品质偏好', val:u.qualityWeight, color:'#4a6cf7' },
+  ];
+  document.getElementById('weight-bars').innerHTML = bars.map(b => `
+    <div class="weight-row">
+      <span class="weight-name">${b.label}</span>
+      <div class="weight-track"><div class="weight-fill" style="width:${b.val*100}%;background:${b.color}"></div></div>
+      <span class="weight-val">${(b.val*10).toFixed(0)}/10</span>
+    </div>`).join('');
+}
+
+// Persona API
+async function loadPersonaLabels() {
+  const u = currentUser;
+  const container = document.getElementById('profile-labels');
+  container.innerHTML = `<div style="color:#bbb;font-size:12px;padding:8px 0">⏳ 从 Persona 加载真实标签…</div>`;
+  const colors = ['c1','c2','c3','c4'];
+  const results = [];
+  for (const query of u.labelQueries) {
+    try {
+      const res = await fetch(`https://persona.sankuai.com/api/v2/ai/rag/dutvs/assets/searchAll?query=${encodeURIComponent(query)}&assetTypes=label&idType=1`);
+      const json = await res.json();
+      results.push({ query, items: (json?.data?.results||[]).slice(0,3) });
+    } catch(e) { results.push({ query, items:[], err:true }); }
+  }
+  const hasData = results.some(r => r.items.length > 0);
+  if (!hasData) {
+    container.innerHTML = `<div style="color:#ccc;font-size:11px;padding:8px 0">⚠️ 需登录 persona.sankuai.com 后刷新</div>`;
+    return;
+  }
+  container.innerHTML = results.map((r,i) => `
+    <div class="label-dim-label">${r.query}</div>
+    <div class="labels">
+      ${r.items.length===0 ? `<span style="font-size:11px;color:#ccc">无结果</span>`
+        : r.items.map(it => `<span class="label ${colors[i%4]}" title="${it.labelDesc||''}">${it.labelName||it.labelId}</span>`).join('')}
+    </div>`).join('');
+}
+
+// 历史
+function renderHistory() {
+  const sec = document.getElementById('history-section');
+  if (searchHistory.length === 0) { sec.style.display='none'; return; }
+  sec.style.display = '';
+  document.getElementById('history-tags').innerHTML = searchHistory.map(h =>
+    `<span class="history-tag" onclick="fillSearch('${h}')">${h}</span>`).join('');
+}
+function clearHistory() { searchHistory=[]; renderHistory(); }
+
+// 点击商品
+function clickProduct(id, name) {
+  const p = PRODUCTS.find(x=>x.id===id);
+  behaviorClicks.push({ category:p.category, priceLevel:p.priceLevel });
+  addLog('click', `点击商品「${name}」（${p.category} · ¥${p.price}）`);
+  updateBehaviorTags();
+}
+function updateBehaviorTags() {
+  if (!behaviorClicks.length) return;
+  const catCount={};
+  let cheap=0;
+  behaviorClicks.forEach(c => { catCount[c.category]=(catCount[c.category]||0)+1; if(c.priceLevel===1) cheap++; });
+  const tags = Object.entries(catCount).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([cat,n])=>`偏好${cat}(${n}次)`);
+  if (cheap>=2) tags.push('价格敏感');
+  document.getElementById('behavior-tags-wrap').innerHTML =
+    `<div class="behavior-chips">${tags.map(t=>`<span class="behavior-chip">${t}</span>`).join('')}</div>`;
+}
+
+// 跨用户对比
+function updateComparison(kw, matched) {
+  const panel = document.getElementById('comparison-panel');
+  const body = document.getElementById('comparison-body');
+  panel.style.display = '';
+  body.innerHTML = `<div class="comp-kw">「<strong>${kw}</strong>」的排序差异</div>` +
+    Object.entries(USERS).map(([uid,u]) => {
+      const top = matched.map(p=>({...p,score:scoreProduct(p,u)})).sort((a,b)=>b.score-a.score).slice(0,3);
+      return `<div class="comparison-row">
+        <span class="comp-user">${u.emoji} ${u.name}</span>
+        <div class="comp-items">
+          ${top.map((p,i)=>`<span class="comp-item ${i===0?'top':''}">${p.name}</span>`).join('')}
+        </div>
+      </div>`;
+    }).join('');
+}
+
+// 日志
+function addLog(type, msg) {
+  const list = document.getElementById('log-list');
+  const ph = list.querySelector('div[style]');
+  if (ph) ph.remove();
+  const time = new Date().toLocaleTimeString('zh-CN',{hour12:false});
+  const el = document.createElement('div');
+  el.className = `log-entry type-${type}`;
+  el.innerHTML = `<div class="log-dot"></div><div class="log-content"><div class="log-time">${time}</div><div class="log-detail">${msg}</div></div>`;
+  list.insertBefore(el, list.firstChild);
+}
+function clearLog() {
+  document.getElementById('log-list').innerHTML = '<div style="text-align:center;padding:16px;color:#ddd;font-size:12px">操作后此处记录行为数据</div>';
+}
+
+// 初始化
+renderHistory();
+selectUser('xiaomei', true);
+</script>
+</body>
+</html>

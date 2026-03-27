@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>画像驱动的个性化搜索 Demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6fa; color: #333; }
+
+  .header {
+    background: linear-gradient(135deg, #ff6034, #ff8c00);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(255,96,52,0.3);
+  }
+  .header h1 { font-size: 20px; font-weight: 600; }
+  .header .subtitle { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  .logo { font-size: 28px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+  .layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+
+  /* 左侧：用户选择 + 画像 */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  }
+  .card-title {
+    font-size: 13px;
+    color: #999;
+    font-weight: 500;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .user-list { display: flex; flex-direction: column; gap: 8px; }
+  .user-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .user-item:hover { background: #fff5f2; }
+  .user-item.active { background: #fff0ec; border-color: #ff6034; }
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .user-name { font-size: 14px; font-weight: 500; }
+  .user-desc { font-size: 12px; color: #999; margin-top: 1px; }
+
+  /* 画像标签展示 */
+  .profile-section { }
+  .profile-loading {
+    text-align: center;
+    padding: 20px;
+    color: #bbb;
+    font-size: 13px;
+  }
+  .label-group { margin-bottom: 12px; }
+  .label-group-title {
+    font-size: 12px;
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .label-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .label-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: #f0f4ff;
+    color: #4a6cf7;
+    cursor: default;
+  }
+  .label-tag.preference { background: #fff0ec; color: #ff6034; }
+  .label-tag.behavior { background: #f0faf5; color: #2db47d; }
+  .label-tag.sensitivity { background: #fdf5ff; color: #9b59b6; }
+
+  /* 右侧：搜索区 */
+  .main { display: flex; flex-direction: column; gap: 16px; }
+
+  .search-box {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  }
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .search-input {
+    flex: 1;
+    height: 44px;
+    border: 2px solid #e8e8e8;
+    border-radius: 22px;
+    padding: 0 18px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: #ff6034; }
+  .search-btn {
+    height: 44px;
+    padding: 0 24px;
+    background: #ff6034;
+    color: white;
+    border: none;
+    border-radius: 22px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .search-btn:hover { background: #e54f28; }
+  .search-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+  .quick-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .quick-tag {
+    padding: 5px 14px;
+    background: #f5f5f5;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #555;
+  }
+  .quick-tag:hover { background: #fff0ec; color: #ff6034; }
+
+  /* 搜索提示条 */
+  .search-insight {
+    background: linear-gradient(135deg, #fff8f5, #fff);
+    border: 1px solid #ffe0d6;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #666;
+    display: none;
+  }
+  .search-insight.show { display: block; }
+  .search-insight strong { color: #ff6034; }
+
+  /* 商品网格 */
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .results-count { font-size: 13px; color: #999; }
+  .sort-label { font-size: 12px; color: #bbb; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+
+  .product-img {
+    width: 100%; height: 130px;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    background: linear-gradient(135deg, #fff8f5, #ffeee8);
+  }
+  .product-body { padding: 10px 12px; }
+  .product-name { font-size: 13px; font-weight: 500; line-height: 1.4; color: #222; margin-bottom: 4px; }
+  .product-shop { font-size: 11px; color: #999; margin-bottom: 6px; }
+  .product-bottom { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { color: #ff6034; font-size: 15px; font-weight: 600; }
+  .product-price span { font-size: 11px; font-weight: 400; }
+  .product-rating { font-size: 11px; color: #faad14; }
+  .product-sales { font-size: 11px; color: #bbb; margin-top: 2px; }
+
+  /* 推荐理由 badge */
+  .recommend-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(255,96,52,0.9);
+    color: white;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 排序 badge */
+  .rank-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+  }
+  .rank-1 { background: #ff6034; }
+  .rank-2 { background: #ff9500; }
+  .rank-3 { background: #ffd600; color: #333; }
+
+  /* 状态 */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #ccc;
+  }
+  .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; }
+
+  .loading-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #bbb;
+    font-size: 14px;
+  }
+
+  /* 对比面板 */
+  .compare-btn {
+    padding: 6px 14px;
+    background: #f0f4ff;
+    color: #4a6cf7;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .compare-btn:hover { background: #dde6ff; }
+
+  .compare-panel {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    margin-top: 16px;
+  }
+  .compare-panel.show { display: block; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .compare-col h4 { font-size: 13px; color: #666; margin-bottom: 10px; }
+  .compare-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f5f5f5; }
+  .compare-rank { width: 20px; height: 20px; border-radius: 50%; background: #f5f5f5; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #666; flex-shrink: 0; }
+  .compare-name { font-size: 12px; color: #333; }
+  .compare-score { margin-left: auto; font-size: 12px; color: #ff6034; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">🛒</div>
+  <div>
+    <h1>画像驱动的个性化搜索</h1>
+    <div class="subtitle">基于 Persona 真实标签 · Mock 商品数据 · 个性化排序演示</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="layout">
+
+    <!-- 左侧：用户选择 + 画像 -->
+    <div class="sidebar">
+
+      <div class="card">
+        <div class="card-title">选择用户</div>
+        <div class="user-list" id="userList">
+          <div class="user-item active" onclick="selectUser(0)" data-idx="0">
+            <div class="avatar" style="background:#fff0ec">🧕</div>
+            <div>
+              <div class="user-name">小美</div>
+              <div class="user-desc">一线城市·白领女性</div>
+            </div>
+          </div>
+          <div class="user-item" onclick="selectUser(1)" data-idx="1">
+            <div class="avatar" style="background:#f0faf5">🧑‍💻</div>
+            <div>
+              <div class="user-name">阿强</div>
+              <div class="user-desc">二线城市·程序员</div>
+            </div>
+          </div>
+          <div class="user-item" onclick="selectUser(2)" data-idx="2">
+            <div class="avatar" style="background:#fdf5ff">👩‍🎓</div>
+            <div>
+              <div class="user-name">学妹</div>
+              <div class="user-desc">三线城市·在校学生</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="profileCard">
+        <div class="card-title">画像标签 <span id="profileSource" style="color:#bbb;font-weight:400;font-size:11px"></span></div>
+        <div id="profileContent">
+          <div class="profile-loading">加载中...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 右侧：搜索 + 结果 -->
+    <div class="main">
+
+      <div class="search-box">
+        <div class="search-bar">
+          <input class="search-input" id="searchInput" type="text" placeholder="搜索外卖商品..." value="汉堡" />
+          <button class="search-btn" id="searchBtn" onclick="doSearch()">搜索</button>
+        </div>
+        <div class="quick-tags">
+          <span class="quick-tag" onclick="quickSearch('汉堡')">🍔 汉堡</span>
+          <span class="quick-tag" onclick="quickSearch('奶茶')">🧋 奶茶</span>
+          <span class="quick-tag" onclick="quickSearch('沙拉')">🥗 沙拉</span>
+          <span class="quick-tag" onclick="quickSearch('炸鸡')">🍗 炸鸡</span>
+          <span class="quick-tag" onclick="quickSearch('米饭')">🍱 米饭</span>
+          <span class="quick-tag" onclick="quickSearch('披萨')">🍕 披萨</span>
+        </div>
+      </div>
+
+      <div class="search-insight" id="searchInsight"></div>
+
+      <div class="card">
+        <div class="results-header">
+          <div class="results-count" id="resultsCount"></div>
+          <button class="compare-btn" onclick="toggleCompare()" id="compareBtn" style="display:none">对比不同用户结果 →</button>
+        </div>
+        <div id="productsContainer">
+          <div class="empty-state">
+            <div class="emoji">🔍</div>
+            <p>点击搜索，看看不同用户的个性化结果</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-panel" id="comparePanel">
+        <div class="card-title">📊 三位用户搜索结果对比（同一关键词，不同排序）</div>
+        <div class="compare-grid" id="compareGrid"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ===================== Mock 商品数据 =====================
+const PRODUCTS = [
+  // 汉堡系列
+  { id:1, name:"麦辣鸡腿堡套餐", shop:"麦当劳旗舰店", emoji:"🍔", price:19.9, rating:4.8, sales:5200,
+    categories:["汉堡","快餐"], keywords:["汉堡","鸡腿","套餐","快餐"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+  { id:2, name:"黑松露牛肉堡", shop:"汉克斯精品汉堡", emoji:"🍔", price:68, rating:4.9, sales:320,
+    categories:["汉堡","精品"], keywords:["汉堡","牛肉","精品","黑松露"],
+    tags: { price:"高价", health:"普通", quality:"精品" } },
+  { id:3, name:"低卡鸡肉堡", shop:"轻食工坊", emoji:"🥙", price:35, rating:4.7, sales:890,
+    categories:["汉堡","轻食","健康"], keywords:["汉堡","鸡肉","低卡","健康","减脂"],
+    tags: { price:"中价", health:"健康", quality:"大众" } },
+  { id:4, name:"香辣牛肉堡超值套餐", shop:"汉堡王", emoji:"🍔", price:29.9, rating:4.6, sales:3100,
+    categories:["汉堡","快餐"], keywords:["汉堡","牛肉","辣","套餐"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+  { id:5, name:"藜麦鸡胸肉堡", shop:"FitFood健身餐", emoji:"🥗", price:42, rating:4.8, sales:650,
+    categories:["汉堡","健康","健身"], keywords:["汉堡","鸡胸肉","藜麦","健身","高蛋白"],
+    tags: { price:"中价", health:"健康", quality:"精品" } },
+  { id:6, name:"学生超值三件套", shop:"口福快餐", emoji:"🍔", price:15.9, rating:4.4, sales:4500,
+    categories:["汉堡","快餐","超值"], keywords:["汉堡","套餐","超值","便宜","学生"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+
+  // 奶茶系列
+  { id:7, name:"黑糖波波奶茶", shop:"茶百道", emoji:"🧋", price:22, rating:4.9, sales:8800,
+    categories:["奶茶","饮品"], keywords:["奶茶","黑糖","波波","饮品"],
+    tags: { price:"中价", health:"普通", quality:"大众" } },
+  { id:8, name:"无糖茉莉花茶", shop:"喜茶", emoji:"🍵", price:28, rating:4.8, sales:2300,
+    categories:["奶茶","茶饮","健康"], keywords:["奶茶","无糖","茶","健康","减糖"],
+    tags: { price:"中价", health:"健康", quality:"精品" } },
+  { id:9, name:"原味珍珠奶茶大杯", shop:"蜜雪冰城", emoji:"🧋", price:6, rating:4.5, sales:12000,
+    categories:["奶茶","饮品","超值"], keywords:["奶茶","珍珠","便宜","超值"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+  { id:10, name:"芝士草莓拿铁", shop:"奈雪的茶", emoji:"🍓", price:38, rating:4.9, sales:1500,
+    categories:["奶茶","茶饮","精品"], keywords:["奶茶","草莓","芝士","精品"],
+    tags: { price:"高价", health:"普通", quality:"精品" } },
+
+  // 沙拉系列
+  { id:11, name:"牛油果鸡胸肉沙拉", shop:"超级碗SaladBowl", emoji:"🥗", price:48, rating:4.9, sales:680,
+    categories:["沙拉","健康","减脂"], keywords:["沙拉","牛油果","鸡胸肉","健康","减脂"],
+    tags: { price:"中价", health:"健康", quality:"精品" } },
+  { id:12, name:"日式海草沙拉", shop:"轻食工坊", emoji:"🥗", price:29, rating:4.7, sales:430,
+    categories:["沙拉","健康","轻食"], keywords:["沙拉","海草","日式","健康"],
+    tags: { price:"中价", health:"健康", quality:"大众" } },
+  { id:13, name:"凯撒沙拉家庭装", shop:"肥卡厨房", emoji:"🥗", price:22, rating:4.5, sales:1200,
+    categories:["沙拉"], keywords:["沙拉","凯撒","家庭"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+
+  // 炸鸡系列
+  { id:14, name:"香脆炸鸡桶10块", shop:"肯德基", emoji:"🍗", price:39.9, rating:4.7, sales:6500,
+    categories:["炸鸡","快餐"], keywords:["炸鸡","香脆","套餐","快餐"],
+    tags: { price:"中价", health:"普通", quality:"大众" } },
+  { id:15, name:"韩式酱香炸鸡", shop:"bb.q CHICKEN", emoji:"🍗", price:89, rating:4.9, sales:450,
+    categories:["炸鸡","精品","韩餐"], keywords:["炸鸡","韩式","酱香","精品"],
+    tags: { price:"高价", health:"普通", quality:"精品" } },
+  { id:16, name:"校园炸鸡2块套餐", shop:"华莱士", emoji:"🍗", price:12.9, rating:4.3, sales:9800,
+    categories:["炸鸡","快餐","超值"], keywords:["炸鸡","套餐","超值","便宜","学生"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+  { id:17, name:"烤炸鸡腿低卡版", shop:"FitFood健身餐", emoji:"🍗", price:35, rating:4.8, sales:560,
+    categories:["炸鸡","健康","健身"], keywords:["炸鸡","烤","低卡","健康","健身"],
+    tags: { price:"中价", health:"健康", quality:"精品" } },
+
+  // 米饭/盖饭
+  { id:18, name:"黑椒牛肉盖饭", shop:"饭扫光", emoji:"🍱", price:26, rating:4.6, sales:2800,
+    categories:["米饭","盖饭"], keywords:["米饭","牛肉","盖饭","黑椒"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+  { id:19, name:"精选有机糙米饭套餐", shop:"轻食工坊", emoji:"🥗", price:38, rating:4.8, sales:420,
+    categories:["米饭","健康","轻食"], keywords:["米饭","糙米","有机","健康"],
+    tags: { price:"中价", health:"健康", quality:"精品" } },
+  { id:20, name:"学生快手拌饭", shop:"食堂来了", emoji:"🍱", price:11.9, rating:4.2, sales:7600,
+    categories:["米饭","超值"], keywords:["米饭","拌饭","便宜","学生","超值"],
+    tags: { price:"低价", health:"普通", quality:"大众" } },
+
+  // 披萨
+  { id:21, name:"榴莲披萨8寸", shop:"达美乐", emoji:"🍕", price:128, rating:4.9, sales:280,
+    categories:["披萨","精品"], keywords:["披萨","榴莲","精品"],
+    tags: { price:"高价", health:"普通", quality:"精品" } },
+  { id:22, name:"超值学生披萨套餐", shop:"必胜客", emoji:"🍕", price:49, rating:4.6, sales:3200,
+    categories:["披萨","套餐"], keywords:["披萨","套餐","超值","学生"],
+    tags: { price:"中价", health:"普通", quality:"大众" } },
+  { id:23, name:"全麦蔬菜素披萨", shop:"轻食工坊", emoji:"🍕", price:55, rating:4.8, sales:380,
+    categories:["披萨","健康","素食"], keywords:["披萨","全麦","蔬菜","素食","健康"],
+    tags: { price:"中价", health:"健康", quality:"精品" } },
+];
+
+// ===================== 用户画像配置 =====================
+const USERS = [
+  {
+    name: "小美",
+    desc: "一线城市·白领女性",
+    emoji: "🧕",
+    persona: {
+      // 画像标签（将从 Persona 接口动态获取）
+      searchQueries: ["健康", "高频下单", "外卖偏好"],
+      // 权重规则
+      weights: {
+        health: { "健康": 2.5, "普通": 1.0 },
+        price: { "低价": 1.0, "中价": 2.0, "高价": 1.5 },
+        quality: { "大众": 1.0, "精品": 2.0 }
+      },
+      // 品类加成
+      categoryBonus: { "健康": 1.8, "轻食": 1.6, "精品": 1.5 }
+    }
+  },
+  {
+    name: "阿强",
+    desc: "二线城市·程序员",
+    emoji: "🧑‍💻",
+    persona: {
+      searchQueries: ["高频下单", "价格敏感", "外卖偏好"],
+      weights: {
+        health: { "健康": 1.0, "普通": 1.5 },
+        price: { "低价": 2.5, "中价": 1.5, "高价": 0.6 },
+        quality: { "大众": 2.0, "精品": 1.0 }
+      },
+      categoryBonus: { "超值": 2.0, "快餐": 1.8 }
+    }
+  },
+  {
+    name: "学妹",
+    desc: "三线城市·在校学生",
+    emoji: "👩‍🎓",
+    persona: {
+      searchQueries: ["价格敏感", "奶茶偏好", "外卖偏好"],
+      weights: {
+        health: { "健康": 1.2, "普通": 1.5 },
+        price: { "低价": 3.0, "中价": 1.2, "高价": 0.4 },
+        quality: { "大众": 2.5, "精品": 0.8 }
+      },
+      categoryBonus: { "超值": 2.5, "学生": 2.0, "奶茶": 1.8 }
+    }
+  }
+];
+
+// ===================== 状态 =====================
+let currentUserIdx = 0;
+let currentKeyword = "汉堡";
+let personaLabels = {}; // { userIdx: [labels] }
+let compareVisible = false;
+
+// ===================== 初始化 =====================
+window.onload = function() {
+  loadPersonaLabels(0);
+  // 搜索框回车
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch();
+  });
+};
+
+// ===================== 用户选择 =====================
+function selectUser(idx) {
+  currentUserIdx = idx;
+  document.querySelectorAll('.user-item').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+  loadPersonaLabels(idx);
+
+  // 如果已有搜索结果，重新渲染
+  if (currentKeyword && document.getElementById('productsContainer').querySelector('.product-card')) {
+    doSearch();
+  }
+}
+
+// ===================== 加载 Persona 标签（调用真实接口） =====================
+async function loadPersonaLabels(idx) {
+  if (personaLabels[idx]) {
+    renderProfile(idx);
+    return;
+  }
+
+  const user = USERS[idx];
+  document.getElementById('profileContent').innerHTML = '<div class="profile-loading">🔄 从 Persona 接口获取中...</div>';
+  document.getElementById('profileSource').textContent = '';
+
+  try {
+    // 并发搜索该用户的多个维度标签
+    const queries = user.persona.searchQueries;
+    const results = await Promise.all(
+      queries.map(q =>
+        fetch(`/api/v2/ai/rag/dutvs/assets/searchAll?query=${encodeURIComponent(q)}&assetTypes=label&pageSize=3&idType=1`, {
+          credentials: 'include'
+        }).then(r => r.json()).then(d => ({ query: q, labels: d.data || [] }))
+      )
+    );
+
+    // 整理标签分组
+    const labelGroups = [];
+    results.forEach(({ query, labels }) => {
+      if (labels.length > 0) {
+        labelGroups.push({
+          title: query,
+          labels: labels.slice(0, 3).map(l => ({
+            id: l.id,
+            name: l.assetName,
+            similarity: l.similarity
+          }))
+        });
+      }
+    });
+
+    personaLabels[idx] = labelGroups;
+    document.getElementById('profileSource').textContent = '· Persona 真实接口';
+    renderProfile(idx);
+
+  } catch(e) {
+    document.getElementById('profileContent').innerHTML = '<div class="profile-loading" style="color:#f56">接口请求失败，请检查登录状态</div>';
+  }
+}
+
+// ===================== 渲染用户画像 =====================
+function renderProfile(idx) {
+  const user = USERS[idx];
+  const groups = personaLabels[idx] || [];
+  const typeClasses = ['preference', 'behavior', 'sensitivity'];
+
+  let html = '';
+  groups.forEach((group, gi) => {
+    html += `<div class="label-group">
+      <div class="label-group-title">🏷️ ${group.title}</div>
+      <div class="label-tags">
+        ${group.labels.map(l => `<span class="label-tag ${typeClasses[gi] || ''}" title="ID:${l.id} 相似度:${(l.similarity*100).toFixed(0)}%">${l.name}</span>`).join('')}
+      </div>
+    </div>`;
+  });
+
+  if (!html) html = '<div class="profile-loading">暂无标签数据</div>';
+  document.getElementById('profileContent').innerHTML = html;
+}
+
+// ===================== 搜索主逻辑 =====================
+function quickSearch(keyword) {
+  document.getElementById('searchInput').value = keyword;
+  doSearch();
+}
+
+function doSearch() {
+  const keyword = document.getElementById('searchInput').value.trim();
+  if (!keyword) return;
+
+  currentKeyword = keyword;
+  const user = USERS[currentUserIdx];
+  const container = document.getElementById('productsContainer');
+  const insight = document.getElementById('searchInsight');
+
+  // 过滤匹配关键词的商品
+  const matched = PRODUCTS.filter(p =>
+    p.keywords.some(k => k.includes(keyword) || keyword.includes(k)) ||
+    p.name.includes(keyword) ||
+    p.categories.some(c => c.includes(keyword))
+  );
+
+  if (matched.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="emoji">😅</div><p>没有找到"${keyword}"相关商品</p></div>`;
+    insight.className = 'search-insight';
+    document.getElementById('compareBtn').style.display = 'none';
+    document.getElementById('resultsCount').textContent = '';
+    return;
+  }
+
+  // 个性化评分（基于画像权重）
+  const scored = matched.map(p => {
+    let score = 1.0;
+    const w = user.persona.weights;
+
+    // 价格权重
+    if (w.price && p.tags.price) score *= (w.price[p.tags.price] || 1.0);
+    // 健康权重
+    if (w.health && p.tags.health) score *= (w.health[p.tags.health] || 1.0);
+    // 品质权重
+    if (w.quality && p.tags.quality) score *= (w.quality[p.tags.quality] || 1.0);
+    // 品类加成
+    const bonus = user.persona.categoryBonus || {};
+    p.categories.forEach(c => {
+      if (bonus[c]) score *= bonus[c];
+    });
+    p.keywords.forEach(k => {
+      if (bonus[k]) score *= bonus[k];
+    });
+
+    // 基础销量加成（轻微）
+    score *= (1 + Math.log10(p.sales + 1) * 0.05);
+
+    return { ...p, score };
+  }).sort((a, b) => b.score - a.score);
+
+  // 展示搜索洞察
+  const topLabel = scored[0];
+  const whyText = getRecommendReason(scored[0], user);
+  insight.innerHTML = `🎯 基于 <strong>${user.name}</strong> 的画像标签，为她个性化排序了 <strong>${scored.length}</strong> 件商品 · 首推：<strong>${topLabel.name}</strong>（${whyText}）`;
+  insight.className = 'search-insight show';
+
+  // 渲染商品卡片
+  document.getElementById('resultsCount').textContent = `共 ${scored.length} 件商品`;
+  document.getElementById('compareBtn').style.display = 'block';
+
+  container.innerHTML = `<div class="products-grid">
+    ${scored.map((p, i) => renderProductCard(p, i, user)).join('')}
+  </div>`;
+}
+
+function getRecommendReason(product, user) {
+  const reasons = [];
+  if (product.tags.health === '健康' && user.persona.weights.health?.['健康'] > 1.5) reasons.push('健康偏好匹配');
+  if (product.tags.price === '低价' && user.persona.weights.price?.['低价'] > 2.0) reasons.push('超值优惠');
+  if (product.tags.quality === '精品' && user.persona.weights.quality?.['精品'] > 1.5) reasons.push('品质优先');
+  if (product.categories.some(c => (user.persona.categoryBonus?.[c] || 0) > 1.5)) reasons.push('品类偏好');
+  return reasons.length ? reasons.join(' · ') : '综合评分最高';
+}
+
+function renderProductCard(product, rank, user) {
+  const reason = getRecommendReason(product, user);
+  const rankBadge = rank < 3 ? `<div class="rank-badge rank-${rank+1}">${rank+1}</div>` : '';
+  const recBadge = rank < 3 ? `<div class="recommend-badge">✨ ${reason}</div>` : '';
+
+  return `<div class="product-card">
+    ${recBadge}
+    ${rankBadge}
+    <div class="product-img">${product.emoji}</div>
+    <div class="product-body">
+      <div class="product-name">${product.name}</div>
+      <div class="product-shop">${product.shop}</div>
+      <div class="product-bottom">
+        <div>
+          <div class="product-price"><span>¥</span>${product.price}</div>
+          <div class="product-sales">月售 ${product.sales.toLocaleString()}</div>
+        </div>
+        <div class="product-rating">⭐ ${product.rating}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===================== 对比面板 =====================
+function toggleCompare() {
+  compareVisible = !compareVisible;
+  const panel = document.getElementById('comparePanel');
+  panel.classList.toggle('show', compareVisible);
+  document.getElementById('compareBtn').textContent = compareVisible ? '收起对比 ↑' : '对比不同用户结果 →';
+
+  if (compareVisible) renderCompare();
+}
+
+function renderCompare() {
+  const keyword = currentKeyword;
+  const grid = document.getElementById('compareGrid');
+
+  const allResults = USERS.map((user, idx) => {
+    const matched = PRODUCTS.filter(p =>
+      p.keywords.some(k => k.includes(keyword) || keyword.includes(k)) ||
+      p.name.includes(keyword) ||
+      p.categories.some(c => c.includes(keyword))
+    );
+    const scored = matched.map(p => {
+      let score = 1.0;
+      const w = user.persona.weights;
+      if (w.price && p.tags.price) score *= (w.price[p.tags.price] || 1.0);
+      if (w.health && p.tags.health) score *= (w.health[p.tags.health] || 1.0);
+      if (w.quality && p.tags.quality) score *= (w.quality[p.tags.quality] || 1.0);
+      const bonus = user.persona.categoryBonus || {};
+      p.categories.forEach(c => { if (bonus[c]) score *= bonus[c]; });
+      p.keywords.forEach(k => { if (bonus[k]) score *= bonus[k]; });
+      score *= (1 + Math.log10(p.sales + 1) * 0.05);
+      return { ...p, score };
+    }).sort((a, b) => b.score - a.score);
+    return { user, results: scored };
+  });
+
+  grid.innerHTML = allResults.map(({ user, results }) => `
+    <div class="compare-col">
+      <h4>${user.emoji} ${user.name}（${user.desc}）的排序</h4>
+      ${results.slice(0, 5).map((p, i) => `
+        <div class="compare-item">
+          <div class="compare-rank">${i+1}</div>
+          <div class="compare-name">${p.name}</div>
+          <div class="compare-score">¥${p.price}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+</script>
+</body>
+</html>

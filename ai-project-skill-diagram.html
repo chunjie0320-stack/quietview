@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 项目开发 Skill 框架图</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #141c2e;
+    --border: #1e3a5f;
+    --a1: #3b82f6;
+    --a2: #06b6d4;
+    --a3: #8b5cf6;
+    --a4: #10b981;
+    --a5: #f59e0b;
+    --a6: #ef4444;
+    --t1: #e2e8f0;
+    --t2: #94a3b8;
+    --t3: #64748b;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--t1);
+    padding: 48px 28px 64px;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .hdr { text-align:center; margin-bottom:52px; }
+  .hdr-tag {
+    display:inline-block; font-size:11px; font-weight:600;
+    letter-spacing:3px; text-transform:uppercase; color:var(--a2);
+    background:rgba(6,182,212,.12); border:1px solid rgba(6,182,212,.28);
+    padding:4px 14px; border-radius:20px; margin-bottom:14px;
+  }
+  .hdr h1 {
+    font-size:32px; font-weight:700; line-height:1.3; margin-bottom:8px;
+    background:linear-gradient(135deg,#e2e8f0 0%,#94a3b8 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .hdr p { font-size:13px; color:var(--t3); letter-spacing:.4px; }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width:1060px; margin:0 auto; display:flex; flex-direction:column; gap:0; }
+
+  /* ── TIER ── */
+  .tier { border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+  .tier-head {
+    display:flex; align-items:center; gap:12px;
+    padding:16px 22px; background:var(--surface);
+    border-bottom:1px solid var(--border);
+  }
+  .tier-badge {
+    width:32px; height:32px; border-radius:9px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; flex-shrink:0;
+  }
+  .tier-title { font-size:15px; font-weight:700; }
+  .tier-sub   { font-size:11.5px; color:var(--t3); margin-top:2px; }
+  .tier-right { margin-left:auto; font-size:11px; color:var(--t3); text-align:right; }
+  .tier-body  { padding:18px 22px; background:var(--surface2); }
+
+  /* colour variants */
+  .t-user  .tier-badge { background:rgba(59,130,246,.18); }
+  .t-user  .tier-title { color:var(--a1); }
+  .t-pm    .tier-badge { background:rgba(139,92,246,.18); }
+  .t-pm    .tier-title { color:var(--a3); }
+  .t-tl    .tier-badge { background:rgba(6,182,212,.18); }
+  .t-tl    .tier-title { color:var(--a2); }
+  .t-work  .tier-badge { background:rgba(16,185,129,.18); }
+  .t-work  .tier-title { color:var(--a4); }
+  .t-qa    .tier-badge { background:rgba(245,158,11,.18); }
+  .t-qa    .tier-title { color:var(--a5); }
+  .t-del   .tier-badge { background:rgba(239,68,68,.18); }
+  .t-del   .tier-title { color:var(--a6); }
+
+  /* ── ARROW ── */
+  .arrow {
+    display:flex; align-items:center; justify-content:center;
+    padding:8px 0; position:relative; z-index:1;
+  }
+  .arrow::before {
+    content:''; position:absolute; left:50%; top:0; bottom:0;
+    width:1px; background:linear-gradient(to bottom,transparent,var(--border),transparent);
+    transform:translateX(-50%);
+  }
+  .arrow-lbl {
+    background:var(--bg); padding:3px 10px; font-size:11px; color:var(--t3);
+    border:1px solid var(--border); border-radius:5px; position:relative; z-index:2;
+    display:flex; align-items:center; gap:5px;
+  }
+
+  /* ── PILL ROW ── */
+  .pill-row { display:flex; gap:10px; flex-wrap:wrap; }
+  .pill {
+    flex:1; min-width:160px; display:flex; align-items:flex-start; gap:10px;
+    background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px;
+  }
+  .pill-num {
+    width:20px; height:20px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;
+  }
+  .pill-txt strong { display:block; font-size:12.5px; color:var(--t1); margin-bottom:2px; }
+  .pill-txt span   { font-size:11px; color:var(--t3); line-height:1.45; }
+
+  /* ── WORKER GRID ── */
+  .wgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .wcard {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:15px; position:relative; overflow:hidden;
+  }
+  .wcard::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  }
+  .wcard.fe::before  { background:linear-gradient(90deg,#3b82f6,#06b6d4); }
+  .wcard.be::before  { background:linear-gradient(90deg,#8b5cf6,#3b82f6); }
+  .wcard.cnt::before { background:linear-gradient(90deg,#10b981,#06b6d4); }
+  .wcard.sc::before  { background:linear-gradient(90deg,#f59e0b,#ef4444); }
+
+  .wcard-icon { font-size:20px; margin-bottom:7px; }
+  .wcard-name { font-size:12.5px; font-weight:700; color:var(--t1); margin-bottom:6px; }
+  .wcard-tasks { list-style:none; }
+  .wcard-tasks li {
+    font-size:11px; color:var(--t3); padding:2px 0;
+    display:flex; align-items:flex-start; gap:5px;
+  }
+  .wcard-tasks li::before { content:'·'; flex-shrink:0; }
+
+  /* ── QA GRID ── */
+  .qgrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .qcard {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:14px 16px;
+  }
+  .qcard-title {
+    font-size:12px; font-weight:700; margin-bottom:8px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .qcard ul { list-style:none; }
+  .qcard ul li {
+    font-size:11px; color:var(--t3); padding:2.5px 0;
+    display:flex; align-items:flex-start; gap:6px;
+  }
+  .qcard.pass ul li::before { content:'✓'; color:var(--a4); flex-shrink:0; font-size:10px; margin-top:1px; }
+  .qcard.fail ul li::before { content:'↩'; color:var(--a6); flex-shrink:0; font-size:10px; margin-top:1px; }
+
+  /* ── CHIPS ── */
+  .chips { display:flex; gap:8px; flex-wrap:wrap; }
+  .chip {
+    display:flex; align-items:center; gap:6px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:7px; padding:7px 12px; font-size:11.5px; color:var(--t2);
+  }
+  .chip .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .chip.red  { background:rgba(239,68,68,.08); border-color:rgba(239,68,68,.25); color:#fca5a5; }
+  .chip.grn  { background:rgba(16,185,129,.08); border-color:rgba(16,185,129,.25); color:#6ee7b7; }
+  .chip.ylw  { background:rgba(245,158,11,.08); border-color:rgba(245,158,11,.25); color:#fcd34d; }
+
+  /* ── SEP ── */
+  .sep {
+    height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent);
+    margin:14px 0;
+  }
+
+  /* ── DELIVERY ── */
+  .del-row { display:flex; gap:10px; flex-wrap:wrap; }
+  .del-chip {
+    display:flex; align-items:center; gap:8px;
+    background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2);
+    border-radius:8px; padding:8px 14px; font-size:12px; color:#fca5a5;
+  }
+
+  /* ── IRON RULES ── */
+  .rules-box {
+    background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(139,92,246,.07));
+    border:1px solid rgba(59,130,246,.18); border-radius:14px; padding:20px 22px; margin-top:28px;
+  }
+  .rules-title {
+    font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color:var(--a1); margin-bottom:14px;
+  }
+  .rules-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; }
+  .rule {
+    display:flex; align-items:flex-start; gap:8px;
+    font-size:12px; color:var(--t2); line-height:1.55;
+  }
+  .rule-n {
+    flex-shrink:0; width:18px; height:18px;
+    background:rgba(59,130,246,.18); border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:700; color:var(--a1); margin-top:1px;
+  }
+
+  /* ── TAG badges ── */
+  .tb {
+    display:inline-block; font-size:9.5px; padding:1px 5px;
+    border-radius:4px; font-weight:600; margin-left:5px; vertical-align:middle;
+  }
+  .tb-r { background:rgba(239,68,68,.2); color:#fca5a5; }
+  .tb-i { background:rgba(245,158,11,.2); color:#fcd34d; }
+  .tb-a { background:rgba(16,185,129,.2); color:#6ee7b7; }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    display:flex; gap:20px; justify-content:center; margin-top:36px; flex-wrap:wrap;
+  }
+  .fn-item { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--t3); }
+  .fn-dot { width:9px; height:9px; border-radius:3px; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-tag">Skill Architecture v1.0</div>
+  <h1>AI 项目开发 Skill 框架图</h1>
+  <p>角色分工 · 质量门禁 · 架构约束传递 · 自动化执行 · 零人工干预</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ① USER -->
+  <div class="tier t-user">
+    <div class="tier-head">
+      <div class="tier-badge">👑</div>
+      <div>
+        <div class="tier-title">用户（老板）</div>
+        <div class="tier-sub">输入需求 · 关键节点拍板 · 接收最终交付物</div>
+      </div>
+      <div class="tier-right">输入：自然语言</div>
+    </div>
+    <div class="tier-body">
+      <div class="chips">
+        <div class="chip"><div class="dot" style="background:#3b82f6"></div>描述业务目标</div>
+        <div class="chip"><div class="dot" style="background:#3b82f6"></div>确认 PM 给出的项目说明书</div>
+        <div class="chip"><div class="dot" style="background:#3b82f6"></div>最终验收签字</div>
+        <div class="chip"><div class="dot" style="background:#3b82f6"></div>只在关键决策点介入</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="arrow-lbl">⬇ ACK &lt;3s · 需求入队</div></div>
+
+  <!-- ② PM -->
+  <div class="tier t-pm">
+    <div class="tier-head">
+      <div class="tier-badge">📋</div>
+      <div>
+        <div class="tier-title">PM（产品经理 Agent）</div>
+        <div class="tier-sub">Phase 0 · Context Intake + 项目立项</div>
+      </div>
+      <div class="tier-right">产出：project-spec.md</div>
+    </div>
+    <div class="tier-body">
+      <div class="pill-row">
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(139,92,246,.25);color:#a78bfa">01</div>
+          <div class="pill-txt"><strong>需求澄清</strong><span>背景 · 目标 · 约束 · 边界</span></div>
+        </div>
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(139,92,246,.25);color:#a78bfa">02</div>
+          <div class="pill-txt"><strong>架构约束提取<span class="tb tb-i">铁律</span></strong><span>技术边界 · 禁止行为 · 环境特殊性（如 JS 动态渲染）</span></div>
+        </div>
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(139,92,246,.25);color:#a78bfa">03</div>
+          <div class="pill-txt"><strong>验收协议定义<span class="tb tb-r">强制</span></strong><span>QA 只能用这里的方法，不能自己发明</span></div>
+        </div>
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(139,92,246,.25);color:#a78bfa">04</div>
+          <div class="pill-txt"><strong>用户确认后才启动</strong><span>确认 → Phase 1 · 未确认不得启动</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="arrow-lbl">⬇ project-spec.md 广播给所有角色</div></div>
+
+  <!-- ③ TL -->
+  <div class="tier t-tl">
+    <div class="tier-head">
+      <div class="tier-badge">🏗️</div>
+      <div>
+        <div class="tier-title">TL（Team Leader / 架构师 Agent）</div>
+        <div class="tier-sub">Phase 1 · 任务分解 + 角色分配 + 约束注入</div>
+      </div>
+      <div class="tier-right">产出：任务队列 + Worker 角色卡</div>
+    </div>
+    <div class="tier-body">
+      <div class="pill-row">
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(6,182,212,.2);color:#67e8f9">A</div>
+          <div class="pill-txt"><strong>任务分解</strong><span>串行 / 并行 / 混合拓扑 · 依赖关系图</span></div>
+        </div>
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(6,182,212,.2);color:#67e8f9">B</div>
+          <div class="pill-txt"><strong>约束注入<span class="tb tb-i">铁律</span></strong><span>把架构约束塞进每个 Worker 角色卡，执行前必读</span></div>
+        </div>
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(6,182,212,.2);color:#67e8f9">C</div>
+          <div class="pill-txt"><strong>备份策略<span class="tb tb-i">铁律</span></strong><span>Worker 执行前备份确认 · 备份不存在不得动手</span></div>
+        </div>
+        <div class="pill">
+          <div class="pill-num" style="background:rgba(6,182,212,.2);color:#67e8f9">D</div>
+          <div class="pill-txt"><strong>并发调度<span class="tb tb-a">自动</span></strong><span>Heartbeat 驱动 · 最大并发 3 · Worker 执行 5 任务后重建</span></div>
+        </div>
+      </div>
+      <div class="sep"></div>
+      <div class="chips">
+        <div class="chip"><div class="dot" style="background:#06b6d4"></div>task_queue.json</div>
+        <div class="chip"><div class="dot" style="background:#06b6d4"></div>sessions.json（Worker 注册表）</div>
+        <div class="chip"><div class="dot" style="background:#06b6d4"></div>output-contract.yaml（预期产出声明）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="arrow-lbl">⬇ spawn Workers 并行执行（最多 3 并发）</div></div>
+
+  <!-- ④ WORKERS -->
+  <div class="tier t-work">
+    <div class="tier-head">
+      <div class="tier-badge">⚙️</div>
+      <div>
+        <div class="tier-title">Workers（执行层）</div>
+        <div class="tier-sub">Phase 2 · 专岗专责 · 独立 session · Checkpoint 支持</div>
+      </div>
+      <div class="tier-right">各自只读自己的角色卡</div>
+    </div>
+    <div class="tier-body">
+      <div class="wgrid">
+        <div class="wcard fe">
+          <div class="wcard-icon">🎨</div>
+          <div class="wcard-name">前端工程师 · forge-fe</div>
+          <ul class="wcard-tasks">
+            <li>HTML / CSS / JS 实现</li>
+            <li>组件开发与样式</li>
+            <li>div depth 自查脚本</li>
+            <li>浏览器截图验证</li>
+            <li>git commit + push</li>
+          </ul>
+        </div>
+        <div class="wcard be">
+          <div class="wcard-icon">🔧</div>
+          <div class="wcard-name">后端工程师 · forge-be</div>
+          <ul class="wcard-tasks">
+            <li>API 接口 / 数据脚本</li>
+            <li>Cron 任务注册与验证</li>
+            <li>数据库操作</li>
+            <li>接口联调与自测</li>
+            <li>错误处理与兜底</li>
+          </ul>
+        </div>
+        <div class="wcard cnt">
+          <div class="wcard-icon">✍️</div>
+          <div class="wcard-name">内容创作者 · scribe</div>
+          <ul class="wcard-tasks">
+            <li>文案撰写与润色</li>
+            <li>Wiki / 文档编写</li>
+            <li>AI 摘要生成</li>
+            <li>内容结构化输出</li>
+            <li>字数 / 格式自查</li>
+          </ul>
+        </div>
+        <div class="wcard sc">
+          <div class="wcard-icon">🔍</div>
+          <div class="wcard-name">数据分析师 · scout</div>
+          <ul class="wcard-tasks">
+            <li>SQL / Hive 查询</li>
+            <li>埋点 / 指标分析</li>
+            <li>日志排查（Logan）</li>
+            <li>数据可视化输出</li>
+            <li>异常根因定位</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sep"></div>
+      <div class="chips">
+        <div class="chip red">执行前必须备份，备份确认存在才动手</div>
+        <div class="chip red">必须读 project-spec.md 里的架构约束</div>
+        <div class="chip red">完成后提交 review_needed=true，等 QA 验收</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="arrow-lbl">⬇ 完成后 Heartbeat 自动触发 QA</div></div>
+
+  <!-- ⑤ QA -->
+  <div class="tier t-qa">
+    <div class="tier-head">
+      <div class="tier-badge">🛡️</div>
+      <div>
+        <div class="tier-title">QA（质量门禁 Agent）</div>
+        <div class="tier-sub">Phase 3 · 强制验收 · 按协议执行 · 不自己发明验收方法</div>
+      </div>
+      <div class="tier-right">Heartbeat 自动触发</div>
+    </div>
+    <div class="tier-body">
+      <div class="qgrid">
+        <div class="qcard pass">
+          <div class="qcard-title" style="color:var(--a4)">✅ 验收通过条件（PM 阶段定义，不可修改）</div>
+          <ul>
+            <li>前端：div depth = 0（Python 自查脚本）</li>
+            <li>前端：浏览器截图内容正确（不用 headless）</li>
+            <li>后端：接口返回 row_count &gt; 0</li>
+            <li>内容：KM 文档 &gt; 100 字符</li>
+            <li>Cron：openclaw cron list 确认注册</li>
+            <li>git：push 成功，commit 符合预期</li>
+          </ul>
+        </div>
+        <div class="qcard fail">
+          <div class="qcard-title" style="color:var(--a6)">↩ 打回 / 升级规则</div>
+          <ul>
+            <li>验收不通过 → 打回对应 Worker 重做</li>
+            <li>同一问题 retry ≥ 2 → 标记 failed</li>
+            <li>failed → 错题本记录 + 通知用户</li>
+            <li>打回的是 Worker，不是用户</li>
+            <li>错误复发 ≥ 3 次 → 自动升 P0 规则</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sep"></div>
+      <div class="chips">
+        <div class="chip grn">通过 → TL 汇总 → 通知用户</div>
+        <div class="chip ylw">打回 → Worker 重做（最多 2 次 retry）</div>
+        <div class="chip red" style="background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25)">超限 → failed + 错题本 + 用户介入</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="arrow-lbl">⬇ QA 全部通过</div></div>
+
+  <!-- ⑥ DELIVERY -->
+  <div class="tier t-del">
+    <div class="tier-head">
+      <div class="tier-badge">🚀</div>
+      <div>
+        <div class="tier-title">交付（TL 汇总 → 用户）</div>
+        <div class="tier-sub">Phase 4 · 成本报告 + 关闭项目</div>
+      </div>
+      <div class="tier-right">用户收到最终交付物</div>
+    </div>
+    <div class="tier-body">
+      <div class="del-row">
+        <div class="del-chip">📦 代码 / 页面已部署</div>
+        <div class="del-chip">📄 文档 / Wiki 已创建</div>
+        <div class="del-chip">⏱️ Cron 已注册且运行正常</div>
+        <div class="del-chip">📊 成本报告（token 消耗）</div>
+        <div class="del-chip">📚 错题本更新（防止复发）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IRON RULES -->
+  <div class="rules-box">
+    <div class="rules-title">🔒 铁律（从 quietview 项目踩坑中提炼）</div>
+    <div class="rules-grid">
+      <div class="rule"><div class="rule-n">1</div>执行前必须备份，备份确认存在才能动手</div>
+      <div class="rule"><div class="rule-n">2</div>所有执行角色必须读 project-spec.md 里的架构约束</div>
+      <div class="rule"><div class="rule-n">3</div>验收协议在 PM 阶段定好，QA 只能用协议里的方法</div>
+      <div class="rule"><div class="rule-n">4</div>质量门禁是强制的，不是可选的</div>
+      <div class="rule"><div class="rule-n">5</div>主 Agent 只做调度，不做执行，保持响应速度</div>
+      <div class="rule"><div class="rule-n">6</div>Worker 完成 = 提交 review_needed，不是告诉用户完成了</div>
+      <div class="rule"><div class="rule-n">7</div>截图验收必须用真实浏览器（不用 headless Chromium）</div>
+      <div class="rule"><div class="rule-n">8</div>错误复发 ≥ 3 次自动升 P0，写入错题本防止下次重犯</div>
+    </div>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <div class="footnote">
+    <div class="fn-item"><div class="fn-dot" style="background:#3b82f6"></div>用户层</div>
+    <div class="fn-item"><div class="fn-dot" style="background:#8b5cf6"></div>PM 层</div>
+    <div class="fn-item"><div class="fn-dot" style="background:#06b6d4"></div>TL 层</div>
+    <div class="fn-item"><div class="fn-dot" style="background:#10b981"></div>Worker 执行层</div>
+    <div class="fn-item"><div class="fn-dot" style="background:#f59e0b"></div>QA 质量层</div>
+    <div class="fn-item"><div class="fn-dot" style="background:#ef4444"></div>交付层</div>
+    <div class="fn-item"><div class="fn-dot" style="background:#334155"></div>铁律约束</div>
+  </div>
+
+</div>
+
+</body>
+</html>

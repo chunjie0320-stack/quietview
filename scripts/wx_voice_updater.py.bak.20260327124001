@@ -371,43 +371,9 @@ def verify_divs(html_path):
     print("  ✅ div depth 自查通过 (depth=0)")
 
 
-def update_json_voice(articles, accounts_map, target_date_str):
-    """同步更新 data/YYYYMMDD.json 的 voice 字段"""
-    json_path = os.path.join(REPO_DIR, "data", f"{target_date_str}.json")
-    if os.path.exists(json_path):
-        with open(json_path, 'r', encoding='utf-8') as f:
-            day_data = json.load(f)
-    else:
-        day_data = {"date": target_date_str, "generated_at": datetime.now().isoformat(),
-                    "voice": [], "news": [], "ai_voice": [], "miao_notice": []}
-
-    voice_items = []
-    for art in articles:
-        voice_items.append({
-            "title":   art.get("title", ""),
-            "author":  art.get("author", art.get("name", "")),
-            "summary": art.get("content", "")[:200],
-            "link":    art.get("url", ""),
-            "tag":     art.get("name", ""),
-            "date":    datetime.fromtimestamp(art.get("timestamp", 0)).strftime("%Y-%m-%d") if art.get("timestamp") else "",
-        })
-
-    day_data["voice"] = voice_items
-    day_data["generated_at"] = datetime.now().isoformat()
-    os.makedirs(os.path.dirname(json_path), exist_ok=True)
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(day_data, f, ensure_ascii=False, indent=2)
-    print(f"  ✅ JSON voice 更新完成: data/{target_date_str}.json ({len(voice_items)}条)", file=sys.stderr)
-    return json_path
-
-
-def git_push(count, target_date_str, json_updated=False):
+def git_push(count, target_date_str):
     now_str = datetime.now().strftime("%Y.%m.%d %H:%M")
-    files_to_add = ['index.html']
-    if json_updated:
-        files_to_add.append(f'data/{target_date_str}.json')
-    for f in files_to_add:
-        subprocess.run(['git', 'add', f], cwd=REPO_DIR, check=True)
+    subprocess.run(['git', 'add', 'index.html'], cwd=REPO_DIR, check=True)
     result = subprocess.run(
         ['git', 'commit', '-m', f'auto: 行业声音更新 {target_date_str} {now_str} ({count}条)'],
         cwd=REPO_DIR, capture_output=True, text=True
@@ -510,19 +476,9 @@ def main():
         print(f"  备份 HTML: {os.path.basename(backup_path)}", file=sys.stderr)
 
         count = update_html(HTML_PATH, all_articles, accounts_map, target_date_str)
-        # 同步更新 JSON（无论HTML是否变化）
-        update_json_voice(all_articles, accounts_map, target_date_str)
         if count > 0:
             verify_divs(HTML_PATH)
-            git_push(count, target_date_str, json_updated=True)
-        else:
-            # HTML无变化但JSON有更新，单独push JSON
-            subprocess.run(['git', 'add', f'data/{target_date_str}.json'], cwd=REPO_DIR, check=True)
-            result = subprocess.run(['git', 'commit', '-m', f'auto: 行业声音JSON更新 {target_date_str}'],
-                                    cwd=REPO_DIR, capture_output=True, text=True)
-            if result.returncode == 0:
-                subprocess.run(['git', 'push'], cwd=REPO_DIR, check=True)
-                print("  ✅ JSON-only push 完成")
+            git_push(count, target_date_str)
 
         # 更新状态
         state = load_state()

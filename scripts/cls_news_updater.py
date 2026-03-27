@@ -57,6 +57,8 @@ def fetch_cls_json():
     }
     # 尝试直连
     try:
+        from datetime import date
+        today = date.today()
         req = urllib.request.Request(CLS_URL, headers=headers_direct)
         with urllib.request.urlopen(req, timeout=15) as resp:
             if resp.status == 200:
@@ -68,8 +70,16 @@ def fetch_cls_json():
                     tele_list = next_data.get('props', {}).get('initialState', {}).get(
                         'telegraph', {}).get('telegraphList', [])
                     if tele_list:
-                        print(f"  ✅ 直连财联社成功，解析到 {len(tele_list)} 条 JSON 数据")
-                        return tele_list, 'json'
+                        # 检查今日数据量，不足5条则降级到Jina（__NEXT_DATA__可能是静态缓存）
+                        today_count = sum(
+                            1 for item in tele_list
+                            if item.get('ctime') and datetime.fromtimestamp(item['ctime']).date() == today
+                        )
+                        if today_count >= 5:
+                            print(f"  ✅ 直连财联社成功，解析到 {len(tele_list)} 条（今日{today_count}条）")
+                            return tele_list, 'json'
+                        else:
+                            print(f"  ⚠️  直连数据今日只有{today_count}条（可能是静态缓存），降级到 Jina")
     except Exception as e:
         print(f"  ⚠️  直连失败({e})，改用 Jina 代理")
 
@@ -85,7 +95,9 @@ def fetch_cls_json():
 
 
 def parse_json_items(tele_list):
-    """从财联社 JSON 数据中提取资讯条目"""
+    """从财联社 JSON 数据中提取资讯条目（只保留今天的）"""
+    from datetime import date
+    today = date.today()
     items = []
     for item in tele_list:
         content = item.get('content', '').strip()
@@ -97,6 +109,12 @@ def parse_json_items(tele_list):
 
         if not content or len(content) < 10:
             continue
+
+        # 只保留今天的数据
+        if ctime:
+            item_date = datetime.fromtimestamp(ctime).date()
+            if item_date != today:
+                continue
 
         # 提取标题：优先用 title 字段，其次从 content 中的【】提取
         if title_raw:
@@ -362,7 +380,7 @@ def verify_divs(html_path):
 def git_push(item_count):
     """git commit + push"""
     now_str = datetime.now().strftime("%Y.%m.%d %H:%M")
-    subprocess.run(['git', 'add', 'quietview-demo.html'], cwd=REPO_DIR, check=True)
+    subprocess.run(['git', 'add', 'quietview-demo.html', 'data/'], cwd=REPO_DIR, check=True)
     result = subprocess.run(
         ['git', 'commit', '-m', f'auto: 行业资讯更新 {now_str} ({item_count}条)'],
         cwd=REPO_DIR, capture_output=True, text=True
@@ -406,13 +424,29 @@ def main():
         top_items = select_top_items(items, max_count=15)
         print(f"  筛选后 {len(top_items)} 条")
 
-        # 4. 更新 HTML
+        # 4. 更新 JSON（主数据源）
+        date_str = datetime.now().strftime("%Y%m%d")
+        json_path = os.path.join(REPO_DIR, "data", f"{date_str}.json")
+        if os.path.exists(json_path):
+            with open(json_path, 'r', encoding='utf-8') as f:
+                day_data = json.load(f)
+        else:
+            day_data = {"date": date_str, "generated_at": datetime.now().isoformat(), "voice": [], "news": [], "ai_voice": [], "miao_notice": []}
+        # 去掉 importance/level 字段后写入
+        clean_items = [{k: v for k, v in item.items() if k not in ('importance', 'level', 'source_url')} for item in top_items]
+        day_data["news"] = clean_items
+        day_data["generated_at"] = datetime.now().isoformat()
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(day_data, f, ensure_ascii=False, indent=2)
+        print(f"  ✅ JSON 更新完成: data/{date_str}.json ({len(clean_items)}条)")
+
+        # 5. 更新 HTML
         count = update_html(HTML_PATH, top_items)
 
-        # 5. div 自查
+        # 6. div 自查
         verify_divs(HTML_PATH)
 
-        # 6. git push
+        # 7. git push
         git_push(count)
 
         print(f"[{now_str}] ✅ 完成")

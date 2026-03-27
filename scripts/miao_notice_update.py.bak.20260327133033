@@ -549,10 +549,9 @@ def _update_active_panel(html_path, html, date_str):
 # ── 6. git commit + push ──────────────────────────────────────────────────────
 
 def git_push(date_str, slot_label, html_changed=False):
-    files = [f"data/{date_str}.json", "data/"]
+    files = [f"data/{date_str}.json"]
     if html_changed:
         files.append("index.html")
-        files.append("quietview-demo.html")
     for f in files:
         subprocess.run(['git', 'add', f], cwd=REPO_DIR, check=True)
     result = subprocess.run(
@@ -562,15 +561,6 @@ def git_push(date_str, slot_label, html_changed=False):
     if result.returncode != 0 and 'nothing to commit' in result.stdout + result.stderr:
         print("  nothing to commit, skipping push")
         return
-    # 推送前健康检查
-    import subprocess as sp2
-    check = sp2.run(['python3', '/root/.openclaw/workspace/scripts/check_health.py'], capture_output=True, text=True)
-    if check.returncode != 0:
-        print('❌ 健康检查失败，终止push：')
-        print(check.stdout)
-        print(check.stderr)
-        return False
-    print(check.stdout)
     subprocess.run(['git', 'push'], cwd=REPO_DIR, check=True)
     print(f"✅ pushed: 喵子告知 {slot_label}")
 

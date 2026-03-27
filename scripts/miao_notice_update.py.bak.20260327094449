@@ -170,17 +170,10 @@ def generate_notice(news_list, voice_list, slot_label):
 # ── 4. 更新 JSON 文件 ─────────────────────────────────────────────────────────
 
 def update_json(data, path, notice_content, slot_label):
-    new_entry = {
+    data['miao_notice'] = {
         "content": notice_content,
         "label": f"🐱 喵子告知 · {slot_label}"
     }
-    existing = data.get('miao_notice', [])
-    if isinstance(existing, dict):
-        existing = [existing]  # 兼容旧格式（单对象→数组）
-    # 避免同一时间点重复插入
-    if not existing or existing[0].get('label') != new_entry['label']:
-        existing.insert(0, new_entry)
-    data['miao_notice'] = existing
     data['generated_at'] = datetime.now().isoformat()
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -206,11 +199,7 @@ def ensure_html_panel(date_str, data):
     # 读当天数据
     news = data.get('news', [])
     voice = data.get('voice', [])
-    _miao_raw = data.get('miao_notice', {})
-    if isinstance(_miao_raw, list):
-        miao = _miao_raw[0] if _miao_raw else {}
-    else:
-        miao = _miao_raw
+    miao = data.get('miao_notice', {})
     miao_content = miao.get('content', '（今日简报生成中…）')
     miao_label = miao.get('label', f'🐱 喵子告知 · {date_str[:4]}.{date_str[4:6]}.{date_str[6:]}')
 
@@ -258,7 +247,7 @@ def ensure_html_panel(date_str, data):
         <div class="page-header-divider"></div>
       </div>
       <div class="card">
-        <div id="miao-notice-{date_str}" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">
+        <div id="miao-notice-{date_str}" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
           <span class="miao-bubble-label">{miao_label}</span>
           {esc(miao_content)}
         </div>
@@ -272,9 +261,9 @@ def ensure_html_panel(date_str, data):
           <div class="two-col-divider"></div>
           <div>
             <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-{date_str}">· {len(voice)}</span></div>
-            <div class="timeline" id="timeline-voice-{date_str}" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_{date_str} -->
+            <div class="timeline" id="timeline-voice-{date_str}" style="max-height:520px;overflow-y:auto;">
 {voice_items_html(voice)}
-<!-- /INJECT:voice_{date_str} --></div>
+            </div>
           </div>
         </div>
       </div>
@@ -338,180 +327,7 @@ def ensure_html_panel(date_str, data):
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f"  ✅ HTML panel {date_str} 创建完成")
-
-    # 同步确保 ai-voice panel 也存在
-    ensure_ai_voice_panel(date_str, data)
-
-    # 同步确保 miao 自言自语 panel 也存在
-    ensure_miao_panel(date_str)
-
     return True  # 新建了
-
-
-def ensure_ai_voice_panel(date_str, data):
-    """检查并新建 panel-ai-voice-{date_str}（AI行业声音面板）"""
-    html_path = os.path.join(REPO_DIR, "index.html")
-    with open(html_path, encoding='utf-8') as f:
-        html = f.read()
-
-    panel_id = f"panel-ai-voice-{date_str}"
-    if panel_id in html:
-        print(f"  [ai_voice_panel] {panel_id} 已存在，跳过创建")
-        return False
-
-    print(f"  [ai_voice_panel] {panel_id} 不存在，开始创建...")
-
-    ai_voice = data.get('ai_voice', [])
-
-    def esc(s):
-        return (s or '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-
-    items_html = ''
-    for item in ai_voice:
-        title = esc(item.get('title', ''))
-        source = esc(item.get('source', ''))
-        url = item.get('link', item.get('url', '#')) or '#'
-        body = esc((item.get('body', '') or '')[:200])
-        body_div = f'            <div class="tl-body">{body}</div>\n' if body else ''
-        items_html += (
-            f'          <div class="tl-item">\n'
-            f'            <div class="tl-dot"></div>\n'
-            f'            <div class="tl-time">今日</div>\n'
-            f'            <div class="tl-tag">{source}</div>\n'
-            f'            <div class="tl-title">{title}</div>\n'
-            + body_div +
-            f'            <a class="tl-source" href="{url}" target="_blank">→ 原文</a>\n'
-            f'          </div>\n'
-        )
-
-    date_dot = f"{date_str[:4]}.{date_str[4:6]}.{date_str[6:]}"
-    new_panel = (
-        f'    <!-- AI > 行业声音 {date_dot} -->\n'
-        f'    <div class="content-panel" id="{panel_id}">\n'
-        f'      <div class="page-header">\n'
-        f'        <h1>AI · 行业声音</h1>\n'
-        f'        <div class="sub">{date_dot}</div>\n'
-        f'        <div class="page-header-divider"></div>\n'
-        f'      </div>\n'
-        f'      <div class="card">\n'
-        f'        <div class="timeline">\n'
-        + items_html +
-        f'        </div>\n'
-        f'      </div>\n'
-        f'    </div>\n\n'
-    )
-
-    # 插入位置：在现有最新一天的 ai-voice panel 之前
-    m = re.search(r'    <!-- AI > 行业声音 \d{4}\.\d{2}\.\d{2} -->', html)
-    if m:
-        html = html[:m.start()] + new_panel + html[m.start():]
-    else:
-        # fallback: 直接追加到 </div> <!-- end main --> 之前
-        html = html.replace('</div>\n</body>', new_panel + '</div>\n</body>', 1)
-
-    # 更新 NAV_DATA：在 ai-voice children 里加入新条目
-    nav_m = re.search(r"id: 'ai-voice-\d{8}'", html)
-    if nav_m:
-        existing_entry = html[nav_m.start():html.find('}', nav_m.start()) + 1]
-        label_month = date_str[4:6]
-        label_day = date_str[6:]
-        new_nav = f"{{ id: 'ai-voice-{date_str}', label: '{label_month}月{label_day}日', panel: '{panel_id}' }}"
-        if new_nav not in html:
-            html = html.replace(existing_entry, new_nav + ',\n        ' + existing_entry, 1)
-
-    # div 自查
-    import html as _html_mod
-    from html.parser import HTMLParser
-    class _P(HTMLParser):
-        def __init__(self): super().__init__(); self.d = 0
-        def handle_starttag(self, t, a):
-            if t == 'div': self.d += 1
-        def handle_endtag(self, t):
-            if t == 'div': self.d -= 1
-    p = _P(); p.feed(html)
-    if p.d != 0:
-        raise ValueError(f"ai_voice panel div depth={p.d}, aborting!")
-    print(f"  [ai_voice_panel] div depth OK (0)")
-
-    with open(html_path, 'w', encoding='utf-8') as f:
-        f.write(html)
-    print(f"  ✅ ai-voice panel {date_str} 创建完成，共 {len(ai_voice)} 条")
-    return True
-
-
-def ensure_miao_panel(date_str):
-    """检查并新建 panel-miao-{date_str}（喵子自言自语面板）"""
-    html_path = os.path.join(REPO_DIR, "index.html")
-    with open(html_path, encoding='utf-8') as f:
-        html = f.read()
-
-    panel_id = f"panel-miao-{date_str}"
-    if panel_id in html:
-        print(f"  [miao_panel] {panel_id} 已存在，跳过创建")
-        return False
-
-    print(f"  [miao_panel] {panel_id} 不存在，开始创建...")
-
-    date_dot = f"{date_str[:4]}.{date_str[4:6]}.{date_str[6:]}"
-    new_panel = (
-        f'    <!-- 成长 > 喵子自言自语 {date_dot} -->\n'
-        f'    <div class="content-panel" id="{panel_id}">\n'
-        f'      <div class="page-header">\n'
-        f'        <h1>喵子自言自语</h1>\n'
-        f'        <div class="sub">{date_dot}</div>\n'
-        f'        <div class="page-header-divider"></div>\n'
-        f'      </div>\n'
-        f'      <div class="miao-card">\n'
-        f'        <div class="miao-card-header">\n'
-        f'          <span class="miao-card-time">今日</span>\n'
-        f'        </div>\n'
-        f'        <div class="miao-card-body">今日喵子还没说话 🐾</div>\n'
-        f'      </div>\n'
-        f'    </div>\n\n'
-    )
-
-    # 插入位置：在现有最新一天的 miao panel 之前
-    m = re.search(r'    <!-- 成长 > 喵子自言自语 \d{4}\.\d{2}\.\d{2} -->', html)
-    if m:
-        html = html[:m.start()] + new_panel + html[m.start():]
-    else:
-        # fallback: 在第一个 panel-miao- 前插入
-        m2 = re.search(r'<div class="content-panel" id="panel-miao-\d{8}">', html)
-        if m2:
-            html = html[:m2.start()] + new_panel + html[m2.start():]
-        else:
-            print(f"  [miao_panel] 找不到插入位置，跳过创建")
-            return False
-
-    # 更新 NAV_DATA：在 miao-thoughts children 里加入新条目
-    nav_m = re.search(r"\{ id: 'miao-\d{8}',", html)
-    if nav_m:
-        existing_entry = html[nav_m.start():html.find('}', nav_m.start()) + 1]
-        label_month = date_str[4:6]
-        label_day = date_str[6:]
-        new_nav = f"{{ id: 'miao-{date_str}', label: '{label_month}月{label_day}日', panel: '{panel_id}' }}"
-        if new_nav not in html:
-            html = html.replace(existing_entry, new_nav + ',\n        ' + existing_entry, 1)
-    else:
-        print(f"  [miao_panel] 未找到 nav miao 条目，跳过nav更新")
-
-    # div 自查
-    from html.parser import HTMLParser as _HP
-    class _P(_HP):
-        def __init__(self): super().__init__(); self.d = 0
-        def handle_starttag(self, t, a):
-            if t == 'div': self.d += 1
-        def handle_endtag(self, t):
-            if t == 'div': self.d -= 1
-    p = _P(); p.feed(html)
-    if p.d != 0:
-        raise ValueError(f"miao panel div depth={p.d}, aborting!")
-    print(f"  [miao_panel] div depth OK (0)")
-
-    with open(html_path, 'w', encoding='utf-8') as f:
-        f.write(html)
-    print(f"  ✅ miao panel {date_str} 创建完成")
-    return True
 
 
 def _update_active_panel(html_path, html, date_str):
@@ -549,10 +365,9 @@ def _update_active_panel(html_path, html, date_str):
 # ── 6. git commit + push ──────────────────────────────────────────────────────
 
 def git_push(date_str, slot_label, html_changed=False):
-    files = [f"data/{date_str}.json", "data/"]
+    files = [f"data/{date_str}.json"]
     if html_changed:
         files.append("index.html")
-        files.append("quietview-demo.html")
     for f in files:
         subprocess.run(['git', 'add', f], cwd=REPO_DIR, check=True)
     result = subprocess.run(
@@ -562,15 +377,6 @@ def git_push(date_str, slot_label, html_changed=False):
     if result.returncode != 0 and 'nothing to commit' in result.stdout + result.stderr:
         print("  nothing to commit, skipping push")
         return
-    # 推送前健康检查
-    import subprocess as sp2
-    check = sp2.run(['python3', '/root/.openclaw/workspace/scripts/check_health.py'], capture_output=True, text=True)
-    if check.returncode != 0:
-        print('❌ 健康检查失败，终止push：')
-        print(check.stdout)
-        print(check.stderr)
-        return False
-    print(check.stdout)
     subprocess.run(['git', 'push'], cwd=REPO_DIR, check=True)
     print(f"✅ pushed: 喵子告知 {slot_label}")
 
@@ -657,57 +463,6 @@ def fetch_wx_voice(cutoff_days=3):
     return voice_items
 
 
-# ── AI 行业声音抓取（读取 ai_news.json 缓存）────────────────────────────────
-
-def fetch_ai_voice(cutoff_days=3):
-    """
-    读取 data/ai_news.json（AI新闻缓存），转成 ai_voice 列表格式（近3天数据）。
-    ai_news.json 结构：{"updated_at": ..., "count": N, "news": [{"time": ..., "title": ..., "summary": ..., "source": ..., "url": ...}]}
-    返回 ai_voice 格式：[{"title": ..., "source": ..., "link": ..., "body": ..., "time": ...}]
-    """
-    ai_news_path = os.path.join(DATA_DIR, "ai_news.json")
-    if not os.path.exists(ai_news_path):
-        print(f"  [ai_voice] {ai_news_path} 不存在，跳过")
-        return None
-
-    try:
-        with open(ai_news_path, encoding='utf-8') as f:
-            raw = json.load(f)
-    except Exception as e:
-        print(f"  [ai_voice] 读取 ai_news.json 失败: {e}")
-        return None
-
-    news_list = raw.get('news', [])
-    if not news_list:
-        print("  [ai_voice] ai_news.json 为空")
-        return []
-
-    # 过滤近 cutoff_days 天内的数据
-    # ai_news.json 的 time 字段格式不统一（"2026/03/39" 或 "2026-03-25 19:47"）
-    # 取全部数据（字段已是近期抓取），直接转换格式
-    ai_voice = []
-    for item in news_list:
-        title = item.get('title', '') or ''
-        summary = item.get('summary', '') or ''
-        source = item.get('source', '') or ''
-        url = item.get('url', '') or ''
-        time_str = item.get('time', '') or ''
-        if not title:
-            continue
-        ai_voice.append({
-            "title": title,
-            "source": source,
-            "link": url,
-            "url": url,
-            "body": summary if summary != title else '',
-            "time": time_str,
-            "timestamp": 0
-        })
-
-    print(f"  [ai_voice] 从 ai_news.json 读取 {len(ai_voice)} 条")
-    return ai_voice
-
-
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -729,12 +484,6 @@ def main():
             data['voice'] = wx_voice
             voice_list = wx_voice
             print(f"  voice数据已更新：{len(voice_list)} 条")
-
-        # 1c. 刷新 AI 行业声音（量子位/机器之心等）
-        ai_voice = fetch_ai_voice()
-        if ai_voice:
-            data['ai_voice'] = ai_voice
-            print(f"  ai_voice数据已更新：{len(ai_voice)} 条")
 
         # 2. 如果JSON里没有数据，fallback读HTML
         if not news_list and not voice_list:

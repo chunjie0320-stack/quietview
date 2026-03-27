@@ -170,10 +170,17 @@ def generate_notice(news_list, voice_list, slot_label):
 # ── 4. 更新 JSON 文件 ─────────────────────────────────────────────────────────
 
 def update_json(data, path, notice_content, slot_label):
-    data['miao_notice'] = {
+    new_entry = {
         "content": notice_content,
         "label": f"🐱 喵子告知 · {slot_label}"
     }
+    existing = data.get('miao_notice', [])
+    if isinstance(existing, dict):
+        existing = [existing]  # 兼容旧格式（单对象→数组）
+    # 避免同一时间点重复插入
+    if not existing or existing[0].get('label') != new_entry['label']:
+        existing.insert(0, new_entry)
+    data['miao_notice'] = existing
     data['generated_at'] = datetime.now().isoformat()
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -199,7 +206,11 @@ def ensure_html_panel(date_str, data):
     # 读当天数据
     news = data.get('news', [])
     voice = data.get('voice', [])
-    miao = data.get('miao_notice', {})
+    _miao_raw = data.get('miao_notice', {})
+    if isinstance(_miao_raw, list):
+        miao = _miao_raw[0] if _miao_raw else {}
+    else:
+        miao = _miao_raw
     miao_content = miao.get('content', '（今日简报生成中…）')
     miao_label = miao.get('label', f'🐱 喵子告知 · {date_str[:4]}.{date_str[4:6]}.{date_str[6:]}')
 
@@ -247,7 +258,7 @@ def ensure_html_panel(date_str, data):
         <div class="page-header-divider"></div>
       </div>
       <div class="card">
-        <div id="miao-notice-{date_str}" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
+        <div id="miao-notice-{date_str}" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">
           <span class="miao-bubble-label">{miao_label}</span>
           {esc(miao_content)}
         </div>

@@ -149,7 +149,7 @@ nav{padding:12px 0;flex:1}
         <div class="page-header-divider"></div>
       </div>
       <div class="card">
-        <div id="miao-notice" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
+        <div id="miao-notice" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">
           <span class="miao-bubble-label">🐱 喵子告知 · 2026.03.27 07:10</span>
           今天信息量最密的两条线：一是中东战事胶着但市场已开始定价"停火预期"——油价跌2%、黄金却涨到4505美元，两个方向同时走，说明没人真的确信结果，周末万斯巴基斯坦会面是近期最关键的观察窗口。二是AI军备赛再提速：Gemini 2.5 Pro发布、Claude上下文扩到200K、豆包日活破亿、字节Seed烧钱不设上限——这不是某家公司在跑，是整条赛道在集体冲刺。<br><br>喵子判断：当下最值得盯的结构性信号是险资批量进场硬科技，明确说"不追短期套利"，配置逻辑从主题炒作切换成长期托底，这意味着半导体、AI、生物医药的估值中枢会被慢慢垫高，波动里有锚。OpenAI广告年化破亿+4月开放自助投放，商业化路径越来越清晰，AI从烧钱讲故事到真正收钱，拐点信号值得认真对待。<br><br>一句话总结：地缘不确定性买黄金对冲，AI基础设施继续持有，应用层看续费率和单位经济性——故事好不好听不重要，钱有没有留下来才算数。🐾
         </div>
@@ -293,7 +293,7 @@ nav{padding:12px 0;flex:1}
         <div class="page-header-divider"></div>
       </div>
       <div class="card">
-        <div id="miao-notice-20260327" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
+        <div id="miao-notice-20260327" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">
           <span class="miao-bubble-label">🐱 喵子告知 · 2026.03.27 07:46</span>
           这周最大的风险变量就一个字：**油**。<br><br>伊朗百万人备战、霍尔木兹海峡管控升级、美伊谈判还没落地——这条全球20%石油的咽喉卡着呢。韩国紧急禁止石脑油出口，化工品期货夜盘集体上涨，市场已经在定价风险了。华虹营收涨20%但净利润几乎原地踏步，说明晶圆代工还在价格内卷；极飞科技赴港IPO，农业无人机赛道继续找钱。<br><br>喵子判断：短期内能源化工板块的波动率会持续放大，霍尔木兹局势是今年地缘风险里最值得盯的主线。美元走强+资本回流美国，新兴市场承压。黄金土耳其在抛，但别急着看空——大国在乱世里囤的东西，散户别轻易跟着反向做。
         </div>
@@ -471,7 +471,7 @@ nav{padding:12px 0;flex:1}
         <div class="page-header-divider"></div>
       </div>
       <div class="card">
-        <div id="miao-notice-20260326" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">
+        <div id="miao-notice-20260326" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">
           <span class="miao-bubble-label">🐱 喵子告知 · 2026.03.27 06:00</span>
           三条线值得盯：**中东火药桶**伊朗拒停战提了5条件，但万斯周末赴巴基斯坦谈退出——油价跌2%反映停火预期，黄金涨0.7%反映不确定性，市场自个儿都没方向，别赌单边；**硬科技真钱**险资集体布局半导体/AI/生物医药，明确说"不追短期套利"，这是估值托底的力量不是题材炒作；**监管划线**人民日报给低空经济定调，黑飞要严打，合规从加分变门槛。<br><br>
           美股半导体情绪分化，AMD、英特尔涨超7%，但存储芯片美光、闪迪跌3%+——市场选边站队，逻辑芯片>存储。氮化镓量子振荡首现，功率半导体材料端有长期故事。<br><br>
@@ -1317,7 +1317,7 @@ renderNav('invest');
           '  <div class="page-header-divider"></div>',
           '</div>',
           '<div class="card">',
-          '  <div id="miao-notice-' + dateStr + '" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;">',
+          '  <div id="miao-notice-' + dateStr + '" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">',
           '    <span class="miao-bubble-label">🐱 喵子告知 · 加载中…</span>',
           '    <span>数据加载中，请稍候…</span>',
           '  </div>',
@@ -1400,7 +1400,14 @@ renderNav('invest');
     // 优先使用带日期后缀的 id，回退到通用 #miao-notice（20260325 panel）
     var el = document.querySelector('#miao-notice-' + dateStr) || document.querySelector('#miao-notice');
     if (!el) return;
-    el.innerHTML = '<span class="miao-bubble-label">' + escHtml(notice.label) + '</span>' + notice.content;
+    // 兼容单对象和数组
+    var items = Array.isArray(notice) ? notice : [notice];
+    el.innerHTML = items.map(function(item) {
+      return '<div class="miao-notice-item" style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.15);">'
+        + '<span class="miao-bubble-label">' + escHtml(item.label) + '</span>'
+        + '<div class="miao-notice-body">' + escHtml(item.content) + '</div>'
+        + '</div>';
+    }).join('');
   }
 
   // XSS 防护：HTML 转义

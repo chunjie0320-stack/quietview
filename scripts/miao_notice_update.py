@@ -327,7 +327,102 @@ def ensure_html_panel(date_str, data):
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f"  ✅ HTML panel {date_str} 创建完成")
+
+    # 同步确保 ai-voice panel 也存在
+    ensure_ai_voice_panel(date_str, data)
+
     return True  # 新建了
+
+
+def ensure_ai_voice_panel(date_str, data):
+    """检查并新建 panel-ai-voice-{date_str}（AI行业声音面板）"""
+    html_path = os.path.join(REPO_DIR, "index.html")
+    with open(html_path, encoding='utf-8') as f:
+        html = f.read()
+
+    panel_id = f"panel-ai-voice-{date_str}"
+    if panel_id in html:
+        print(f"  [ai_voice_panel] {panel_id} 已存在，跳过创建")
+        return False
+
+    print(f"  [ai_voice_panel] {panel_id} 不存在，开始创建...")
+
+    ai_voice = data.get('ai_voice', [])
+
+    def esc(s):
+        return (s or '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+    items_html = ''
+    for item in ai_voice:
+        title = esc(item.get('title', ''))
+        source = esc(item.get('source', ''))
+        url = item.get('link', item.get('url', '#')) or '#'
+        body = esc((item.get('body', '') or '')[:200])
+        body_div = f'            <div class="tl-body">{body}</div>\n' if body else ''
+        items_html += (
+            f'          <div class="tl-item">\n'
+            f'            <div class="tl-dot"></div>\n'
+            f'            <div class="tl-time">今日</div>\n'
+            f'            <div class="tl-tag">{source}</div>\n'
+            f'            <div class="tl-title">{title}</div>\n'
+            + body_div +
+            f'            <a class="tl-source" href="{url}" target="_blank">→ 原文</a>\n'
+            f'          </div>\n'
+        )
+
+    date_dot = f"{date_str[:4]}.{date_str[4:6]}.{date_str[6:]}"
+    new_panel = (
+        f'    <!-- AI > 行业声音 {date_dot} -->\n'
+        f'    <div class="content-panel" id="{panel_id}">\n'
+        f'      <div class="page-header">\n'
+        f'        <h1>AI · 行业声音</h1>\n'
+        f'        <div class="sub">{date_dot}</div>\n'
+        f'        <div class="page-header-divider"></div>\n'
+        f'      </div>\n'
+        f'      <div class="card">\n'
+        f'        <div class="timeline">\n'
+        + items_html +
+        f'        </div>\n'
+        f'      </div>\n'
+        f'    </div>\n\n'
+    )
+
+    # 插入位置：在现有最新一天的 ai-voice panel 之前
+    m = re.search(r'    <!-- AI > 行业声音 \d{4}\.\d{2}\.\d{2} -->', html)
+    if m:
+        html = html[:m.start()] + new_panel + html[m.start():]
+    else:
+        # fallback: 直接追加到 </div> <!-- end main --> 之前
+        html = html.replace('</div>\n</body>', new_panel + '</div>\n</body>', 1)
+
+    # 更新 NAV_DATA：在 ai-voice children 里加入新条目
+    nav_m = re.search(r"id: 'ai-voice-\d{8}'", html)
+    if nav_m:
+        existing_entry = html[nav_m.start():html.find('}', nav_m.start()) + 1]
+        label_month = date_str[4:6]
+        label_day = date_str[6:]
+        new_nav = f"{{ id: 'ai-voice-{date_str}', label: '{label_month}月{label_day}日', panel: '{panel_id}' }}"
+        if new_nav not in html:
+            html = html.replace(existing_entry, new_nav + ',\n        ' + existing_entry, 1)
+
+    # div 自查
+    import html as _html_mod
+    from html.parser import HTMLParser
+    class _P(HTMLParser):
+        def __init__(self): super().__init__(); self.d = 0
+        def handle_starttag(self, t, a):
+            if t == 'div': self.d += 1
+        def handle_endtag(self, t):
+            if t == 'div': self.d -= 1
+    p = _P(); p.feed(html)
+    if p.d != 0:
+        raise ValueError(f"ai_voice panel div depth={p.d}, aborting!")
+    print(f"  [ai_voice_panel] div depth OK (0)")
+
+    with open(html_path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f"  ✅ ai-voice panel {date_str} 创建完成，共 {len(ai_voice)} 条")
+    return True
 
 
 def _update_active_panel(html_path, html, date_str):
@@ -381,6 +476,139 @@ def git_push(date_str, slot_label, html_changed=False):
     print(f"✅ pushed: 喵子告知 {slot_label}")
 
 
+# ── 微信行业声音抓取（mp.weixin.qq.com API）────────────────────────────────────
+
+def fetch_wx_voice(cutoff_days=3):
+    """用 mp.weixin.qq.com API 抓取公众号最新文章，返回 voice 列表"""
+    import urllib.request as ureq
+    cookies_path = "/root/.openclaw/weibo/cookies.env"
+    if not os.path.exists(cookies_path):
+        print("  [wx_voice] cookies.env 不存在，跳过微信抓取")
+        return None  # None 表示跳过
+
+    # 读 cookie
+    env = {}
+    with open(cookies_path) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                k, v = line.split('=', 1)
+                env[k.strip()] = v.strip()
+
+    slave_sid = env.get('WX_SLAVE_SID', '')
+    token     = env.get('WX_TOKEN', '')
+    bizuin    = env.get('WX_BIZUIN', '')
+    if not slave_sid or not token:
+        print("  [wx_voice] cookie未配置，跳过")
+        return None
+
+    accounts = [
+        ("财躺平",           env.get('WX_FAKEID_CAITANGPING', 'MzUyNTU4NzY5MA==')),
+        ("卓哥投研笔记",     env.get('WX_FAKEID_ZHUOGE',      'Mzk0MzY0OTU5Ng==')),
+        ("中金点睛",         env.get('WX_FAKEID_ZJDJ',        'MzI3MDMzMjg0MA==')),
+        ("方伟看十年",       env.get('WX_FAKEID_FANGWEI',     'MzU5NzAzMDg1OQ==')),
+        ("刘煜辉的高维宏观", env.get('WX_FAKEID_GAOWEIHMG',  'MzYzNzAzODcwNw==')),
+    ]
+
+    headers = {
+        "Cookie": f"slave_sid={slave_sid}; slave_user=gh_6849aa768b70; bizuin={bizuin}",
+        "Referer": f"https://mp.weixin.qq.com/cgi-bin/appmsg?token={token}&lang=zh_CN",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+    }
+
+    cutoff = int((datetime.now().timestamp()) - cutoff_days * 86400)
+    voice_items = []
+    cookie_expired = False
+
+    for name, fakeid in accounts:
+        url = (f"https://mp.weixin.qq.com/cgi-bin/appmsg"
+               f"?action=list_ex&begin=0&count=10&fakeid={fakeid}"
+               f"&type=9&query=&token={token}&lang=zh_CN&f=json&ajax=1")
+        req = ureq.Request(url, headers=headers)
+        try:
+            import time as _time
+            with ureq.urlopen(req, timeout=15) as resp:
+                d = json.loads(resp.read())
+            ret = d.get('base_resp', {}).get('ret', -1)
+            if ret == 200013:  # cookie过期
+                cookie_expired = True
+                print(f"  [wx_voice] ⚠️ cookie已过期（ret=200013），跳过微信抓取")
+                break
+            for item in d.get('app_msg_list', []):
+                ts = item.get('create_time', 0)
+                if ts >= cutoff:
+                    voice_items.append({
+                        "source": name,
+                        "tag": name,
+                        "title": item.get('title', ''),
+                        "body": item.get('digest', ''),
+                        "digest": item.get('digest', ''),
+                        "url": item.get('link', ''),
+                        "link": item.get('link', ''),
+                        "timestamp": ts
+                    })
+            _time.sleep(0.5)
+        except Exception as e:
+            print(f"  [wx_voice] {name} 抓取失败: {e}")
+
+    if cookie_expired:
+        return None
+    voice_items.sort(key=lambda x: x['timestamp'], reverse=True)
+    print(f"  [wx_voice] 抓取完成：{len(voice_items)} 条（近{cutoff_days}天）")
+    return voice_items
+
+
+# ── AI 行业声音抓取（读取 ai_news.json 缓存）────────────────────────────────
+
+def fetch_ai_voice(cutoff_days=3):
+    """
+    读取 data/ai_news.json（AI新闻缓存），转成 ai_voice 列表格式（近3天数据）。
+    ai_news.json 结构：{"updated_at": ..., "count": N, "news": [{"time": ..., "title": ..., "summary": ..., "source": ..., "url": ...}]}
+    返回 ai_voice 格式：[{"title": ..., "source": ..., "link": ..., "body": ..., "time": ...}]
+    """
+    ai_news_path = os.path.join(DATA_DIR, "ai_news.json")
+    if not os.path.exists(ai_news_path):
+        print(f"  [ai_voice] {ai_news_path} 不存在，跳过")
+        return None
+
+    try:
+        with open(ai_news_path, encoding='utf-8') as f:
+            raw = json.load(f)
+    except Exception as e:
+        print(f"  [ai_voice] 读取 ai_news.json 失败: {e}")
+        return None
+
+    news_list = raw.get('news', [])
+    if not news_list:
+        print("  [ai_voice] ai_news.json 为空")
+        return []
+
+    # 过滤近 cutoff_days 天内的数据
+    # ai_news.json 的 time 字段格式不统一（"2026/03/39" 或 "2026-03-25 19:47"）
+    # 取全部数据（字段已是近期抓取），直接转换格式
+    ai_voice = []
+    for item in news_list:
+        title = item.get('title', '') or ''
+        summary = item.get('summary', '') or ''
+        source = item.get('source', '') or ''
+        url = item.get('url', '') or ''
+        time_str = item.get('time', '') or ''
+        if not title:
+            continue
+        ai_voice.append({
+            "title": title,
+            "source": source,
+            "link": url,
+            "url": url,
+            "body": summary if summary != title else '',
+            "time": time_str,
+            "timestamp": 0
+        })
+
+    print(f"  [ai_voice] 从 ai_news.json 读取 {len(ai_voice)} 条")
+    return ai_voice
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -395,6 +623,19 @@ def main():
         data, json_path = load_today_data(date_str)
         news_list  = data.get('news', [])
         voice_list = data.get('voice', [])
+
+        # 1b. 先刷新微信行业声音
+        wx_voice = fetch_wx_voice(cutoff_days=3)
+        if wx_voice is not None:
+            data['voice'] = wx_voice
+            voice_list = wx_voice
+            print(f"  voice数据已更新：{len(voice_list)} 条")
+
+        # 1c. 刷新 AI 行业声音（量子位/机器之心等）
+        ai_voice = fetch_ai_voice()
+        if ai_voice:
+            data['ai_voice'] = ai_voice
+            print(f"  ai_voice数据已更新：{len(ai_voice)} 条")
 
         # 2. 如果JSON里没有数据，fallback读HTML
         if not news_list and not voice_list:

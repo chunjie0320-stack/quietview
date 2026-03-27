@@ -1,588 +1,328 @@
 {
   "date": "20260327",
-  "generated_at": "2026-03-27T13:48:49.004624",
-  "voice": [
-    {
-      "source": "方伟看十年",
-      "tag": "方伟看十年",
-      "title": "拼多多25年财报简评：“重仓供应链，三年再造一个拼多多”",
-      "body": "分享一篇文章：",
-      "digest": "分享一篇文章：",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489440&idx=1&sn=12f85a1f378f33c0aeedb5bd86be0f51&chksm=fe58f504c92f7c12627f4e4d022d115e030e002425d67de8fe5e75ea3fde6a5bf3bbb4dbdb51#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489440&idx=1&sn=12f85a1f378f33c0aeedb5bd86be0f51&chksm=fe58f504c92f7c12627f4e4d022d115e030e002425d67de8fe5e75ea3fde6a5bf3bbb4dbdb51#rd",
-      "timestamp": 1774573872
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 | 资产大挪移：重新定义安全资产",
-      "body": "地缘风险频发，中国资产安全属性凸显",
-      "digest": "地缘风险频发，中国资产安全属性凸显",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=1&sn=24445cdc73979bb219b18dc012a2bad7&chksm=eadd2e13ddaaa705ff32961514753dfd557924d1411a3ec5646b0dc7a571c49a96d3da6ba461#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=1&sn=24445cdc73979bb219b18dc012a2bad7&chksm=eadd2e13ddaaa705ff32961514753dfd557924d1411a3ec5646b0dc7a571c49a96d3da6ba461#rd",
-      "timestamp": 1774568114
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 • 全球研究 | 美股软件聚焦：AI范式冲击下软件行业的格局重塑——是终结还是新生？",
-      "body": "本篇报告旨在深入探讨“AI颠覆软件论”下软件细分赛道的“去”与“留”以及判断在AI冲击下行业未来如何演变，最终落脚当下板块投资价值。",
-      "digest": "本篇报告旨在深入探讨“AI颠覆软件论”下软件细分赛道的“去”与“留”以及判断在AI冲击下行业未来如何演变，最终落脚当下板块投资价值。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=2&sn=0f0d5c91c14223c0f2226534d5514134&chksm=eadd2e13ddaaa705414f3e2e8be0284270275b834976ff1231aad6170f2b6dece1ff96b7e69d#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=2&sn=0f0d5c91c14223c0f2226534d5514134&chksm=eadd2e13ddaaa705414f3e2e8be0284270275b834976ff1231aad6170f2b6dece1ff96b7e69d#rd",
-      "timestamp": 1774568114
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 • REITs | 基于续期与扩募假设下REITs定价模型思考",
-      "body": "新形势下，我们认为传统单项目、基于静态假设的折现现金流（DCF）定价模型或难以准确反映REITs的真实内在价值。我们尝试提出一种考虑续期及扩募的两阶段REITs定价模型。",
-      "digest": "新形势下，我们认为传统单项目、基于静态假设的折现现金流（DCF）定价模型或难以准确反映REITs的真实内在价值。我们尝试提出一种考虑续期及扩募的两阶段REITs定价模型。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=3&sn=de76a616c6e26f58934b3263d74b49e3&chksm=eadd2e13ddaaa705265b1c4f305ac20dabbbd79fe5588ae96b31863a75f960b4c4c30e2d24ec#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=3&sn=de76a616c6e26f58934b3263d74b49e3&chksm=eadd2e13ddaaa705265b1c4f305ac20dabbbd79fe5588ae96b31863a75f960b4c4c30e2d24ec#rd",
-      "timestamp": 1774568114
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 | 在线音乐跟踪观察：持续关注竞争与AI影响，静待估值修复",
-      "body": "我们认为，音乐板块长期增长逻辑不改，多元化收入具潜力，行业具备估值修复潜力。",
-      "digest": "我们认为，音乐板块长期增长逻辑不改，多元化收入具潜力，行业具备估值修复潜力。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=4&sn=83b1c46cc0757513a580798cc2024ddd&chksm=eadd2e13ddaaa705ca191867ebd61079c7ba9bb51d2d6e401859c6084b0b14756230c9977de3#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=4&sn=83b1c46cc0757513a580798cc2024ddd&chksm=eadd2e13ddaaa705ca191867ebd61079c7ba9bb51d2d6e401859c6084b0b14756230c9977de3#rd",
-      "timestamp": 1774568114
-    },
-    {
-      "source": "财躺平",
-      "tag": "财躺平",
-      "title": "无心",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488097&idx=1&sn=51a818b103317ad272e0929d68a55f78&chksm=fa1a97e4cd6d1ef2bac713202784f2d2af725a3c9ed7e47df5509a5daab069da63922c6cbc4b#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488097&idx=1&sn=51a818b103317ad272e0929d68a55f78&chksm=fa1a97e4cd6d1ef2bac713202784f2d2af725a3c9ed7e47df5509a5daab069da63922c6cbc4b#rd",
-      "timestamp": 1774517203
-    },
-    {
-      "source": "卓哥投研笔记",
-      "tag": "卓哥投研笔记",
-      "title": "除了宇树，美团其实投了大半个中国AI独角兽，或与被投企业相互敞开所有商业、技术场景",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486444&idx=1&sn=5fe524ea830d50f77bf1565fb8f83c35&chksm=c331edbff44664a9ad58a161c77095698a2401ac2b620fe8b24d7aaec6d8c2716609a6eff74b#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486444&idx=1&sn=5fe524ea830d50f77bf1565fb8f83c35&chksm=c331edbff44664a9ad58a161c77095698a2401ac2b620fe8b24d7aaec6d8c2716609a6eff74b#rd",
-      "timestamp": 1774506865
-    },
-    {
-      "source": "方伟看十年",
-      "tag": "方伟看十年",
-      "title": "美团大涨14%，但外卖大战今年都不会结束",
-      "body": "分享一篇文章：",
-      "digest": "分享一篇文章：",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489438&idx=1&sn=c547451c1ad6cd65d848a36dac48dffc&chksm=fe58f53ac92f7c2c8a1d674f7f2805088fdd0fba19fccd8d680c5f9e016da98cc54a20994917#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489438&idx=1&sn=c547451c1ad6cd65d848a36dac48dffc&chksm=fe58f53ac92f7c2c8a1d674f7f2805088fdd0fba19fccd8d680c5f9e016da98cc54a20994917#rd",
-      "timestamp": 1774487297
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金：油价上升对经济的影响",
-      "body": "近期美以对伊朗的军事打击推动油价上涨，各方高度关注其经济影响。这是中金研究部2011年1季度发布的两篇报告。相较当时，本轮石油供给降幅较大，全球地缘政治经济环境也已变化，但原分析框架对思考油价影响经济的机制仍有参考价值。",
-      "digest": "近期美以对伊朗的军事打击推动油价上涨，各方高度关注其经济影响。这是中金研究部2011年1季度发布的两篇报告。相较当时，本轮石油供给降幅较大，全球地缘政治经济环境也已变化，但原分析框架对思考油价影响经济的机制仍有参考价值。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=1&sn=cf64389e049c488d839277a4dca9a5e4&chksm=eadd2151ddaaa847527bfa4df7926b41f30fda53eabeba47ef932dc59807aa7a886174e64963#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=1&sn=cf64389e049c488d839277a4dca9a5e4&chksm=eadd2151ddaaa847527bfa4df7926b41f30fda53eabeba47ef932dc59807aa7a886174e64963#rd",
-      "timestamp": 1774481596
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 • 全球研究 | 中东变局下的全球区域行业情景推演",
-      "body": "近期中东局势升级，霍尔木兹海峡通行明显受阻，市场对能源运输、供应链稳定及全球增长前景的担忧有所上升。当前局势仍然有较大不确定性，本文从全球区域以及行业的角度，分不同情景推演不同局势下可能的演变路径。",
-      "digest": "近期中东局势升级，霍尔木兹海峡通行明显受阻，市场对能源运输、供应链稳定及全球增长前景的担忧有所上升。当前局势仍然有较大不确定性，本文从全球区域以及行业的角度，分不同情景推演不同局势下可能的演变路径。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=2&sn=71e54f03450979447f2ba78dc8d51814&chksm=eadd2151ddaaa8471dfd888fd7ad8de8078427e2635d862fb4b86a30435d311ec9abf574f2d4#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=2&sn=71e54f03450979447f2ba78dc8d51814&chksm=eadd2151ddaaa8471dfd888fd7ad8de8078427e2635d862fb4b86a30435d311ec9abf574f2d4#rd",
-      "timestamp": 1774481596
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 | 十五五下的财政：短期支持与财税改革",
-      "body": "今年为十五五规划开局之年，财政政策面临着短期稳增长与中期改革的双重任务。我们预计2026年财政仍偏紧平衡，实际力度或较2025年小幅回升，同时支出结构优化，支出向科教、民生等领域倾斜。",
-      "digest": "今年为十五五规划开局之年，财政政策面临着短期稳增长与中期改革的双重任务。我们预计2026年财政仍偏紧平衡，实际力度或较2025年小幅回升，同时支出结构优化，支出向科教、民生等领域倾斜。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=3&sn=d0a73a39e07c52d75b78557b57cb3eae&chksm=eadd2151ddaaa847a55b74e7af74e1bd7f524768c807fa555141152ff584b2bd015b8520a162#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=3&sn=d0a73a39e07c52d75b78557b57cb3eae&chksm=eadd2151ddaaa847a55b74e7af74e1bd7f524768c807fa555141152ff584b2bd015b8520a162#rd",
-      "timestamp": 1774481596
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 • 全球研究 | 2026年日本“春斗”点评",
-      "body": "2026年的春斗结果支持日本央行进一步加息，但是考虑到中东地区的不确定，我们认为日本央行的下次加息或在6月前后。",
-      "digest": "2026年的春斗结果支持日本央行进一步加息，但是考虑到中东地区的不确定，我们认为日本央行的下次加息或在6月前后。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=4&sn=e601d327b6fa3fad4d7eef682f6c57c5&chksm=eadd2151ddaaa847b33c2a6c3957047c5bc1555bc3c30341cd3967d334ec66dd517b3afd6896#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829398&idx=4&sn=e601d327b6fa3fad4d7eef682f6c57c5&chksm=eadd2151ddaaa847b33c2a6c3957047c5bc1555bc3c30341cd3967d334ec66dd517b3afd6896#rd",
-      "timestamp": 1774481596
-    },
-    {
-      "source": "财躺平",
-      "tag": "财躺平",
-      "title": "犹豫中的复苏",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488092&idx=1&sn=ac72b77a1042c036f4c1678672d2dbb2&chksm=fa1a97d9cd6d1ecf447b1ef4be558f19f4cfb671c5eeecd1dccb917fc8deefee4e26abdec252#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488092&idx=1&sn=ac72b77a1042c036f4c1678672d2dbb2&chksm=fa1a97d9cd6d1ecf447b1ef4be558f19f4cfb671c5eeecd1dccb917fc8deefee4e26abdec252#rd",
-      "timestamp": 1774429285
-    },
-    {
-      "source": "卓哥投研笔记",
-      "tag": "卓哥投研笔记",
-      "title": "美团迎来解放军",
-      "body": "市监转发《外卖大战该结束了》，措辞极其严厉",
-      "digest": "市监转发《外卖大战该结束了》，措辞极其严厉",
-      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486430&idx=1&sn=ccb6ca76e3c5408d59107fa977e084e2&chksm=c331ed8df446649bb8e37e0ff95c03c1a7db2257b5e69e12d340f0a139eac96dfe74a48dc3b2#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486430&idx=1&sn=ccb6ca76e3c5408d59107fa977e084e2&chksm=c331ed8df446649bb8e37e0ff95c03c1a7db2257b5e69e12d340f0a139eac96dfe74a48dc3b2#rd",
-      "timestamp": 1774418172
-    },
-    {
-      "source": "方伟看十年",
-      "tag": "方伟看十年",
-      "title": "“贵”就是错",
-      "body": "分享一篇文章：",
-      "digest": "分享一篇文章：",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489436&idx=1&sn=1550322f63ef1d2c319eaf4b6f4c1b18&chksm=fe58f538c92f7c2e4b2cf34822a5c1f1d2a8c876771b36c3f4799d1d69d31ff9e9c10a6fdec2#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489436&idx=1&sn=1550322f63ef1d2c319eaf4b6f4c1b18&chksm=fe58f538c92f7c2e4b2cf34822a5c1f1d2a8c876771b36c3f4799d1d69d31ff9e9c10a6fdec2#rd",
-      "timestamp": 1774400039
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金缪延亮：油价冲击会导致央行加息潮吗？",
-      "body": "“大缓和”后，地缘冲突造成的二次效应明显下降。本轮油价冲击对美联储决策的重要性或更多源于金融市场脆弱性，而非滞胀风险。",
-      "digest": "“大缓和”后，地缘冲突造成的二次效应明显下降。本轮油价冲击对美联储决策的重要性或更多源于金融市场脆弱性，而非滞胀风险。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=1&sn=b186cc37d5a82d8c709fbf4c048adf4c&chksm=eadd2071ddaaa967c6adf775375092f9f6e273e0dda89f1bbef03047fa5e6d682219c37bc6ad#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=1&sn=b186cc37d5a82d8c709fbf4c048adf4c&chksm=eadd2071ddaaa967c6adf775375092f9f6e273e0dda89f1bbef03047fa5e6d682219c37bc6ad#rd",
-      "timestamp": 1774395326
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金：中国农牧业大航海时代",
-      "body": "中国农牧业有望从国内存量市场的博弈，走向全球价值链的重构。",
-      "digest": "中国农牧业有望从国内存量市场的博弈，走向全球价值链的重构。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=2&sn=463bdb1f896c7a0023119f45feae8886&chksm=eadd2071ddaaa9676986700d48e2a2e12f471788b7e55e3adcd9677020141ae1161f3739eeb6#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=2&sn=463bdb1f896c7a0023119f45feae8886&chksm=eadd2071ddaaa9676986700d48e2a2e12f471788b7e55e3adcd9677020141ae1161f3739eeb6#rd",
-      "timestamp": 1774395326
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 | AI文娱观察：从世界模型出发，再论AI对游戏行业的影响",
-      "body": "我们本篇报告的核心观点是：市场高估了AI模型对游戏产业的短期颠覆力，同时低估了其作为工具的长期赋能价值。Genie3所代表的世界模型，本质上是高效率的内容生成工具，但它未触及游戏的核心——玩法设计、数值平衡与长线运营。",
-      "digest": "我们本篇报告的核心观点是：市场高估了AI模型对游戏产业的短期颠覆力，同时低估了其作为工具的长期赋能价值。Genie3所代表的世界模型，本质上是高效率的内容生成工具，但它未触及游戏的核心——玩法设计、数值平衡与长线运营。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=3&sn=fa47da387b02ce751397f0ef21eae07a&chksm=eadd2071ddaaa9677e76fd800741d4500dc1283d7bbf23f37b126221086aaa015efcf8f8c338#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=3&sn=fa47da387b02ce751397f0ef21eae07a&chksm=eadd2071ddaaa9677e76fd800741d4500dc1283d7bbf23f37b126221086aaa015efcf8f8c338#rd",
-      "timestamp": 1774395326
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金：优化工业品供给，保障能粮安全——大宗商品解读《政府工作报告》",
-      "body": "在安全保障方面，重视能源和粮食生产，在全球供应风险加剧的情况下，这可能有效降低国内原材料溢价，尽可能避免外部价格冲击。",
-      "digest": "在安全保障方面，重视能源和粮食生产，在全球供应风险加剧的情况下，这可能有效降低国内原材料溢价，尽可能避免外部价格冲击。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=4&sn=afffc464dbdca3a781ee7ae7f1062e72&chksm=eadd2071ddaaa967e220b98c7f24bd085e130223b7bf48b0e695f0009f38a5db74e7f9d91b15#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829174&idx=4&sn=afffc464dbdca3a781ee7ae7f1062e72&chksm=eadd2071ddaaa967e220b98c7f24bd085e130223b7bf48b0e695f0009f38a5db74e7f9d91b15#rd",
-      "timestamp": 1774395326
-    },
-    {
-      "source": "财躺平",
-      "tag": "财躺平",
-      "title": "嗯",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488085&idx=1&sn=73ffdfa46f596ccd55ae92472bbb15b1&chksm=fa1a97d0cd6d1ec663d3c5fa23451201fba4a1ea4f493bca903c2acffeaf427574fefc3c3003#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488085&idx=1&sn=73ffdfa46f596ccd55ae92472bbb15b1&chksm=fa1a97d0cd6d1ec663d3c5fa23451201fba4a1ea4f493bca903c2acffeaf427574fefc3c3003#rd",
-      "timestamp": 1774342995
-    }
-  ],
+  "generated_at": "2026-03-27T13:52:15.907506+08:00",
+  "voice": [],
   "news": [
     {
-      "time": "11:46",
-      "tag": "国际市场",
-      "title": "杰富瑞将意法半导体目标价从29欧元上调至35欧元。",
-      "body": "",
+      "title": "《科创板日报》27日讯，SK海力士CEO郭鲁正将与微软云端与AI执行副总裁S…",
+      "body": "《科创板日报》27日讯，SK海力士CEO郭鲁正将与微软云端与AI执行副总裁Scott Guthrie会面，预计将讨论高带宽存储器（HBM）及DRAM供应合作事宜。 (台湾电子时报)",
+      "time": "13:18",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326626",
-      "link": "https://www.cls.cn/detail/2326626"
+      "tag": "A股走势"
     },
     {
-      "time": "11:44",
-      "tag": "国际市场",
-      "title": "现货白银日内涨幅达2%，现报69.51美元/盎司。",
-      "body": "",
+      "title": "赵乐际同中外企业家代表座谈",
+      "body": "3月26日下午，全国人大常委会委员长赵乐际在海南博鳌同出席博鳌亚洲论坛2026年年会的中外企业家代表座谈。 (新华社)",
+      "time": "13:19",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326623",
-      "link": "https://www.cls.cn/detail/2326623"
+      "tag": "综合"
     },
     {
-      "time": "11:48",
-      "tag": "市场动态",
-      "title": "马斯克在社交平台X上表示，Grok Imagine下周将有重大发布。",
-      "body": "",
+      "title": "芯片概念午后活跃 鼎龙股份触及20cm涨停",
+      "body": "芯片概念午后活跃，鼎龙股份触及20cm涨停，盛剑科技涨停，国芯科技、中芯国际、芯碁微装、国风新材、芯源微、容大感光跟涨。消息面上，中芯国际发布2025年业绩报告。2025年度，公司实现营业收入93.27亿美元，较上年同期增长16.2%。其中，晶圆代工业务收入为8,796.4百万美元，约同比增加17.",
+      "time": "13:20",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326629",
-      "link": "https://www.cls.cn/detail/2326629"
+      "tag": "A股走势"
     },
     {
-      "time": "11:53",
-      "tag": "地缘局势",
-      "title": "特朗普又开怼：英国航母就是“玩具”，“别费劲了，我们不需要了”",
-      "body": "据英国广播公司（BBC）、《卫报》等媒体报道，美国总统特朗普当地时间26日在白宫发表讲话时再度抨击北约国家未配合美军行动，同时将英国航母贬为“玩具”，并透露自己曾告诉英国“别费劲了，我们不需要（英国派航母）”。《卫报》称，特朗普表示，他对北约盟友在美以伊冲突上的做法“非常失望”。“3周前，英国曾表示",
+      "title": "港股锂电池股午后持续走强，赣锋锂业涨超11%，天齐锂业涨超7%，中创新航涨超…",
+      "body": "港股锂电池股午后持续走强，赣锋锂业涨超11%，天齐锂业涨超7%，中创新航涨超5%，比亚迪股份涨近5%，宁德时代涨超3%。",
+      "time": "13:24",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326631",
-      "link": "https://www.cls.cn/detail/2326631"
+      "tag": "国际市场"
     },
     {
-      "time": "11:57",
-      "tag": "国内经济",
-      "title": "印度石油部长表示，任何向外国出口的炼油厂都必须缴纳出口税。",
-      "body": "",
+      "title": "马斯克在社交平台X上回复网友发布的视频时表示，人工智能将在3年后超过所有人类…",
+      "body": "马斯克在社交平台X上回复网友发布的视频时表示，人工智能将在3年后超过所有人类智能。",
+      "time": "13:31",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326634",
-      "link": "https://www.cls.cn/detail/2326634"
+      "tag": "科技AI"
     },
     {
-      "time": "11:56",
-      "tag": "A股走势",
-      "title": "3月27日午间涨停分析",
-      "body": "今日午盘全市场共54股涨停，连板股总数10只，11股封板未遂，封板率为83%（不含ST股、退市股）。焦点股方面，并购重组的中南文化15天8板，减肥药概念股美诺华11天6板，锂电池板块融捷股份4连板，电网设备板块新能泰山4连板。",
+      "title": "现货黄金向上触及4450美元，日内上涨1.69%。",
+      "body": "现货黄金向上触及4450美元，日内上涨1.69%。",
+      "time": "13:31",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326624",
-      "link": "https://www.cls.cn/detail/2326624"
+      "tag": "国际市场"
     },
     {
-      "time": "11:59",
-      "tag": "国际市场",
-      "title": "富时中国A50指数期货涨幅扩大至1%。",
-      "body": "",
+      "title": "现货白银日内涨幅扩大至3%，报70.0美元/盎司。",
+      "body": "现货白银日内涨幅扩大至3%，报70.0美元/盎司。",
+      "time": "13:32",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326637",
-      "link": "https://www.cls.cn/detail/2326637"
+      "tag": "国际市场"
     },
     {
-      "time": "11:58",
-      "tag": "国际市场",
-      "title": "欧元区各成员国财长将举行视频会，聚焦能源问题",
-      "body": "欧元区各成员国财长将举行视频会议，讨论近期中东紧张局势给能源市场和各成员国经济带来的影响。国际能源署署长法提赫·比罗尔受邀参会，预计将在会议期间发布有关能源市场的简报。 (央视新闻)",
+      "title": "日本30年期国债收益率上升14个基点至3.66%。",
+      "body": "日本30年期国债收益率上升14个基点至3.66%。",
+      "time": "13:34",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326635",
-      "link": "https://www.cls.cn/detail/2326635"
+      "tag": "综合"
     },
     {
-      "time": "12:00",
-      "tag": "国内经济",
-      "title": "港股午评：恒生指数涨0.55% 恒生科技指数涨1.05%",
-      "body": "港股午间收盘，恒生指数涨0.55%，恒生科技指数涨1.05%。创新药概念股普涨，云顶新耀涨逾10%，石药集团涨超9%，先声药业、亚盛医药涨近8%。锂电池、新能源汽车板块涨幅居前，赣锋锂业涨近8%，天齐锂业、比亚迪股份涨超4%，零跑汽车涨逾5%，理想汽车涨近3%。",
+      "title": "台交所加权股价指数收低0.7%报33,112.59点。",
+      "body": "台交所加权股价指数收低0.7%报33,112.59点。",
+      "time": "13:36",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326639",
-      "link": "https://www.cls.cn/detail/2326639"
+      "tag": "A股走势"
     },
     {
-      "time": "12:01",
-      "tag": "部委动态",
-      "title": "财联社3月27日午间新闻精选",
-      "body": "1、截至午间收盘，上证指数涨0.26%，深证成指涨0.93%，创业板指涨0.83%。恒生指数涨0.55%，恒生科技指数涨1.05%。\n2、国家统计局数据显示，1—2月份，全国规模以上工业企业实现利润总额10245.6亿元，同比增长15.2%。\n3、证监会首席律师程合红表示，开展新一轮公司治理专项行动",
+      "title": "现货黄金日内涨幅扩大至2%，报4470.58美元/盎司。",
+      "body": "现货黄金日内涨幅扩大至2%，报4470.58美元/盎司。",
+      "time": "13:38",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326641",
-      "link": "https://www.cls.cn/detail/2326641"
+      "tag": "国际市场"
     },
     {
-      "time": "12:06",
-      "tag": "A股走势",
-      "title": "心动公司港交所公告，2025年收入57.6亿元人民币，同比增长15%；权益持…",
-      "body": "心动公司港交所公告，2025年收入57.6亿元人民币，同比增长15%；权益持有人应占溢利15.35亿元人民币，同比增长89.2%。",
+      "title": "工业气体概念午后拉升 凯美特气触及涨停",
+      "body": "午后工业气体概念拉升，凯美特气触及涨停，金宏气体、杭氧股份、广钢气体、中船特气、华特气体等跟涨。消息面上，据业内人士称，氦气现货价格飙升，已经上涨超过50%。三星电子、SK海力士、东部高科等半导体制造商的采购部门正每天检查关键材料的供应情况和价格波动，以防止生产中断。",
+      "time": "13:38",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326645",
-      "link": "https://www.cls.cn/detail/2326645"
+      "tag": "A股走势"
     },
     {
-      "time": "12:13",
-      "tag": "地缘局势",
-      "title": "俄外长否认俄向伊朗提供情报",
-      "body": "俄罗斯外长拉夫罗夫26日在接受法国电视台采访时否认俄方向伊朗提供情报。据俄外交部网站发布的信息，拉夫罗夫表示，俄罗斯与伊朗签署了军事技术合作协议，俄方向伊方提供了某些类型的军事产品，但绝不接受有关俄方向伊朗提供情报的指控。拉夫罗夫表示，中东地区的美国军事基地所处位置并非秘密，而是公开信息。“这些信息",
+      "title": "BR橡胶跳水转跌，此前一度涨近4%。",
+      "body": "BR橡胶跳水转跌，此前一度涨近4%。",
+      "time": "13:40",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326648",
-      "link": "https://www.cls.cn/detail/2326648"
+      "tag": "综合"
     },
     {
-      "time": "12:15",
-      "tag": "A股走势",
-      "title": "龙湖集团2025年营收973.1亿元人民币，预估1,152.8亿元人民币；全…",
-      "body": "龙湖集团2025年营收973.1亿元人民币，预估1,152.8亿元人民币；全年净利润10.2亿元人民币。",
+      "title": "自战事爆发以来 伊朗平均每天卖油多赚2400万美元",
+      "body": "根据Tankertrackers.com的出口估算数据以及伊朗旗舰油种“伊朗轻质原油”(Iranian Light)的价格，伊朗方面3月迄今通过销售该旗舰油种每天便可获得约1.39亿美元收入，高于2月的1.15亿美元。这也意味着，自战事爆发以来，伊朗平均每天卖油至少能多赚约2400万美元(约合1.6",
+      "time": "13:41",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326650",
-      "link": "https://www.cls.cn/detail/2326650"
+      "tag": "国际市场"
     },
     {
-      "time": "12:14",
-      "tag": "科技AI",
-      "title": "集邦咨询：晶圆代工与封测成本同步上涨 DDIC供应商正酝酿上调报价",
-      "body": "根据TrendForce集邦咨询最新调查，由于2025年起半导体晶圆代工与后段封装测试成本逐步提高，且贵金属原材料价格持续攀升，加重了显示驱动IC (Display Driver IC, DDIC)厂商成本压力，部分业者近期已开始和面板客户沟通，评估上调报价的可能性。",
+      "title": "印尼矿业部长称，没有计划在4月1日对煤炭和镍出口征收暴利税。",
+      "body": "印尼矿业部长称，没有计划在4月1日对煤炭和镍出口征收暴利税。",
+      "time": "13:45",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326649",
-      "link": "https://www.cls.cn/detail/2326649"
+      "tag": "国内经济"
     },
     {
-      "time": "12:17",
-      "tag": "地缘局势",
-      "title": "俄外长：美国干涉中东局势使情况变得更加“严峻”",
-      "body": "俄罗斯外长拉夫罗夫当地时间3月26日晚接受采访时表示，美国及其盟友对中东局势的每次干涉都使情况变得更加“严峻”。拉夫罗夫谴责美国政府高级官员大肆吹嘘对伊朗领导层成员的刺杀行动，称这种行为非常“虚伪”。他指出，美国利用其设立在波斯湾地区阿拉伯国家的军事基地对伊朗发动袭击，却把大部分美军从军事基地撤出，",
+      "title": "上汽集团人形机器人“上岗”",
+      "body": "财联社记者获悉，上汽集团首位具身智能人形机器人员工“能仔1号”今日正式在别克至境E7电池量产线上岗，承担电芯抓取、上料等核心工序。“能仔1号”由上汽通用与智元机器人联合研发，后者是上汽金控投资的企业之一。（财联社记者 徐昊）",
+      "time": "13:45",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2326653",
-      "link": "https://www.cls.cn/detail/2326653"
+      "tag": "综合"
     }
   ],
   "ai_voice": [
     {
+      "title": "阿里QoderWork打通钉钉、微信、飞书 手机端可直接召唤桌面AI助手",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392760.html"
+    },
+    {
+      "title": "这群在知乎上“造人”的年轻人，决定让AI替你交朋友",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392697.html"
+    },
+    {
+      "title": "阿里云百炼上线三方视频生成模型，PixVerse首发登陆",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392692.html"
+    },
+    {
+      "title": "金融Agent再获近2亿加码！启明红杉高瓴集体押注，5个月内连获两轮融资",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392684.html"
+    },
+    {
+      "title": "1段话喊来13个“程序员”，阿里Qoder新模式让我躺着当CTO",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392281.html"
+    },
+    {
+      "title": "谷歌新论文把内存股价干崩了！KV cache压缩6倍，网友：硅谷成真了 profile-avatar",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392215.html"
+    },
+    {
+      "title": "它石智航用“吉尼斯纪录”交卷真干活的具身大脑，丁文超：从来没有Plan B",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392137.html"
+    },
+    {
+      "title": "第一批“首席龙虾官”，月薪6万",
+      "body": "",
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392128.html"
+    },
+    {
       "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392121.html",
-      "url": "https://www.qbitai.com/2026/03/392121.html",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "13:52",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/392121.html"
     },
     {
       "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "body": "",
+      "time": "13:52",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392105.html",
-      "url": "https://www.qbitai.com/2026/03/392105.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392105.html"
     },
     {
-      "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392024.html",
-      "url": "https://www.qbitai.com/2026/03/392024.html",
+      "title": "林俊旸离职后首度发声：万字复盘，大模型下一站「智能体式思考」",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391890.html",
-      "url": "https://www.qbitai.com/2026/03/391890.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391830.html",
-      "url": "https://www.qbitai.com/2026/03/391830.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "OpenAI关停Sora！25个月从封神到退场",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391799.html",
-      "url": "https://www.qbitai.com/2026/03/391799.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "AI全链路加持！一加15T打造全能小屏，售价4299元起",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391775.html",
-      "url": "https://www.qbitai.com/2026/03/391775.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "龙虾爆火之后，AI初创的全球化机会来了吗？｜线下沙龙报名",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391760.html",
-      "url": "https://www.qbitai.com/2026/03/391760.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "黄仁勋暴论核弹：AGI已经实现，Ilya错了，程序员有10亿",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391750.html",
-      "url": "https://www.qbitai.com/2026/03/391750.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "你的模型真的会”举一反三”吗？RoboChallenge Table30 V2 正式发布，泛化时代开幕",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391744.html",
-      "url": "https://www.qbitai.com/2026/03/391744.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Suno、Udio都被它干翻！中国AI音乐模型拿下AA全球榜单双料冠军",
+      "title": "CVPR 2026 | ReFTA：打破张量化PEFT的「权重重建」瓶颈",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "ICLR 2026 Oral｜中科院团队提出新框架「SparseRL」，深度强化学习可自动生成高性能CUDA代码",
+      "title": "从模型到现实：具身智能生态的龙岗实践｜技术沙龙精彩回顾",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Arm自造芯片了：是块AGI CPU，面向AI智能体",
+      "title": "糟糕，大佬45年前论文，被判AI生成",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "当用户与算法共同进化——华盛顿大学等建立可预测并引导人机协同适应的计算框架",
+      "title": "内存股集体大跌，原因竟是谷歌这篇一年前的论文",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Sand.ai开源发布MagiCompiler：突破局部编译界限，定义训推性能上限",
+      "title": "ICLR 2026 Oral | Revela：用语言建模重新定义稠密检索器训练",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Ψ₀刚刚开源了！迈向通用人形机器人的基座模型",
+      "title": "WWW 2026｜快手新研究：当强化学习遇见语义ID，让推荐系统学会“高瞻远瞩”！",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "我在微信免费养「龙虾」，玩到上瘾，这组CP太强了",
+      "title": "打破具身世界模型可执行性鸿沟 ！港中深-跨维智能团队提出EVA框架，用强化学习让视频世界模型真正“动”起来",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "突发｜立即检查你的Python库！LiteLLM被投毒，Karpathy警告，马斯克关注",
+      "title": "AI写CUDA算子准确率92%，到国产芯片只剩4%？上交方法直线拉升，DeepSeek也适用",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "对抗KV Cache压缩的脆弱性：两行代码以最坏风险控制防御底层假设崩塌",
+      "title": "为蛋白质宇宙「编目」——DIAMOND DeepClust实现190亿序列的超快聚类",
+      "body": "",
+      "time": "13:52",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Mecha-nudges for Machines",
+      "title": "Training the Knowledge Base through Evidence Distillation and Write-Back Enrichment",
+      "body": "",
+      "time": "13:52",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23433",
-      "url": "https://arxiv.org/abs/2603.23433",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://arxiv.org/abs/2603.25737"
     },
     {
-      "title": "Bilevel Autoresearch: Meta-Autoresearching Itself",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23420",
-      "url": "https://arxiv.org/abs/2603.23420",
+      "title": "Back to Basics: Revisiting ASR in the Age of Voice Agents",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:52",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25727"
     },
     {
-      "title": "Beyond Preset Identities: How Agents Form Stances and Boundaries in Generative Societies",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23406",
-      "url": "https://arxiv.org/abs/2603.23406",
+      "title": "R-C2: Cycle-Consistent Reinforcement Learning Improves Multimodal Reasoning",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:52",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25720"
     },
     {
-      "title": "RelayS2S: A Dual-Path Speculative Generation for Real-Time Dialogue",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23346",
-      "url": "https://arxiv.org/abs/2603.23346",
+      "title": "Agent Factories for High Level Synthesis: How Far Can General-Purpose Coding Agents Go in Hardware Optimization?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:52",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25719"
     },
     {
-      "title": "LLM Olympiad: Why Model Evaluation Needs a Sealed Exam",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23292",
-      "url": "https://arxiv.org/abs/2603.23292",
+      "title": "Is Mathematical Problem-Solving Expertise in Large Language Models Associated with Assessment Performance?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:52",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25633"
+    },
+    {
+      "title": "Neural Network Conversion of Machine Learning Pipelines",
+      "body": "",
+      "time": "13:52",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25699"
+    },
+    {
+      "title": "A Unified Memory Perspective for Probabilistic Trustworthy AI",
+      "body": "",
+      "time": "13:52",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25692"
+    },
+    {
+      "title": "On Neural Scaling Laws for Weather Emulation through Continual Training",
+      "body": "",
+      "time": "13:52",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25687"
+    },
+    {
+      "title": "Longitudinal Digital Phenotyping for Early Cognitive-Motor Screening",
+      "body": "",
+      "time": "13:52",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25673"
+    },
+    {
+      "title": "Uncertainty-Guided Label Rebalancing for CPS Safety Monitoring",
+      "body": "",
+      "time": "13:52",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25670"
     }
   ],
-  "miao_notice": [
-    {
-      "content": "**今日盘面还算有料。**港股A股同步拉升，恒生科技涨1%+，创新药、半导体方向明显活跃；富时A50期货跟涨，外资情绪在改善。中金那篇\"资产大挪移\"说中国资产安全属性凸显，这不是说说而已——地缘乱、美元信用磨损，资金确实在找锚。\n\n**两个值得盯的信号：** 一是银白金集体拉涨，白银单日+2%，贵金属还在走；二是半导体成本端压力正在传导，集邦调查显示晶圆+封测双双涨价，DDIC要跟着调价，意法半导体目标价也被上调——供给侧成本重估逻辑在强化。\n\n**Grok Imagine下周发布**值得关注，马斯克放话必有动作，AI图像赛道可能再热一把。龙湖业绩低于预期但还没崩，地产继续熬着。总结：今天市场情绪偏暖，但别飘，中东能源变量悬在头上没落地。🐾",
-      "label": "🐱 喵子告知 · 2026.03.27 13:48"
-    },
-    {
-      "content": "中东局势是今天最大的宏观噪音——伊朗百万人备战、霍尔木兹管控系统、美伊同步喊话，看似剑拔弩张，但特朗普说\"正在对话\"，这套攻守组合拳已经玩了好几轮了，真打不如说说。真正值得盯的是油价和化工品联动：韩国禁止石脑油出口、纯苯涨近4%，供应链已经在用脚投票。\n\nA股这边，大胜达5个涨停却披露细节存差错，GPU概念炒作的钱味比产业味浓得多，别追。华虹营收涨20%但净利润微降，半导体代工的量价剪刀差还没愈合，不算真正复苏。极飞科技递表港交所，农业无人机赛道头部玩家上市窗口选得不算差。\n\n中金密集发报告讲\"资产大挪移\"和\"安全资产重定义\"，核心逻辑就一句话：全球地缘乱、美元信用松，中国资产的避险属性正在被重新定价。这个叙事方向喵子认同，但节奏别急，等情绪落地再说。",
-      "label": "🐱 喵子告知 · 2026.03.27 12:01"
-    },
-    {
-      "content": "中东局势是今天最大的变量。伊朗封锁霍尔木兹海峡、百万人备战、美伊同时谈判又同时对峙——这不是在打仗，是在要价。但霍尔木兹一旦真出问题，石脑油、纯苯、乙二醇这些化工品昨夜就已经提前反应了，能源链条的脆弱性正在被重新定价。韩国紧急禁止石脑油出口，土耳其甩卖黄金，这些都是\"有人在悄悄搬家\"的信号。\n\nA股层面，大胜达靠\"GPU投资\"收获5个涨停但细节存在差错，这种故事已经见过太多次——概念先行、基本面跟不上，小心接刀。华虹营收增20%但净利微降，说明晶圆代工价格压力还没出清，不是景气反转信号。极飞科技赴港IPO，农业无人机赛道有长期逻辑，值得持续关注。\n\n核心判断：当前市场最大的定价混乱在\"地缘风险\"，中金说中国资产安全属性凸显这个方向没错，但波动还没结束。保持仓位纪律，别被涨停板的噪音带跑。🐾",
-      "label": "🐱 喵子告知 · 2026.03.27 10:05"
-    },
-    {
-      "content": "中东局势是今天最核心的变量。伊朗百万人备战+霍尔木兹\"管控系统\"已落地，特朗普嘴上说在谈判，伊朗那边却在喊\"准备好应对自杀式行动\"——两边信号完全对冲。韩国突然禁止石脑油出口5个月，化工品期货夜盘跟着涨，能源供应链的风险已经从预期变成现实动作了。\n\n资产层面，中金在喊\"重新定义安全资产\"、中国资产安全属性凸显，配合美元贝森特说\"避风港地位重建\"——两边都在抢叙事，但黄金才是真正在用脚投票的，土耳其两周甩了58吨出去，这是压力下的真实行为。\n\n国内看两个信号：大胜达5.5亿炒GPU概念、交易细节都有差错还收5个涨停，这种行情跟风要命；华虹营收涨20%但净利润微降，半导体代工还在爬坡期，别被营收数字带跑偏。",
-      "label": "🐱 喵子告知 · 2026.03.27 10:00"
-    }
-  ]
+  "miao_notice": {
+    "content": "今日焦点：《科创板日报》27日讯，SK海力士CEO郭鲁正将与微软云端与。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+    "label": "🐱 喵子告知 · 2026.03.27 13:52"
+  }
 }

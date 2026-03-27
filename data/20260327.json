@@ -1,7 +1,50 @@
 {
   "date": "20260327",
   "generated_at": "2026-03-27T08:02:33.158599",
-  "voice": [],
+  "voice": [
+    {
+      "title": "机会总算来了",
+      "author": "萌虎队长",
+      "source": "财躺平",
+      "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1774575274&ver=6623&signature=p4obnXYQDgmeYzzumgbNHbE7JRoFg-6OV78lFJlrw75TD299CsH7fOVERFAsYNlKWfAc0sXDj2uWrwZtVYpjCOJSqvz1D3mvCmL4UKn0eeKffg9iu-isf2THPwVcaOc1&new=1",
+      "time": "2026-03-27"
+    },
+    {
+      "title": "阿里腾讯的AI叙事，让字节窃喜",
+      "author": "卓哥01",
+      "source": "卓哥投研笔记",
+      "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1774575284&ver=6623&signature=8RIy-NJtORsiiFAJNS6Ou-JIROMipyv40vE7KOVwMIAfULYgAGxgWAa9*s5-DqWe777UNDzqyUMNdaGu*0vGf9yF0hF489eJxG25-fviKQANHfMWcTs8fVk1BWMYrvmY&new=1",
+      "time": "2026-03-27"
+    },
+    {
+      "title": "千问数据揭秘，奶茶被老人喝了",
+      "author": "卓哥01",
+      "source": "卓哥投研笔记",
+      "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1774575284&ver=6623&signature=8RIy-NJtORsiiFAJNS6Ou-JIROMipyv40vE7KOVwMIBfLlRkwdRm9cN5Hp1jR9Ev46*GW1Dsz9ZK1TpXTREF*Ui8B3lN*BcUYOqmvGa5b7Od1OQ*xoc04iOxIvPZYo7l&new=1",
+      "time": "2026-03-27"
+    },
+    {
+      "title": "我大概能看见携程的一两年，但看不见十年",
+      "author": "方伟Rey",
+      "source": "方伟看十年",
+      "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1774575307&ver=6623&signature=hRowvnZOYhxj1EbnXecGgpTXRK05y8X3FtjyG1c2l7zmUB2LSVOq9PBvWDF3KPKAQ2w24HMBq7EVAQV7mVXgfPrLKchSYPCCpYBdeJKeikFpJ8FRmrFuVBkgxBDsZGbe&new=1",
+      "time": "2026-03-27"
+    },
+    {
+      "title": "很多真正深的护城河，表面看是品牌，其实是系统能力",
+      "author": "方伟看十年",
+      "source": "方伟看十年",
+      "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1774575307&ver=6623&signature=hRowvnZOYhxj1EbnXecGgpTXRK05y8X3FtjyG1c2l7yz*9vXT27W1zioBYe3DqVGi3ai1LrohvLIqFPWqnDpzzwx*8jm5NgpjFApv7gh6SmYciR3FqTqV6DeCJs1DVRU&new=1",
+      "time": "2026-03-27"
+    },
+    {
+      "title": "刘煜辉2024年宏观展望：期望点在哪？",
+      "author": "投资报",
+      "source": "刘煜辉的高维宏观",
+      "url": "https://mp.weixin.qq.com/s?src=11&timestamp=1774575316&ver=6623&signature=jBviPLE2TU6Kpsa0EJdK9fm2We3KsrersI9h16O7q5YYObrJPxnsvQzM90jqddE8I5bwJCHpHbzewCu*2ScnY-obWbtdMPmW1chqWCmmg*o*x1kl9tMMd2sI82C1TY6U&new=1",
+      "time": "2026-03-27"
+    }
+  ],
   "news": [
     {
       "title": "华虹公司：2025年净利润3.77亿元 同比下降1.04%",

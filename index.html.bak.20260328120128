@@ -306,15 +306,11 @@ nav{padding:12px 0;flex:1}
           </div>
           <div class="two-col-divider"></div>
           <div>
-            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260328">· 1</span></div>
+            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260328">· 0</span></div>
             <div class="timeline" id="timeline-voice-20260328" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_20260328 -->
 <div class="tl-item">
   <div class="tl-dot"></div>
-  <div class="tl-time">09:06</div>
-  <div class="tl-tag" style="background:rgba(106,27,154,.1);color:#6a1b9a;">方伟看十年</div>
-  <div class="tl-title">我是不会考虑零跑汽车这种“杀价型”商业模式的</div>
-  <div class="tl-body">分享一篇文章：</div>
-  <a class="tl-source" href="http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&amp;mid=2247489442&amp;idx=1&amp;sn=59967707f945679cb057b99f327b861a&amp;chksm=fe58f506c92f7c10a49a9994641fb963cdf12fc2e2583afb4d8a0583077f89ad4ca0576ec577#rd" target="_blank">→ 阅读原文</a>
+  <div class="tl-title">今天还没有新文章哟 🐾</div>
 </div>
 <!-- /INJECT:voice_20260328 --></div>
           </div>

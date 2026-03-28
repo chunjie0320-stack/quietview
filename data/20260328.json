@@ -1,393 +1,328 @@
 {
   "date": "20260328",
-  "generated_at": "2026-03-28T12:01:52.425879",
-  "voice": [
-    {
-      "source": "方伟看十年",
-      "title": "我是不会考虑零跑汽车这种“杀价型”商业模式的",
-      "digest": "分享一篇文章：",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489442&idx=1&sn=59967707f945679cb057b99f327b861a&chksm=fe58f506c92f7c10a49a9994641fb963cdf12fc2e2583afb4d8a0583077f89ad4ca0576ec577#rd",
-      "time": "09:06",
-      "color": "rgba(106,27,154,.1)",
-      "text_color": "#6a1b9a"
-    }
-  ],
+  "generated_at": "2026-03-28T13:15:36.962812+08:00",
+  "voice": [],
   "news": [
     {
-      "time": "09:46",
-      "tag": "部委动态",
-      "title": "廖岷会见美中贸委会会长谭森",
-      "body": "财政部副部长廖岷3月23日在北京会见美中贸委会会长谭森，就中美经贸关系相关问题进行深入交流。廖岷应约介绍了中美巴黎经贸磋商情况，强调中方愿在相互尊重、和平共处、合作共赢原则基础上与美方发展双边经贸关系。欢迎美企继续深耕中国，进一步拓展对华投资。希望美中贸委会继续发挥好桥梁纽带作用。谭森表示，当前局势",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327764",
-      "link": "https://www.cls.cn/detail/2327764"
-    },
-    {
-      "time": "09:55",
-      "tag": "国际市场",
-      "title": "多品牌金饰逼近1400元",
-      "body": "美东时间3月27日，黄金白银深夜急速飙涨，现货黄金一度突破4555美元/盎司，截至收盘，现货黄金涨2.5%，报4493.36美元/盎司。据查询发现，老庙黄金足金饰品报1397元/克，较前一日1365元/克涨32元。老凤祥足金饰品报1396元/克，较前一日1368元/克涨28元。周生生足金饰品报139",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327765",
-      "link": "https://www.cls.cn/detail/2327765"
-    },
-    {
-      "time": "10:08",
-      "tag": "市场动态",
-      "title": "富士康旗下富储科能即将发布储能新品",
-      "body": "富士康旗下储能品牌富储科能3月28日宣布，将于3月31日15时举办2026年多元化应用场景工商业储能系统新品发布会。",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327767",
-      "link": "https://www.cls.cn/detail/2327767"
-    },
-    {
-      "time": "10:12",
-      "tag": "A股走势",
-      "title": "大胜达取消临时股东会 暂不审议投资GPU企业一揽子交易",
-      "body": "大胜达27日晚间公告，取消原定4月3日召开的2026年第二次临时股东大会。该股东大会原计划审议公司5.5亿元投资芯瞳半导体等一揽子交易。大胜达表示，正就上交所《监管工作函》所关注的事项组织回复，待《监管工作函》回复完成后再发布召开股东会的通知。\n针对该交易事项，3月26日晚，财联社发布《五涨停背后 ",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327768",
-      "link": "https://www.cls.cn/detail/2327768"
-    },
-    {
-      "time": "10:16",
-      "tag": "地缘局势",
-      "title": "特朗普又批北约 威胁缩减对北约的“保护”开支",
-      "body": "美国总统特朗普27日又一次批评其他北约国家拒绝参加协助确保霍尔木兹海峡安全的行动，并威胁将缩减用于“保护”其他北约国家的开支。特朗普当天在迈阿密举行的一个商业论坛上说，“我认为北约当时不在场是一个巨大错误”。“我们每年对北约投入数千亿美元用于保护他们，我们本会始终站在他们一边，但如今鉴于他们的所作所",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327770",
-      "link": "https://www.cls.cn/detail/2327770"
-    },
-    {
-      "time": "10:18",
-      "tag": "市场动态",
-      "title": "6G通感算智融合无线云网络技术北京市重点实验室成果发布",
-      "body": "2026中关村论坛年会期间，中关村泛联移动通信技术创新应用研究院、中国移动研究院、中国移动北京公司、北京邮电大学联合发布“赋能具身智能的6G可重构开放式创新网络平台”、“6G空天地智简语义立体通信网络试验与应用平台”、“低空无人机宽带信道高精度测量平台”、“基础模型使能的低空电磁环境数字孪生平台”等",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327769",
-      "link": "https://www.cls.cn/detail/2327769"
-    },
-    {
-      "time": "10:36",
-      "tag": "部委动态",
-      "title": "韩正出席中国-南非经贸合作论坛并致辞",
-      "body": "据外交部网站，当地时间2026年3月27日，国家副主席韩正在南非开普敦出席中国—南非经贸合作论坛并发表致辞。韩正提出三点建议。一是深化战略对接。中南两国都是发展中大国，历来休戚与共、彼此坚定支持。中国愿同南非继续深化战略互信，加强政策沟通，积极落实中非合作论坛北京峰会成果，推动共建“一带一路”合作与",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327771",
-      "link": "https://www.cls.cn/detail/2327771"
-    },
-    {
-      "time": "10:43",
-      "tag": "地缘局势",
-      "title": "特朗普发出威胁：“下一个是古巴”",
-      "body": "继美国对委内瑞拉和伊朗采取军事行动之后，美国总统特朗普27日对古巴发出威胁，称“下一个是古巴”。特朗普当天在佛罗里达州迈阿密举行的一场会议上说：“顺便提一句，下一个是古巴……非常感谢。古巴是下一个。” (新华社)",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327774",
-      "link": "https://www.cls.cn/detail/2327774"
-    },
-    {
-      "time": "10:51",
-      "tag": "国内经济",
-      "title": "农业农村部副部长张治礼会见美中贸易全国委员会代表团",
-      "body": "农业农村部副部长张治礼3月26日在京会见美中贸易全国委员会会长谭森率领的美国企业代表团，双方就中美农业交流与合作、兽药研发、生物育种发展及政策等进行了交流。张治礼表示，中国“十五五”规划纲要就“加快农业农村现代化，扎实推进乡村全面振兴”作出重点部署，为涉农外资企业提供了广阔的市场空间和合作契机。在华",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327775",
-      "link": "https://www.cls.cn/detail/2327775"
-    },
-    {
-      "time": "11:01",
-      "tag": "地缘局势",
-      "title": "俄罗斯和土耳其讨论保障地区能源供应安全",
-      "body": "俄罗斯外交部副部长格鲁什科27日在莫斯科会见了土耳其驻俄大使比尔吉奇，双方讨论了黑海地区油轮和天然气管道设施遇袭造成的影响。格鲁什科强调要采取措施保障黑海地区能源供应安全。据俄外交部网站27日发布的消息，俄土双方在会见中讨论了黑海地区安全形势。俄方指出，乌克兰武装力量通过持续空袭位于俄西南部克拉斯诺",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327777",
-      "link": "https://www.cls.cn/detail/2327777"
-    },
-    {
-      "time": "11:05",
-      "tag": "科技AI",
-      "title": "国家人工智能应用上海中试基地：发布五大核心创新成果",
-      "body": "国家人工智能应用上海中试基地3月28日在复旦大学附属中山医院举行阶段性成果总结发布会，发布五大核心创新成果与9款医疗智能应用，有力推进我国“人工智能+医疗”高质量发展。其中，五大阶段性核心成果为：1、依托构建覆盖计算、存储、网络与开发工具链的一体化新型算力服务平台，形成贯通“模型研发—验证迭代—推理",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327779",
-      "link": "https://www.cls.cn/detail/2327779"
-    },
-    {
-      "time": "11:03",
-      "tag": "国际市场",
-      "title": "拨款法案未通过 特朗普签署备忘录给机场安检人员发薪",
-      "body": "美国总统特朗普27日签署一项备忘录，向从国土安全部“停摆”以来未能领取工资的机场安检人员发放薪酬。此前，众议院共和党人否决了参议院当天凌晨通过的一项国土安全部拨款法案。根据白宫27日发布的总统备忘录，特朗普表示，国土安全部“停摆”已持续六周，美国的航空旅行系统已“濒临崩溃”。他“已认定这些情况构成了",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327778",
-      "link": "https://www.cls.cn/detail/2327778"
-    },
-    {
-      "time": "11:07",
-      "tag": "部委动态",
-      "title": "欧盟官员警告欧盟经济正面临滞胀风险",
-      "body": "欧盟委员会负责经济事务的委员瓦尔季斯·东布罗夫斯基斯27日表示，由于中东战事引发能源价格飙升，欧盟经济正面临滞胀风险。当天，欧元集团就能源价格问题举行线上会议。东布罗夫斯基斯在会后召开的新闻发布会上表示，“前景被高度的不确定性笼罩”，欧盟经济正面临滞胀风险，即经济增长放缓与通胀上升并存的局面。“即便",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327780",
-      "link": "https://www.cls.cn/detail/2327780"
-    },
-    {
-      "time": "11:14",
-      "tag": "部委动态",
-      "title": "多地光伏项目击穿收益底线 发展模式面临全方位重构",
-      "body": "山东、山西等地近期发布调整、废止一些风电光伏发电项目通知，其中涉及多家央国企调整相关光伏投资布局。业内人士指出，这一变化背后，是政策导向、市场环境与企业战略的多重调整，同时也反映出我国新能源产业站上“高质量发展”的关键分水岭，行业格局、技术路线与发展模式也迎来全方位重构。 (新华财经)",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327783",
-      "link": "https://www.cls.cn/detail/2327783"
-    },
-    {
-      "time": "11:18",
-      "tag": "地缘局势",
       "title": "巴防务分析专家：巴基斯坦正在美伊间发挥协调与斡旋作用",
       "body": "巴基斯坦外交部长达尔26日证实，美伊间接谈判正通过由巴基斯坦传递信息的方式进行。对此，巴基斯坦防务分析专家贾维德·伊克巴尔在接受总台记者采访时表示，当前局势复杂，巴基斯坦正在美伊两国间发挥协调与斡旋作用。防务分析专家贾维德·伊克巴尔：这一角色源于我们关键的地理位置和我们的外交政策，以及我们与该地区和",
+      "time": "11:18",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327785",
-      "link": "https://www.cls.cn/detail/2327785"
+      "tag": "部委动态"
+    },
+    {
+      "title": "伊朗民众支持武装部队反抗美以霸权",
+      "body": "面对美国和以色列的持续侵略，伊朗民众对总台记者表示，伊朗人民将坚决与武装部队站在一起，共同保卫国家，反抗美以霸权。很多伊朗民众表示，美以的目标是“分裂和拖垮伊朗”，因此美国不可信任，所谓的谈判不会取得积极成果。也有部分伊朗民众表示，伊朗可以参与谈判，但必须以维护国家利益为基础，而不是对美国妥协。伊朗",
+      "time": "11:21",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "美国众议院通过一项旨在结束政府停摆的临时国土安全拨款法案，并已将其送交参议院…",
+      "body": "美国众议院通过一项旨在结束政府停摆的临时国土安全拨款法案，并已将其送交参议院。",
+      "time": "11:27",
+      "source": "财联社",
+      "tag": "部委动态"
+    },
+    {
+      "title": "泰国总理表示，泰国政府制定应对长期石油危机的备用方案；泰国部分府的燃油短缺情…",
+      "body": "泰国总理表示，泰国政府制定应对长期石油危机的备用方案；泰国部分府的燃油短缺情况有所改善；仍对柴油提供每升16泰铢的补贴。",
+      "time": "11:32",
+      "source": "财联社",
+      "tag": "部委动态"
+    },
+    {
+      "title": "上海3月份沪牌拍卖结果公布 中标率9.2%",
+      "body": "3月沪牌拍卖结果刚刚出炉：个人额度合计拍卖总数3710个，参加拍卖人数40205人，中标率9.2%。最低成交价94100元，平均成交价为94100元，与上个月保持一致。最低成交价的截止时间是11:29:59第1797位。",
+      "time": "11:45",
+      "source": "财联社",
+      "tag": "综合"
+    },
+    {
+      "title": "上海市人工智能行业协会：AI发展不能因噎废食 安全和风控要协同推进",
+      "body": "全球开发者先锋大会3月27日至3月29日在沪举行。大会期间，上海市人工智能行业协会秘书长钟俊浩在接受证券时报记者采访时表示，“养龙虾”热潮，表明AI正实现从生产工具到生产力的进阶。当前AI智能体技术仍在快速迭代，行业处于“在前行中探索，在探索中前行”的阶段。对待AI安全和规范议题，既不能因噎废食，也",
+      "time": "11:50",
+      "source": "财联社",
+      "tag": "科技AI"
+    },
+    {
+      "title": "以色列监测到也门向以南部发射导弹",
+      "body": "据以色列12频道消息，当地时间今天（3月28日）早间，以方监测到从也门向以色列南部发射的导弹。 (CCTV国际时讯)",
+      "time": "12:05",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "据报道，泰国与伊朗达成协议，允许船只经霍尔木兹海峡通行。",
+      "body": "据报道，泰国与伊朗达成协议，允许船只经霍尔木兹海峡通行。",
+      "time": "12:14",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "以色列方面称也门胡塞武装“参战”",
+      "body": "以色列方面28日消息称，也门胡塞武装当天向以色列南部发射弹道导弹，标志着胡塞武装“加入战争”。 (央视新闻)",
+      "time": "12:18",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "雄安“人工智能+”产业生态融合发展论坛举行",
+      "body": "2026中关村论坛平行论坛——雄安“人工智能+”产业生态融合发展论坛3月28日在雄安新区举行。本次论坛作为2026年中关村论坛唯一京外平行论坛，汇聚院士专家、企业及投资机构代表等300多位嘉宾。集中展示了京雄两地推动人工智能产业协同的创新实践，发布了京雄协同创新科技成果，人工智能京雄联合攻关“揭榜挂",
+      "time": "12:20",
+      "source": "财联社",
+      "tag": "科技AI"
+    },
+    {
+      "title": "杭州、三亚和苏州入选联合国“迈向零废物的城市”名单",
+      "body": "联合国秘书长零废物咨询委员会27日发布全球“20个迈向零废物的城市”倡议首批入选名单，肯定入选城市在减少废物、推动循环经济并建设更可持续和包容的城市系统方面所作努力。中国的杭州、三亚和苏州三座城市入选。联合国秘书长零废物咨询委员会在入选城市的介绍中表示，杭州利用数字技术提升城市固体废物分类和资源化利",
+      "time": "12:26",
+      "source": "财联社",
+      "tag": "综合"
+    },
+    {
+      "title": "海外综合服务体系持续完善 上海加速打造企业出海“起锚地”",
+      "body": "记者从27日以“以商会友，沪联全球”为主题的中外商协会对话活动上了解到，上海正通过上线全市统一服务平台、成立专业服务联盟等，持续完善海外综合服务体系，加快打造企业出海的“起锚地”。当前民营企业在上海企业出海格局中扮演着越来越重要的角色，去年，在上海全市对外投资备案项目中方投资额中民营企业占比超过80",
+      "time": "12:26",
+      "source": "财联社",
+      "tag": "A股走势"
+    },
+    {
+      "title": "第六届中国国际消费品博览会首批进境展品顺利通关",
+      "body": "海口海关所属洋浦海关关员对第六届中国国际消费品博览会首批货物进行验放。首批展品来自泰国和俄罗斯，主要涵盖进口精品零食、身体护理等品类。标志着第六届消博会境外展品集中入展正式启动。本届消博会是海南自贸港全岛封关运作后首场重大国际展会，参展国家和地区展团数量再创新高，汇聚全球头部品牌与新锐力量，重点呈现",
+      "time": "12:35",
+      "source": "财联社",
+      "tag": "科技AI"
+    },
+    {
+      "title": "国家数据局已新设国际数据治理合作司",
+      "body": "国家数据局官网近日公布的《国家数据局2026年度部门预算》披露，国家数据局共有行政单位1个，为机关本级，内设6个司：综合司、政策和规划司、数据资源司、数字经济司、数字科技和基础设施建设司、国际数据治理合作司。局属事业单位1个，为国家数据发展研究院。 (澎湃新闻)",
+      "time": "12:44",
+      "source": "财联社",
+      "tag": "部委动态"
+    },
+    {
+      "title": "上海口岸今年出入境人员数量突破1000万人次",
+      "body": "2026年以来，上海口岸出入境客流持续攀升。据上海边检总站统计，截至3月28日9时，上海边检机关累计查验出入境人员数量已突破1000万人次，同比增长2.9%。上海口岸出入境人员往来呈现“双向奔赴”的火热态势，其中，出境约505.5万人次，入境约494.5万人次，分别同比增长2.6%、3.3%。随着中",
+      "time": "12:46",
+      "source": "财联社",
+      "tag": "综合"
     }
   ],
   "ai_voice": [
     {
-      "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
+      "title": "25.98万元起！智己LS8震撼开启预售，30万内享百万级跨代际体验",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392121.html",
-      "url": "https://www.qbitai.com/2026/03/392121.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392900.html"
     },
     {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "title": "趋境科技发布ATaaS：全球领先的高效能AI Token生产服务平台",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392105.html",
-      "url": "https://www.qbitai.com/2026/03/392105.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392896.html"
     },
     {
-      "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
+      "title": "钉钉CLI开源！首批开放10项核心产品能力，原生支持ClaudeCode等",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392024.html",
-      "url": "https://www.qbitai.com/2026/03/392024.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392828.html"
     },
     {
-      "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
+      "title": "开会也能“装龙虾”？阶跃StepClaw承包GDPS 2026全场人气",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391890.html",
-      "url": "https://www.qbitai.com/2026/03/391890.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392819.html"
     },
     {
-      "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
+      "title": "NeurIPS滑跪认错！一切都是误会，已纠正",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391830.html",
-      "url": "https://www.qbitai.com/2026/03/391830.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392814.html"
     },
     {
-      "title": "OpenAI关停Sora！25个月从封神到退场",
+      "title": "高通公司展望个人AI发展：多终端体验将以AI和用户为中心",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391799.html",
-      "url": "https://www.qbitai.com/2026/03/391799.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392790.html"
     },
     {
-      "title": "AI全链路加持！一加15T打造全能小屏，售价4299元起",
+      "title": "林俊旸离职后首次发声！复盘千问的弯路，指出AI的新路",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391775.html",
-      "url": "https://www.qbitai.com/2026/03/391775.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392770.html"
     },
     {
-      "title": "龙虾爆火之后，AI初创的全球化机会来了吗？｜线下沙龙报名",
+      "title": "阿里QoderWork打通钉钉、微信、飞书 手机端可直接召唤桌面AI助手",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391760.html",
-      "url": "https://www.qbitai.com/2026/03/391760.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392760.html"
     },
     {
-      "title": "黄仁勋暴论核弹：AGI已经实现，Ilya错了，程序员有10亿",
+      "title": "这群在知乎上“造人”的年轻人，决定让AI替你交朋友",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391750.html",
-      "url": "https://www.qbitai.com/2026/03/391750.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392697.html"
     },
     {
-      "title": "你的模型真的会”举一反三”吗？RoboChallenge Table30 V2 正式发布，泛化时代开幕",
+      "title": "阿里云百炼上线三方视频生成模型，PixVerse首发登陆",
+      "body": "",
+      "time": "13:15",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391744.html",
-      "url": "https://www.qbitai.com/2026/03/391744.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392692.html"
     },
     {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "title": "刚刚，一口气连发3个王炸模型、亮出2026年AGI战略，昆仑万维夯爆了",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Suno、Udio都被它干翻！中国AI音乐模型拿下AA全球榜单双料冠军",
+      "title": "刚刚，NeurIPS退让了",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "ICLR 2026 Oral｜中科院团队提出新框架「SparseRL」，深度强化学习可自动生成高性能CUDA代码",
+      "title": "让AI自动构建AI模型：UCSD 推出 AIBuildAI 智能体，斩获OpenAI MLE-Bench榜单第一",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Arm自造芯片了：是块AGI CPU，面向AI智能体",
+      "title": "美图2025财报深度解读：AI Agent如何重构美图？",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "当用户与算法共同进化——华盛顿大学等建立可预测并引导人机协同适应的计算框架",
+      "title": "在知乎写代码的那群「非程序员」，让AI学会了替人组局",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Sand.ai开源发布MagiCompiler：突破局部编译界限，定义训推性能上限",
+      "title": "深度机智发布全新具身通用智能大模型 给机器人装上“物理常识”",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Ψ₀刚刚开源了！迈向通用人形机器人的基座模型",
+      "title": "aiX-apply-4B逆袭DeepSeek-V3.2！aiXcoder发布代码变更应用模型，单卡推理提效15倍",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "我在微信免费养「龙虾」，玩到上瘾，这组CP太强了",
+      "title": "CHI 2026 Best Paper｜社会模拟迈入可控、可量化时代：为AI Agent加上「认知滑条」",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "突发｜立即检查你的Python库！LiteLLM被投毒，Karpathy警告，马斯克关注",
+      "title": "AI颠覆细胞代谢通路重建，西湖大学等单位联合提出AI虚拟代谢",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "对抗KV Cache压缩的脆弱性：两行代码以最坏风险控制防御底层假设崩塌",
+      "title": "专访中科第五纪黄岩：在具身智能的狂热中，做一位技术实干家",
+      "body": "",
+      "time": "13:15",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Mecha-nudges for Machines",
+      "title": "Training the Knowledge Base through Evidence Distillation and Write-Back Enrichment",
+      "body": "",
+      "time": "13:15",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23433",
-      "url": "https://arxiv.org/abs/2603.23433",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://arxiv.org/abs/2603.25737"
     },
     {
-      "title": "Bilevel Autoresearch: Meta-Autoresearching Itself",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23420",
-      "url": "https://arxiv.org/abs/2603.23420",
+      "title": "Back to Basics: Revisiting ASR in the Age of Voice Agents",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25727"
     },
     {
-      "title": "Beyond Preset Identities: How Agents Form Stances and Boundaries in Generative Societies",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23406",
-      "url": "https://arxiv.org/abs/2603.23406",
+      "title": "R-C2: Cycle-Consistent Reinforcement Learning Improves Multimodal Reasoning",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25720"
     },
     {
-      "title": "RelayS2S: A Dual-Path Speculative Generation for Real-Time Dialogue",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23346",
-      "url": "https://arxiv.org/abs/2603.23346",
+      "title": "Agent Factories for High Level Synthesis: How Far Can General-Purpose Coding Agents Go in Hardware Optimization?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25719"
     },
     {
-      "title": "LLM Olympiad: Why Model Evaluation Needs a Sealed Exam",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23292",
-      "url": "https://arxiv.org/abs/2603.23292",
+      "title": "Is Mathematical Problem-Solving Expertise in Large Language Models Associated with Assessment Performance?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "13:15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25633"
+    },
+    {
+      "title": "Neural Network Conversion of Machine Learning Pipelines",
+      "body": "",
+      "time": "13:15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25699"
+    },
+    {
+      "title": "A Unified Memory Perspective for Probabilistic Trustworthy AI",
+      "body": "",
+      "time": "13:15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25692"
+    },
+    {
+      "title": "On Neural Scaling Laws for Weather Emulation through Continual Training",
+      "body": "",
+      "time": "13:15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25687"
+    },
+    {
+      "title": "Longitudinal Digital Phenotyping for Early Cognitive-Motor Screening",
+      "body": "",
+      "time": "13:15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25673"
+    },
+    {
+      "title": "Uncertainty-Guided Label Rebalancing for CPS Safety Monitoring",
+      "body": "",
+      "time": "13:15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25670"
     }
   ],
-  "miao_notice": [
-    {
-      "content": "中东这把火烧得越来越猛——伊朗导弹打沙特美军基地、连布什尔核电站都挨了一发，油价单日飙5%，美股跟着跌，黄金反弹。胡塞武装那边还在喊\"随时准备行动\"，霍尔木兹海峡堵一堵，全球供应链就抖三抖。现在局势是：谈判和打仗同步进行，不确定性才是最大的确定性。\n\n对投资者来说，核心信号很清晰：能源多头逻辑短期被强化，中国资产的\"避险属性\"被中金这类机构反复提及——这不是随便说说，是资金在重新定价\"安全\"这件事。A50期货跌了不到1%，相对克制，说明市场还没慌，但在观望。\n\n喵子的判断：别追油价短线，波动太大容易踏空；倒是可以留意中东持续拉锯下，黄金和国内防御性资产的配置价值。美团那条主线继续跟，监管发话外卖大战该收场，格局重塑就是机会窗口。",
-      "label": "🐱 喵子告知 · 2026.03.28 12:00"
-    },
-    {
-      "content": "今日信号聚焦两块：**中东地缘**和**美团攻防**。\n\n中东局势持续升温，霍尔木兹受阻+油价上行，中金已在推演全球行业情景；与此同时\"安全资产\"重新定价，中国资产的避险属性正在被机构重新发现——这个叙事值得盯紧。\n\n美团这边热闹：大涨14%、市监点名外卖大战\"该结束\"、拼多多财报又强调重仓供应链\"三年再造\"……价格战收敛预期+AI布局（投了半个独角兽生态）双催化，但卓哥和方伟都在提醒：外卖战今年不会真结束，涨了不代表赢了。喵子判断：美团短期情绪顶，基本面拐点还需等竞争格局真落地。",
-      "label": "🐱 喵子告知 · 2026.03.28 08:00"
-    },
-    {
-      "content": "",
-      "label": ""
-    }
-  ]
+  "miao_notice": {
+    "content": "今日焦点：巴防务分析专家：巴基斯坦正在美伊间发挥协调与斡旋作用。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+    "label": "🐱 喵子告知 · 2026.03.28 13:15"
+  }
 }

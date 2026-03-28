@@ -549,19 +549,14 @@ def _update_active_panel(html_path, html, date_str):
 # ── 6. git commit + push ──────────────────────────────────────────────────────
 
 def git_push(date_str, slot_label, html_changed=False):
+    sys.path.insert(0, os.path.dirname(__file__))
+    from git_lock import git_push_with_lock
+
     files = [f"data/{date_str}.json", "data/"]
     if html_changed:
         files.append("index.html")
         files.append("quietview-demo.html")
-    for f in files:
-        subprocess.run(['git', 'add', f], cwd=REPO_DIR, check=True)
-    result = subprocess.run(
-        ['git', 'commit', '-m', f'auto: 喵子告知更新 {slot_label}'],
-        cwd=REPO_DIR, capture_output=True, text=True
-    )
-    if result.returncode != 0 and 'nothing to commit' in result.stdout + result.stderr:
-        print("  nothing to commit, skipping push")
-        return
+
     # 推送前健康检查
     import subprocess as sp2
     check = sp2.run(['python3', '/root/.openclaw/workspace/scripts/check_health.py'], capture_output=True, text=True)
@@ -571,7 +566,8 @@ def git_push(date_str, slot_label, html_changed=False):
         print(check.stderr)
         return False
     print(check.stdout)
-    subprocess.run(['git', 'push'], cwd=REPO_DIR, check=True)
+
+    git_push_with_lock(REPO_DIR, f'auto: 喵子告知更新 {slot_label}', files)
     print(f"✅ pushed: 喵子告知 {slot_label}")
 
 

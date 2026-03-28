@@ -378,21 +378,13 @@ def verify_divs(html_path):
 
 
 def git_push(item_count):
-    """git commit + push"""
+    """git commit + push（走全局锁防并发冲突）"""
+    import sys, os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from git_lock import git_push_with_lock
     now_str = datetime.now().strftime("%Y.%m.%d %H:%M")
-    subprocess.run(['git', 'add', 'quietview-demo.html', 'data/'], cwd=REPO_DIR, check=True)
-    result = subprocess.run(
-        ['git', 'commit', '-m', f'auto: 行业资讯更新 {now_str} ({item_count}条)'],
-        cwd=REPO_DIR, capture_output=True, text=True
-    )
-    if result.returncode != 0:
-        if 'nothing to commit' in result.stdout + result.stderr:
-            print("  ⚠️  内容无变化，跳过 commit")
-            return
-        raise RuntimeError(f"git commit 失败: {result.stderr}")
-
-    subprocess.run(['git', 'push'], cwd=REPO_DIR, check=True)
-    print(f"  ✅ git push 完成: 行业资讯更新 {now_str}")
+    msg = f"auto: 行业资讯更新 {now_str} ({item_count}条)"
+    git_push_with_lock(REPO_DIR, msg, files_to_add=['quietview-demo.html', 'data/'])
 
 
 def main():

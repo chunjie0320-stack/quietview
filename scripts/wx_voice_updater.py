@@ -344,21 +344,11 @@ def update_html_inject(date_str, voice_items, html_path, dry_run=False):
 
 
 def git_push(date_str, count, dry_run=False):
-    if dry_run:
-        print("[dry-run] 跳过 git push", file=sys.stderr)
-        return
+    sys.path.insert(0, os.path.dirname(__file__))
+    from git_lock import git_push_with_lock
     now_str = datetime.now().strftime("%Y.%m.%d %H:%M")
     msg = f"auto: 行业声音更新 {date_str} {now_str} ({count}条)"
-    subprocess.run(["git", "add", "-A"], cwd=REPO_DIR, check=True)
-    result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=REPO_DIR)
-    if result.returncode == 0:
-        print("  ℹ️  无变更，跳过 commit", file=sys.stderr)
-        return
-    subprocess.run(["git", "commit", "-m", msg], cwd=REPO_DIR, check=True)
-    # pull --rebase 防止冲突
-    subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=REPO_DIR, check=False)
-    subprocess.run(["git", "push"], cwd=REPO_DIR, check=True)
-    print(f"  ✅ git push 完成: {msg}", file=sys.stderr)
+    git_push_with_lock(REPO_DIR, msg, dry_run=dry_run)
 
 
 # ─── 主流程 ───────────────────────────────────────────────────────────────────

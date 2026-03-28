@@ -1,389 +1,328 @@
 {
   "date": "20260328",
-  "generated_at": "2026-03-28T18:02:23.387035",
-  "voice": [
-    {
-      "source": "方伟看十年",
-      "title": "我是不会考虑零跑汽车这种“杀价型”商业模式的",
-      "digest": "分享一篇文章：",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489442&idx=1&sn=59967707f945679cb057b99f327b861a&chksm=fe58f506c92f7c10a49a9994641fb963cdf12fc2e2583afb4d8a0583077f89ad4ca0576ec577#rd",
-      "time": "09:06",
-      "color": "rgba(106,27,154,.1)",
-      "text_color": "#6a1b9a"
-    }
-  ],
+  "generated_at": "2026-03-28T19:03:57.128034+08:00",
+  "voice": [],
   "news": [
     {
-      "time": "15:52",
-      "tag": "国际市场",
-      "title": "阿根廷总统：美法院就阿国家石油公司股权赔偿案裁决是“最好的结果”",
-      "body": "阿根廷总统米莱27日在社交媒体上说，美国一法院当天就阿根廷国家控股的阿国家石油公司股权赔偿案作出的裁决是“最好的结果”。该裁决认定，阿根廷政府无需支付高达161亿美元的赔偿金。2023年，纽约南区联邦地区法院裁定阿根廷政府需对阿国家石油公司的两家前小股东西班牙彼得森能源投资公司和美国伊顿公园资本管理",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327847",
-      "link": "https://www.cls.cn/detail/2327847"
-    },
-    {
-      "time": "15:55",
-      "tag": "部委动态",
-      "title": "伊朗称哈尔克岛石油出口正常进行",
-      "body": "伊朗议会国家安全与外交政策委员会发言人易卜拉欣·雷扎伊当地时间28日表示，哈尔克岛安全形势稳定，岛上生活秩序正常，石油出口正在顺利进行。雷扎伊当天与伊朗议会国家安全和外交政策委员会部分成员访问哈尔克岛，他警告称，任何针对哈尔克岛的攻击都将遭到伊朗的坚决反击。哈尔克岛位于波斯湾西北部，距离伊朗海岸大约",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327850",
-      "link": "https://www.cls.cn/detail/2327850"
-    },
-    {
-      "time": "16:01",
-      "tag": "地缘局势",
-      "title": "以军出动50余架战机打击伊朗核设施和武器基地",
-      "body": "以色列国防军28日发表声明说，以军27日出动50余架战机，对伊朗三个地区的核设施和武器基地进行打击。声明说，此次行动包括三波打击，持续数小时，目标分别是位于阿拉克的重水工厂、位于亚兹德的一处用于生产铀浓缩所需爆炸材料的特种设施，以及一处武器生产基地。 (新华社)",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327854",
-      "link": "https://www.cls.cn/detail/2327854"
-    },
-    {
-      "time": "16:13",
-      "tag": "地缘局势",
-      "title": "应对能源市场动荡 俄罗斯拟自4月1日起实行汽油出口临时禁令",
-      "body": "俄罗斯政府表示，俄副总理亚历山大·诺瓦克27日指示能源部起草一项行政命令，自4月1日起禁止汽油出口，目的是在中东战事引发能源市场动荡之际稳定价格，并优先保障俄国内市场供应。 (新华社)",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327856",
-      "link": "https://www.cls.cn/detail/2327856"
-    },
-    {
-      "time": "16:08",
-      "tag": "地缘局势",
       "title": "澳大利亚政府将为额外燃料进口提供担保",
       "body": "澳大利亚总理阿尔巴尼斯28日宣布，由于中东冲突推高全球能源价格，澳政府将为额外的燃料进口提供担保，承担有关财务风险以确保国内供应。",
+      "time": "16:08",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327855",
-      "link": "https://www.cls.cn/detail/2327855"
+      "tag": "部委动态"
     },
     {
-      "time": "16:16",
-      "tag": "科技AI",
+      "title": "应对能源市场动荡 俄罗斯拟自4月1日起实行汽油出口临时禁令",
+      "body": "俄罗斯政府表示，俄副总理亚历山大·诺瓦克27日指示能源部起草一项行政命令，自4月1日起禁止汽油出口，目的是在中东战事引发能源市场动荡之际稳定价格，并优先保障俄国内市场供应。 (新华社)",
+      "time": "16:13",
+      "source": "财联社",
+      "tag": "部委动态"
+    },
+    {
       "title": "北京市广电局发布促进动画产业高质量发展政策 每年配套3000万元扶持资金",
       "body": "2026中关村论坛年会“超高清视听科技创新发展论坛”3月28日在京召开。论坛上，北京市广电局正式发布《北京市促进动画产业高质量发展重点项目支持办法》。这一政策的出台，标志着北京动画产业正式迈入全链条精准扶持的新阶段。此次出台的《办法》紧扣产业发展关键环节，围绕五大方向精准发力。在研发应用上，重点支持",
+      "time": "16:16",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327857",
-      "link": "https://www.cls.cn/detail/2327857"
+      "tag": "部委动态"
     },
     {
-      "time": "16:27",
-      "tag": "部委动态",
       "title": "中菲举行新一轮外交磋商",
       "body": "据外交部官网，2026年3月28日，外交部副部长孙卫东在福建泉州同菲律宾外交部副部长、东盟事务高官艾雷拉-林共同主持第24次中菲外交磋商，就中菲关系和共同关心的国际地区问题坦诚深入交换意见。\n\n孙表示，中菲是搬不走的近邻，睦邻友好是两国关系历史主流。一个稳定健康的中菲关系符合两国和两国人民的根本利益",
+      "time": "16:27",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327862",
-      "link": "https://www.cls.cn/detail/2327862"
+      "tag": "部委动态"
     },
     {
-      "time": "16:36",
-      "tag": "地缘局势",
       "title": "俄副外长：俄日接触保持在最低水平 若日方威胁远东将反制",
       "body": "俄罗斯外交部副部长鲁登科接受采访时表示，俄日关系持续恶化，“双边接触保持在最低水平”。鲁登科列举了日方采取的对亚太地区稳定造成负面影响的政策，包括背离日本宪法第九条，将军费增至GDP的2%，大规模采购包括进攻性武器在内的外国制造武器，以及放宽军事装备出口。他警告，若日方行动对俄远东边境构成威胁，俄方",
+      "time": "16:36",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327863",
-      "link": "https://www.cls.cn/detail/2327863"
+      "tag": "部委动态"
     },
     {
-      "time": "17:16",
-      "tag": "国际市场",
-      "title": "伊朗军方称击中一艘美军舰艇",
-      "body": "伊朗武装部队哈塔姆·安比亚中央司令部发言人当地时间28日表示，伊朗军方于当天凌晨在阿曼南部塞拉莱港外海击中一艘隶属于美国海军的支援舰艇。发言人同时强调，伊朗充分尊重阿曼国家主权，并指出该舰艇遇袭位置距离塞拉莱港尚有相当距离。 (央视新闻)",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327873",
-      "link": "https://www.cls.cn/detail/2327873"
-    },
-    {
-      "time": "17:30",
-      "tag": "市场动态",
-      "title": "中国和菲律宾举行南海问题双边磋商机制第十一次会议",
-      "body": "外交部副部长孙卫东2026年3月28日同菲律宾副外长、东盟事务高官艾雷拉—林在福建泉州共同主持召开中菲南海问题双边磋商机制（BCM）第十一次会议。\n\n双方就南海形势坦诚、建设性地交换了意见。中方就菲方近期涉海侵权挑衅和煽宣炒作提出严正交涉，要求菲方言行一致，切实回到通过对话协商处理涉海问题的正确轨道",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327876",
-      "link": "https://www.cls.cn/detail/2327876"
-    },
-    {
-      "time": "17:42",
-      "tag": "市场动态",
-      "title": "德黑兰东北部地区再遭空袭。 (CCTV国际时讯)",
-      "body": "",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327880",
-      "link": "https://www.cls.cn/detail/2327880"
-    },
-    {
-      "time": "17:53",
-      "tag": "国际市场",
-      "title": "欧洲运输与环境联合会：美以伊战事推高全球航运成本",
-      "body": "欧洲运输与环境联合会27日发布报告说，受美以伊战事影响，全球航运业燃料成本大幅攀升，在推高行业运营压力的同时，也为加快能源转型提供契机。报告显示，自2月28日以来，全球航运业累计额外燃料成本已超46亿欧元。随着冲突持续，船用燃料价格显著上涨。以新加坡港口为例，超低硫燃料油价格已升至每吨941欧元，较",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327885",
-      "link": "https://www.cls.cn/detail/2327885"
-    },
-    {
-      "time": "18:00",
-      "tag": "国际市场",
-      "title": "今年前三个月我国创新药对外授权交易总额超600亿美元",
-      "body": "据国家药监局消息，今年前三个月，我国创新药对外授权交易总额超过600亿美元，接近2025年全年的一半；国家药监局最新统计显示，截至3月27日，我国2026年已批准10款创新药，其中2款为进口，8款为国产，我国创新药取得历史性突破，保持了良好的发展势头和潜力。",
-      "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327890",
-      "link": "https://www.cls.cn/detail/2327890"
-    },
-    {
-      "time": "16:40",
-      "tag": "地缘局势",
       "title": "俄2025年秋季征兵13.5万人 承诺不派往特别军事行动区域",
       "body": "俄罗斯方面28日消息，俄武装力量总参谋部公布消息称，2025年秋季征兵任务已全面完成，共征兵13.5万人，所有应征入伍者不会被派往特别军事行动区域。",
+      "time": "16:40",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327865",
-      "link": "https://www.cls.cn/detail/2327865"
+      "tag": "地缘局势"
     },
     {
-      "time": "17:00",
-      "tag": "地缘局势",
       "title": "加州禁止官员借内幕消息在预测市场牟利",
       "body": "美国加利福尼亚州州长纽森3月27日签署法令，禁止该州由州长任命的行政官员利用内幕消息在预测市场牟利。加州州长办公室在声明中说，美国一些显然能够接触到联邦政府敏感信息的官员在预测市场中的“押注时机极其精准”。声明同时批评部分官员将公共服务变为“快速致富”的手段。声明指出，四起预测交易案例显示，缺乏内幕",
+      "time": "17:00",
       "source": "财联社",
-      "url": "https://www.cls.cn/detail/2327870",
-      "link": "https://www.cls.cn/detail/2327870"
+      "tag": "部委动态"
+    },
+    {
+      "title": "伊朗军方称击中一艘美军舰艇",
+      "body": "伊朗武装部队哈塔姆·安比亚中央司令部发言人当地时间28日表示，伊朗军方于当天凌晨在阿曼南部塞拉莱港外海击中一艘隶属于美国海军的支援舰艇。发言人同时强调，伊朗充分尊重阿曼国家主权，并指出该舰艇遇袭位置距离塞拉莱港尚有相当距离。 (央视新闻)",
+      "time": "17:16",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "中国和菲律宾举行南海问题双边磋商机制第十一次会议",
+      "body": "外交部副部长孙卫东2026年3月28日同菲律宾副外长、东盟事务高官艾雷拉—林在福建泉州共同主持召开中菲南海问题双边磋商机制（BCM）第十一次会议。\n\n双方就南海形势坦诚、建设性地交换了意见。中方就菲方近期涉海侵权挑衅和煽宣炒作提出严正交涉，要求菲方言行一致，切实回到通过对话协商处理涉海问题的正确轨道",
+      "time": "17:30",
+      "source": "财联社",
+      "tag": "综合"
+    },
+    {
+      "title": "巴基斯坦总理同伊朗总统进行了“一个多小时”通话",
+      "body": "巴基斯坦总理夏巴兹28日说，他当天同伊朗总统佩泽希齐扬进行了长达一个多小时的详细电话交谈，向后者通报了巴方与美国及中东国家接触的情况，巴方希望正在开展的这些外交活动能促进对话、缓和局势。",
+      "time": "17:41",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "德黑兰东北部地区再遭空袭。 (CCTV国际时讯)",
+      "body": "德黑兰东北部地区再遭空袭。 (CCTV国际时讯)",
+      "time": "17:42",
+      "source": "财联社",
+      "tag": "综合"
+    },
+    {
+      "title": "伊朗军方称打击迪拜两处美军“隐匿据点”",
+      "body": "伊朗武装部队哈塔姆·安比亚中央司令部发言人当地时间28日表示，过去数小时内，伊朗军方对位于阿联酋迪拜的两处美军“隐匿据点”实施导弹和无人机打击，称已造成美军严重人员伤亡。发言人还称，随着伊朗持续打击中东地区的美军基地，部分美军士兵已从基地转移至外部藏匿。位于迪拜的这两处“隐匿据点”分别容纳400余名",
+      "time": "17:44",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "伊朗称击毁敌方2架加油机",
+      "body": "据伊朗塔斯尼姆通讯社28日报道，伊朗武装部队哈塔姆安比亚中央总部发言人说，击毁2架敌方加油机，并打击美军1艘支援舰艇。发言人说，27日晚以来，伊朗伊斯兰革命卫队对位于沙特阿拉伯海尔季的美军基地发动导弹袭击，美军5架加油机中有2架被彻底摧毁，另3架严重受损并丧失作战能力。 (新华社)",
+      "time": "17:51",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "伊朗总统：若基础设施或经济中心遭袭将强烈报复",
+      "body": "伊朗总统佩泽希齐扬当地时间28日表示，如果伊朗的基础设施或经济中心成为攻击目标，伊方将予以强烈报复。佩泽希齐扬当天在社交媒体发文表示，伊朗不会进行先发制人的攻击，但如果伊朗的基础设施或经济中心被攻击，伊方将予以强烈报复。他警告说，地区国家若希望实现发展与安全，就不应允许伊朗的对手利用其领土对伊朗发动",
+      "time": "17:58",
+      "source": "财联社",
+      "tag": "地缘局势"
+    },
+    {
+      "title": "今年前三个月我国创新药对外授权交易总额超600亿美元",
+      "body": "据国家药监局消息，今年前三个月，我国创新药对外授权交易总额超过600亿美元，接近2025年全年的一半；国家药监局最新统计显示，截至3月27日，我国2026年已批准10款创新药，其中2款为进口，8款为国产，我国创新药取得历史性突破，保持了良好的发展势头和潜力。",
+      "time": "18:00",
+      "source": "财联社",
+      "tag": "国际市场"
     }
   ],
   "ai_voice": [
     {
-      "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
+      "title": "GLM-5.1上线，编程表现贴Opus 4.6开大，Coding plan瞬间断货",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392121.html",
-      "url": "https://www.qbitai.com/2026/03/392121.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392914.html"
     },
     {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "title": "25.98万元起！智己LS8震撼开启预售，30万内享百万级跨代际体验",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392105.html",
-      "url": "https://www.qbitai.com/2026/03/392105.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392900.html"
     },
     {
-      "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
+      "title": "趋境科技发布ATaaS：全球领先的高效能AI Token生产服务平台",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392024.html",
-      "url": "https://www.qbitai.com/2026/03/392024.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392896.html"
     },
     {
-      "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
+      "title": "钉钉CLI开源！首批开放10项核心产品能力，原生支持ClaudeCode等",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391890.html",
-      "url": "https://www.qbitai.com/2026/03/391890.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392828.html"
     },
     {
-      "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
+      "title": "开会也能“装龙虾”？阶跃StepClaw承包GDPS 2026全场人气",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391830.html",
-      "url": "https://www.qbitai.com/2026/03/391830.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392819.html"
     },
     {
-      "title": "OpenAI关停Sora！25个月从封神到退场",
+      "title": "NeurIPS滑跪认错！一切都是误会，已纠正",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391799.html",
-      "url": "https://www.qbitai.com/2026/03/391799.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392814.html"
     },
     {
-      "title": "AI全链路加持！一加15T打造全能小屏，售价4299元起",
+      "title": "高通公司展望个人AI发展：多终端体验将以AI和用户为中心",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391775.html",
-      "url": "https://www.qbitai.com/2026/03/391775.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392790.html"
     },
     {
-      "title": "龙虾爆火之后，AI初创的全球化机会来了吗？｜线下沙龙报名",
+      "title": "林俊旸离职后首次发声！复盘千问的弯路，指出AI的新路",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391760.html",
-      "url": "https://www.qbitai.com/2026/03/391760.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392770.html"
     },
     {
-      "title": "黄仁勋暴论核弹：AGI已经实现，Ilya错了，程序员有10亿",
+      "title": "阿里QoderWork打通钉钉、微信、飞书 手机端可直接召唤桌面AI助手",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391750.html",
-      "url": "https://www.qbitai.com/2026/03/391750.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392760.html"
     },
     {
-      "title": "你的模型真的会”举一反三”吗？RoboChallenge Table30 V2 正式发布，泛化时代开幕",
+      "title": "这群在知乎上“造人”的年轻人，决定让AI替你交朋友",
+      "body": "",
+      "time": "19:04",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391744.html",
-      "url": "https://www.qbitai.com/2026/03/391744.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "link": "https://www.qbitai.com/2026/03/392697.html"
     },
     {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
+      "title": "刚刚，一口气连发3个王炸模型、亮出2026年AGI战略，昆仑万维夯爆了",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Suno、Udio都被它干翻！中国AI音乐模型拿下AA全球榜单双料冠军",
+      "title": "刚刚，NeurIPS退让了",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "ICLR 2026 Oral｜中科院团队提出新框架「SparseRL」，深度强化学习可自动生成高性能CUDA代码",
+      "title": "让AI自动构建AI模型：UCSD 推出 AIBuildAI 智能体，斩获OpenAI MLE-Bench榜单第一",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Arm自造芯片了：是块AGI CPU，面向AI智能体",
+      "title": "美图2025财报深度解读：AI Agent如何重构美图？",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "当用户与算法共同进化——华盛顿大学等建立可预测并引导人机协同适应的计算框架",
+      "title": "在知乎写代码的那群「非程序员」，让AI学会了替人组局",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Sand.ai开源发布MagiCompiler：突破局部编译界限，定义训推性能上限",
+      "title": "深度机智发布全新具身通用智能大模型 给机器人装上“物理常识”",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Ψ₀刚刚开源了！迈向通用人形机器人的基座模型",
+      "title": "aiX-apply-4B逆袭DeepSeek-V3.2！aiXcoder发布代码变更应用模型，单卡推理提效15倍",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "我在微信免费养「龙虾」，玩到上瘾，这组CP太强了",
+      "title": "CHI 2026 Best Paper｜社会模拟迈入可控、可量化时代：为AI Agent加上「认知滑条」",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "突发｜立即检查你的Python库！LiteLLM被投毒，Karpathy警告，马斯克关注",
+      "title": "AI颠覆细胞代谢通路重建，西湖大学等单位联合提出AI虚拟代谢",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "对抗KV Cache压缩的脆弱性：两行代码以最坏风险控制防御底层假设崩塌",
+      "title": "专访中科第五纪黄岩：在具身智能的狂热中，做一位技术实干家",
+      "body": "",
+      "time": "19:04",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com",
-      "url": "https://www.jiqizhixin.com",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://www.jiqizhixin.com"
     },
     {
-      "title": "Mecha-nudges for Machines",
+      "title": "Training the Knowledge Base through Evidence Distillation and Write-Back Enrichment",
+      "body": "",
+      "time": "19:04",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23433",
-      "url": "https://arxiv.org/abs/2603.23433",
-      "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "link": "https://arxiv.org/abs/2603.25737"
     },
     {
-      "title": "Bilevel Autoresearch: Meta-Autoresearching Itself",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23420",
-      "url": "https://arxiv.org/abs/2603.23420",
+      "title": "Back to Basics: Revisiting ASR in the Age of Voice Agents",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "19:04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25727"
     },
     {
-      "title": "Beyond Preset Identities: How Agents Form Stances and Boundaries in Generative Societies",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23406",
-      "url": "https://arxiv.org/abs/2603.23406",
+      "title": "R-C2: Cycle-Consistent Reinforcement Learning Improves Multimodal Reasoning",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "19:04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25720"
     },
     {
-      "title": "RelayS2S: A Dual-Path Speculative Generation for Real-Time Dialogue",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23346",
-      "url": "https://arxiv.org/abs/2603.23346",
+      "title": "Agent Factories for High Level Synthesis: How Far Can General-Purpose Coding Agents Go in Hardware Optimization?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "19:04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25719"
     },
     {
-      "title": "LLM Olympiad: Why Model Evaluation Needs a Sealed Exam",
-      "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.23292",
-      "url": "https://arxiv.org/abs/2603.23292",
+      "title": "Is Mathematical Problem-Solving Expertise in Large Language Models Associated with Assessment Performance?",
       "body": "",
-      "time": "2026-03-25 19:47",
-      "timestamp": 0
+      "time": "19:04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.25633"
+    },
+    {
+      "title": "Neural Network Conversion of Machine Learning Pipelines",
+      "body": "",
+      "time": "19:04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25699"
+    },
+    {
+      "title": "A Unified Memory Perspective for Probabilistic Trustworthy AI",
+      "body": "",
+      "time": "19:04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25692"
+    },
+    {
+      "title": "On Neural Scaling Laws for Weather Emulation through Continual Training",
+      "body": "",
+      "time": "19:04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25687"
+    },
+    {
+      "title": "Longitudinal Digital Phenotyping for Early Cognitive-Motor Screening",
+      "body": "",
+      "time": "19:04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25673"
+    },
+    {
+      "title": "Uncertainty-Guided Label Rebalancing for CPS Safety Monitoring",
+      "body": "",
+      "time": "19:04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.25670"
     }
   ],
-  "miao_notice": [
-    {
-      "content": "中东局势是今天最大的主线——美以打伊朗、胡塞射导弹、霍尔木兹受阻、德国600亿砸风电，能源安全焦虑已经从地缘事件变成政策行动。泰国都跑去跟伊朗单独谈油轮通行权了，各国开始\"自己先保自己\"，多边秩序在加速碎片化。\n\n国内信号也值得盯：北部湾军演、国家数据局新设国际数据治理合作司，一个是军事，一个是数字主权，都在往\"自主可控\"方向走。上海口岸出入境破千万、邮轮外籍客创新高，消费开放面还在扩张，两条腿同时在迈。\n\n投资层面，中金那篇\"资产大挪移\"点到了关键——地缘风险频发，中国资产安全属性在重新定价。喵子判断：能源替代、数据基础设施、本土消费这三条线短期都有催化，但油价持续高位会压制整体风险偏好，别追高，等回踩。🐾",
-      "label": "🐱 喵子告知 · 2026.03.28 18:01"
-    },
-    {
-      "content": "今日焦点：国家数据局已新设国际数据治理合作司。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
-      "label": "🐱 喵子告知 · 2026.03.28 15:17"
-    }
-  ]
+  "miao_notice": {
+    "content": "今日焦点：澳大利亚政府将为额外燃料进口提供担保。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+    "label": "🐱 喵子告知 · 2026.03.28 19:03"
+  }
 }

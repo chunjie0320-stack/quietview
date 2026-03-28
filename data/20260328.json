@@ -1,7 +1,26 @@
 {
   "date": "20260328",
-  "generated_at": "2026-03-28T19:03:57.128034+08:00",
-  "voice": [],
+  "generated_at": "2026-03-28T22:02:18.281689",
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "快手该跌？可灵不灵？小甜甜变成牛夫人？",
+      "digest": "快手为什么跌？问题出在业绩会后管理层给的指引和可灵的不确定性",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486463&idx=1&sn=0f66e97aae487f19c9a89b627f59bacc&chksm=c331edacf44664ba87a00ac2c5bb8e010d24bbcb854199cf2f86804f91ed3a30ba07b2abbcbb#rd",
+      "time": "21:04",
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "我是不会考虑零跑汽车这种“杀价型”商业模式的",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489442&idx=1&sn=59967707f945679cb057b99f327b861a&chksm=fe58f506c92f7c10a49a9994641fb963cdf12fc2e2583afb4d8a0583077f89ad4ca0576ec577#rd",
+      "time": "09:06",
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "news": [
     {
       "title": "澳大利亚政府将为额外燃料进口提供担保",

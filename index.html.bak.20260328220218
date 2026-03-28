@@ -306,16 +306,8 @@ nav{padding:12px 0;flex:1}
           </div>
           <div class="two-col-divider"></div>
           <div>
-            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260328">· 2</span></div>
+            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260328">· 1</span></div>
             <div class="timeline" id="timeline-voice-20260328" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_20260328 -->
-<div class="tl-item">
-  <div class="tl-dot"></div>
-  <div class="tl-time">21:04</div>
-  <div class="tl-tag" style="background:rgba(46,125,50,.1);color:#2e7d32;">卓哥投研笔记</div>
-  <div class="tl-title">快手该跌？可灵不灵？小甜甜变成牛夫人？</div>
-  <div class="tl-body">快手为什么跌？问题出在业绩会后管理层给的指引和可灵的不确定性</div>
-  <a class="tl-source" href="http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&amp;mid=2247486463&amp;idx=1&amp;sn=0f66e97aae487f19c9a89b627f59bacc&amp;chksm=c331edacf44664ba87a00ac2c5bb8e010d24bbcb854199cf2f86804f91ed3a30ba07b2abbcbb#rd" target="_blank">→ 阅读原文</a>
-</div>
 <div class="tl-item">
   <div class="tl-dot"></div>
   <div class="tl-time">09:06</div>

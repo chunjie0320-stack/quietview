@@ -306,15 +306,8 @@ nav{padding:12px 0;flex:1}
           </div>
           <div class="two-col-divider"></div>
           <div>
-            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260329">· 2</span></div>
+            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260329">· 1</span></div>
             <div class="timeline" id="timeline-voice-20260329" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_20260329 -->
-<div class="tl-item">
-  <div class="tl-dot"></div>
-  <div class="tl-time">17:59</div>
-  <div class="tl-tag" style="background:rgba(46,125,50,.1);color:#2e7d32;">卓哥投研笔记</div>
-  <div class="tl-title">AI开始反噬恒科</div>
-  <a class="tl-source" href="http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&amp;mid=2247486469&amp;idx=1&amp;sn=083a51a392c6caeb6301d96025b7ece6&amp;chksm=c331ea56f446634062b3bb4013a740bed022f5782a587f8ebf4ea3ab82641458a5f51f1e37d5#rd" target="_blank">→ 阅读原文</a>
-</div>
 <div class="tl-item">
   <div class="tl-dot"></div>
   <div class="tl-time">09:03</div>

@@ -306,15 +306,11 @@ nav{padding:12px 0;flex:1}
           </div>
           <div class="two-col-divider"></div>
           <div>
-            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260329">· 1</span></div>
+            <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260329">· 0</span></div>
             <div class="timeline" id="timeline-voice-20260329" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_20260329 -->
 <div class="tl-item">
   <div class="tl-dot"></div>
-  <div class="tl-time">09:03</div>
-  <div class="tl-tag" style="background:rgba(106,27,154,.1);color:#6a1b9a;">方伟看十年</div>
-  <div class="tl-title">泡泡玛特25年财报简评：唯一对手是自己，开盲盒总归有&quot;惊喜&quot;</div>
-  <div class="tl-body">分享一篇文章：</div>
-  <a class="tl-source" href="http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&amp;mid=2247489444&amp;idx=1&amp;sn=16cadfa19a3dbf7993c5acbf619c5574&amp;chksm=fe58f500c92f7c16aefe95620cb1755ab549e91b7473ea3b3ebd9b65adafca9b028bd4dd884e#rd" target="_blank">→ 阅读原文</a>
+  <div class="tl-title">今天还没有新文章哟 🐾</div>
 </div>
 <!-- /INJECT:voice_20260329 --></div>
           </div>

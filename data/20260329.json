@@ -1,7 +1,17 @@
 {
   "date": "20260329",
-  "generated_at": "2026-03-29T14:00:27.032961",
+  "generated_at": "2026-03-29T18:01:15.509263",
   "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "tag": "卓哥投研笔记",
+      "title": "AI开始反噬恒科",
+      "body": "",
+      "digest": "",
+      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486469&idx=1&sn=083a51a392c6caeb6301d96025b7ece6&chksm=c331ea56f446634062b3bb4013a740bed022f5782a587f8ebf4ea3ab82641458a5f51f1e37d5#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486469&idx=1&sn=083a51a392c6caeb6301d96025b7ece6&chksm=c331ea56f446634062b3bb4013a740bed022f5782a587f8ebf4ea3ab82641458a5f51f1e37d5#rd",
+      "timestamp": 1774778371
+    },
     {
       "source": "方伟看十年",
       "tag": "方伟看十年",
@@ -131,26 +141,6 @@
       "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=4&sn=83b1c46cc0757513a580798cc2024ddd&chksm=eadd2e13ddaaa705ca191867ebd61079c7ba9bb51d2d6e401859c6084b0b14756230c9977de3#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247829716&idx=4&sn=83b1c46cc0757513a580798cc2024ddd&chksm=eadd2e13ddaaa705ca191867ebd61079c7ba9bb51d2d6e401859c6084b0b14756230c9977de3#rd",
       "timestamp": 1774568114
-    },
-    {
-      "source": "财躺平",
-      "tag": "财躺平",
-      "title": "无心",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488097&idx=1&sn=51a818b103317ad272e0929d68a55f78&chksm=fa1a97e4cd6d1ef2bac713202784f2d2af725a3c9ed7e47df5509a5daab069da63922c6cbc4b#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488097&idx=1&sn=51a818b103317ad272e0929d68a55f78&chksm=fa1a97e4cd6d1ef2bac713202784f2d2af725a3c9ed7e47df5509a5daab069da63922c6cbc4b#rd",
-      "timestamp": 1774517203
-    },
-    {
-      "source": "卓哥投研笔记",
-      "tag": "卓哥投研笔记",
-      "title": "除了宇树，美团其实投了大半个中国AI独角兽，或与被投企业相互敞开所有商业、技术场景",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486444&idx=1&sn=5fe524ea830d50f77bf1565fb8f83c35&chksm=c331edbff44664a9ad58a161c77095698a2401ac2b620fe8b24d7aaec6d8c2716609a6eff74b#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486444&idx=1&sn=5fe524ea830d50f77bf1565fb8f83c35&chksm=c331edbff44664a9ad58a161c77095698a2401ac2b620fe8b24d7aaec6d8c2716609a6eff74b#rd",
-      "timestamp": 1774506865
     }
   ],
   "news": [
@@ -518,6 +508,10 @@
     }
   ],
   "miao_notice": [
+    {
+      "content": "今天最扎眼的信号有两个：一是伊朗向以色列再次发射导弹，中东火药桶又点了一把——越南航司已经因燃油吃紧砍航班超50%，能源和避险资产值得盯紧。二是美国国内900万人上街反特朗普，这规模不是小闹，政治不确定性叠加关税扰动，美元和美股的波动还没到头。\n\n国内这边，贝壳启动战略变革、上海超智融合算力平台上线、西南首个商业卫星测控站投运——三件事方向一致：基础设施往上堆，平台往服务深处走。德国报告说中国工业数字化全球领先，不是客套，数字孪生+AI这条线确实在跑。\n\n行业声音里，快手可灵被泼冷水、AI\"反噬\"恒科的讨论同时出现——市场开始较真AI变现，光讲故事不够了。喵子判断：这轮行情进入**验证期**，谁的AI能真正落地收钱，谁就能穿越波动，其余的耐心等估值挤泡沫吧。🐾",
+      "label": "🐱 喵子告知 · 2026.03.29 18:00"
+    },
     {
       "content": "**地缘火药桶+国内产业两条线同步走**\n\n伊朗又向以色列发导弹，俄罗斯威胁韩国，美国国内抗议规模创历史——地缘风险正在密集叠加。中金说得对：中国资产的\"安全属性\"在这个时间点确实值得重新定价，资金避险逻辑已经在转。\n\n国内这边，贝壳转型社区居住服务平台、上海超智融合算力平台启动、西南商业卫星地面站投运——这几个信号放一起看，是基础设施和平台级公司都在同步升维。贝壳这次变革力度不小，从交易平台往居住服务走，是真想啃硬骨头。\n\n快手跌、零跑被质疑商业模式、泡泡玛特靠IP护城河——市场对\"没有定价权\"的公司越来越没耐心。现在这个环境，有真实壁垒的资产会越来越贵，靠价格战或流量惯性撑着的，慢慢都得现原形。🐾",
       "label": "🐱 喵子告知 · 2026.03.29 14:00"

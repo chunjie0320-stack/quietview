@@ -306,10 +306,9 @@ def update_html_inject(date_str, voice_items, html_path, dry_run=False):
         items_html.append('\n'.join(parts))
 
     new_inner = '\n' + '\n'.join(items_html) + '\n'
-    new_content = pattern.sub(
-        r'\g<1>' + new_inner + r'\3',
-        content
-    )
+    def replacer(m):
+        return m.group(1) + new_inner + m.group(3)
+    new_content = pattern.sub(replacer, content)
 
     # 更新 badge
     badge_pattern = re.compile(r'(id="voice-count-' + date_str + r'">)[^<]*(</span>)')
@@ -328,12 +327,16 @@ def update_html_inject(date_str, voice_items, html_path, dry_run=False):
         f.write(new_content)
 
     # div depth 自查
-    depth = 0
-    max_depth = 0
-    for line in new_content.splitlines():
-        depth += line.count('<div') - line.count('</div')
-        if depth > max_depth:
-            max_depth = depth
+    from html.parser import HTMLParser as _HP2
+    class _DivCounter(_HP2):
+        def __init__(self): super().__init__(); self.depth = 0
+        def handle_starttag(self, t, a):
+            if t == 'div': self.depth += 1
+        def handle_endtag(self, t):
+            if t == 'div': self.depth -= 1
+    _dc = _DivCounter()
+    _dc.feed(new_content)
+    depth = _dc.depth
     if depth != 0:
         print(f"  ⚠️  div depth 自查失败！depth={depth}，回滚", file=sys.stderr)
         shutil.copy2(bak, html_path)

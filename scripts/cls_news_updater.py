@@ -330,8 +330,11 @@ def update_html(html_path, items):
     count = len(items)
 
     pattern = r'(<!-- INJECT:investment_news -->)(.*?)(<!-- /INJECT:investment_news -->)'
-    replacement = rf'\g<1>{items_html}\n              \g<3>'
-    new_html, n = re.subn(pattern, replacement, html, flags=re.DOTALL)
+    def make_replacer(items_str):
+        def replacer(m):
+            return m.group(1) + items_str + '\n              ' + m.group(3)
+        return replacer
+    new_html, n = re.subn(pattern, make_replacer(items_html), html, flags=re.DOTALL)
 
     if n == 0:
         print("❌ 未找到 INJECT:investment_news 标记，终止", file=sys.stderr)

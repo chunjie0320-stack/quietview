@@ -310,9 +310,9 @@ def ensure_html_panel(date_str, data):
             prev_nav_entry = m.group(0)
             break
 
-    label_month = date_str[4:6].lstrip('0')
-    label_day = date_str[6:].lstrip('0')
-    new_nav = f"{{ id: 'daily-brief-{date_str}', label: '0{label_month}月{label_day}日', panel: '{panel_id}' }}"
+    label_month = date_str[4:6]
+    label_day = date_str[6:]
+    new_nav = f"{{ id: 'daily-brief-{date_str}', label: '{label_month}月{label_day}日', panel: '{panel_id}' }}"
     if prev_nav_entry and prev_nav_entry not in html:
         prev_nav_entry = None
     if prev_nav_entry:
@@ -335,6 +335,8 @@ def ensure_html_panel(date_str, data):
         raise ValueError(f"div depth={p.d} after inserting panel, aborting!")
     print(f"  div depth OK (0)")
 
+    import shutil as _shutil
+    _shutil.copy2(html_path, html_path + f".bak.{datetime.now().strftime('%Y%m%d%H%M%S')}")
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f"  ✅ HTML panel {date_str} 创建完成")
@@ -433,6 +435,8 @@ def ensure_ai_voice_panel(date_str, data):
         raise ValueError(f"ai_voice panel div depth={p.d}, aborting!")
     print(f"  [ai_voice_panel] div depth OK (0)")
 
+    import shutil as _shutil
+    _shutil.copy2(html_path, html_path + f".bak.{datetime.now().strftime('%Y%m%d%H%M%S')}")
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f"  ✅ ai-voice panel {date_str} 创建完成，共 {len(ai_voice)} 条")
@@ -508,6 +512,8 @@ def ensure_miao_panel(date_str):
         raise ValueError(f"miao panel div depth={p.d}, aborting!")
     print(f"  [miao_panel] div depth OK (0)")
 
+    import shutil as _shutil
+    _shutil.copy2(html_path, html_path + f".bak.{datetime.now().strftime('%Y%m%d%H%M%S')}")
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f"  ✅ miao panel {date_str} 创建完成")
@@ -554,7 +560,6 @@ def git_push(date_str, slot_label, html_changed=False):
 
     files = [f"data/{date_str}.json", "data/"]
     if html_changed:
-        files.append("index.html")
         files.append("index.html")
 
     # 推送前健康检查

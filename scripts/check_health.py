@@ -7,7 +7,7 @@ import os, json, re
 from html.parser import HTMLParser
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-HTML_FILE = os.path.join(WORKSPACE, 'quietview-demo.html')
+HTML_FILE = os.path.join(WORKSPACE, 'index.html')
 DATA_DIR = os.path.join(WORKSPACE, 'data')
 
 errors = []

@@ -555,7 +555,7 @@ def git_push(date_str, slot_label, html_changed=False):
     files = [f"data/{date_str}.json", "data/"]
     if html_changed:
         files.append("index.html")
-        files.append("quietview-demo.html")
+        files.append("index.html")
 
     # 推送前健康检查
     import subprocess as sp2

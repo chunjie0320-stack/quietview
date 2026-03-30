@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 财联社行业资讯定时抓取脚本
-每2小时更新 quietview-demo.html 中的行业资讯区块
+每2小时更新 index.html 中的行业资讯区块
 支持三种抓取方式：
   1. 直连财联社，解析 Next.js __NEXT_DATA__ JSON（最佳）
   2. Jina 代理抓取 Markdown 格式（备用）
@@ -17,7 +17,7 @@ import shutil
 from datetime import datetime
 from html.parser import HTMLParser
 
-HTML_PATH = "/root/.openclaw/workspace/quietview-demo.html"
+HTML_PATH = "/root/.openclaw/workspace/index.html"
 REPO_DIR  = "/root/.openclaw/workspace"
 
 JINA_URL  = "https://r.jina.ai/https://www.cls.cn/telegraph"
@@ -384,7 +384,7 @@ def git_push(item_count):
     from git_lock import git_push_with_lock
     now_str = datetime.now().strftime("%Y.%m.%d %H:%M")
     msg = f"auto: 行业资讯更新 {now_str} ({item_count}条)"
-    git_push_with_lock(REPO_DIR, msg, files_to_add=['quietview-demo.html', 'data/'])
+    git_push_with_lock(REPO_DIR, msg, files_to_add=['index.html', 'data/'])
 
 
 def main():

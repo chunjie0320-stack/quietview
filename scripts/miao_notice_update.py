@@ -305,9 +305,9 @@ def ensure_html_panel(date_str, data):
         pd_dot = f"{pd[4:6]}月{pd[6:]}日"
         candidate = f"{{ id: 'daily-brief-{pd}', label: '03月{pd[6:]}日', panel: 'panel-daily-brief-{pd}' }}"
         # 更通用：用正则找第一个 daily-brief-YYYYMMDD entry
-        m = re.search(r"\{ id: 'daily-brief-\d{8}',", html)
+        m = re.search(r"\{ id: 'daily-brief-\d{8}', label: '[^']+', panel: '[^']+' \}", html)
         if m:
-            prev_nav_entry = html[m.start():html.find('}', m.start()) + 1]
+            prev_nav_entry = m.group(0)
             break
 
     label_month = date_str[4:6].lstrip('0')
@@ -410,9 +410,9 @@ def ensure_ai_voice_panel(date_str, data):
         html = html.replace('</div>\n</body>', new_panel + '</div>\n</body>', 1)
 
     # 更新 NAV_DATA：在 ai-voice children 里加入新条目
-    nav_m = re.search(r"id: 'ai-voice-\d{8}'", html)
+    nav_m = re.search(r"\{ id: 'ai-voice-(\d{8})', label: '[^']+', panel: '[^']+' \}", html)
     if nav_m:
-        existing_entry = html[nav_m.start():html.find('}', nav_m.start()) + 1]
+        existing_entry = nav_m.group(0)
         label_month = date_str[4:6]
         label_day = date_str[6:]
         new_nav = f"{{ id: 'ai-voice-{date_str}', label: '{label_month}月{label_day}日', panel: '{panel_id}' }}"
@@ -484,9 +484,9 @@ def ensure_miao_panel(date_str):
             return False
 
     # 更新 NAV_DATA：在 miao-thoughts children 里加入新条目
-    nav_m = re.search(r"\{ id: 'miao-\d{8}',", html)
+    nav_m = re.search(r"\{ id: 'miao-\d{8}', label: '[^']+', panel: '[^']+' \}", html)
     if nav_m:
-        existing_entry = html[nav_m.start():html.find('}', nav_m.start()) + 1]
+        existing_entry = nav_m.group(0)
         label_month = date_str[4:6]
         label_day = date_str[6:]
         new_nav = f"{{ id: 'miao-{date_str}', label: '{label_month}月{label_day}日', panel: '{panel_id}' }}"

@@ -316,10 +316,7 @@ nav{padding:12px 0;flex:1}
           <div>
             <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-20260330">· 0</span></div>
             <div class="timeline" id="timeline-voice-20260330" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_20260330 -->
-<div class="tl-item">
-  <div class="tl-dot"></div>
-  <div class="tl-title">今天还没有新文章哟 🐾</div>
-</div>
+              <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">暂无声音</div></div>
 <!-- /INJECT:voice_20260330 --></div>
           </div>
         </div>

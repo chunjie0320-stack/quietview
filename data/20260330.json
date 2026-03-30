@@ -1,96 +1,146 @@
 {
   "date": "20260330",
-  "generated_at": "2026-03-30T17:47:18.759577",
+  "generated_at": "2026-03-30T18:01:50.653046",
   "voice": [
     {
       "source": "财躺平",
+      "tag": "财躺平",
       "title": "他们没有春天",
+      "body": "",
       "digest": "",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488122&idx=1&sn=28293ba14da6035628f4ac4d3be8026d&chksm=fa1a97ffcd6d1ee98c22c7be5e6b0550ad2566f4134d77a213cf2f3e137c2306b35cb539945f#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488122&idx=1&sn=28293ba14da6035628f4ac4d3be8026d&chksm=fa1a97ffcd6d1ee98c22c7be5e6b0550ad2566f4134d77a213cf2f3e137c2306b35cb539945f#rd",
-      "time": "16:36",
-      "color": "rgba(224,123,57,.12)",
-      "text_color": "#e07b39"
+      "timestamp": 1774859807
     },
     {
       "source": "方伟看十年",
+      "tag": "方伟看十年",
       "title": "快手25年财报简评：260亿的资本开支想买一条“第二曲线”",
+      "body": "分享一篇文章：",
       "digest": "分享一篇文章：",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489446&idx=1&sn=e42f5b1c6d3522f67cdb22284bd92c65&chksm=fe58f502c92f7c14c892aafed8b11be4da39cbfca487fd9deb5779b9d4d5afdb8bcf22c9ed73#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489446&idx=1&sn=e42f5b1c6d3522f67cdb22284bd92c65&chksm=fe58f502c92f7c14c892aafed8b11be4da39cbfca487fd9deb5779b9d4d5afdb8bcf22c9ed73#rd",
-      "time": "08:48",
-      "color": "rgba(106,27,154,.1)",
-      "text_color": "#6a1b9a"
+      "timestamp": 1774831731
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：油价或推高出口份额",
+      "body": "从总量层面来看，中东冲突导致的油价上涨对于中国出口是供给侧负面冲击，从结构层面来看存在一定正向需求影响，使得中国出口份额可能有所上升。",
       "digest": "从总量层面来看，中东冲突导致的油价上涨对于中国出口是供给侧负面冲击，从结构层面来看存在一定正向需求影响，使得中国出口份额可能有所上升。",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830284&idx=1&sn=932c869106784fdc3fb027a22b64e878&chksm=eadd2dcbddaaa4dd6f4f4c277d7e7c7639e67ca27d55ed023318738cd99bfef7fb7de0b6513e#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830284&idx=1&sn=932c869106784fdc3fb027a22b64e878&chksm=eadd2dcbddaaa4dd6f4f4c277d7e7c7639e67ca27d55ed023318738cd99bfef7fb7de0b6513e#rd",
-      "time": "08:24",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774830246
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：油价上行，买什么，卖什么？",
+      "body": "展望后市，我们认为虽短期仍有不确定性，局势未明朗之前风险偏好难有本质回升，但中期支撑A股市场“稳进”的逻辑仍成立。",
       "digest": "展望后市，我们认为虽短期仍有不确定性，局势未明朗之前风险偏好难有本质回升，但中期支撑A股市场“稳进”的逻辑仍成立。",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830284&idx=2&sn=380812efe0ac918e5e1ebf90f0ff3f86&chksm=eadd2dcbddaaa4dd05566548ad88f8ba4f61bf041d0746624d107f9df58077f080534e36bcb4#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830284&idx=2&sn=380812efe0ac918e5e1ebf90f0ff3f86&chksm=eadd2dcbddaaa4dd05566548ad88f8ba4f61bf041d0746624d107f9df58077f080534e36bcb4#rd",
-      "time": "08:24",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774830246
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金 | “十五五”规划《纲要》解读：产业自立，科技图强，AI硬件迎来黄金时代",
+      "body": "在需求及供给端同频共振催化下，我们认为2026年国产AI算力硬件产业链发展有望迎来黄金时代，是“十五五”时期的较大受益者。",
       "digest": "在需求及供给端同频共振催化下，我们认为2026年国产AI算力硬件产业链发展有望迎来黄金时代，是“十五五”时期的较大受益者。",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830284&idx=3&sn=dff1021d931f555cb90f8d0c5eb8aab1&chksm=eadd2dcbddaaa4ddae287ef15ff7320eca90a33051ce71f2e354ddd5ddef0f18bd936253f028#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830284&idx=3&sn=dff1021d931f555cb90f8d0c5eb8aab1&chksm=eadd2dcbddaaa4ddae287ef15ff7320eca90a33051ce71f2e354ddd5ddef0f18bd936253f028#rd",
-      "time": "08:24",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774830246
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：市场“跌到位”了吗？",
+      "body": "债券、黄金、铜预期悲观；权益市场对悲观情形定价普遍不充分",
       "digest": "债券、黄金、铜预期悲观；权益市场对悲观情形定价普遍不充分",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830283&idx=1&sn=d954f3cba027cdee4c86959313dd2ff5&chksm=eadd2dccddaaa4da38dbbc3bd44369075f5fc17a48588db1eba7dea74f46a3f697c2d9ae2cb2#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830283&idx=1&sn=d954f3cba027cdee4c86959313dd2ff5&chksm=eadd2dccddaaa4da38dbbc3bd44369075f5fc17a48588db1eba7dea74f46a3f697c2d9ae2cb2#rd",
-      "time": "08:20",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774830015
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：市场“跌到位”了吗？",
+      "body": "债券、黄金、铜预期悲观；权益市场对悲观情形定价普遍不充分",
       "digest": "债券、黄金、铜预期悲观；权益市场对悲观情形定价普遍不充分",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=1&sn=c269fce5ce0decab97657f3d79ea1259&chksm=eadd2dc0ddaaa4d648f422dbb7d48f528697b47681a2222635a582e612800ac5dcda6a17f4bd#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=1&sn=c269fce5ce0decab97657f3d79ea1259&chksm=eadd2dc0ddaaa4d648f422dbb7d48f528697b47681a2222635a582e612800ac5dcda6a17f4bd#rd",
-      "time": "07:50",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774828257
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：油价或推高出口份额",
+      "body": "从总量层面来看，中东冲突导致的油价上涨对于中国出口是供给侧负面冲击，从结构层面来看存在一定正向需求影响，使得中国出口份额可能有所上升。",
       "digest": "从总量层面来看，中东冲突导致的油价上涨对于中国出口是供给侧负面冲击，从结构层面来看存在一定正向需求影响，使得中国出口份额可能有所上升。",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=2&sn=02c26fa717eff7b85be0ced00a46f90c&chksm=eadd2dc0ddaaa4d623a33409ab372ecf38639aa7301a782601e518c31048636a935587bdbd7d#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=2&sn=02c26fa717eff7b85be0ced00a46f90c&chksm=eadd2dc0ddaaa4d623a33409ab372ecf38639aa7301a782601e518c31048636a935587bdbd7d#rd",
-      "time": "07:50",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774828257
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：油价上行，买什么，卖什么？",
+      "body": "展望后市，我们认为虽短期仍有不确定性，局势未明朗之前风险偏好难有本质回升，但中期支撑A股市场“稳进”的逻辑仍成立。",
       "digest": "展望后市，我们认为虽短期仍有不确定性，局势未明朗之前风险偏好难有本质回升，但中期支撑A股市场“稳进”的逻辑仍成立。",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=3&sn=d0956238bd2f1eeccb289925ccec9f9a&chksm=eadd2dc0ddaaa4d6ee45344efadb90e6ac3f116d7e1015006bdaa01953aa05a06773c8997162#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=3&sn=d0956238bd2f1eeccb289925ccec9f9a&chksm=eadd2dc0ddaaa4d6ee45344efadb90e6ac3f116d7e1015006bdaa01953aa05a06773c8997162#rd",
-      "time": "07:50",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774828257
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金 | “十五五”规划《纲要》解读：产业自立，科技图强，AI硬件迎来黄金时代",
+      "body": "在需求及供给端同频共振催化下，我们认为2026年国产AI算力硬件产业链发展有望迎来黄金时代，是“十五五”时期的较大受益者。",
       "digest": "在需求及供给端同频共振催化下，我们认为2026年国产AI算力硬件产业链发展有望迎来黄金时代，是“十五五”时期的较大受益者。",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=4&sn=5bc1571661b12850d5646d0f8011b565&chksm=eadd2dc0ddaaa4d6272e44586d70c635d5c7107e95234bd3f8a9def877ae523c2de04682fe53#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830279&idx=4&sn=5bc1571661b12850d5646d0f8011b565&chksm=eadd2dc0ddaaa4d6272e44586d70c635d5c7107e95234bd3f8a9def877ae523c2de04682fe53#rd",
-      "time": "07:50",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774828257
+    },
+    {
+      "source": "卓哥投研笔记",
+      "tag": "卓哥投研笔记",
+      "title": "AI开始反噬恒科",
+      "body": "",
+      "digest": "",
+      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486469&idx=1&sn=083a51a392c6caeb6301d96025b7ece6&chksm=c331ea56f446634062b3bb4013a740bed022f5782a587f8ebf4ea3ab82641458a5f51f1e37d5#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486469&idx=1&sn=083a51a392c6caeb6301d96025b7ece6&chksm=c331ea56f446634062b3bb4013a740bed022f5782a587f8ebf4ea3ab82641458a5f51f1e37d5#rd",
+      "timestamp": 1774778371
+    },
+    {
+      "source": "方伟看十年",
+      "tag": "方伟看十年",
+      "title": "泡泡玛特25年财报简评：唯一对手是自己，开盲盒总归有\"惊喜\"",
+      "body": "分享一篇文章：",
+      "digest": "分享一篇文章：",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489444&idx=1&sn=16cadfa19a3dbf7993c5acbf619c5574&chksm=fe58f500c92f7c16aefe95620cb1755ab549e91b7473ea3b3ebd9b65adafca9b028bd4dd884e#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489444&idx=1&sn=16cadfa19a3dbf7993c5acbf619c5574&chksm=fe58f500c92f7c16aefe95620cb1755ab549e91b7473ea3b3ebd9b65adafca9b028bd4dd884e#rd",
+      "timestamp": 1774746232
+    },
+    {
+      "source": "卓哥投研笔记",
+      "tag": "卓哥投研笔记",
+      "title": "快手该跌？可灵不灵？小甜甜变成牛夫人？",
+      "body": "快手为什么跌？问题出在业绩会后管理层给的指引和可灵的不确定性",
+      "digest": "快手为什么跌？问题出在业绩会后管理层给的指引和可灵的不确定性",
+      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486463&idx=1&sn=0f66e97aae487f19c9a89b627f59bacc&chksm=c331edacf44664ba87a00ac2c5bb8e010d24bbcb854199cf2f86804f91ed3a30ba07b2abbcbb#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486463&idx=1&sn=0f66e97aae487f19c9a89b627f59bacc&chksm=c331edacf44664ba87a00ac2c5bb8e010d24bbcb854199cf2f86804f91ed3a30ba07b2abbcbb#rd",
+      "timestamp": 1774703063
+    },
+    {
+      "source": "方伟看十年",
+      "tag": "方伟看十年",
+      "title": "我是不会考虑零跑汽车这种“杀价型”商业模式的",
+      "body": "分享一篇文章：",
+      "digest": "分享一篇文章：",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489442&idx=1&sn=59967707f945679cb057b99f327b861a&chksm=fe58f506c92f7c10a49a9994641fb963cdf12fc2e2583afb4d8a0583077f89ad4ca0576ec577#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489442&idx=1&sn=59967707f945679cb057b99f327b861a&chksm=fe58f506c92f7c10a49a9994641fb963cdf12fc2e2583afb4d8a0583077f89ad4ca0576ec577#rd",
+      "timestamp": 1774660015
     }
   ],
   "news": [
@@ -202,218 +252,239 @@
   ],
   "ai_voice": [
     {
-      "title": "Nature Index特刊聚焦天立国际：系统呈现中国教育AGI实践探索",
-      "body": "",
-      "time": "14:20",
+      "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393336.html"
+      "link": "https://www.qbitai.com/2026/03/392121.html",
+      "url": "https://www.qbitai.com/2026/03/392121.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "国产世界模型登顶全球第一！断层领先谷歌英伟达，3D准确度近满分",
-      "body": "",
-      "time": "14:20",
+      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393296.html"
+      "link": "https://www.qbitai.com/2026/03/392105.html",
+      "url": "https://www.qbitai.com/2026/03/392105.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "60%用户还在乱养虾！9位大神亮招：有人多赚一笔钱，有人多睡1小时｜量子位沙龙",
-      "body": "",
-      "time": "14:20",
+      "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393244.html"
+      "link": "https://www.qbitai.com/2026/03/392024.html",
+      "url": "https://www.qbitai.com/2026/03/392024.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "DeepSeek网页版大升级！随后宕机11小时崩上热搜，新模型真的来了",
-      "body": "",
-      "time": "14:20",
+      "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393235.html"
+      "link": "https://www.qbitai.com/2026/03/391890.html",
+      "url": "https://www.qbitai.com/2026/03/391890.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "龙虾安全被3层硬核架构焊死了！一份面向开发者的硬核生存指南",
-      "body": "",
-      "time": "14:20",
+      "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393226.html"
+      "link": "https://www.qbitai.com/2026/03/391830.html",
+      "url": "https://www.qbitai.com/2026/03/391830.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "单张显卡跑出15倍推理速度，aiX-apply-4B小模型加速企业AI研发落地",
-      "body": "",
-      "time": "14:20",
+      "title": "OpenAI关停Sora！25个月从封神到退场",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392787.html"
+      "link": "https://www.qbitai.com/2026/03/391799.html",
+      "url": "https://www.qbitai.com/2026/03/391799.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "Claude 90分钟挖穿20年漏洞！5w星“安全”系统跌下神坛",
-      "body": "",
-      "time": "14:20",
+      "title": "AI全链路加持！一加15T打造全能小屏，售价4299元起",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393186.html"
+      "link": "https://www.qbitai.com/2026/03/391775.html",
+      "url": "https://www.qbitai.com/2026/03/391775.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "打破代码大模型训练瓶颈：MicroCoder将算法数据框架训练经验升级",
-      "body": "",
-      "time": "14:20",
+      "title": "龙虾爆火之后，AI初创的全球化机会来了吗？｜线下沙龙报名",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393164.html"
+      "link": "https://www.qbitai.com/2026/03/391760.html",
+      "url": "https://www.qbitai.com/2026/03/391760.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "Claude手搓3D建筑编辑器火爆GitHub！数万年费的专业软件瑟瑟发抖",
-      "body": "",
-      "time": "14:20",
+      "title": "黄仁勋暴论核弹：AGI已经实现，Ilya错了，程序员有10亿",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393125.html"
+      "link": "https://www.qbitai.com/2026/03/391750.html",
+      "url": "https://www.qbitai.com/2026/03/391750.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "小沓AI・智能营销产品 2026GDPS重磅发布",
-      "body": "",
-      "time": "14:20",
+      "title": "你的模型真的会”举一反三”吗？RoboChallenge Table30 V2 正式发布，泛化时代开幕",
       "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/393064.html"
+      "link": "https://www.qbitai.com/2026/03/391744.html",
+      "url": "https://www.qbitai.com/2026/03/391744.html",
+      "body": "",
+      "time": "2026/03/39",
+      "timestamp": 0
     },
     {
-      "title": "戴上这枚AI「气味戒指」，通过皮肤气味读懂饮食、运动与健康，准确率可达98.2%",
-      "body": "",
-      "time": "14:20",
+      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "世界模型再获全球第一！极佳视界GigaWorld-1震撼登场，超越谷歌、英伟达",
-      "body": "",
-      "time": "14:20",
+      "title": "Suno、Udio都被它干翻！中国AI音乐模型拿下AA全球榜单双料冠军",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "「人形机器人AI软硬件生态融合工作组」工作推进会暨首届具身智脑技术生态大会在沪举行",
-      "body": "",
-      "time": "14:20",
+      "title": "ICLR 2026 Oral｜中科院团队提出新框架「SparseRL」，深度强化学习可自动生成高性能CUDA代码",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "AI超懂人情世故，但人类就吃这一套：AI谄媚研究登上《科学》杂志",
-      "body": "",
-      "time": "14:20",
+      "title": "Arm自造芯片了：是块AGI CPU，面向AI智能体",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "「龙虾之父」吐槽人类互联网后，终于有人把这当个事儿办了",
-      "body": "",
-      "time": "14:20",
+      "title": "当用户与算法共同进化——华盛顿大学等建立可预测并引导人机协同适应的计算框架",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "ICRA 2026 | NUS邵林团队提出Goal-VLA：生成式大模型化身「世界模型」，实现零样本机器人操作",
-      "body": "",
-      "time": "14:20",
+      "title": "Sand.ai开源发布MagiCompiler：突破局部编译界限，定义训推性能上限",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "谋划科学智能新蓝图 | 爱赛思OpenAI4S社区亮相2026全球开发者先锋大会",
-      "body": "",
-      "time": "14:20",
+      "title": "Ψ₀刚刚开源了！迈向通用人形机器人的基座模型",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "Echo：预测智能的一小步，通往通用智能的一大步",
-      "body": "",
-      "time": "14:20",
+      "title": "我在微信免费养「龙虾」，玩到上瘾，这组CP太强了",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "ICLR 2026 | 让多模态模型学会主动说话：主动交互从训练到评估的完整方案",
-      "body": "",
-      "time": "14:20",
+      "title": "突发｜立即检查你的Python库！LiteLLM被投毒，Karpathy警告，马斯克关注",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "连续两篇 ICLR，南京大学林浩鑫将世界模型动力学推演推进到上千步",
-      "body": "",
-      "time": "14:20",
+      "title": "对抗KV Cache压缩的脆弱性：两行代码以最坏风险控制防御底层假设崩塌",
       "source": "机器之心",
-      "link": "https://www.jiqizhixin.com"
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "Stabilizing Rubric Integration Training via Decoupled Advantage Normalization",
-      "body": "",
-      "time": "14:20",
+      "title": "Mecha-nudges for Machines",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.26535"
+      "link": "https://arxiv.org/abs/2603.23433",
+      "url": "https://arxiv.org/abs/2603.23433",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "CADSmith: Multi-Agent CAD Generation with Programmatic Geometric Validation",
-      "body": "",
-      "time": "14:20",
+      "title": "Bilevel Autoresearch: Meta-Autoresearching Itself",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.26512"
+      "link": "https://arxiv.org/abs/2603.23420",
+      "url": "https://arxiv.org/abs/2603.23420",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "AIRA_2: Overcoming Bottlenecks in AI Research Agents",
-      "body": "",
-      "time": "14:20",
+      "title": "Beyond Preset Identities: How Agents Form Stances and Boundaries in Generative Societies",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.26499"
+      "link": "https://arxiv.org/abs/2603.23406",
+      "url": "https://arxiv.org/abs/2603.23406",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "GUIDE: Resolving Domain Bias in GUI Agents through Real-Time Web Video Retrieval and Plug-and-Play Annotation",
-      "body": "",
-      "time": "14:20",
+      "title": "RelayS2S: A Dual-Path Speculative Generation for Real-Time Dialogue",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.26266"
+      "link": "https://arxiv.org/abs/2603.23346",
+      "url": "https://arxiv.org/abs/2603.23346",
+      "body": "",
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     },
     {
-      "title": "Semi-Automated Knowledge Engineering and Process Mapping for Total Airport Management",
-      "body": "",
-      "time": "14:20",
+      "title": "LLM Olympiad: Why Model Evaluation Needs a Sealed Exam",
       "source": "arxiv cs.AI",
-      "link": "https://arxiv.org/abs/2603.26076"
-    },
-    {
-      "title": "An LP-based Sampling Policy for Multi-Armed Bandits with Side-Observations and Stochastic Availability",
+      "link": "https://arxiv.org/abs/2603.23292",
+      "url": "https://arxiv.org/abs/2603.23292",
       "body": "",
-      "time": "14:20",
-      "source": "arxiv cs.LG",
-      "link": "https://arxiv.org/abs/2603.26647"
-    },
-    {
-      "title": "Automatic Laplace Collapsed Sampling: Scalable Marginalisation of Latent Parameters via Automatic Differentiation",
-      "body": "",
-      "time": "14:20",
-      "source": "arxiv cs.LG",
-      "link": "https://arxiv.org/abs/2603.26644"
-    },
-    {
-      "title": "Context-specific Credibility-aware Multimodal Fusion with Conditional Probabilistic Circuits",
-      "body": "",
-      "time": "14:20",
-      "source": "arxiv cs.LG",
-      "link": "https://arxiv.org/abs/2603.26629"
-    },
-    {
-      "title": "Benchmarking Tabular Foundation Models for Conditional Density Estimation in Regression",
-      "body": "",
-      "time": "14:20",
-      "source": "arxiv cs.LG",
-      "link": "https://arxiv.org/abs/2603.26611"
-    },
-    {
-      "title": "Hardware-Aware Tensor Networks for Real-Time Quantum-Inspired Anomaly Detection at Particle Colliders",
-      "body": "",
-      "time": "14:20",
-      "source": "arxiv cs.LG",
-      "link": "https://arxiv.org/abs/2603.26604"
+      "time": "2026-03-25 19:47",
+      "timestamp": 0
     }
   ],
-  "miao_notice": {
-    "content": "今日焦点：伊朗称伊斯法罕一游乐场遭美以袭击。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
-    "label": "🐱 喵子告知 · 2026.03.30 14:19"
-  }
+  "miao_notice": [
+    {
+      "content": "今天信号挺乱，但几条线值得盯紧：**中东局势再升级**（伊朗被袭），油价压力传导链条在走——中金判断对中国出口结构有正向影响，但短期风险偏好很难好看，欧洲股指期货已经在跌了。**日本这边**，30年债收益率飙到3.79%，植田和男又在暗示加息，日元博弈还没结束，别轻视外溢风险。\n\nA股今天量能不错，成交预计破2万亿，机器人板块局部点火，比亚迪出口目标上调15%是真实利好。但中金提醒：**权益市场对悲观情形定价还不充分**，意思就是——别以为跌了就跌到位了，黄金铜债已经在定价悲观，股票还没跟上。\n\n喵子的判断：当下是**风险事件密集期叠加政策窗口期**，进攻先看AI硬件和新能源出口链，防守要注意日债和中东两个尾部风险别踩雷。量能好不等于方向明，别追高冲动。🐾",
+      "label": "🐱 喵子告知 · 2026.03.30 18:01"
+    },
+    {
+      "content": "今日焦点：伊朗称伊斯法罕一游乐场遭美以袭击。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+      "label": "🐱 喵子告知 · 2026.03.30 14:19"
+    }
+  ]
 }

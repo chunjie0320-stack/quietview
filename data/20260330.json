@@ -1,7 +1,17 @@
 {
   "date": "20260330",
-  "generated_at": "2026-03-30T08:01:25.204280",
-  "voice": [],
+  "generated_at": "2026-03-30T08:02:25.033476",
+  "voice": [
+    {
+      "source": "",
+      "title": "今天还没有新文章哟 🐾",
+      "digest": "",
+      "link": "",
+      "time": "",
+      "color": "",
+      "text_color": "#999"
+    }
+  ],
   "news": [],
   "ai_voice": [
     {

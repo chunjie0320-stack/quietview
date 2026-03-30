@@ -211,16 +211,97 @@ def fetch_weibo_today(uid, sub_cookie, subp_cookie, proxy, date_start, date_end)
 
 
 def ensure_html_panel(date_str, html_path):
-    """确保 HTML 里有当天的 panel（如果没有则插入）"""
+    """确保 HTML 里有当天的 panel（如果没有则自动插入）"""
+    import shutil, re as _re
     with open(html_path, encoding="utf-8") as f:
         content = f.read()
 
-    if f'id="panel-daily-brief-{date_str}"' in content:
+    panel_id = f"panel-daily-brief-{date_str}"
+    if panel_id in content:
         return  # 已存在
 
-    # 从 miao_notice_update.py 里的逻辑一致，此处简化：只补 INJECT 标记
-    # 实际 panel 由 miao_notice_update.py 的 ensure_html_panel 创建
-    print(f"  ℹ️  panel-daily-brief-{date_str} 不存在，跳过 HTML 更新（由 miao_notice_update.py 创建）", file=sys.stderr)
+    print(f"  [ensure_html_panel] {date_str} panel 不存在，开始创建...", file=sys.stderr)
+
+    date_dot = f"{date_str[:4]}.{date_str[4:6]}.{date_str[6:]}"
+
+    # 新 panel HTML（带空的 INJECT 标记）
+    new_panel = f"""<!-- 每日简报 {date_dot} -->
+    <div class="content-panel active" id="{panel_id}">
+      <div class="page-header">
+        <h1>每日简报</h1>
+        <div class="sub">{date_dot} · 行业资讯 &amp; 行业声音</div>
+        <div class="page-header-divider"></div>
+      </div>
+      <div class="card">
+        <div id="miao-notice-{date_str}" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">
+          <span class="miao-bubble-label">🐱 喵子告知 · 生成中...</span>
+          （今日简报生成中...）
+        </div>
+        <div class="two-col">
+          <div>
+            <div class="section-header">
+              <span class="section-title">行业资讯</span>
+              <span class="col-count-badge" id="news-count-{date_str}">· 0</span>
+            </div>
+            <div class="timeline" id="timeline-news-{date_str}" style="max-height:520px;overflow-y:auto;"><!-- INJECT:news_{date_str} -->
+<!-- /INJECT:news_{date_str} --></div>
+          </div>
+          <div>
+            <div class="section-header">
+              <span class="section-title">行业声音</span>
+              <span class="col-count-badge" id="voice-count-{date_str}">· 0</span>
+            </div>
+            <div class="timeline" id="timeline-voice-{date_str}" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_{date_str} -->
+<!-- /INJECT:voice_{date_str} --></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+"""
+
+    # 找前一天 panel 作为插入锚点
+    # 搜索 id="panel-daily-brief-YYYYMMDD" 中日期最近的一个
+    existing_dates = _re.findall(r'id="panel-daily-brief-(\d{8})"', content)
+    insert_marker = None
+    if existing_dates:
+        # 找比 date_str 小的最大日期
+        prev_dates = sorted([d for d in existing_dates if d < date_str], reverse=True)
+        if prev_dates:
+            insert_marker = f'<!-- 每日简报 {prev_dates[0][:4]}.{prev_dates[0][4:6]}.{prev_dates[0][6:]} -->'
+
+    if insert_marker and insert_marker in content:
+        # 把旧的 active panel 改为非active
+        content = _re.sub(
+            r'<div class="content-panel active" id="panel-daily-brief-(\d{8})">',
+            lambda m: f'<div class="content-panel" id="panel-daily-brief-{m.group(1)}">' if m.group(1) != date_str else m.group(0),
+            content
+        )
+        content = content.replace(insert_marker, new_panel + insert_marker)
+    else:
+        print(f"  ⚠️  找不到插入锚点，跳过 panel 创建", file=sys.stderr)
+        return
+
+    # 更新 JS tabs 配置：在最近的旧日期前插入新tab
+    month_label = f"{date_str[4:6]}月{date_str[6:]}日"
+    tab_entry = f"{{ id: 'daily-brief-{date_str}', label: '{month_label}', panel: '{panel_id}' }},\n        "
+    if existing_dates and f"daily-brief-{date_str}" not in content:
+        prev_tab = f"{{ id: 'daily-brief-{existing_dates[0]}'"
+        if prev_tab in content:
+            content = content.replace(prev_tab, tab_entry + prev_tab)
+
+    # 更新 currentPanel
+    content = _re.sub(
+        r"var currentPanel = 'panel-daily-brief-\d{8}';",
+        f"var currentPanel = '{panel_id}';",
+        content
+    )
+
+    bak = html_path + ".bak." + datetime.now().strftime("%Y%m%d%H%M%S")
+    shutil.copy2(html_path, bak)
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"  ✅ panel {date_str} 创建完成", file=sys.stderr)
 
 
 def update_json_voice(date_str, voice_items, dry_run=False):
@@ -440,6 +521,10 @@ def main():
     # 更新 JSON
     html_path = os.path.join(REPO_DIR, "index.html")
     update_json_voice(date_str, all_voice, dry_run=dry_run)
+
+    # 确保当天 panel 存在（如不存在则自动创建）
+    if not dry_run:
+        ensure_html_panel(date_str, html_path)
 
     # 更新 HTML inject
     update_html_inject(date_str, all_voice if all_voice else [{

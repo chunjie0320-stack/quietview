@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-微信公众号行业声音抓取脚本 v3（微信Cookie方案）
+微信公众号行业声音抓取脚本（微信Cookie方案）
 使用 mp.weixin.qq.com/cgi-bin/appmsg 接口，只取当天发布的文章。
 
 目标公众号：
@@ -9,7 +9,6 @@
   - 中金点睛        fakeid: MzI3MDMzMjg0MA==
   - 方伟看十年      fakeid: MzU5NzAzMDg1OQ==
   - 刘煜辉的高维宏观 fakeid: MzYzNzAzODcwNw==
-+ 刘煜辉微博       UID: 2337530130
 
 用法：
   python3 wx_voice_updater.py             # 更新今天的数据
@@ -153,61 +152,6 @@ def fetch_wx_articles(fakeid, cookie_str, token, proxy, date_start, date_end):
 
     return articles
 
-
-def fetch_weibo_today(uid, sub_cookie, subp_cookie, proxy, date_start, date_end):
-    """拉取微博用户今天的帖子"""
-    import urllib.request
-
-    url = f"https://m.weibo.cn/api/container/getIndex?uid={uid}&type=uid&value={uid}&containerid=107603{uid}&count=10&page=1"
-    req = urllib.request.Request(url)
-    req.add_header("Cookie", f"SUB={sub_cookie}; SUBP={subp_cookie}")
-    req.add_header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15")
-    req.add_header("Referer", "https://m.weibo.cn/")
-
-    proxy_handler = urllib.request.ProxyHandler({"http": proxy, "https": proxy})
-    opener = urllib.request.build_opener(proxy_handler)
-
-    posts = []
-    try:
-        resp = opener.open(req, timeout=15)
-        data = json.loads(resp.read().decode("utf-8"))
-        cards = data.get("data", {}).get("cards", [])
-        for card in cards:
-            mblog = card.get("mblog", {})
-            if not mblog:
-                continue
-            # 解析时间
-            created_at = mblog.get("created_at", "")
-            try:
-                # 微博时间格式: "Thu Mar 27 10:30:00 +0800 2026"
-                from email.utils import parsedate_to_datetime
-                dt = parsedate_to_datetime(created_at)
-                ts = int(dt.timestamp())
-            except Exception:
-                continue
-
-            if ts < date_start or ts >= date_end:
-                continue
-
-            # 清理正文html
-            text = mblog.get("text", "")
-            import re
-            text = re.sub(r'<[^>]+>', '', text).strip()
-
-            mid = mblog.get("mid", mblog.get("id", ""))
-            posts.append({
-                "source":     "刘煜辉微博",
-                "title":      text[:60] + ("..." if len(text) > 60 else ""),
-                "digest":     text[:200],
-                "link":       f"https://m.weibo.cn/status/{mid}",
-                "time":       datetime.fromtimestamp(ts, tz=timezone(timedelta(hours=8))).strftime("%H:%M"),
-                "color":      "rgba(198,40,40,.1)",
-                "text_color": "#c62828",
-            })
-    except Exception as e:
-        print(f"  ⚠️  微博请求失败: {e}", file=sys.stderr)
-
-    return posts
 
 
 def ensure_html_panel(date_str, html_path):
@@ -458,9 +402,6 @@ def main():
     slave_sid  = env.get("WX_SLAVE_SID", "")
     slave_user = env.get("WX_SLAVE_USER", "")
     token      = env.get("WX_TOKEN", "")
-    weibo_sub  = env.get("WEIBO_SUB", "")
-    weibo_subp = env.get("WEIBO_SUBP", "")
-    weibo_uid  = env.get("WEIBO_TARGET_UID", "2337530130")
 
     cookie_str = f"slave_user={slave_user}; slave_sid={slave_sid}"
 
@@ -493,22 +434,6 @@ def main():
         except Exception as e:
             print(f"    ⚠️  {acct['name']} 抓取异常: {e}", file=sys.stderr)
         time.sleep(SLEEP_SEC)
-
-    # 抓刘煜辉微博
-    print(f"  📰 抓取: 刘煜辉微博 ...", file=sys.stderr)
-    try:
-        weibo_posts = fetch_weibo_today(
-            uid=weibo_uid,
-            sub_cookie=weibo_sub,
-            subp_cookie=weibo_subp,
-            proxy=PROXY,
-            date_start=date_start,
-            date_end=date_end,
-        )
-        print(f"    → {len(weibo_posts)} 条", file=sys.stderr)
-        all_voice.extend(weibo_posts)
-    except Exception as e:
-        print(f"    ⚠️  微博抓取异常: {e}", file=sys.stderr)
 
     # 按时间排序（倒序，最新在前）
     def sort_key(v):

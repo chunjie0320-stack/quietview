@@ -11,6 +11,10 @@ opc-projects/
 memory/
 
 # 临时文件
+*.bak.*
+*.bak
+code-audit-*.md
+~/.openclaw/logs/
 *.png
 *.jpg
 *.jpeg

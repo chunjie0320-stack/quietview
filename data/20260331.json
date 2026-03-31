@@ -1,309 +1,328 @@
 {
   "date": "20260331",
-  "generated_at": "2026-03-31T22:00:33.769058",
-  "voice": [
-    {
-      "source": "卓哥投研笔记",
-      "tag": "卓哥投研笔记",
-      "title": "阿里估值的两座大山",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486484&idx=1&sn=e784a0712747d7da8ba02978bc96bc20&chksm=c331ea47f4466351805c75632618d0648d05f05c79d60ffb78280b1a1de5b8d7ac86f610a162#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486484&idx=1&sn=e784a0712747d7da8ba02978bc96bc20&chksm=c331ea47f4466351805c75632618d0648d05f05c79d60ffb78280b1a1de5b8d7ac86f610a162#rd",
-      "timestamp": 1774964538
-    },
-    {
-      "source": "财躺平",
-      "tag": "财躺平",
-      "title": "这句积极的话",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488135&idx=1&sn=026327a06295244345dd7d4617aa0db2&chksm=fa1a9702cd6d1e149f9b2ea8534464ad7ef90e9d3bbccf261c786c5498762de8dc98e5c8524d#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488135&idx=1&sn=026327a06295244345dd7d4617aa0db2&chksm=fa1a9702cd6d1e149f9b2ea8534464ad7ef90e9d3bbccf261c786c5498762de8dc98e5c8524d#rd",
-      "timestamp": 1774948832
-    },
-    {
-      "source": "方伟看十年",
-      "tag": "方伟看十年",
-      "title": "当真正要买的时候，你是不想买的",
-      "body": "分享一篇文章：",
-      "digest": "分享一篇文章：",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489448&idx=1&sn=b1a116a4ddcc98596d3169d13ef9f90e&chksm=fe58f50cc92f7c1a62b3faacf685ecbde64296f852ba054e1da3c15ddff525cd7477017356de#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489448&idx=1&sn=b1a116a4ddcc98596d3169d13ef9f90e&chksm=fe58f50cc92f7c1a62b3faacf685ecbde64296f852ba054e1da3c15ddff525cd7477017356de#rd",
-      "timestamp": 1774919273
-    },
-    {
-      "source": "中金点睛",
-      "tag": "中金点睛",
-      "title": "中金 | 探微智驾（五）：从Waymo和特斯拉，看Robotaxi行业的发展",
-      "body": "本文围绕Waymo和特斯拉两家海外的Robotaxi企业，系统分析其商业化进展和技术体系，总结Robotaxi行业的发展规律，并探讨海外市场商业价值、跨越式与渐进式路径对比、Robotaxi落地门槛和产业链价值分配等市场关注的问题",
-      "digest": "本文围绕Waymo和特斯拉两家海外的Robotaxi企业，系统分析其商业化进展和技术体系，总结Robotaxi行业的发展规律，并探讨海外市场商业价值、跨越式与渐进式路径对比、Robotaxi落地门槛和产业链价值分配等市场关注的问题",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830381&idx=1&sn=b0942e4edf678b6607cc6b63c9985fbd&chksm=eadd2daaddaaa4bcfc0dad4571725496afe0652e4793af681347e6bc70743df777294cf6515f#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830381&idx=1&sn=b0942e4edf678b6607cc6b63c9985fbd&chksm=eadd2daaddaaa4bcfc0dad4571725496afe0652e4793af681347e6bc70743df777294cf6515f#rd",
-      "timestamp": 1774914068
-    }
-  ],
+  "generated_at": "2026-03-31T20:08:31.394988+08:00",
+  "voice": [],
   "news": [
     {
-      "time": "09:14",
-      "tag": "部委动态",
-      "title": "央行：推动中小银行聚焦主责主业 增强银行资本实力",
-      "body": "中国人民银行货币政策委员会2026年第一季度（总第112次）例会于3月26日召开。会议指出，要引导大型银行发挥金融服务实体经济主力军作用，推动中小银行聚焦主责主业，增强银行资本实力。用好各类结构性货币政策工具，优化工具管理，扎实做好金融“五篇大文章”，加强对扩大内需、科技创新、中小微企业等重点领域的",
+      "title": "方大特钢：2025年净利润同比增长280.18%",
+      "body": "方大特钢(600507.SH)发布2025年年度报告，实现营业收入182.33亿元，同比下降15.43%；归属于上市公司股东的净利润为9.42亿元，同比增长280.18%。公司拟向全体股东每10股派发现金红利2元(含税)。",
+      "time": "19:39",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "A股走势"
     },
     {
-      "time": "09:12",
-      "tag": "部委动态",
-      "title": "央行：要继续实施适度宽松的货币政策 促进经济稳定增长和物价合理回升",
-      "body": "中国人民银行货币政策委员会召开2026年第一季度例会。会议分析了国内外经济金融形势，认为当前外部环境变化影响加深，世界经济动能疲弱，地缘冲突和经贸冲突多发频发，主要经济体经济表现有所分化，通胀走势和货币政策调整存在不确定性。我国经济运行总体平稳、稳中有进，高质量发展取得新成效，但仍面临供强需弱、外部",
+      "title": "硅片价格近期稳中看弱 预期下个月硅片排产将出现下调",
+      "body": "市场18X硅片价格0.98-1.00元/片，210RN硅片价格1.05-1.13元/片，210N硅片价格1.25-1.33元/片。目前硅片价格暂稳，短期内仍有下行空间。3月硅片产量增加16.35%，较月初预期有提升。近日一体化企业均有减产迹象，预期下个月硅片排产将出现下调，市场代工订单量有所增加，且",
+      "time": "19:42",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "综合"
     },
     {
-      "time": "09:12",
-      "tag": "部委动态",
-      "title": "央行：建议发挥增量政策和存量政策集成效应 加强货币政策调控",
-      "body": "中国人民银行货币政策委员会2026年第一季度（总第112次）例会于3月26日召开。会议研究了下阶段货币政策主要思路，建议发挥增量政策和存量政策集成效应，综合运用多种工具，加强货币政策调控，根据国内外经济金融形势和金融市场运行情况，把握好政策实施的力度、节奏和时机。保持流动性充裕，使社会融资规模、货币",
+      "title": "银河电子：子公司同智机电犯单位行贿罪 被判处罚金300万元",
+      "body": "银河电子(002519.SZ)公告称，公司全资子公司合肥同智机电控制技术有限责任公司近日收到法院判决结果。同智机电犯单位行贿罪，被判处罚金300万元；原法定代表人张红犯单位行贿罪，被判处有期徒刑二年六个月，并处罚金400万元。根据判决结果，公司判断上述情形不触及重大违法强制退市的情形。截至本公告披露",
+      "time": "19:43",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "A股走势"
     },
     {
-      "time": "09:10",
-      "tag": "市场动态",
-      "title": "国投白银LOF(161226)将于2026年4月1日开市起至当日10:30停…",
-      "body": "国投白银LOF(161226)将于2026年4月1日开市起至当日10:30停牌，自2026年4月1日10:30复牌，停牌期间赎回业务照常办理。",
+      "title": "俄鞑靼斯坦共和国一石化厂发生火灾",
+      "body": "俄罗斯鞑靼斯坦共和国下卡姆斯克石化厂当地时间3月31日称，该厂厂区内起火，应急部门已展开处置工作。事故原因暂未披露。 (央视新闻)",
+      "time": "19:46",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "地缘局势"
     },
     {
-      "time": "09:10",
-      "tag": "A股走势",
-      "title": "金田股份：拟在越南投资6亿元建设液冷散热及机架母线用高精密铜排项目",
-      "body": "金田股份(601609.SH)公告称，公司拟通过新设全资子公司金田耐科斯科技(越南)有限公司，在越南海防市投资建设“年产3万吨液冷散热及机架母线用高精密铜排生产项目”。该项目计划总投资不超过6亿元，资金来源于自有资金。项目建设期预计42个月，达产后将形成年产3万吨铜排产品的生产规模。",
+      "title": "国美零售2025年营收5.381亿元，比去年同期增长13.50%；归属予母公…",
+      "body": "国美零售2025年营收5.381亿元，比去年同期增长13.50%；归属予母公司拥有者应占亏损为59.44亿元，对比去年同期的116亿元减少48.89%。",
+      "time": "19:47",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "综合"
     },
     {
-      "time": "09:10",
-      "tag": "A股走势",
-      "title": "一图看懂QFII动向：A股2025年报披露率接近两成 近110股流通股东新增QFII身影",
-      "body": "2025年报披露有序推进，截至3月30日，已有两成A股上市公司发布相关数据。其中，近180只个股的前十大流通股东名单中出现QFII身影，共涵盖近30家外资机构。从持股市值变动来看，ST松发、中超控股、张江高科等股提升明显，而和泰机电、浙江黎明、ST松发等股的QFII持股比例增长突出。此外，仅就目前已",
+      "title": "云南白药：2025年度净利润51.53亿元 同比增长8.51%",
+      "body": "云南白药(000538.SZ)发布2025年年度报告，实现营业收入411.87亿元，同比增长2.88%；归属于上市公司股东的净利润为51.53亿元，同比增长8.51%。公司拟以2025年末总股本为基数，向全体股东每10股派发现金红利15.83元(含税)。",
+      "time": "19:48",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "A股走势"
     },
     {
-      "time": "09:09",
-      "tag": "A股走势",
-      "title": "港交所表示，支持更多类型债券产品来港上市，计划建设债券回购集中清算。",
-      "body": "",
+      "title": "诺和诺德推出美国食品药品监督管理局（FDA）批准的Wegovy首个且唯一的多…",
+      "body": "诺和诺德推出美国食品药品监督管理局（FDA）批准的Wegovy首个且唯一的多月期订阅计划，最高可节省每年1200美元。",
+      "time": "19:48",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "国际市场"
     },
     {
-      "time": "09:09",
-      "tag": "科技AI",
-      "title": "韩国摄像头公司从供货iPhone向人形机器人拓展",
-      "body": "韩国LG Innotek计划加速转型，减少对iPhone销售的依赖，成为AI和机器人解决方案的领先提供商；该公司已开始向波士顿动力供应摄像头模块，并计划共同开发机器人组件。视觉系统是人形机器人中的重要感知部分，除了特斯拉之外，其他公司都采用了多传感器融合的模式。",
+      "title": "以色列军方称对黎巴嫩真主党展开新一轮空袭",
+      "body": "以色列国防军当地时间3月31日证实，已对黎巴嫩首都贝鲁特的真主党基础设施实施了新一轮空袭行动。据悉，此次空袭针对真主党多个重要设施。 (央视新闻)",
+      "time": "19:49",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "地缘局势"
     },
     {
-      "time": "09:07",
-      "tag": "A股走势",
-      "title": "因上海芯密科技股份有限公司及其保荐人国金证券撤回发行上市申请，上交所终止其科…",
-      "body": "因上海芯密科技股份有限公司及其保荐人国金证券撤回发行上市申请，上交所终止其科创板IPO审核。",
+      "title": "刚果：分配给矿商的2026年钴出口总配额仍然有效",
+      "body": "刚果钴业监管机构表示，允许矿商将2026年第一季度的钴出口配额与第二季度配额并行执行，直至6月30日。分配给矿商的2026年钴出口总配额仍然有效。",
+      "time": "19:55",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "国内经济"
     },
     {
-      "time": "09:06",
-      "tag": "国际市场",
-      "title": "消息人士：意大利国防部拒绝美军机使用其空军基地",
-      "body": "知情人士称，数日前，意大利国防部长克罗塞托拒绝了美国军机使用西西里岛锡戈内拉空军基地的要求。意大利国防部解释称，美方没有事先沟通或取得授权，不符合意美两国军事条约的规定范围。",
+      "title": "百邦科技：控股股东拟变更为德乐科技 股票复牌",
+      "body": "百邦科技(300736.SZ)公告称，公司控股股东达安世纪、悦华众城及实控人刘铁峰正筹划控制权变更。2026年3月27日，上述股东与南京德乐科技签署协议，拟以21.88元/股的价格转让合计2601.34万股(占总股本20.33%)。3月30日，公司与星月商业签署协议，拟向后者发行1765.49万股股",
+      "time": "19:55",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "综合"
     },
     {
-      "time": "09:00",
-      "tag": "国际市场",
-      "title": "欧元区3月CPI同比增长2.5%，预期2.6%，前值1.90%。",
-      "body": "",
+      "title": "东方电气：2025年度净利润38.31亿元 同比增长31.11%",
+      "body": "财联社X月X电，东方电气(600875.SH)发布2025年年度报告，实现营业收入775.83亿元，同比增长13.11%；归属于上市公司股东的净利润为38.31亿元，同比增长31.11%。公司拟以当前总股本为基数，向全体股东每10股派发现金红利5.30元(含税)。",
+      "time": "19:57",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "A股走势"
     },
     {
-      "time": "08:59",
-      "tag": "部委动态",
-      "title": "埃塞俄比亚央行将基准利率维持在15%。",
-      "body": "",
+      "title": "俄总统助理：俄商船面临多方威胁 海军处于战备状态",
+      "body": "俄罗斯总统助理、海事委员会主席帕特鲁舍夫当地时间3月31日在海事委员会会议上表示，国际法体系正在退化，对俄海上基础设施实施破坏性恐怖袭击是俄国家安全面临的主要威胁之一。帕特鲁舍夫表示，俄商船正面临来自多方面的威胁：美国及其盟友集中力量阻断俄能源及其他战略原材料的海上运输；欧盟发明“影子船队”一词，以",
+      "time": "20:01",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "地缘局势"
     },
     {
-      "time": "08:59",
-      "tag": "地缘局势",
-      "title": "联合国研究预计伊朗战争恐对阿拉伯国家造成近2000亿美元经济损失",
-      "body": "联合国开发计划署周二早间发布的一份关于战争对阿拉伯国家经济和社会影响的分析显示，由于这场战争带来的扰动，阿拉伯国家国内生产总值损失可能介于1200亿美元至1940亿美元之间。报告称，整体损失可能导致地区失业率上升多达4个百分点，造成约360万个就业岗位流失，并使多达400万人陷入贫困。 ![Imag",
+      "title": "西班牙强烈谴责联合国维和人员在黎遇袭",
+      "body": "西班牙外交、欧盟与合作大臣阿尔瓦雷斯3月31日强烈谴责联合国维和人员在黎巴嫩遇袭身亡事件，并要求对此事展开调查和追责。 (新华社)",
+      "time": "20:02",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "综合"
     },
     {
-      "time": "09:06",
-      "tag": "A股走势",
-      "title": "盛屯矿业：一季度净利同比预增226%-295% 主要产品铜量价增长",
-      "body": "盛屯矿业(600711.SH)公告称，预计2026年第一季度实现归属于上市公司股东的净利润为9.50亿元到11.50亿元，与上年同期相比增长226.27%至294.95%。业绩预增主要原因包括主要产品铜量价增长：报告期内，公司刚果（金）铜钴项目实现铜产品产量同比增长，同时本期铜价格维持历史较高位，较",
+      "title": "华为2025年实现销售收入8809亿元",
+      "body": "《科创板日报》31日讯，华为今日发布2025年年度报告，报告显示，华为经营结果符合预期，实现全球销售收入8,809亿元人民币，净利润680亿元人民币。2025年研发投入达到1,923亿元人民币，约占全年收入的21.8%，近十年累计投入的研发费用超过13,820亿元人民币。（记者 黄心怡）",
+      "time": "20:03",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "A股走势"
     },
     {
-      "time": "09:05",
-      "tag": "A股走势",
-      "title": "万邦德：创新药临床试验进度及结果、未来产品市场竞争形势均存在不确定性",
-      "body": "万邦德(002082.SZ)公告称，公司股票连续3个交易日收盘价格涨幅偏离值累计超过20%，属于股票交易异常波动。经核查，公司前期披露信息无需更正，经营情况正常。控股股东及实际控制人目前正在筹划涉及公司股份的协议转让事宜，该事项不会导致公司控制权发生变更。截至本公告披露日，相关事项仍处于筹划阶段，尚",
+      "title": "3月31日周二《新闻联播》要闻26条",
+      "body": "今天《新闻联播》主要内容有：\n1、让中国式现代化的底色更加亮丽——习近平总书记参加首都义务植树活动时的重要讲话在广大干部群众中引发热烈反响；\n2、赵乐际会见奥地利中国友好协会高级代表团；\n3、二十届首都规划建设委员会第七次全体会议在京召开 蔡奇出席并讲话；\n4、【“十五五”新图景】聚力“未来产业” ",
+      "time": "20:03",
       "source": "财联社",
-      "url": "https://www.cls.cn/telegraph",
-      "link": "https://www.cls.cn/telegraph"
+      "tag": "部委动态"
     }
   ],
   "ai_voice": [
     {
-      "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392121.html",
-      "url": "https://www.qbitai.com/2026/03/392121.html",
+      "title": "ClawTip来了！京东科技首发推出AI智能体的“专属自主零钱包”",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/394011.html"
     },
     {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392105.html",
-      "url": "https://www.qbitai.com/2026/03/392105.html",
+      "title": "实测拿215项SOTA的Qwen3.5-Omni：摄像头一开，AI给我现场讲论文、撸代码",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393941.html"
     },
     {
-      "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392024.html",
-      "url": "https://www.qbitai.com/2026/03/392024.html",
+      "title": "瑞声科技公开人形机器人感知解决方案，释放机器人业务加速落地信号",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393883.html"
     },
     {
-      "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391890.html",
-      "url": "https://www.qbitai.com/2026/03/391890.html",
+      "title": "2700GB高质量数据，训出空间智能SOTA，背后秘诀全栈开源",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393864.html"
     },
     {
-      "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391830.html",
-      "url": "https://www.qbitai.com/2026/03/391830.html",
+      "title": "玻色量子完成10亿元B轮融资，“十五五”规划专用量子计算机赛道唯一代表！",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393856.html"
     },
     {
-      "title": "OpenAI关停Sora！25个月从封神到退场",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391799.html",
-      "url": "https://www.qbitai.com/2026/03/391799.html",
+      "title": "Meta华人实习生搞出超级智能体！自己写代码实现自我进化",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393645.html"
     },
     {
-      "title": "AI全链路加持！一加15T打造全能小屏，售价4299元起",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391775.html",
-      "url": "https://www.qbitai.com/2026/03/391775.html",
+      "title": "2026科创合伙人大会成功举办！构建科创合伙人生态，激活高质量发展新动能",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393631.html"
     },
     {
-      "title": "龙虾爆火之后，AI初创的全球化机会来了吗？｜线下沙龙报名",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391760.html",
-      "url": "https://www.qbitai.com/2026/03/391760.html",
+      "title": "黄仁勋也站台的抱抱脸机器人卖爆了，背后公司竟来自中国",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393483.html"
     },
     {
-      "title": "黄仁勋暴论核弹：AGI已经实现，Ilya错了，程序员有10亿",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391750.html",
-      "url": "https://www.qbitai.com/2026/03/391750.html",
+      "title": "Hugging Face",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/tag/hugging-face"
     },
     {
-      "title": "你的模型真的会”举一反三”吗？RoboChallenge Table30 V2 正式发布，泛化时代开幕",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391744.html",
-      "url": "https://www.qbitai.com/2026/03/391744.html",
+      "title": "阿里发布Qwen3.5-Omni，多模态能力超越Gemini-3.1 Pro",
       "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
+      "time": "2026/03/31",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/03/393460.html"
+    },
+    {
+      "title": "量子模拟首次获实验验证，量子计算机或将用作虚拟实验室",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ClawTip来了！ 京东科技首发推出AI智能体的“专属自主零钱包”",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "龙虾太难养？刚刚发布的SOLO独立端，可能是你要的AI生产力",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 | 复旦&通义万相提出ProMoE，显式路由引导打破DiT MoE scaling瓶颈！",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "支付宝推出国内首个支付集成Skill，Vibe Coding时可自然语言接入支付",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "京东卷出新高度！硬刚「复杂指令」长时长、自由态数字人直播终于丝滑了",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "不加算力，只改一个算法：Muon在万亿MoE模型中最高2倍加速",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 | 大模型当裁判也「翻车」？北大清华联合多校提出TrustJudge，让LLM评估更值得信赖",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "\"看图说话\"到\"看人读心\": 具身智能最缺的一块拼图，被这个多模态数据集补上了",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "300万对样本、200万对实拍：深度估计的数据荒，终于被打破",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Dynamic Dual-Granularity Skill Bank for Agentic RL",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.28716"
+    },
+    {
+      "title": "Not Search, But Scan: Benchmarking MLLMs on Scan-Oriented Academic Paper Reasoning",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.28651"
+    },
+    {
+      "title": "The Ultimate Tutorial for AI-driven Scale Development in Generative Psychometrics: Releasing AIGENIE from its Bottle",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.28643"
+    },
+    {
+      "title": "Seeing with You: Perception-Reasoning Coevolution for Multimodal Reasoning",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.28618"
+    },
+    {
+      "title": "MonitorBench: A Comprehensive Benchmark for Chain-of-Thought Monitorability in Large Language Models",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2603.28590"
+    },
+    {
+      "title": "Geometry-aware similarity metrics for neural representations on Riemannian and statistical manifolds",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.28764"
+    },
+    {
+      "title": "Temporal Credit Is Free",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.28750"
+    },
+    {
+      "title": "Stop Probing, Start Coding: Why Linear Probes and Sparse Autoencoders Fail at Compositional Generalisation",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.28744"
+    },
+    {
+      "title": "Rethinking Language Model Scaling under Transferable Hypersphere Optimization",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.28743"
+    },
+    {
+      "title": "Expectation Error Bounds for Transfer Learning in Linear Regression and Linear Neural Networks",
+      "body": "",
+      "time": "2026/03/31",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2603.28739"
     }
   ],
-  "miao_notice": [
-    {
-      "content": "央行Q1例会定调「适度宽松延续+增量存量政策集成发力」，信号很清晰：降准降息窗口仍开着，别跟政策对着干。中小银行被点名「聚焦主责主业」，意味着乱伸手的空间在收窄，资本补充压力会持续传导。\n\n铜的故事还在讲——盛屯矿业净利预增最高295%，金田股份跑越南建液冷铜排产能，一个赚现在，一个押未来。AI算力对铜的需求不是故事是订单，这条线值得持续盯。\n\nQFII悄悄出现在近180只股的前十大流通股东里，外资在用真金白银投票。市场越是情绪低迷，这种信号越值得重视——聪明钱通常不会在热闹时候才动手。🐱",
-      "label": "🐱 喵子告知 · 2026.03.31 22:00"
-    },
-    {
-      "content": "**今日市场情绪偏弱，但结构信号值得盯紧。**\n\n创业板跌超2%，算力硬件集体回调，量能略放大但热点散乱——典型的获利盘出逃+缺乏新主线的节前洗牌状态，不必慌，但也别接刀。碳酸锂跌超6%、LPG跌近8%，能化和锂电材料压力未退，储能白皮书喊出\"未来十年装机增8-17倍\"，短期却被现货价格打脸，估值修复还需等供需拐点。\n\n两艘中国巨轮首次通过霍尔木兹是个小但重要的地缘信号——中东航运摩擦边际缓和，贵金属反涨、集运欧线跌超6%，市场对风险情绪的定价已在悄悄切换。协鑫钙钛矿搭上航天811所做太空验证，商业化路还长，但卡位意图很清晰，光伏新赛道值得持续观察。🐾",
-      "label": "🐱 喵子告知 · 2026.03.31 18:00"
-    },
-    {
-      "content": "今天市场情绪明显退潮，创业板跌超2%，热点散乱、缺乏主线，算力硬件高位回调，封板率68%说明赚钱效应在收缩。大盘冲高回落是典型的\"假突破\"信号，短线资金在撤退。\n\n中东局势仍是变量——以黎冲突有新伤亡，但两艘中国巨轮顺利过了霍尔木兹海峡，压在头上的那块石头暂时挪开了，航运和能源供应链的尾部风险边际缓解。碳酸锂继续跌、集运欧线跌超6%，大宗商品普跌不是好气氛。\n\n值得记住的两个信号：储能白皮书预测十年装机暴增8-17倍，方向没问题但别被远期故事骗了短期仓位；协鑫光电推进钙钛矿太空验证，是个真实的技术落地节点，光伏+航天的交叉口可以持续跟踪。今天不是加仓的日子，观察为主。🐾",
-      "label": "🐱 喵子告知 · 2026.03.31 14:24"
-    },
-    {
-      "content": "今日市场高开低走，创业板跌超2%，算力硬件集体回调，热点散乱——这不是行情结束，是短线资金在换手，别慌也别追。成交量放量不大，说明主力还没真跑。\n\n中东那边稍微松了口气：两艘中国巨轮顺利过霍尔木兹，算是实质性利好，能源供应链的尾部风险小了一截。但碳酸锂继续跌、LPG跌近8%，能化板块一片绿——需求端还没起来，别急着抄底。\n\n喵子重点盯住两条长线信号：储能白皮书预测十年装机翻8-17倍，这不是噱头；协鑫钙钛矿今年要上太空验证，技术落地进度超预期。方向没变，只是现在市场在\"消化估值\"阶段，耐心比手速值钱。",
-      "label": "🐱 喵子告知 · 2026.03.31 14:21"
-    },
-    {
-      "content": "**今天市场情绪很脆。** 创业板跌超2%，算力硬件领跌，热点杂乱无章——这不是调整结束的样子，更像是情绪在出清。中金说\"权益市场对悲观情形定价不充分\"，翻译过来就是：还没跌到位。\n\n**地缘是最大变量。** 中东打得热闹，两艘中国巨轮刚过霍尔木兹才算松了口气，油价压力实打实。碳酸锂、LPG、集运欧线集体暴跌，能化板块在用脚投票。黄金反而在涨——这个组合说明资金在避险，不在博弹性。\n\n**长线信号别忽略：** 协鑫钙钛矿要上太空验证，储能十年装机预计暴涨8-17倍，\"十五五\"AI硬件被定性为黄金时代。短期跌的是情绪，这些结构性机会没跑。方伟那句话值得记住——\"真正要买的时候，你是不想买的。\"",
-      "label": "🐱 喵子告知 · 2026.03.31 14:00"
-    },
-    {
-      "content": "**萝卜快跑落地迪拜、银河航天启动上市辅导**——这两件事放一起看，自动驾驶和低轨卫星都在加速\"出圈\"，中国科技出海和硬科技IPO的故事还没讲完。与此同时，\"十五五\"规划明牌AI算力是核心主线，国产算力硬件的黄金窗口正在打开。\n\n券商这边有意思：8家净利破百亿，行业景气度明显回升，但并购重组项目33%破发——行情震荡之下，再融资定价还是太乐观了。非银估值低位、配置价值凸显，这个逻辑成立，但节奏要等风险偏好真正回来。\n\n中东局势继续搅局：油价上行压成本，钛白粉三连涨，黄金被流动性挤兑打压——但中金和华泰都在说\"中期逻辑没变\"。喵子的看法：这种时候别追涨杀跌，等企稳信号，黄金和出口链的机会都在震荡里等着。",
-      "label": "🐱 喵子告知 · 2026.03.31 12:01"
-    },
-    {
-      "content": "今日信号密集，喵子梳理一下重点：**\"十五五\"规划**明确产业自立+AI硬件，中金直接喊出\"黄金时代\"，国产算力链是今年最确定的政策红利方向，这个逻辑不用怀疑。同时油价上行带来的出口份额结构性受益，也值得留意相关板块。\n\n权益市场这边，中金判断\"悲观情形定价不充分\"——翻译成大白话就是：**跌还没跌到位，别急着抄底**。黄金、债券、铜已经Price in悲观，但股市还没。短期扛住波动，中期逻辑没坏。\n\n个股层面快手、泡泡玛特、零跑都有声音：快手260亿资本开支押注第二曲线，可灵不确定性拖累股价；泡泡玛特则是\"唯一对手是自己\"的稀缺模型。喵子的判断——**AI硬件链 > 消费品牌 > 跑量砸价的汽车**，优先级就这样排。🐾",
-      "label": "🐱 喵子告知 · 2026.03.31 08:01"
-    },
-    {
-      "content": "",
-      "label": ""
-    }
-  ]
+  "miao_notice": {
+    "content": "今日焦点：方大特钢：2025年净利润同比增长280.18%。共收录 45 条资讯，喵子提醒保持独立判断，不跟风。",
+    "label": "🐱 喵子告知 · 2026.03.31 20:08"
+  }
 }

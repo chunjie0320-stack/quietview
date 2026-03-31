@@ -683,9 +683,43 @@ def fetch_ai_voice(cutoff_days=3):
         print("  [ai_voice] ai_news.json 为空")
         return []
 
-    # 过滤近 cutoff_days 天内的数据
-    # ai_news.json 的 time 字段格式不统一（"2026/03/39" 或 "2026-03-25 19:47"）
-    # 取全部数据（字段已是近期抓取），直接转换格式
+    # 过滤：只保留当天（Asia/Shanghai）的数据
+    # ai_news.json 的 time 字段格式不统一（"2026/03/31" 或 "2026-03-25 19:47" 等）
+    # 无法解析或为空的条目宽松保留
+    today = datetime.now().date()
+
+    def _parse_item_date(time_str):
+        """尝试解析 time 字段，返回 date 对象，解析失败返回 None"""
+        if not time_str:
+            return None
+        time_str = time_str.strip()
+        for fmt in ('%Y/%m/%d', '%Y-%m-%d %H:%M', '%Y-%m-%d %H:%M:%S', '%Y-%m-%d',
+                    '%Y/%m/%d %H:%M', '%Y/%m/%d %H:%M:%S'):
+            try:
+                return datetime.strptime(time_str, fmt).date()
+            except ValueError:
+                continue
+        # 尝试只取前10位
+        prefix = time_str[:10]
+        for fmt in ('%Y/%m/%d', '%Y-%m-%d'):
+            try:
+                return datetime.strptime(prefix, fmt).date()
+            except ValueError:
+                continue
+        return None
+
+    filtered_list = []
+    for item in news_list:
+        t = _parse_item_date(item.get('time', ''))
+        if t is None:
+            # 无法解析，宽松保留
+            filtered_list.append(item)
+        elif t == today:
+            filtered_list.append(item)
+
+    print(f"  [ai_voice] 共 {len(news_list)} 条，过滤后当天 {len(filtered_list)} 条")
+    news_list = filtered_list
+
     ai_voice = []
     for item in news_list:
         title = item.get('title', '') or ''
@@ -724,8 +758,8 @@ def main():
         news_list  = data.get('news', [])
         voice_list = data.get('voice', [])
 
-        # 1b. 先刷新微信行业声音
-        wx_voice = fetch_wx_voice(cutoff_days=3)
+        # 1b. 先刷新微信行业声音（只取当天）
+        wx_voice = fetch_wx_voice(cutoff_days=1)
         if wx_voice is not None:
             data['voice'] = wx_voice
             voice_list = wx_voice

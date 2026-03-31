@@ -496,7 +496,7 @@ def _parse_links_generic(content, source, limit=10):
         news_list.append({
             'title': title[:200],
             'body': '',
-            'time': now.strftime('%H:%M'),
+            'time': now.strftime('%Y/%m/%d'),
             'source': source,
             'link': url,
         })
@@ -549,7 +549,7 @@ def fetch_jiqizhixin(limit=10):
                 news_list.append({
                     'title': line[:200],
                     'body': '',
-                    'time': now.strftime('%H:%M'),
+                    'time': now.strftime('%Y/%m/%d'),
                     'source': '机器之心',
                     'link': 'https://www.jiqizhixin.com',
                 })
@@ -594,7 +594,7 @@ def fetch_arxiv(limit=5):
                 results.append({
                     'title': title[:250],
                     'body': '',
-                    'time': now.strftime('%H:%M'),
+                    'time': now.strftime('%Y/%m/%d'),
                     'source': f'arxiv {cat}',
                     'link': best_url,
                 })

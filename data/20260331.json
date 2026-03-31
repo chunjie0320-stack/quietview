@@ -1,46 +1,24 @@
 {
   "date": "20260331",
-  "generated_at": "2026-03-31T14:24:40.875375",
+  "generated_at": "2026-03-31T17:20:52.298754",
   "voice": [
     {
       "source": "方伟看十年",
-      "tag": "方伟看十年",
       "title": "当真正要买的时候，你是不想买的",
-      "body": "分享一篇文章：",
       "digest": "分享一篇文章：",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489448&idx=1&sn=b1a116a4ddcc98596d3169d13ef9f90e&chksm=fe58f50cc92f7c1a62b3faacf685ecbde64296f852ba054e1da3c15ddff525cd7477017356de#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489448&idx=1&sn=b1a116a4ddcc98596d3169d13ef9f90e&chksm=fe58f50cc92f7c1a62b3faacf685ecbde64296f852ba054e1da3c15ddff525cd7477017356de#rd",
-      "timestamp": 1774919273
+      "time": "09:07",
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
     },
     {
       "source": "中金点睛",
-      "tag": "中金点睛",
       "title": "中金 | 探微智驾（五）：从Waymo和特斯拉，看Robotaxi行业的发展",
-      "body": "本文围绕Waymo和特斯拉两家海外的Robotaxi企业，系统分析其商业化进展和技术体系，总结Robotaxi行业的发展规律，并探讨海外市场商业价值、跨越式与渐进式路径对比、Robotaxi落地门槛和产业链价值分配等市场关注的问题",
       "digest": "本文围绕Waymo和特斯拉两家海外的Robotaxi企业，系统分析其商业化进展和技术体系，总结Robotaxi行业的发展规律，并探讨海外市场商业价值、跨越式与渐进式路径对比、Robotaxi落地门槛和产业链价值分配等市场关注的问题",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830381&idx=1&sn=b0942e4edf678b6607cc6b63c9985fbd&chksm=eadd2daaddaaa4bcfc0dad4571725496afe0652e4793af681347e6bc70743df777294cf6515f#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830381&idx=1&sn=b0942e4edf678b6607cc6b63c9985fbd&chksm=eadd2daaddaaa4bcfc0dad4571725496afe0652e4793af681347e6bc70743df777294cf6515f#rd",
-      "timestamp": 1774914068
-    },
-    {
-      "source": "卓哥投研笔记",
-      "tag": "卓哥投研笔记",
-      "title": "茅台提价能增厚公司40亿元利润",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486474&idx=1&sn=31ae9e963b4241cecbc338f36a78920a&chksm=c331ea59f446634f99398e0f7bde4e4ee8540a6236e6455eebced157e049872957491126be6b#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486474&idx=1&sn=31ae9e963b4241cecbc338f36a78920a&chksm=c331ea59f446634f99398e0f7bde4e4ee8540a6236e6455eebced157e049872957491126be6b#rd",
-      "timestamp": 1774875069
-    },
-    {
-      "source": "财躺平",
-      "tag": "财躺平",
-      "title": "他们没有春天",
-      "body": "",
-      "digest": "",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488122&idx=1&sn=28293ba14da6035628f4ac4d3be8026d&chksm=fa1a97ffcd6d1ee98c22c7be5e6b0550ad2566f4134d77a213cf2f3e137c2306b35cb539945f#rd",
-      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488122&idx=1&sn=28293ba14da6035628f4ac4d3be8026d&chksm=fa1a97ffcd6d1ee98c22c7be5e6b0550ad2566f4134d77a213cf2f3e137c2306b35cb539945f#rd",
-      "timestamp": 1774859807
+      "time": "07:41",
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
     }
   ],
   "news": [

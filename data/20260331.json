@@ -1,24 +1,46 @@
 {
   "date": "20260331",
-  "generated_at": "2026-03-31T18:08:30.550593",
+  "generated_at": "2026-03-31T22:00:33.769058",
   "voice": [
     {
-      "source": "方伟看十年",
-      "title": "当真正要买的时候，你是不想买的",
+      "source": "卓哥投研笔记",
+      "tag": "卓哥投研笔记",
+      "title": "阿里估值的两座大山",
+      "body": "",
       "digest": "",
-      "link": "",
-      "time": "",
-      "color": "rgba(89,139,89,.12)",
-      "text_color": "#2e7d32"
+      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486484&idx=1&sn=e784a0712747d7da8ba02978bc96bc20&chksm=c331ea47f4466351805c75632618d0648d05f05c79d60ffb78280b1a1de5b8d7ac86f610a162#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486484&idx=1&sn=e784a0712747d7da8ba02978bc96bc20&chksm=c331ea47f4466351805c75632618d0648d05f05c79d60ffb78280b1a1de5b8d7ac86f610a162#rd",
+      "timestamp": 1774964538
+    },
+    {
+      "source": "财躺平",
+      "tag": "财躺平",
+      "title": "这句积极的话",
+      "body": "",
+      "digest": "",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488135&idx=1&sn=026327a06295244345dd7d4617aa0db2&chksm=fa1a9702cd6d1e149f9b2ea8534464ad7ef90e9d3bbccf261c786c5498762de8dc98e5c8524d#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488135&idx=1&sn=026327a06295244345dd7d4617aa0db2&chksm=fa1a9702cd6d1e149f9b2ea8534464ad7ef90e9d3bbccf261c786c5498762de8dc98e5c8524d#rd",
+      "timestamp": 1774948832
+    },
+    {
+      "source": "方伟看十年",
+      "tag": "方伟看十年",
+      "title": "当真正要买的时候，你是不想买的",
+      "body": "分享一篇文章：",
+      "digest": "分享一篇文章：",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489448&idx=1&sn=b1a116a4ddcc98596d3169d13ef9f90e&chksm=fe58f50cc92f7c1a62b3faacf685ecbde64296f852ba054e1da3c15ddff525cd7477017356de#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489448&idx=1&sn=b1a116a4ddcc98596d3169d13ef9f90e&chksm=fe58f50cc92f7c1a62b3faacf685ecbde64296f852ba054e1da3c15ddff525cd7477017356de#rd",
+      "timestamp": 1774919273
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金 | 探微智驾（五）：从Waymo和特斯拉，看Robotaxi行业的发展",
-      "digest": "",
-      "link": "",
-      "time": "",
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "body": "本文围绕Waymo和特斯拉两家海外的Robotaxi企业，系统分析其商业化进展和技术体系，总结Robotaxi行业的发展规律，并探讨海外市场商业价值、跨越式与渐进式路径对比、Robotaxi落地门槛和产业链价值分配等市场关注的问题",
+      "digest": "本文围绕Waymo和特斯拉两家海外的Robotaxi企业，系统分析其商业化进展和技术体系，总结Robotaxi行业的发展规律，并探讨海外市场商业价值、跨越式与渐进式路径对比、Robotaxi落地门槛和产业链价值分配等市场关注的问题",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830381&idx=1&sn=b0942e4edf678b6607cc6b63c9985fbd&chksm=eadd2daaddaaa4bcfc0dad4571725496afe0652e4793af681347e6bc70743df777294cf6515f#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830381&idx=1&sn=b0942e4edf678b6607cc6b63c9985fbd&chksm=eadd2daaddaaa4bcfc0dad4571725496afe0652e4793af681347e6bc70743df777294cf6515f#rd",
+      "timestamp": 1774914068
     }
   ],
   "news": [
@@ -251,6 +273,10 @@
     }
   ],
   "miao_notice": [
+    {
+      "content": "央行Q1例会定调「适度宽松延续+增量存量政策集成发力」，信号很清晰：降准降息窗口仍开着，别跟政策对着干。中小银行被点名「聚焦主责主业」，意味着乱伸手的空间在收窄，资本补充压力会持续传导。\n\n铜的故事还在讲——盛屯矿业净利预增最高295%，金田股份跑越南建液冷铜排产能，一个赚现在，一个押未来。AI算力对铜的需求不是故事是订单，这条线值得持续盯。\n\nQFII悄悄出现在近180只股的前十大流通股东里，外资在用真金白银投票。市场越是情绪低迷，这种信号越值得重视——聪明钱通常不会在热闹时候才动手。🐱",
+      "label": "🐱 喵子告知 · 2026.03.31 22:00"
+    },
     {
       "content": "**今日市场情绪偏弱，但结构信号值得盯紧。**\n\n创业板跌超2%，算力硬件集体回调，量能略放大但热点散乱——典型的获利盘出逃+缺乏新主线的节前洗牌状态，不必慌，但也别接刀。碳酸锂跌超6%、LPG跌近8%，能化和锂电材料压力未退，储能白皮书喊出\"未来十年装机增8-17倍\"，短期却被现货价格打脸，估值修复还需等供需拐点。\n\n两艘中国巨轮首次通过霍尔木兹是个小但重要的地缘信号——中东航运摩擦边际缓和，贵金属反涨、集运欧线跌超6%，市场对风险情绪的定价已在悄悄切换。协鑫钙钛矿搭上航天811所做太空验证，商业化路还长，但卡位意图很清晰，光伏新赛道值得持续观察。🐾",
       "label": "🐱 喵子告知 · 2026.03.31 18:00"

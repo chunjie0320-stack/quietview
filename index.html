@@ -1556,6 +1556,7 @@ renderNav('invest');
   function renderVoice(d, items) {
     var container = document.querySelector('#timeline-voice-' + d);
     if (!container) return;
+    if (!items || items.length === 0) return; // 空数据时保留HTML静态内容
     container.innerHTML = items.map(function(item) {
       return [
         '<div class="tl-item">',
@@ -1575,6 +1576,7 @@ renderNav('invest');
   function renderNews(d, items) {
     var container = document.querySelector('#timeline-news-' + d);
     if (!container) return;
+    if (!items || items.length === 0) return; // 空数据时保留HTML静态内容
     container.innerHTML = items.map(function(item) {
       return [
         '<div class="tl-item">',
@@ -1598,6 +1600,7 @@ renderNav('invest');
     if (!el) return;
     // 兼容单对象和数组
     var items = Array.isArray(notice) ? notice : [notice];
+    if (!items || items.length === 0) return; // 空数据时保留HTML静态内容
     el.innerHTML = items.map(function(item) {
       return '<div class="miao-notice-item" style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.15);">'
         + '<span class="miao-bubble-label">' + escHtml(item.label) + '</span>'
@@ -1626,7 +1629,8 @@ renderNav('invest');
   }
 
   function loadDayData(d) {
-    return fetch('data/' + d + '.json')
+    var bust = '?t=' + Math.floor(Date.now() / 300000); // 5分钟缓存破坏
+    return fetch('data/' + d + '.json' + bust)
       .then(function(r) { return r.ok ? r.json() : null; })
       .then(function(data) {
         if (!data) return;

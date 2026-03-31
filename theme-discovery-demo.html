@@ -116,26 +116,28 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 28px;
+  background-size: cover;
+  background-position: center;
 }
 
 .card-image.breakfast {
-  background: linear-gradient(135deg, #ff9a3c, #ffcd3c);
+  background-image: url('theme-imgs/breakfast.png');
 }
 
 .card-image.lunch {
-  background: linear-gradient(135deg, #43b89c, #7bc67e);
+  background-image: url('theme-imgs/lunch.png');
 }
 
 .card-image.tea {
-  background: linear-gradient(135deg, #f093fb, #c471ed);
+  background-image: url('theme-imgs/tea.png');
 }
 
 .card-image.dinner {
-  background: linear-gradient(135deg, #f7797d, #fbd786);
+  background-image: url('theme-imgs/dinner.png');
 }
 
 .card-image.supper {
-  background: linear-gradient(135deg, #c0392b, #8e44ad);
+  background-image: url('theme-imgs/supper.png');
 }
 
 .card-info {
@@ -199,23 +201,33 @@ body {
 }
 
 .hero-bg.breakfast {
-  background: linear-gradient(135deg, #ff9a3c 0%, #ffcd3c 100%);
+  background-image: url('theme-imgs/breakfast.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-bg.lunch {
-  background: linear-gradient(135deg, #43b89c 0%, #7bc67e 100%);
+  background-image: url('theme-imgs/lunch.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-bg.tea {
-  background: linear-gradient(135deg, #f093fb 0%, #c471ed 100%);
+  background-image: url('theme-imgs/tea.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-bg.dinner {
-  background: linear-gradient(135deg, #f7797d 0%, #fbd786 100%);
+  background-image: url('theme-imgs/dinner.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-bg.supper {
-  background: linear-gradient(135deg, #c0392b 0%, #8e44ad 100%);
+  background-image: url('theme-imgs/supper.png');
+  background-size: cover;
+  background-position: center;
 }
 
 /* decorative circles */
@@ -397,23 +409,33 @@ body {
 }
 
 .merchant-img.breakfast {
-  background: linear-gradient(135deg, #ff9a3c, #ffcd3c);
+  background-image: url('theme-imgs/breakfast.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .merchant-img.lunch {
-  background: linear-gradient(135deg, #43b89c, #7bc67e);
+  background-image: url('theme-imgs/lunch.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .merchant-img.tea {
-  background: linear-gradient(135deg, #f093fb, #c471ed);
+  background-image: url('theme-imgs/tea.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .merchant-img.dinner {
-  background: linear-gradient(135deg, #f7797d, #fbd786);
+  background-image: url('theme-imgs/dinner.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .merchant-img.supper {
-  background: linear-gradient(135deg, #c0392b, #8e44ad);
+  background-image: url('theme-imgs/supper.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .merchant-info {
@@ -473,6 +495,38 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.tag-discount {
+  font-size: 11px;
+  color: #e84040;
+  background: #fff1f0;
+  border: 1px solid #ffa39e;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.supply-badge {
+  margin: 0 0 12px 0;
+  padding: 10px 14px;
+  background: #f0f7ff;
+  border: 1px solid #d0e8ff;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #1a6bb5;
+  line-height: 1.6;
+}
+
+.supply-badge .supply-icon {
+  margin-right: 4px;
+}
+
+.supply-filters {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #5b9bd5;
+  opacity: 0.9;
 }
 </style>
 </head>
@@ -594,33 +648,67 @@ var themes = {
       name: '今早吃点好的',
       text: '今天早起了，就该奖励自己一顿正经早饭。热腾腾的豆浆、刚出锅的油条、皮薄馅足的烧麦，这一口下去，一天都是对的。'
     },
+    supplyInfo: {
+      collectorId: 2593897,
+      collectorName: '早餐主题_北京_今早吃点好的_20260331',
+      skuNum: 5,
+      filters: '北京 · 快餐/甜点/中式糕点 · 原价≤30元 · 月销量≥30 · 好评率≥85% · 有满减活动'
+    },
     merchants: [
       {
-        name: '庆丰包子铺（西单店）',
-        category: '中式早点',
+        name: '好利来（朝阳大悦城店）',
+        category: '烘焙甜点',
         city: '北京',
-        price: '¥18/人',
-        rate: '93%',
-        reason: '老北京的早晨从一屉热包子开始，皮薄馅大，一口咬下去全是满足',
-        emoji: '🥟'
+        price: '¥28/人',
+        rate: '96%',
+        reason: '招牌半熟芝士+奶酪包，不到30元吃到幸福感，早上来一个刚刚好',
+        emoji: '🧀',
+        tag: '满减',
+        skuId: 'SKU_BJ_001'
       },
       {
-        name: '老磁器口豆汁儿',
-        category: '传统早点',
-        city: '北京',
-        price: '¥25/人',
-        rate: '88%',
-        reason: '四九城老饕的心头好，豆汁配焦圈，地道得不行',
-        emoji: '🍵'
-      },
-      {
-        name: '南城香（劲松店）',
-        category: '快餐早点',
+        name: '鲜芋仙（国贸店）',
+        category: '甜品·快餐',
         city: '北京',
         price: '¥22/人',
         rate: '91%',
-        reason: '免费续汤的烩面，早晨来一碗，暖胃又暖心',
-        emoji: '🍜'
+        reason: '芋圆+豆花，早餐吃甜的心情都好了，月销量超百单',
+        emoji: '🍡',
+        tag: '满减',
+        skuId: 'SKU_BJ_002'
+      },
+      {
+        name: '遇见小面（三元桥店）',
+        category: '快餐简餐',
+        city: '北京',
+        price: '¥24/人',
+        rate: '89%',
+        reason: '重庆小面出京版，麻辣鲜香，一碗下去整个人清醒了',
+        emoji: '🍜',
+        tag: '满减',
+        skuId: 'SKU_BJ_003'
+      },
+      {
+        name: '花满蹊·烘焙（望京SOHO）',
+        category: '烘焙·中式糕点',
+        city: '北京',
+        price: '¥18/人',
+        rate: '92%',
+        reason: '现烤老婆饼+蛋黄酥，一口酥皮一口蛋黄，传统味道不将就',
+        emoji: '🥮',
+        tag: '满减',
+        skuId: 'SKU_BJ_004'
+      },
+      {
+        name: '潮汕肠粉·云吞专家（亚运村）',
+        category: '快餐简餐',
+        city: '北京',
+        price: '¥20/人',
+        rate: '90%',
+        reason: '薄皮肠粉现点现蒸，配鲜虾云吞，早上这一口鲜到眉毛动',
+        emoji: '🫔',
+        tag: '满减',
+        skuId: 'SKU_BJ_005'
       }
     ]
   },
@@ -811,6 +899,14 @@ function showPage(page, themeId) {
     // Build merchant list
     var listEl = document.getElementById('merchant-list');
     var html = '';
+    // 供给来源标注（仅有 supplyInfo 时显示）
+    if (data.supplyInfo) {
+      html += '<div class="supply-badge">';
+      html += '<span class="supply-icon">🔗</span>';
+      html += '<span>供给来自 <b>韦恩筛选集 #' + data.supplyInfo.collectorId + '</b> · ' + data.supplyInfo.skuNum + ' 个商品</span>';
+      html += '<div class="supply-filters">' + data.supplyInfo.filters + '</div>';
+      html += '</div>';
+    }
     for (var i = 0; i < data.merchants.length; i++) {
       var m = data.merchants[i];
       html += '<div class="merchant-card">';
@@ -820,6 +916,7 @@ function showPage(page, themeId) {
       html += '<div class="merchant-meta">' + m.category + ' · ' + m.city + ' · 人均' + m.price + '</div>';
       html += '<div class="merchant-tags">';
       html += '<span class="tag-rate">好评 ' + m.rate + '</span>';
+      if (m.tag) html += '<span class="tag-discount">' + m.tag + '</span>';
       html += '<span class="tag-good">对胃了！</span>';
       html += '</div>';
       html += '<div class="merchant-reason">' + m.reason + '</div>';

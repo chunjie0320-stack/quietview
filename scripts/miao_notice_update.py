@@ -220,7 +220,7 @@ def ensure_html_panel(date_str, data):
 
     def news_items_html(items):
         if not items:
-            return '              <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">暂无资讯</div></div>'
+            return '              <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">今天还没有新的资讯哟</div></div>'
         parts = []
         for n in items:
             t = esc(n.get('title', ''))
@@ -237,7 +237,7 @@ def ensure_html_panel(date_str, data):
 
     def voice_items_html(items):
         if not items:
-            return '              <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">暂无声音</div></div>'
+            return '              <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">今天还没有新的声音哟</div></div>'
         parts = []
         for v in items:
             tag = esc(v.get('tag', ''))
@@ -368,23 +368,31 @@ def ensure_ai_voice_panel(date_str, data):
     def esc(s):
         return (s or '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
-    items_html = ''
-    for item in ai_voice:
-        title = esc(item.get('title', ''))
-        source = esc(item.get('source', ''))
-        url = item.get('link', item.get('url', '#')) or '#'
-        body = esc((item.get('body', '') or '')[:200])
-        body_div = f'            <div class="tl-body">{body}</div>\n' if body else ''
-        items_html += (
-            f'          <div class="tl-item">\n'
-            f'            <div class="tl-dot"></div>\n'
-            f'            <div class="tl-time">今日</div>\n'
-            f'            <div class="tl-tag">{source}</div>\n'
-            f'            <div class="tl-title">{title}</div>\n'
-            + body_div +
-            f'            <a class="tl-source" href="{url}" target="_blank">→ 原文</a>\n'
-            f'          </div>\n'
+    if not ai_voice:
+        items_html = (
+            '          <div class="tl-item">\n'
+            '            <div class="tl-dot"></div>\n'
+            '            <div class="tl-title" style="color:#aaa">今天还没有新的声音哟</div>\n'
+            '          </div>\n'
         )
+    else:
+        items_html = ''
+        for item in ai_voice:
+            title = esc(item.get('title', ''))
+            source = esc(item.get('source', ''))
+            url = item.get('link', item.get('url', '#')) or '#'
+            body = esc((item.get('body', '') or '')[:200])
+            body_div = f'            <div class="tl-body">{body}</div>\n' if body else ''
+            items_html += (
+                f'          <div class="tl-item">\n'
+                f'            <div class="tl-dot"></div>\n'
+                f'            <div class="tl-time">今日</div>\n'
+                f'            <div class="tl-tag">{source}</div>\n'
+                f'            <div class="tl-title">{title}</div>\n'
+                + body_div +
+                f'            <a class="tl-source" href="{url}" target="_blank">→ 原文</a>\n'
+                f'          </div>\n'
+            )
 
     date_dot = f"{date_str[:4]}.{date_str[4:6]}.{date_str[6:]}"
     new_panel = (
@@ -578,8 +586,8 @@ def git_push(date_str, slot_label, html_changed=False):
 
 # ── 微信行业声音抓取（mp.weixin.qq.com API）────────────────────────────────────
 
-def fetch_wx_voice(cutoff_days=3):
-    """用 mp.weixin.qq.com API 抓取公众号最新文章，返回 voice 列表"""
+def fetch_wx_voice(cutoff_days=1):
+    """用 mp.weixin.qq.com API 抓取公众号最新文章，返回 voice 列表（默认只取当天/近1天）"""
     import urllib.request as ureq
     cookies_path = "/root/.openclaw/weibo/cookies.env"
     if not os.path.exists(cookies_path):
@@ -660,9 +668,9 @@ def fetch_wx_voice(cutoff_days=3):
 
 # ── AI 行业声音抓取（读取 ai_news.json 缓存）────────────────────────────────
 
-def fetch_ai_voice(cutoff_days=3):
+def fetch_ai_voice(cutoff_days=1):
     """
-    读取 data/ai_news.json（AI新闻缓存），转成 ai_voice 列表格式（近3天数据）。
+    读取 data/ai_news.json（AI新闻缓存），转成 ai_voice 列表格式（默认只取当天数据）。
     ai_news.json 结构：{"updated_at": ..., "count": N, "news": [{"time": ..., "title": ..., "summary": ..., "source": ..., "url": ...}]}
     返回 ai_voice 格式：[{"title": ..., "source": ..., "link": ..., "body": ..., "time": ...}]
     """

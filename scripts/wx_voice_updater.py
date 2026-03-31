@@ -262,14 +262,22 @@ def update_json_voice(date_str, voice_items, dry_run=False):
             "voice": [], "news": [], "ai_voice": [], "miao_notice": []
         }
 
-    # 没抓到新文章时，保留已有数据，不覆盖
-    if not voice_items:
-        existing = day_data.get("voice", [])
-        # 过滤掉兜底占位条目
-        real_existing = [v for v in existing if v.get("title") != "今天还没有新文章哟 🐾" and v.get("source")]
-        if real_existing:
-            print(f"  ℹ️  本次未抓到新文章，保留已有 {len(real_existing)} 条数据", file=sys.stderr)
-            return json_path  # 直接返回，不覆盖
+    # 合并策略：新抓到的文章 + 已有数据，按 title 去重，保留所有历史
+    existing = day_data.get("voice", [])
+    # 过滤掉兜底占位条目
+    real_existing = [v for v in existing if v.get("title") != "今天还没有新文章哟 🐾" and v.get("source")]
+
+    # 用 title 去重合并（新数据优先，已有数据补充）
+    seen_titles = {v["title"] for v in voice_items}
+    for v in real_existing:
+        if v["title"] not in seen_titles:
+            voice_items.append(v)
+            seen_titles.add(v["title"])
+
+    if voice_items:
+        new_count = len([v for v in voice_items if v["title"] not in {x["title"] for x in real_existing}])
+        print(f"  ℹ️  合并后共 {len(voice_items)} 条（新增 {new_count} 条，保留历史 {len(real_existing)} 条）", file=sys.stderr)
+    else:
         # 真的没有任何数据时才用兜底话术
         voice_items = [{
             "source":     "",

@@ -3,13 +3,22 @@
   "generated_at": "2026-03-31T18:08:30.550593",
   "voice": [
     {
-      "source": "",
-      "title": "今天还没有新文章哟 🐾",
+      "source": "方伟看十年",
+      "title": "当真正要买的时候，你是不想买的",
       "digest": "",
       "link": "",
       "time": "",
-      "color": "",
-      "text_color": "#999"
+      "color": "rgba(89,139,89,.12)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 探微智驾（五）：从Waymo和特斯拉，看Robotaxi行业的发展",
+      "digest": "",
+      "link": "",
+      "time": "",
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
     }
   ],
   "news": [

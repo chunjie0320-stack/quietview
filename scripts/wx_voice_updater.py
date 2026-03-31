@@ -262,8 +262,15 @@ def update_json_voice(date_str, voice_items, dry_run=False):
             "voice": [], "news": [], "ai_voice": [], "miao_notice": []
         }
 
-    # 兜底话术
+    # 没抓到新文章时，保留已有数据，不覆盖
     if not voice_items:
+        existing = day_data.get("voice", [])
+        # 过滤掉兜底占位条目
+        real_existing = [v for v in existing if v.get("title") != "今天还没有新文章哟 🐾" and v.get("source")]
+        if real_existing:
+            print(f"  ℹ️  本次未抓到新文章，保留已有 {len(real_existing)} 条数据", file=sys.stderr)
+            return json_path  # 直接返回，不覆盖
+        # 真的没有任何数据时才用兜底话术
         voice_items = [{
             "source":     "",
             "title":      "今天还没有新文章哟 🐾",

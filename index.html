@@ -282,8 +282,57 @@ nav{padding:12px 0;flex:1}
       </div>
     </div>
 
-    <!-- 每日简报 2026.03.31 -->
-    <div class="content-panel active" id="panel-daily-brief-20260331">
+    <!-- 每日简报 2026.04.01 -->
+    <div class="content-panel active" id="panel-daily-brief-20260401">
+      <div class="page-header">
+        <h1>每日简报</h1>
+        <div class="sub">2026.04.01 · 行业资讯 &amp; 行业声音</div>
+        <div class="page-header-divider"></div>
+      </div>
+      <div class="card">
+        <div id="miao-notice-20260401" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">
+          <span class="miao-bubble-label">🐱 喵子告知 · 生成中...</span>
+          （今日简报生成中...）
+        </div>
+        <div class="two-col">
+          <div>
+            <div class="section-header">
+              <span class="section-title">行业资讯</span>
+              <span class="col-count-badge" id="news-count-20260401">· 0</span>
+            </div>
+            <div class="timeline" id="timeline-news-20260401" style="max-height:520px;overflow-y:auto;"><!-- INJECT:news_20260401 -->
+<!-- /INJECT:news_20260401 --></div>
+          </div>
+          <div>
+            <div class="section-header">
+              <span class="section-title">行业声音</span>
+              <span class="col-count-badge" id="voice-count-20260401">· 2</span>
+            </div>
+            <div class="timeline" id="timeline-voice-20260401" style="max-height:520px;overflow-y:auto;"><!-- INJECT:voice_20260401 -->
+<div class="tl-item">
+  <div class="tl-dot"></div>
+  <div class="tl-time">07:31</div>
+  <div class="tl-tag" style="background:rgba(21,101,192,.1);color:#1565c0;">中金点睛</div>
+  <div class="tl-title">中金：地缘冲突经济学与资产定价</div>
+  <div class="tl-body">重视“安全”资产</div>
+  <a class="tl-source" href="http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&amp;mid=2247830624&amp;idx=1&amp;sn=4de89189f8862b976f327bcd2b3c3583&amp;chksm=eadd2aa7ddaaa3b17534133735d3b154ddeaa2214efbc584476eed01812794f8c70d8539d00d#rd" target="_blank">→ 阅读原文</a>
+</div>
+<div class="tl-item">
+  <div class="tl-dot"></div>
+  <div class="tl-time">07:31</div>
+  <div class="tl-tag" style="background:rgba(21,101,192,.1);color:#1565c0;">中金点睛</div>
+  <div class="tl-title">中金：如何布局“未来产业”?</div>
+  <div class="tl-body">3月12日下午，十四届全国人大四次会议闭幕，会议表决通过了包括2026年《政府工作报告》和《国民经济和社会发展第十五个五年规划纲要》在内的多项决议和法律 ，其中多次提及“未来产业”。这是政府工作报告连续第三年、五年规划第二次重点部署未来产业。</div>
+  <a class="tl-source" href="http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&amp;mid=2247830624&amp;idx=2&amp;sn=5f3a8f3371b058a59b656bed0031530d&amp;chksm=eadd2aa7ddaaa3b121a3cc94499f30318928ab02d96a992f8143b7ce4045a164f35b8be1c7f8#rd" target="_blank">→ 阅读原文</a>
+</div>
+<!-- /INJECT:voice_20260401 --></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- 每日简报 2026.03.31 -->
+    <div class="content-panel" id="panel-daily-brief-20260331">
       <div class="page-header">
         <h1>每日简报</h1>
         <div class="sub">2026.03.31 · 行业资讯 &amp; 行业声音</div>
@@ -1432,7 +1481,7 @@ var NAV_DATA = {
 
 // ── 状态 ──────────────────────────────────────────────
 var currentTab = 'invest';
-var currentPanel = 'panel-daily-brief-20260331';
+var currentPanel = 'panel-daily-brief-20260401';
 var openL2 = { invest: 'daily-brief', ai: null, growth: null };
 
 // ── 渲染侧边导航 ──────────────────────────────────────

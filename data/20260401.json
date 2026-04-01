@@ -1,6 +1,6 @@
 {
   "date": "20260401",
-  "generated_at": "2026-04-01T10:36:43.428414",
+  "generated_at": "2026-04-01T10:38:25.015789",
   "voice": [
     {
       "source": "方伟看十年",
@@ -160,99 +160,12 @@
       "tag": "部委动态"
     }
   ],
-  "ai_voice": [
-    {
-      "title": "睿尔曼“茶艺机器人”亮相2026中关村论坛",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392121.html",
-      "url": "https://www.qbitai.com/2026/03/392121.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "从“被动感知”到“理解接触”，它石智航联合六大机构发布OmniVTA视触觉世界模型",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392105.html",
-      "url": "https://www.qbitai.com/2026/03/392105.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "DeepSeek急招Agent方向！一口气放17个岗位，重度Vibe Coding优先",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/392024.html",
-      "url": "https://www.qbitai.com/2026/03/392024.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "首个全品类旅行skill来了！飞猪“flyai”上线ClawHub、GitHub",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391890.html",
-      "url": "https://www.qbitai.com/2026/03/391890.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "阿里云JVS Claw 全面开放 新增语音输入、skill开关等实用功能",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391830.html",
-      "url": "https://www.qbitai.com/2026/03/391830.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "OpenAI关停Sora！25个月从封神到退场",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391799.html",
-      "url": "https://www.qbitai.com/2026/03/391799.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "AI全链路加持！一加15T打造全能小屏，售价4299元起",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391775.html",
-      "url": "https://www.qbitai.com/2026/03/391775.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "龙虾爆火之后，AI初创的全球化机会来了吗？｜线下沙龙报名",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391760.html",
-      "url": "https://www.qbitai.com/2026/03/391760.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "黄仁勋暴论核弹：AGI已经实现，Ilya错了，程序员有10亿",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391750.html",
-      "url": "https://www.qbitai.com/2026/03/391750.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    },
-    {
-      "title": "你的模型真的会”举一反三”吗？RoboChallenge Table30 V2 正式发布，泛化时代开幕",
-      "source": "量子位",
-      "link": "https://www.qbitai.com/2026/03/391744.html",
-      "url": "https://www.qbitai.com/2026/03/391744.html",
-      "body": "",
-      "time": "2026/03/39",
-      "timestamp": 0
-    }
-  ],
+  "ai_voice": [],
   "miao_notice": [
+    {
+      "content": "今天市场情绪明显回暖——日经涨4%、东南亚股市跟涨，A股这边人形机器人、创新药、算力芯片轮番拉升，大金融也有局部异动。核心驱动力很清晰：英伟达动作带动算力链、AACR会议催化创新药、机器人产业化加速落地，这波不是乱涨，有基本面支撑。\n\n但别忘了地缘风险：德黑兰再遭空袭，中东局势联合国已预警超1900亿美元经济损失，中金提示的\"重视安全资产\"不是白说的。油价、黄金随时可能再波动，风险敞口别开太大。\n\n小米汽车3月交付破2万，新SU7上市10天就交付7000台——这个数据说明高端新能源渗透率仍在爬坡，产业链值得持续关注。喵子判断：短线跟热点可以，但仓位纪律要守住，地缘火药桶还没熄。🐱",
+      "label": "🐱 喵子告知 · 2026.04.01 10:37"
+    },
     {
       "content": "今天亚太股市集体嗨，日经涨4%、东南亚跟涨，A股这边人形机器人、算力芯片、创新药轮番活跃——市场情绪明显回暖，资金在找方向。小米汽车3月交付破2万，新SU7上市7天累计7000台，交付节奏扎实，造车新势力格局又要重新排队了。\n\n但别忘了地缘面：德黑兰今早再次遭袭，中东局势持续升温，联合国估算阿拉伯国家损失最高近2000亿美元。地缘风险是今年资产定价里绕不开的变量，中金说\"重视安全资产\"不是废话。\n\n喵子判断：短期看科技+机器人仍是主线，但波动会大；中东局势每一次升级都是能源和避险资产的扰动因子，仓位别押太满，留点子弹应对黑天鹅。",
       "label": "🐱 喵子告知 · 2026.04.01 10:36"

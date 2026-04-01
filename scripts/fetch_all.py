@@ -667,6 +667,140 @@ def fetch_arxiv(limit=5):
     return results
 
 
+def fetch_theverge_ai(limit=8):
+    """The Verge AI 频道 — 只保留今天（Asia/Shanghai）发布的文章。
+    The Verge 链接格式为 /news/NNNNN/ 或 /ai-artificial-intelligence/NNNNN/，
+    无日期路径，通过正文中紧随作者名后的日期行（如 "Apr 1" / "Mar 31"）来过滤。
+    策略：提取所有 [title](url) + 紧跟的日期文本，仅保留今天日期的文章。
+    """
+    print("  [The Verge AI] 抓取中...")
+    try:
+        content = jina_fetch("https://www.theverge.com/ai-artificial-intelligence", timeout=30)
+        now = datetime.now(CST)
+        # 今天的月日格式（英文缩写），如 "Apr 1"
+        today_label = now.strftime('%b %-d')       # e.g. "Apr 1"
+        today_label2 = now.strftime('%b %d')       # e.g. "Apr 01"（部分系统）
+
+        # 逐行扫描：找标题行（含 theverge.com 链接），然后检查附近的日期行
+        lines = content.split('\n')
+        news_list, seen = [], set()
+        link_pattern = re.compile(
+            r'\[([^\]]{10,300})\]\((https?://(?:www\.)?theverge\.com/(?!wp-content|platform)[^\)]+)\)'
+        )
+
+        for i, line in enumerate(lines):
+            if len(news_list) >= limit:
+                break
+            m = link_pattern.search(line)
+            if not m:
+                continue
+            title = m.group(1).strip()
+            url = m.group(2)
+            if title in seen or is_noise(title):
+                continue
+
+            # 检查前后 6 行内是否有今天的日期标记
+            window = lines[max(0, i-6):min(len(lines), i+7)]
+            has_today_date = any(
+                today_label in wl or today_label2 in wl or 'Today' in wl
+                for wl in window
+            )
+            if not has_today_date:
+                continue
+
+            seen.add(title)
+            news_list.append({
+                'title': title[:200],
+                'body': '',
+                'time': now.strftime('%Y/%m/%d'),
+                'source': 'The Verge',
+                'link': url,
+            })
+
+        print(f"  [The Verge AI] ✅ {len(news_list)} 条（仅今日）")
+        return news_list
+    except Exception as e:
+        print(f"  [The Verge AI] ⚠️  失败: {e}")
+        return []
+
+
+def fetch_techcrunch_ai(limit=8):
+    """TechCrunch AI 频道 — 只保留近12小时（相对时间）或今天链接日期的文章。
+    TechCrunch 链接含日期路径 /YYYY/MM/DD/，时区为 UTC，
+    因此上午时段上海时间对应的链接日期可能是"昨天"（UTC时间）。
+    策略：接受链接日期为今天或昨天（UTC），同时要求相对时间 ≤ 12 小时。
+    """
+    print("  [TechCrunch AI] 抓取中...")
+    try:
+        content = jina_fetch("https://techcrunch.com/category/artificial-intelligence/", timeout=30)
+        now = datetime.now(CST)
+        # UTC 今天 + 昨天日期（处理时区偏差）
+        import datetime as _dt
+        utc_now = datetime.now(timezone.utc)
+        utc_today = utc_now.strftime('%Y/%m/%d')
+        utc_yesterday = (utc_now - timedelta(days=1)).strftime('%Y/%m/%d')
+
+        lines = content.split('\n')
+        news_list, seen = [], set()
+        # TechCrunch 格式：标题行 "### [Title](url)"，下方有 "X hours ago" / "X minutes ago"
+        link_pattern = re.compile(
+            r'###\s*\[([^\]]{10,300})\]\((https?://(?:www\.)?techcrunch\.com/(\d{4}/\d{2}/\d{2})/[^\)]+)\)'
+        )
+
+        for i, line in enumerate(lines):
+            if len(news_list) >= limit:
+                break
+            m = link_pattern.search(line)
+            if not m:
+                continue
+            title = m.group(1).strip()
+            url = m.group(2)
+            link_date = m.group(3)  # "2026/03/31"
+            if title in seen or is_noise(title):
+                continue
+
+            # 链接日期必须是 UTC 今天或昨天
+            if link_date not in (utc_today, utc_yesterday):
+                continue
+
+            # 检查附近行是否有相对时间（12小时内）
+            window = lines[max(0, i-4):min(len(lines), i+8)]
+            recent = False
+            for wl in window:
+                wl = wl.strip()
+                # "X minutes ago" or "X hours ago"
+                mm = re.search(r'(\d+)\s+minutes?\s+ago', wl)
+                if mm:
+                    recent = True
+                    break
+                hm = re.search(r'(\d+)\s+hours?\s+ago', wl)
+                if hm and int(hm.group(1)) <= 18:
+                    recent = True
+                    break
+                # "just now"
+                if 'just now' in wl.lower():
+                    recent = True
+                    break
+
+            if not recent:
+                continue
+
+            seen.add(title)
+            news_list.append({
+                'title': title[:200],
+                'body': '',
+                'time': now.strftime('%Y/%m/%d'),
+                'source': 'TechCrunch',
+                'link': url,
+            })
+
+        print(f"  [TechCrunch AI] ✅ {len(news_list)} 条（近18小时）")
+        return news_list
+    except Exception as e:
+        print(f"  [TechCrunch AI] ⚠️  失败: {e}")
+        return []
+
+
 def get_ai_voice():
     """整合 AI 行业声音"""
     print("── AI·行业声音 ──")
@@ -674,6 +808,8 @@ def get_ai_voice():
     ai_voice.extend(fetch_qbitai(limit=10))
     ai_voice.extend(fetch_jiqizhixin(limit=10))
     ai_voice.extend(fetch_arxiv(limit=5))
+    ai_voice.extend(fetch_theverge_ai(limit=8))
+    ai_voice.extend(fetch_techcrunch_ai(limit=8))
     print(f"  共 {len(ai_voice)} 条 AI 资讯")
     return ai_voice
 

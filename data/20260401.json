@@ -1,36 +1,56 @@
 {
   "date": "20260401",
-  "generated_at": "2026-04-01T12:10:20.855194",
+  "generated_at": "2026-04-01T14:00:32.323996",
   "voice": [
     {
       "source": "方伟看十年",
+      "tag": "方伟看十年",
       "title": "招行的护城河是是“以客户为中心”的企业文化？",
+      "body": "分享一篇文章：",
       "digest": "分享一篇文章：",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489450&idx=1&sn=f5b80c8f7a7d42b1c823853377d55327&chksm=fe58f50ec92f7c181635107d42e866bd289347ba0f7c2e6d49b9637bbbd36550a49b63f4b35e#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489450&idx=1&sn=f5b80c8f7a7d42b1c823853377d55327&chksm=fe58f50ec92f7c181635107d42e866bd289347ba0f7c2e6d49b9637bbbd36550a49b63f4b35e#rd",
-      "time": "09:06",
-      "timestamp": 1775005579,
-      "color": "rgba(106,27,154,.1)",
-      "text_color": "#6a1b9a"
+      "timestamp": 1775005579
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：地缘冲突经济学与资产定价",
+      "body": "重视“安全”资产",
       "digest": "重视“安全”资产",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=1&sn=4de89189f8862b976f327bcd2b3c3583&chksm=eadd2aa7ddaaa3b17534133735d3b154ddeaa2214efbc584476eed01812794f8c70d8539d00d#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=1&sn=4de89189f8862b976f327bcd2b3c3583&chksm=eadd2aa7ddaaa3b17534133735d3b154ddeaa2214efbc584476eed01812794f8c70d8539d00d#rd",
-      "time": "07:31",
-      "timestamp": 1774999900,
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774999900
     },
     {
       "source": "中金点睛",
+      "tag": "中金点睛",
       "title": "中金：如何布局“未来产业”?",
+      "body": "3月12日下午，十四届全国人大四次会议闭幕，会议表决通过了包括2026年《政府工作报告》和《国民经济和社会发展第十五个五年规划纲要》在内的多项决议和法律 ，其中多次提及“未来产业”。这是政府工作报告连续第三年、五年规划第二次重点部署未来产业。",
       "digest": "3月12日下午，十四届全国人大四次会议闭幕，会议表决通过了包括2026年《政府工作报告》和《国民经济和社会发展第十五个五年规划纲要》在内的多项决议和法律 ，其中多次提及“未来产业”。这是政府工作报告连续第三年、五年规划第二次重点部署未来产业。",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=2&sn=5f3a8f3371b058a59b656bed0031530d&chksm=eadd2aa7ddaaa3b121a3cc94499f30318928ab02d96a992f8143b7ce4045a164f35b8be1c7f8#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=2&sn=5f3a8f3371b058a59b656bed0031530d&chksm=eadd2aa7ddaaa3b121a3cc94499f30318928ab02d96a992f8143b7ce4045a164f35b8be1c7f8#rd",
-      "time": "07:31",
-      "timestamp": 1774999900,
-      "color": "rgba(21,101,192,.1)",
-      "text_color": "#1565c0"
+      "timestamp": 1774999900
+    },
+    {
+      "source": "卓哥投研笔记",
+      "tag": "卓哥投研笔记",
+      "title": "阿里估值的两座大山",
+      "body": "",
+      "digest": "",
+      "url": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486484&idx=1&sn=e784a0712747d7da8ba02978bc96bc20&chksm=c331ea47f4466351805c75632618d0648d05f05c79d60ffb78280b1a1de5b8d7ac86f610a162#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486484&idx=1&sn=e784a0712747d7da8ba02978bc96bc20&chksm=c331ea47f4466351805c75632618d0648d05f05c79d60ffb78280b1a1de5b8d7ac86f610a162#rd",
+      "timestamp": 1774964538
+    },
+    {
+      "source": "财躺平",
+      "tag": "财躺平",
+      "title": "这句积极的话",
+      "body": "",
+      "digest": "",
+      "url": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488135&idx=1&sn=026327a06295244345dd7d4617aa0db2&chksm=fa1a9702cd6d1e149f9b2ea8534464ad7ef90e9d3bbccf261c786c5498762de8dc98e5c8524d#rd",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488135&idx=1&sn=026327a06295244345dd7d4617aa0db2&chksm=fa1a9702cd6d1e149f9b2ea8534464ad7ef90e9d3bbccf261c786c5498762de8dc98e5c8524d#rd",
+      "timestamp": 1774948832
     }
   ],
   "news": [
@@ -172,6 +192,10 @@
   ],
   "ai_voice": [],
   "miao_notice": [
+    {
+      "content": "今天市场给了个小惊喜——A股三大指数涨超1%，科创50近3%，韩国KOSPI更是暴涨7%，全球风险偏好明显回暖。贵金属沪银涨近4%、沪金涨超2%，避险+进攻两条线同时在跑，资金心态有点微妙。\n\n产业面有几个信号值得盯住：普冉股份4月15日起上调MCU价格，半导体涨价周期信号再现；联想杨元庆喊出两年冲1000亿美元+AI原生转型，大象转身能不能跑起来，新财年是关键验证期；远景与腾讯落地全球首个100%绿电数据中心，AIDC能耗问题正在从PPT变成真实解法。\n\n工业母机研发加计扣除清单落地，政策继续给硬科技输血。喵子判断：当前市场是结构性机会，别追杂乱热点，盯住算力基础设施、半导体涨价链和AI原生硬件三条主线，比什么都强。",
+      "label": "🐱 喵子告知 · 2026.04.01 14:00"
+    },
     {
       "content": "今日市场情绪明显回暖——日经涨4%、东南亚股市普涨，A股这边人形机器人、算力芯片、创新药轮番拉升，大金融也在跟。小米汽车3月单月交付破2万，新车型7天交7000台，交付节奏在加速。\n\n但别只盯着涨，地缘风险没消停：德黑兰再次被炸，联合国测算中东冲突可能让阿拉伯国家损失近2000亿美元。中金的提示值得记住——**地缘升级时要重视\"安全\"资产定价**，别在情绪high的时候忘了尾部风险。\n\n喵子判断：当前是\"风险偏好修复+产业叙事驱动\"的组合行情，机器人和算力是主线没问题，但中东局势是头顶悬着的刀。轻仓追高要谨慎，有仓位的做好止盈节奏。",
       "label": "🐱 喵子告知 · 2026.04.01 12:00"

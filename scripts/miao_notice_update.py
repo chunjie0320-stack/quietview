@@ -357,9 +357,66 @@ def ensure_ai_voice_panel(date_str, data):
         html = f.read()
 
     panel_id = f"panel-ai-voice-{date_str}"
+    inject_key = f"INJECT:ai_voice_{date_str}"
+
+    # 如果panel已存在且有INJECT标记，尝试更新内容
     if panel_id in html:
-        print(f"  [ai_voice_panel] {panel_id} 已存在，跳过创建")
-        return False
+        if inject_key in html:
+            print(f"  [ai_voice_panel] {panel_id} 已存在，检查是否需要更新内容...")
+            ai_voice = data.get('ai_voice', [])
+            def esc2(s):
+                return (s or '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            if not ai_voice:
+                items_html2 = (
+                    '          <div class="tl-item">\n'
+                    '            <div class="tl-dot"></div>\n'
+                    '            <div class="tl-title" style="color:#aaa">今天还没有新的声音哟</div>\n'
+                    '          </div>\n'
+                )
+            else:
+                items_html2 = ''
+                for item in ai_voice:
+                    title = esc2(item.get('title', ''))
+                    source = esc2(item.get('source', ''))
+                    url = item.get('link', item.get('url', '#')) or '#'
+                    body = esc2((item.get('body', '') or '')[:200])
+                    body_div = f'            <div class="tl-body">{body}</div>\n' if body else ''
+                    items_html2 += (
+                        f'          <div class="tl-item">\n'
+                        f'            <div class="tl-dot"></div>\n'
+                        f'            <div class="tl-time">今日</div>\n'
+                        f'            <div class="tl-tag">{source}</div>\n'
+                        f'            <div class="tl-title">{title}</div>\n'
+                        + body_div +
+                        f'            <a class="tl-source" href="{url}" target="_blank">→ 原文</a>\n'
+                        f'          </div>\n'
+                    )
+            new_inject = f'<!-- {inject_key} -->\n{items_html2}<!-- /{inject_key} -->'
+            html = re.sub(
+                rf'<!-- {re.escape(inject_key)} -->.*?<!-- /{re.escape(inject_key)} -->',
+                new_inject, html, flags=re.DOTALL
+            )
+            # div自查
+            from html.parser import HTMLParser
+            class _PC(HTMLParser):
+                def __init__(self): super().__init__(); self.d = 0
+                def handle_starttag(self, t, a):
+                    if t == 'div': self.d += 1
+                def handle_endtag(self, t):
+                    if t == 'div': self.d -= 1
+            pc = _PC(); pc.feed(html)
+            if pc.d != 0:
+                print(f"  [ai_voice_panel] 更新后div depth={pc.d}，回滚")
+                return False
+            import shutil as _shutil2
+            _shutil2.copy2(html_path, html_path + f".bak.{datetime.now().strftime('%Y%m%d%H%M%S')}")
+            with open(html_path, 'w', encoding='utf-8') as f:
+                f.write(html)
+            print(f"  [ai_voice_panel] ✅ {panel_id} 内容已更新，共 {len(ai_voice)} 条")
+            return True
+        else:
+            print(f"  [ai_voice_panel] {panel_id} 已存在但无INJECT标记，跳过")
+            return False
 
     print(f"  [ai_voice_panel] {panel_id} 不存在，开始创建...")
 
@@ -720,8 +777,8 @@ def fetch_ai_voice(cutoff_days=1):
     for item in news_list:
         t = _parse_item_date(item.get('time', ''))
         if t is None:
-            # 无法解析，宽松保留
-            filtered_list.append(item)
+            # 无法解析日期（如 "2026/03/39" 非法日期），丢弃，防止历史脏数据混入
+            pass
         elif t == today:
             filtered_list.append(item)
 

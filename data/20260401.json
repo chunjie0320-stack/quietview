@@ -1,36 +1,33 @@
 {
   "date": "20260401",
-  "generated_at": "2026-04-01T12:00:33.643504",
+  "generated_at": "2026-04-01T12:02:10.495882",
   "voice": [
     {
       "source": "方伟看十年",
-      "tag": "方伟看十年",
       "title": "招行的护城河是是“以客户为中心”的企业文化？",
-      "body": "分享一篇文章：",
       "digest": "分享一篇文章：",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489450&idx=1&sn=f5b80c8f7a7d42b1c823853377d55327&chksm=fe58f50ec92f7c181635107d42e866bd289347ba0f7c2e6d49b9637bbbd36550a49b63f4b35e#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489450&idx=1&sn=f5b80c8f7a7d42b1c823853377d55327&chksm=fe58f50ec92f7c181635107d42e866bd289347ba0f7c2e6d49b9637bbbd36550a49b63f4b35e#rd",
-      "timestamp": 1775005579
+      "time": "09:06",
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
     },
     {
       "source": "中金点睛",
-      "tag": "中金点睛",
       "title": "中金：地缘冲突经济学与资产定价",
-      "body": "重视“安全”资产",
       "digest": "重视“安全”资产",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=1&sn=4de89189f8862b976f327bcd2b3c3583&chksm=eadd2aa7ddaaa3b17534133735d3b154ddeaa2214efbc584476eed01812794f8c70d8539d00d#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=1&sn=4de89189f8862b976f327bcd2b3c3583&chksm=eadd2aa7ddaaa3b17534133735d3b154ddeaa2214efbc584476eed01812794f8c70d8539d00d#rd",
-      "timestamp": 1774999900
+      "time": "07:31",
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
     },
     {
       "source": "中金点睛",
-      "tag": "中金点睛",
       "title": "中金：如何布局“未来产业”?",
-      "body": "3月12日下午，十四届全国人大四次会议闭幕，会议表决通过了包括2026年《政府工作报告》和《国民经济和社会发展第十五个五年规划纲要》在内的多项决议和法律 ，其中多次提及“未来产业”。这是政府工作报告连续第三年、五年规划第二次重点部署未来产业。",
       "digest": "3月12日下午，十四届全国人大四次会议闭幕，会议表决通过了包括2026年《政府工作报告》和《国民经济和社会发展第十五个五年规划纲要》在内的多项决议和法律 ，其中多次提及“未来产业”。这是政府工作报告连续第三年、五年规划第二次重点部署未来产业。",
-      "url": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=2&sn=5f3a8f3371b058a59b656bed0031530d&chksm=eadd2aa7ddaaa3b121a3cc94499f30318928ab02d96a992f8143b7ce4045a164f35b8be1c7f8#rd",
       "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=2&sn=5f3a8f3371b058a59b656bed0031530d&chksm=eadd2aa7ddaaa3b121a3cc94499f30318928ab02d96a992f8143b7ce4045a164f35b8be1c7f8#rd",
-      "timestamp": 1774999900
+      "time": "07:31",
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
     },
     {
       "source": "卓哥投研笔记",

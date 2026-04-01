@@ -1,7 +1,98 @@
 {
   "date": "20260401",
-  "generated_at": "2026-04-01T16:20:59.296075+08:00",
-  "voice": [],
+  "generated_at": "2026-04-01T18:00:25.769413",
+  "voice": [
+    {
+      "source": "财躺平",
+      "title": "4月决断",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488203&idx=1&sn=f01a28dfb2238f8385f28232e7f36018&chksm=fa1a974ecd6d1e58f3d8d0ab6acda6b471620494dd2e42ed268ad3ace6d70e0bd446fcab9e7b#rd",
+      "time": "16:30",
+      "timestamp": 1775032233,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "财躺平",
+      "title": "公示：第8批救助动物活动-北外+天大+东大+太理+交大+北电",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488203&idx=2&sn=bdee229d6555090d3037050ba053d88e&chksm=fa1a974ecd6d1e586c66b246b3d887a04981ce8773d4506edd080a9369bc362533e4f7b65f74#rd",
+      "time": "16:30",
+      "timestamp": 1775032233,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "财躺平",
+      "title": "高校动保同学看这篇——“萌虎队救助介绍”",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488203&idx=3&sn=e2c9745176a5ae723ccb04970e99e7aa&chksm=fa1a974ecd6d1e586c5c5c6c7ab7122e6fbdbafbf7ad29825f38a36e8c4cb86c99b503b1ed9d#rd",
+      "time": "16:30",
+      "timestamp": 1775032233,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "财躺平",
+      "title": "4月决断",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488202&idx=1&sn=5d0b277df340c27c5c67530266cf3192&chksm=fa1a974fcd6d1e59eeac0bdb04edeb92eff53c17a8a40fb6d7d9df4389e61641e4a85d2838b8#rd",
+      "time": "16:24",
+      "timestamp": 1775031858,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "财躺平",
+      "title": "公示：第8批救助动物活动-北外+天大+东大+太理+交大+北电",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488202&idx=2&sn=0dc20a47380b9edd8985438696ad09aa&chksm=fa1a974fcd6d1e59fef79bfe0a02417f457a823232530e5cdd044f9d0d78b310ed24326ab47c#rd",
+      "time": "16:24",
+      "timestamp": 1775031858,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "财躺平",
+      "title": "高校动保同学看这篇——“萌虎队救助介绍”",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488202&idx=3&sn=27741cf111484fb8ad56f9af44185bb7&chksm=fa1a974fcd6d1e5909374c3877c10e58f986aa867b70fd49d58ce06ba726a6fb60a90e55acb8#rd",
+      "time": "16:24",
+      "timestamp": 1775031858,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "招行的护城河是是“以客户为中心”的企业文化？",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489450&idx=1&sn=f5b80c8f7a7d42b1c823853377d55327&chksm=fe58f50ec92f7c181635107d42e866bd289347ba0f7c2e6d49b9637bbbd36550a49b63f4b35e#rd",
+      "time": "09:06",
+      "timestamp": 1775005579,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：地缘冲突经济学与资产定价",
+      "digest": "重视“安全”资产",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=1&sn=4de89189f8862b976f327bcd2b3c3583&chksm=eadd2aa7ddaaa3b17534133735d3b154ddeaa2214efbc584476eed01812794f8c70d8539d00d#rd",
+      "time": "07:31",
+      "timestamp": 1774999900,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：如何布局“未来产业”?",
+      "digest": "3月12日下午，十四届全国人大四次会议闭幕，会议表决通过了包括2026年《政府工作报告》和《国民经济和社会发展第十五个五年规划纲要》在内的多项决议和法律 ，其中多次提及“未来产业”。这是政府工作报告连续第三年、五年规划第二次重点部署未来产业。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830624&idx=2&sn=5f3a8f3371b058a59b656bed0031530d&chksm=eadd2aa7ddaaa3b121a3cc94499f30318928ab02d96a992f8143b7ce4045a164f35b8be1c7f8#rd",
+      "time": "07:31",
+      "timestamp": 1774999900,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "news": [
     {
       "title": "韩印领导人在联合声明中表示，承诺推进KF-21/IF-21战斗机生产项目合作…",
@@ -184,5 +275,7 @@
   "miao_notice": {
     "content": "今日焦点：韩印领导人在联合声明中表示，承诺推进KF-21/IF-21战。共收录 25 条资讯，喵子提醒保持独立判断，不跟风。",
     "label": "🐱 喵子告知 · 2026.04.01 16:20"
-  }
+  },
+  "diary": null,
+  "miao_thoughts": []
 }

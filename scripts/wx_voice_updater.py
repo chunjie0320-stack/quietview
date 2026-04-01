@@ -209,7 +209,7 @@ def ensure_html_panel(date_str, html_path):
     existing_dates = _re.findall(r'id="panel-daily-brief-(\d{8})"', content)
     insert_marker = None
     if existing_dates:
-        # 找比 date_str 小的最大日期
+        # 找比 date_str 小的最大日期（按日期数值排序，不依赖文档顺序）
         prev_dates = sorted([d for d in existing_dates if d < date_str], reverse=True)
         if prev_dates:
             insert_marker = f'<!-- 每日简报 {prev_dates[0][:4]}.{prev_dates[0][4:6]}.{prev_dates[0][6:]} -->'
@@ -226,11 +226,13 @@ def ensure_html_panel(date_str, html_path):
         print(f"  ⚠️  找不到插入锚点，跳过 panel 创建", file=sys.stderr)
         return
 
-    # 更新 JS tabs 配置：在最近的旧日期前插入新tab
+    # 更新 JS tabs 配置：在最近的旧日期前插入新tab（用日期排序，不依赖文档顺序）
     month_label = f"{date_str[4:6]}月{date_str[6:]}日"
     tab_entry = f"{{ id: 'daily-brief-{date_str}', label: '{month_label}', panel: '{panel_id}' }},\n        "
     if existing_dates and f"daily-brief-{date_str}" not in content:
-        prev_tab = f"{{ id: 'daily-brief-{existing_dates[0]}'"
+        # 取所有已有日期中最大的（最新）作为插入锚点
+        latest_existing = max(existing_dates)
+        prev_tab = f"{{ id: 'daily-brief-{latest_existing}'"
         if prev_tab in content:
             content = content.replace(prev_tab, tab_entry + prev_tab)
 

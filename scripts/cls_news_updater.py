@@ -321,36 +321,61 @@ def _escape_html(s):
              .replace('"', '&quot;'))
 
 
-def update_html(html_path, items):
-    """替换 HTML 中的 investment_news 注入区块"""
+def update_html(html_path, items, date_str=None):
+    """
+    替换 HTML 中当天日期的 INJECT:news_YYYYMMDD 区块。
+    date_str: YYYYMMDD（默认取今天）
+    严格按日期写入对应 panel，不再使用全局 investment_news 标记。
+    """
+    if date_str is None:
+        date_str = datetime.now().strftime("%Y%m%d")
+
     with open(html_path, encoding='utf-8') as f:
         html = f.read()
 
     items_html = items_to_html(items)
     count = len(items)
 
-    pattern = r'(<!-- INJECT:investment_news -->)(.*?)(<!-- /INJECT:investment_news -->)'
-    def make_replacer(items_str):
-        def replacer(m):
-            return m.group(1) + items_str + '\n              ' + m.group(3)
-        return replacer
-    new_html, n = re.subn(pattern, make_replacer(items_html), html, flags=re.DOTALL)
-
-    if n == 0:
-        print("❌ 未找到 INJECT:investment_news 标记，终止", file=sys.stderr)
-        sys.exit(1)
-
-    # 更新条数 badge
-    new_html = re.sub(
-        r'(<span class="col-count-badge" id="news-count">)[^<]*(</span>)',
-        rf'\g<1>· {count}\g<2>',
-        new_html
+    inject_key = f"news_{date_str}"
+    pattern = re.compile(
+        r'(<!-- INJECT:' + inject_key + r' -->)(.*?)(<!-- /INJECT:' + inject_key + r' -->)',
+        re.DOTALL
     )
+    if not pattern.search(html):
+        # 兼容旧全局标记（迁移期容错）
+        old_pattern = r'(<!-- INJECT:investment_news -->)(.*?)(<!-- /INJECT:investment_news -->)'
+        old_n = re.search(old_pattern, html, re.DOTALL)
+        if old_n:
+            print(f"  ⚠️  未找到 INJECT:{inject_key}，使用旧全局标记（兼容模式）", file=sys.stderr)
+            def make_replacer(items_str):
+                def replacer(m):
+                    return m.group(1) + items_str + '\n              ' + m.group(3)
+                return replacer
+            new_html, _ = re.subn(old_pattern, make_replacer(items_html), html, flags=re.DOTALL)
+            # 更新旧 badge
+            new_html = re.sub(
+                r'(<span class="col-count-badge" id="news-count">)[^<]*(</span>)',
+                rf'\g<1>· {count}\g<2>',
+                new_html
+            )
+        else:
+            print(f"❌ 未找到 INJECT:{inject_key} 也未找到全局标记，终止", file=sys.stderr)
+            sys.exit(1)
+    else:
+        def replacer(m):
+            return m.group(1) + '\n' + items_html + '\n              ' + m.group(3)
+        new_html = pattern.sub(replacer, html)
+        # 更新当天 badge
+        new_html = re.sub(
+            r'(<span class="col-count-badge" id="news-count-' + date_str + r'">)[^<]*(</span>)',
+            rf'\g<1>· {count}\g<2>',
+            new_html
+        )
 
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(new_html)
 
-    print(f"  ✅ HTML 更新完成，共 {count} 条资讯")
+    print(f"  ✅ HTML 更新完成（{date_str}），共 {count} 条资讯")
     return count
 
 
@@ -435,8 +460,8 @@ def main():
             json.dump(day_data, f, ensure_ascii=False, indent=2)
         print(f"  ✅ JSON 更新完成: data/{date_str}.json ({len(clean_items)}条)")
 
-        # 5. 更新 HTML
-        count = update_html(HTML_PATH, top_items)
+        # 5. 更新 HTML（严格写入当天日期的 panel）
+        count = update_html(HTML_PATH, top_items, date_str=date_str)
 
         # 6. div 自查
         verify_divs(HTML_PATH)

@@ -506,24 +506,51 @@ def _parse_links_generic(content, source, limit=10):
 
 
 def fetch_qbitai(limit=10):
-    """量子位"""
+    """量子位 — 只保留今天（Asia/Shanghai）发布的文章
+    量子位首页文章链接通常含日期路径 /YYYYMMDD/，可用于过滤。
+    无法判断日期的链接一律丢弃（防止历史文章混入）。
+    """
     print("  [量子位] 抓取中...")
     try:
         content = jina_fetch("https://www.qbitai.com")
-        news = _parse_links_generic(content, "量子位", limit)
-        print(f"  [量子位] ✅ {len(news)} 条")
-        return news
+        now = datetime.now(CST)
+        today_compact = now.strftime('%Y%m%d')   # e.g. "20260401"
+        today_slash   = now.strftime('%Y/%m/%d') # e.g. "2026/04/01"
+
+        news_list, seen = [], set()
+        # 量子位文章链接格式：https://www.qbitai.com/YYYYMMDD/...
+        pattern = re.compile(r'\[([^\]]{10,300})\]\((https?://(?:www\.)?qbitai\.com/(\d{8})/[^\)]+)\)')
+        for title, url, art_date in pattern.findall(content):
+            if len(news_list) >= limit:
+                break
+            if art_date != today_compact:
+                continue  # 跳过非今天的文章
+            title = title.strip()
+            if title in seen or is_noise(title):
+                continue
+            seen.add(title)
+            news_list.append({
+                'title': title[:200],
+                'body': '',
+                'time': today_slash,
+                'source': '量子位',
+                'link': url,
+            })
+        print(f"  [量子位] ✅ {len(news_list)} 条（仅今日）")
+        return news_list
     except Exception as e:
         print(f"  [量子位] ⚠️  失败: {e}")
         return []
 
 
 def fetch_jiqizhixin(limit=10):
-    """机器之心"""
+    """机器之心 — 只保留今天（Asia/Shanghai）发布的文章"""
     print("  [机器之心] 抓取中...")
     try:
         content = jina_fetch("https://www.jiqizhixin.com")
         now = datetime.now(CST)
+        today_str = now.strftime('%Y/%m/%d')  # e.g. "2026/04/01"
+        today_ymd = now.strftime('%Y-%m-%d')  # e.g. "2026-04-01"
         news_list, seen = [], set()
         lines = content.split('\n')
         for i, line in enumerate(lines):
@@ -532,30 +559,38 @@ def fetch_jiqizhixin(limit=10):
             line = line.strip()
             if not line or is_noise(line) or line.startswith(('#', '!', 'URL', 'Markdown', 'Title:')):
                 continue
-            # 下一非空行
+            # 下一非空行（用于判断日期）
             next_ne = ''
             for j in range(i + 1, min(i + 4, len(lines))):
                 c = lines[j].strip()
                 if c:
                     next_ne = c
                     break
-            is_article = (
-                next_ne in ('今天', '昨天') or
-                re.match(r'^\d{4}[-/]\d{2}[-/]\d{2}', next_ne) or
-                re.match(r'^\d{1,2}月\d{1,2}日', next_ne)
-            )
-            if is_article and line not in seen and len(line) >= 10:
+            # 判断是否为文章标题，且只取今天的
+            is_today = next_ne == '今天'
+            # 解析日期字符串
+            if not is_today:
+                # 格式：YYYY-MM-DD 或 YYYY/MM/DD
+                date_m = re.match(r'^(\d{4})[-/](\d{2})[-/](\d{2})', next_ne)
+                if date_m:
+                    art_date = f"{date_m.group(1)}/{date_m.group(2)}/{date_m.group(3)}"
+                    is_today = (art_date == today_str)
+                # 格式：M月D日（无年份，默认当年）
+                date_m2 = re.match(r'^(\d{1,2})月(\d{1,2})日', next_ne)
+                if date_m2:
+                    m_val = int(date_m2.group(1))
+                    d_val = int(date_m2.group(2))
+                    is_today = (m_val == now.month and d_val == now.day)
+            if is_today and line not in seen and len(line) >= 10:
                 seen.add(line)
                 news_list.append({
                     'title': line[:200],
                     'body': '',
-                    'time': now.strftime('%Y/%m/%d'),
+                    'time': today_str,
                     'source': '机器之心',
                     'link': 'https://www.jiqizhixin.com',
                 })
-        if not news_list:
-            news_list = _parse_links_generic(content, "机器之心", limit)
-        print(f"  [机器之心] ✅ {len(news_list)} 条")
+        print(f"  [机器之心] ✅ {len(news_list)} 条（仅今日）")
         return news_list
     except Exception as e:
         print(f"  [机器之心] ⚠️  失败: {e}")
@@ -563,33 +598,59 @@ def fetch_jiqizhixin(limit=10):
 
 
 def fetch_arxiv(limit=5):
-    """arxiv cs.AI + cs.LG 各取 limit 篇，合并去重"""
+    """arxiv cs.AI + cs.LG 各取 limit 篇，合并去重。
+    arxiv recent 页面包含最近几天的论文。
+    通过检测 Jina 返回内容中的 "Submissions from ..." 标题行来定位当天论文区间。
+    若无法解析日期区间，则保守丢弃（不混入可能是昨天的内容）。
+    """
     print("  [arxiv] 抓取中...")
     now = datetime.now(CST)
+    # arxiv 用 UTC（arxiv submissions用UTC，今天 UTC 对应当天 Asia/Shanghai 新论文）
+    # arxiv recent 页第一块通常是最新一个工作日的提交，时间戳格式是论文ID YYMM.xxxxx
+    today_yymm = now.strftime('%y%m')  # e.g. "2604" for April 2026
     results, seen = [], set()
 
     for cat in ['cs.AI', 'cs.LG']:
         try:
             content = jina_fetch(f"https://arxiv.org/list/{cat}/recent", timeout=30)
+
+            # 找"Submissions from ..."标题行，取第一个（最新一批）
+            # 格式如："Submissions from Mon, 31 Mar 2026" 或类似
+            # 截取第一个 Submissions 块到第二个 Submissions 块之间的内容
+            submission_positions = [m.start() for m in re.finditer(r'Submissions from', content)]
+            if len(submission_positions) >= 2:
+                # 只取最新批次（第一个到第二个之间）
+                block = content[submission_positions[0]:submission_positions[1]]
+            elif len(submission_positions) == 1:
+                block = content[submission_positions[0]:]
+            else:
+                # 无法定位提交日期，用论文ID的年月过滤（YYMM）
+                block = content
+
             abs_pattern = re.compile(r'https://arxiv\.org/abs/(\d{4}\.\d{4,5})')
-            abs_positions = [(m.start(), m.group(0)) for m in abs_pattern.finditer(content)]
+            abs_positions = [(m.start(), m.group(0), m.group(1)[:4]) for m in abs_pattern.finditer(block)]
 
             SKIP = {'artificial intelligence', 'cs.ai', 'cs.lg', 'recent',
                     'machine learning', 'authors and titles', 'quick links', 'new changes'}
             title_pattern = re.compile(r'Title:\s*([^\n]{10,300})', re.MULTILINE)
             count = 0
-            for tm in title_pattern.finditer(content):
+            for tm in title_pattern.finditer(block):
                 if count >= limit:
                     break
                 title = tm.group(1).strip()
                 if title in seen or title.lower() in SKIP or len(title) < 10:
                     continue
-                # 向前找最近的 abs URL
+                # 向前找最近的 abs URL（并验证 YYMM 与今天匹配）
                 best_url = f"https://arxiv.org/list/{cat}/recent"
-                for pos, url in reversed(abs_positions):
+                paper_yymm = None
+                for pos, url, yymm in reversed(abs_positions):
                     if pos < tm.start():
                         best_url = url
+                        paper_yymm = yymm
                         break
+                # 如果 paper_yymm 不匹配今天的 YYMM，跳过（非当月/当日）
+                if paper_yymm and paper_yymm != today_yymm:
+                    continue
                 seen.add(title)
                 results.append({
                     'title': title[:250],
@@ -599,7 +660,7 @@ def fetch_arxiv(limit=5):
                     'link': best_url,
                 })
                 count += 1
-            print(f"  [arxiv {cat}] ✅ {count} 条")
+            print(f"  [arxiv {cat}] ✅ {count} 条（仅最新批次）")
         except Exception as e:
             print(f"  [arxiv {cat}] ⚠️  失败: {e}")
 

@@ -264,12 +264,22 @@ def update_json_voice(date_str, voice_items, dry_run=False):
             "voice": [], "news": [], "ai_voice": [], "miao_notice": []
         }
 
-    # 合并策略：新抓到的文章 + 已有数据，按 title 去重，保留所有历史
+    # 合并策略：新抓到的文章 + 已有数据，按 title 去重
+    # ⚠️ 严格日期校验：已有数据必须有 timestamp 字段，且属于当天，否则丢弃（防止跨日污染）
+    date_start, date_end = today_ts_range(date_str)
     existing = day_data.get("voice", [])
-    # 过滤掉兜底占位条目
-    real_existing = [v for v in existing if v.get("title") != "今天还没有新文章哟 🐾" and v.get("source")]
+    # 过滤掉兜底占位条目，并做日期校验
+    real_existing = []
+    for v in existing:
+        if v.get("title") == "今天还没有新文章哟 🐾" or not v.get("source"):
+            continue
+        ts = v.get("timestamp", 0)
+        if ts and not (date_start <= ts < date_end):
+            print(f"  🗑️  丢弃跨日数据（{v.get('source')} / {v.get('title','')[:30]} / ts={ts}）", file=sys.stderr)
+            continue
+        real_existing.append(v)
 
-    # 用 title 去重合并（新数据优先，已有数据补充）
+    # 用 title 去重合并（新数据优先，已有当天历史数据补充）
     seen_titles = {v["title"] for v in voice_items}
     for v in real_existing:
         if v["title"] not in seen_titles:
@@ -278,7 +288,7 @@ def update_json_voice(date_str, voice_items, dry_run=False):
 
     if voice_items:
         new_count = len([v for v in voice_items if v["title"] not in {x["title"] for x in real_existing}])
-        print(f"  ℹ️  合并后共 {len(voice_items)} 条（新增 {new_count} 条，保留历史 {len(real_existing)} 条）", file=sys.stderr)
+        print(f"  ℹ️  合并后共 {len(voice_items)} 条（新增 {new_count} 条，保留当日历史 {len(real_existing)} 条）", file=sys.stderr)
     else:
         # 真的没有任何数据时才用兜底话术
         voice_items = [{
@@ -445,6 +455,7 @@ def main():
                     "digest":     art.get("digest", "")[:200],
                     "link":       art.get("link", ""),
                     "time":       datetime.fromtimestamp(ts, tz=tz).strftime("%H:%M") if ts else "",
+                    "timestamp":  ts,  # 保留原始时间戳，用于跨日污染检测
                     "color":      acct["color"],
                     "text_color": acct["text_color"],
                 })

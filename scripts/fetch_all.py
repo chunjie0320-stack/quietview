@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 """
-quietview 全量数据抓取脚本
-用于 GitHub Actions 定时执行
+quietview AI 行业声音全量抓取脚本（C方案 — JSON-only）
 
-输出：data/YYYYMMDD.json
-结构：
-  voice      - 投资·行业声音（微信5公众号）
-  news       - 投资·行业资讯（财联社）
-  ai_voice   - AI·行业声音（量子位 + 机器之心 + arxiv cs.AI/cs.LG）
-  miao_notice - 喵子判断
+职责：只写 data/YYYYMMDD.json 的 ai_voice[] 字段，不碰 index.html。
+追加去重模式（不覆盖写入）。
 
-环境变量（GitHub Actions Secrets）：
-  WX_TOKEN, WX_COOKIE
+数据源：
+  - 量子位 (qbitai.com)
+  - 机器之心 (jiqizhixin.com)
+  - arxiv cs.AI / cs.LG
+  - The Verge AI  (RSS: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml)
+  - TechCrunch AI (feed: https://techcrunch.com/feed/  过滤 category 含 artificial-intelligence)
+
+用法：
+  python3 fetch_all.py             # 正常运行
+  python3 fetch_all.py --dry-run   # 只打印，不写文件
 """
 
 import os
@@ -19,522 +22,82 @@ import re
 import sys
 import json
 import subprocess
+import xml.etree.ElementTree as ET
+import urllib.request
 from datetime import datetime, timezone, timedelta
+
+# ── 公共工具 ──────────────────────────────────────────────────────────────────
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from utils import (
+    load_or_create_day_data, save_day_data,
+    dedup_append, update_date_index, git_push,
+)
 
 # ── 时区 ──────────────────────────────────────────────────────────────────────
 CST = timezone(timedelta(hours=8))
 
-# ── 微信公众号配置 ─────────────────────────────────────────────────────────────
-ACCOUNTS = [
-    {"name": "财躺平",            "biz": "MzUyNTU4NzY5MA==", "color": "rgba(224,123,57,.12)", "text_color": "#e07b39"},
-    {"name": "卓哥投研笔记",      "biz": "Mzk0MzY0OTU5Ng==", "color": "rgba(46,125,50,.1)",   "text_color": "#2e7d32"},
-    {"name": "中金点睛",          "biz": "MzI3MDMzMjg0MA==", "color": "rgba(21,101,192,.1)",  "text_color": "#1565c0"},
-    {"name": "方伟看十年",        "biz": "MzU5OTAzMDg1OQ==", "color": "rgba(106,27,154,.1)",  "text_color": "#6a1b9a"},
-    {"name": "刘煜辉的高维宏观",  "biz": "MzYzNzAzODcwNw==", "color": "rgba(198,40,40,.1)",   "text_color": "#c62828"},
-]
-
-# ── 财联社分类关键词 ───────────────────────────────────────────────────────────
-CATEGORY_MAP = {
-    "部委动态": ["国务院", "发改委", "财政部", "央行", "证监会", "银保监", "工信部", "商务部",
-                 "国家能源局", "部委", "政策", "政府", "国办", "国资委", "人民银行", "外汇局"],
-    "A股走势":  ["A股", "沪指", "深证", "创业板", "科创板", "涨停", "跌停", "板块", "龙头",
-                 "上交所", "深交所", "北交所", "股价", "市值", "净利润", "营业收入", "分红", "回购"],
-    "国际市场": ["美股", "纳斯达克", "标普", "道指", "港股", "恒指", "日经", "欧股", "美联储",
-                 "欧洲央行", "加息", "降息", "利率", "原油", "黄金", "美元", "汇率"],
-    "科技AI":   ["AI", "人工智能", "大模型", "芯片", "半导体", "光模块", "算力", "GPU", "英伟达",
-                 "OpenAI", "谷歌", "微软", "Meta", "苹果", "华为", "数据中心"],
-    "地缘局势": ["伊朗", "以色列", "俄罗斯", "乌克兰", "中东", "导弹", "战争", "冲突", "制裁",
-                 "关税", "特朗普", "北约", "军事", "袭击"],
-    "国内经济": ["GDP", "CPI", "PPI", "PMI", "出口", "进口", "贸易", "外资", "消费", "地产",
-                 "房价", "房地产", "新能源", "电动车", "就业"],
-}
-
-# ── 噪音关键词（AI新闻过滤） ──────────────────────────────────────────────────
+# ── 噪音关键词 ────────────────────────────────────────────────────────────────
 NOISE_KEYWORDS = [
-    'javascript', 'cookie', '登录', '注册', 'login', 'sign up',
-    'subscribe', '订阅', 'menu', '导航', 'footer', 'header',
-    'about', 'contact', '联系我们', 'image ', 'img ', 'icon '
+    "javascript", "cookie", "登录", "注册", "login", "sign up",
+    "subscribe", "订阅", "menu", "导航", "footer", "header",
+    "about", "contact", "联系我们", "image ", "img ", "icon ",
 ]
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# 模块 1：微信公众号（投资·行业声音）
-# ══════════════════════════════════════════════════════════════════════════════
+# ── 工具函数 ──────────────────────────────────────────────────────────────────
 
-def load_wx_cookie():
-    """
-    优先从环境变量 WX_COOKIE（完整 cookie 字符串）读取。
-    fallback 到本地 ~/.openclaw/weibo/cookies.env，
-    从 WX_SLAVE_SID / WX_SLAVE_USER / WX_BIZUIN 字段构造 cookie。
-    """
-    token = os.environ.get('WX_TOKEN', '').strip()
-    cookie = os.environ.get('WX_COOKIE', '').strip()
-
-    if not cookie:
-        cookie_file = os.path.expanduser('~/.openclaw/weibo/cookies.env')
-        if os.path.exists(cookie_file):
-            env_map = {}
-            with open(cookie_file, encoding='utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    if not line or line.startswith('#') or '=' not in line:
-                        continue
-                    k, v = line.split('=', 1)
-                    env_map[k.strip()] = v.strip()
-            # 支持完整 cookie 字段
-            if env_map.get('WX_COOKIE'):
-                cookie = env_map['WX_COOKIE']
-            elif env_map.get('WX_SLAVE_SID'):
-                sid  = env_map.get('WX_SLAVE_SID', '')
-                user = env_map.get('WX_SLAVE_USER', '')
-                biz  = env_map.get('WX_BIZUIN', '')
-                cookie = f"slave_sid={sid}; slave_user={user}; bizuin={biz}"
-            if not token and env_map.get('WX_TOKEN'):
-                token = env_map['WX_TOKEN']
-
-    return token, cookie
+def is_noise(title: str) -> bool:
+    if len(title) < 10:
+        return True
+    tl = title.lower()
+    return any(kw in tl for kw in NOISE_KEYWORDS) or re.match(r"^(image\s+\d+|img\s*\d*)[:\s]", tl)
 
 
-def fetch_wx_articles(biz, cookie, count=3):
-    """通过微信公众号文章列表接口（getmsg）获取最新文章"""
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 MicroMessenger/8.0.45",
-        "Referer": f"https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz={biz}&scene=124",
-        "Cookie": cookie,
-    }
-
-    # Step 1: 访问主页拿 appmsg_token
-    import urllib.request
-    profile_url = f"https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz={biz}&scene=124"
-    req = urllib.request.Request(profile_url, headers=headers)
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        profile_html = resp.read().decode('utf-8', errors='ignore')
-
-    token_m = re.search(r'"appmsg_token"\s*:\s*"([^"]+)"', profile_html)
-    if not token_m:
-        if 'verify' in profile_html.lower() or '验证' in profile_html:
-            raise RuntimeError("Cookie 已过期，需要重新登录")
-        raise RuntimeError("无法提取 appmsg_token")
-
-    appmsg_token = token_m.group(1)
-
-    # Step 2: 获取文章列表
-    api_url = (
-        f"https://mp.weixin.qq.com/mp/profile_ext"
-        f"?action=getmsg&__biz={biz}&f=json&offset=0&count={count}"
-        f"&is_ok=1&scene=124&uin=777&key=777&pass_ticket=&wxtoken="
-        f"&appmsg_token={appmsg_token}&x5=0"
-    )
-    req2 = urllib.request.Request(api_url, headers=headers)
-    with urllib.request.urlopen(req2, timeout=15) as resp:
-        data = json.loads(resp.read().decode('utf-8', errors='ignore'))
-
-    if data.get('ret') != 0:
-        raise RuntimeError(f"API ret={data.get('ret')}, msg={data.get('msg')}")
-
-    msg_list = json.loads(data.get('general_msg_list', '{}')).get('list', [])
-    return msg_list
+def today_str_cst() -> str:
+    return datetime.now(CST).strftime("%Y%m%d")
 
 
-def parse_wx_articles(msg_list, account):
-    """解析微信消息列表 → voice 格式"""
-    results = []
-    for msg in msg_list:
-        comm = msg.get('comm_msg_info', {})
-        app = msg.get('app_msg_ext_info', {})
-        if not app:
-            continue
-        title = app.get('title', '').strip()
-        if not title:
-            continue
-        digest = app.get('digest', '').strip()
-        link = app.get('content_url', '').replace('\\/', '/')
-        ts = comm.get('datetime', 0)
-        time_str = datetime.fromtimestamp(ts, CST).strftime('%H:%M') if ts else ''
-
-        results.append({
-            'source': account['name'],
-            'title': title,
-            'link': link,
-            'digest': digest[:150] if digest else title[:80],
-            'time': time_str,
-            'color': account['color'],
-            'text_color': account['text_color'],
-            '_ts': ts,
-        })
-        # 子文章
-        for sub in app.get('multi_app_msg_item_list', []):
-            st = sub.get('title', '').strip()
-            sl = sub.get('content_url', '').replace('\\/', '/')
-            sd = sub.get('digest', '').strip()
-            if st and sl:
-                results.append({
-                    'source': account['name'],
-                    'title': st,
-                    'link': sl,
-                    'digest': sd[:150] if sd else st[:80],
-                    'time': time_str,
-                    'color': account['color'],
-                    'text_color': account['text_color'],
-                    '_ts': ts,
-                })
-    return results
-
-
-def get_voice():
-    """抓取全部微信公众号，返回按时间倒序的 voice 列表"""
-    print("── 微信公众号（投资·行业声音）──")
-    token, cookie = load_wx_cookie()
-    if not cookie:
-        print("  ⚠️  无 WX_COOKIE，跳过微信抓取")
-        return []
-
-    all_articles = []
-    for acc in ACCOUNTS:
-        try:
-            msgs = fetch_wx_articles(acc['biz'], cookie, count=3)
-            arts = parse_wx_articles(msgs, acc)
-            # 只取最新1篇
-            arts.sort(key=lambda x: x.get('_ts', 0), reverse=True)
-            if arts:
-                all_articles.append(arts[0])
-            print(f"  ✅ {acc['name']}: {len(arts)} 篇，取最新1篇")
-        except Exception as e:
-            print(f"  ⚠️  {acc['name']} 失败: {e}")
-
-    # 全部按时间倒序
-    all_articles.sort(key=lambda x: x.get('_ts', 0), reverse=True)
-    # 移除内部字段
-    for a in all_articles:
-        a.pop('_ts', None)
-
-    print(f"  共 {len(all_articles)} 条")
-    return all_articles
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 模块 2：财联社（投资·行业资讯）
-# ══════════════════════════════════════════════════════════════════════════════
-
-def classify_item(text):
-    for cat, keywords in CATEGORY_MAP.items():
-        if any(kw in text for kw in keywords):
-            return cat
-    return "综合"
-
-
-def fetch_cls_news(limit=15):
-    """抓取财联社电报，返回 news 格式列表"""
-    print("── 财联社（投资·行业资讯）──")
-    import urllib.request
-
-    # 优先：直连财联社解析 __NEXT_DATA__
-    try:
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-            "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
-            "Accept-Language": "zh-CN,zh;q=0.9",
-            "Referer": "https://www.cls.cn/",
-        }
-        req = urllib.request.Request("https://www.cls.cn/telegraph", headers=headers)
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            html = resp.read().decode('utf-8', errors='ignore')
-        m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', html, re.DOTALL)
-        if m:
-            next_data = json.loads(m.group(1))
-            tele_list = (next_data.get('props', {}).get('initialState', {})
-                         .get('telegraph', {}).get('telegraphList', []))
-            if tele_list:
-                print(f"  ✅ 直连财联社成功，{len(tele_list)} 条原始数据")
-                items = _parse_cls_json(tele_list, limit)
-                print(f"  筛选后 {len(items)} 条")
-                return items
-    except Exception as e:
-        print(f"  ⚠️  直连失败({e})，改用 Jina 代理")
-
-    # 备用：Jina
-    try:
-        result = subprocess.run(
-            ["curl", "-s", "--max-time", "30", "https://r.jina.ai/https://www.cls.cn/telegraph"],
-            capture_output=True, text=True, timeout=35
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            items = _parse_cls_markdown(result.stdout, limit)
-            print(f"  ✅ Jina 代理成功，{len(items)} 条")
-            return items
-    except Exception as e:
-        print(f"  ⚠️  Jina 代理失败: {e}")
-
-    print("  ⚠️  财联社全部方式失败，返回空")
-    return []
-
-
-def _parse_cls_json(tele_list, limit=15):
-    items = []
-    for item in tele_list:
-        content = item.get('content', '').strip()
-        title_raw = item.get('title', '').strip()
-        ctime = item.get('ctime', 0)
-        level = item.get('level', 'C')
-        reading = item.get('reading_num', 0)
-        sharing = item.get('share_num', 0)
-
-        if not content or len(content) < 10:
-            continue
-
-        if title_raw:
-            title = title_raw[:60]
-            body = re.sub(r'^【[^】]+】', '', content).strip()
-            body = re.sub(r'^财联社\d+月\d+日电，?', '', body).strip()
-        else:
-            m = re.match(r'【([^】]+)】(.*)', content, re.DOTALL)
-            if m:
-                title, body = m.group(1)[:60], m.group(2).strip()
-                body = re.sub(r'^财联社\d+月\d+日电，?', '', body).strip()
-            else:
-                clean = re.sub(r'^财联社\d+月\d+日电，?', '', content).strip()
-                title = clean[:38] + ('…' if len(clean) > 38 else '')
-                body = clean
-
-        time_str = datetime.fromtimestamp(ctime, CST).strftime('%H:%M') if ctime else datetime.now(CST).strftime('%H:%M')
-        importance = reading + sharing * 5 + (5000 if level == 'A' else 1000 if level == 'B' else 0)
-
-        items.append({
-            'title': title,
-            'body': body[:150] if body else '',
-            'time': time_str,
-            'source': '财联社',
-            'tag': classify_item(title + ' ' + content),
-            '_importance': importance,
-        })
-
-    # 按重要性排序，取 top N
-    items.sort(key=lambda x: x['_importance'], reverse=True)
-    items = items[:limit]
-    # 按时间顺序还原
-    items.sort(key=lambda x: x['time'])
-    for it in items:
-        it.pop('_importance', None)
-    return items
-
-
-def _parse_cls_markdown(content, limit=15):
-    items = []
-    lines = content.split('\n')
-    i = 0
-    while i < len(lines) and len(items) < limit:
-        line = lines[i].strip()
-        tm = re.match(r'^(\d{2}:\d{2})(?::\d{2})?$', line)
-        if tm:
-            time_str = tm.group(1)
-            i += 1
-            parts = []
-            while i < len(lines):
-                nl = lines[i].strip()
-                if re.match(r'^\d{2}:\d{2}', nl):
-                    break
-                if re.match(r'^阅$', nl) or re.match(r'^\d+\.\d+[WwKk万千]$', nl):
-                    i += 1
-                    continue
-                if nl:
-                    parts.append(nl)
-                i += 1
-            text = ' '.join(parts).strip()
-            if len(text) < 10:
-                continue
-            m = re.match(r'【([^】]+)】(.*)', text, re.DOTALL)
-            if m:
-                title, body = m.group(1)[:60], m.group(2).strip()
-            else:
-                clean = text.strip()
-                title = clean[:38] + ('…' if len(clean) > 38 else '')
-                body = clean
-            items.append({
-                'title': title,
-                'body': body[:150],
-                'time': time_str,
-                'source': '财联社',
-                'tag': classify_item(text),
-            })
-        else:
-            i += 1
-    return items
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 模块 2B：微博（刘煜辉）
-# ══════════════════════════════════════════════════════════════════════════════
-
-def get_weibo_voice():
-    """抓取刘煜辉微博最新3条，返回 voice 格式列表"""
-    print("── 微博（刘煜辉）──")
-    sub = os.environ.get('WEIBO_SUB', '').strip()
-    subp = os.environ.get('WEIBO_SUBP', '').strip()
-
-    # fallback 到本地文件
-    if not sub:
-        cookie_file = os.path.expanduser('~/.openclaw/weibo/cookies.env')
-        if os.path.exists(cookie_file):
-            with open(cookie_file, encoding='utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    if not line or line.startswith('#') or '=' not in line:
-                        continue
-                    k, v = line.split('=', 1)
-                    k, v = k.strip(), v.strip()
-                    if k == 'WEIBO_SUB':
-                        sub = v
-                    elif k == 'WEIBO_SUBP':
-                        subp = v
-
-    if not sub:
-        print("  ⚠️  无 WEIBO_SUB，跳过微博抓取")
-        return []
-
-    import urllib.request
-    uid = '2337530130'
-    url = (f'https://m.weibo.cn/api/container/getIndex'
-           f'?type=uid&value={uid}&containerid=107603{uid}')
-    headers = {
-        'User-Agent': ('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)'
-                       ' AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
-                       ' MicroMessenger/8.0.44 WeChat/iPhone'),
-        'Cookie': f'SUB={sub}; SUBP={subp}',
-        'Referer': f'https://m.weibo.cn/u/{uid}',
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'zh-CN,zh;q=0.9',
-    }
-    try:
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
-    except Exception as e:
-        print(f"  ⚠️  微博请求失败: {e}")
-        return []
-
-    cards = data.get('data', {}).get('cards', [])
-    results = []
-    now = datetime.now(CST)
-
-    for card in cards:
-        mblog = card.get('mblog', {})
-        if not mblog:
-            continue
-        text_raw = mblog.get('text', '')
-        # 去除HTML标签
-        text = re.sub(r'<[^>]+>', '', text_raw).strip()
-        text = re.sub(r'\s+', ' ', text).strip()
-        if len(text) < 10:
-            continue
-
-        created = mblog.get('created_at', '')
-        # 解析微博时间（格式如 "Thu Mar 26 12:34:56 +0800 2026"）
-        try:
-            from email.utils import parsedate
-            import time as _time
-            parsed = parsedate(created)
-            if parsed:
-                ts = _time.mktime(parsed)
-                time_str = datetime.fromtimestamp(ts, CST).strftime('%H:%M')
-            else:
-                time_str = now.strftime('%H:%M')
-        except Exception:
-            time_str = now.strftime('%H:%M')
-
-        title = text[:60] + ('…' if len(text) > 60 else '')
-        body = text[:200]
-        link = f"https://weibo.com/{uid}/{mblog.get('bid', '')}"
-
-        results.append({
-            'source': '刘煜辉',
-            'title': title,
-            'digest': body,
-            'link': link,
-            'time': time_str,
-            'color': 'rgba(198,40,40,.1)',
-            'text_color': '#c62828',
-        })
-        if len(results) >= 3:
-            break
-
-    print(f"  ✅ 刘煜辉微博: {len(results)} 条")
-    return results
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 模块 3：AI 行业声音（量子位 + 机器之心 + arxiv cs.AI/cs.LG）
-# ══════════════════════════════════════════════════════════════════════════════
-
-def jina_fetch(url, timeout=30):
+def jina_fetch(url: str, timeout: int = 30) -> str:
     """通过 Jina 代理抓取页面，返回 markdown 文本"""
     result = subprocess.run(
         ["curl", "-s", "--max-time", str(timeout), f"https://r.jina.ai/{url}"],
-        capture_output=True, text=True, timeout=timeout + 5
+        capture_output=True, text=True, timeout=timeout + 5,
     )
     if result.returncode != 0 or not result.stdout.strip():
         raise RuntimeError(f"jina 抓取失败: {result.stderr[:100]}")
     return result.stdout
 
 
-def is_noise(title):
-    if len(title) < 10:
-        return True
-    tl = title.lower()
-    return any(kw in tl for kw in NOISE_KEYWORDS) or re.match(r'^(image\s+\d+|img\s*\d*)[:\s]', tl)
+# ── Fetch 函数（每个都含当天自然日过滤）─────────────────────────────────────────
 
-
-def _parse_links_generic(content, source, limit=10):
-    """从 jina markdown 中提取 [title](url) 链接"""
-    now = datetime.now(CST)
-    news_list, seen = [], set()
-    pattern = re.compile(r'\[([^\]]{10,300})\]\((https?://[^\)]{10,})\)')
-    for title, url in pattern.findall(content):
-        title = title.strip()
-        if title in seen or is_noise(title):
-            continue
-        seen.add(title)
-        news_list.append({
-            'title': title[:200],
-            'body': '',
-            'time': now.strftime('%Y/%m/%d'),
-            'source': source,
-            'link': url,
-        })
-        if len(news_list) >= limit:
-            break
-    return news_list
-
-
-def fetch_qbitai(limit=10):
-    """量子位 — 只保留今天（Asia/Shanghai）发布的文章
-    量子位首页文章链接通常含日期路径 /YYYYMMDD/，可用于过滤。
-    无法判断日期的链接一律丢弃（防止历史文章混入）。
-    """
+def fetch_qbitai(limit: int = 10) -> list:
+    """量子位 — 只保留今天（Asia/Shanghai）发布的文章"""
     print("  [量子位] 抓取中...")
     try:
         content = jina_fetch("https://www.qbitai.com")
         now = datetime.now(CST)
-        today_compact = now.strftime('%Y%m%d')   # e.g. "20260401"
-        today_slash   = now.strftime('%Y/%m/%d') # e.g. "2026/04/01"
+        today_compact = now.strftime("%Y%m%d")
+        today_slash   = now.strftime("%Y/%m/%d")
 
         news_list, seen = [], set()
-        # 量子位文章链接格式：https://www.qbitai.com/YYYYMMDD/...
-        pattern = re.compile(r'\[([^\]]{10,300})\]\((https?://(?:www\.)?qbitai\.com/(\d{8})/[^\)]+)\)')
+        pattern = re.compile(
+            r"\[([^\]]{10,300})\]\((https?://(?:www\.)?qbitai\.com/(\d{8})/[^\)]+)\)"
+        )
         for title, url, art_date in pattern.findall(content):
             if len(news_list) >= limit:
                 break
             if art_date != today_compact:
-                continue  # 跳过非今天的文章
+                continue
             title = title.strip()
             if title in seen or is_noise(title):
                 continue
             seen.add(title)
             news_list.append({
-                'title': title[:200],
-                'body': '',
-                'time': today_slash,
-                'source': '量子位',
-                'link': url,
+                "title":  title[:200],
+                "body":   "",
+                "time":   today_slash,
+                "source": "量子位",
+                "link":   url,
             })
         print(f"  [量子位] ✅ {len(news_list)} 条（仅今日）")
         return news_list
@@ -543,52 +106,47 @@ def fetch_qbitai(limit=10):
         return []
 
 
-def fetch_jiqizhixin(limit=10):
+def fetch_jiqizhixin(limit: int = 10) -> list:
     """机器之心 — 只保留今天（Asia/Shanghai）发布的文章"""
     print("  [机器之心] 抓取中...")
     try:
         content = jina_fetch("https://www.jiqizhixin.com")
-        now = datetime.now(CST)
-        today_str = now.strftime('%Y/%m/%d')  # e.g. "2026/04/01"
-        today_ymd = now.strftime('%Y-%m-%d')  # e.g. "2026-04-01"
+        now        = datetime.now(CST)
+        today_str  = now.strftime("%Y/%m/%d")
+
         news_list, seen = [], set()
-        lines = content.split('\n')
+        lines = content.split("\n")
         for i, line in enumerate(lines):
             if len(news_list) >= limit:
                 break
             line = line.strip()
-            if not line or is_noise(line) or line.startswith(('#', '!', 'URL', 'Markdown', 'Title:')):
+            if not line or is_noise(line) or line.startswith(("#", "!", "URL", "Markdown", "Title:")):
                 continue
-            # 下一非空行（用于判断日期）
-            next_ne = ''
+            # 下一非空行用于判断日期
+            next_ne = ""
             for j in range(i + 1, min(i + 4, len(lines))):
                 c = lines[j].strip()
                 if c:
                     next_ne = c
                     break
-            # 判断是否为文章标题，且只取今天的
-            is_today = next_ne == '今天'
-            # 解析日期字符串
+            is_today = next_ne == "今天"
             if not is_today:
-                # 格式：YYYY-MM-DD 或 YYYY/MM/DD
-                date_m = re.match(r'^(\d{4})[-/](\d{2})[-/](\d{2})', next_ne)
+                date_m = re.match(r"^(\d{4})[-/](\d{2})[-/](\d{2})", next_ne)
                 if date_m:
-                    art_date = f"{date_m.group(1)}/{date_m.group(2)}/{date_m.group(3)}"
-                    is_today = (art_date == today_str)
-                # 格式：M月D日（无年份，默认当年）
-                date_m2 = re.match(r'^(\d{1,2})月(\d{1,2})日', next_ne)
+                    art_date  = f"{date_m.group(1)}/{date_m.group(2)}/{date_m.group(3)}"
+                    is_today  = (art_date == today_str)
+                date_m2 = re.match(r"^(\d{1,2})月(\d{1,2})日", next_ne)
                 if date_m2:
-                    m_val = int(date_m2.group(1))
-                    d_val = int(date_m2.group(2))
-                    is_today = (m_val == now.month and d_val == now.day)
+                    is_today = (int(date_m2.group(1)) == now.month and
+                                int(date_m2.group(2)) == now.day)
             if is_today and line not in seen and len(line) >= 10:
                 seen.add(line)
                 news_list.append({
-                    'title': line[:200],
-                    'body': '',
-                    'time': today_str,
-                    'source': '机器之心',
-                    'link': 'https://www.jiqizhixin.com',
+                    "title":  line[:200],
+                    "body":   "",
+                    "time":   today_str,
+                    "source": "机器之心",
+                    "link":   "https://www.jiqizhixin.com",
                 })
         print(f"  [机器之心] ✅ {len(news_list)} 条（仅今日）")
         return news_list
@@ -597,42 +155,34 @@ def fetch_jiqizhixin(limit=10):
         return []
 
 
-def fetch_arxiv(limit=5):
-    """arxiv cs.AI + cs.LG 各取 limit 篇，合并去重。
-    arxiv recent 页面包含最近几天的论文。
-    通过检测 Jina 返回内容中的 "Submissions from ..." 标题行来定位当天论文区间。
-    若无法解析日期区间，则保守丢弃（不混入可能是昨天的内容）。
-    """
+def fetch_arxiv(limit: int = 5) -> list:
+    """arxiv cs.AI + cs.LG 各取 limit 篇，只取最新批次"""
     print("  [arxiv] 抓取中...")
-    now = datetime.now(CST)
-    # arxiv 用 UTC（arxiv submissions用UTC，今天 UTC 对应当天 Asia/Shanghai 新论文）
-    # arxiv recent 页第一块通常是最新一个工作日的提交，时间戳格式是论文ID YYMM.xxxxx
-    today_yymm = now.strftime('%y%m')  # e.g. "2604" for April 2026
+    now        = datetime.now(CST)
+    today_yymm = now.strftime("%y%m")
     results, seen = [], set()
 
-    for cat in ['cs.AI', 'cs.LG']:
+    SKIP = {"artificial intelligence", "cs.ai", "cs.lg", "recent",
+            "machine learning", "authors and titles", "quick links", "new changes"}
+
+    for cat in ["cs.AI", "cs.LG"]:
         try:
             content = jina_fetch(f"https://arxiv.org/list/{cat}/recent", timeout=30)
 
-            # 找"Submissions from ..."标题行，取第一个（最新一批）
-            # 格式如："Submissions from Mon, 31 Mar 2026" 或类似
-            # 截取第一个 Submissions 块到第二个 Submissions 块之间的内容
-            submission_positions = [m.start() for m in re.finditer(r'Submissions from', content)]
+            # 取第一批（最新）提交内容
+            submission_positions = [m.start() for m in re.finditer(r"Submissions from", content)]
             if len(submission_positions) >= 2:
-                # 只取最新批次（第一个到第二个之间）
                 block = content[submission_positions[0]:submission_positions[1]]
             elif len(submission_positions) == 1:
                 block = content[submission_positions[0]:]
             else:
-                # 无法定位提交日期，用论文ID的年月过滤（YYMM）
                 block = content
 
-            abs_pattern = re.compile(r'https://arxiv\.org/abs/(\d{4}\.\d{4,5})')
-            abs_positions = [(m.start(), m.group(0), m.group(1)[:4]) for m in abs_pattern.finditer(block)]
+            abs_pattern  = re.compile(r"https://arxiv\.org/abs/(\d{4}\.\d{4,5})")
+            abs_positions = [(m.start(), m.group(0), m.group(1)[:4])
+                             for m in abs_pattern.finditer(block)]
 
-            SKIP = {'artificial intelligence', 'cs.ai', 'cs.lg', 'recent',
-                    'machine learning', 'authors and titles', 'quick links', 'new changes'}
-            title_pattern = re.compile(r'Title:\s*([^\n]{10,300})', re.MULTILINE)
+            title_pattern = re.compile(r"Title:\s*([^\n]{10,300})", re.MULTILINE)
             count = 0
             for tm in title_pattern.finditer(block):
                 if count >= limit:
@@ -640,24 +190,20 @@ def fetch_arxiv(limit=5):
                 title = tm.group(1).strip()
                 if title in seen or title.lower() in SKIP or len(title) < 10:
                     continue
-                # 向前找最近的 abs URL（并验证 YYMM 与今天匹配）
-                best_url = f"https://arxiv.org/list/{cat}/recent"
-                paper_yymm = None
+                best_url, paper_yymm = f"https://arxiv.org/list/{cat}/recent", None
                 for pos, url, yymm in reversed(abs_positions):
                     if pos < tm.start():
-                        best_url = url
-                        paper_yymm = yymm
+                        best_url, paper_yymm = url, yymm
                         break
-                # 如果 paper_yymm 不匹配今天的 YYMM，跳过（非当月/当日）
                 if paper_yymm and paper_yymm != today_yymm:
                     continue
                 seen.add(title)
                 results.append({
-                    'title': title[:250],
-                    'body': '',
-                    'time': now.strftime('%Y/%m/%d'),
-                    'source': f'arxiv {cat}',
-                    'link': best_url,
+                    "title":  title[:250],
+                    "body":   "",
+                    "time":   now.strftime("%Y/%m/%d"),
+                    "source": f"arxiv {cat}",
+                    "link":   best_url,
                 })
                 count += 1
             print(f"  [arxiv {cat}] ✅ {count} 条（仅最新批次）")
@@ -667,54 +213,78 @@ def fetch_arxiv(limit=5):
     return results
 
 
-def fetch_theverge_ai(limit=8):
-    """The Verge AI 频道 — 只保留今天（Asia/Shanghai）发布的文章。
-    The Verge 链接格式为 /news/NNNNN/ 或 /ai-artificial-intelligence/NNNNN/，
-    无日期路径，通过正文中紧随作者名后的日期行（如 "Apr 1" / "Mar 31"）来过滤。
-    策略：提取所有 [title](url) + 紧跟的日期文本，仅保留今天日期的文章。
+def fetch_verge_ai(limit: int = 8) -> list:
     """
-    print("  [The Verge AI] 抓取中...")
+    The Verge AI — 通过官方 RSS 抓取，只保留今天（Asia/Shanghai）发布的文章。
+    RSS: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
+    """
+    print("  [The Verge AI] 抓取中（RSS）...")
+    RSS_URL = "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
+    now       = datetime.now(CST)
+    today     = now.date()
+
     try:
-        content = jina_fetch("https://www.theverge.com/ai-artificial-intelligence", timeout=30)
-        now = datetime.now(CST)
-        # 今天的月日格式（英文缩写），如 "Apr 1"
-        today_label = now.strftime('%b %-d')       # e.g. "Apr 1"
-        today_label2 = now.strftime('%b %d')       # e.g. "Apr 01"（部分系统）
-
-        # 逐行扫描：找标题行（含 theverge.com 链接），然后检查附近的日期行
-        lines = content.split('\n')
-        news_list, seen = [], set()
-        link_pattern = re.compile(
-            r'\[([^\]]{10,300})\]\((https?://(?:www\.)?theverge\.com/(?!wp-content|platform)[^\)]+)\)'
+        req = urllib.request.Request(
+            RSS_URL,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; quietview-bot/1.0)"},
         )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            xml_bytes = resp.read()
 
-        for i, line in enumerate(lines):
+        root = ET.fromstring(xml_bytes)
+        ns   = {"atom": "http://www.w3.org/2005/Atom"}
+
+        # Atom feed (<entry>) or RSS feed (<item>)
+        entries = root.findall(".//entry", ns) or root.findall(".//item")
+        news_list, seen = [], set()
+
+        for entry in entries:
             if len(news_list) >= limit:
                 break
-            m = link_pattern.search(line)
-            if not m:
-                continue
-            title = m.group(1).strip()
-            url = m.group(2)
-            if title in seen or is_noise(title):
+
+            # Title
+            title_el = entry.find("title") or entry.find("{http://www.w3.org/2005/Atom}title")
+            title = (title_el.text or "").strip() if title_el is not None else ""
+            if not title or is_noise(title) or title in seen:
                 continue
 
-            # 检查前后 6 行内是否有今天的日期标记
-            window = lines[max(0, i-6):min(len(lines), i+7)]
-            has_today_date = any(
-                today_label in wl or today_label2 in wl or 'Today' in wl
-                for wl in window
-            )
-            if not has_today_date:
+            # Link
+            link_el = entry.find("link") or entry.find("{http://www.w3.org/2005/Atom}link")
+            if link_el is None:
+                continue
+            link = link_el.get("href") or (link_el.text or "").strip()
+            if not link:
+                continue
+
+            # Published date
+            pub_el = (entry.find("pubDate") or
+                      entry.find("published") or
+                      entry.find("{http://www.w3.org/2005/Atom}published") or
+                      entry.find("updated") or
+                      entry.find("{http://www.w3.org/2005/Atom}updated"))
+            pub_text = (pub_el.text or "").strip() if pub_el is not None else ""
+
+            pub_date = None
+            for fmt in ("%a, %d %b %Y %H:%M:%S %z", "%Y-%m-%dT%H:%M:%S%z",
+                        "%Y-%m-%dT%H:%M:%SZ", "%a, %d %b %Y %H:%M:%S GMT"):
+                try:
+                    dt = datetime.strptime(pub_text, fmt)
+                    pub_date = dt.astimezone(CST).date()
+                    break
+                except ValueError:
+                    continue
+
+            # 严格当天过滤
+            if pub_date is None or pub_date != today:
                 continue
 
             seen.add(title)
             news_list.append({
-                'title': title[:200],
-                'body': '',
-                'time': now.strftime('%Y/%m/%d'),
-                'source': 'The Verge',
-                'link': url,
+                "title":  title[:200],
+                "body":   "",
+                "time":   now.strftime("%Y/%m/%d"),
+                "source": "The Verge",
+                "link":   link,
             })
 
         print(f"  [The Verge AI] ✅ {len(news_list)} 条（仅今日）")
@@ -724,200 +294,133 @@ def fetch_theverge_ai(limit=8):
         return []
 
 
-def fetch_techcrunch_ai(limit=8):
-    """TechCrunch AI 频道 — 只保留近12小时（相对时间）或今天链接日期的文章。
-    TechCrunch 链接含日期路径 /YYYY/MM/DD/，时区为 UTC，
-    因此上午时段上海时间对应的链接日期可能是"昨天"（UTC时间）。
-    策略：接受链接日期为今天或昨天（UTC），同时要求相对时间 ≤ 12 小时。
+def fetch_techcrunch_ai(limit: int = 8) -> list:
     """
-    print("  [TechCrunch AI] 抓取中...")
+    TechCrunch AI — 通过 RSS feed 抓取，过滤 category 含 artificial-intelligence 的条目，
+    只保留今天（Asia/Shanghai）发布的文章。
+    Feed: https://techcrunch.com/feed/
+    """
+    print("  [TechCrunch AI] 抓取中（RSS）...")
+    FEED_URL  = "https://techcrunch.com/feed/"
+    now       = datetime.now(CST)
+    today     = now.date()
+
     try:
-        content = jina_fetch("https://techcrunch.com/category/artificial-intelligence/", timeout=30)
-        now = datetime.now(CST)
-        # UTC 今天 + 昨天日期（处理时区偏差）
-        import datetime as _dt
-        utc_now = datetime.now(timezone.utc)
-        utc_today = utc_now.strftime('%Y/%m/%d')
-        utc_yesterday = (utc_now - timedelta(days=1)).strftime('%Y/%m/%d')
-
-        lines = content.split('\n')
-        news_list, seen = [], set()
-        # TechCrunch 格式：标题行 "### [Title](url)"，下方有 "X hours ago" / "X minutes ago"
-        link_pattern = re.compile(
-            r'###\s*\[([^\]]{10,300})\]\((https?://(?:www\.)?techcrunch\.com/(\d{4}/\d{2}/\d{2})/[^\)]+)\)'
+        req = urllib.request.Request(
+            FEED_URL,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; quietview-bot/1.0)"},
         )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            xml_bytes = resp.read()
 
-        for i, line in enumerate(lines):
+        root  = ET.fromstring(xml_bytes)
+        items = root.findall(".//item")
+        news_list, seen = [], set()
+
+        for item in items:
             if len(news_list) >= limit:
                 break
-            m = link_pattern.search(line)
-            if not m:
-                continue
-            title = m.group(1).strip()
-            url = m.group(2)
-            link_date = m.group(3)  # "2026/03/31"
-            if title in seen or is_noise(title):
-                continue
 
-            # 链接日期必须是 UTC 今天或昨天
-            if link_date not in (utc_today, utc_yesterday):
+            # Category filter: 必须含 artificial-intelligence
+            cats = [c.text or "" for c in item.findall("category")]
+            if not any("artificial-intelligence" in c.lower() or
+                       "artificial intelligence" in c.lower()
+                       for c in cats):
                 continue
 
-            # 检查附近行是否有相对时间（12小时内）
-            window = lines[max(0, i-4):min(len(lines), i+8)]
-            recent = False
-            for wl in window:
-                wl = wl.strip()
-                # "X minutes ago" or "X hours ago"
-                mm = re.search(r'(\d+)\s+minutes?\s+ago', wl)
-                if mm:
-                    recent = True
-                    break
-                hm = re.search(r'(\d+)\s+hours?\s+ago', wl)
-                if hm and int(hm.group(1)) <= 18:
-                    recent = True
-                    break
-                # "just now"
-                if 'just now' in wl.lower():
-                    recent = True
-                    break
+            # Title
+            title_el = item.find("title")
+            title = (title_el.text or "").strip() if title_el is not None else ""
+            if not title or is_noise(title) or title in seen:
+                continue
 
-            if not recent:
+            # Link
+            link_el = item.find("link")
+            link = (link_el.text or "").strip() if link_el is not None else ""
+            if not link:
+                continue
+
+            # Published date
+            pub_el   = item.find("pubDate")
+            pub_text = (pub_el.text or "").strip() if pub_el is not None else ""
+            pub_date = None
+            for fmt in ("%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S GMT"):
+                try:
+                    dt = datetime.strptime(pub_text, fmt)
+                    pub_date = dt.astimezone(CST).date()
+                    break
+                except ValueError:
+                    continue
+
+            # 严格当天过滤
+            if pub_date is None or pub_date != today:
                 continue
 
             seen.add(title)
             news_list.append({
-                'title': title[:200],
-                'body': '',
-                'time': now.strftime('%Y/%m/%d'),
-                'source': 'TechCrunch',
-                'link': url,
+                "title":  title[:200],
+                "body":   "",
+                "time":   now.strftime("%Y/%m/%d"),
+                "source": "TechCrunch",
+                "link":   link,
             })
 
-        print(f"  [TechCrunch AI] ✅ {len(news_list)} 条（近18小时）")
+        print(f"  [TechCrunch AI] ✅ {len(news_list)} 条（仅今日）")
         return news_list
     except Exception as e:
         print(f"  [TechCrunch AI] ⚠️  失败: {e}")
         return []
 
 
-def get_ai_voice():
-    """整合 AI 行业声音"""
-    print("── AI·行业声音 ──")
+# ── 主流程 ────────────────────────────────────────────────────────────────────
+
+def main():
+    dry_run  = "--dry-run" in sys.argv
+    now      = datetime.now(CST)
+    date_str = now.strftime("%Y%m%d")
+    now_str  = now.strftime("%Y.%m.%d %H:%M")
+
+    print(f"{'='*60}")
+    print(f"  quietview AI 声音全量抓取  {now_str} CST（JSON-only）")
+    print(f"{'='*60}")
+
+    # 1. 抓取各数据源
     ai_voice = []
     ai_voice.extend(fetch_qbitai(limit=10))
     ai_voice.extend(fetch_jiqizhixin(limit=10))
     ai_voice.extend(fetch_arxiv(limit=5))
-    ai_voice.extend(fetch_theverge_ai(limit=8))
+    ai_voice.extend(fetch_verge_ai(limit=8))
     ai_voice.extend(fetch_techcrunch_ai(limit=8))
-    print(f"  共 {len(ai_voice)} 条 AI 资讯")
-    return ai_voice
+
+    total = len(ai_voice)
+    print(f"\n  共 {total} 条 AI 资讯（当天）")
+
+    if dry_run:
+        print(f"[dry-run] would write {total} ai_voice items to data/{date_str}.json")
+        for it in ai_voice[:5]:
+            print(f"  [{it.get('source')}] {it.get('title','')[:60]}")
+        return
+
+    # 2. 追加去重写入（不覆盖已有数据）
+    day_data = load_or_create_day_data(date_str)
+    before   = len(day_data.get("ai_voice", []))
+    day_data["ai_voice"] = dedup_append(
+        day_data.get("ai_voice", []), ai_voice, key="link"
+    )
+    after    = len(day_data["ai_voice"])
+    day_data["generated_at"] = datetime.now().isoformat()
+
+    save_day_data(date_str, day_data)
+    print(f"\n  ✅ data/{date_str}.json 更新完成")
+    print(f"     ai_voice: {before} → {after} 条（新增 {after - before}）")
+
+    # 3. 更新日期索引
+    update_date_index(date_str)
+
+    # 4. git push（只推 data/）
+    git_push(f"auto: AI声音更新 {now_str} ({total}条)")
+    print(f"  ✅ 完成 {now_str}")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# 模块 4：喵子判断
-# ══════════════════════════════════════════════════════════════════════════════
-
-def generate_miao_notice(voice, news, ai_voice, now):
-    """
-    基于当日 voice / news / ai_voice 内容，模板生成喵子点评。
-    风格：一针见血大白话，≤100字，≤2句，带喵子视角。
-    不调 LLM，用标题关键词拼接。
-    """
-
-    # 抽取最有价值的标题：voice 优先（有时间戳），news 次之，ai_voice 补充
-    top_titles = []
-    if voice:
-        top_titles.append(voice[0]['title'][:30])
-    if news:
-        top_titles.append(news[0]['title'][:30])
-    if not top_titles and ai_voice:
-        top_titles.append(ai_voice[0]['title'][:30])
-
-    total = len(voice) + len(news) + len(ai_voice)
-    date_str = now.strftime('%Y.%m.%d %H:%M')
-
-    # 挑关键词触发不同模板
-    all_text = ' '.join(top_titles)
-
-    if any(kw in all_text for kw in ['特朗普', '关税', '制裁', '战争', '地缘']):
-        template = f"地缘博弈又添新变量：{top_titles[0] if top_titles else ''}。喵子建议仓位别贪，留子弹等机会。"
-    elif any(kw in all_text for kw in ['AI', '大模型', '芯片', '算力', 'GPU']):
-        template = f"AI浪头还在：{top_titles[0] if top_titles else ''}。喵子提醒，技术叙事估值贵，耐心等回调。"
-    elif any(kw in all_text for kw in ['美联储', '加息', '降息', '利率', '货币']):
-        template = f"货币政策牵一发：{top_titles[0] if top_titles else ''}。喵子说，流动性才是行情的底色，盯紧它。"
-    elif any(kw in all_text for kw in ['A股', '沪指', '涨停', '牛市', '反弹']):
-        template = f"A股情绪来了：{top_titles[0] if top_titles else ''}。喵子建议情绪高峰别追，低位布局才是正解。"
-    elif any(kw in all_text for kw in ['黄金', '原油', '大宗', '商品']):
-        template = f"大宗市场有动静：{top_titles[0] if top_titles else ''}。喵子提示，避险情绪来了要跟，但别上杠杆。"
-    elif total == 0:
-        template = "今日数据抓取较少，喵子暂无特别判断。盘面平静，持股待涨。"
-    else:
-        if top_titles:
-            template = f"今日焦点：{top_titles[0]}。共收录 {total} 条资讯，喵子提醒保持独立判断，不跟风。"
-        else:
-            template = f"今日共收录 {total} 条资讯，市场信息量正常。喵子建议按既定策略执行，勿因短期噪音频繁操作。"
-
-    # 截断到 100 字
-    content = template[:100]
-
-    return {
-        'content': content,
-        'label': f'🐱 喵子告知 · {date_str}',
-    }
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-## 主程序
-# ══════════════════════════════════════════════════════════════════════════════
-
-def main():
-    now = datetime.now(CST)
-    date_str = now.strftime('%Y%m%d')
-    print(f"{'='*60}")
-    print(f"  quietview 全量抓取  {now.strftime('%Y.%m.%d %H:%M')} CST")
-    print(f"{'='*60}")
-
-    # 1. 微信公众号（投资·行业声音）
-    voice = get_voice()
-
-    # 1B. 微博（刘煜辉）补充进 voice
-    voice.extend(get_weibo_voice())
-
-    # 2. 财联社（投资·行业资讯）
-    news = fetch_cls_news(limit=15)
-
-    # 3. AI 行业声音
-    ai_voice = get_ai_voice()
-
-    # 4. 喵子判断
-    print("── 喵子判断 ──")
-    miao_notice = generate_miao_notice(voice, news, ai_voice, now)
-    print(f"  ✅ {miao_notice['content'][:40]}…")
-
-    # 5. 写入 JSON
-    data = {
-        'date': date_str,
-        'generated_at': now.isoformat(),
-        'voice': voice,
-        'news': news,
-        'ai_voice': ai_voice,
-        'miao_notice': miao_notice,
-    }
-
-    os.makedirs('data', exist_ok=True)
-    out_path = f'data/{date_str}.json'
-    with open(out_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-    print(f"\n{'='*60}")
-    print(f"  ✅ 写入 {out_path}")
-    print(f"  voice    : {len(voice)} 条")
-    print(f"  news     : {len(news)} 条")
-    print(f"  ai_voice : {len(ai_voice)} 条")
-    print(f"  miao_notice: {miao_notice['label']}")
-    print(f"{'='*60}")
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -774,10 +774,18 @@ def main():
             print(f"  voice数据已更新：{len(voice_list)} 条")
 
         # 1c. 刷新 AI 行业声音（量子位/机器之心等）
+        # 注意：fetch_ai_voice 读 ai_news.json（旧路径），可能为空或过时
+        # 若返回空，保留当天json里 fetch_all.py 已写入的 ai_voice 数据，不覆盖
         ai_voice = fetch_ai_voice()
         if ai_voice:
             data['ai_voice'] = ai_voice
-            print(f"  ai_voice数据已更新：{len(ai_voice)} 条")
+            print(f"  ai_voice数据已更新（来自ai_news.json）：{len(ai_voice)} 条")
+        else:
+            existing = data.get('ai_voice', [])
+            if existing:
+                print(f"  ai_voice保留YYYYMMDD.json中数据：{len(existing)} 条")
+            else:
+                print(f"  ai_voice：无数据")
 
         # 2. 如果JSON里没有数据，fallback读HTML
         if not news_list and not voice_list:

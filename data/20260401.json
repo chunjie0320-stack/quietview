@@ -1,6 +1,6 @@
 {
   "date": "20260401",
-  "generated_at": "2026-04-01T18:00:25.769413",
+  "generated_at": "2026-04-01T18:01:35.407742",
   "voice": [
     {
       "source": "财躺平",
@@ -201,6 +201,13 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Salesforce announces an AI-heavy makeover for Slack, with 30 new features",
+      "body": "",
+      "time": "2026/04/01",
+      "source": "TechCrunch",
+      "link": "https://techcrunch.com/2026/03/31/salesforce-announces-an-ai-heavy-makeover-for-slack-with-30-new-features/"
+    },
     {
       "title": "破局X射线断层成像修复！KAUST、上智院等提出通用自监督基础模型HorusEye，登Nature子刊",
       "body": "",

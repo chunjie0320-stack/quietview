@@ -1,6 +1,6 @@
 {
   "date": "20260402",
-  "generated_at": "2026-04-02T09:37:30.449246",
+  "generated_at": "2026-04-02T10:13:29.773391",
   "news": [
     {
       "time": "07:09",
@@ -155,7 +155,78 @@
       "text_color": "#1565c0"
     }
   ],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "HippoCamp: Benchmarking Contextual Agents on Personal Computers",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01221"
+    },
+    {
+      "title": "Therefore I am. I Think",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01202"
+    },
+    {
+      "title": "Detecting Multi-Agent Collusion Through Multi-Agent Interpretability",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01151"
+    },
+    {
+      "title": "Adversarial Moral Stress Testing of Large Language Models",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01108"
+    },
+    {
+      "title": "OmniMem: Autoresearch-Guided Discovery of Lifelong Multimodal Agent Memory",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01007"
+    },
+    {
+      "title": "LAtent Phase Inference from Short time sequences using SHallow REcurrent Decoders (LAPIS-SHRED)",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01216"
+    },
+    {
+      "title": "The Recipe Matters More Than the Kitchen:Mathematical Foundations of the AI Weather Prediction Pipeline",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01215"
+    },
+    {
+      "title": "CliffSearch: Structured Agentic Co-Evolution over Theory and Code for Scientific Algorithm Discovery",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01210"
+    },
+    {
+      "title": "Screening Is Enough",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01178"
+    },
+    {
+      "title": "NeuroDDAF: Neural Dynamic Diffusion-Advection Fields with Evidential Fusion for Air Quality Forecasting",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01175"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今日市场信号有点分裂：黄金破4800美元创新高，避险情绪拉满；但布油跌破100美元关口，能源端在泄气。外资连续净卖日股日债，资金在全球范围内躁动撤离。地缘+关税压力叠加，这波波动还没到头。\n\n中金4月超配机械、电力设备、电子硬件，逻辑清晰——高油价加速电动化，固态电池和锂电设备的配置窗口正在打开。具身智能机器人广东省级研究中心落地，国家队在持续押注这条线，别光看热闹。\n\n喵子提示一句：公募独门股锐减、抱团深化，意味着反向差异化机会更稀缺也更珍贵。现在买大家都买的，安全感是假的；真阿尔法藏在没人待的地方。",

@@ -1,6 +1,6 @@
 {
   "date": "20260402",
-  "generated_at": "2026-04-02T18:00:20.631186",
+  "generated_at": "2026-04-02T18:00:59.030446",
   "news": [
     {
       "time": "11:30",
@@ -286,6 +286,76 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "悟空率先接入国产最强编程模型Qwen3.6-Plus",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "应对智能体安全风险，蚂蚁集团与清华大学联合开源防御插件ClawAegis",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "锚定混合式AI主航道，联想中国新财年加速「个人与企业智能」双轮驱动",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，龙虾军团有了最强「视力」！一眼看图直接写代码",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "HSImul3R：给三维交互重建装上物理大脑",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "我国首个物理AI个人开发者平台发布 一人即可训练机器人",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "每天120万亿Tokens：Seedance 2.0和ArkClaw龙虾，让豆包大模型调用量炸了",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 | 世界模型卡在多机器人协作？一个「顺序分解」思路打通",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "重构跨域RL框架！理论驱动「双重对齐」让跨域迁移「质变」",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "五大赛道全面开启，这场AI4S大赛把人文也拉进来了",
+      "body": "",
+      "time": "2026/04/02",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
     {
       "title": "HippoCamp: Benchmarking Contextual Agents on Personal Computers",
       "body": "",

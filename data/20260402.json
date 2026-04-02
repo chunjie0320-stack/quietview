@@ -1,6 +1,6 @@
 {
   "date": "20260402",
-  "generated_at": "2026-04-02T12:00:29.066490",
+  "generated_at": "2026-04-02T12:01:09.735691",
   "news": [
     {
       "time": "07:09",
@@ -124,6 +124,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "阿里千问今天做的事，可能只比Meta的元宇宙好一点",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489452&idx=1&sn=83137d50643e7077227bade9bca5b28a&chksm=fe58f508c92f7c1e0bacc518b7082d42152010a82ad7d8b835b0be364c2ff091cdf9f53be57e#rd",
+      "time": "09:44",
+      "timestamp": 1775094267,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "中金点睛",
       "title": "中金 | 4月行业配置：波动环境，如何配置？",

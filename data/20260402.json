@@ -1,8 +1,39 @@
 {
   "date": "20260402",
-  "generated_at": "2026-04-02T06:00:18.929393",
+  "generated_at": "2026-04-02T08:00:24.147431",
   "news": [],
-  "voice": [],
+  "voice": [
+    {
+      "source": "中金点睛",
+      "title": "中金 | 4月行业配置：波动环境，如何配置？",
+      "digest": "4月超配行业：基础化工、机械、电力电器设备、电子硬件、发电及电网。\r\n4月低配行业：建筑与工程、纺织服装、旅游酒店及餐饮、教育、轻工家居",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830916&idx=1&sn=b7744ea2f8f35f4c7dc5bad3b61850da&chksm=eadd2b43ddaaa2553f21579f98e2156fdb437e6620490869bb682569850ff5b85fd117b426c2#rd",
+      "time": "07:50",
+      "timestamp": 1775087418,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 仅凭供给冲击能否走出通缩？——日本的经验与反思",
+      "digest": "成本冲击之外等多重因素形成通胀的必要条件",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830916&idx=2&sn=ea176f0731542ccce5dbb5e687c07b46&chksm=eadd2b43ddaaa2559ace61bedf76fe7643b9d68ce285446ab3516270c2e4303c073dc5075e7a#rd",
+      "time": "07:50",
+      "timestamp": 1775087418,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 联合研究 | 出口加速，地产上行——香港经济金融季报",
+      "digest": "2025年四季度，中国香港GDP同比增长3.8%，较三季度增速提升0.1个百分点，环比增长1.0%。GDP同比增速自2024年三季度以来持续改善。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247830916&idx=3&sn=3ac67816084a20acc7a7a7ac71670d79&chksm=eadd2b43ddaaa25572d6b60a3c3559f2a1dab17bf65f65db30066c9faadad40fc9e571b1b561#rd",
+      "time": "07:50",
+      "timestamp": 1775087418,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [],
   "miao_notice": [
     {

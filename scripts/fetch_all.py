@@ -232,10 +232,13 @@ def fetch_verge_ai(limit: int = 8) -> list:
             xml_bytes = resp.read()
 
         root = ET.fromstring(xml_bytes)
-        ns   = {"atom": "http://www.w3.org/2005/Atom"}
+        ATOM_NS = "http://www.w3.org/2005/Atom"
 
         # Atom feed (<entry>) or RSS feed (<item>)
-        entries = root.findall(".//entry", ns) or root.findall(".//item")
+        # 注意：命名空间必须用 {ns}tag 格式，不能用 ns prefix 在 findall
+        entries = (root.findall(f"{{{ATOM_NS}}}entry") or
+                   root.findall(f".//{{{ATOM_NS}}}entry") or
+                   root.findall(".//item"))
         news_list, seen = [], set()
 
         for entry in entries:
@@ -243,13 +246,13 @@ def fetch_verge_ai(limit: int = 8) -> list:
                 break
 
             # Title
-            title_el = entry.find("title") or entry.find("{http://www.w3.org/2005/Atom}title")
+            title_el = entry.find(f"{{{ATOM_NS}}}title") or entry.find("title")
             title = (title_el.text or "").strip() if title_el is not None else ""
             if not title or is_noise(title) or title in seen:
                 continue
 
             # Link
-            link_el = entry.find("link") or entry.find("{http://www.w3.org/2005/Atom}link")
+            link_el = entry.find(f"{{{ATOM_NS}}}link") or entry.find("link")
             if link_el is None:
                 continue
             link = link_el.get("href") or (link_el.text or "").strip()
@@ -257,11 +260,11 @@ def fetch_verge_ai(limit: int = 8) -> list:
                 continue
 
             # Published date
-            pub_el = (entry.find("pubDate") or
+            pub_el = (entry.find(f"{{{ATOM_NS}}}published") or
+                      entry.find(f"{{{ATOM_NS}}}updated") or
+                      entry.find("pubDate") or
                       entry.find("published") or
-                      entry.find("{http://www.w3.org/2005/Atom}published") or
-                      entry.find("updated") or
-                      entry.find("{http://www.w3.org/2005/Atom}updated"))
+                      entry.find("updated"))
             pub_text = (pub_el.text or "").strip() if pub_el is not None else ""
 
             pub_date = None

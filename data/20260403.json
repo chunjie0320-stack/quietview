@@ -1,6 +1,6 @@
 {
   "date": "20260403",
-  "generated_at": "2026-04-03T10:01:08.363896",
+  "generated_at": "2026-04-03T10:01:12.906603",
   "news": [
     {
       "time": "09:33",
@@ -261,6 +261,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Beyond the Assistant Turn: User Turn Generation as a Probe of Interaction Awareness in Language Models",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02315"
+    },
+    {
+      "title": "Novel Memory Forgetting Techniques for Autonomous AI Agents: Balancing Relevance and Efficiency",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02280"
+    },
+    {
+      "title": "The Self Driving Portfolio: Agentic Architecture for Institutional Asset Management",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02279"
+    },
+    {
+      "title": "De Jure: Iterative LLM Self-Refinement for Structured Extraction of Regulatory Rules",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02276"
+    },
+    {
+      "title": "Do Emotions in Prompts Matter? Effects of Emotional Framing on Large Language Models",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02236"
+    },
+    {
+      "title": "Batched Contextual Reinforcement: A Task-Scaling Law for Efficient Reasoning",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02322"
+    },
+    {
+      "title": "go-$m$HC: Direct Parameterization of Manifold-Constrained Hyper-Connections via Generalized Orthostochastic Matrices",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02309"
+    },
+    {
+      "title": "Taming the Exponential: A Fast Softmax Surrogate for Integer-Native Edge Inference",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02292"
+    },
+    {
+      "title": "Unifying Group-Relative and Self-Distillation Policy Optimization via Sample Routing",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02288"
+    },
+    {
+      "title": "Crystalite: A Lightweight Transformer for Efficient Crystal Modeling",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02270"
+    },
     {
       "title": "快手广告系统全面迈入生成式推荐时代！GR4AD：从Token到Revenue的全链路重构",
       "body": "",

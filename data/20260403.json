@@ -1,9 +1,157 @@
 {
   "date": "20260403",
-  "generated_at": "2026-04-03T08:00:14.438795",
+  "generated_at": "2026-04-03T08:00:41.719510",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "快手广告系统全面迈入生成式推荐时代！GR4AD：从Token到Revenue的全链路重构",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ColaVLA：自动驾驶大模型，不一定非要把「思考过程」写成文字",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026｜EgoNight：当天黑下来，第一人称视觉模型 还能“看懂”世界吗？",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "悟空率先接入国产最强编程模型Qwen3.6-Plus",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "应对智能体安全风险，蚂蚁集团与清华大学联合开源防御插件ClawAegis",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "锚定混合式AI主航道，联想中国新财年加速「个人与企业智能」双轮驱动",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，龙虾军团有了最强「视力」！一眼看图直接写代码",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "HSImul3R：给三维交互重建装上物理大脑",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "我国首个物理AI个人开发者平台发布 一人即可训练机器人",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "每天120万亿Tokens：Seedance 2.0和ArkClaw龙虾，让豆包大模型调用量炸了",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "HippoCamp: Benchmarking Contextual Agents on Personal Computers",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01221"
+    },
+    {
+      "title": "Therefore I am. I Think",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01202"
+    },
+    {
+      "title": "Detecting Multi-Agent Collusion Through Multi-Agent Interpretability",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01151"
+    },
+    {
+      "title": "Adversarial Moral Stress Testing of Large Language Models",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01108"
+    },
+    {
+      "title": "OmniMem: Autoresearch-Guided Discovery of Lifelong Multimodal Agent Memory",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.01007"
+    },
+    {
+      "title": "LAtent Phase Inference from Short time sequences using SHallow REcurrent Decoders (LAPIS-SHRED)",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01216"
+    },
+    {
+      "title": "The Recipe Matters More Than the Kitchen:Mathematical Foundations of the AI Weather Prediction Pipeline",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01215"
+    },
+    {
+      "title": "CliffSearch: Structured Agentic Co-Evolution over Theory and Code for Scientific Algorithm Discovery",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01210"
+    },
+    {
+      "title": "Screening Is Enough",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01178"
+    },
+    {
+      "title": "NeuroDDAF: Neural Dynamic Diffusion-Advection Fields with Evidential Fusion for Air Quality Forecasting",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.01175"
+    },
+    {
+      "title": "Microsoft takes on AI rivals with three new foundational models",
+      "body": "",
+      "time": "2026/04/03",
+      "source": "TechCrunch",
+      "link": "https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面一片空白，这本身就是个信号——市场在等什么？\n\n喵子的经验：消息真空期，往往是大动作前的蓄力阶段。这时候最忌讳瞎动，追热点、追消息都容易踩空。不如回头看看自己的持仓逻辑还成不成立。\n\n建议今天少刷信息流，多想想底层逻辑。没有新消息，不等于没有机会，只是机会还没露脸。🐾",

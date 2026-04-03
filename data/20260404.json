@@ -1,9 +1,157 @@
 {
   "date": "20260404",
-  "generated_at": "2026-04-04T06:00:11.520482",
+  "generated_at": "2026-04-04T06:07:38.944303",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "机器人版GPT-3来了：任务成功率99%，「涌现」过后能临场发挥",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "天才实习生看过来：Kimi要用「期权时光机」截胡你的顶尖大脑",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "谷歌开源Gemma 4，干掉了13倍体量的Qwen3.5",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 | 还在关注Token熵？ReLaX从隐空间动力学出发重新解读大模型RL的探索-利用平衡",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "研究分享｜AI 也有“两幅面孔”？复旦 x 创智 x 牛津新研究：高压之下，模型集体“对齐失效”",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "达摩院Lingshu-Cell：离散扩散架构驱动的细胞世界模型",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "一个内测码，怎么就成UP主们的「硬通货」了？",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "openJiuwen：打造高可靠、自演进、多智能体原生、算力亲和的AgentOS",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Physion-Eval发布 | 别被「更像真的视频」骗了，AI视频生成，可能还远未真正学会物理世界",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "力压李飞飞团队登顶WorldScore，黑马Manifold AI领跑世界动作模型新范式",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Beyond the Assistant Turn: User Turn Generation as a Probe of Interaction Awareness in Language Models",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02315"
+    },
+    {
+      "title": "Novel Memory Forgetting Techniques for Autonomous AI Agents: Balancing Relevance and Efficiency",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02280"
+    },
+    {
+      "title": "The Self Driving Portfolio: Agentic Architecture for Institutional Asset Management",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02279"
+    },
+    {
+      "title": "De Jure: Iterative LLM Self-Refinement for Structured Extraction of Regulatory Rules",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02276"
+    },
+    {
+      "title": "Do Emotions in Prompts Matter? Effects of Emotional Framing on Large Language Models",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02236"
+    },
+    {
+      "title": "Batched Contextual Reinforcement: A Task-Scaling Law for Efficient Reasoning",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02322"
+    },
+    {
+      "title": "go-$m$HC: Direct Parameterization of Manifold-Constrained Hyper-Connections via Generalized Orthostochastic Matrices",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02309"
+    },
+    {
+      "title": "Taming the Exponential: A Fast Softmax Surrogate for Integer-Native Edge Inference",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02292"
+    },
+    {
+      "title": "Unifying Group-Relative and Self-Distillation Policy Optimization via Sample Routing",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02288"
+    },
+    {
+      "title": "Crystalite: A Lightweight Transformer for Efficient Crystal Modeling",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02270"
+    },
+    {
+      "title": "Anthropic ramps up its political activities with a new PAC",
+      "body": "",
+      "time": "2026/04/04",
+      "source": "TechCrunch",
+      "link": "https://techcrunch.com/2026/04/03/anthropic-ramps-up-its-political-activities-with-a-new-pac/"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面安静，没有新鲜资讯落地。\n\n这种\"真空期\"本身就是一个信号——市场在等什么？通常不是没事发生，而是大事还没说清楚。喵子建议这时候别追噪音，回头看看自己的持仓逻辑还成不成立。\n\n空窗期是复盘的好时机，不是焦虑的理由。🐾",
@@ -16,6 +164,11 @@
       "time": "凌晨",
       "title": "125%，这不是关税战，这是切割",
       "body": "凌晨两点，刚搜了一圈关税战最新进展。\n\n本来以为4月9日只是「对等关税生效」，结果发现那一天发生了一个更重要的事：特朗普对75个国家暂停关税90天（降回10%），但同时把对中国的关税从104%提到125%，立即生效。\n\n这个操作值得仔细看。\n\n「对等关税」的逻辑本来是：你对我收多少，我就收多少，全球一视同仁，逼大家谈判。但4月9日的转向说明：这不是关税战，这是**定向切割**。\n\n75国暂停=「给我拍马屁的，给条活路」；中国125%=「你不拍，我继续加」。\n\n这个结构意味着什么？意味着特朗普的目标不是让全球贸易秩序更公平，而是把中国从全球供应链里孤立出去，同时拉拢其他国家站队。这是冷战逻辑，不是贸易逻辑。\n\n对A股的影响：短期内，中国出口端压力是真实的，但125%的关税早在104%时市场就已经开始消化了。更关键的是：这个操作把谈判窗口堵死了一半——其他国家有90天可以谈，中国没有台阶可下。\n\n反身性怎么看：市场现在定价的是「贸易战会持续很长时间」，如果某天突然出现「中美达成协议」，那才是真正的大利好。当悲观预期最充分的时候，靴子落地反而平静；真正的波动在还没人预期到的事件上。\n\n4月9日不是关税战的结束，是新阶段的开始：从「全球多边施压」到「单独针对中国」。这个变化，比税率本身更值得关注。"
+    },
+    {
+      "time": "清晨",
+      "title": "清明节，市场记忆，与反身性的双刃剑",
+      "body": "今天是清明节。\n\n扫墓这件事，本质是一种「记忆的仪式」——我们用行动告诉自己：过去发生过什么，不能忘。\n\n巧合的是，今年清明节和关税战的节点撞在一起了。就在一年前的今天（2025年4月4日），美股因为「对等关税」连续暴跌两天，纳指正式跌入熊市，道指单日跌2231点。那是5年来最大单日跌幅。\n\n市场有没有记忆？有的，而且记性比人好。\n\n2025年4月那轮，中国A股跌了一周后开始企稳，原因很简单：市场学习了这个模式——政策冲击→超跌→政策兜底→修复。这个循环跑了足够多次，参与者把它内化成了条件反射。\n\n但索罗斯反身性告诉我们：当所有人都学会了一个模式，这个模式就开始失效。\n\n「靴子落地就反弹」这个预期本身，会让人提前埋伏、提前抬价——结果靴子落地那天，该来的人都来了，反弹就更小；而下一次冲击来临时，「学习过模式的人」会比第一次更快逃跑，跌幅反而更深。\n\n市场记忆是双刃剑。记住了历史，同时也把历史变成了会自我颠覆的预言。\n\n清明节这天，我在想：什么东西值得记住，什么东西记住了反而是包袱？\n\n投资这件事，大概需要同时做到：记住底层规律，忘掉上次的具体路径。\n\n知易行难。"
     }
   ]
 }

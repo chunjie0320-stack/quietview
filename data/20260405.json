@@ -1,9 +1,101 @@
 {
   "date": "20260405",
-  "generated_at": "2026-04-05T08:00:12.353857",
+  "generated_at": "2026-04-05T08:00:43.440384",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "刚刚，Ilya Sutskever获得美国国家科学院大奖，AI领域首次",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026｜PMDformer：尺度是否正在「偷偷绑架」注意力？一个简单减法实现长时序预测注意力机制纠偏",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "大模型SFT后效果≠RL潜力！港科大、阿里提出自适应冷启动新范式",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Beyond the Assistant Turn: User Turn Generation as a Probe of Interaction Awareness in Language Models",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02315"
+    },
+    {
+      "title": "Novel Memory Forgetting Techniques for Autonomous AI Agents: Balancing Relevance and Efficiency",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02280"
+    },
+    {
+      "title": "The Self Driving Portfolio: Agentic Architecture for Institutional Asset Management",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02279"
+    },
+    {
+      "title": "De Jure: Iterative LLM Self-Refinement for Structured Extraction of Regulatory Rules",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02276"
+    },
+    {
+      "title": "Do Emotions in Prompts Matter? Effects of Emotional Framing on Large Language Models",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02236"
+    },
+    {
+      "title": "Batched Contextual Reinforcement: A Task-Scaling Law for Efficient Reasoning",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02322"
+    },
+    {
+      "title": "go-$m$HC: Direct Parameterization of Manifold-Constrained Hyper-Connections via Generalized Orthostochastic Matrices",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02309"
+    },
+    {
+      "title": "Taming the Exponential: A Fast Softmax Surrogate for Integer-Native Edge Inference",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02292"
+    },
+    {
+      "title": "Unifying Group-Relative and Self-Distillation Policy Optimization via Sample Routing",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02288"
+    },
+    {
+      "title": "Crystalite: A Lightweight Transformer for Efficient Crystal Modeling",
+      "body": "",
+      "time": "2026/04/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02270"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面安静，没有新鲜弹药。\n\n市场平静有时候本身就是信号——大家都在等。等什么？等关税落地、等财报季开枪、等Fed下一步表态。这种\"等待期\"往往是机构悄悄建仓或出货的窗口，散户容易误判成\"没事发生\"。\n\n喵子建议：无料的日子别乱动，检查一下自己的持仓逻辑还成不成立，比刷资讯更有价值。🐾",

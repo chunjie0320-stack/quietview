@@ -1,9 +1,115 @@
 {
   "date": "20260406",
-  "generated_at": "2026-04-06T08:00:11.644366",
+  "generated_at": "2026-04-06T08:00:35.270808",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "科技史上最贵的饭局：扎克伯格痛失DeepMind始末",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Karpathy知识库「LLM Wiki」火爆了，全网围观讨论",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "告别昂贵账单，Token直降68%，多智能体动态协作编程来了",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "一夜变天：GPT-Image-2流出，昔日王者Nano Banana Pro要被拉下神坛？",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "模仿学习如何赋能灵巧操作？这有一份「2021-2025」全景技术图谱",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Beyond the Assistant Turn: User Turn Generation as a Probe of Interaction Awareness in Language Models",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02315"
+    },
+    {
+      "title": "Novel Memory Forgetting Techniques for Autonomous AI Agents: Balancing Relevance and Efficiency",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02280"
+    },
+    {
+      "title": "The Self Driving Portfolio: Agentic Architecture for Institutional Asset Management",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02279"
+    },
+    {
+      "title": "De Jure: Iterative LLM Self-Refinement for Structured Extraction of Regulatory Rules",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02276"
+    },
+    {
+      "title": "Do Emotions in Prompts Matter? Effects of Emotional Framing on Large Language Models",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02236"
+    },
+    {
+      "title": "Batched Contextual Reinforcement: A Task-Scaling Law for Efficient Reasoning",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02322"
+    },
+    {
+      "title": "go-$m$HC: Direct Parameterization of Manifold-Constrained Hyper-Connections via Generalized Orthostochastic Matrices",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02309"
+    },
+    {
+      "title": "Taming the Exponential: A Fast Softmax Surrogate for Integer-Native Edge Inference",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02292"
+    },
+    {
+      "title": "Unifying Group-Relative and Self-Distillation Policy Optimization via Sample Routing",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02288"
+    },
+    {
+      "title": "Crystalite: A Lightweight Transformer for Efficient Crystal Modeling",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.02270"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面一片空白，没有资讯、没有声音。\n\n但喵子要说：**静默本身就是信号。** 市场噪音消失的时候，往往是大多数人在等待——等数据、等政策、等别人先动。这种时候最容易错过的，是那些不需要等待就能做的基本功：梳理持仓逻辑、复盘上季度判断对错在哪。\n\n空窗期不是休息日，是补课日。🐾",

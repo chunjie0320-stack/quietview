@@ -1,6 +1,6 @@
 {
   "date": "20260406",
-  "generated_at": "2026-04-06T12:00:43.865489",
+  "generated_at": "2026-04-06T12:01:10.379557",
   "news": [
     {
       "time": "05:01",
@@ -125,6 +125,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Coupled Control, Structured Memory, and Verifiable Action in Agentic AI (SCRAT -- Stochastic Control with Retrieval and Auditable Trajectories): A Comparative Perspective from Squirrel Locomotion and Scatter-Hoarding",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.03201"
+    },
+    {
+      "title": "Chart-RL: Policy Optimization Reinforcement Learning for Enhanced Visual Reasoning in Chart Question Answering with Vision Language Models",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.03157"
+    },
+    {
+      "title": "Automatic Textbook Formalization",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.03071"
+    },
+    {
+      "title": "Agentic-MME: What Agentic Capability Really Brings to Multimodal Intelligence?",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.03016"
+    },
+    {
+      "title": "InfoSeeker: A Scalable Hierarchical Parallel Agent Framework for Web Information Seeking",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.02971"
+    },
+    {
+      "title": "Enhancing Robustness of Federated Learning via Server Learning",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.03226"
+    },
+    {
+      "title": "Hierarchical Planning with Latent World Models",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.03208"
+    },
+    {
+      "title": "Real-Time Surrogate Modeling for Personalized Blood Flow Prediction and Hemodynamic Analysis",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.03197"
+    },
+    {
+      "title": "Gradient Boosting within a Single Attention Layer",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.03190"
+    },
+    {
+      "title": "Reflective Context Learning: Studying the Optimization Primitives of Context Space",
+      "body": "",
+      "time": "2026/04/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.03189"
+    },
     {
       "title": "科技史上最贵的饭局：扎克伯格痛失DeepMind始末",
       "body": "",

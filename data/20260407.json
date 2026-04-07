@@ -1,6 +1,6 @@
 {
   "date": "20260407",
-  "generated_at": "2026-04-07T21:25:44.478652",
+  "generated_at": "2026-04-07T22:00:18.448876",
   "news": [
     {
       "time": "19:42",
@@ -1260,6 +1260,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "AI之前的五次重大技术创新，对美国就业与经济的影响",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486524&idx=1&sn=25001da347e0482cc106f0194db7f97f&chksm=c331ea6ff44663792d7c1d97631fabd6afb9344337acc496c713ed44f950b0b2e84fa5dcc55d#rd",
+      "time": "21:27",
+      "timestamp": 1775568432,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
     {
       "source": "财躺平",
       "title": "反向田忌赛马",

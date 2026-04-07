@@ -1,6 +1,6 @@
 {
   "date": "20260407",
-  "generated_at": "2026-04-07T20:05:25.769539",
+  "generated_at": "2026-04-07T21:25:44.478652",
   "news": [
     {
       "time": "19:42",
@@ -1259,7 +1259,58 @@
       "link": "https://www.cls.cn/detail/2336015"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "财躺平",
+      "title": "反向田忌赛马",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488224&idx=1&sn=7495df3d281681eba2fce763a92409bf&chksm=fa1a9765cd6d1e732514e53bbe20de4f7f07b21ae73ea59f65535f2414125af6ef2055f4fa7e#rd",
+      "time": "17:09",
+      "timestamp": 1775552960,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "泡泡玛特是一个高性价比的“情绪入口”",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489462&idx=1&sn=db2f66bdee4b5dbaebba680e12bd6a5e&chksm=fe58f512c92f7c04322b9bd0565f5bd497d247feede7a61b51b12351fe2ebfd1cfd00f97a8d7#rd",
+      "time": "09:49",
+      "timestamp": 1775526561,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：高油价下谁更受益？",
+      "digest": "电气设备、汽车与零部件强化优势；化工、铝、钢材、建材或扩展份额",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247831721&idx=1&sn=e2757ccd73c2cf4fdbbfa607da3be6f1&chksm=eadd366eddaabf78bc303c86b1e85f226e1251c93a638bf01afa571535a0304087c4a121f5d4#rd",
+      "time": "07:32",
+      "timestamp": 1775518341,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：年报陆续披露，成色几何？",
+      "digest": "结合当前披露进展，考虑到四季度受2024年资产减值影响基数较低，我们预计2025年全年盈利增速有望回正，结束之前的三年连降。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247831721&idx=2&sn=3381e377a0d4cb63dda8b7a3a2173156&chksm=eadd366eddaabf78d5e6d838cb8c9a2c5fbd16eb01d647c540783e0391a8c0cdf7b33e7cae3e#rd",
+      "time": "07:32",
+      "timestamp": 1775518341,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • REITs | REITs年报解读：结构性韧性与机构博弈",
+      "digest": "77只公募REITs发布年度报告，本报告将从基本面、业绩完成度、资产重评估以及投资者结构四大维度解码增量信息。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247831721&idx=3&sn=5ddcf0e65beff3ffbc532d6ca9951331&chksm=eadd366eddaabf784c420a2a1964ba316240a625724f80a0aaa8aa25d2c5780f5452aa816f89#rd",
+      "time": "07:32",
+      "timestamp": 1775518341,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [
     {
       "title": "小鹏发布世界模型X-World技术报告，已成第二代VLA技术基座",

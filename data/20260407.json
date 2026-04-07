@@ -1,6 +1,6 @@
 {
   "date": "20260407",
-  "generated_at": "2026-04-07T12:00:43.318806",
+  "generated_at": "2026-04-07T12:01:08.616111",
   "news": [
     {
       "time": "09:42",
@@ -261,6 +261,111 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "小鹏发布世界模型X-World技术报告，已成第二代VLA技术基座",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 | 最强医疗视频理解大模型：MedGRPO用强化学习让4B模型全面超越GPT-5.4",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "与Generalist顶峰相见，30天狂吸30亿，千寻智能做对了什么？",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Sam Altman：超级智能近在眼前！OpenAI官方13页蓝图引爆海外社区",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "十分钟破解加密货币！谷歌在量子计算领域发现了什么？",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "QED-Nano: Teaching a Tiny Model to Prove Hard Theorems",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.04898"
+    },
+    {
+      "title": "Learning, Potential, and Retention: An Approach for Evaluating Adaptive AI-Enabled Medical Devices",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.04878"
+    },
+    {
+      "title": "Incompleteness of AI Safety Verification via Kolmogorov Complexity",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.04876"
+    },
+    {
+      "title": "MemMachine: A Ground-Truth-Preserving Memory System for Personalized AI Agents",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.04853"
+    },
+    {
+      "title": "ANX: Protocol-First Design for AI Agent Interaction with a Supporting 3EX Decoupled Architecture",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.04820"
+    },
+    {
+      "title": "Stratifying Reinforcement Learning with Signal Temporal Logic",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.04923"
+    },
+    {
+      "title": "Empowering Power Outage Prediction with Spatially Aware Hybrid Graph Neural Networks and Contrastive Learning",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.04916"
+    },
+    {
+      "title": "HI-MoE: Hierarchical Instance-Conditioned Mixture-of-Experts for Object Detection",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.04908"
+    },
+    {
+      "title": "Are Latent Reasoning Models Easily Interpretable?",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.04902"
+    },
+    {
+      "title": "Data Attribution in Adaptive Learning",
+      "body": "",
+      "time": "2026/04/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.04892"
+    },
     {
       "title": "Coupled Control, Structured Memory, and Verifiable Action in Agentic AI (SCRAT -- Stochastic Control with Retrieval and Auditable Trajectories): A Comparative Perspective from Squirrel Locomotion and Scatter-Hoarding",
       "body": "",

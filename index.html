@@ -394,7 +394,7 @@ function renderMiaoThoughts(dateStr, items){
     return;
   }
   el.innerHTML=items.map(function(item){
-    var bodyHtml=escHtml(item.body||'').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
+    var bodyHtml=escHtml(item.content||item.body||'').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
     return '<div class="miao-card">'+
       '<div class="miao-card-header"><span class="miao-card-time">'+escHtml(item.time||'')+'</span></div>'+
       '<div class="miao-card-body"><p>'+bodyHtml+'</p></div>'+

@@ -1,6 +1,6 @@
 {
   "date": "20260408",
-  "generated_at": "2026-04-08T12:00:16.799632",
+  "generated_at": "2026-04-08T12:00:47.048069",
   "news": [
     {
       "time": "07:36",
@@ -123,7 +123,58 @@
       "link": "https://www.cls.cn/detail/2337266"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "阿里外卖今年要减亏一半，云增速Q1摸到40%",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486536&idx=1&sn=2e34eebc990ed623bbbc94612c0fc1a1&chksm=c331ea1bf446630d1180d3c39655ece908a5f379fc689a9fbe7796b89574298ea1dbd479bb35#rd",
+      "time": "11:23",
+      "timestamp": 1775618586,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "小米赚的是“管理效率”的差价，而不是“产品差异化”的溢价",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489464&idx=1&sn=2a8315e8d4d011da6edbfc3615cf309e&chksm=fe58f51cc92f7c0ada5d90cd2b3258ca977eeebc7b89076c0a7994d999df555c52e183535120#rd",
+      "time": "09:25",
+      "timestamp": 1775611510,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：迎接滞胀挑战",
+      "digest": "未来数月全球主要经济体通胀或明显冲高，增长面临下行风险，全球资产可能迎接新挑战。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832131&idx=1&sn=26fb6216e06d29be697dc535469f346f&chksm=eadd3484ddaabd9206c9c50178dbe7c7aeba782612c494b54c46e99d2f413d0f81680342ed90#rd",
+      "time": "08:03",
+      "timestamp": 1775606595,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 宏观探市4月报：寻找安全资产",
+      "digest": "人民币资产韧性强化",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832131&idx=2&sn=9c3c220a9969fcd82d300ae738a44e49&chksm=eadd3484ddaabd92f7632161071cdd933a91c0dee7d9b589b5ead14e8a6c220771ea10c91003#rd",
+      "time": "08:03",
+      "timestamp": 1775606595,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 从俄乌到中东：欧洲经济的“压力测试”——欧洲经济全景Q1 2026",
+      "digest": "本文通过梳理俄乌冲突期间欧洲经济市场的演变，给当下欧洲经济和市场的走向做一个参照。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832131&idx=3&sn=f4634ba8e9b4b0baa2751d34241a27f4&chksm=eadd3484ddaabd92333540000b0af8dc0e75f26dad230ff082f09cdbc78a187b69d4ea719e9f#rd",
+      "time": "08:03",
+      "timestamp": 1775606595,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [
     {
       "title": "Claude Code一周份额，一天就烧完一半？有人逆向工程发现了7个bug",

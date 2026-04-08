@@ -1,6 +1,6 @@
 {
   "date": "20260408",
-  "generated_at": "2026-04-08T12:00:47.048069",
+  "generated_at": "2026-04-08T12:01:09.434264",
   "news": [
     {
       "time": "07:36",
@@ -176,6 +176,76 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Claw-Eval: Toward Trustworthy Evaluation of Autonomous Agents",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06132"
+    },
+    {
+      "title": "ACE-Bench: Agent Configurable Evaluation with Scalable Horizons and Controllable Difficulty under Lightweight Environments",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06111"
+    },
+    {
+      "title": "Artificial Intelligence and the Structure of Mathematics",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06107"
+    },
+    {
+      "title": "How LLMs Follow Instructions: Skillful Coordination, Not a Universal Mechanism",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06015"
+    },
+    {
+      "title": "Epistemic Blinding: An Inference-Time Protocol for Auditing Prior Contamination in LLM-Assisted Analysis",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06013"
+    },
+    {
+      "title": "In-Place Test-Time Training",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06169"
+    },
+    {
+      "title": "Topological Characterization of Churn Flow and Unsupervised Correction to the Wu Flow-Regime Map in Small-Diameter Vertical Pipes",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06167"
+    },
+    {
+      "title": "Target Policy Optimization",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06159"
+    },
+    {
+      "title": "Toward Consistent World Models with Multi-Token Prediction and Latent Semantic Enhancement",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06155"
+    },
+    {
+      "title": "Gym-Anything: Turn any Software into an Agent Environment",
+      "body": "",
+      "time": "2026/04/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06126"
+    },
     {
       "title": "Claude Code一周份额，一天就烧完一半？有人逆向工程发现了7个bug",
       "body": "",

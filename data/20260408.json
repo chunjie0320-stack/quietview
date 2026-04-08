@@ -1,6 +1,6 @@
 {
   "date": "20260408",
-  "generated_at": "2026-04-08T14:00:28.199153",
+  "generated_at": "2026-04-08T18:00:59.525568",
   "news": [
     {
       "time": "11:27",
@@ -244,6 +244,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "方向已定，扶好！谈判开始了快乐小马",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488229&idx=1&sn=c4034dc783be3338b2b99dd0b0c5349c&chksm=fa1a9760cd6d1e768b611d35a308009ebf2ccb21398ed3c0840a8787f7c7c9a44c5dfa217b5e#rd",
+      "time": "15:17",
+      "timestamp": 1775632620,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "卓哥投研笔记",
       "title": "阿里外卖今年要减亏一半，云增速Q1摸到40%",

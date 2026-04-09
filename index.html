@@ -199,6 +199,9 @@ function createAiPanelDOM(dateStr){
     '  <div class="page-header-divider"></div>'+
     '</div>'+
     '<div class="card">'+
+    '  <div id="ai-miao-notice-'+d+'" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">'+
+    '    <span class="miao-bubble-label">🐱 喵子AI告知 · 加载中…</span>'+
+    '  </div>'+
     '  <div class="timeline" id="timeline-ai-voice-'+d+'">'+
     '    <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>'+
     '  </div>'+
@@ -340,6 +343,25 @@ function renderAiVoice(dateStr, items){
   }).join('');
 }
 
+function renderAiMiaoNotice(dateStr, notice){
+  var el=document.getElementById('ai-miao-notice-'+dateStr);
+  if(!el)return;
+  if(!notice){
+    el.innerHTML='<span class="miao-bubble-label">🐱 喵子AI告知</span><div style="color:#aaa">今日暂无告知</div>';
+    return;
+  }
+  var items=Array.isArray(notice)?notice:[notice];
+  if(items.length===0){
+    el.innerHTML='<span class="miao-bubble-label">🐱 喵子AI告知</span><div style="color:#aaa">今日暂无告知</div>';
+    return;
+  }
+  el.innerHTML=items.map(function(item){
+    var contentHtml=escHtml(item.content||'').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    return '<span class="miao-bubble-label">'+escHtml(item.label||'🐱 喵子AI告知')+'</span>'+
+      '<div><p>'+contentHtml+'</p></div>';
+  }).join('<hr style="border:none;border-top:1px solid rgba(139,115,85,.15);margin:10px 0;">');
+}
+
 function renderMiaoNotice(dateStr, notice){
   var el=document.getElementById('miao-notice-'+dateStr);
   if(!el)return;
@@ -424,6 +446,7 @@ function renderAllSections(dateStr, data){
   renderNews(dateStr, data.news||[]);
   renderVoice(dateStr, data.voice||[]);
   renderAiVoice(dateStr, data.ai_voice||[]);
+  renderAiMiaoNotice(dateStr, data.ai_miao_notice||null);
   renderMiaoNotice(dateStr, data.miao_notice||null);
   renderDiary(dateStr, data.diary||null);
   renderMiaoThoughts(dateStr, data.miao_thoughts||[]);

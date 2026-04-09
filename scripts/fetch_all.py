@@ -424,6 +424,26 @@ def main():
     git_push(f"auto: AI声音更新 {now_str} ({total}条)")
     print(f"  ✅ 完成 {now_str}")
 
+    # 5. 触发 AI 喵子告知更新（抓完 ai_voice 后自动生成，--no-push 避免重复push）
+    print(f"\n  [AI喵子告知] 触发生成...")
+    try:
+        import subprocess
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        result = subprocess.run(
+            [sys.executable, os.path.join(script_dir, "ai_miao_notice_update.py"), "--no-push"],
+            capture_output=True, text=True, timeout=120,
+        )
+        if result.stdout:
+            print(result.stdout)
+        if result.returncode != 0:
+            print(f"  ⚠️ AI喵子告知生成失败（非致命）:\n{result.stderr[:300]}", file=sys.stderr)
+        else:
+            # 重新 push，包含 ai_miao_notice 字段
+            git_push(f"auto: AI声音+告知 {now_str}")
+            print(f"  ✅ AI喵子告知 + git push 完成")
+    except Exception as e:
+        print(f"  ⚠️ AI喵子告知触发异常（非致命）: {e}", file=sys.stderr)
+
 
 if __name__ == "__main__":
     main()

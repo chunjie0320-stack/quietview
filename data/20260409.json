@@ -1,6 +1,6 @@
 {
   "date": "20260409",
-  "generated_at": "2026-04-09T18:16:29.688707",
+  "generated_at": "2026-04-09T22:00:16.291630",
   "news": [
     {
       "time": "17:29",
@@ -364,6 +364,26 @@
     }
   ],
   "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "HappyHorse只让阿里快乐了半天，资本市场还是看重模型能力",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486626&idx=1&sn=76ef2a6aa8463ea47e3ab470814cbbda&chksm=c331eaf1f44663e7856aadedd8c4064db12ac3a8ddbd79f5dd9cba180162e62214cf1a802be2#rd",
+      "time": "20:55",
+      "timestamp": 1775739343,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "财躺平",
+      "title": "一觉醒来又慌了？",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488239&idx=1&sn=37a2d699be090ee1565ddd52e4da7f48&chksm=fa1a976acd6d1e7c9e1517276c1215299b435d384bd5a0c5571fb11365a13d3202112bf514d8#rd",
+      "time": "18:25",
+      "timestamp": 1775730343,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "结构性的竞争优势比“单点创新”强得多",

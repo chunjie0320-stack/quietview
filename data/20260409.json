@@ -1,9 +1,150 @@
 {
   "date": "20260409",
-  "generated_at": "2026-04-09T08:00:17.174566",
+  "generated_at": "2026-04-09T08:00:41.609613",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "“家庭新成员”再升级， 商汤绝影正式发布可悠（Care U），首创全场景多设备协同智能终端",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "全行业的「龙虾热」中，什么是AI Infra下半场的「神之一手」？",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "断层碾压Seedance 2.0：神秘「欢乐马」空降榜首，视频AI变天了",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "李飞飞World Labs双模齐发，能「造」超复杂大场景，一手实测",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "华为云INSPIRE创想者大会剧透：将开设五大行业论坛",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "全球最强开源模型智谱GLM-5.1「Day0」上线华为云，可免费体验",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "你的文件智能体，真的懂你吗？NTU S-Lab 推出个人电脑理解基准HippoCamp",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "扣子宣布2.5版本升级，探索AI Agent从“工具”到“伙伴”的关键一步",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "AutoResearch遇上社会科学：S-Researcher让智能体自主设计实验、模拟被试、撰写报告",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 Findings | 算力砍半，性能反超！A1：全透明开源自适应 VLA 模型，重新定义机器人高效控制",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Claw-Eval: Toward Trustworthy Evaluation of Autonomous Agents",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06132"
+    },
+    {
+      "title": "ACE-Bench: Agent Configurable Evaluation with Scalable Horizons and Controllable Difficulty under Lightweight Environments",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06111"
+    },
+    {
+      "title": "Artificial Intelligence and the Structure of Mathematics",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06107"
+    },
+    {
+      "title": "How LLMs Follow Instructions: Skillful Coordination, Not a Universal Mechanism",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06015"
+    },
+    {
+      "title": "Epistemic Blinding: An Inference-Time Protocol for Auditing Prior Contamination in LLM-Assisted Analysis",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.06013"
+    },
+    {
+      "title": "In-Place Test-Time Training",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06169"
+    },
+    {
+      "title": "Topological Characterization of Churn Flow and Unsupervised Correction to the Wu Flow-Regime Map in Small-Diameter Vertical Pipes",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06167"
+    },
+    {
+      "title": "Target Policy Optimization",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06159"
+    },
+    {
+      "title": "Toward Consistent World Models with Multi-Token Prediction and Latent Semantic Enhancement",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06155"
+    },
+    {
+      "title": "Gym-Anything: Turn any Software into an Agent Environment",
+      "body": "",
+      "time": "2026/04/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.06126"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面是静默的。\n\n没有资讯，没有声音——这本身就是一种信号。市场在等什么？可能是等一个方向，也可能是大家都在憋着。\n\n喵子的建议：空窗期别乱动，做好仓位梳理，把想清楚的逻辑再检查一遍。真正的机会来临前，通常有一段让人难受的安静。🐾",

@@ -136,8 +136,7 @@ function fmtSub(d){return d.slice(0,4)+'.'+d.slice(4,6)+'.'+d.slice(6,8);}
 var NAV_DATA={
   invest:[{id:'daily-brief',label:'每日简报',children:[]}],
   ai:[
-    {id:'ai-voice',label:'行业声音',children:[]},
-    {id:'ai-product',label:'产品观察',children:[]}
+    {id:'ai-voice',label:'行业声音',children:[]}
   ],
   growth:[
     {id:'diary',label:'个人日记',children:[]},
@@ -204,25 +203,6 @@ function createAiPanelDOM(dateStr){
     '  </div>'+
     '  <div class="timeline" id="timeline-ai-voice-'+d+'">'+
     '    <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>'+
-    '  </div>'+
-    '</div>';
-  return el;
-}
-
-function createAiProductPanelDOM(dateStr){
-  var d=dateStr;
-  var el=document.createElement('div');
-  el.className='content-panel';
-  el.id='panel-ai-product-'+d;
-  el.innerHTML=
-    '<div class="page-header">'+
-    '  <h1>AI · 产品观察</h1>'+
-    '  <div class="sub">'+fmtSub(d)+'</div>'+
-    '  <div class="page-header-divider"></div>'+
-    '</div>'+
-    '<div class="card">'+
-    '  <div class="timeline" id="ai-product-'+d+'">'+
-    '    <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">暂无内容</div></div>'+
     '  </div>'+
     '</div>';
   return el;
@@ -608,14 +588,6 @@ function buildDateTabs(dates, todayStr, degraded){
       aiVoiceGroup.children.push({id:'ai-voice-'+d,label:label,panel:'panel-ai-voice-'+d});
       if(!document.getElementById('panel-ai-voice-'+d)){
         main.appendChild(createAiPanelDOM(d));
-      }
-    }
-    // ai: ai-product
-    var aiProductGroup=NAV_DATA.ai.find(function(g){return g.id==='ai-product';});
-    if(aiProductGroup&&!aiProductGroup.children.some(function(c){return c.id==='ai-product-'+d;})){
-      aiProductGroup.children.push({id:'ai-product-'+d,label:label,panel:'panel-ai-product-'+d});
-      if(!document.getElementById('panel-ai-product-'+d)){
-        main.appendChild(createAiProductPanelDOM(d));
       }
     }
     // growth: diary/miao-thoughts/dialogue

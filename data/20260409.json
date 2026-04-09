@@ -1,6 +1,6 @@
 {
   "date": "20260409",
-  "generated_at": "2026-04-09T12:00:55.984222",
+  "generated_at": "2026-04-09T12:01:23.355891",
   "news": [
     {
       "time": "07:16",
@@ -123,7 +123,48 @@
       "link": "https://www.cls.cn/detail/2338599"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "结构性的竞争优势比“单点创新”强得多",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489466&idx=1&sn=877ec4f74ce71de8a32f49537c7ad0fb&chksm=fe58f51ec92f7c0888b9e6dc0e4735562ef2525ca3fd179f8f5c71388316b24baca47b7f9e43#rd",
+      "time": "09:33",
+      "timestamp": 1775698435,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 跨国公司成长启示录上篇（三）：中国企业迈向出海新征程",
+      "digest": "本篇为系列的第三篇，探讨中国企业出海的现状。中国企业出海意愿强，基数低，增速快，从产品出海迈向产能出海，海外布局迅速并迈向更高质量的发展。中日比较而言我国制造业出海面临的约束不同。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832166&idx=1&sn=2edb437e558434437abc9be248f2bd4a&chksm=eadd34a1ddaabdb7d2af10dcc7d03a9138b1fc8d6568b94405cd8828ddd6b05a504c72fa13c2#rd",
+      "time": "08:10",
+      "timestamp": 1775693443,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：若通胀持续，海内外房地产市场怎么走？",
+      "digest": "2025下半年以来，西方经济体房价已现筑顶趋势，部分市场开启回落，与此同时，中国香港市场企稳复苏，中国大陆核心一线城市也初现企稳迹象。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832166&idx=2&sn=6b4b836c866876886fe860f62b0bcb00&chksm=eadd34a1ddaabdb742f4d76762e6befa3242c4772ca23ce70ceeee2d50b91bf50adb384de212#rd",
+      "time": "08:10",
+      "timestamp": 1775693443,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 大众品成本专题：原油上涨推动通胀预期，结构优化+效率提升或降低成本影响",
+      "digest": "本轮成本周期，我们认为大众品公司有望通过提前锁价、产品结构优化、内部效率提升来减少成本波动对利润的影响。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832166&idx=3&sn=9ae4952ee212701bc5c8a7f70f8854c8&chksm=eadd34a1ddaabdb7b11ffb5747890ab893c6ca0da0d13649c64363838278442b9f3a43a20c38#rd",
+      "time": "08:10",
+      "timestamp": 1775693443,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [
     {
       "title": "“家庭新成员”再升级， 商汤绝影正式发布可悠（Care U），首创全场景多设备协同智能终端",

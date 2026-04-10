@@ -1,6 +1,6 @@
 {
   "date": "20260410",
-  "generated_at": "2026-04-10T12:00:18.552177",
+  "generated_at": "2026-04-10T12:00:45.987344",
   "news": [
     {
       "time": "07:01",
@@ -124,6 +124,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "企业的“1”决定了它会成为什么样的公司",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489468&idx=1&sn=703fbb0c1a977b8ac974dc61c88dfca6&chksm=fe58f518c92f7c0e20e31a9211256d1d8dc8a796844ef841faf31acbb818b3e33787a199048e#rd",
+      "time": "09:25",
+      "timestamp": 1775784306,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "中金点睛",
       "title": "中金：滞胀叙事，K型现实",

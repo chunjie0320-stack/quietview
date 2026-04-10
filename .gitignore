@@ -3,33 +3,120 @@ AGENTS.md
 SOUL.md
 USER.md
 MEMORY.md
+MEMORY.md.bak.*
 HEARTBEAT.md
 IDENTITY.md
 TOOLS.md
+WORK_RULES.md
+TASKS.md
 .openclaw/
 opc-projects/
 memory/
+projects/
 
-# 临时文件
+# 临时备份文件
 *.bak.*
 *.bak
-code-audit-*.md
-~/.openclaw/logs/
+
+# 图片/截图（本地用，不推送）
 *.png
 *.jpg
 *.jpeg
+
+# 程序崩溃 dump
+core.*
+
+# 临时数据文件
 captured_data*.json
 cdp_capture*.py
 after_close*.png
+data_616314_daily.json
+news_20260325.json
+dualaxes_resp.json
+req_body_*.json
+
+# 旧活动/demo（本地存档，不推送）
 activity-data-report.skill
 activity-data-report/
-data_616314_daily.json
 report_616314.html
 venue-search-demo/
 player_demo*.html
-news_20260325.json
+persona_demo*.html
+persona_search_demo.html
+gaoda_*.html
+gaoda_*.md
+marketingclaw-roadmap.html
+opc-dashboard.html
+quietview_investment_demo.html
+quietview-v2.html
+quietview-v3.html
+demo_v3_snapshot.html
+theme-discovery-demo-standalone.html
+theme-discovery-demo-v2.html
+
+# Buddy 相关 demo（本地开发产物）
+buddy-*.html
+buddy_design*.md
+buddy_design*.zip
+buddy-octopus.svg
+gen_octopus.py
+migrate_legacy.py
+
+# Task Center demo（本地开发产物）
+task-center-demo.html
+task-center-native-demo.html
+task_center_demo.html
+task-center-wiki.md
+task-dashboard-plan.md
+flywheel.html
+food-topic-tool.html
+gaoda-team-config.html
+member-demo.html
+whiteboard_*.excalidraw
+whiteboard_diagram.html
+wiki_*.citadelmd
+ai-venue-mvp-doc.md
+
+# Chrome 扩展包（本地打包）
+openclaw-relay-extension*.zip
+quietview-site-dev-skill.zip
+skills/website-builder-skill.zip
+skills/website-builder/
+skills/create-colleague/
+skills/quietview-site-dev/
+godi-src/
+chrome-extension-src/
+design-systems/
+
+# harvest 日志（data/ 下只保留 YYYYMMDD.json 数据文件）
+data/harvest-*.log
+data/*.log
 
 # 脚本工具
 s3_upload_*.py
 __pycache__/
 *.pyc
+screenshot.cjs
+screenshot.mjs
+
+# 会话/session 文件（太大不推送）
+session_persona_search_demo_20260322.jsonl
+sessions/
+persona-search-demo-skill-v1.1.zip
+persona-search-demo-skill.zip
+quietview-skill-arch.png
+
+# 内部文档/分析（私人）
+km_ai_coding_insights.md
+code-audit-*.md
+gaoda_framework.html
+gaoda_materials_summary.md
+daily_report_content.md
+subagent-rules.md
+search_demo_algo_wiki.md
+search_demo_algo_wiki_v2.md
+persona_search_wiki_update.md
+wayne-collector-review.md
+GITHUB_SETUP.md
+theme-matrix.md
+theme_update_temp.md

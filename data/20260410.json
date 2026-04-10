@@ -1,6 +1,6 @@
 {
   "date": "20260410",
-  "generated_at": "2026-04-10T14:00:17.875653",
+  "generated_at": "2026-04-10T18:00:16.116732",
   "news": [
     {
       "time": "11:12",
@@ -244,6 +244,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "走起",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488244&idx=1&sn=04a30890d37a4481a424ca45f3bddc2f&chksm=fa1a9771cd6d1e67136ef2a512511c360c78d469ef16560dd41401b3f6878af6e90dd4198b67#rd",
+      "time": "17:24",
+      "timestamp": 1775813070,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "企业的“1”决定了它会成为什么样的公司",

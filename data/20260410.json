@@ -1,6 +1,6 @@
 {
   "date": "20260410",
-  "generated_at": "2026-04-10T18:16:35.174260",
+  "generated_at": "2026-04-10T22:00:16.308323",
   "news": [
     {
       "time": "17:42",
@@ -364,6 +364,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "外卖降补之路：商家、代理商掩护美团阿里先撤",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486658&idx=1&sn=99835dadb44dcbcd1c44aedf3ae5517a&chksm=c331ea91f4466387b8472c516e7ca237403e3a12fb7787d999b1ad3abff1a1697dc37763a90d#rd",
+      "time": "18:36",
+      "timestamp": 1775817367,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
     {
       "source": "财躺平",
       "title": "走起",

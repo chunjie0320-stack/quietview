@@ -1,6 +1,6 @@
 {
   "date": "20260410",
-  "generated_at": "2026-04-10T08:00:18.877578",
+  "generated_at": "2026-04-10T08:00:50.887361",
   "news": [],
   "voice": [
     {
@@ -24,7 +24,78 @@
       "text_color": "#1565c0"
     }
   ],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "How Much LLM Does a Self-Revising Agent Actually Need?",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.07236"
+    },
+    {
+      "title": "Reason in Chains, Learn in Trees: Self-Rectification and Grafting for Multi-turn Agent Policy Optimization",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.07165"
+    },
+    {
+      "title": "EVGeoQA: Benchmarking LLMs on Dynamic, Multi-Objective Geo-Spatial Exploration",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.07070"
+    },
+    {
+      "title": "Planning Task Shielding: Detecting and Repairing Flaws in Planning Tasks through Turning them Unsolvable",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.07042"
+    },
+    {
+      "title": "A-MBER: Affective Memory Benchmark for Emotion Recognition",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.07017"
+    },
+    {
+      "title": "How to sketch a learning algorithm",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.07328"
+    },
+    {
+      "title": "SL-FAC: A Communication-Efficient Split Learning Framework with Frequency-Aware Compression",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.07316"
+    },
+    {
+      "title": "Graph Neural ODE Digital Twins for Control-Oriented Reactor Thermal-Hydraulic Forecasting Under Partial Observability",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.07292"
+    },
+    {
+      "title": "Android Coach: Improve Online Agentic Training Efficiency with Single State Multiple Actions",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.07277"
+    },
+    {
+      "title": "Tracking Adaptation Time: Metrics for Temporal Distribution Shift",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.07266"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面安静，无重大资讯落地。\n\n市场没消息的时候，往往是观察情绪和筹码的好时机——不是什么都没发生，而是该轮到你自己想清楚几件事：手里的仓位逻辑还成立吗？有没有因为近期涨跌而悄悄改变了当初的判断？\n\n喵子建议：空窗期不必焦虑找信号，把之前没读完的研报翻出来，或者梳理一下自己的持仓逻辑，比刷资讯更值钱。🐾",

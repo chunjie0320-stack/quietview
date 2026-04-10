@@ -1,6 +1,6 @@
 {
   "date": "20260410",
-  "generated_at": "2026-04-10T12:00:45.987344",
+  "generated_at": "2026-04-10T12:01:12.078145",
   "news": [
     {
       "time": "07:01",
@@ -156,6 +156,83 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "CVPR 2026｜AI开始会拍电影了：一分钟十镜头，全程不崩剧情",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Ads in AI Chatbots? An Analysis of How Large Language Models Navigate Conflicts of Interest",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08525"
+    },
+    {
+      "title": "SUPERNOVA: Eliciting General Reasoning in LLMs with Reinforcement Learning on Natural Instructions",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08477"
+    },
+    {
+      "title": "From Safety Risk to Design Principle: Peer-Preservation in Multi-Agent LLM Systems and Its Implications for Orchestrated Democratic Discourse Analysis",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08465"
+    },
+    {
+      "title": "KnowU-Bench: Towards Interactive, Proactive, and Personalized Mobile Agent Evaluation",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08455"
+    },
+    {
+      "title": "Learning Who Disagrees: Demographic Importance Weighting for Modeling Annotator Distributions with DiADEM",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08425"
+    },
+    {
+      "title": "Meta-learning In-Context Enables Training-Free Cross Subject Brain Decoding",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08537"
+    },
+    {
+      "title": "What Drives Representation Steering? A Mechanistic Case Study on Steering Refusal",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08524"
+    },
+    {
+      "title": "The Impact of Dimensionality on the Stability of Node Embeddings",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08492"
+    },
+    {
+      "title": "Quantization Impact on the Accuracy and Communication Efficiency Trade-off in Federated Learning for Aerospace Predictive Maintenance",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08474"
+    },
+    {
+      "title": "Persistence-Augmented Neural Networks",
+      "body": "",
+      "time": "2026/04/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08469"
+    },
     {
       "title": "How Much LLM Does a Self-Revising Agent Actually Need?",
       "body": "",

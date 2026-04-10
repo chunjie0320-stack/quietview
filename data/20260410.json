@@ -1,8 +1,29 @@
 {
   "date": "20260410",
-  "generated_at": "2026-04-10T06:00:11.764731",
+  "generated_at": "2026-04-10T08:00:18.877578",
   "news": [],
-  "voice": [],
+  "voice": [
+    {
+      "source": "中金点睛",
+      "title": "中金：滞胀叙事，K型现实",
+      "digest": "地缘冲突高发时段，寻找安全资产",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832401&idx=1&sn=d309da6c2c18d95240b1e825c05995e7&chksm=eadd3596ddaabc8005cd950035c24e47fa0538204ebc57a9f32b4c8c94f34e235a33b88c88f6#rd",
+      "time": "07:23",
+      "timestamp": 1775777039,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 失去三十年，日本是否出现“存款搬家”？",
+      "digest": "本报告系统梳理了日本“失去的三十年”期间(1990-2020)居民部门资产配置的演进历程。研究发现，通缩与存款可以形成“完美自洽”，日本居民资产呈现显著的“存款超配”特征，同时少部分资金投入海外资本市场。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832401&idx=2&sn=a7eb7f05d3d69a924307d9a75391e94c&chksm=eadd3596ddaabc8039f9211c52e1f553102267009a789e898659a293bddb91ddd8e3ef1342c8#rd",
+      "time": "07:23",
+      "timestamp": 1775777039,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [],
   "miao_notice": [
     {

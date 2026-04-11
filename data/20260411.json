@@ -1,6 +1,6 @@
 {
   "date": "20260411",
-  "generated_at": "2026-04-11T22:00:12.038121",
+  "generated_at": "2026-04-11T22:00:43.992905",
   "news": [
     {
       "time": "15:12",
@@ -365,6 +365,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "直播预约 | 世界模型，点燃下一个AI爆点",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "上周「封杀」OpenClaw，这次直接「封杀」创始人？Anthropic：误会，已解封！",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICRA 2026｜NUS邵林团队提出T(R,O) Grasp：刷新跨智能体灵巧抓取SOTA，实现5FPS动态环境交互",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刷榜风波惊动OpenAI后，这家中国团队拿回Agent硬核榜单第一",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Claude Mythos其实没那么神？AI发现bug其实早已是寻常",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "开创VLA的那帮人，正在抛弃VLA",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "胡俊杰、吴佳俊、刘子纬等获奖，微软学者奖学金公布",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "OpenClaw大考！上海AI Lab InternLM团队WildClawBench 60题，把「龙虾」AI打回原形",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "「10万小时人类数据」不搞对齐只靠规模，灵初智能Psi-R2登顶MolmoSpaces！",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "突发！奥特曼家被扔燃烧弹，OpenAI星际之门也出问题了",
+      "body": "",
+      "time": "2026/04/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
     {
       "title": "Ads in AI Chatbots? An Analysis of How Large Language Models Navigate Conflicts of Interest",
       "body": "",

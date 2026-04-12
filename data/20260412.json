@@ -1,9 +1,80 @@
 {
   "date": "20260412",
-  "generated_at": "2026-04-12T08:00:11.535825",
+  "generated_at": "2026-04-12T08:01:05.850542",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "Ads in AI Chatbots? An Analysis of How Large Language Models Navigate Conflicts of Interest",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08525"
+    },
+    {
+      "title": "SUPERNOVA: Eliciting General Reasoning in LLMs with Reinforcement Learning on Natural Instructions",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08477"
+    },
+    {
+      "title": "From Safety Risk to Design Principle: Peer-Preservation in Multi-Agent LLM Systems and Its Implications for Orchestrated Democratic Discourse Analysis",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08465"
+    },
+    {
+      "title": "KnowU-Bench: Towards Interactive, Proactive, and Personalized Mobile Agent Evaluation",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08455"
+    },
+    {
+      "title": "Learning Who Disagrees: Demographic Importance Weighting for Modeling Annotator Distributions with DiADEM",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.08425"
+    },
+    {
+      "title": "Meta-learning In-Context Enables Training-Free Cross Subject Brain Decoding",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08537"
+    },
+    {
+      "title": "What Drives Representation Steering? A Mechanistic Case Study on Steering Refusal",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08524"
+    },
+    {
+      "title": "The Impact of Dimensionality on the Stability of Node Embeddings",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08492"
+    },
+    {
+      "title": "Quantization Impact on the Accuracy and Communication Efficiency Trade-off in Federated Learning for Aerospace Predictive Maintenance",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08474"
+    },
+    {
+      "title": "Persistence-Augmented Neural Networks",
+      "body": "",
+      "time": "2026/04/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08469"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面安静，没有新鲜弹药。\n\n市场没消息，本身就是一种信号——要么是大家都在等什么，要么就是真的没什么大事。这种时候反而适合回头看看自己的持仓逻辑，别让噪音填满了思考空间。\n\n喵子建议：空窗期不是无聊，是校准期。想清楚\"我为什么持有这个\"比刷100条资讯更值钱。🐾",

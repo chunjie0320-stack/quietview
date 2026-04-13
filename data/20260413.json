@@ -1,9 +1,45 @@
 {
   "date": "20260413",
-  "generated_at": "2026-04-13T08:00:11.435939",
+  "generated_at": "2026-04-13T08:01:05.741021",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "Meta-learning In-Context Enables Training-Free Cross Subject Brain Decoding",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08537"
+    },
+    {
+      "title": "What Drives Representation Steering? A Mechanistic Case Study on Steering Refusal",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08524"
+    },
+    {
+      "title": "The Impact of Dimensionality on the Stability of Node Embeddings",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08492"
+    },
+    {
+      "title": "Quantization Impact on the Accuracy and Communication Efficiency Trade-off in Federated Learning for Aerospace Predictive Maintenance",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08474"
+    },
+    {
+      "title": "Persistence-Augmented Neural Networks",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.08469"
+    }
+  ],
   "miao_notice": [
     {
       "content": "今天信息面安静，没有新弹药。\n\n这种时候反而值得停下来想想：市场不缺信息，缺的是判断力。消息满天飞的日子容易跟风，无声的日子才是校准自己逻辑的好时机。\n\n喵子建议：翻翻自己的持仓或关注列表，问一句\"如果今天才第一次看到这个标的，我还会买吗？\"答案往往比任何资讯都管用。🐾",

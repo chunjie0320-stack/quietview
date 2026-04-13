@@ -1,6 +1,6 @@
 {
   "date": "20260413",
-  "generated_at": "2026-04-13T12:00:38.347569",
+  "generated_at": "2026-04-13T12:01:01.253930",
   "news": [
     {
       "time": "07:29",
@@ -125,6 +125,111 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "三方协同创新，北大-智源SpikePingpong算法助力智元灵犀X2彰显中国具身智能实力",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "挤干大模型高分「水分」！最强模型仅49分，南大傅朝友发布Video-MME-v2",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "大佬深度解析：Coding Agent的底层运行逻辑是什么？",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 WorldArena挑战赛启动，高德开源高性能世界模型基线",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "陶哲轩亲调AI人设，权游小恶魔、贱女孩蕾吉娜版物理教学，你接受不",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Strategic Algorithmic Monoculture:Experimental Evidence from Coordination Games",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09502"
+    },
+    {
+      "title": "Process Reward Agents for Steering Knowledge-Intensive Reasoning",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09482"
+    },
+    {
+      "title": "E3-TIR: Enhanced Experience Exploitation for Tool-Integrated Reasoning",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09455"
+    },
+    {
+      "title": "Do We Really Need to Approach the Entire Pareto Front in Many-Objective Bayesian Optimisation?",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09417"
+    },
+    {
+      "title": "HiL-Bench (Human-in-Loop Benchmark): Do Agents Know When to Ask for Help?",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09408"
+    },
+    {
+      "title": "ANTIC: Adaptive Neural Temporal In-situ Compressor",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09543"
+    },
+    {
+      "title": "Event-Driven Temporal Graph Networks for Asynchronous Multi-Agent Cyber Defense in NetForge_RL",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09523"
+    },
+    {
+      "title": "Toward World Models for Epidemiology",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09519"
+    },
+    {
+      "title": "Integrated electro-optic attention nonlinearities for transformers",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09512"
+    },
+    {
+      "title": "SafeAdapt: Provably Safe Policy Updates in Deep Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09452"
+    },
     {
       "title": "Meta-learning In-Context Enables Training-Free Cross Subject Brain Decoding",
       "body": "",

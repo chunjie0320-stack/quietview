@@ -1,9 +1,150 @@
 {
   "date": "20260414",
-  "generated_at": "2026-04-14T08:00:14.063265",
+  "generated_at": "2026-04-14T08:01:07.168683",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "养虾「不可能三角」：好用、好玩、安全，复旦这个「00后」团队做到了！",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "上海交大DENG Lab提出「LatentUM」：Unified Model的真正「战场」在视觉推理与世界模型",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "荣耀发布自研龙虾AI智能体YOYO Claw技术 开创“养虾本”新品类",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "13 个榜单 SOTA！明略科技正式开源GUI-VLA 模型Mano-P 1.0",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "全球第一，13个SOTA！我们找到了龙虾界掌管GUI的神",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "国内首个！加入六维力的全感知数采，让VLA模型进化出力触觉",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "迎接范式革命：最新、最全的大模型Latent Space综述，NUS、复旦、清华等联合出品",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "大卫贝克团队从头设计小分子结合蛋白质家族：开启按需定制生物传感器的新纪元",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026｜隐式思考模型LRT：「隐式思维链」推理，更快更强！",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "三方协同创新，北大-智源SpikePingpong算法助力智元灵犀X2彰显中国具身智能实力",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Strategic Algorithmic Monoculture:Experimental Evidence from Coordination Games",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09502"
+    },
+    {
+      "title": "Process Reward Agents for Steering Knowledge-Intensive Reasoning",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09482"
+    },
+    {
+      "title": "E3-TIR: Enhanced Experience Exploitation for Tool-Integrated Reasoning",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09455"
+    },
+    {
+      "title": "Do We Really Need to Approach the Entire Pareto Front in Many-Objective Bayesian Optimisation?",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09417"
+    },
+    {
+      "title": "HiL-Bench (Human-in-Loop Benchmark): Do Agents Know When to Ask for Help?",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.09408"
+    },
+    {
+      "title": "ANTIC: Adaptive Neural Temporal In-situ Compressor",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09543"
+    },
+    {
+      "title": "Event-Driven Temporal Graph Networks for Asynchronous Multi-Agent Cyber Defense in NetForge_RL",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09523"
+    },
+    {
+      "title": "Toward World Models for Epidemiology",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09519"
+    },
+    {
+      "title": "Integrated electro-optic attention nonlinearities for transformers",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09512"
+    },
+    {
+      "title": "SafeAdapt: Provably Safe Policy Updates in Deep Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.09452"
+    }
+  ],
   "miao_notice": [
     {
       "content": "🐱 **喵子告知**\n\n今天资讯面和行业声音都静悄悄，周一早盘前这种\"真空期\"反而值得警惕。经验告诉喵子，信息空窗往往是大资金调仓换股的窗口——没有消息本身就是一种信号。\n\n建议今天重点观察盘面资金动向，比起追热点，不如回头审视一下自己持仓的逻辑还在不在。市场不给新信息的时候，恰恰是复盘和做减法的好时机。\n\n安静的早晨，清醒的头脑。别让手痒毁了好仓位喵~🐾",

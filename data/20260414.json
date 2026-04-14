@@ -1,6 +1,6 @@
 {
   "date": "20260414",
-  "generated_at": "2026-04-14T12:00:40.673281",
+  "generated_at": "2026-04-14T12:01:38.658021",
   "news": [
     {
       "time": "07:14",
@@ -125,6 +125,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Physics-Informed State Space Models for Reliable Solar Irradiance Forecasting in Off-Grid Systems",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.11807"
+    },
+    {
+      "title": "Solving Physics Olympiad via Reinforcement Learning on Physics Simulators",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.11805"
+    },
+    {
+      "title": "A Mechanistic Analysis of Looped Reasoning Language Models",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.11791"
+    },
+    {
+      "title": "ClawGUI: A Unified Framework for Training, Evaluating, and Deploying GUI Agents",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.11784"
+    },
+    {
+      "title": "Autonomous Diffractometry Enabled by Visual Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.11773"
+    },
     {
       "title": "养虾「不可能三角」：好用、好玩、安全，复旦这个「00后」团队做到了！",
       "body": "",

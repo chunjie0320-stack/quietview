@@ -1,6 +1,6 @@
 {
   "date": "20260414",
-  "generated_at": "2026-04-14T18:00:12.744107",
+  "generated_at": "2026-04-14T18:00:42.443744",
   "news": [
     {
       "time": "11:27",
@@ -245,6 +245,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Detecting Safety Violations Across Many Agent Traces",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11806"
+    },
+    {
+      "title": "GenTac: Generative Modeling and Forecasting of Soccer Tactics",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11786"
+    },
+    {
+      "title": "Retrieval Is Not Enough: Why Organizational AI Needs Epistemic Infrastructure",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11759"
+    },
+    {
+      "title": "Collaborative Multi-Agent Scripts Generation for Enhancing Imperfect-Information Reasoning in Murder Mystery Games",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11741"
+    },
+    {
+      "title": "SWE-AGILE: A Software Agent Framework for Efficiently Managing Dynamic Reasoning Context",
+      "body": "",
+      "time": "2026/04/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11716"
+    },
     {
       "title": "Physics-Informed State Space Models for Reliable Solar Irradiance Forecasting in Off-Grid Systems",
       "body": "",

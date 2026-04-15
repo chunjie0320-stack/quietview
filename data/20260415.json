@@ -1,6 +1,6 @@
 {
   "date": "20260415",
-  "generated_at": "2026-04-15T12:00:42.365775",
+  "generated_at": "2026-04-15T12:01:07.006092",
   "news": [
     {
       "time": "07:36",
@@ -125,6 +125,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "PAL: Personal Adaptive Learner",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13017"
+    },
+    {
+      "title": "Bilevel Late Acceptance Hill Climbing for the Electric Capacitated Vehicle Routing Problem",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13013"
+    },
+    {
+      "title": "Cycle-Consistent Search: Question Reconstructability as a Proxy Reward for Search Agent Training",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.12967"
+    },
+    {
+      "title": "Modeling Co-Pilots for Text-to-Model Translation",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.12955"
+    },
+    {
+      "title": "Drawing on Memory: Dual-Trace Encoding Improves Cross-Session Recall in LLM Agents",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.12948"
+    },
+    {
+      "title": "CLAD: Efficient Log Anomaly Detection Directly on Compressed Representations",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.13024"
+    },
+    {
+      "title": "Rethinking On-Policy Distillation of Large Language Models: Phenomenology, Mechanism, and Recipe",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.13016"
+    },
+    {
+      "title": "Lightning OPD: Efficient Post-Training for Large Reasoning Models with Offline On-Policy Distillation",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.13010"
+    },
+    {
+      "title": "Evolution of Optimization Methods: Algorithms, Scenarios, and Evaluations",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.12968"
+    },
+    {
+      "title": "An Optimal Sauer Lemma Over $k$-ary Alphabets",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.12952"
+    },
     {
       "title": "速来！巴西不仅有足球，也有蚂蚁的ICLR 2026学术派对",
       "body": "",

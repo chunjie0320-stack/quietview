@@ -1,9 +1,115 @@
 {
   "date": "20260415",
-  "generated_at": "2026-04-15T08:00:12.033718",
+  "generated_at": "2026-04-15T08:01:08.432445",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "速来！巴西不仅有足球，也有蚂蚁的ICLR 2026学术派对",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "数学的上帝粒子！一个运算符能导出所有基本函数",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "迎接智能体的「觉醒时刻」：EverOS全球公测开启Agent Memory自进化序章",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "写Verilog、调CUDA，总翻车？工业代码大模型开始学会「先想后写」了",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "火山引擎：Seedance 2.0 API 服务全面开放",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "目标更重要？国内公司超越Generalist，进化到动作中心世界模型",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "警惕！大模型成本倒挂：你正在为模型的多余「思考」买单",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "腾讯开源算法大赛学术成果和千万级别数据集，推动广告推荐技术发展",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 | BioMD：从结构快照到连续轨迹，蛋白-配体全原子动力学生成模型",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "直面LeCun愿景，智在无界发布最强具身世界模型，20万小时人类视频屠榜6大榜单",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Detecting Safety Violations Across Many Agent Traces",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11806"
+    },
+    {
+      "title": "GenTac: Generative Modeling and Forecasting of Soccer Tactics",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11786"
+    },
+    {
+      "title": "Retrieval Is Not Enough: Why Organizational AI Needs Epistemic Infrastructure",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11759"
+    },
+    {
+      "title": "Collaborative Multi-Agent Scripts Generation for Enhancing Imperfect-Information Reasoning in Murder Mystery Games",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11741"
+    },
+    {
+      "title": "SWE-AGILE: A Software Agent Framework for Efficiently Managing Dynamic Reasoning Context",
+      "body": "",
+      "time": "2026/04/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.11716"
+    }
+  ],
   "miao_notice": [
     {
       "content": "# 喵子告知\n\n今天资讯面和行业声音都是空白，但空白本身就是信号。\n\n没有大事发生的窗口期，往往是市场在蓄力或者在等一个催化剂。这种时候最容易犯两个错：一是闲不住瞎操作，二是彻底放松警惕。喵子的建议是，趁安静把自己持仓的底层逻辑重新过一遍——很多亏损不是因为黑天鹅，而是因为平静期没做功课。\n\n无风的海面，要么是好天气，要么是暴风雨前。保持仓位纪律，别浪。🐱",

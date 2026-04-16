@@ -1,9 +1,115 @@
 {
   "date": "20260416",
-  "generated_at": "2026-04-16T08:00:12.942219",
+  "generated_at": "2026-04-16T08:01:35.302377",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "2026具身智能数据赛道，卷出了一匹「黑马」",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "从「片段生成」到「长视频漫游」：OmniRoam探索轨迹可控的长视频生成新范式",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "阿里ATH发布AI开发工具Meoo，可一键开发一键部署",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "构建跨越时空的微观实验室：KIMMDY 仿真器实现秒级生物化学反应的动态模拟",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "实测参考生之王Vidu Q3：这已经不叫AI生成了，这叫AI驱动整个剧组",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，李飞飞世界模型开源了个渲染神器",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "北大联合Llama-Factory推出DataFlex：工业级数据动态训练系统",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "离谱！我的新上班搭子，居然是个超靠谱的AI",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "昨天，英伟达开源个量子AI，拉爆美股量子计算概念",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "可用即脆弱？VENOM击穿纵向联邦学习",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "PAL: Personal Adaptive Learner",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13017"
+    },
+    {
+      "title": "Bilevel Late Acceptance Hill Climbing for the Electric Capacitated Vehicle Routing Problem",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13013"
+    },
+    {
+      "title": "Cycle-Consistent Search: Question Reconstructability as a Proxy Reward for Search Agent Training",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.12967"
+    },
+    {
+      "title": "Modeling Co-Pilots for Text-to-Model Translation",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.12955"
+    },
+    {
+      "title": "Drawing on Memory: Dual-Trace Encoding Improves Cross-Session Recall in LLM Agents",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.12948"
+    }
+  ],
   "miao_notice": [
     {
       "content": "🐱 **喵子告知**\n\n今天资讯面和行业声音都静悄悄的，但安静本身就是信号。\n\n通常这种\"真空期\"出现在两种时刻：一是大事落地后的消化期，市场在等下一个叙事锚点；二是暴风雨前的憋气阶段，关键决策还在桌下博弈。不管哪种，对投资者来说动作一样——**不追不慌，检查持仓逻辑有没有变，没变就别动。** 没有消息的时候最怕的是自己给自己编故事。\n\n喵子的建议：趁安静把自己的观察清单理一遍，等风来的人永远比追风的人拿到更好的价格。🐾",

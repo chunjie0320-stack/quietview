@@ -1,6 +1,6 @@
 {
   "date": "20260416",
-  "generated_at": "2026-04-16T12:00:50.395712",
+  "generated_at": "2026-04-16T12:01:14.973139",
   "news": [
     {
       "time": "06:58",
@@ -125,6 +125,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "TREX: Automating LLM Fine-tuning via Agent-Driven Tree-based Exploration",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.14116"
+    },
+    {
+      "title": "Hierarchical Reinforcement Learning with Runtime Safety Shielding for Power Grid Operation",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.14032"
+    },
+    {
+      "title": "Memory Transfer Learning: How Memories are Transferred Across Domains in Coding Agents",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.14004"
+    },
+    {
+      "title": "Reward Design for Physical Reasoning in Vision-Language Models",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13993"
+    },
+    {
+      "title": "[Emerging Ideas] Artificial Tripartite Intelligence: A Bio-Inspired, Sensor-First Architecture for Physical AI",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13959"
+    },
+    {
+      "title": "From $P(y|x)$ to $P(y)$: Investigating Reinforcement Learning in Pre-train Space",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14142"
+    },
+    {
+      "title": "LongCoT: Benchmarking Long-Horizon Chain-of-Thought Reasoning",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14140"
+    },
+    {
+      "title": "Complex Interpolation of Matrices with an application to Multi-Manifold Learning",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14118"
+    },
+    {
+      "title": "Momentum Further Constrains Sharpness at the Edge of Stochastic Stability",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14108"
+    },
+    {
+      "title": "TIP: Token Importance in On-Policy Distillation",
+      "body": "",
+      "time": "2026/04/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14084"
+    },
     {
       "title": "2026具身智能数据赛道，卷出了一匹「黑马」",
       "body": "",

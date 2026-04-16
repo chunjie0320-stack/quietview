@@ -1,6 +1,6 @@
 {
   "date": "20260416",
-  "generated_at": "2026-04-16T18:02:00.936892",
+  "generated_at": "2026-04-16T18:09:06.408208",
   "news": [
     {
       "time": "17:36",
@@ -363,7 +363,38 @@
       "link": "https://www.cls.cn/detail/2345513"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "财躺平",
+      "title": "服了你们，一说就涨",
+      "digest": "如何与自己相处？",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488308&idx=1&sn=264ba907a93a0f5bad2a692ab43f9c68&chksm=fa1a96b1cd6d1fa7b43e681a3c2ef472046bebaecff2ea59a05eed0f8fe2376c53e25357f0a5#rd",
+      "time": "16:28",
+      "timestamp": 1776328088,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "卓哥投研笔记",
+      "title": "阿里的世界模型，HappyOyster",
+      "digest": "HappyHorse之后，阿里（ATH）又推了一款模型，依旧Happy系列：HappyOyster，快乐生蚝，这是一款世界模型，类似谷歌之前推的Genie 3。\n\n我拿到码测了一下。首先可以选择各种世界，比如滑雪，东方剑客，功夫奶奶。也可以创建自己的世界，但创建世界对于普通人来说比较难，要写比较长、比较专业的prompt。\n\n我选了“功夫奶奶”。然后可以让功夫奶奶搞各种操作，比如翻跟斗，让孙子给奶",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486748&idx=1&sn=e3fdd596d8dd39be7b4f4a12f14ef25a&chksm=c331eb4ff4466259c5b26f1c5607cf383586b0a51f424ffb14ec4cb11fd8d24efcc089d5ea1b#rd",
+      "time": "13:56",
+      "timestamp": 1776319001,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "零售业真正厉害的公司，是做少不做多",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489480&idx=1&sn=e6700cc30672fb530ed83d8288994042&chksm=fe58f56cc92f7c7a4ac7b385bd84c184409bdf578328d64f0ad4260c97e41080d58d8244e127#rd",
+      "time": "09:01",
+      "timestamp": 1776301315,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "ai_voice": [
     {
       "title": "TREX: Automating LLM Fine-tuning via Agent-Driven Tree-based Exploration",

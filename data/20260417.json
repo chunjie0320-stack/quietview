@@ -1,8 +1,29 @@
 {
   "date": "20260417",
-  "generated_at": "2026-04-17T06:00:18.217193",
+  "generated_at": "2026-04-17T08:00:18.992614",
   "news": [],
-  "voice": [],
+  "voice": [
+    {
+      "source": "中金点睛",
+      "title": "中金4月数说资产",
+      "digest": "向前看，宏观经济和政策走势如何？对各类资产有何影响？中金公司总量以及行业为您联合解读。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832977&idx=1&sn=16e8171d38ab63cfc35aa722afdbc1a7&chksm=eadd3356ddaaba4017693bce3579f36d7e75a023ed53a5b9a7d92ad9c2e3f99048ee438b1790#rd",
+      "time": "07:43",
+      "timestamp": 1776383028,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 茶饮行业系列报告一：一杯奶茶，万店江湖",
+      "digest": "过去十年茶饮行业经历了较长周期演变，我们在本系列报告中系统回顾和展望未来，讨论行业增长趋势、外卖补贴影响、竞争格局变化（本篇聚焦），以及企业竞争力和生命周期、估值判断等核心关切。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247832977&idx=2&sn=de70836baf66ef7f61242f5cf5e235d5&chksm=eadd3356ddaaba4001945d5f8b3888238bf37f64162b8c864d5b0cb66e80bc13b6416052703b#rd",
+      "time": "07:43",
+      "timestamp": 1776383028,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [],
   "miao_notice": [
     {

@@ -1,6 +1,6 @@
 {
   "date": "20260417",
-  "generated_at": "2026-04-17T12:00:23.948028",
+  "generated_at": "2026-04-17T12:00:50.857572",
   "news": [
     {
       "time": "07:13",
@@ -124,6 +124,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "李录是不是真价投？",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489482&idx=1&sn=02361cd99cbe6c0d6eeaaff6922f447c&chksm=fe58f56ec92f7c78c914963514d78e53864de77d70737376aee8c38e8caa65e843fa999544c9#rd",
+      "time": "09:07",
+      "timestamp": 1776388047,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "中金点睛",
       "title": "中金4月数说资产",

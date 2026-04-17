@@ -1,6 +1,6 @@
 {
   "date": "20260417",
-  "generated_at": "2026-04-17T08:00:18.992614",
+  "generated_at": "2026-04-17T08:00:42.299597",
   "news": [],
   "voice": [
     {
@@ -24,7 +24,148 @@
       "text_color": "#1565c0"
     }
   ],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "打造全球领先“具身智能超级供应链”，京东发布行业首个具身数据全链路基础设施",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "当AI迈入Harness时代：以MiniMax为样本看智能体云端新基建",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "数据限制具身？觅蜂杀进场破局：高质量数据水电一样即取即用",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "TPAMI 2026 | 北大彭宇新团队提出CPL++框架，实现视觉定位模型的「自知之明」和「自我纠错」",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "澜舟科技发布可信 AI 技术体系，以智能体和数字员工重构企业服务新范式",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026巴西见！上海AI实验室北极星X星启交流会，等你来聊",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "脸谱心智陆弘远团队ACL 2026新作：别再给模型叠加「高级词」了！模型更爱听「大白话」",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "腾讯发布并开源混元3D世界模型 2.0，一句话造出3D世界，兼容游戏引擎！",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ACM CAIS 2026 Workshop征稿｜首届Agent Skills研讨会：智能体技能的设计、评估与优化",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "打通分子宏微观鸿沟，40+任务超越SOTA，上智院开源Suiren-1.0模型",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "TREX: Automating LLM Fine-tuning via Agent-Driven Tree-based Exploration",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.14116"
+    },
+    {
+      "title": "Hierarchical Reinforcement Learning with Runtime Safety Shielding for Power Grid Operation",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.14032"
+    },
+    {
+      "title": "Memory Transfer Learning: How Memories are Transferred Across Domains in Coding Agents",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.14004"
+    },
+    {
+      "title": "Reward Design for Physical Reasoning in Vision-Language Models",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13993"
+    },
+    {
+      "title": "[Emerging Ideas] Artificial Tripartite Intelligence: A Bio-Inspired, Sensor-First Architecture for Physical AI",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.13959"
+    },
+    {
+      "title": "From $P(y|x)$ to $P(y)$: Investigating Reinforcement Learning in Pre-train Space",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14142"
+    },
+    {
+      "title": "LongCoT: Benchmarking Long-Horizon Chain-of-Thought Reasoning",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14140"
+    },
+    {
+      "title": "Complex Interpolation of Matrices with an application to Multi-Manifold Learning",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14118"
+    },
+    {
+      "title": "Momentum Further Constrains Sharpness at the Edge of Stochastic Stability",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14108"
+    },
+    {
+      "title": "TIP: Token Importance in On-Policy Distillation",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.14084"
+    }
+  ],
   "miao_notice": [
     {
       "content": "🐱 **喵子告知**\n\n今天信息面很安静，没有新的行业资讯和声音流入。但安静本身也是信号——要么是暴风雨前的平静，要么是市场在消化前期密集信息，等待下一个催化剂。\n\n喵子的判断：越是这种\"真空期\"，越要回头审视自己的持仓逻辑和仓位结构。别因为没新消息就手痒操作，也别因为平静就放松警惕。市场最喜欢在大家放松的时候突然给你一巴掌。\n\n没有消息的日子，就是最好的复盘日。把功课补上，比追下一个热点重要十倍。🐾",

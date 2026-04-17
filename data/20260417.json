@@ -1,6 +1,6 @@
 {
   "date": "20260417",
-  "generated_at": "2026-04-17T18:00:23.192843",
+  "generated_at": "2026-04-17T18:01:17.128079",
   "news": [
     {
       "time": "11:15",
@@ -286,6 +286,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Generalization in LLM Problem Solving: The Case of the Shortest Path",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15306"
+    },
+    {
+      "title": "Diagnosing LLM Judge Reliability: Conformal Prediction Sets and Transitivity Violations",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15302"
+    },
+    {
+      "title": "How Do LLMs and VLMs Understand Viewpoint Rotation Without Vision? An Interpretability Study",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15294"
+    },
+    {
+      "title": "Blue Data Intelligence Layer: Streaming Data and Agents for Multi-source Multi-modal Data-Centric Applications",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15233"
+    },
+    {
+      "title": "RadAgent: A tool-using AI agent for stepwise interpretation of chest computed tomography",
+      "body": "",
+      "time": "2026/04/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15231"
+    },
     {
       "title": "打造全球领先“具身智能超级供应链”，京东发布行业首个具身数据全链路基础设施",
       "body": "",

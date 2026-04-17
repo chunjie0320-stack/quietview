@@ -1,6 +1,6 @@
 {
   "date": "20260417",
-  "generated_at": "2026-04-17T14:00:24.615998",
+  "generated_at": "2026-04-17T18:00:23.192843",
   "news": [
     {
       "time": "11:15",
@@ -244,6 +244,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "新王登基，这张图的含金量还在涨停",
+      "digest": "道法自然",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488321&idx=1&sn=143dd39336789b96710852cfa190d218&chksm=fa1a96c4cd6d1fd27bc4ae42c4f988a42d4179faffdc90fab967bb74cb633f6cbc48a01f4196#rd",
+      "time": "15:46",
+      "timestamp": 1776411961,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "李录是不是真价投？",

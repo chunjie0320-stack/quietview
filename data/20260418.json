@@ -1,6 +1,6 @@
 {
   "date": "20260418",
-  "generated_at": "2026-04-18T12:00:44.333607",
+  "generated_at": "2026-04-18T12:02:04.956787",
   "news": [
     {
       "time": "05:07",
@@ -136,6 +136,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Benchmarking Optimizers for MLPs in Tabular Deep Learning",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15297"
+    },
+    {
+      "title": "How Embeddings Shape Graph Neural Networks: Classical vs Quantum-Oriented Node Representations",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15273"
+    },
+    {
+      "title": "Stability and Generalization in Looped Transformers",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15259"
+    },
+    {
+      "title": "Optimal last-iterate convergence in matrix games with bandit feedback using the log-barrier",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15242"
+    },
+    {
+      "title": "RL-STPA: Adapting System-Theoretic Hazard Analysis for Safety-Critical Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15201"
+    },
     {
       "title": "AI全方位接管，全链路打通干湿闭环，深势发布玻尔·跃迁实验室",
       "body": "",

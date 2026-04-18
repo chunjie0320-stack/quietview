@@ -1,6 +1,6 @@
 {
   "date": "20260418",
-  "generated_at": "2026-04-18T18:00:14.537724",
+  "generated_at": "2026-04-18T18:00:38.125245",
   "news": [
     {
       "time": "08:46",
@@ -256,6 +256,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Generalization in LLM Problem Solving: The Case of the Shortest Path",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15306"
+    },
+    {
+      "title": "Diagnosing LLM Judge Reliability: Conformal Prediction Sets and Transitivity Violations",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15302"
+    },
+    {
+      "title": "How Do LLMs and VLMs Understand Viewpoint Rotation Without Vision? An Interpretability Study",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15294"
+    },
+    {
+      "title": "Blue Data Intelligence Layer: Streaming Data and Agents for Multi-source Multi-modal Data-Centric Applications",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15233"
+    },
+    {
+      "title": "RadAgent: A tool-using AI agent for stepwise interpretation of chest computed tomography",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15231"
+    },
     {
       "title": "Benchmarking Optimizers for MLPs in Tabular Deep Learning",
       "body": "",

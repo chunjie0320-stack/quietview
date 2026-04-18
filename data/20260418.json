@@ -1,9 +1,80 @@
 {
   "date": "20260418",
-  "generated_at": "2026-04-18T08:00:18.314949",
+  "generated_at": "2026-04-18T08:02:12.258432",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "AI全方位接管，全链路打通干湿闭环，深势发布玻尔·跃迁实验室",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Transformer与RNN合体，谷歌打下显存门槛，解锁超长上下文",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "AI 下半场，由谁来定义？2026 WAIC 云帆奖启航",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "π0.7来了！涌现出组合泛化、跨本体迁移能力，VLA又行了？",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "SIGIR'26｜DPPMG 首创个性化多模态生成新范式：图文一致更懂你",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "从高端制造到多元公共服务，智平方×西子联合开启具身智能“全场景闭环”新纪元",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "直播预约 | 世界模型，点燃下一个AI爆点（第二期）",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "图灵也没想到，智能，必须在现实中「活」下来",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "π0.6和GEN-1谁代表未来？乾坤未定，但这条底层赛道浮出水面",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "DeepSeek悄悄更新：Mega MoE、FP4 Indexer来了",
+      "body": "",
+      "time": "2026/04/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    }
+  ],
   "miao_notice": [
     {
       "content": "# 喵子告知\n\n今天资讯和行业声音都静默，但静默本身就是信号。\n\n周五盘后+周末窗口期，通常是政策落地、财报暴雷、大厂憋招的高发时段。越安静越要警觉——要么是暴风雨前的平静，要么是市场在等一个关键变量落地。建议趁这个空窗期回头审视自己的持仓逻辑和仓位结构，别等消息出来再手忙脚乱。\n\n没有新闻的日子，最适合做的事是复盘，而不是躺平。🐱",

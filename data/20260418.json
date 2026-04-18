@@ -1,6 +1,6 @@
 {
   "date": "20260418",
-  "generated_at": "2026-04-18T12:00:17.149193",
+  "generated_at": "2026-04-18T12:00:44.333607",
   "news": [
     {
       "time": "05:07",
@@ -123,7 +123,18 @@
       "link": "https://www.cls.cn/detail/2348144"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "绝大多数人都会低估“懂”一家公司的难度",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489484&idx=1&sn=dc149b9a890f8e72063b0a2dc3dee576&chksm=fe58f568c92f7c7e652acd790db14433a8850eacf64508d0f6464c685c79f3fa9df1b4563586#rd",
+      "time": "10:27",
+      "timestamp": 1776479267,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "ai_voice": [
     {
       "title": "AI全方位接管，全链路打通干湿闭环，深势发布玻尔·跃迁实验室",

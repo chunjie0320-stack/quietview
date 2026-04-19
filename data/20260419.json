@@ -1,9 +1,101 @@
 {
   "date": "20260419",
-  "generated_at": "2026-04-19T08:00:16.022465",
+  "generated_at": "2026-04-19T08:01:12.262494",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "游戏行业不缺AI工具，缺什么？腾讯游戏用一场大赛给出答案",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "终于，Claude革了设计行业的命：Figma、Adobe股价重挫",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "谷歌向左、李飞飞往右，阿里世界模型「快乐生蚝」杀出第三条路",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Claude Code新功能Auto Mode能否替代人工审核？首个压力测试来了",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "梁文锋首次开口融资，DeepSeek只估值680亿，融资20亿？",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "告别「想完再做」卡顿！清华StreamingVLA让VLA边想边行动，提速2.4倍",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "具身数据才是最大「金矿」，数据云商城来了：全球首个、百亿级、全模态、高自由度",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "不写Prompt，连按Tab完成重构：蚂蚁CodeFuse团队提出无指令代码编辑框架NES",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Benchmarking Optimizers for MLPs in Tabular Deep Learning",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15297"
+    },
+    {
+      "title": "How Embeddings Shape Graph Neural Networks: Classical vs Quantum-Oriented Node Representations",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15273"
+    },
+    {
+      "title": "Stability and Generalization in Looped Transformers",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15259"
+    },
+    {
+      "title": "Optimal last-iterate convergence in matrix games with bandit feedback using the log-barrier",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15242"
+    },
+    {
+      "title": "RL-STPA: Adapting System-Theoretic Hazard Analysis for Safety-Critical Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/19",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15201"
+    }
+  ],
   "miao_notice": [
     {
       "content": "🐱 **喵子告知**\n\n周末早间，行业资讯和声音都静悄悄，没有新料。但安静本身也是一种信号——要么是暴风雨前的平静，要么就是市场在消化前一周的信息，等待下周方向选择。\n\n喵子的判断：越是没消息的时候，越适合回头梳理自己的持仓逻辑和仓位结构。别被\"无聊\"骗了，很多人亏钱不是因为错过了什么，而是闲不住乱动。周末好好休息，磨刀不误砍柴工。🐾",

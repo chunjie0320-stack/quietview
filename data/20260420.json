@@ -1,9 +1,136 @@
 {
   "date": "20260420",
-  "generated_at": "2026-04-20T08:00:16.602366",
+  "generated_at": "2026-04-20T08:00:41.995338",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "更新越频繁，Claude Code与Codex越像",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "世界引擎：Post-Training开启Physical AGI新纪元",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "你以为在举报AI烂片？谷歌：这招，我用验证码玩了15年",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "高德全自主具身机器人炸场亦庄马拉松，拿下「导盲」这道硬核考题",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "内存不够用这件事，可能要持续到2030年",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "新一代记忆智能体框架MIA：让智能体告别「失忆式工作」，在持续进化中变强",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "一天审完两万篇！AAAI 2026首次实装AI审稿，单篇成本不到1美元",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "高德ABot-World登顶四项权威评测，全球唯一在物理合规性、动作可控性、零样本泛化均达第一的世界模型",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Generalization in LLM Problem Solving: The Case of the Shortest Path",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15306"
+    },
+    {
+      "title": "Diagnosing LLM Judge Reliability: Conformal Prediction Sets and Transitivity Violations",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15302"
+    },
+    {
+      "title": "How Do LLMs and VLMs Understand Viewpoint Rotation Without Vision? An Interpretability Study",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15294"
+    },
+    {
+      "title": "Blue Data Intelligence Layer: Streaming Data and Agents for Multi-source Multi-modal Data-Centric Applications",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15233"
+    },
+    {
+      "title": "RadAgent: A tool-using AI agent for stepwise interpretation of chest computed tomography",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.15231"
+    },
+    {
+      "title": "Benchmarking Optimizers for MLPs in Tabular Deep Learning",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15297"
+    },
+    {
+      "title": "How Embeddings Shape Graph Neural Networks: Classical vs Quantum-Oriented Node Representations",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15273"
+    },
+    {
+      "title": "Stability and Generalization in Looped Transformers",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15259"
+    },
+    {
+      "title": "Optimal last-iterate convergence in matrix games with bandit feedback using the log-barrier",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15242"
+    },
+    {
+      "title": "RL-STPA: Adapting System-Theoretic Hazard Analysis for Safety-Critical Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.15201"
+    }
+  ],
   "miao_notice": [
     {
       "content": "# 喵子告知\n\n今天是周一，资讯池和行业声音都是空的，但安静本身就是信号。\n\n周末没有重磅政策、没有大厂放风、没有融资刷屏——要么是暴风雨前的平静，要么大家都在憋大招等Q2数据落地。喵子的经验：当所有人都不说话的时候，恰恰该回头审视自己手里的牌，而不是追着噪音跑。\n\n**今日建议：没有新信息就是最好的复盘窗口。** 趁市场安静，重新检查一遍你的核心假设还成不成立。别让\"没消息\"变成\"没动作\"，也别让焦虑驱动你去找不存在的信号。🐱",

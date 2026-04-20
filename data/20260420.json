@@ -1,6 +1,6 @@
 {
   "date": "20260420",
-  "generated_at": "2026-04-20T22:00:19.937741",
+  "generated_at": "2026-04-20T22:01:22.304696",
   "news": [
     {
       "time": "17:38",
@@ -365,6 +365,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "ASMR-Bench: Auditing for Sabotage in ML Research",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.16286"
+    },
+    {
+      "title": "Using Large Language Models and Knowledge Graphs to Improve the Interpretability of Machine Learning Models in Manufacturing",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.16280"
+    },
+    {
+      "title": "Learning to Reason with Insight for Informal Theorem Proving",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.16278"
+    },
+    {
+      "title": "Characterising LLM-Generated Competency Questions: a Cross-Domain Empirical Study using Open and Closed Models",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.16258"
+    },
+    {
+      "title": "MARCH: Multi-Agent Radiology Clinical Hierarchy for CT Report Generation",
+      "body": "",
+      "time": "2026/04/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.16175"
+    },
     {
       "title": "更新越频繁，Claude Code与Codex越像",
       "body": "",

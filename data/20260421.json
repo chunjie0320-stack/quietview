@@ -1,6 +1,6 @@
 {
   "date": "20260421",
-  "generated_at": "2026-04-21T12:00:47.751942",
+  "generated_at": "2026-04-21T12:01:39.523666",
   "news": [
     {
       "time": "07:04",
@@ -124,7 +124,92 @@
     }
   ],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "突发！苹果官宣库克卸任CEO，属于他的时代结束了",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "AURA：让视频大模型从“看完再答”，走向“边看边理解、边看边响应”",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "MathNet: a Global Multimodal Benchmark for Mathematical Reasoning and Retrieval",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18584"
+    },
+    {
+      "title": "Agentic Forecasting using Sequential Bayesian Updating of Linguistic Beliefs",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18576"
+    },
+    {
+      "title": "Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18566"
+    },
+    {
+      "title": "ClawEnvKit: Automatic Environment Generation for Claw-Like Agents",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18543"
+    },
+    {
+      "title": "OGER: A Robust Offline-Guided Exploration Reward for Hybrid Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18530"
+    },
+    {
+      "title": "Sessa: Selective State Space Attention",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18580"
+    },
+    {
+      "title": "Bounded Ratio Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18578"
+    },
+    {
+      "title": "When Can LLMs Learn to Reason with Weak Supervision?",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18574"
+    },
+    {
+      "title": "A multimodal and temporal foundation model for virtual patient representations at healthcare system scale",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18570"
+    },
+    {
+      "title": "Latent Phase-Shift Rollback: Inference-Time Error Correction via Residual Stream Monitoring and KV-Cache Steering",
+      "body": "",
+      "time": "2026/04/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18567"
+    }
+  ],
   "miao_notice": [
     {
       "content": "**喵子告知**\n\n险资主动提权益仓位，这是今天最值得划重线的信号。从去年政策松绑到今年机构\"抢着加仓\"，说明大资金对A股中长期定价已经翻篇了——不是被动应付考核，是真金白银投票。叠加4月机构密集调研270家公司，中矿资源被百家以上机构踩门槛，矿产+资源安全这条线政策端也在同步加码（自然资源部连发两条关于找矿和深海矿产的表态），产业逻辑和资金逻辑正在对齐。\n\n另一条暗线：期货行业监管大改、村镇银行加速出清超70家，金融供给侧改革在安静但坚决地推进，小散乱退场，资源向头部集中，这对金融板块估值修复是慢变量但方向确定。\n\nAI算力订单占比超85%、芯片龙头新签45亿——2026放量元年的叙事正在被订单数据验证，不是PPT阶段了。喵子判断：**险资加仓+资源安全+AI算力**，这三条主线短期有交易价值，中期有基本面支撑，值得持续跟踪。🐱",

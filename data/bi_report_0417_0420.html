@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兜底会场1期 · AI直出数据看板（4.17-4.20）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+<style>
+  @font-face {
+    font-family: 'MTNewDigitalDisplay-Regular';
+    src: url('https://s3plus.meituan.net/moshu-sql-iconfont/MTNewDigitalDisplay-Regular.otf') format('opentype');
+    font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'MTNewDigitalDisplay-Bold';
+    src: url('https://s3plus.meituan.net/moshu-sql-iconfont/MTNewDigitalDisplay-Bold.otf') format('opentype');
+    font-style: normal; font-display: swap;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'PingFangSC-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #F5F7FA; color: #111925; padding: 24px;
+  }
+  .report-header {
+    display: flex; align-items: center; margin-bottom: 24px;
+    padding: 20px 24px; background: #fff; border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .moshu-logo {
+    width: 36px; height: 36px; margin-right: 14px;
+    background: linear-gradient(135deg, #3271ED, #51C4FD);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: bold; font-size: 16px; flex-shrink: 0;
+  }
+  .report-title { font-size: 22px; font-weight: 600; color: #111925; }
+  .report-subtitle { font-size: 13px; color: rgba(17,25,37,0.5); margin-left: 16px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-card {
+    background: #fff; border-radius: 12px; padding: 24px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); text-align: center;
+    border-top: 3px solid #3271ED;
+  }
+  .kpi-label { font-size: 13px; color: rgba(17,25,37,0.6); margin-bottom: 10px; }
+  .kpi-value {
+    font-family: 'MTNewDigitalDisplay-Bold', monospace;
+    font-size: 38px; color: #3271ED; line-height: 1.2;
+  }
+  .kpi-unit { font-size: 14px; color: rgba(17,25,37,0.45); font-family: 'PingFangSC-Regular', sans-serif; }
+  .chart-row { display: grid; gap: 16px; margin-bottom: 16px; }
+  .two-col { grid-template-columns: 5fr 3fr; }
+  .equal-two { grid-template-columns: 1fr 1fr; }
+  .chart-box {
+    background: #fff; border-radius: 12px; padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: relative;
+  }
+  .chart-box-title { font-size: 15px; font-weight: 600; color: #111925; margin-bottom: 4px; }
+  .chart-inner { width: 100%; height: 380px; }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div class="moshu-logo">M</div>
+  <div style="flex:1">
+    <div class="report-title">兜底会场1期 · AI直出数据看板（4.17-4.20）</div>
+    <div style="font-size:12px;color:rgba(17,25,37,0.45);margin-top:4px;">数据来源：BI 埋点 | 报表生成：2026-04-21</div>
+  </div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-label">4天总页面曝光UV</div>
+    <div class="kpi-value">5,081</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">4天总页面曝光PV</div>
+    <div class="kpi-value">6,857</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">加权平均人均停留时长</div>
+    <div class="kpi-value">6.48<span class="kpi-unit"> 秒</span></div>
+  </div>
+</div>
+
+<div class="chart-row two-col">
+  <div class="chart-box">
+    <div class="chart-box-title">各会场页面曝光UV趋势（双Y轴）</div>
+    <div class="chart-inner" id="chart2"></div>
+  </div>
+  <div class="chart-box">
+    <div class="chart-box-title">各会场页面曝光UV占比</div>
+    <div class="chart-inner" id="chart3"></div>
+  </div>
+</div>
+
+<div class="chart-row equal-two">
+  <div class="chart-box">
+    <div class="chart-box-title">AI通用供给点击曝光 · 各会场UV_CTR趋势（%）</div>
+    <div class="chart-inner" id="chart4"></div>
+  </div>
+  <div class="chart-box">
+    <div class="chart-box-title">AI通用区域点击曝光 · 各会场UV_CTR趋势（%）</div>
+    <div class="chart-inner" id="chart5"></div>
+  </div>
+</div>
+
+<div class="chart-row equal-two">
+  <div class="chart-box">
+    <div class="chart-box-title">核心模块点击UV对比（4天累计）</div>
+    <div class="chart-inner" id="chart6"></div>
+  </div>
+  <div class="chart-box">
+    <div class="chart-box-title">页面人均停留时长对比（加权平均）</div>
+    <div class="chart-inner" id="chart7"></div>
+  </div>
+</div>
+
+<script>
+var COLORS = ["#3271ED","#51C4FD","#21B584","#FF850A","#B174ED","#7C88C2","#FFC90A","#AD7007","#F57AAD","#A3CF11"];
+var DATE_LABELS = ["4.17","4.18","4.19","4.20"];
+
+function makeLegend(extraOpts) {
+  return Object.assign({
+    height: 20, left: 'center', top: 0, type: 'scroll', icon: 'roundRect',
+    itemWidth: 8, itemHeight: 8, itemStyle: { borderWidth: 0 },
+    textStyle: { color: 'rgba(17,25,37,0.70)', fontSize: 12, fontFamily: 'PingFangSC-Regular' }
+  }, extraOpts || {});
+}
+
+function initChart(id) {
+  var dom = document.getElementById(id);
+  var chart = echarts.init(dom);
+  new ResizeObserver(function() { chart.resize(); }).observe(dom);
+  return chart;
+}
+
+// Chart 2 - UV Trend (Dual Y-axis)
+(function(){
+  var c = initChart('chart2');
+  c.setOption({
+    color: COLORS,
+    tooltip: { trigger: 'axis', confine: true },
+    legend: makeLegend({ top: 0 }),
+    grid: { left: 50, right: 60, top: 50, bottom: 30 },
+    xAxis: {
+      type: 'category', data: DATE_LABELS, boundaryGap: false,
+      axisLine: { lineStyle: { color: '#CFD1D3' } },
+      axisTick: { lineStyle: { color: '#CFD1D3' } },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12 }
+    },
+    yAxis: [
+      {
+        type: 'value', name: '其他会场UV',
+        nameTextStyle: { color: 'rgba(17,25,37,0.6)', fontSize: 11 },
+        axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12, fontFamily: 'MTNewDigitalDisplay-Regular' },
+        splitLine: { lineStyle: { type: 'dashed', color: '#E8E8E8' } }
+      },
+      {
+        type: 'value', name: '随时随地UV',
+        nameTextStyle: { color: 'rgba(17,25,37,0.6)', fontSize: 11 },
+        axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12, fontFamily: 'MTNewDigitalDisplay-Regular' },
+        splitLine: { show: false }
+      }
+    ],
+    series: [{"name":"少油少盐吃健康","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[18,14,18,19]},{"name":"今早吃点好的","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[9,40,66,44]},{"name":"今天想吃点不一样的","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[6,38,45,41]},{"name":"周末慢悠悠早午餐","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[5,0,0,2]},{"name":"夜宵来一单","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[7,2,2,12]},{"name":"和朋友一起点","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[54,31,45,74]},{"name":"下午3点的甜","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[35,44,43,105]},{"name":"下午续命时间","type":"line","yAxisIndex":0,"smooth":true,"symbol":"circle","symbolSize":6,"data":[9,0,0,9]},{"name":"随时随地总有你想要的","type":"line","yAxisIndex":1,"smooth":true,"symbol":"circle","symbolSize":6,"lineStyle":{"width":3},"data":[222,581,2073,1368]}]
+  });
+})();
+
+// Chart 3 - Pie
+(function(){
+  var c = initChart('chart3');
+  c.setOption({
+    color: COLORS,
+    tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+    legend: makeLegend({ top: 0, orient: 'horizontal' }),
+    series: [{
+      type: 'pie', radius: ['35%', '60%'], center: ['50%', '55%'],
+      label: { formatter: '{b}\n{d}%', fontSize: 11, color: 'rgba(17,25,37,0.85)' },
+      emphasis: { label: { show: true, fontSize: 14, fontWeight: 'bold' } },
+      data: [{"name":"少油少盐吃健康","value":69},{"name":"今早吃点好的","value":159},{"name":"今天想吃点不一样的","value":130},{"name":"随时随地总有你想要的","value":4244},{"name":"周末慢悠悠早午餐","value":7},{"name":"夜宵来一单","value":23},{"name":"和朋友一起点","value":204},{"name":"下午3点的甜","value":227},{"name":"下午续命时间","value":18}]
+    }]
+  });
+})();
+
+// Chart 4 - AI通用供给 UV_CTR
+(function(){
+  var c = initChart('chart4');
+  c.setOption({
+    color: COLORS,
+    tooltip: { trigger: 'axis', confine: true, valueFormatter: function(v){ return v !== null ? v + '%' : '-'; } },
+    legend: makeLegend({ top: 0 }),
+    grid: { left: 50, right: 20, top: 50, bottom: 30 },
+    xAxis: {
+      type: 'category', data: DATE_LABELS, boundaryGap: false,
+      axisLine: { lineStyle: { color: '#CFD1D3' } },
+      axisTick: { lineStyle: { color: '#CFD1D3' } },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12 }
+    },
+    yAxis: {
+      type: 'value', name: 'UV_CTR(%)',
+      nameTextStyle: { color: 'rgba(17,25,37,0.6)', fontSize: 11 },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12, fontFamily: 'MTNewDigitalDisplay-Regular', formatter: '{value}%' },
+      splitLine: { lineStyle: { type: 'dashed', color: '#E8E8E8' } }
+    },
+    series: [{"name":"少油少盐吃健康","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[61.11,40,0,11.76]},{"name":"今早吃点好的","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[44.44,0,2.44,12.9]},{"name":"今天想吃点不一样的","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[33.33,10.71,0,3.13]},{"name":"随时随地总有你想要的","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[5.83,6.19,1.68,2.39]},{"name":"周末慢悠悠早午餐","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[20,null,null,0]},{"name":"夜宵来一单","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[28.57,0,0,16.67]},{"name":"和朋友一起点","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[6.67,3.85,0,0]},{"name":"下午3点的甜","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[13.79,5.56,5.56,6.52]},{"name":"下午续命时间","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[55.56,null,null,25]}]
+  });
+})();
+
+// Chart 5 - AI通用区域 UV_CTR
+(function(){
+  var c = initChart('chart5');
+  c.setOption({
+    color: COLORS,
+    tooltip: { trigger: 'axis', confine: true, valueFormatter: function(v){ return v !== null ? v + '%' : '-'; } },
+    legend: makeLegend({ top: 0 }),
+    grid: { left: 50, right: 20, top: 50, bottom: 30 },
+    xAxis: {
+      type: 'category', data: DATE_LABELS, boundaryGap: false,
+      axisLine: { lineStyle: { color: '#CFD1D3' } },
+      axisTick: { lineStyle: { color: '#CFD1D3' } },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12 }
+    },
+    yAxis: {
+      type: 'value', name: 'UV_CTR(%)',
+      nameTextStyle: { color: 'rgba(17,25,37,0.6)', fontSize: 11 },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12, fontFamily: 'MTNewDigitalDisplay-Regular', formatter: '{value}%' },
+      splitLine: { lineStyle: { type: 'dashed', color: '#E8E8E8' } }
+    },
+    series: [{"name":"少油少盐吃健康","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[22.22,14.29,0,5.26]},{"name":"今早吃点好的","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[44.44,8.33,1.69,5]},{"name":"今天想吃点不一样的","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[16.67,2.63,0,0]},{"name":"随时随地总有你想要的","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[3.27,3.04,2.78,2.26]},{"name":"周末慢悠悠早午餐","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[0,null,null,0]},{"name":"夜宵来一单","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[28.57,0,0,0]},{"name":"和朋友一起点","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[0,6.67,2.33,0]},{"name":"下午3点的甜","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[5.71,2.38,4.88,7.84]},{"name":"下午续命时间","type":"line","smooth":true,"symbol":"circle","symbolSize":6,"data":[55.56,null,null,22.22]}]
+  });
+})();
+
+// Chart 6 - Stacked Bar
+(function(){
+  var c = initChart('chart6');
+  c.setOption({
+    color: ['#3271ED', '#51C4FD', '#21B584'],
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, confine: true },
+    legend: makeLegend({ top: 0 }),
+    grid: { left: 20, right: 20, top: 50, bottom: 80, containLabel: true },
+    xAxis: {
+      type: 'category', data: ["随时随地总有你想要的","下午3点的甜","和朋友一起点","今早吃点好的","少油少盐吃健康","今天想吃点不一样的","下午续命时间","夜宵来一单","周末慢悠悠早午餐"],
+      axisLine: { lineStyle: { color: '#CFD1D3' } },
+      axisTick: { lineStyle: { color: '#CFD1D3' } },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 11, rotate: 30, interval: 0 }
+    },
+    yAxis: {
+      type: 'value', name: '点击UV',
+      nameTextStyle: { color: 'rgba(17,25,37,0.6)', fontSize: 11 },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12, fontFamily: 'MTNewDigitalDisplay-Regular' },
+      splitLine: { lineStyle: { type: 'dashed', color: '#E8E8E8' } }
+    },
+    series: [{"name":"AI通用供给点击曝光","type":"bar","stack":"total","emphasis":{"focus":"series"},"data":[63,14,4,9,17,6,7,4,1]},{"name":"AI通用区域点击曝光","type":"bar","stack":"total","emphasis":{"focus":"series"},"data":[108,13,3,10,7,2,7,2,0]},{"name":"AI页面滑动事件","type":"bar","stack":"total","emphasis":{"focus":"series"},"data":[1727,118,99,58,36,39,13,12,1]}]
+  });
+})();
+
+// Chart 7 - Duration Bar
+(function(){
+  var c = initChart('chart7');
+  var dArr = [
+    {"name":"周末慢悠悠早午餐","value":187.5,"uv":7,"small":true},
+    {"name":"下午续命时间","value":176.41,"uv":18,"small":true},
+    {"name":"夜宵来一单","value":78.82,"uv":23,"small":true},
+    {"name":"少油少盐吃健康","value":59.53,"uv":69,"small":false},
+    {"name":"今早吃点好的","value":23.62,"uv":159,"small":false},
+    {"name":"今天想吃点不一样的","value":20.71,"uv":130,"small":false},
+    {"name":"下午3点的甜","value":12.33,"uv":227,"small":false},
+    {"name":"和朋友一起点","value":5.69,"uv":204,"small":false},
+    {"name":"随时随地总有你想要的","value":2.85,"uv":4244,"small":false}
+  ];
+  c.setOption({
+    color: ['#3271ED'],
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, confine: true, formatter: function(params){
+      var d = dArr[params[0].dataIndex];
+      var warn = d.small ? ' ⚠️ 样本不足' : '';
+      return d.name + '<br/>停留时长: ' + d.value + ' 秒<br/>UV: ' + d.uv + warn;
+    }},
+    grid: { left: 20, right: 20, top: 30, bottom: 110, containLabel: true },
+    xAxis: {
+      type: 'category', data: dArr.map(function(d){ return d.small ? d.name + ' ⚠️' : d.name; }),
+      axisLine: { lineStyle: { color: '#CFD1D3' } },
+      axisTick: { lineStyle: { color: '#CFD1D3' } },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 11, rotate: 30, interval: 0 }
+    },
+    yAxis: {
+      type: 'value', name: '秒',
+      nameTextStyle: { color: 'rgba(17,25,37,0.6)', fontSize: 11 },
+      axisLabel: { color: 'rgba(17,25,37,0.85)', fontSize: 12, fontFamily: 'MTNewDigitalDisplay-Regular' },
+      splitLine: { lineStyle: { type: 'dashed', color: '#E8E8E8' } }
+    },
+    series: [{
+      type: 'bar', barMaxWidth: 40,
+      data: dArr.map(function(d, i){
+        var normalColors = ['#3271ED','#51C4FD','#21B584','#FF850A','#B174ED','#7C88C2','#FFC90A','#AD7007','#F57AAD'];
+        var barColor = d.small ? '#D0D4D9' : normalColors[i % normalColors.length];
+        return { value: d.value, itemStyle: { color: barColor, borderRadius: [4,4,0,0] } };
+      }),
+      label: { show: true, position: 'top', fontSize: 11, color: 'rgba(17,25,37,0.7)',
+        fontFamily: 'MTNewDigitalDisplay-Regular', formatter: function(p){ var d = dArr[p.dataIndex]; return d.small ? d.value + 's*' : d.value + 's'; } }
+    }]
+  });
+  // 注脚
+  var noteDiv = document.createElement('div');
+  noteDiv.style.cssText = 'margin-top:8px;padding:8px 12px;background:#FFF8E1;border-radius:6px;font-size:12px;color:#AD7007;';
+  noteDiv.innerHTML = '⚠️ 灰色柱体表示UV<50的小样本会场，停留时长受极端值影响较大，仅供参考。';
+  document.getElementById('chart7').parentNode.appendChild(noteDiv);
+})();
+</script>
+</body>
+</html>

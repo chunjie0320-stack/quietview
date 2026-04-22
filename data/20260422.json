@@ -1,9 +1,150 @@
 {
   "date": "20260422",
-  "generated_at": "2026-04-22T08:00:17.104010",
+  "generated_at": "2026-04-22T08:00:45.170457",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "拒绝透露姓名，却拿了两个世界第一：具身圈大佬们都在打听它是谁",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "谢尔盖·布林重启「创始人模式」？谷歌组建「突击队」，重押「AI编程」",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Monet：赋予多模态大模型如人类一般的抽象视觉思考能力",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "你写的Skill，正在拖慢模型？策略式Gene才是正确答案",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "上交大54页综述讲透Agent认知外部化的演进之路",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "单Agent时代正式结束：一个干不过，就上300个",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "揭秘大模型Steering：从底层机理到系统评估，全面破解大模型行为控制之谜",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "物理优先+VLA闭环进化：高德ABot-World世界模型，破解具身智能零样本泛化难题",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "自变量机器人发布全球首个世界统一模型，35天后新一代机器人入驻真实家庭",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "上交大团队提出Meta-encoder框架，释放病理大模型集群力量，在多项国际公认数据集上刷新纪录",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "MathNet: a Global Multimodal Benchmark for Mathematical Reasoning and Retrieval",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18584"
+    },
+    {
+      "title": "Agentic Forecasting using Sequential Bayesian Updating of Linguistic Beliefs",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18576"
+    },
+    {
+      "title": "Benchmarking System Dynamics AI Assistants: Cloud Versus Local LLMs on CLD Extraction and Discussion",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18566"
+    },
+    {
+      "title": "ClawEnvKit: Automatic Environment Generation for Claw-Like Agents",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18543"
+    },
+    {
+      "title": "OGER: A Robust Offline-Guided Exploration Reward for Hybrid Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.18530"
+    },
+    {
+      "title": "Sessa: Selective State Space Attention",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18580"
+    },
+    {
+      "title": "Bounded Ratio Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18578"
+    },
+    {
+      "title": "When Can LLMs Learn to Reason with Weak Supervision?",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18574"
+    },
+    {
+      "title": "A multimodal and temporal foundation model for virtual patient representations at healthcare system scale",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18570"
+    },
+    {
+      "title": "Latent Phase-Shift Rollback: Inference-Time Error Correction via Residual Stream Monitoring and KV-Cache Steering",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.18567"
+    }
+  ],
   "miao_notice": [
     {
       "content": "**喵子告知**\n\n今天资讯面和行业声音都静悄悄，但安静本身就是信号。\n\n周三盘中，市场大概率处于消化前几日波动的阶段，没有新催化就意味着资金在等——等数据、等政策、等方向。这种\"真空期\"往往是主力悄悄调仓的窗口，散户最容易在无聊中乱动。喵子的建议：没信号就是最好的信号，管住手，观察持仓逻辑有没有变化比追热点重要十倍。\n\n保持耐心，别让沉默逼你做多余的事。🐱",

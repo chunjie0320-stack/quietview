@@ -1,6 +1,6 @@
 {
   "date": "20260422",
-  "generated_at": "2026-04-22T12:00:58.717435",
+  "generated_at": "2026-04-22T12:01:24.630628",
   "news": [
     {
       "time": "07:04",
@@ -125,6 +125,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "A-MAR: Agent-based Multimodal Art Retrieval for Fine-Grained Artwork Understanding",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.19689"
+    },
+    {
+      "title": "A Dual Perspective on Synthetic Trajectory Generators: Utility Framework and Privacy Vulnerabilities",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.19653"
+    },
+    {
+      "title": "SafetyALFRED: Evaluating Safety-Conscious Planning of Multimodal Large Language Models",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.19638"
+    },
+    {
+      "title": "Time Series Augmented Generation for Financial Applications",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.19633"
+    },
+    {
+      "title": "AblateCell: A Reproduce-then-Ablate Agent for Virtual Cell Repositories",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.19606"
+    },
+    {
+      "title": "Generalization at the Edge of Stability",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.19740"
+    },
+    {
+      "title": "Safe Continual Reinforcement Learning in Non-stationary Environments",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.19737"
+    },
+    {
+      "title": "FASTER: Value-Guided Sampling for Fast RL",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.19730"
+    },
+    {
+      "title": "FB-NLL: A Feature-Based Approach to Tackle Noisy Labels in Personalized Federated Learning",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.19729"
+    },
+    {
+      "title": "Benign Overfitting in Adversarial Training for Vision Transformers",
+      "body": "",
+      "time": "2026/04/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.19724"
+    },
     {
       "title": "拒绝透露姓名，却拿了两个世界第一：具身圈大佬们都在打听它是谁",
       "body": "",

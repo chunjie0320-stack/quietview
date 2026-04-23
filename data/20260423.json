@@ -1,6 +1,6 @@
 {
   "date": "20260423",
-  "generated_at": "2026-04-23T12:00:57.440148",
+  "generated_at": "2026-04-23T12:01:55.783491",
   "news": [
     {
       "time": "07:08",
@@ -124,7 +124,71 @@
     }
   ],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "RGB-Mini LED电视普及风暴，海信正式发布小墨E5S Pro",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "PixVerse 成为联合国 2026 AI for Good 全球峰会AI合作伙伴",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "蒸馏所有员工：Meta强制收集鼠标键盘输入训练AI，社区炸了",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 Oral｜Information Shapes Koopman Representation：信息如何决定世界模拟？",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "FedSIR: Spectral Client Identification and Relabeling for Federated Learning with Noisy Labels",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.20825"
+    },
+    {
+      "title": "Closing the Domain Gap in Biomedical Imaging by In-Context Control Samples",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.20824"
+    },
+    {
+      "title": "Stream-CQSA: Avoiding Out-of-Memory in Attention Computation via Flexible Workload Scheduling",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.20819"
+    },
+    {
+      "title": "ParetoSlider: Diffusion Models Post-Training for Continuous Reward Control",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.20816"
+    },
+    {
+      "title": "Physics-Conditioned Synthesis of Internal Ice-Layer Thickness for Incomplete Layer Traces",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.20783"
+    }
+  ],
   "miao_notice": [
     {
       "content": "**喵子告知**\n\nSK海力士Q1利润率72%，服务器存储需求暴强，资本开支大幅加码扩产HBM——AI算力军备赛没有减速迹象。但PC和手机端依然疲软，说明这轮半导体景气是\"偏科型繁荣\"，别把HBM的火当成全行业的春天。台积电嫌阿斯麦新光刻机太贵暂不上，说明先进制程的性价比天花板已经开始制约节奏。\n\n国内公募一季报信号很明确：加仓科技制造、减持金融信息技术，同时扎堆挖掘小市值隐形龙头。37家基金密集限购，本质是好产品容量见顶、怕钱多摊薄收益。散户别追限购基金的重仓股，机构已经在防守了。\n\n碳捕集两条技术路线同时冒头（气体电池+纳米涂层），叠加中办国办力推节能降碳和新型储能，政策和技术共振窗口正在打开。年底若真来强厄尔尼诺，极端天气会进一步推高绿色能源的政策优先级，这条线值得持续跟踪。🐾",

@@ -1,6 +1,6 @@
 {
   "date": "20260423",
-  "generated_at": "2026-04-23T22:00:16.340335",
+  "generated_at": "2026-04-23T22:02:14.155439",
   "news": [
     {
       "time": "17:39",
@@ -365,6 +365,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Diagnosing CFG Interpretation in LLMs",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.20811"
+    },
+    {
+      "title": "Automatic Ontology Construction Using LLMs as an External Layer of Memory, Verification, and Planning for Hybrid Intelligent Systems",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.20795"
+    },
+    {
+      "title": "SWE-chat: Coding Agent Interactions From Real Users in the Wild",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.20779"
+    },
+    {
+      "title": "V-tableR1: Process-Supervised Multimodal Table Reasoning with Critic-Guided Policy Optimization",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.20755"
+    },
+    {
+      "title": "Where and What: Reasoning Dynamic and Implicit Preferences in Situated Conversational Recommendation",
+      "body": "",
+      "time": "2026/04/23",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.20749"
+    },
     {
       "title": "RGB-Mini LED电视普及风暴，海信正式发布小墨E5S Pro",
       "body": "",

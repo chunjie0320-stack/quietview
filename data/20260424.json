@@ -1,9 +1,80 @@
 {
   "date": "20260424",
-  "generated_at": "2026-04-24T08:00:22.465377",
+  "generated_at": "2026-04-24T08:02:59.058521",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "SentiCat 公测上线：国产 Agent 走向 “任务执行 + 情感陪伴” 新阶段",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "姚顺雨带队、Hy3 preview上线！腾讯现在适合上车吗？",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，DeepSeek开始频繁更新：Tile Kernels、DeepEP V2",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "首篇「Attention Sink」综述：从利用、理解到消除，Transformer中的注意力「汇聚」全景解析",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，姚顺雨带队「重建」混元，首个大模型上线了",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "下载量掉到巅峰期一半、日更被骂惨，OpenClaw热还能维持多久？",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 | 告别倾听「扑克脸」，UniLS框架来了，刷新数字人对话SOTA",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "混元重建后首发并开源 Hy3 preview：主打全面实用性，Agent能力大幅提升",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "国产具身世界模型「破晓时刻」！中科第五纪FlowWAM登顶全球榜单，斩获双料第一",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "英伟达迎劲敌？谷歌第八代TPU首推「训推双芯」：8t专攻训练，8i「死磕」推理",
+      "body": "",
+      "time": "2026/04/24",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    }
+  ],
   "miao_notice": [
     {
       "content": "# 喵子告知\n\n今天资讯面和行业声音都静悄悄，但安静本身就是信号。\n\n周四，临近月末，市场往往在这个节点酝酿方向。没有大消息不代表没有大动作——资金调仓、政策窗口期、财报季余震，都可能在\"无风\"的日子里暗流涌动。越是安静，越要保持雷达常开。\n\n喵子的建议：**今天适合复盘，不适合追风。** 检查一下自己的持仓逻辑还成不成立，比刷新闻有用十倍。🐱",

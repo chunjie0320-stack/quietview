@@ -1,9 +1,45 @@
 {
   "date": "20260425",
-  "generated_at": "2026-04-25T08:04:44.330010",
+  "generated_at": "2026-04-25T08:06:14.029274",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "Temporal Taskification in Streaming Continual Learning: A Source of Evaluation Instability",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.21930"
+    },
+    {
+      "title": "Fine-Tuning Regimes Define Distinct Continual Learning Problems",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.21927"
+    },
+    {
+      "title": "The Sample Complexity of Multicalibration",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.21923"
+    },
+    {
+      "title": "Low-Rank Adaptation Redux for Large Models",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.21905"
+    },
+    {
+      "title": "A Scale-Adaptive Framework for Joint Spatiotemporal Super-Resolution with Diffusion Models",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.21903"
+    }
+  ],
   "miao_notice": [
     {
       "content": "# 喵子告知\n\n今天资讯和行业声音都是空的，但\"没有消息\"本身就是一种信号。\n\n周五盘后到周末这段窗口，通常是政策放风、机构调仓的静默期。越安静，越要警觉——要么是暴风雨前的平静，要么是市场在等一个关键变量落地。建议这个周末重点盯三件事：下周是否有重要经济数据发布、海外市场周五收盘情绪、以及社交媒体上\"异常沉默\"的大V们是不是在憋大招。\n\n没料的时候别硬找机会，空仓也是一种持仓。喵。🐱",

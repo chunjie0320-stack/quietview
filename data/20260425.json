@@ -1,6 +1,6 @@
 {
   "date": "20260425",
-  "generated_at": "2026-04-25T22:00:18.008090",
+  "generated_at": "2026-04-25T22:01:36.018547",
   "news": [
     {
       "time": "15:10",
@@ -365,6 +365,90 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "ACL 2026 | 不训练LLM也能支持未见语言问答？中科院计算所团队让多语言能力「外挂式」加载",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "翻完DeepSeek报告，我们发现了中国AI的默契",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "开源模型横扫21个科学发现任务！宽德Will联手斯坦福清北，把试错变成武器",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026获奖论文揭晓：两篇杰出论文，大神Alec Radford经典工作获时间检验奖",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "前馈式3D的终极路线图来了！五大核心战线，一文看清未来三维重建该往哪走",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "谷歌Jeff Dean重磅论文：弹性大规模分布式预训练终于可行了",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "多模型协同进化突破单模型天花板？Squeeze Evolve：无需验证器实现推理新SOTA",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.21910"
+    },
+    {
+      "title": "Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.21896"
+    },
+    {
+      "title": "Bounding the Black Box: A Statistical Certification Framework for AI Risk Regulation",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.21854"
+    },
+    {
+      "title": "Alignment has a Fantasia Problem",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.21827"
+    },
+    {
+      "title": "Tool Attention Is All You Need: Dynamic Tool Gating and Lazy Schema Loading for Eliminating the MCP/Tools Tax in Scalable Agentic Workflows",
+      "body": "",
+      "time": "2026/04/25",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.21816"
+    },
     {
       "title": "Temporal Taskification in Streaming Continual Learning: A Source of Evaluation Instability",
       "body": "",

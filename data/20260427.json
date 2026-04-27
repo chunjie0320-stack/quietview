@@ -1,6 +1,6 @@
 {
   "date": "20260427",
-  "generated_at": "2026-04-27T22:00:15.427635",
+  "generated_at": "2026-04-27T22:01:46.643675",
   "news": [
     {
       "time": "19:46",
@@ -365,6 +365,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Agentic World Modeling: Foundations, Capabilities, Laws, and Beyond",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22748"
+    },
+    {
+      "title": "Rethinking Math Reasoning Evaluation: A Robust LLM-as-a-Judge Framework Beyond Symbolic Rigidity",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22597"
+    },
+    {
+      "title": "QuantClaw: Precision Where It Matters for OpenClaw",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22577"
+    },
+    {
+      "title": "On the Hybrid Nature of ABPMS Process Frames and its Implications on Automated Process Discovery",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22455"
+    },
+    {
+      "title": "Superminds Test: Actively Evaluating Collective Intelligence of Agent Society via Probing Agents",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22452"
+    },
     {
       "title": "Spend Less, Fit Better: Budget-Efficient Scaling Law Fitting via Active Experiment Selection",
       "body": "",

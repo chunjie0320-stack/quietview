@@ -1,6 +1,6 @@
 {
   "date": "20260427",
-  "generated_at": "2026-04-27T18:00:22.095056",
+  "generated_at": "2026-04-27T18:01:48.484392",
   "news": [
     {
       "time": "11:32",
@@ -245,6 +245,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Spend Less, Fit Better: Budget-Efficient Scaling Law Fitting via Active Experiment Selection",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.22753"
+    },
+    {
+      "title": "Neural Recovery of Historical Lexical Structure in Bantu Languages from Modern Data",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.22730"
+    },
+    {
+      "title": "Zero-Shot Morphological Discovery in Low-Resource Bantu Languages via Cross-Lingual Transfer and Unsupervised Clustering",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.22723"
+    },
+    {
+      "title": "Operational Feature Fingerprints of Graph Datasets via a White-Box Signal-Subspace Probe",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.22676"
+    },
+    {
+      "title": "Iterative Model-Learning Scheme via Gaussian Processes for Nonlinear Model Predictive Control of (Semi-)Batch Processes",
+      "body": "",
+      "time": "2026/04/27",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.22672"
+    },
     {
       "title": "AI管AI！OpenClaw官方维护机器人上线：一天横扫4000 issues",
       "body": "",

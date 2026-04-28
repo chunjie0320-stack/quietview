@@ -1,6 +1,6 @@
 {
   "date": "20260428",
-  "generated_at": "2026-04-28T12:02:21.600877",
+  "generated_at": "2026-04-28T12:02:45.184675",
   "news": [
     {
       "time": "06:58",
@@ -176,6 +176,76 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Learning to Rotate: Temporal and Semantic Rotary Encoding for Sequential Modeling",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24717"
+    },
+    {
+      "title": "Case-Specific Rubrics for Clinical AI Evaluation: Methodology, Validation, and LLM-Clinician Agreement Across 823 Encounters",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24710"
+    },
+    {
+      "title": "Can Current Agents Close the Discovery-to-Application Gap? A Case Study in Minecraft",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24697"
+    },
+    {
+      "title": "Governing What You Cannot Observe: Adaptive Runtime Governance for Autonomous AI Agents",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24686"
+    },
+    {
+      "title": "The Price of Agreement: Measuring LLM Sycophancy in Agentic Financial Applications",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24668"
+    },
+    {
+      "title": "The Optimal Sample Complexity of Multiclass and List Learning",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24749"
+    },
+    {
+      "title": "Conflict-Aware Harmonized Rotational Gradient for Multiscale Kinetic Regimes",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24745"
+    },
+    {
+      "title": "Learning to Think from Multiple Thinkers",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24737"
+    },
+    {
+      "title": "SpecRLBench: A Benchmark for Generalization in Specification-Guided Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24729"
+    },
+    {
+      "title": "Scalable Hyperparameter-Divergent Ensemble Training with Automatic Learning Rate Exploration for Large Models",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24708"
+    },
     {
       "title": "阿里视频模型 HappyHorse 开启灰测，悟空已率先接入",
       "body": "",

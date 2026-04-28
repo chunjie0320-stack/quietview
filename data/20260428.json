@@ -1,6 +1,6 @@
 {
   "date": "20260428",
-  "generated_at": "2026-04-28T12:00:59.933527",
+  "generated_at": "2026-04-28T12:02:21.600877",
   "news": [
     {
       "time": "06:58",
@@ -123,7 +123,58 @@
       "link": "https://www.cls.cn/detail/2357234"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "谁也逃不过台积电",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489504&idx=1&sn=d124dd304a5483e06087607aeb0a14f5&chksm=fe58f544c92f7c5276c0e01d64311bb4ae65070da6efa121f3ddb92137298b5e2d943c4ed4af#rd",
+      "time": "09:24",
+      "timestamp": 1777339490,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：勿低估美元的韧性",
+      "digest": "美元地位衰落可能是一个比较漫长而反复的过程，国际货币的网络效应带来的惯性也不可忽视。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834492&idx=1&sn=fb27026f54854fd0aca6a60fd2d0a041&chksm=eadd3dbbddaab4ad1cf6202511771a92f5953712118b6b14df133345c2ca1c1eec3ab150b8fe#rd",
+      "time": "07:39",
+      "timestamp": 1777333191,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 日经6万点的“牛市衰退”",
+      "digest": "日经指数虽突破历史新高，但居民体感接近衰退，本文详解日本的“牛市衰退”逻辑。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834492&idx=2&sn=1cf68ceb9c3793634af47c0855424dd1&chksm=eadd3dbbddaab4ad5732553c6f9e522fa4c628c4dba8e8294ddf8c076f9aecbc7976eec4ae05#rd",
+      "time": "07:39",
+      "timestamp": 1777333191,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：成长风格如何走出独立行情？",
+      "digest": "2026年成长仍有优势，但与其他板块的相对表现或有所收敛，越来越多的顺周期行业有望受益于供需再平衡。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834492&idx=3&sn=a72a9c0263594f099dce879957877af6&chksm=eadd3dbbddaab4ad985ba775b40e9b2a30067d0ae90a9714d2a1a989089b743db334cda17af7#rd",
+      "time": "07:39",
+      "timestamp": 1777333191,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | AI十年展望（二十八）：AI+网络安全——重塑数字世界的攻防范式",
+      "digest": "如何定位AI与安全的关系？当AI成为新的生产系统，如何保护AI；当攻击开始被AI加速，如何用AI重塑安全？我们在本报告中予以解答。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834492&idx=4&sn=70980487c5aa039a7a181be9724a04e4&chksm=eadd3dbbddaab4ad3622c5d3c41b0b2fa0d9f3b2e1ae70fe046c7382e94655a1b27d3e553b02#rd",
+      "time": "07:39",
+      "timestamp": 1777333191,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [
     {
       "title": "阿里视频模型 HappyHorse 开启灰测，悟空已率先接入",

@@ -1,0 +1,4071 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任务中心运营配置 · AI Native</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #070B14;
+  --bg-secondary: #0D1526;
+  --bg-card: #111C35;
+  --border-subtle: rgba(99,179,237,0.15);
+  --accent-blue: #63B3ED;
+  --accent-cyan: #4FD1C5;
+  --accent-green: #68D391;
+  --accent-yellow: #F6E05E;
+  --accent-red: #FC8181;
+  --text-primary: #E2E8F0;
+  --text-secondary: #A0AEC0;
+  --text-muted: #4A5568;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+body.user-view-active {
+  overflow-y: auto;
+  height: auto;
+}
+
+/* ===== LAYOUT ===== */
+.app-container {
+  display: flex;
+  height: 100vh;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ===== LEFT PANEL ===== */
+.left-panel {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+/* Header */
+.chat-header {
+  padding: 20px 28px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, rgba(13,21,38,0.95) 0%, transparent 100%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 0 16px rgba(99,179,237,0.4);
+}
+
+.header-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(99,179,237,0.08);
+  border: 1px solid rgba(99,179,237,0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--accent-cyan);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse-green 2s infinite;
+}
+
+/* Messages */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(99,179,237,0.2);
+  border-radius: 2px;
+}
+
+/* Message bubble */
+.message-row {
+  display: flex;
+  gap: 10px;
+  animation: slideInUp 0.35s cubic-bezier(0.22,0.61,0.36,1) both;
+}
+
+.message-row.user-row {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.avatar.ai-avatar {
+  background: linear-gradient(135deg, #1a2d5a, #0d2040);
+  border: 1px solid rgba(99,179,237,0.3);
+  box-shadow: 0 0 12px rgba(99,179,237,0.15);
+}
+
+.avatar.user-avatar {
+  background: linear-gradient(135deg, #1a3a2a, #0d2820);
+  border: 1px solid rgba(104,211,145,0.3);
+}
+
+.bubble {
+  max-width: 78%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+.bubble.ai-bubble {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-top-left-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(99,179,237,0.04);
+}
+
+.bubble.user-bubble {
+  background: linear-gradient(135deg, rgba(99,179,237,0.12), rgba(79,209,197,0.08));
+  border: 1px solid rgba(99,179,237,0.25);
+  border-top-right-radius: 4px;
+}
+
+.bubble-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Loading dots */
+.loading-bubble {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 18px;
+}
+
+.dot-jump {
+  width: 7px;
+  height: 7px;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  animation: dotJump 1.2s infinite ease-in-out;
+}
+.dot-jump:nth-child(2) { animation-delay: 0.2s; }
+.dot-jump:nth-child(3) { animation-delay: 0.4s; }
+
+/* Quick phrases */
+.quick-phrases {
+  padding: 12px 28px 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.phrase-chip {
+  padding: 6px 12px;
+  background: rgba(99,179,237,0.06);
+  border: 1px solid rgba(99,179,237,0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phrase-chip:hover {
+  background: rgba(99,179,237,0.15);
+  border-color: rgba(99,179,237,0.4);
+  box-shadow: 0 0 10px rgba(99,179,237,0.15);
+}
+
+/* Input area */
+.chat-input-area {
+  padding: 14px 28px 20px;
+  flex-shrink: 0;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 10px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: rgba(99,179,237,0.4);
+  box-shadow: 0 0 0 3px rgba(99,179,237,0.07), 0 0 20px rgba(99,179,237,0.08);
+}
+
+#chatInput {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  min-height: 22px;
+  max-height: 120px;
+}
+
+#chatInput::placeholder {
+  color: var(--text-muted);
+}
+
+.send-btn {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.send-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.send-btn:hover::after {
+  transform: translateX(100%);
+}
+
+.send-btn:hover {
+  box-shadow: 0 0 16px rgba(99,179,237,0.5);
+  transform: translateY(-1px);
+}
+
+.send-btn:active {
+  transform: translateY(0);
+}
+
+.send-icon {
+  fill: white;
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== RIGHT PANEL ===== */
+.right-panel {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.right-panel-scroll {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.right-panel-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.right-panel-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.right-panel-scroll::-webkit-scrollbar-thumb {
+  background: rgba(99,179,237,0.15);
+  border-radius: 2px;
+}
+
+.right-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.right-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.right-title-icon {
+  font-size: 17px;
+}
+
+.config-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* Elements card */
+.elements-card {
+  margin: 20px 24px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: visible;
+  position: relative;
+}
+
+.elements-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(99,179,237,0.2), transparent, rgba(79,209,197,0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.elements-card-header {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.element-row {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.element-row:last-child {
+  border-bottom: none;
+}
+
+.element-row:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.element-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.element-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.element-name {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.element-label {
+  font-weight: 600;
+}
+
+.status-lamp {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.status-lamp.red {
+  background: var(--accent-red);
+  box-shadow: 0 0 6px rgba(252,129,129,0.6);
+  animation: blinkSlow 2s infinite;
+}
+
+.status-lamp.yellow {
+  background: var(--accent-yellow);
+  box-shadow: 0 0 6px rgba(246,224,94,0.5);
+}
+
+.status-lamp.green {
+  background: var(--accent-green);
+  box-shadow: 0 0 8px rgba(104,211,145,0.6);
+  animation: pulse-green 2s infinite;
+}
+
+.element-value {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+  word-break: break-all;
+}
+
+.element-value.empty {
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.element-value:hover {
+  border-color: var(--border-subtle);
+  background: rgba(255,255,255,0.03);
+}
+
+.element-value.editing {
+  border-color: rgba(99,179,237,0.4);
+  background: rgba(99,179,237,0.05);
+  outline: none;
+}
+
+.element-suggestion {
+  font-size: 11px;
+  color: var(--accent-yellow);
+  margin-top: 4px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.element-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.adopt-btn {
+  padding: 4px 10px;
+  background: rgba(246,224,94,0.1);
+  border: 1px solid rgba(246,224,94,0.35);
+  border-radius: 6px;
+  color: var(--accent-yellow);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.adopt-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(246,224,94,0.2) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.adopt-btn:hover::after {
+  transform: translateX(100%);
+}
+
+.adopt-btn:hover {
+  background: rgba(246,224,94,0.18);
+  box-shadow: 0 0 10px rgba(246,224,94,0.25);
+}
+
+/* 领取门槛快捷选项 */
+.claim-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.claim-opt-btn {
+  padding: 4px 9px;
+  background: rgba(99,179,237,0.07);
+  border: 1px solid rgba(99,179,237,0.2);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.claim-opt-btn:hover {
+  background: rgba(99,179,237,0.14);
+  color: var(--text-primary);
+  border-color: rgba(99,179,237,0.4);
+}
+
+.claim-opt-btn.active {
+  background: rgba(104,211,145,0.12);
+  border-color: rgba(104,211,145,0.4);
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+/* Stats card */
+.stats-card {
+  margin: 16px 24px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(79,209,197,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.stats-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stats-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stats-value .unit {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.stats-empty {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Budget warning */
+.budget-warning {
+  margin: 12px 24px 0;
+  padding: 12px 16px;
+  background: rgba(252,129,129,0.08);
+  border: 1px solid rgba(252,129,129,0.25);
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--accent-red);
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.budget-warning.show {
+  display: flex;
+}
+
+.warning-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ===== STRATEGY CARD ===== */
+.strategy-card {
+  margin: 16px 24px 0;
+  background: var(--bg-card);
+  border: 1px solid rgba(99,179,237,0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  display: none;
+}
+
+.strategy-card.show {
+  display: block;
+  animation: slideInUp 0.4s cubic-bezier(0.22,0.61,0.36,1) both;
+}
+
+.strategy-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-green));
+  border-radius: 2px 2px 0 0;
+}
+
+.strategy-card-header {
+  padding: 14px 18px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.strategy-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.strategy-generating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 18px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.strategy-body {
+  padding: 0;
+}
+
+/* 基础信息区 */
+.strategy-section {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.strategy-section:last-child {
+  border-bottom: none;
+}
+
+.strategy-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.strategy-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.strategy-row:last-child {
+  margin-bottom: 0;
+}
+
+.strategy-row-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 64px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.strategy-row-value {
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.55;
+  font-family: 'JetBrains Mono', monospace;
+  flex: 1;
+}
+
+/* 推理区高亮 */
+.strategy-reasoning {
+  background: rgba(99,179,237,0.04);
+  border: 1px solid rgba(99,179,237,0.12);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 18px 14px;
+}
+
+.strategy-reasoning-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.strategy-reasoning-row:last-child {
+  margin-bottom: 0;
+}
+
+.strategy-reasoning-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  min-width: 60px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.strategy-reasoning-value {
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* 预算进度条区块 */
+.budget-progress-block {
+  background: rgba(246,173,85,0.06);
+  border: 1px solid rgba(246,173,85,0.2);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+
+.bp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.bp-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  letter-spacing: 0.5px;
+}
+
+.bp-remaining {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.bp-bar-wrap {
+  width: 100%;
+  height: 10px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.bp-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-yellow), #F6AD55);
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.bp-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.bp-used { color: var(--accent-yellow); font-weight: 600; }
+.bp-total { color: var(--text-muted); }
+
+/* 激励策略区块 */
+.strategy-incentive-params {
+  background: rgba(246,173,85,0.05);
+  border: 1px solid rgba(246,173,85,0.18);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 18px 14px;
+}
+
+/* 执行参数区块 */
+.strategy-exec-params {
+  background: rgba(154,230,180,0.04);
+  border: 1px solid rgba(154,230,180,0.15);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 18px 14px;
+}
+
+.ep-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.ep-row:last-child { margin-bottom: 0; }
+
+.ep-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-green);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  min-width: 72px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.ep-value {
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.ep-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(154,230,180,0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(154,230,180,0.3);
+}
+
+/* 玩法类型标签 */
+.play-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.play-type-badge.gated {
+  background: rgba(246,224,94,0.1);
+  border: 1px solid rgba(246,224,94,0.3);
+  color: var(--accent-yellow);
+}
+
+.play-type-badge.direct {
+  background: rgba(104,211,145,0.1);
+  border: 1px solid rgba(104,211,145,0.3);
+  color: var(--accent-green);
+}
+
+.play-type-badge.ladder {
+  background: rgba(99,179,237,0.1);
+  border: 1px solid rgba(99,179,237,0.3);
+  color: var(--accent-blue);
+}
+
+/* 确认按钮区 */
+.strategy-actions {
+  padding: 14px 18px;
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(0,0,0,0.15);
+}
+
+.strategy-adjust-btn {
+  flex: 1;
+  padding: 9px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.strategy-adjust-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.strategy-confirm-btn {
+  flex: 2;
+  padding: 9px 14px;
+  background: linear-gradient(135deg, rgba(99,179,237,0.18), rgba(79,209,197,0.12));
+  border: 1px solid rgba(99,179,237,0.35);
+  border-radius: 8px;
+  color: var(--accent-cyan);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.strategy-confirm-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(99,179,237,0.2) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.strategy-confirm-btn:hover::after {
+  transform: translateX(100%);
+}
+
+.strategy-confirm-btn:hover {
+  box-shadow: 0 0 16px rgba(99,179,237,0.3);
+  border-color: rgba(79,209,197,0.5);
+}
+
+.strategy-confirm-btn.confirmed {
+  background: linear-gradient(135deg, rgba(104,211,145,0.18), rgba(79,209,197,0.12));
+  border-color: rgba(104,211,145,0.4);
+  color: var(--accent-green);
+  cursor: default;
+}
+
+.strategy-confirmed-badge {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(104,211,145,0.08);
+  border: 1px solid rgba(104,211,145,0.2);
+  border-radius: 6px;
+  font-size: 11px;
+  color: var(--accent-green);
+  font-family: 'JetBrains Mono', monospace;
+  margin: 0 18px 14px;
+}
+
+.strategy-confirmed-badge.show {
+  display: flex;
+}
+
+/* Submit button */
+.submit-area {
+  padding: 16px 24px 24px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: not-allowed;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+}
+
+.submit-btn.disabled {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: not-allowed;
+}
+
+.submit-btn.disabled.scrollable {
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.submit-btn.active {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(99,179,237,0.4), 0 0 50px rgba(99,179,237,0.1);
+  animation: glowBlue 2s infinite;
+}
+
+.submit-btn.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.submit-btn.active:hover::after {
+  transform: translateX(100%);
+}
+
+.submit-btn.active:hover {
+  box-shadow: 0 0 32px rgba(99,179,237,0.6), 0 0 60px rgba(79,209,197,0.2);
+  transform: translateY(-1px);
+}
+
+/* Progress bar */
+.progress-bar-wrapper {
+  margin: 14px 24px 0;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.progress-track {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.22,0.61,0.36,1);
+  box-shadow: 0 0 8px rgba(79,209,197,0.4);
+}
+
+/* Success modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7,11,20,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.modal-overlay.show {
+  display: flex;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(104,211,145,0.3);
+  border-radius: 20px;
+  padding: 36px 40px;
+  max-width: 520px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 0 60px rgba(104,211,145,0.12), 0 20px 60px rgba(0,0,0,0.5);
+  animation: scaleIn 0.35s cubic-bezier(0.22,0.61,0.36,1);
+}
+
+.modal-success-icon {
+  text-align: center;
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-green);
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.modal-summary {
+  background: rgba(104,211,145,0.05);
+  border: 1px solid rgba(104,211,145,0.15);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.8;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 24px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.modal-close {
+  flex: 1;
+  padding: 12px;
+  background: rgba(160,174,192,0.08);
+  border: 1px solid rgba(160,174,192,0.25);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(160,174,192,0.15);
+  color: var(--text-primary);
+}
+
+.modal-confirm {
+  flex: 1.4;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(104,211,145,0.2), rgba(79,209,197,0.15));
+  border: 1px solid rgba(104,211,145,0.4);
+  border-radius: 10px;
+  color: var(--accent-green);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-confirm:hover {
+  background: rgba(104,211,145,0.28);
+  box-shadow: 0 0 20px rgba(104,211,145,0.25);
+}
+
+/* Task ID badge */
+.task-id-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: rgba(79,209,197,0.08);
+  border: 1px solid rgba(79,209,197,0.2);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent-cyan);
+  margin-bottom: 16px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dotJump {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-8px); opacity: 1; }
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 6px rgba(104,211,145,0.5); }
+  50% { box-shadow: 0 0 14px rgba(104,211,145,0.9); }
+}
+
+@keyframes blinkSlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes glowGreen {
+  0%, 100% { box-shadow: 0 0 24px rgba(104,211,145,0.25); }
+  50% { box-shadow: 0 0 36px rgba(104,211,145,0.45); }
+}
+
+@keyframes glowBlue {
+  0%, 100% { box-shadow: 0 0 24px rgba(99,179,237,0.4); }
+  50% { box-shadow: 0 0 40px rgba(99,179,237,0.65), 0 4px 20px rgba(79,209,197,0.3); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Inline edit field */
+input.inline-edit {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--accent-blue);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  padding: 2px 4px;
+}
+
+.system-msg {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  padding: 4px 0;
+}
+
+/* ===== 任务监控态样式 ===== */
+#viewMonitor {
+  display: none;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+  padding: 32px 40px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.monitor-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(99,179,237,0.08);
+  border: 1px solid rgba(99,179,237,0.2);
+  border-radius: 10px;
+  color: var(--accent-blue);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 28px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.monitor-back-btn:hover {
+  background: rgba(99,179,237,0.15);
+  border-color: rgba(99,179,237,0.4);
+}
+
+.monitor-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.monitor-task-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+.monitor-running-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(104,211,145,0.12);
+  border: 1px solid rgba(104,211,145,0.35);
+  border-radius: 20px;
+  color: var(--accent-green);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+}
+.monitor-running-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse-green 1.5s infinite;
+}
+.monitor-summary-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 32px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  border-left: 3px solid rgba(99,179,237,0.3);
+  line-height: 1.7;
+}
+
+.monitor-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.monitor-metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 22px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.monitor-metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+}
+.monitor-metric-card.blue::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); }
+.monitor-metric-card.green::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan)); }
+.monitor-metric-card.yellow::before { background: linear-gradient(90deg, var(--accent-yellow), #F6AD55); }
+.monitor-metric-card.red::before { background: linear-gradient(90deg, var(--accent-red), #FC8181); }
+
+.monitor-metric-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.monitor-metric-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.monitor-metric-card.blue .monitor-metric-value { color: var(--accent-cyan); }
+.monitor-metric-card.green .monitor-metric-value { color: var(--accent-green); }
+.monitor-metric-card.yellow .monitor-metric-value { color: var(--accent-yellow); }
+.monitor-metric-card.red .monitor-metric-value { color: var(--accent-red); }
+
+.monitor-metric-unit {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+.monitor-metric-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.monitor-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 28px;
+}
+.monitor-tab-btn {
+  padding: 10px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: -1px;
+}
+.monitor-tab-btn.active {
+  color: var(--accent-blue);
+  border-bottom-color: var(--accent-blue);
+}
+.monitor-tab-btn:hover:not(.active) {
+  color: var(--text-secondary);
+}
+
+.monitor-tab-content { display: none; }
+.monitor-tab-content.active { display: block; }
+
+.monitor-ops-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.monitor-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+.monitor-info-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.monitor-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 12px;
+}
+.monitor-info-row:last-child { border-bottom: none; }
+.monitor-info-key { color: var(--text-muted); flex-shrink: 0; width: 72px; }
+.monitor-info-val { color: var(--text-primary); font-family: 'JetBrains Mono', monospace; text-align: right; word-break: break-all; }
+
+/* 用户视角内嵌 */
+.monitor-user-preview {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+.monitor-user-preview-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 全局 Tab 栏 ===== -->
+<div id="globalTabBar" style="
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  display: none; align-items: center; gap: 0;
+  background: #0D1526;
+  border-bottom: 1px solid rgba(99,179,237,0.2);
+  padding: 0 24px;
+  height: 48px;
+  font-family: 'Space Grotesk', sans-serif;
+">
+  <button id="tabOps" onclick="switchTab('ops')" style="
+    background: rgba(99,179,237,0.15); color: #63B3ED;
+    border: none; border-bottom: 2px solid #63B3ED;
+    padding: 0 20px; height: 48px; cursor: pointer;
+    font-size: 14px; font-weight: 600; font-family: inherit;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  ">🛠 运营配置</button>
+  <button id="tabUser" onclick="switchTab('user')" style="
+    background: transparent; color: #A0AEC0;
+    border: none; border-bottom: 2px solid transparent;
+    padding: 0 20px; height: 48px; cursor: pointer;
+    font-size: 14px; font-weight: 600; font-family: inherit;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  ">📱 用户视角</button>
+</div>
+
+<!-- 运营配置内容区（原有内容包裹） -->
+<div id="viewOps" style="padding-top: 0;">
+<div class="app-container">
+
+  <!-- ===== LEFT PANEL ===== -->
+  <div class="left-panel">
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="logo-mark">🎯</div>
+        <div>
+          <div class="header-title">任务中心运营配置</div>
+          <div class="header-subtitle">AI Native · 健康业务</div>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="status-badge">
+          <div class="status-dot"></div>
+          Friday API · 就绪
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="system-msg">— 会话开始 —</div>
+      <div class="message-row">
+        <div class="avatar ai-avatar">🤖</div>
+        <div>
+          <div class="bubble ai-bubble">
+            你好！我是美团健康业务 AI 运营配置助手。<br><br>
+            请告诉我你的推送策略需求，例如目标人群、激励方式、触达时间和预算，我会帮你快速完成配置。<br><br>
+            你可以直接描述，也可以点击下方的快捷短语开始 👇
+          </div>
+          <div class="bubble-meta">AI 助手 · 刚刚</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-phrases" id="quickPhrases">
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">五一节前，推送给近3个月没来过的艾灸用户</div>
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">新用户首单推拿，激励ID：PKG_20240501</div>
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">本月复购率低于2次的用户，发按摩优惠券</div>
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">下周一早上推送给流失超60天的高价值用户</div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="input-wrapper">
+        <textarea id="chatInput" placeholder="描述你的推送策略需求..." rows="1"></textarea>
+        <button class="send-btn" onclick="handleSend()" title="发送">
+          <svg class="send-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RIGHT PANEL ===== -->
+  <div class="right-panel">
+    <div class="right-panel-scroll">
+    <div class="right-header">
+      <div class="right-title">
+        <span class="right-title-icon">⚙️</span>
+        要素配置卡
+      </div>
+      <div class="config-id" id="configId">CFG-DRAFT</div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-bar-wrapper">
+      <div class="progress-label">
+        <span>配置完成度</span>
+        <span id="progressText">0 / 5 要素已确认</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Elements Card -->
+    <div class="elements-card">
+      <div class="elements-card-header">推送策略要素</div>
+
+      <!-- A5: target_audience -->
+      <div class="element-row" id="row-target_audience">
+        <div class="element-icon">👥</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">目标人群</span>
+            <span class="status-lamp red" id="lamp-target_audience"></span>
+          </div>
+          <div class="element-value empty" id="val-target_audience" onclick="startEdit('target_audience', this)">未配置</div>
+          <div class="element-suggestion" id="sug-target_audience" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-target_audience" style="display:none" onclick="adoptSuggestion('target_audience')">采用</button>
+        </div>
+      </div>
+
+      <!-- A4: incentive_id -->
+      <div class="element-row" id="row-incentive_id">
+        <div class="element-icon">🎁</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">激励方案</span>
+            <span class="status-lamp red" id="lamp-incentive_id"></span>
+          </div>
+          <div class="element-value empty" id="val-incentive_id" onclick="startEdit('incentive_id', this)">未配置</div>
+          <div class="element-suggestion" id="sug-incentive_id" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-incentive_id" style="display:none" onclick="adoptSuggestion('incentive_id')">采用</button>
+        </div>
+      </div>
+
+      <!-- claim_threshold: 领取门槛（非必填，🟡AI推荐） -->
+      <div class="element-row" id="row-claim_threshold">
+        <div class="element-icon">🚪</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">领取门槛</span>
+            <span class="status-lamp yellow" id="lamp-claim_threshold"></span>
+            <span style="font-size:10px;color:var(--text-muted);margin-left:6px;font-family:'JetBrains Mono',monospace;">选填</span>
+          </div>
+          <div class="element-value" id="val-claim_threshold" onclick="startEdit('claim_threshold', this)">直接领取</div>
+          <div class="element-suggestion" id="sug-claim_threshold" style="display:none"></div>
+          <!-- 四选项快捷切换 -->
+          <div class="claim-options" id="claimOptions">
+            <button class="claim-opt-btn active" data-value="直接领取" onclick="selectClaimOption(this,'直接领取')">弹出即领，无门槛</button>
+            <button class="claim-opt-btn" data-value="浏览后领取" onclick="selectClaimOption(this,'浏览后领取')">停留/浏览完才领</button>
+            <button class="claim-opt-btn" data-value="下单后领取" onclick="selectClaimOption(this,'下单后领取')">完成首单才解锁</button>
+            <button class="claim-opt-btn" data-value="任务完成领取" onclick="selectClaimOption(this,'任务完成领取')">打卡/签到/浏览N次</button>
+          </div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-claim_threshold" style="display:inline-flex" onclick="adoptClaimThreshold()">采用推荐</button>
+        </div>
+      </div>
+
+      <!-- A1: trigger_time -->
+      <div class="element-row" id="row-trigger_time">
+        <div class="element-icon">⏰</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">触达时间</span>
+            <span class="status-lamp red" id="lamp-trigger_time"></span>
+          </div>
+          <div class="element-value empty" id="val-trigger_time" onclick="startEdit('trigger_time', this)">未配置</div>
+          <div class="element-suggestion" id="sug-trigger_time" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-trigger_time" style="display:none" onclick="adoptSuggestion('trigger_time')">采用</button>
+        </div>
+      </div>
+
+      <!-- A6: budget -->
+      <div class="element-row" id="row-budget">
+        <div class="element-icon">💰</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">预算上限</span>
+            <span class="status-lamp red" id="lamp-budget"></span>
+          </div>
+          <div class="element-value empty" id="val-budget" onclick="startEdit('budget', this)">未配置</div>
+          <div class="element-suggestion" id="sug-budget" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-budget" style="display:none" onclick="adoptSuggestion('budget')">采用</button>
+        </div>
+      </div>
+
+      <!-- channel -->
+      <div class="element-row" id="row-channel">
+        <div class="element-icon">📡</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">触达方式</span>
+            <span class="status-lamp red" id="lamp-channel"></span>
+          </div>
+          <div class="element-value empty" id="val-channel" onclick="startEdit('channel', this)">未配置</div>
+          <div class="element-suggestion" id="sug-channel" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-channel" style="display:none" onclick="adoptSuggestion('channel')">采用</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-card">
+      <div class="stats-label">预估触达人数</div>
+      <div id="statsValue">
+        <div class="stats-empty">待 AI 分析人群后更新</div>
+      </div>
+    </div>
+
+    <!-- Budget warning -->
+    <div class="budget-warning" id="budgetWarning">
+      <span class="warning-icon">⚠️</span>
+      <span id="budgetWarningText"></span>
+    </div>
+
+    <!-- Strategy Card（要素全绿后出现） -->
+    <div class="strategy-card" id="strategyCard">
+      <div class="strategy-card-header">
+        <div class="strategy-card-title">
+          <span>🧠</span> 玩法策略卡
+        </div>
+        <div class="config-id" id="strategyVersion" style="font-size:10px">v1.0 · AI生成</div>
+      </div>
+
+      <!-- 生成中状态 -->
+      <div class="strategy-generating" id="strategyGenerating">
+        <div class="dot-jump"></div>
+        <div class="dot-jump" style="animation-delay:.2s"></div>
+        <div class="dot-jump" style="animation-delay:.4s"></div>
+        <span style="margin-left:4px">正在生成玩法策略...</span>
+      </div>
+
+      <!-- 策略内容（生成后显示） -->
+      <div class="strategy-body" id="strategyBody" style="display:none">
+
+        <!-- 基础信息 -->
+        <div class="strategy-section">
+          <div class="strategy-section-label">基础信息</div>
+          <div class="strategy-row">
+            <div class="strategy-row-label">目标人群</div>
+            <div class="strategy-row-value" id="st-audience">—</div>
+          </div>
+          <div class="strategy-row">
+            <div class="strategy-row-label">激励方案</div>
+            <div class="strategy-row-value" id="st-incentive">—</div>
+          </div>
+          <div class="strategy-row">
+            <div class="strategy-row-label">预算</div>
+            <div class="strategy-row-value" id="st-budget">—</div>
+          </div>
+          <div class="strategy-row">
+            <div class="strategy-row-label">触达时间</div>
+            <div class="strategy-row-value" id="st-time">—</div>
+          </div>
+          <div class="strategy-row">
+            <div class="strategy-row-label">领取门槛</div>
+            <div class="strategy-row-value" id="st-threshold">—</div>
+          </div>
+        </div>
+
+        <!-- 策略推理 -->
+        <div class="strategy-section" style="padding-bottom:6px">
+          <div class="strategy-section-label">策略推理</div>
+        </div>
+
+        <div class="strategy-reasoning">
+          <div class="strategy-reasoning-row">
+            <div class="strategy-reasoning-label">运营意图</div>
+            <div class="strategy-reasoning-value" id="st-intent">—</div>
+          </div>
+          <div class="strategy-reasoning-row">
+            <div class="strategy-reasoning-label">推荐玩法</div>
+            <div class="strategy-reasoning-value" id="st-playtype">—</div>
+          </div>
+          <div class="strategy-reasoning-row">
+            <div class="strategy-reasoning-label">玩法流程</div>
+            <div class="strategy-reasoning-value" id="st-flow">—</div>
+          </div>
+          <div class="strategy-reasoning-row">
+            <div class="strategy-reasoning-label">AI选择依据</div>
+            <div class="strategy-reasoning-value" id="st-rationale">—</div>
+          </div>
+        </div>
+
+        <!-- 激励策略区块 -->
+        <div class="strategy-section" id="incentiveStratSection" style="display:none; padding-bottom:6px">
+          <div class="strategy-section-label">激励策略</div>
+        </div>
+        <div class="strategy-incentive-params" id="incentiveParamsBody" style="display:none">
+          <!-- 动态生成：券类型 / 面额 / 达成门槛 / 发放时机 / 预计发出份数 -->
+        </div>
+
+        <!-- 执行参数区块 -->
+        <div class="strategy-section" id="execParamSection" style="display:none; padding-bottom:6px">
+          <div class="strategy-section-label">执行参数</div>
+        </div>
+        <div class="strategy-exec-params" id="execParamsBody" style="display:none">
+          <!-- 动态生成：event_type / config_items / cycle / component / expire / copy_style / user_limit -->
+        </div>
+
+        <!-- 已确认标记 -->
+        <div class="strategy-confirmed-badge" id="strategyConfirmedBadge">
+          ✅ 策略已确认 · 可点击"确认启动"提交
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="strategy-actions" id="strategyActions">
+          <button class="strategy-adjust-btn" onclick="handleStrategyAdjust()">调整策略</button>
+          <button class="strategy-confirm-btn" id="strategyConfirmBtn" onclick="handleStrategyConfirm()">采用此策略 ✓</button>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /right-panel-scroll -->
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button class="submit-btn disabled" id="submitBtn" onclick="handleSubmit()">
+        🔒 全部要素确认后可启动
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card">
+    <div class="modal-success-icon">🚀</div>
+    <div class="modal-title">推送策略已启动！</div>
+    <div class="modal-subtitle">配置已提交，系统正在调度执行</div>
+    <div class="task-id-badge" id="modalTaskId">TASK-XXXXXX</div>
+    <div class="modal-summary" id="modalSummary">正在生成决策摘要...</div>
+    <div class="modal-actions">
+      <button class="modal-close" onclick="closeModal()">← 重新调整</button>
+      <button class="modal-confirm" onclick="confirmLaunch()">确认启动，不再调整 🚀</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== CONFIG =====
+const FRIDAY_APP_ID = "22037445065107296341";
+const FRIDAY_ENDPOINT = "https://aigc.sankuai.com/v1/openai/native/chat/completions";
+
+const SYSTEM_PROMPT = `你是一个美团健康业务的AI运营配置助手。你的任务是帮助运营人员配置健康任务推送策略。
+
+当运营输入需求时，你需要：
+1. 识别并提取以下要素：目标人群、激励方式（激励ID）、触达时间、预算上限、触达方式
+2. 识别用户意图类型（intent_type），用于驱动领取门槛推荐
+3. 对于缺失的要素，主动追问或给出建议
+4. 对于模糊的人群描述，建议Persona标签方案（如"近30天无消费+有过推拿记录"）
+
+意图类型（intent_type）枚举值：
+- CHURN_RISK：流失风险用户（如"流失""快流失"）
+- DORMANT：沉睡用户（如"沉睡""长期未消费""3个月没下单"）
+- NEW_USER：新用户（如"新用户""首单""首次"）
+- FREQUENCY_DROP：频次下降（如"复购""频次""不活跃"）
+- CATEGORY_EXPLORE：品类探索（如"推广新品类""体验推拿""探索艾灸"）
+- PRICE_SENSITIVE：价格敏感（如"高价值""对价格敏感""优惠"）
+
+**重要：你必须严格只输出JSON，不要有任何解释文字、markdown标记或代码块。**
+回复格式如下（直接输出，不包含任何其他内容）：
+
+{"reply":"给运营看的自然语言回复","elements":{"target_audience":{"value":"描述或null","status":"green|yellow|red","suggestion":"AI建议（黄色时有）"},"incentive_id":{"value":"ID或null","status":"green|yellow|red","suggestion":"AI建议"},"trigger_time":{"value":"时间描述或null","status":"green|yellow|red","suggestion":"AI建议"},"budget":{"value":"金额或null","status":"green|yellow|red","suggestion":"AI建议"},"channel":{"value":"触达方式或null","status":"green|yellow|red","suggestion":"AI建议"}},"intent_type":"CHURN_RISK|DORMANT|NEW_USER|FREQUENCY_DROP|CATEGORY_EXPLORE|PRICE_SENSITIVE|null","estimated_users":"预估人数（如约12万人）或null","budget_warning":"预算警告信息或null"}
+
+示例（运营输入"帮我给流失超60天的艾灸用户发个30元大券，预算50万"）：
+{"reply":"已识别：目标为流失超60天的艾灸偏好用户（约8.2万人），激励方式需要确认券ID，预算50万元已达审批阈值，需总监审批。请提供激励券的ID，其余要素我已为你填好。","elements":{"target_audience":{"value":"流失超60天的艾灸偏好用户","status":"green","suggestion":null},"incentive_id":{"value":null,"status":"red","suggestion":"请提供可用的艾灸优惠券ID，如COUPON_AIJIU_30"},"trigger_time":{"value":"立即触达","status":"yellow","suggestion":"流失用户建议24小时内触达，可确认或调整"},"budget":{"value":"50万元","status":"green","suggestion":null},"channel":{"value":"活动会场","status":"green","suggestion":null}},"intent_type":"DORMANT","estimated_users":"约8.2万人","budget_warning":"预算50万元超过阈值，需运营总监审批后方可执行"}
+
+注意：只输出JSON对象本身，不含\`\`\`json标记，不含任何说明文字。`;
+
+// ===== STATE =====
+let elements = {
+  target_audience: { value: null, status: 'red', suggestion: null },
+  incentive_id: { value: null, status: 'red', suggestion: null },
+  claim_threshold: { value: '直接领取', status: 'yellow', suggestion: '弹出即领，无门槛（根据人群意图自动推荐）' },
+  trigger_time: { value: null, status: 'red', suggestion: null },
+  budget: { value: null, status: 'red', suggestion: null },
+  channel: { value: null, status: 'red', suggestion: null }
+};
+let conversationHistory = [];
+let isLoading = false;
+let strategyConfirmed = false;  // 策略中间层是否已确认
+let strategyGenerated = false;  // 是否已触发过策略生成（防重复）
+
+// ===== 领取门槛意图映射 =====
+const INTENT_THRESHOLD_MAP = {
+  'CHURN_RISK': '直接领取',
+  'DORMANT': '直接领取',
+  'PRICE_SENSITIVE': '直接领取',
+  'NEW_USER': '下单后领取',
+  'FREQUENCY_DROP': '下单后领取',
+  'CATEGORY_EXPLORE': '浏览后领取'
+};
+
+// 选项 → 说明映射
+const THRESHOLD_LABELS = {
+  '直接领取': '弹出即领，无门槛',
+  '浏览后领取': '停留/浏览完才领',
+  '下单后领取': '完成首单才解锁',
+  '任务完成领取': '打卡/签到/浏览N次'
+};
+
+function getRecommendedThreshold(intentType) {
+  return INTENT_THRESHOLD_MAP[intentType] || '直接领取';
+}
+
+function prefillClaimThreshold(intentType) {
+  const recommended = getRecommendedThreshold(intentType);
+  elements.claim_threshold.value = recommended;
+  elements.claim_threshold.status = 'yellow';
+  elements.claim_threshold.suggestion = THRESHOLD_LABELS[recommended] + '（根据意图"' + intentType + '"自动推荐）';
+  renderClaimThresholdRow(recommended);
+}
+
+function renderClaimThresholdRow(activeValue) {
+  const lamp = document.getElementById('lamp-claim_threshold');
+  const val = document.getElementById('val-claim_threshold');
+  const sug = document.getElementById('sug-claim_threshold');
+  const el = elements.claim_threshold;
+
+  lamp.className = `status-lamp ${el.status}`;
+  val.textContent = el.value || '直接领取';
+  val.className = 'element-value' + (el.status === 'green' ? '' : '');
+
+  if (el.status === 'yellow' && el.suggestion) {
+    sug.textContent = `💡 ${el.suggestion}`;
+    sug.style.display = 'block';
+  } else {
+    sug.style.display = 'none';
+  }
+
+  // 更新快捷按钮高亮（通过 data-value 精确匹配）
+  const btns = document.querySelectorAll('.claim-opt-btn');
+  const targetValue = activeValue || el.value;
+  btns.forEach(btn => {
+    const btnValue = btn.getAttribute('data-value');
+    btn.className = 'claim-opt-btn' + (btnValue === targetValue ? ' active' : '');
+  });
+}
+
+function selectClaimOption(btn, value) {
+  elements.claim_threshold.value = value;
+  elements.claim_threshold.status = 'green';
+  elements.claim_threshold.suggestion = null;
+  renderClaimThresholdRow(value);
+  updateProgress();
+  updateSubmitBtn();
+  document.getElementById('sug-claim_threshold').style.display = 'none';
+  // 隐藏"采用推荐"按钮（已手动选择）
+  document.getElementById('adopt-claim_threshold').style.display = 'none';
+  addSystemNote(`✅ "领取门槛" 已设置为：${value}`);
+}
+
+function adoptClaimThreshold() {
+  const recommended = elements.claim_threshold.value || '直接领取';
+  elements.claim_threshold.status = 'green';
+  elements.claim_threshold.suggestion = null;
+  renderClaimThresholdRow(recommended);
+  updateProgress();
+  updateSubmitBtn();
+  document.getElementById('adopt-claim_threshold').style.display = 'none';
+  addSystemNote(`✅ "领取门槛" 已采用 AI 推荐：${recommended}`);
+}
+
+// ===== FRIDAY API =====
+async function callFriday(messages) {
+  const resp = await fetch(FRIDAY_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${FRIDAY_APP_ID}`
+    },
+    body: JSON.stringify({
+      model: "LongCat-Flash-Chat",
+      messages,
+      temperature: 0.3,
+      max_tokens: 800
+    })
+  });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  const data = await resp.json();
+  return data.choices[0].message.content;
+}
+
+// ===== MOCK FALLBACK =====
+function mockParse(text) {
+  const t = text;
+  let audience = null, incentive = null, time = null, budget = null, channel = null;
+  let audienceStatus = 'red', incentiveStatus = 'red', timeStatus = 'red', budgetStatus = 'red', channelStatus = 'red';
+  let audienceSug = null, incentiveSug = null, timeSug = null, budgetSug = null, channelSug = null;
+  let estimatedUsers = null, budgetWarning = null;
+  let intentType = null; // 新增：意图类型
+
+  // Audience detection + 意图识别
+  if (/艾灸/.test(t)) {
+    audience = '近3个月无消费的艾灸偏好用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 8.2 万人';
+    intentType = 'DORMANT';
+  } else if (/推拿/.test(t)) {
+    audience = '有推拿消费记录的用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 15.7 万人';
+    intentType = 'FREQUENCY_DROP';
+  } else if (/按摩/.test(t)) {
+    audience = '近1个月消费按摩用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 22.1 万人';
+    intentType = 'CATEGORY_EXPLORE';
+  } else if (/流失/.test(t)) {
+    audience = '流失超60天的高价值用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 11.3 万人';
+    intentType = 'CHURN_RISK';
+  } else if (/新用户/.test(t)) {
+    audience = '首次下单用户（新用户）';
+    audienceStatus = 'green';
+    estimatedUsers = '约 6.5 万人';
+    intentType = 'NEW_USER';
+  } else if (/复购/.test(t)) {
+    audience = '本月复购率低于2次的用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 18.4 万人';
+    intentType = 'FREQUENCY_DROP';
+  } else {
+    audienceSug = '建议使用 Persona 标签：近30天无消费 + 有健康项目浏览记录';
+    audienceStatus = 'yellow';
+  }
+
+  // Incentive detection
+  const idMatch = t.match(/PKG_[\w]+/);
+  if (idMatch) {
+    incentive = idMatch[0];
+    incentiveStatus = 'green';
+  } else if (/优惠券/.test(t)) {
+    incentive = 'COUPON_HEALTH_001';
+    incentiveStatus = 'green';
+  } else {
+    incentiveSug = '建议使用 PKG_HEALTH_DISCOUNT_10 (9折按摩体验券)';
+    incentiveStatus = 'yellow';
+  }
+
+  // Time detection
+  if (/五一/.test(t)) {
+    time = '2024-04-28 至 2024-05-05 节前推送';
+    timeStatus = 'green';
+  } else if (/下周一/.test(t)) {
+    time = '下周一 09:00-10:00';
+    timeStatus = 'green';
+  } else if (/早上/.test(t)) {
+    time = '工作日 08:30-10:00';
+    timeStatus = 'green';
+  } else {
+    timeSug = '建议：工作日早上 09:00（打开率峰值时段）';
+    timeStatus = 'yellow';
+  }
+
+  // Budget detection
+  const budgetMatch = t.match(/(\d+)\s*万/);
+  if (budgetMatch) {
+    const num = parseInt(budgetMatch[1]);
+    budget = `${num}万元`;
+    budgetStatus = 'green';
+    if (num >= 50) {
+      budgetWarning = `⚠️ 预算 ${num}万元 超过50万元阈值，需提交运营总监审批后方可执行。`;
+    }
+  } else {
+    budgetSug = '建议初始预算：10万元（可覆盖预估人群首轮触达）';
+    budgetStatus = 'yellow';
+  }
+
+  // Channel detection
+  if (/短信/.test(t)) {
+    channel = '短信';
+    channelStatus = 'green';
+  } else if (/push/.test(t) || /Push/.test(t) || /推送/.test(t)) {
+    channel = 'App Push';
+    channelStatus = 'green';
+  } else {
+    channelSug = '建议：App Push + 大众点评消息（组合触达，提升12%转化）';
+    channelStatus = 'yellow';
+  }
+
+  // Build reply
+  const missing = [];
+  if (audienceStatus === 'yellow') missing.push('目标人群');
+  if (incentiveStatus === 'yellow') missing.push('激励方案');
+  if (timeStatus === 'yellow') missing.push('触达时间');
+  if (budgetStatus === 'yellow') missing.push('预算上限');
+  if (channelStatus === 'yellow') missing.push('触达方式');
+
+  let reply = '已解析你的需求配置：\n';
+  if (audience) reply += `✅ 目标人群：${audience}\n`;
+  if (incentive) reply += `✅ 激励方案：${incentive}\n`;
+  if (time) reply += `✅ 触达时间：${time}\n`;
+  if (budget) reply += `✅ 预算：${budget}\n`;
+  if (missing.length > 0) {
+    reply += `\n以下要素我给出了建议，请确认采用：${missing.join('、')}。点击右侧卡片中的"采用"按钮即可确认。`;
+  } else {
+    reply += '\n所有要素已确认 ✅ 可以点击"确认启动"提交配置！';
+  }
+
+  // 把意图类型存到全局elements（供策略卡使用）
+  if (intentType) elements._intentType = intentType;
+
+  return {
+    reply,
+    elements: {
+      target_audience: { value: audience, status: audienceStatus, suggestion: audienceSug },
+      incentive_id: { value: incentive, status: incentiveStatus, suggestion: incentiveSug },
+      trigger_time: { value: time, status: timeStatus, suggestion: timeSug },
+      budget: { value: budget, status: budgetStatus, suggestion: budgetSug },
+      channel: { value: channel, status: channelStatus, suggestion: channelSug },
+      intent_type: intentType  // 传递意图类型驱动领取门槛预填
+    },
+    estimated_users: estimatedUsers,
+    budget_warning: budgetWarning
+  };
+}
+
+// ===== SEND MESSAGE =====
+async function handleSend() {
+  if (isLoading) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  input.style.height = 'auto';
+  addUserMessage(text);
+  await processMessage(text);
+}
+
+function sendQuickPhrase(el) {
+  const text = el.textContent;
+  const input = document.getElementById('chatInput');
+  input.value = text;
+  handleSend();
+}
+
+function addUserMessage(text) {
+  const now = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  const row = document.createElement('div');
+  row.className = 'message-row user-row';
+  row.innerHTML = `
+    <div class="avatar user-avatar">👤</div>
+    <div>
+      <div class="bubble user-bubble">${escapeHtml(text)}</div>
+      <div class="bubble-meta" style="text-align:right">运营配置员 · ${now}</div>
+    </div>
+  `;
+  const messages = document.getElementById('chatMessages');
+  messages.appendChild(row);
+  scrollToBottom();
+  conversationHistory.push({ role: 'user', content: text });
+}
+
+function addLoadingBubble() {
+  const row = document.createElement('div');
+  row.className = 'message-row';
+  row.id = 'loadingRow';
+  row.innerHTML = `
+    <div class="avatar ai-avatar">🤖</div>
+    <div>
+      <div class="bubble ai-bubble loading-bubble">
+        <div class="dot-jump"></div>
+        <div class="dot-jump"></div>
+        <div class="dot-jump"></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('chatMessages').appendChild(row);
+  scrollToBottom();
+}
+
+function removeLoadingBubble() {
+  const el = document.getElementById('loadingRow');
+  if (el) el.remove();
+}
+
+function addAIMessage(text, skipHistory = false) {
+  removeLoadingBubble();
+  const now = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  const row = document.createElement('div');
+  row.className = 'message-row';
+  row.innerHTML = `
+    <div class="avatar ai-avatar">🤖</div>
+    <div>
+      <div class="bubble ai-bubble">${text.replace(/\n/g, '<br>')}</div>
+      <div class="bubble-meta">AI 助手 · ${now}</div>
+    </div>
+  `;
+  document.getElementById('chatMessages').appendChild(row);
+  scrollToBottom();
+  if (!skipHistory) {
+    conversationHistory.push({ role: 'assistant', content: text });
+  }
+}
+
+async function processMessage(userText) {
+  isLoading = true;
+  addLoadingBubble();
+
+  let parsed = null;
+  let rawResponse = null;
+  try {
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...conversationHistory.slice(-8)
+    ];
+    rawResponse = await callFriday(messages);
+    // 鲁棒提取 JSON：支持裸JSON / ```json...``` / ```...``` 三种格式
+    let jsonStr = rawResponse.trim();
+    // 去掉 markdown code block 包裹
+    const codeBlockMatch = jsonStr.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (codeBlockMatch) {
+      jsonStr = codeBlockMatch[1].trim();
+    }
+    // 提取第一个完整 JSON 对象
+    const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      parsed = JSON.parse(jsonMatch[0]);
+    } else {
+      throw new Error('No JSON found in: ' + rawResponse.substring(0, 200));
+    }
+  } catch (e) {
+    console.warn('[Friday API fallback]', e.message);
+    parsed = mockParse(userText);
+    rawResponse = null;
+  }
+
+  removeLoadingBubble();
+  const replyText = parsed.reply || '已为你分析需求，请查看右侧要素配置卡。';
+  // skipHistory=true：不让 addAIMessage 自己 push，由下面手动控制
+  addAIMessage(replyText, true);
+  // conversationHistory 存完整 JSON（让下一轮 AI 知道上轮提取了哪些要素，状态如何）
+  // 若 Friday 成功返回，存 rawResponse（完整JSON）；否则存 reply 文本
+  conversationHistory.push({
+    role: 'assistant',
+    content: rawResponse || JSON.stringify(parsed)
+  });
+
+  // Update elements
+  if (parsed.elements) {
+    updateElements(parsed.elements);
+  }
+
+  // 处理顶层 intent_type（驱动领取门槛推荐）
+  if (parsed.intent_type && elements.claim_threshold.status !== 'green') {
+    prefillClaimThreshold(parsed.intent_type);
+  }
+
+  // Update stats
+  if (parsed.estimated_users) {
+    updateStats(parsed.estimated_users);
+  }
+
+  // Budget warning
+  if (parsed.budget_warning) {
+    showBudgetWarning(parsed.budget_warning);
+  } else {
+    hideBudgetWarning();
+  }
+
+  // Check also for budget > 50w from elements
+  if (elements.budget.value) {
+    const num = parseFloat(elements.budget.value.replace(/[^0-9.]/g, ''));
+    if (!isNaN(num) && num >= 50) {
+      showBudgetWarning(`预算 ${elements.budget.value} 超过50万元阈值，需提交运营总监审批后方可执行。`);
+    }
+  }
+
+  updateProgress();
+  updateSubmitBtn();
+  isLoading = false;
+}
+
+// ===== ELEMENTS =====
+function updateElements(newEls) {
+  const keys = ['target_audience', 'incentive_id', 'trigger_time', 'budget', 'channel'];
+  keys.forEach(key => {
+    if (!newEls[key]) return;
+    const el = newEls[key];
+
+    // Merge: if already green, keep green
+    if (elements[key].status === 'green' && !el.value) return;
+
+    elements[key].value = el.value;
+    elements[key].status = el.status;
+    elements[key].suggestion = el.suggestion;
+
+    renderElementRow(key);
+  });
+
+  // 如果 AI 返回了意图类型，驱动领取门槛预填（仅在未手动确认时）
+  if (newEls.intent_type && elements.claim_threshold.status !== 'green') {
+    prefillClaimThreshold(newEls.intent_type);
+  }
+
+  // ✅ 关键：更新完要素后，必须刷新进度条和提交按钮状态
+  updateProgress();
+  updateSubmitBtn();
+}
+
+function renderElementRow(key) {
+  const el = elements[key];
+  const lamp = document.getElementById(`lamp-${key}`);
+  const val = document.getElementById(`val-${key}`);
+  const sug = document.getElementById(`sug-${key}`);
+  const adoptBtn = document.getElementById(`adopt-${key}`);
+
+  // Lamp
+  lamp.className = `status-lamp ${el.status}`;
+
+  // Value
+  if (el.value) {
+    val.textContent = el.value;
+    val.className = 'element-value';
+  } else {
+    val.textContent = '未配置';
+    val.className = 'element-value empty';
+  }
+
+  // Suggestion
+  if (el.status === 'yellow' && el.suggestion) {
+    sug.textContent = `💡 ${el.suggestion}`;
+    sug.style.display = 'block';
+    adoptBtn.style.display = 'inline-flex';
+  } else {
+    sug.style.display = 'none';
+    adoptBtn.style.display = 'none';
+  }
+}
+
+function adoptSuggestion(key) {
+  const el = elements[key];
+  if (el.suggestion) {
+    // Extract value from suggestion or use suggestion as value
+    let adoptedVal = el.suggestion.replace(/^建议[:：]?\s*/, '').replace(/（.*?）/g, '').trim();
+    // Clean up
+    adoptedVal = adoptedVal.split('，')[0].split('(')[0].trim();
+    elements[key].value = adoptedVal;
+  }
+  elements[key].status = 'green';
+  elements[key].suggestion = null;
+  renderElementRow(key);
+  updateProgress();
+  updateSubmitBtn();
+
+  // Add confirmation message
+  addSystemNote(`✅ "${getElementName(key)}" 已采用 AI 建议并确认`);
+}
+
+function getElementName(key) {
+  const names = {
+    target_audience: '目标人群',
+    incentive_id: '激励方案',
+    claim_threshold: '领取门槛',
+    trigger_time: '触达时间',
+    budget: '预算上限',
+    channel: '触达方式'
+  };
+  return names[key] || key;
+}
+
+function addSystemNote(text) {
+  const el = document.createElement('div');
+  el.className = 'system-msg';
+  el.textContent = text;
+  document.getElementById('chatMessages').appendChild(el);
+  scrollToBottom();
+}
+
+// ===== INLINE EDIT =====
+function startEdit(key, el) {
+  if (el.tagName === 'INPUT') return;
+  const currentVal = elements[key].value || '';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'inline-edit';
+  input.value = currentVal;
+  el.replaceWith(input);
+  input.focus();
+  input.id = `val-${key}`;
+
+  input.addEventListener('blur', () => finishEdit(key, input));
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); finishEdit(key, input); }
+    if (e.key === 'Escape') { renderElementRow(key); }
+  });
+}
+
+function finishEdit(key, input) {
+  const newVal = input.value.trim();
+  if (newVal) {
+    elements[key].value = newVal;
+    elements[key].status = 'green';
+    elements[key].suggestion = null;
+    renderElementRow(key);
+    updateProgress();
+    updateSubmitBtn();
+    addSystemNote(`✏️ "${getElementName(key)}" 已手动编辑确认`);
+  } else {
+    renderElementRow(key);
+  }
+}
+
+// ===== PROGRESS =====
+// 必填项（影响进度条 & 提交按钮）
+const REQUIRED_KEYS = ['target_audience', 'incentive_id', 'trigger_time', 'budget', 'channel'];
+// 非必填项（不阻塞提交）
+const OPTIONAL_KEYS = ['claim_threshold'];
+
+function updateProgress() {
+  const greenCount = REQUIRED_KEYS.filter(k => elements[k].status === 'green').length;
+  const total = REQUIRED_KEYS.length;
+  const pct = (greenCount / total) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${greenCount} / ${total} 要素已确认`;
+}
+
+function updateSubmitBtn() {
+  const btn = document.getElementById('submitBtn');
+  const allGreen = REQUIRED_KEYS.every(k => elements[k].status === 'green');
+
+  if (!allGreen) {
+    btn.className = 'submit-btn disabled';
+    const remaining = REQUIRED_KEYS.filter(k => elements[k].status !== 'green').length;
+    btn.textContent = `🔒 还有 ${remaining} 个要素待确认`;
+    btn.onclick = null;
+    return;
+  }
+
+  // 要素全绿 → 触发策略卡生成（仅一次）
+  if (!strategyGenerated) {
+    strategyGenerated = true;
+    showStrategyCard();
+  }
+
+  // 策略确认后才可提交
+  if (strategyConfirmed) {
+    btn.className = 'submit-btn active';
+    btn.textContent = '🚀 确认启动推送策略';
+    btn.onclick = handleSubmit;
+  } else {
+    btn.className = 'submit-btn disabled scrollable';
+    btn.textContent = '↑ 确认上方玩法策略后启动';
+    btn.onclick = function() {
+      const rightPanel = document.querySelector('.right-panel-scroll');
+      const card = document.getElementById('strategyCard');
+      if (rightPanel && card) {
+        const panelRect = rightPanel.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        const scrollTarget = rightPanel.scrollTop + (cardRect.top - panelRect.top) - 20;
+        rightPanel.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+      }
+    };
+  }
+}
+
+// ===== STRATEGY CARD =====
+
+// 意图中文映射
+const INTENT_LABELS = {
+  'CHURN_RISK': '近期流失高价值用户召回',
+  'DORMANT': '沉默用户重激活',
+  'NEW_USER': '新用户首单转化',
+  'FREQUENCY_DROP': '频次下滑用户唤醒',
+  'CATEGORY_EXPLORE': '品类探索引导',
+  'PRICE_SENSITIVE': '价格敏感用户促活'
+};
+
+// 玩法类型推断
+const INTENT_PLAYTYPE = {
+  'CHURN_RISK':      { type: 'gated',  label: '有门槛任务', emoji: '🔑' },
+  'DORMANT':         { type: 'direct', label: '无门槛直领', emoji: '🎁' },
+  'NEW_USER':        { type: 'gated',  label: '有门槛任务', emoji: '🔑' },
+  'FREQUENCY_DROP':  { type: 'gated',  label: '有门槛任务', emoji: '🔑' },
+  'CATEGORY_EXPLORE':{ type: 'ladder', label: '探索引导任务', emoji: '🗺️' },
+  'PRICE_SENSITIVE': { type: 'direct', label: '无门槛直领', emoji: '🎁' }
+};
+
+// 玩法流程（用户侧完整路径）
+const INTENT_FLOW = {
+  'CHURN_RISK':      '收到推送 → 点击进入会场 → 完成下单满20元 → 立即解锁激励',
+  'DORMANT':         '收到推送 → 点击进入会场 → 弹出即领，无需额外操作',
+  'NEW_USER':        '收到推送 → 进入会场 → 浏览活动页 → 完成首单 → 解锁新人礼包',
+  'FREQUENCY_DROP':  '收到推送 → 进入会场 → 每日完成下单 → 累积天数 → 解锁阶梯激励',
+  'CATEGORY_EXPLORE':'收到推送 → 进入品类会场 → 浏览目标品类 → 完成体验下单 → 解锁体验券',
+  'PRICE_SENSITIVE': '收到推送 → 进入会场 → 看到折扣标签 → 弹出即领 → 立即使用'
+};
+
+// AI选择依据（3条）
+const INTENT_RATIONALE = {
+  'CHURN_RISK':      '①流失用户有消费记录，下单门槛可确保复购真实性\n②有门槛任务ROI高于直领，预算利用率更优\n③24h内触达窗口可捕获复购意图窗口',
+  'DORMANT':         '①沉默超30天，需最低摩擦先唤回，降低回流门槛\n②无门槛直领可快速拉活，后续再做转化漏斗\n③直领模式运营成本低，适合大批量沉默用户',
+  'NEW_USER':        '①新用户缺乏信任，确定性激励可降低决策门槛\n②首单门槛绑定真实转化行为，避免羊毛党\n③体验型券面额可引导尝试高价值品类',
+  'FREQUENCY_DROP':  '①频次用户有消费习惯，唤醒成本低于拉新\n②累积激励机制可形成连续使用动力\n③下单门槛低于客单价，不影响自然消费路径',
+  'CATEGORY_EXPLORE':'①探索用户需要品类曝光引导，浏览门槛确保真实触达\n②体验券面额可覆盖用户首次尝鲜心理成本\n③阶梯探索设计可提升品类渗透率',
+  'PRICE_SENSITIVE': '①价格敏感用户决策速度快，即时折扣转化率高\n②无门槛直领匹配价格敏感型心理，降低流失\n③折扣直观展示优于复杂任务体系'
+};
+
+// 激励策略本地兜底
+const INTENT_INCENTIVE = {
+  'CHURN_RISK':      { coupon_type:'现金券', amount:'满20减8元', threshold:'下单满20元', grant_moment:'达成即发', estimated_qty:'约1.2万份' },
+  'DORMANT':         { coupon_type:'现金券', amount:'无门槛5元券', threshold:'无门槛直领', grant_moment:'进入会场即发', estimated_qty:'约3万份' },
+  'NEW_USER':        { coupon_type:'体验券', amount:'满15减5元', threshold:'完成首单', grant_moment:'首单完成后发', estimated_qty:'约2万份' },
+  'FREQUENCY_DROP':  { coupon_type:'现金券', amount:'满30减10元', threshold:'连续下单3天', grant_moment:'达成即发', estimated_qty:'约0.8万份' },
+  'CATEGORY_EXPLORE':{ coupon_type:'体验券', amount:'满25减8元', threshold:'浏览目标品类后下单', grant_moment:'达成即发', estimated_qty:'约1.5万份' },
+  'PRICE_SENSITIVE': { coupon_type:'折扣券', amount:'8折券（上限减15元）', threshold:'无门槛直领', grant_moment:'进入会场即发', estimated_qty:'约4万份' }
+};
+
+function showStrategyCard() {
+  const card = document.getElementById('strategyCard');
+  card.classList.add('show');
+  document.getElementById('strategyGenerating').style.display = 'flex';
+  document.getElementById('strategyBody').style.display = 'none';
+
+  // 滚动到策略卡（用getBoundingClientRect确保相对panel正确定位）
+  setTimeout(() => {
+    const rightPanel = document.querySelector('.right-panel-scroll');
+    if (rightPanel && card) {
+      const panelRect = rightPanel.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const scrollTarget = rightPanel.scrollTop + (cardRect.top - panelRect.top) - 20;
+      rightPanel.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+    }
+  }, 150);
+
+  // 尝试用Friday生成，fallback用本地规则
+  generateStrategyContent();
+}
+
+async function generateStrategyContent() {
+  // 先用本地规则快速填充（不依赖API，保证流畅）
+  fillStrategyLocal();
+
+  // 同时用Friday生成策略推理 + 执行参数（注入yaml知识约束）
+  try {
+    const taskKnowledge = `
+# 任务系统能力边界（任务原子知识库）
+
+## 行为事件原子（action_atoms）
+- signIn（签到）: config_items=[signInType(DAILY/CONSECUTIVE_N/CUMULATIVE_N)]; 每天只能签到1次
+- view（浏览）: config_items=[viewUrl, viewDurationSec]; 停留时长可配置
+- order（下单）: config_items=[bizLine(外卖/到餐/全景/到综), minAmount]; 单一下单原子，业务线通过参数区分
+- share（分享）: config_items=[shareUrl]; 社交传播型
+- invite（邀请助力）: config_items=[targetCount, inviterDailyLimit, inviterCycleLimit]; 拉新专用
+- subscribe（订阅提醒）: config_items=[activityId]; 活动提醒订阅
+- liveInteract（直播互动）: config_items=[interactType(FOLLOW/RESERVE)]; 关注或预约直播
+
+## 循环周期原子（cycle_atoms）
+- NO_CYCLE: 不循环，做一次
+- DAILY: 按自然日循环
+- TIME_PERIOD: 按N小时/N天循环（从领取时刻计）
+- CONSECUTIVE_DAILY: 每日连续，断则重置（签到连续打卡）
+- CUMULATIVE_RESET: 累计完成后次日重置（最长60天）
+
+## 已有模板索引
+- 连续签到: event=signIn, cycle=CONSECUTIVE_DAILY, component=SIGN_IN_CALENDAR
+- 累计签到: event=signIn, cycle=CUMULATIVE_RESET, component=SIGN_IN_CALENDAR
+- 浏览任务: event=view, cycle=DAILY, component=PROGRESS_BAR_TASK
+- 全景下单: event=quanjing, cycle=NO_CYCLE, component=PROGRESS_BAR_TASK
+- 邀请助力: event=invite+boost, cycle=TIME_PERIOD, component=INVITE_BOOST_TASK
+
+## UI组件选择规则
+- 签到类 → SIGN_IN_CALENDAR（日历打卡）
+- 进度类（浏览/下单/分享）→ PROGRESS_BAR_TASK（进度条）
+- 邀请类 → INVITE_BOOST_TASK（助力海报）
+`;
+
+    const prompt = `你是美团健康业务AI运营配置助手。请基于以下运营要素和任务系统能力知识，生成完整的玩法策略、激励策略和执行参数，用JSON返回。
+
+运营要素：
+目标人群：${elements.target_audience.value || '—'}
+激励方案：${elements.incentive_id.value || '—'}
+预算：${elements.budget.value || '—'}
+触达时间：${elements.trigger_time.value || '—'}
+领取门槛：${elements.claim_threshold.value || '直接领取'}
+
+${taskKnowledge}
+
+请返回JSON格式（严格按照能力边界选择）：
+{
+  "intent_label": "一句话描述运营意图（15字以内）",
+  "play_type": "有门槛任务 | 无门槛直领 | 探索引导任务",
+  "play_type_key": "gated | direct | ladder",
+  "flow": "用户侧完整玩法流程（用→连接，4-6步，如：收到推送→点击进入会场→完成下单满30元→立即解锁券）",
+  "rationale": "AI选择此玩法的3条依据，换行分隔，每条20字以内，格式：①xxx\n②xxx\n③xxx",
+  "incentive_strategy": {
+    "coupon_type": "券类型（现金券/折扣券/体验券/实物奖励）",
+    "amount": "面额或折扣（如：满30减10元/8折券/价值50元实物）",
+    "threshold": "达成门槛（如：下单满30元/连续签到7天/无门槛直领）",
+    "grant_moment": "发放时机（如：达成即发/次日发放/活动结束后统一发放）",
+    "estimated_qty": "预计发出份数（根据预算和激励面额估算，格式：约X万份）"
+  },
+  "exec_params": {
+    "event_type": "从action_atoms中选：signIn|view|share|quanjing|invite",
+    "event_type_name": "行为事件中文名",
+    "cycle": "从cycle_atoms中选：NO_CYCLE|DAILY|TIME_PERIOD|CONSECUTIVE_DAILY|CUMULATIVE_RESET",
+    "cycle_name": "循环周期中文说明",
+    "component": "UI组件：SIGN_IN_CALENDAR|PROGRESS_BAR_TASK|INVITE_BOOST_TASK|GENERAL_TASK",
+    "component_name": "组件中文名",
+    "key_config": "核心配置参数一句话说明",
+    "expire_days": "有效期天数（数字）",
+    "copy_style": "文案风格：激励型|情感型|利益型",
+    "user_limit": "单用户参与次数限制"
+  }
+}
+
+只输出JSON，不要任何解释。`;
+
+    const raw = await callFriday([
+      { role: 'system', content: '你是美团健康业务AI运营配置助手，只输出合法JSON，不要任何解释文字或markdown。' },
+      { role: 'user', content: prompt }
+    ]);
+
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      // 填充玩法策略
+      if (parsed.intent_label) document.getElementById('st-intent').textContent = parsed.intent_label;
+      if (parsed.play_type) {
+        const key = parsed.play_type_key || 'gated';
+        document.getElementById('st-playtype').innerHTML =
+          `<span class="play-type-badge ${key}">${parsed.play_type}</span>`;
+      }
+      if (parsed.flow) document.getElementById('st-flow').innerHTML =
+        parsed.flow.split('→').map((s,i,arr) =>
+          i < arr.length-1 ? `<span style="color:var(--text-primary)">${s.trim()}</span><span style="color:var(--accent-blue);margin:0 3px">→</span>` : `<span style="color:var(--accent-green);font-weight:600">${s.trim()}</span>`
+        ).join('');
+      if (parsed.rationale) document.getElementById('st-rationale').innerHTML =
+        parsed.rationale.split('\n').join('<br>').replace(/(①|②|③)/g,'<span style="color:var(--accent-blue);font-weight:700">$1</span>');
+      document.getElementById('strategyVersion').textContent = 'v1.0 · Friday增强';
+
+      // 填充激励策略区块
+      if (parsed.incentive_strategy) {
+        fillIncentiveStrategy(parsed.incentive_strategy);
+      }
+      // 填充执行参数区块
+      if (parsed.exec_params) {
+        fillExecParams(parsed.exec_params);
+      }
+    }
+  } catch(e) {
+    // 本地规则已填充，Friday失败静默处理（执行参数也用本地规则兜底）
+    console.log('[Strategy] Friday fallback, using local rules');
+    fillExecParamsLocal();
+  }
+}
+
+function fillIncentiveStrategy(is) {
+  const rows = [
+    { label: '券类型',   value: is.coupon_type || '—' },
+    { label: '面额',     value: is.amount || '—' },
+    { label: '达成门槛', value: is.threshold || '—' },
+    { label: '发放时机', value: is.grant_moment || '—' },
+    { label: '预计份数', value: is.estimated_qty || '—' },
+  ];
+  const html = rows.map(r =>
+    `<div class="ep-row">
+      <div class="ep-label" style="color:var(--accent-yellow)">${r.label}</div>
+      <div class="ep-value">${r.value}</div>
+    </div>`
+  ).join('');
+  document.getElementById('incentiveParamsBody').innerHTML = html;
+  document.getElementById('incentiveStratSection').style.display = 'block';
+  document.getElementById('incentiveParamsBody').style.display = 'block';
+}
+
+function fillExecParams(ep) {
+  const rows = [
+    { label: '行为事件', value: `<span class="ep-badge">${ep.event_type || '—'}</span> ${ep.event_type_name || ''}` },
+    { label: '循环周期', value: `<span class="ep-badge">${ep.cycle || '—'}</span> ${ep.cycle_name || ''}` },
+    { label: 'UI组件',   value: ep.component_name || ep.component || '—' },
+    { label: '核心配置', value: ep.key_config || '—' },
+    { label: '有效期',   value: ep.expire_days ? `${ep.expire_days} 天` : '—' },
+    { label: '文案风格', value: ep.copy_style || '—' },
+    { label: '参与次数', value: ep.user_limit || '—' },
+  ];
+
+  const html = rows.map(r =>
+    `<div class="ep-row">
+      <div class="ep-label">${r.label}</div>
+      <div class="ep-value">${r.value}</div>
+    </div>`
+  ).join('');
+
+  document.getElementById('execParamsBody').innerHTML = html;
+  document.getElementById('execParamSection').style.display = 'block';
+  document.getElementById('execParamsBody').style.display = 'block';
+}
+
+function fillExecParamsLocal() {
+  // 本地规则兜底：根据意图推断基本执行参数
+  const intentType = elements._intentType || detectIntentFromElements();
+  const epMap = {
+    'CHURN_RISK':       { event_type:'quanjing', event_type_name:'全景下单', cycle:'NO_CYCLE', cycle_name:'不循环', component_name:'进度条任务', key_config:'下单金额≥20元', expire_days:7, copy_style:'激励型', user_limit:'活动期1次' },
+    'NEW_USER':         { event_type:'view',     event_type_name:'浏览',     cycle:'DAILY',    cycle_name:'每日循环', component_name:'进度条任务', key_config:'浏览活动页≥10秒', expire_days:14, copy_style:'情感型', user_limit:'每天1次' },
+    'DORMANT':          { event_type:'signIn',   event_type_name:'签到',     cycle:'CONSECUTIVE_DAILY', cycle_name:'连续打卡', component_name:'签到日历', key_config:'连续签到7天', expire_days:30, copy_style:'激励型', user_limit:'每天1次' },
+    'FREQUENCY_DROP':   { event_type:'quanjing', event_type_name:'全景下单', cycle:'DAILY',    cycle_name:'每日循环', component_name:'进度条任务', key_config:'每日下单1次', expire_days:7, copy_style:'利益型', user_limit:'每天1次' },
+    'CATEGORY_EXPLORE': { event_type:'view',     event_type_name:'浏览',     cycle:'DAILY',    cycle_name:'每日循环', component_name:'进度条任务', key_config:'浏览新品类页≥5秒', expire_days:14, copy_style:'探索型', user_limit:'每天1次' },
+  };
+  const ep = epMap[intentType] || epMap['CHURN_RISK'];
+  fillExecParams(ep);
+}
+
+function fillStrategyLocal() {
+  // 从已识别意图推断（intent保存在elements里）
+  const intentType = elements._intentType || detectIntentFromElements();
+
+  // 填充基础信息
+  document.getElementById('st-audience').textContent = elements.target_audience.value || '—';
+  document.getElementById('st-incentive').textContent = elements.incentive_id.value || '—';
+  document.getElementById('st-budget').textContent = elements.budget.value || '—';
+  document.getElementById('st-time').textContent = elements.trigger_time.value || '—';
+  document.getElementById('st-threshold').textContent = elements.claim_threshold.value || '直接领取';
+
+  // 填充策略推理
+  const intentLabel  = INTENT_LABELS[intentType]    || '精准营销触达';
+  const playInfo     = INTENT_PLAYTYPE[intentType]   || { type: 'gated', label: '有门槛任务', emoji: '🔑' };
+  const flow         = INTENT_FLOW[intentType]       || '收到推送 → 进入会场 → 完成任务 → 解锁激励';
+  const rationale    = INTENT_RATIONALE[intentType]  || '①人群特征匹配\n②激励ROI最优\n③门槛与行为绑定';
+  const incentiveData= INTENT_INCENTIVE[intentType]  || { coupon_type:'现金券', amount:'满20减5元', threshold:'下单满20元', grant_moment:'达成即发', estimated_qty:'约1万份' };
+
+  document.getElementById('st-intent').textContent = intentLabel;
+  document.getElementById('st-playtype').innerHTML =
+    `<span class="play-type-badge ${playInfo.type}">${playInfo.emoji} ${playInfo.label}</span>`;
+  // 玩法流程：用→高亮渲染
+  document.getElementById('st-flow').innerHTML =
+    flow.split('→').map((s, i, arr) =>
+      i < arr.length - 1
+        ? `<span style="color:var(--text-primary)">${s.trim()}</span><span style="color:var(--accent-blue);margin:0 3px">→</span>`
+        : `<span style="color:var(--accent-green);font-weight:600">${s.trim()}</span>`
+    ).join('');
+  // AI选择依据：换行渲染
+  document.getElementById('st-rationale').innerHTML =
+    rationale.replace(/\n/g, '<br>').replace(/(①|②|③)/g, '<span style="color:var(--accent-blue);font-weight:700">$1</span>');
+
+  // 填充激励策略
+  fillIncentiveStrategy(incentiveData);
+
+  // 隐藏loading，展示内容
+  document.getElementById('strategyGenerating').style.display = 'none';
+  document.getElementById('strategyBody').style.display = 'block';
+
+  addSystemNote('🧠 玩法策略已生成，请确认后继续');
+}
+
+function detectIntentFromElements() {
+  // 从已有数据推断意图
+  const audience = (elements.target_audience.value || '').toLowerCase();
+  const threshold = (elements.claim_threshold.value || '');
+  if (/流失/.test(audience)) return 'CHURN_RISK';
+  if (/新用户|首单/.test(audience)) return 'NEW_USER';
+  if (/沉默|无消费/.test(audience)) return 'DORMANT';
+  if (/复购|频次/.test(audience)) return 'FREQUENCY_DROP';
+  if (/探索|品类/.test(audience)) return 'CATEGORY_EXPLORE';
+  if (threshold === '下单后领取') return 'NEW_USER';
+  if (threshold === '浏览后领取') return 'CATEGORY_EXPLORE';
+  return 'CHURN_RISK'; // 默认
+}
+
+function handleStrategyConfirm() {
+  strategyConfirmed = true;
+  const btn = document.getElementById('strategyConfirmBtn');
+  btn.className = 'strategy-confirm-btn confirmed';
+  btn.textContent = '✅ 策略已确认';
+
+  document.getElementById('strategyActions').style.display = 'none';
+  document.getElementById('strategyConfirmedBadge').classList.add('show');
+
+  updateSubmitBtn();
+  addSystemNote('✅ 玩法策略已确认，可以启动推送');
+  // 按钮已是sticky底部fixed，不需要滚动，直接提示即可
+}
+
+function handleStrategyAdjust() {
+  // 让运营在对话框里调整，重新触发策略
+  addSystemNote('💬 请在左侧对话框告诉我需要调整哪些策略参数');
+  document.getElementById('chatInput').placeholder = '告诉我需要调整的策略方向，如：换成无门槛直领...';
+  document.getElementById('chatInput').focus();
+  // 重置策略生成状态，允许重新生成
+  strategyGenerated = false;
+}
+
+// ===== STATS =====
+function updateStats(estimatedText) {
+  const el = document.getElementById('statsValue');
+  // Extract number for display
+  const numMatch = estimatedText.match(/([\d.]+)\s*(万|千|百)/);
+  if (numMatch) {
+    el.innerHTML = `<div class="stats-value">${numMatch[1]}<span class="unit">${numMatch[2]}人</span></div>`;
+  } else {
+    el.innerHTML = `<div class="stats-value" style="font-size:18px">${estimatedText}</div>`;
+  }
+}
+
+// ===== BUDGET WARNING =====
+function showBudgetWarning(msg) {
+  const el = document.getElementById('budgetWarning');
+  document.getElementById('budgetWarningText').textContent = msg;
+  el.classList.add('show');
+}
+
+function hideBudgetWarning() {
+  document.getElementById('budgetWarning').classList.remove('show');
+}
+
+// ===== SUBMIT =====
+async function handleSubmit() {
+  // 仅校验必填项（领取门槛为非必填，不阻塞）
+  if (!REQUIRED_KEYS.every(k => elements[k].status === 'green')) return;
+
+  const taskId = 'TASK-' + Math.random().toString(36).substr(2,6).toUpperCase();
+  document.getElementById('modalTaskId').textContent = taskId;
+  document.getElementById('configId').textContent = taskId;
+
+  document.getElementById('modalOverlay').classList.add('show');
+
+  // Generate summary
+  const summaryEl = document.getElementById('modalSummary');
+  summaryEl.textContent = '正在生成决策摘要...';
+
+  // 读取策略卡已生成内容
+  const stIntent   = (document.getElementById('st-intent')    || {}).textContent || '—';
+  const stPlaytype = (document.getElementById('st-playtype')  || {}).textContent || '—';
+  const stFlow     = (document.getElementById('st-flow')      || {}).textContent || '—';
+  const stRationale= (document.getElementById('st-rationale') || {}).textContent || '—';
+
+  // 读取执行参数区块（ep-row 里的 ep-value）
+  const epRows = document.querySelectorAll('#execParamsBody .ep-row');
+  const epLabels = ['行为事件','循环周期','UI组件','核心配置','有效期','文案风格','参与次数'];
+  const execParams = {};
+  epRows.forEach((row, i) => {
+    const val = (row.querySelector('.ep-value') || {}).textContent || '—';
+    execParams[epLabels[i] || ('param' + i)] = val.trim();
+  });
+
+  // 构建完整决策摘要（本地直接生成，不走Friday，保证速度和准确性）
+  const summary = {
+    任务ID: taskId,
+    目标人群: elements.target_audience.value || '—',
+    激励方案: elements.incentive_id.value || '—',
+    触达时间: elements.trigger_time.value || '—',
+    预算: elements.budget.value || '—',
+    触达方式: elements.channel.value || '—',
+    策略推理: {
+      运营意图: stIntent,
+      推荐玩法: stPlaytype,
+      玩法流程: stFlow,
+      AI选择依据: stRationale
+    },
+    执行参数: Object.keys(execParams).length > 0 ? execParams : '(待生成)',
+    提交时间: new Date().toLocaleString('zh-CN')
+  };
+  summaryEl.textContent = JSON.stringify(summary, null, 2);
+}
+
+function closeModal() {
+  // 关闭弹窗，回到对话配置页，保留已填写的要素（不重置）
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+function confirmLaunch() {
+  // 真正确认启动：关弹窗 → 跳转任务监控态
+  document.getElementById('modalOverlay').classList.remove('show');
+  showMonitorView();
+}
+
+// ===== 任务监控态 =====
+var _monitorTimers = [];
+
+function showMonitorView() {
+  // 隐藏配置态，显示监控态
+  document.getElementById('viewOps').style.display = 'none';
+  document.getElementById('viewUser').style.display = 'none';
+  document.getElementById('viewMonitor').style.display = 'block';
+  document.getElementById('globalTabBar').style.display = 'none';
+  document.body.classList.add('user-view-active');
+  // 让 app-container 不再锁死高度，监控态需要滚动
+  var appContainer = document.querySelector('.app-container');
+  if (appContainer) { appContainer.style.height = 'auto'; appContainer.style.overflow = 'visible'; }
+  window.scrollTo(0, 0);
+
+  // 从 state 读取当前任务ID
+  var taskId = document.getElementById('configId').textContent || ('TASK-' + Math.random().toString(36).substr(2,6).toUpperCase());
+  document.getElementById('monitorTaskId').textContent = taskId;
+  document.getElementById('mInfoTaskId').textContent = taskId;
+  document.getElementById('mInfoLaunchTime').textContent = new Date().toLocaleString('zh-CN');
+
+  // 读取要素
+  var audience = elements.target_audience.value || '—';
+  var incentive = elements.incentive_id.value || '—';
+  var triggerTime = elements.trigger_time.value || '—';
+  var budget = elements.budget.value || '—';
+  var channel = elements.channel.value || '—';
+  var threshold = elements.claim_threshold.value || '直接领取';
+
+  // 摘要文字
+  document.getElementById('monitorSummary').textContent =
+    '目标：' + audience + ' | 激励：' + incentive + ' | 时间：' + triggerTime;
+
+  // 填充运营视角信息卡
+  document.getElementById('mInfoAudience').textContent = audience;
+  document.getElementById('mInfoIncentive').textContent = incentive;
+  document.getElementById('mInfoTime').textContent = triggerTime;
+  document.getElementById('mInfoBudget').textContent = budget;
+  document.getElementById('mInfoChannel').textContent = channel;
+  document.getElementById('mInfoThreshold').textContent = threshold;
+
+  // 预估人群
+  var statsEl = document.getElementById('statsValue');
+  var estimatedRaw = statsEl ? statsEl.textContent.trim() : '';
+  var estimatedDisplay = estimatedRaw.replace('待 AI 分析人群后更新', '').trim() || '约 12.4 万人';
+  // 尝试从DOM提取数字
+  var statsValue = document.getElementById('statsValue');
+  var numText = statsValue ? statsValue.textContent.replace(/[^0-9.万千]/g, '').trim() : '';
+  var reachTarget = 12.4;
+  var reachUnit = '万';
+  if (numText) {
+    var nm = numText.match(/([\d.]+)/);
+    if (nm) reachTarget = parseFloat(nm[1]);
+    if (/千/.test(numText)) reachUnit = '千';
+  }
+  document.getElementById('mInfoEstimated').textContent = reachTarget + reachUnit + '人';
+  document.getElementById('metricReachedSub').textContent = '目标 ' + reachTarget + reachUnit + ' 人';
+
+  // 预算消耗计算
+  var budgetNum = 0;
+  if (budget && budget !== '—') {
+    var bm = budget.match(/([\d.]+)/);
+    if (bm) budgetNum = parseFloat(bm[1]);
+  }
+  var budgetConsumeTarget = Math.round(budgetNum * 0.15 * 10) / 10;
+  document.getElementById('metricBudgetSub').textContent = budget !== '—' ? '预算 ' + budget + '，消耗约15%' : '预算余量充足';
+
+  // 清除旧定时器
+  _monitorTimers.forEach(clearTimeout);
+  _monitorTimers = [];
+
+  // 数字滚动动效
+  animateMetric('metricReached', 0, reachTarget, 2200, 1, false, reachUnit);
+  animateMetric('metricClaim', 0, 38, 2500, 0, true, '%');
+  animateMetric('metricConvert', 0, 22, 2800, 0, true, '%');
+  animateMetric('metricBudget', 0, 15, 3200, 0, true, '%');
+
+  // 预算大进度条
+  renderBudgetProgress(budget);
+
+  // 渲染用户视角内容（动态要素）
+  renderMonitorUserContent(audience, incentive, triggerTime, threshold, incentive);
+}
+
+function renderBudgetProgress(budgetStr) {
+  // 解析预算数值（单位：万元）
+  var total = 0;
+  var totalDisplay = '—';
+  if (budgetStr && budgetStr !== '—') {
+    var bm = budgetStr.match(/([\d.]+)\s*(万)?/);
+    if (bm) {
+      total = parseFloat(bm[1]);
+      totalDisplay = total + '万';
+    }
+  }
+
+  // mock：当前已消耗约15%，但用动效展示
+  var consumeRatio = 0.468; // 46.8%
+  var consumed = total > 0 ? (Math.round(total * consumeRatio * 10) / 10) : 0;
+  var remaining = total > 0 ? Math.round((total - consumed) * 10) / 10 : 0;
+  // 预估剩余天数（假设7天活动期，按消耗比例线性推算）
+  var daysTotal = 7;
+  var daysElapsed = Math.round(daysTotal * consumeRatio * 10) / 10;
+  var daysLeft = Math.max(0, Math.round((daysTotal - daysElapsed) * 10) / 10);
+
+  // 设置文字
+  document.getElementById('bpUsed').textContent = total > 0
+    ? '已消耗 ¥' + consumed + '万'
+    : '已消耗 ¥0';
+  document.getElementById('bpTotal').textContent = total > 0
+    ? '上限 ¥' + totalDisplay
+    : '上限 ¥—';
+  document.getElementById('bpRemaining').textContent = total > 0
+    ? '预计剩余 ' + daysLeft + ' 天'
+    : '预计剩余 — 天';
+
+  // 动效：进度条从0增长到 consumeRatio%
+  var fill = document.getElementById('bpBarFill');
+  fill.style.width = '0%';
+  setTimeout(function() {
+    fill.style.width = (consumeRatio * 100).toFixed(1) + '%';
+    // 超80%变红色警告
+    if (consumeRatio >= 0.8) {
+      fill.style.background = 'linear-gradient(90deg, #FC8181, #E53E3E)';
+      document.getElementById('bpRemaining').style.color = '#FC8181';
+    }
+  }, 400);
+}
+
+function animateMetric(elId, from, to, duration, decimals, isPercent, unit) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  var start = null;
+  var unitHtml = '<span class="monitor-metric-unit">' + unit + '</span>';
+  function step(ts) {
+    if (!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    // easeOutCubic
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var cur = from + (to - from) * eased;
+    el.innerHTML = cur.toFixed(decimals) + unitHtml;
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.innerHTML = to.toFixed(decimals) + unitHtml;
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+function renderMonitorUserContent(audience, incentive, triggerTime, threshold, incentiveId) {
+  var container = document.getElementById('monitorUserContent');
+  if (!container) return;
+
+  // 提取优惠券面额（从incentiveId或描述中提取数字）
+  var couponAmount = '30';
+  var couponType = '优惠券';
+  if (incentiveId) {
+    var amtMatch = incentiveId.match(/\d+/);
+    if (amtMatch) couponAmount = amtMatch[0];
+  }
+  if (/折/.test(incentive)) couponType = '折扣券';
+  else if (/体验/.test(incentive)) couponType = '体验券';
+  else if (/礼包|大礼/.test(incentive)) couponType = '礼包券';
+
+  // 推送通知文案
+  var pushTitle = '专属健康福利 · 为你定制';
+  var pushBody = '你的' + incentive + '已到账，' + triggerTime + '前有效，快来领取吧！';
+  if (threshold === '浏览后领取') {
+    pushBody = '浏览精选健康服务，解锁你的' + incentive + '！';
+  } else if (threshold === '下单后领取') {
+    pushBody = '完成一次下单，即可解锁' + incentive + '🎁';
+  }
+
+  // 用户画像标签（从audience描述提取关键词）
+  var tags = [];
+  if (/艾灸/.test(audience)) tags.push('艾灸偏好');
+  if (/推拿/.test(audience)) tags.push('推拿用户');
+  if (/按摩/.test(audience)) tags.push('按摩达人');
+  if (/流失|沉默|无消费|未消费/.test(audience)) tags.push('近期未消费');
+  if (/新用户|首单/.test(audience)) tags.push('新用户');
+  if (/复购|频次/.test(audience)) tags.push('高频用户');
+  if (/高价值/.test(audience)) tags.push('高价值用户');
+  if (tags.length === 0) tags.push('健康偏好用户');
+
+  // 商品推荐（根据人群特征）
+  var items = [
+    { emoji: '🌿', name: '艾灸理疗', desc: '传统艾灸·温通经络', price: '68' },
+    { emoji: '💆', name: '颈肩推拿', desc: '专业手法·舒缓酸痛', price: '88' },
+    { emoji: '🫧', name: '药浴套餐', desc: '中药泡浴·放松身心', price: '128' }
+  ];
+  if (/推拿/.test(audience)) {
+    items[0] = { emoji: '💆', name: '深度推拿', desc: '60分钟·全身放松', price: '98' };
+  } else if (/按摩/.test(audience)) {
+    items[0] = { emoji: '💆‍♀️', name: '精油按摩', desc: '芳疗精油·深层舒缓', price: '118' };
+  }
+
+  container.innerHTML =
+    '<div style="background:#1a2535;border:1px solid rgba(99,179,237,0.2);border-radius:12px;padding:14px 16px;margin-bottom:16px;">' +
+      '<div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📲 推送通知预览</div>' +
+      '<div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">' + pushTitle + '</div>' +
+      '<div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">' + pushBody + '</div>' +
+    '</div>' +
+    '<div style="background:#1a2535;border:1px solid rgba(99,179,237,0.2);border-radius:12px;padding:14px 16px;margin-bottom:16px;">' +
+      '<div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">👤 用户画像标签</div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:6px;">' +
+        tags.map(function(t) {
+          return '<span style="padding:3px 10px;background:rgba(99,179,237,0.1);border:1px solid rgba(99,179,237,0.25);border-radius:20px;font-size:11px;color:var(--accent-blue);">' + t + '</span>';
+        }).join('') +
+      '</div>' +
+    '</div>' +
+    '<div style="background:#1a2535;border:1px solid rgba(99,179,237,0.2);border-radius:12px;padding:14px 16px;margin-bottom:16px;">' +
+      '<div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">🎟 优惠券展示</div>' +
+      '<div style="background:linear-gradient(135deg,rgba(104,211,145,0.15),rgba(79,209,197,0.1));border:1px solid rgba(104,211,145,0.3);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;">' +
+        '<div style="font-size:28px;">🎁</div>' +
+        '<div>' +
+          '<div style="font-size:22px;font-weight:800;color:var(--accent-green);font-family:\'JetBrains Mono\',monospace;">¥' + couponAmount + '</div>' +
+          '<div style="font-size:11px;color:var(--text-secondary);">' + couponType + ' · ' + incentive + '</div>' +
+        '</div>' +
+        '<div style="margin-left:auto;padding:5px 12px;background:var(--accent-green);color:#fff;border-radius:20px;font-size:11px;font-weight:700;">' + (threshold === '直接领取' ? '立即领取' : '完成后领取') + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="background:#1a2535;border:1px solid rgba(99,179,237,0.2);border-radius:12px;padding:14px 16px;">' +
+      '<div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">🏪 活动会场商品</div>' +
+      items.map(function(item) {
+        return '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">' +
+          '<div style="width:36px;height:36px;background:rgba(99,179,237,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;">' + item.emoji + '</div>' +
+          '<div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--text-primary);">' + item.name + '</div><div style="font-size:11px;color:var(--text-muted);">' + item.desc + '</div></div>' +
+          '<div style="font-size:14px;font-weight:700;color:var(--accent-yellow);">¥' + item.price + '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>';
+}
+
+function switchMonitorTab(tab, btn) {
+  document.querySelectorAll('.monitor-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.monitor-tab-content').forEach(function(c) { c.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('monitorTab' + (tab === 'ops' ? 'Ops' : 'User')).classList.add('active');
+}
+
+function backToConfig() {
+  // 回到配置态，保留要素，不重置
+  document.getElementById('viewMonitor').style.display = 'none';
+  document.getElementById('viewOps').style.display = 'block';
+  document.getElementById('globalTabBar').style.display = 'none';
+  document.body.classList.remove('user-view-active');
+  // 恢复 app-container 高度锁定
+  var appContainer = document.querySelector('.app-container');
+  if (appContainer) { appContainer.style.height = '100vh'; appContainer.style.overflow = 'hidden'; }
+  window.scrollTo(0, 0);
+}
+
+function resetAll() {
+  elements = {
+    target_audience: { value: null, status: 'red', suggestion: null },
+    incentive_id: { value: null, status: 'red', suggestion: null },
+    claim_threshold: { value: '直接领取', status: 'yellow', suggestion: '弹出即领，无门槛（根据人群意图自动推荐）' },
+    trigger_time: { value: null, status: 'red', suggestion: null },
+    budget: { value: null, status: 'red', suggestion: null },
+    channel: { value: null, status: 'red', suggestion: null },
+    _intentType: null
+  };
+  // 重置策略卡状态
+  strategyConfirmed = false;
+  strategyGenerated = false;
+  document.getElementById('strategyCard').classList.remove('show');
+  document.getElementById('strategyGenerating').style.display = 'flex';
+  document.getElementById('strategyBody').style.display = 'none';
+  document.getElementById('strategyConfirmedBadge').classList.remove('show');
+  document.getElementById('strategyActions').style.display = 'flex';
+  const scBtn = document.getElementById('strategyConfirmBtn');
+  scBtn.className = 'strategy-confirm-btn';
+  scBtn.textContent = '采用此策略 ✓';
+  ['target_audience','incentive_id','trigger_time','budget','channel'].forEach(renderElementRow);
+  renderClaimThresholdRow('直接领取');
+  document.getElementById('adopt-claim_threshold').style.display = 'inline-flex';
+  updateProgress();
+  updateSubmitBtn();
+  hideBudgetWarning();
+  document.getElementById('statsValue').innerHTML = '<div class="stats-empty">待 AI 分析人群后更新</div>';
+  conversationHistory = [];
+  document.getElementById('configId').textContent = 'CFG-DRAFT';
+  addSystemNote('— 新会话开始 —');
+}
+
+// ===== HELPERS =====
+function scrollToBottom() {
+  const el = document.getElementById('chatMessages');
+  setTimeout(() => { el.scrollTop = el.scrollHeight; }, 50);
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Auto-resize textarea
+document.getElementById('chatInput').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+
+document.getElementById('chatInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSend();
+  }
+});
+
+// Init
+updateProgress();
+updateSubmitBtn();
+</script>
+
+</div><!-- /viewOps -->
+
+<!-- ===== 用户视角 Tab ===== -->
+<div id="viewUser" style="display:none; padding-top: 48px; min-height: 100vh; background: #F5F5F7; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;">
+
+<style>
+/* ---- 用户视角专属样式 ---- */
+#viewUser {
+  --c-green: #1DB88E;
+  --c-orange: #FF6B35;
+  --c-bg: #F5F5F7;
+  --c-card: #FFFFFF;
+  --c-text: #1C1C1E;
+  --c-sub: #6E6E73;
+  --c-border: #E5E5EA;
+}
+
+.uv-section-title {
+  text-align: center;
+  padding: 28px 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1C1C1E;
+  letter-spacing: -0.3px;
+}
+.uv-section-sub {
+  text-align: center;
+  font-size: 14px;
+  color: #6E6E73;
+  margin-bottom: 24px;
+}
+
+/* 手机区横排 */
+.uv-phones-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 0 24px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* 单个手机包装 */
+.uv-phone-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.uv-phone-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6E6E73;
+  background: #E5E5EA;
+  border-radius: 20px;
+  padding: 4px 14px;
+  letter-spacing: 0.3px;
+}
+
+/* iPhone 外框 */
+.uv-phone {
+  width: 375px;
+  height: 812px;
+  background: #FFFFFF;
+  border-radius: 44px;
+  box-shadow:
+    0 0 0 10px #1C1C1E,
+    0 0 0 12px #3A3A3C,
+    0 28px 64px rgba(0,0,0,0.22),
+    inset 0 0 0 2px rgba(255,255,255,0.06);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 刘海 */
+.uv-phone::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #1C1C1E;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+/* 状态栏 */
+.uv-statusbar {
+  flex-shrink: 0;
+  height: 50px;
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 28px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1C1C1E;
+  position: relative;
+  z-index: 5;
+}
+.uv-statusbar-time { font-size: 15px; font-weight: 700; }
+.uv-statusbar-icons { display: flex; gap: 5px; align-items: center; }
+
+/* 导航栏 */
+.uv-navbar {
+  flex-shrink: 0;
+  height: 44px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 0.5px solid #E5E5EA;
+}
+.uv-navbar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1C1C1E;
+}
+.uv-navbar-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #1DB88E;
+  cursor: pointer;
+}
+
+/* 滚动内容区 */
+.uv-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #F5F5F7;
+  scrollbar-width: none;
+}
+.uv-scroll::-webkit-scrollbar { display: none; }
+
+/* Banner */
+.uv-banner {
+  background: linear-gradient(135deg, #C8F5E6 0%, #A8E6D0 50%, #7DDBB8 100%);
+  padding: 20px 16px 16px;
+  position: relative;
+  overflow: hidden;
+}
+.uv-banner::after {
+  content: '🌿';
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-size: 48px;
+  opacity: 0.25;
+}
+.uv-banner-tag {
+  display: inline-block;
+  background: rgba(29,184,142,0.2);
+  color: #0E7A5A;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(29,184,142,0.3);
+}
+.uv-banner-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0E5C40;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.uv-banner-sub {
+  font-size: 12px;
+  color: #1A7A58;
+  font-weight: 500;
+}
+
+/* 内容卡片 */
+.uv-card {
+  background: #FFFFFF;
+  margin: 10px 12px;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.uv-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1C1C1E;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 签到网格 */
+.uv-checkin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0 0 4px;
+}
+.uv-checkin-cell {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  position: relative;
+  border: 2px solid #E5E5EA;
+  background: #F5F5F7;
+  color: #C7C7CC;
+  transition: all 0.3s;
+}
+.uv-checkin-cell.done {
+  background: linear-gradient(135deg, #1DB88E, #0EA875);
+  border-color: #1DB88E;
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(29,184,142,0.35);
+}
+.uv-checkin-cell.done::after {
+  content: '✓';
+  font-size: 18px;
+  font-weight: 800;
+}
+.uv-checkin-cell.today {
+  border-color: #FF6B35;
+  background: #FFF3EF;
+  color: #FF6B35;
+  animation: pulseCell 2s infinite;
+}
+.uv-checkin-cell .cell-day {
+  font-size: 9px;
+  color: inherit;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+.uv-checkin-cell.done .cell-day { opacity: 0.8; }
+
+@keyframes pulseCell {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(255,107,53,0); }
+}
+
+/* 进度条 */
+.uv-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.uv-progress-text { font-size: 12px; color: #6E6E73; font-weight: 500; }
+.uv-progress-val { font-size: 12px; color: #1DB88E; font-weight: 700; }
+.uv-progress-bar-bg {
+  height: 7px;
+  background: #E5E5EA;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.uv-progress-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #1DB88E, #0EA875);
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 奖品卡片 */
+.uv-prize-card {
+  background: linear-gradient(135deg, #FFF8F5 0%, #FFF3EF 100%);
+  border: 1.5px solid rgba(255,107,53,0.2);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 10px;
+}
+.uv-prize-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #FF6B35, #FF8C42);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.uv-prize-info { flex: 1; }
+.uv-prize-name { font-size: 14px; font-weight: 700; color: #1C1C1E; margin-bottom: 3px; }
+.uv-prize-meta { font-size: 11px; color: #6E6E73; }
+.uv-prize-lock {
+  font-size: 20px;
+  color: #C7C7CC;
+}
+.uv-prize-unlock {
+  background: linear-gradient(135deg, #1DB88E, #0EA875);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* 按钮 */
+.uv-btn-primary {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #FF6B35, #FF8C42);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 16px rgba(255,107,53,0.35);
+  letter-spacing: 0.3px;
+}
+.uv-btn-primary:active { transform: scale(0.98); }
+.uv-btn-primary.done-btn {
+  background: linear-gradient(135deg, #1DB88E, #0EA875);
+  box-shadow: 0 4px 16px rgba(29,184,142,0.35);
+}
+
+/* 底部固定按钮区 */
+.uv-footer {
+  flex-shrink: 0;
+  padding: 12px 16px 20px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-top: 0.5px solid #E5E5EA;
+}
+
+/* 表单 */
+.uv-form-item {
+  margin-bottom: 10px;
+}
+.uv-form-label {
+  font-size: 11px;
+  color: #6E6E73;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+.uv-form-input {
+  width: 100%;
+  height: 36px;
+  background: #F5F5F7;
+  border: 1px solid #E5E5EA;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 13px;
+  color: #1C1C1E;
+  font-family: inherit;
+  outline: none;
+}
+.uv-form-input:focus {
+  border-color: #1DB88E;
+  background: #FAFFFE;
+}
+
+/* 撒花动画 */
+@keyframes confetti-fall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+}
+.uv-confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confetti-fall 2.5s ease-in infinite;
+  pointer-events: none;
+}
+
+/* 完成徽章 */
+.uv-complete-badge {
+  background: linear-gradient(135deg, #1DB88E, #0EA875);
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+  margin: 8px 12px 0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* 已签到标签 */
+.uv-signed-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(29,184,142,0.1);
+  color: #1DB88E;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(29,184,142,0.2);
+  margin-left: auto;
+}
+
+/* 还差N次提示 */
+.uv-lock-tip {
+  font-size: 11px;
+  color: #FF6B35;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+</style>
+
+<!-- 页头 -->
+<div class="uv-section-title">📱 C端用户视角</div>
+<div class="uv-section-sub">以下为「五一签到领券」活动中 3 种典型用户在手机端看到的签到页面</div>
+
+<!-- 三手机横排 -->
+<div class="uv-phones-row">
+
+  <!-- ① 新用户 - 王小花（0/9） -->
+  <div class="uv-phone-wrap">
+    <div class="uv-phone-label">😊 未开始 · 王小花（新用户，0/9）</div>
+    <div class="uv-phone">
+      <!-- 状态栏 -->
+      <div class="uv-statusbar">
+        <span class="uv-statusbar-time">9:41</span>
+        <div class="uv-statusbar-icons">
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1C1C1E"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1C1C1E"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="#1C1C1E"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1C1C1E" opacity=".3"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 3C5.79 3 3.82 3.88 2.39 5.31L1 3.92C2.81 2.1 5.28 1 8 1s5.19 1.1 7 2.92L13.61 5.31C12.18 3.88 10.21 3 8 3Z" fill="#1C1C1E"/><path d="M8 7c-1.1 0-2.1.45-2.83 1.17L4 7a5.99 5.99 0 0 1 8 0l-1.17 1.17A3.97 3.97 0 0 0 8 7Z" fill="#1C1C1E"/><circle cx="8" cy="11" r="1.5" fill="#1C1C1E"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#1C1C1E" stroke-opacity=".35"/><rect x="2" y="2" width="14" height="8" rx="2" fill="#1C1C1E"/><path d="M23 4.5v3a1.5 1.5 0 0 0 0-3Z" fill="#1C1C1E" opacity=".4"/></svg>
+        </div>
+      </div>
+      <!-- 导航栏 -->
+      <div class="uv-navbar">
+        <div class="uv-navbar-icon">←</div>
+        <span class="uv-navbar-title">五一签到领券</span>
+        <div class="uv-navbar-icon">⬆</div>
+      </div>
+      <!-- 滚动区 -->
+      <div class="uv-scroll">
+        <!-- Banner -->
+        <div class="uv-banner" style="background: linear-gradient(135deg, #FFE8DC 0%, #FFCFB3 50%, #FFB899 100%);">
+          <div class="uv-banner-tag" style="background:rgba(255,107,53,0.15);color:#C84B00;">🎉 五一限定活动</div>
+          <div class="uv-banner-title" style="color:#8B2800;">五一签到领券</div>
+          <div class="uv-banner-sub" style="color:#C84B00;">完成9次签到，领30元神券</div>
+        </div>
+        <!-- 签到进度卡 -->
+        <div class="uv-card">
+          <div class="uv-card-title">
+            <span>🗓</span>签到打卡
+            <span style="font-size:11px;color:#6E6E73;font-weight:500;margin-left:auto;">0 / 9次</span>
+          </div>
+          <!-- 9格方格 3×3，第1格橙色脉冲 -->
+          <div style="display:grid;grid-template-columns:repeat(3,40px);gap:10px;justify-content:center;margin:0 0 8px;">
+            <div style="width:40px;height:40px;border-radius:8px;border:2px solid #FF6B35;background:#FFF3EF;display:flex;align-items:center;justify-content:center;animation:pulseCell 1s infinite;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+          </div>
+          <div style="text-align:center;font-size:12px;color:#FF6B35;font-weight:600;margin-top:4px;">完成9次签到，领30元神券</div>
+        </div>
+        <div style="height: 16px;"></div>
+      </div>
+      <!-- 底部CTA -->
+      <div class="uv-footer">
+        <button class="uv-btn-primary" style="background:linear-gradient(135deg,#FF6B35,#FF8C42);box-shadow:0 4px 16px rgba(255,107,53,0.35);">立即签到</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 进行中 - 李大明（5/9） -->
+  <div class="uv-phone-wrap">
+    <div class="uv-phone-label">⏳ 进行中 · 李大明（5/9）</div>
+    <div class="uv-phone">
+      <!-- 状态栏 -->
+      <div class="uv-statusbar">
+        <span class="uv-statusbar-time">9:41</span>
+        <div class="uv-statusbar-icons">
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1C1C1E"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1C1C1E"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="#1C1C1E"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1C1C1E" opacity=".3"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 3C5.79 3 3.82 3.88 2.39 5.31L1 3.92C2.81 2.1 5.28 1 8 1s5.19 1.1 7 2.92L13.61 5.31C12.18 3.88 10.21 3 8 3Z" fill="#1C1C1E"/><path d="M8 7c-1.1 0-2.1.45-2.83 1.17L4 7a5.99 5.99 0 0 1 8 0l-1.17 1.17A3.97 3.97 0 0 0 8 7Z" fill="#1C1C1E"/><circle cx="8" cy="11" r="1.5" fill="#1C1C1E"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#1C1C1E" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="2" fill="#1C1C1E"/><path d="M23 4.5v3a1.5 1.5 0 0 0 0-3Z" fill="#1C1C1E" opacity=".4"/></svg>
+        </div>
+      </div>
+      <!-- 导航栏 -->
+      <div class="uv-navbar">
+        <div class="uv-navbar-icon">←</div>
+        <span class="uv-navbar-title">五一签到领券</span>
+        <div class="uv-navbar-icon">⬆</div>
+      </div>
+      <!-- 滚动区 -->
+      <div class="uv-scroll">
+        <!-- Banner -->
+        <div class="uv-banner" style="background: linear-gradient(135deg, #FFE8DC 0%, #FFCFB3 50%, #FFB899 100%);">
+          <div class="uv-banner-tag" style="background:rgba(255,107,53,0.15);color:#C84B00;">🎉 五一限定活动</div>
+          <div class="uv-banner-title" style="color:#8B2800;">五一签到领券</div>
+          <div class="uv-banner-sub" style="color:#C84B00;">再签4次得30元神券！</div>
+        </div>
+        <!-- 签到进度卡 -->
+        <div class="uv-card">
+          <div class="uv-card-title">
+            <span>🗓</span>签到打卡
+            <div class="uv-signed-tag">✅ 已签 5 次</div>
+          </div>
+          <!-- 9格：前5绿色✓，第6橙色脉冲，后3灰色 -->
+          <div style="display:grid;grid-template-columns:repeat(3,40px);gap:10px;justify-content:center;margin:0 0 8px;">
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;border:2px solid #FF6B35;background:#FFF3EF;display:flex;align-items:center;justify-content:center;animation:pulseCell 1s infinite;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#e0e0e0;"></div>
+          </div>
+          <!-- 进度条 58% -->
+          <div style="margin-top:10px;">
+            <div class="uv-progress-row">
+              <span class="uv-progress-text">签到进度</span>
+              <span class="uv-progress-val">5 / 9</span>
+            </div>
+            <div class="uv-progress-bar-bg">
+              <div class="uv-progress-bar-fill" style="width:58%;background:linear-gradient(90deg,#1DB88E,#0EA875);"></div>
+            </div>
+            <div style="text-align:center;font-size:12px;color:#FF6B35;font-weight:600;margin-top:6px;">再签4次得30元神券！</div>
+          </div>
+        </div>
+        <div style="height: 16px;"></div>
+      </div>
+      <!-- 底部按钮 -->
+      <div class="uv-footer">
+        <button class="uv-btn-primary" style="background:linear-gradient(135deg,#FF6B35,#FF8C42);box-shadow:0 4px 16px rgba(255,107,53,0.35);">今日签到</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 已完成 - 张梅（9/9） -->
+  <div class="uv-phone-wrap">
+    <div class="uv-phone-label">🎉 已完成 · 张梅（9/9）</div>
+    <div class="uv-phone" style="position:relative;">
+      <!-- 撒花CSS动画层 -->
+      <style>
+        @keyframes confetti-dot-fall {
+          0%   { transform: translateY(-30px) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(120px) rotate(720deg); opacity: 0; }
+        }
+        .uv-dot-confetti {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          animation: confetti-dot-fall 2.2s ease-in infinite;
+          pointer-events: none;
+          z-index: 25;
+        }
+      </style>
+      <div style="position:absolute;top:60px;left:0;right:0;height:220px;pointer-events:none;z-index:24;overflow:hidden;">
+        <div class="uv-dot-confetti" style="left:8%;background:#FF6B35;animation-delay:0s;animation-duration:2s;"></div>
+        <div class="uv-dot-confetti" style="left:18%;background:#1DB88E;animation-delay:0.3s;animation-duration:2.4s;"></div>
+        <div class="uv-dot-confetti" style="left:28%;background:#F6E05E;animation-delay:0.6s;animation-duration:1.9s;"></div>
+        <div class="uv-dot-confetti" style="left:38%;background:#FC8181;animation-delay:0.1s;animation-duration:2.2s;"></div>
+        <div class="uv-dot-confetti" style="left:48%;background:#B794F4;animation-delay:0.8s;animation-duration:2s;"></div>
+        <div class="uv-dot-confetti" style="left:58%;background:#FF6B35;animation-delay:0.4s;animation-duration:2.3s;"></div>
+        <div class="uv-dot-confetti" style="left:68%;background:#1DB88E;animation-delay:1s;animation-duration:1.8s;"></div>
+        <div class="uv-dot-confetti" style="left:78%;background:#F6E05E;animation-delay:0.2s;animation-duration:2.5s;"></div>
+        <div class="uv-dot-confetti" style="left:88%;background:#FC8181;animation-delay:0.7s;animation-duration:2.1s;"></div>
+        <div class="uv-dot-confetti" style="left:13%;background:#B794F4;animation-delay:1.3s;animation-duration:1.7s;"></div>
+      </div>
+      <!-- 状态栏 -->
+      <div class="uv-statusbar">
+        <span class="uv-statusbar-time">9:41</span>
+        <div class="uv-statusbar-icons">
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1C1C1E"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1C1C1E"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="#1C1C1E"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1C1C1E"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 3C5.79 3 3.82 3.88 2.39 5.31L1 3.92C2.81 2.1 5.28 1 8 1s5.19 1.1 7 2.92L13.61 5.31C12.18 3.88 10.21 3 8 3Z" fill="#1C1C1E"/><path d="M8 7c-1.1 0-2.1.45-2.83 1.17L4 7a5.99 5.99 0 0 1 8 0l-1.17 1.17A3.97 3.97 0 0 0 8 7Z" fill="#1C1C1E"/><circle cx="8" cy="11" r="1.5" fill="#1C1C1E"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#1C1C1E" stroke-opacity=".35"/><rect x="2" y="2" width="20" height="8" rx="2" fill="#1C1C1E"/><path d="M23 4.5v3a1.5 1.5 0 0 0 0-3Z" fill="#1C1C1E" opacity=".4"/></svg>
+        </div>
+      </div>
+      <!-- 导航栏 -->
+      <div class="uv-navbar">
+        <div class="uv-navbar-icon">←</div>
+        <span class="uv-navbar-title">五一签到领券</span>
+        <div class="uv-navbar-icon">⬆</div>
+      </div>
+      <!-- 滚动区 -->
+      <div class="uv-scroll">
+        <!-- Banner 完成版 -->
+        <div class="uv-banner" style="background: linear-gradient(135deg, #B8F0DE 0%, #8EEACF 50%, #5EDDB8 100%);">
+          <div class="uv-banner-tag" style="background:rgba(29,184,142,0.3);color:#0E5C40;">🎉 签到完成</div>
+          <div class="uv-banner-title" style="color:#0E5C40;">五一签到领券</div>
+          <div class="uv-banner-sub" style="color:#1A7A58;">恭喜完成9次签到！</div>
+        </div>
+        <!-- 签到进度卡 - 全打勾 -->
+        <div class="uv-card">
+          <div class="uv-card-title">
+            <span>🗓</span>签到打卡
+            <div class="uv-signed-tag">🎉 全部完成</div>
+          </div>
+          <!-- 9格全绿 -->
+          <div style="display:grid;grid-template-columns:repeat(3,40px);gap:10px;justify-content:center;margin:0 0 8px;">
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+            <div style="width:40px;height:40px;border-radius:8px;background:#1DB88E;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;">✓</div>
+          </div>
+        </div>
+        <!-- 浮层弹窗（直接显示，无需JS触发） -->
+        <div style="position:relative;margin:0 12px 12px;">
+          <div style="background:#FFFFFF;border-radius:20px;padding:20px 16px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);text-align:center;border:1.5px solid rgba(29,184,142,0.2);">
+            <div style="font-size:28px;margin-bottom:8px;">🎉</div>
+            <div style="font-size:16px;font-weight:800;color:#1C1C1E;margin-bottom:4px;">恭喜！30元神券已到账</div>
+            <div style="font-size:12px;color:#6E6E73;margin-bottom:14px;">券已发放至您的账户，可立即使用</div>
+            <button style="width:100%;height:40px;background:linear-gradient(135deg,#1DB88E,#0EA875);color:white;border:none;border-radius:20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">查看我的券包</button>
+          </div>
+        </div>
+        <div style="height: 16px;"></div>
+      </div>
+      <!-- 底部按钮区（已完成态） -->
+      <div class="uv-footer">
+        <button class="uv-btn-primary done-btn">查看我的券包 🎁</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /uv-phones-row -->
+</div><!-- /viewUser -->
+
+<!-- ===== 任务监控态 ===== -->
+<div id="viewMonitor">
+  <button class="monitor-back-btn" onclick="backToConfig()">← 重新配置</button>
+
+  <div class="monitor-top">
+    <div class="monitor-task-id" id="monitorTaskId">TASK-XXXXXX</div>
+    <div class="monitor-running-badge">
+      <div class="monitor-running-dot"></div>
+      执行中
+    </div>
+  </div>
+  <div class="monitor-summary-text" id="monitorSummary">目标：— | 激励：— | 时间：—</div>
+
+  <!-- 指标卡 -->
+  <div class="monitor-metrics-grid">
+    <div class="monitor-metric-card blue">
+      <div class="monitor-metric-label">👥 已触达人数</div>
+      <div class="monitor-metric-value" id="metricReached">0<span class="monitor-metric-unit">万</span></div>
+      <div class="monitor-metric-sub" id="metricReachedSub">目标人群规模估算</div>
+    </div>
+    <div class="monitor-metric-card green">
+      <div class="monitor-metric-label">🎟 券领取率</div>
+      <div class="monitor-metric-value" id="metricClaim">0<span class="monitor-metric-unit">%</span></div>
+      <div class="monitor-metric-sub">目标 ≥ 35%</div>
+    </div>
+    <div class="monitor-metric-card yellow">
+      <div class="monitor-metric-label">🛒 消费转化率</div>
+      <div class="monitor-metric-value" id="metricConvert">0<span class="monitor-metric-unit">%</span></div>
+      <div class="monitor-metric-sub">目标 ≥ 20%</div>
+    </div>
+    <div class="monitor-metric-card red">
+      <div class="monitor-metric-label">💰 预算消耗</div>
+      <div class="monitor-metric-value" id="metricBudget">0<span class="monitor-metric-unit">%</span></div>
+      <div class="monitor-metric-sub" id="metricBudgetSub">预算余量充足</div>
+    </div>
+  </div>
+
+  <!-- 预算进度条 -->
+  <div class="budget-progress-block" id="budgetProgressBlock">
+    <div class="bp-header">
+      <span class="bp-label">💰 预算消耗进度</span>
+      <span class="bp-remaining" id="bpRemaining">预计剩余 — 天</span>
+    </div>
+    <div class="bp-bar-wrap">
+      <div class="bp-bar-fill" id="bpBarFill" style="width:0%"></div>
+    </div>
+    <div class="bp-footer">
+      <span class="bp-used" id="bpUsed">已消耗 ¥0</span>
+      <span class="bp-total" id="bpTotal">上限 ¥—</span>
+    </div>
+  </div>
+
+  <!-- Tab -->
+  <div class="monitor-tabs">
+    <button class="monitor-tab-btn active" onclick="switchMonitorTab('ops', this)">🛠 运营视角</button>
+    <button class="monitor-tab-btn" onclick="switchMonitorTab('user', this)">📱 用户视角</button>
+  </div>
+
+  <!-- 运营视角内容 -->
+  <div class="monitor-tab-content active" id="monitorTabOps">
+    <div class="monitor-ops-info">
+      <div class="monitor-info-card">
+        <div class="monitor-info-card-title">任务要素</div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">目标人群</span>
+          <span class="monitor-info-val" id="mInfoAudience">—</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">激励方案</span>
+          <span class="monitor-info-val" id="mInfoIncentive">—</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">触达时间</span>
+          <span class="monitor-info-val" id="mInfoTime">—</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">预算上限</span>
+          <span class="monitor-info-val" id="mInfoBudget">—</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">触达方式</span>
+          <span class="monitor-info-val" id="mInfoChannel">—</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">领取门槛</span>
+          <span class="monitor-info-val" id="mInfoThreshold">—</span>
+        </div>
+      </div>
+      <div class="monitor-info-card">
+        <div class="monitor-info-card-title">执行状态</div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">任务ID</span>
+          <span class="monitor-info-val" id="mInfoTaskId">—</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">状态</span>
+          <span class="monitor-info-val" style="color:var(--accent-green);">执行中</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">启动时间</span>
+          <span class="monitor-info-val" id="mInfoLaunchTime">—</span>
+        </div>
+        <div class="monitor-info-row">
+          <span class="monitor-info-key">预估人群</span>
+          <span class="monitor-info-val" id="mInfoEstimated">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 用户视角内容（内嵌简版） -->
+  <div class="monitor-tab-content" id="monitorTabUser">
+    <div class="monitor-user-preview">
+      <div class="monitor-user-preview-note">以下为用户侧推送通知 & 活动会场预览（根据当前要素动态生成）</div>
+      <div id="monitorUserContent" style="text-align:left; max-width:480px; margin:0 auto;"></div>
+    </div>
+  </div>
+</div><!-- /viewMonitor -->
+
+<script>
+// ===== 全局 Tab 切换 =====
+function switchTab(tab) {
+  var opsView = document.getElementById('viewOps');
+  var userView = document.getElementById('viewUser');
+  var tabOps = document.getElementById('tabOps');
+  var tabUser = document.getElementById('tabUser');
+
+  if (tab === 'ops') {
+    opsView.style.display = 'block';
+    userView.style.display = 'none';
+    tabOps.style.background = 'rgba(99,179,237,0.15)';
+    tabOps.style.color = '#63B3ED';
+    tabOps.style.borderBottom = '2px solid #63B3ED';
+    tabUser.style.background = 'transparent';
+    tabUser.style.color = '#A0AEC0';
+    tabUser.style.borderBottom = '2px solid transparent';
+  } else {
+    opsView.style.display = 'none';
+    userView.style.display = 'block';
+    tabOps.style.background = 'transparent';
+    tabOps.style.color = '#A0AEC0';
+    tabOps.style.borderBottom = '2px solid transparent';
+    tabUser.style.background = 'rgba(29,184,142,0.15)';
+    tabUser.style.color = '#1DB88E';
+    tabUser.style.borderBottom = '2px solid #1DB88E';
+  }
+}
+</script>
+
+</body>
+</html>

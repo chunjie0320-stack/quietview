@@ -1,0 +1,277 @@
+{
+  "generated_at": "2026-04-17T15:24:50.103146",
+  "topic": "food",
+  "region": "全国",
+  "keywords_used": [
+    "美食",
+    "餐厅",
+    "探店",
+    "火锅",
+    "烤鸭",
+    "小吃",
+    "网红餐厅",
+    "打卡",
+    "好吃",
+    "必吃",
+    "避坑",
+    "推荐",
+    "测评",
+    "外卖",
+    "堂食",
+    "米其林",
+    "人均",
+    "排队",
+    "老字号",
+    "夜市"
+  ],
+  "summary": {
+    "total_raw": 211,
+    "total_filtered": 8,
+    "top_keywords": [
+      "涨价",
+      "饭馆",
+      "探店",
+      "餐厅",
+      "测评",
+      "自助餐",
+      "推荐",
+      "美食",
+      "外卖"
+    ],
+    "platforms_ok": [
+      "baidu",
+      "toutiao",
+      "bilibili",
+      "douban"
+    ],
+    "platforms_failed": [
+      "zhihu",
+      "wechat_oa"
+    ]
+  },
+  "hot_items": [
+    {
+      "platform": "baidu",
+      "title": "这家老饭馆被顾客一致要求涨价",
+      "description": "",
+      "popularity": 5902599,
+      "url": "https://www.baidu.com/s?wd=这家老饭馆被顾客一致要求涨价",
+      "cover": "",
+      "rank": 21,
+      "matched_keywords": [
+        "饭馆",
+        "涨价"
+      ],
+      "region_match": false,
+      "score": 49,
+      "type": "常青",
+      "type_emoji": "🌲",
+      "type_evidence": "多平台通用内容，无明显时效触发词"
+    },
+    {
+      "platform": "bilibili",
+      "title": "特厨探店|下了高铁冒着雨来的餐厅，就这？—徽菜博物馆餐厅",
+      "description": "",
+      "popularity": 1066614,
+      "like_count": 77555,
+      "url": "https://b23.tv/BV1DLQhBPE7W",
+      "cover": "http://i1.hdslb.com/bfs/archive/d57fdfae6dc168159b694adcb06ba165a7d1cec1.jpg",
+      "author": "特厨隋坡",
+      "rank": 92,
+      "matched_keywords": [
+        "探店",
+        "餐厅"
+      ],
+      "region_match": false,
+      "score": 46,
+      "type": "常青",
+      "type_emoji": "🌲",
+      "type_evidence": "多平台通用内容，无明显时效触发词"
+    },
+    {
+      "platform": "bilibili",
+      "title": "【崩铁】银狼LV.999+欢愉主综合测评+流萤希儿藿藿瓦尔特加强介绍：狼尊归位！武器对比+强度分析+抽取建议+星魂提升！",
+      "description": "-",
+      "popularity": 1319336,
+      "like_count": 84853,
+      "url": "https://b23.tv/BV13NQLBdEAs",
+      "cover": "http://i1.hdslb.com/bfs/archive/2eec98d96f0353d10f5d1d6eca569465008b2c40.jpg",
+      "author": "卡特亚",
+      "rank": 16,
+      "matched_keywords": [
+        "测评"
+      ],
+      "region_match": false,
+      "score": 44,
+      "type": "常青",
+      "type_emoji": "🌲",
+      "type_evidence": "多平台通用内容，无明显时效触发词"
+    },
+    {
+      "platform": "bilibili",
+      "title": "我胜利了你的胜利，万税爷宣布封锁霍尔木兹海峡",
+      "description": "本期视频提及的事件以及信息来源如下：\n美伊首轮谈判破裂，特朗普宣布美军封锁霍尔木兹海峡，特朗普批评英国首相，来源新华社，央视新闻\n美以伊战事致全球化肥涨价，环球",
+      "popularity": 1765475,
+      "like_count": 96001,
+      "url": "https://b23.tv/BV1BmQvBZEwh",
+      "cover": "http://i1.hdslb.com/bfs/archive/8d9cf8864991128463b1bc8a1c36752050587f3c.jpg",
+      "author": "麻薯波比呀",
+      "rank": 22,
+      "matched_keywords": [
+        "涨价"
+      ],
+      "region_match": false,
+      "score": 44,
+      "type": "常青",
+      "type_emoji": "🌲",
+      "type_evidence": "多平台通用内容，无明显时效触发词"
+    },
+    {
+      "platform": "bilibili",
+      "title": "一个合格的自助餐战士就要专攻一个领域【拄着拐都得参加战斗】",
+      "description": "",
+      "popularity": 1810915,
+      "like_count": 76529,
+      "url": "https://b23.tv/BV1jFQJB1EsD",
+      "cover": "http://i0.hdslb.com/bfs/archive/f3a5eed98f6a9efaa898a54d5ce651db364dd989.jpg",
+      "author": "十啊-真探评测",
+      "rank": 83,
+      "matched_keywords": [
+        "自助餐"
+      ],
+      "region_match": false,
+      "score": 44,
+      "type": "常青",
+      "type_emoji": "🌲",
+      "type_evidence": "多平台通用内容，无明显时效触发词"
+    },
+    {
+      "platform": "bilibili",
+      "title": "2035 不远了，我们到底处在什么样的时代？【王骁 x 王文】",
+      "description": "一键三连，推荐给更多朋友！",
+      "popularity": 824250,
+      "like_count": 38720,
+      "url": "https://b23.tv/BV1tFQEBoEJV",
+      "cover": "http://i2.hdslb.com/bfs/archive/8ffcd1a029ffe32e5297d78f599f97a09715107b.jpg",
+      "author": "小王Albert",
+      "rank": 68,
+      "matched_keywords": [
+        "推荐"
+      ],
+      "region_match": false,
+      "score": 42,
+      "type": "常青",
+      "type_emoji": "🌲",
+      "type_evidence": "多平台通用内容，无明显时效触发词"
+    },
+    {
+      "platform": "toutiao",
+      "title": "呼和浩特美食凭啥能馋翻全国",
+      "description": "",
+      "popularity": 765452,
+      "url": "https://www.toutiao.com/trending//",
+      "cover": "https://p26-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/67c5a1c3d275413494111ea002f4f431~tplv-tt-shrink:960:540.jpeg?_iz=30575&from=sign_default&lk3s=8d617dac&x-expires=1778976000&x-signature=ZiUGNUEy9cE7EFcb%2B8L4X5cfsN8%3D",
+      "matched_keywords": [
+        "美食"
+      ],
+      "region_match": false,
+      "score": 41,
+      "type": "区域",
+      "type_emoji": "🌊",
+      "type_evidence": "含地域词：呼和浩特"
+    },
+    {
+      "platform": "bilibili",
+      "title": "【苏星河】互联网真的会杀熟？外卖软件的秘密…",
+      "description": "结尾有惊喜！",
+      "popularity": 566423,
+      "like_count": 37573,
+      "url": "https://b23.tv/BV1HWQiBPEH1",
+      "cover": "http://i1.hdslb.com/bfs/archive/585effd9cafd43b6d9c289db3b9810b928068079.jpg",
+      "author": "苏星河牛通",
+      "rank": 97,
+      "matched_keywords": [
+        "外卖"
+      ],
+      "region_match": false,
+      "score": 41,
+      "type": "常青",
+      "type_emoji": "🌲",
+      "type_evidence": "多平台通用内容，无明显时效触发词"
+    }
+  ],
+  "content_themes": [
+    {
+      "id": "theme_1",
+      "name": "本地特色探店",
+      "desc": "基于1条区域型热点归纳，适合跟进创作。",
+      "type": "区域",
+      "type_emoji": "🌊",
+      "heat_score": 70,
+      "item_ids": [
+        6
+      ],
+      "ref_titles": [
+        "呼和浩特美食凭啥能馋翻全国"
+      ],
+      "pain_points": [],
+      "emotions": [],
+      "content_angles": [
+        {
+          "angle": "本地探店",
+          "reason": "地域限定热点适合本地账号做探店内容",
+          "suitable_formats": [
+            "小红书"
+          ]
+        }
+      ],
+      "recall_keywords": {
+        "category": "",
+        "scene": "",
+        "emotion": "",
+        "segment_types": []
+      }
+    },
+    {
+      "id": "theme_0",
+      "name": "经典美食攻略",
+      "desc": "基于7条常青型热点归纳，适合跟进创作。",
+      "type": "常青",
+      "type_emoji": "🌲",
+      "heat_score": 55,
+      "item_ids": [
+        0,
+        1,
+        2
+      ],
+      "ref_titles": [
+        "这家老饭馆被顾客一致要求涨价",
+        "特厨探店|下了高铁冒着雨来的餐厅，就这？—徽菜博物馆餐厅",
+        "【崩铁】银狼LV.999+欢愉主综合测评+流萤希儿藿藿瓦尔特加强介绍：狼尊归位！武器对比+强度分析+抽取建议+星魂提升！"
+      ],
+      "pain_points": [],
+      "emotions": [],
+      "content_angles": [
+        {
+          "angle": "避坑攻略",
+          "reason": "常青内容适合做系列化避坑/推荐内容",
+          "suitable_formats": [
+            "小红书",
+            "纯文本"
+          ]
+        }
+      ],
+      "recall_keywords": {
+        "category": "",
+        "scene": "",
+        "emotion": "",
+        "segment_types": []
+      }
+    }
+  ],
+  "xhs_search_keywords": [
+    "涨价",
+    "饭馆",
+    "探店"
+  ]
+}

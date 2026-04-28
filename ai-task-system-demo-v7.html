@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI任务系统 V7</title>
+<style>
+:root{--primary:#3370FF;--primary-dark:#245BDB;--primary-light:#F0F5FF;--primary-hover:#4080FF;--secondary:#5856D6;--secondary-light:#F0F0FF;--bg:#F5F7FA;--surface:#FFFFFF;--surface-hover:#F7F8FA;--surface-active:#F0F5FF;--border:#DEE0E3;--border-light:#E5E6EB;--border-focus:#3370FF;--text:#1F2329;--text-secondary:#646A73;--text-tertiary:#8F959E;--text-link:#3370FF;--success:#00B42A;--success-light:#E8FFEA;--warning:#FF7D00;--warning-light:#FFF7E8;--error:#F53F3F;--info:#3370FF;--font:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;--error-light:#FFEBE9;--info-light:#E5F8FF;--radius-sm:4px;--radius-md:6px;--radius-lg:8px;--font-mono:'SF Mono','Menlo','Monaco','Consolas',monospace;--shadow-sm:0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 2px 8px rgba(0,0,0,0.06);--shadow-lg:0 4px 16px rgba(0,0,0,0.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+body{font-family:var(--font);font-size:14px;line-height:1.29;color:var(--text);background:var(--bg)}
+button{cursor:pointer;font-family:inherit;border:none;background:none}input,select{font-family:inherit;font-size:14px}
+.app{max-width:1440px;margin:0 auto;min-height:100vh}
+.header{height:52px;background:#FFF;border-bottom:1px solid var(--border-light);display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:100}
+.header-title{font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px}
+.logo{width:24px;height:24px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#FFF}
+.header-tag{font-size:11px;background:var(--primary-light);color:var(--primary);padding:2px 8px;border-radius:var(--radius-sm);margin-left:4px}
+.tabs{height:44px;background:var(--surface);border-bottom:1px solid var(--border-light);display:flex;align-items:stretch;padding:0 24px;gap:32px}
+.tab-btn{position:relative;font-size:14px;color:var(--text-secondary);transition:color .15s;padding:0 4px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);font-weight:600}
+.tab-btn.active::after{content:'';position:absolute;bottom:0;left:4px;right:4px;height:2px;background:var(--primary);border-radius:1px 1px 0 0}
+.tabs-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.btn-p{background:var(--primary);color:#FFF;height:36px;padding:0 20px;border-radius:var(--radius-sm);font-weight:500;font-size:14px;display:inline-flex;align-items:center;gap:4px;transition:all .2s}.btn-p:hover{background:var(--primary-hover)}
+.btn-t{background:transparent;color:var(--text-link);height:32px;padding:0 8px;font-size:14px;display:inline-flex;align-items:center;gap:4px}.btn-t:hover{text-decoration:underline}
+.content{padding:24px}.panel{display:none}.panel.on{display:block}.view{display:none}.view.on{display:block}
+.search-box{display:flex;align-items:center;background:#FFF;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 14px;height:36px;width:280px;gap:8px;flex-shrink:0}
+.search-box:focus-within{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.search-box .s-icon{color:var(--text-tertiary);font-size:14px;flex-shrink:0}
+.search-box .s-input{border:none;background:transparent;outline:none;font-size:14px;color:var(--text);width:100%}
+.search-box .s-input::placeholder{color:var(--text-tertiary)}
+.search-box .s-clear{display:none;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--text-tertiary);color:#fff;font-size:10px;cursor:pointer;flex-shrink:0}
+.search-box .s-clear.show{display:flex}
+/* Step1 */
+.s1-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s1-layout{display:flex;gap:24px;height:calc(100vh - 200px);min-height:520px}
+.chat-p{flex:0 0 60%;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.chat-hd{height:48px;padding:0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(0,0,0,0.06);font-weight:500}
+.chat-hd .dot{width:8px;height:8px;border-radius:50%;background:var(--success)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.msg{display:flex;gap:8px;max-width:85%}.msg.ai{align-self:flex-start}.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.msg.ai .avatar{background:var(--primary-light)}.msg.user .avatar{background:var(--primary);color:#FFF}
+.bubble{padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.47;white-space:pre-wrap}
+.msg.ai .bubble{background:#F5F7FA;border-top-left-radius:2px}.msg.user .bubble{background:var(--primary-light);border-top-right-radius:2px}
+.chat-in{height:64px;padding:0 16px;display:flex;align-items:center;gap:8px;border-top:1px solid rgba(0,0,0,0.06)}
+.chat-input{flex:1;height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);outline:none;font-size:14px}
+.chat-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.send-btn{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px}
+.elem-p{flex:0 0 40%;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.elem-hd{padding:16px;border-bottom:1px solid rgba(0,0,0,0.06);font-size:16px;font-weight:600}
+.elem-form{padding:16px;display:flex;flex-direction:column;gap:0;flex:1;overflow-y:auto}
+.elem-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.04)}
+.elem-row:last-child{border-bottom:none}
+.elem-row-label{width:72px;flex-shrink:0;font-size:13px;color:var(--text-secondary);text-align:right;font-weight:500}
+.elem-row-control{flex:1;display:flex;align-items:center;gap:8px}
+.elem-row-select{height:32px;padding:0 10px;border:1px solid var(--border);border-radius:4px;font-size:13px;background:#FFF;cursor:pointer;outline:none;min-width:160px;color:var(--text)}
+.elem-row-input{height:32px;padding:0 10px;border:1px solid var(--border);border-radius:4px;font-size:13px;outline:none;width:100%;max-width:260px;color:var(--text);background:#FFF}
+.elem-row-date{height:32px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:13px;outline:none;color:var(--text);background:#FFF;width:140px}
+.elem-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--border);transition:background .3s}.elem-status.filled{background:var(--success)}
+.elem-ft{padding:16px;border-top:1px solid rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:8px}
+.prog-wrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)}
+.prog-track{flex:1;height:3px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
+/* Step2 V7 */
+.s2-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s2-wrap{display:flex;flex-direction:column;height:calc(100vh - 200px);min-height:580px}
+.s2-layout{display:flex;flex:1;overflow:hidden}
+.s2-left{width:280px;min-width:280px;background:var(--surface);border-right:1px solid var(--border-light);display:flex;flex-direction:column}
+.s2-left-hd{padding:10px 14px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.s2-left-title{font-size:13px;font-weight:600}.s2-left-badge{font-size:11px;background:var(--primary-light);color:var(--primary);padding:1px 6px;border-radius:var(--radius-sm)}
+.s2-think{flex:1;overflow-y:auto;padding:12px 14px;font-family:var(--font-mono);font-size:12px;line-height:1.7;color:var(--text-secondary);background:#f9fafb}
+.think-label{margin-bottom:8px;color:var(--text);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;opacity:.6}
+.think-line{margin-bottom:6px;opacity:0;transform:translateY(4px);transition:all .35s ease}.think-line.show{opacity:1;transform:translateY(0)}.think-line.done{color:var(--primary)}
+.s2-left-chat{border-top:1px solid var(--border-light);padding:10px 12px;background:var(--surface)}
+.s2-left-chat-row{display:flex;gap:6px}
+.s2-left-chat-input{flex:1;height:32px;padding:0 10px;border:1px solid var(--border-light);border-radius:16px;font-size:12px;outline:none}
+.s2-left-chat-input:focus{border-color:var(--primary)}
+.s2-left-chat-btn{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center}
+.s2-center{flex:1;min-width:0;background:var(--bg);overflow-y:auto;padding:20px 24px}
+.plan-card{background:var(--surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px 24px;margin-bottom:16px;transition:box-shadow .2s}
+.plan-card:hover{box-shadow:var(--shadow-md)}
+.plan-card-hd{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:15px;font-weight:600}
+.plan-card-icon{font-size:18px}
+.plan-card-body{font-size:14px;line-height:1.8;color:var(--text)}
+.plan-card-body .row{margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.plan-card-body .label{color:var(--text-secondary);font-size:13px;min-width:70px}
+.plan-card-body .ai-hint{margin-top:12px;padding:10px 14px;background:#FAFBFC;border-left:3px solid var(--primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:12px;color:var(--text-secondary);line-height:1.6;font-style:italic}
+.plan-card-body ul{padding-left:18px;margin:4px 0}.plan-card-body li{margin-bottom:4px}
+.editable{color:var(--primary);border-bottom:1px dashed var(--primary);cursor:pointer;position:relative;font-weight:600;padding:0 1px;transition:background .15s}
+.editable:hover{background:rgba(51,112,255,0.08)}
+.editable[data-tooltip]:hover::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#1F2329;color:#fff;font-size:10px;padding:2px 6px;border-radius:3px;white-space:nowrap;font-weight:400;pointer-events:none;z-index:50}
+.edit-bubble{position:fixed;z-index:300;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);padding:12px 14px;min-width:220px;display:none}
+.edit-bubble.show{display:block}
+.edit-bubble-label{font-size:11px;color:var(--text-tertiary);margin-bottom:6px;font-weight:500}
+.edit-bubble-row{display:flex;align-items:center;gap:8px}
+.edit-bubble input,.edit-bubble select{height:30px;padding:0 8px;border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:13px;outline:none;flex:1;min-width:60px}
+.edit-bubble input:focus,.edit-bubble select:focus{border-color:var(--primary)}
+.edit-bubble-confirm{height:30px;padding:0 14px;background:var(--primary);color:#fff;border-radius:var(--radius-sm);font-size:12px;white-space:nowrap}
+.edit-bubble-cancel{height:30px;padding:0 10px;color:var(--text-tertiary);font-size:12px}
+.reward-tier{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#FAFBFC;border-radius:var(--radius-md);margin-bottom:8px;border:1px solid var(--border-light);transition:border-color .15s}
+.reward-tier:hover{border-color:var(--primary)}.reward-tier-icon{font-size:20px;flex-shrink:0}
+.reward-tier-body{flex:1}.reward-tier-title{font-size:13px;font-weight:600;margin-bottom:2px}.reward-tier-desc{font-size:12px;color:var(--text-secondary)}
+.canvas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.canvas-node{background:#FAFBFC;border:1.5px solid var(--border-light);border-radius:var(--radius-sm);padding:10px 12px;cursor:default;transition:all .15s;user-select:none}
+.canvas-node:hover{border-color:var(--primary)}
+.canvas-node-name{font-size:12px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.canvas-node-date{font-size:11px;color:var(--text-tertiary);margin-bottom:3px}
+.canvas-node-tags{display:flex;gap:4px}
+.canvas-tag{font-size:10px;padding:1px 5px;border-radius:var(--radius-sm)}
+.canvas-tag-a{background:#E8FFEA;color:var(--success)}.canvas-tag-d{background:#F2F3F5;color:var(--text-tertiary)}.canvas-tag-t{background:var(--primary-light);color:var(--primary)}
+.canvas-master{background:var(--surface);border:2px solid var(--primary);border-radius:var(--radius-md);padding:12px 16px;text-align:center}
+.canvas-master-name{font-size:14px;font-weight:600;color:var(--primary);margin-bottom:4px}
+.canvas-master-meta{font-size:12px;color:var(--text-secondary)}
+.s2-right{width:280px;min-width:280px;background:var(--surface);border-left:1px solid var(--border-light);display:flex;flex-direction:column}
+.s2-right-hd{padding:12px 16px;border-bottom:1px solid var(--border-light);font-size:14px;font-weight:600}
+.s2-right-body{flex:1;overflow-y:auto;padding:12px 16px}
+.summary-card{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#FAFBFC;border-radius:var(--radius-md);margin-bottom:8px;border:1px solid var(--border-light)}
+.summary-card:hover{border-color:var(--primary)}
+.summary-card-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.summary-card-body{flex:1;min-width:0}
+.summary-card-title{font-size:12px;color:var(--text-secondary);margin-bottom:3px;display:flex;align-items:center;justify-content:space-between}
+.summary-card-value{font-size:13px;font-weight:600;color:var(--text);word-break:break-all}
+.ss-ok{font-size:10px;padding:1px 5px;border-radius:var(--radius-sm);background:var(--success-light);color:var(--success);white-space:nowrap}
+.ss-warn{font-size:10px;padding:1px 5px;border-radius:var(--radius-sm);background:var(--warning-light);color:var(--warning);white-space:nowrap}
+.s2-right-ft{padding:12px 16px;border-top:1px solid var(--border-light)}
+.s2-right-prog{font-size:12px;color:var(--text-secondary);margin-bottom:6px}
+.s2-right-track{height:4px;background:var(--border-light);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.s2-right-fill{height:100%;background:var(--success);border-radius:2px;transition:width .4s}
+.s2-right-btn{width:100%;height:44px;background:var(--primary);color:#fff;border-radius:var(--radius-md);font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s}
+.s2-right-btn:hover{background:var(--primary-hover)}
+/* Step3 */
+.s3-center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:24px}
+.s3-check{width:80px;height:80px;border-radius:50%;background:var(--success-light);display:flex;align-items:center;justify-content:center;font-size:40px;animation:s3p .5s cubic-bezier(.68,-.55,.27,1.55)}
+@keyframes s3p{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.s3-title{font-size:24px;font-weight:600}
+.s3-card{background:var(--surface);border-radius:var(--radius-md);padding:24px;width:480px;max-width:100%;box-shadow:var(--shadow-sm)}
+.s3-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.04)}.s3-row:last-child{border-bottom:none}
+.s3-row-l{color:var(--text-secondary)}.s3-row-r{font-weight:500}
+/* Table */
+.data-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.data-table th{text-align:left;padding:10px 16px;font-size:13px;font-weight:600;color:var(--text-secondary);background:#FAFBFC;border-bottom:1px solid var(--border-light);white-space:nowrap}
+.data-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.04);vertical-align:middle}
+.data-table tbody tr:hover>td{background:var(--surface-hover)}
+.data-table tbody tr:last-child>td{border-bottom:none}
+.data-table tbody tr.expand-row:hover>td{background:transparent}
+.status-dot{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;white-space:nowrap}
+.status-dot::before{content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-dot.s-running{color:#00B42A}.status-dot.s-running::before{background:#00B42A}
+.status-dot.s-draft{color:#8F959E}.status-dot.s-draft::before{background:#8F959E}
+.status-dot.s-paused{color:#FF7D00}.status-dot.s-paused::before{background:#FF7D00}
+.status-dot.s-ended{color:#86909C}.status-dot.s-ended::before{background:#86909C}
+.status-dot.s-completed{color:var(--primary-dark)}.status-dot.s-completed::before{background:var(--primary-dark)}
+.status-dot.s-expired{color:var(--text-tertiary)}.status-dot.s-expired::before{background:var(--text-tertiary)}
+.op-link{color:var(--text-link);font-size:13px;cursor:pointer;padding:0 4px;background:none;border:none;font-family:var(--font)}.op-link:hover{text-decoration:underline}.op-link.danger{color:var(--error)}
+.op-sep{color:var(--border);font-size:12px;margin:0 2px}
+/* Tab2 */
+#tab-query{padding:24px;max-width:1440px;margin:0 auto}
+.form-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:13px;font-weight:500;color:var(--text-secondary)}
+.form-input{height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;outline:none;width:200px}
+.form-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.form-select{height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;background:#fff;cursor:pointer;outline:none}
+.form-btn{height:36px;padding:0 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;border:none}
+.form-btn-primary{background:var(--primary);color:#fff}.form-btn-primary:hover{background:var(--primary-hover)}
+.form-btn-default{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.section-panel{background:#FAFBFC;border:1px solid var(--border-light);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:20px}
+.section-title{font-size:14px;font-weight:600;margin-bottom:12px}
+.info-grid{display:flex;flex-wrap:wrap;gap:8px 32px}.info-item{display:flex;gap:6px;font-size:14px}
+.info-item .il{color:var(--text-secondary)}.info-item .iv{color:var(--text);font-weight:500}
+.info-tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:500}
+.info-tag-active{background:var(--success-light);color:var(--success)}.info-tag-signin{background:var(--primary-light);color:var(--primary-dark)}.info-tag-food{background:var(--warning-light);color:var(--warning)}
+.task-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.task-header-title{font-size:14px;font-weight:600}
+.expand-row>td{padding:0!important;border-bottom:1px solid rgba(0,0,0,0.04)}
+.expand-content{background:#FAFBFC;padding:16px 24px;display:none}.expand-content.open{display:block}
+.expand-content .mini-table{width:100%;border-collapse:collapse;font-size:13px}
+.expand-content .mini-table th{text-align:left;padding:6px 10px;font-size:12px;font-weight:600;color:var(--text-secondary);background:#F3F4F6;border-bottom:1px solid var(--border-light)}
+.expand-content .mini-table td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,0.04)}
+.checkin-text{font-size:13px;line-height:1.8;color:var(--text-secondary);margin-top:10px}
+.summary-line{font-size:13px;color:var(--text-secondary);padding:12px 0}
+.uq-loading{text-align:center;padding:60px 20px;display:none}
+.uq-loading .spinner-lg{width:32px;height:32px;border:3px solid var(--border-light);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.uq-loading-text{font-size:14px;color:var(--text-tertiary)}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header"><div class="header-title"><div class="logo">⚡</div>AI任务系统<span class="header-tag">V7</span></div></div>
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('list')">任务列表</button>
+  <button class="tab-btn" onclick="switchTab('query')">信息查询</button>
+  <div class="tabs-right" id="tabActions">
+    <div class="search-box" id="taskSearchBox">
+      <span class="s-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input class="s-input" id="taskSearchInput" type="text" placeholder="搜索任务...">
+      <span class="s-clear" id="taskSearchClear">✕</span>
+    </div>
+    <button class="btn-p" onclick="goStep('s1')">+ 新建任务</button>
+  </div>
+</div>
+<div class="panel on" id="panel-list">
+  <div class="content">
+    <div class="view on" id="v-list"><div class="task-list" id="taskList"></div></div>
+    <!-- Step1 -->
+    <div class="view" id="v-s1">
+      <div class="s1-top"><button class="btn-t" onclick="goStep('list')">← 返回列表</button><span style="color:var(--text-secondary);font-size:12px">Step 1 / 3 · AI对话配置</span></div>
+      <div class="s1-layout">
+        <div class="chat-p">
+          <div class="chat-hd"><div class="dot"></div>AI任务助手 · 在线</div>
+          <div class="chat-msgs" id="chatMsgs"></div>
+          <div class="chat-in"><input class="chat-input" placeholder="描述你的活动任务..." readonly><button class="send-btn">↑</button></div>
+        </div>
+        <div class="elem-p">
+          <div class="elem-hd">任务要素配置</div>
+          <div class="elem-form" id="elemForm"></div>
+          <div class="elem-ft">
+            <div class="prog-wrap"><span id="progText">已收集 0/6</span><div class="prog-track"><div class="prog-fill" id="progFill" style="width:0"></div></div></div>
+            <div id="genWrap" style="display:none;text-align:center"><button class="btn-p" style="height:40px;padding:0 32px;font-size:14px" onclick="goStep('s2')">生成玩法方案 →</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Step2: V7 Natural Language Plan Cards -->
+    <div class="view" id="v-s2">
+      <div class="s2-top"><button class="btn-t" onclick="goStep('s1')">← 返回对话</button><span style="color:var(--text-secondary);font-size:12px">Step 2 / 3 · AI方案生成</span></div>
+      <div class="s2-wrap">
+        <div class="s2-layout">
+          <!-- Left: AI Thinking -->
+          <div class="s2-left">
+            <div class="s2-left-hd"><span class="s2-left-title">AI Thinking</span><span class="s2-left-badge" id="thinkBadge">推理中</span></div>
+            <div class="s2-think" id="thinkArea">
+              <div class="think-label">💭 Reasoning Chain</div>
+              <div id="thinkLines"></div>
+            </div>
+            <div class="s2-left-chat">
+              <div class="s2-left-chat-row">
+                <input id="s2chatInput" type="text" class="s2-left-chat-input" placeholder="继续对话微调方案..." onkeydown="if(event.key==='Enter')s2Send()">
+                <button class="s2-left-chat-btn" onclick="s2Send()">↑</button>
+              </div>
+            </div>
+          </div>
+          <!-- Center: Plan Cards -->
+          <div class="s2-center" id="planCards"></div>
+          <!-- Right: Summary -->
+          <div class="s2-right">
+            <div class="s2-right-hd">📋 方案摘要</div>
+            <div class="s2-right-body" id="summaryBody"></div>
+            <div class="s2-right-ft">
+              <div class="s2-right-prog" id="summaryProg">5/6 要素已完成</div>
+              <div class="s2-right-track"><div class="s2-right-fill" id="summaryFill" style="width:83%"></div></div>
+              <button class="s2-right-btn" onclick="goStep('s3')">确认方案，开始搭建 →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Step3 -->
+    <div class="view" id="v-s3">
+      <div class="s3-center">
+        <div class="s3-check">✓</div>
+        <div class="s3-title">任务创建成功！</div>
+        <div class="s3-card">
+          <div class="s3-row"><span class="s3-row-l">任务名称</span><span class="s3-row-r">中医节气签到</span></div>
+          <div class="s3-row"><span class="s3-row-l">任务类型</span><span class="s3-row-r">节气签到（大玩法）</span></div>
+          <div class="s3-row"><span class="s3-row-l">活动时间</span><span class="s3-row-r">2026-05-20 ~ 2026-12-21</span></div>
+          <div class="s3-row"><span class="s3-row-l">目标人群</span><span class="s3-row-r">全量用户</span></div>
+          <div class="s3-row"><span class="s3-row-l">奖励方式</span><span class="s3-row-r">3档梯度（红包+实物）</span></div>
+          <div class="s3-row"><span class="s3-row-l">预估预算</span><span class="s3-row-r">~¥150,000</span></div>
+          <div class="s3-row"><span class="s3-row-l">子任务数</span><span class="s3-row-r">9个节气（小满→冬至）</span></div>
+          <div class="s3-row"><span class="s3-row-l">状态</span><span class="s3-row-r" style="color:var(--success)">● 运行中</span></div>
+        </div>
+        <button class="btn-p" style="height:40px;padding:0 32px" onclick="backToList()">← 返回任务列表</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Tab2 -->
+<div class="panel" id="panel-query" style="display:none">
+  <div id="tab-query">
+    <div class="section-panel">
+      <div class="section-title">查询条件</div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">用户ID</label><input type="text" class="form-input" id="uqUserId" placeholder="请输入用户ID"></div>
+        <div class="form-group"><label class="form-label">手机号</label><input type="text" class="form-input" id="uqPhone" placeholder="请输入手机号"></div>
+        <div class="form-group"><label class="form-label">用户昵称</label><input type="text" class="form-input" id="uqNickname" placeholder="请输入用户昵称"></div>
+        <div class="form-group" style="flex-direction:row;gap:8px;align-items:flex-end">
+          <button class="form-btn form-btn-primary" id="uqSearchBtn">查询</button>
+          <button class="form-btn form-btn-default" id="uqResetBtn">重置</button>
+        </div>
+      </div>
+    </div>
+    <div class="uq-loading" id="uqLoading"><div class="spinner-lg"></div><div class="uq-loading-text">正在查询用户信息...</div></div>
+    <div id="uqResult" style="display:none">
+      <div class="section-panel" id="uqUserInfo"></div>
+      <div class="task-header-row"><span class="task-header-title">参与的任务</span><select class="form-select" id="uqFilter" style="width:120px"><option value="all">全部</option><option value="running">进行中</option><option value="completed">已完成</option><option value="expired">已过期</option></select></div>
+      <div id="uqTaskTable"></div>
+      <div class="summary-line" id="uqSummary"></div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Edit Bubble (shared) -->
+<div class="edit-bubble" id="editBubble">
+  <div class="edit-bubble-label" id="editLabel"></div>
+  <div class="edit-bubble-row">
+    <input id="editInput" type="text">
+    <button class="edit-bubble-confirm" onclick="confirmEdit()">确认</button>
+    <button class="edit-bubble-cancel" onclick="closeBubble()">取消</button>
+  </div>
+</div>
+
+<script>
+/* ===== Data ===== */
+var tasks=[
+  {id:1,name:'小满节气签到',status:'running',type:'连续签到',time:'2026-04-18 10:30',creator:'张三',users:12580,rate:'67.3%',rewards:8456},
+  {id:2,name:'芒种烤串挑战',status:'draft',type:'消费挑战',time:'2026-04-20 14:00',creator:'李四',users:0,rate:'0%',rewards:0},
+  {id:3,name:'夏至消暑任务',status:'paused',type:'浏览任务',time:'2026-04-15 09:15',creator:'王五',users:8920,rate:'45.1%',rewards:4023},
+  {id:4,name:'端午粽子集卡',status:'ended',type:'集卡活动',time:'2026-04-01 16:45',creator:'赵六',users:35210,rate:'82.5%',rewards:29048},
+  {id:5,name:'立夏尝鲜周',status:'running',type:'限时秒杀',time:'2026-04-22 11:00',creator:'孙七',users:6340,rate:'58.9%',rewards:3732}
+];
+var statusCfg={draft:{label:'草稿'},running:{label:'运行中'},paused:{label:'已暂停'},ended:{label:'已结束'}};
+
+/* Plan data (editable) */
+var plan={
+  name:'中医节气签到',
+  dateStart:'2026.05.20',dateEnd:'2026.12.21',
+  dateLabel:'小满→冬至',
+  audience:'全量用户',
+  goal:'用户留存 + 复购提频',
+  signFreq:'每日签到1次',
+  preCondition:'先完成任意下单',
+  signDesc:'跟随24节气轮转',
+  aiHint:'节气主题签到可提升用户新鲜感，参考历史数据日均签到率约38%',
+  tiers:[
+    {days:7,reward:'红包5元',icon:'🧧',extra:''},
+    {days:15,reward:'红包10元',icon:'🧧',extra:' + 养生茶体验装'},
+    {days:24,reward:'红包20元',icon:'🧧',extra:' + 中药养生礼盒',label:'全勤'}
+  ],
+  budget:'约15万元',
+  budgetNote:'按10万参与用户计算',
+  kpi:'日均签到率≥35%'
+};
+
+var s2Nodes=[
+  {id:'xiaoman',n:'小满签到',t:'5/20',s:'active'},{id:'mangzhong',n:'芒种签到',t:'6/5',s:'active'},
+  {id:'xiazhi',n:'夏至签到',t:'6/21',s:'draft'},{id:'xiaoshu',n:'小暑签到',t:'7/6',s:'draft'},
+  {id:'dashu',n:'大暑签到',t:'7/22',s:'draft'},{id:'liqiu',n:'立秋签到',t:'8/7',s:'draft'},
+  {id:'chushu',n:'处暑签到',t:'8/22',s:'draft'},{id:'bailu',n:'白露签到',t:'9/7',s:'draft'},
+  {id:'dongzhi',n:'冬至签到',t:'12/21',s:'draft'}
+];
+
+/* Step1 chat script (V7) */
+var elements=[
+  {key:'activityType',label:'活动类型',value:'',type:'select',options:['节气签到','连续签到','累计签到','消费挑战','浏览任务','集卡活动']},
+  {key:'targetAudience',label:'目标人群',value:'',type:'text',placeholder:'如：全量用户'},
+  {key:'rewardType',label:'奖励方式',value:'',type:'select',options:['梯度红包+实物','阶梯优惠券','固定优惠券','红包','积分']},
+  {key:'timePeriod',label:'活动时间',value:'',type:'daterange'},
+  {key:'triggerCondition',label:'触发条件',value:'',type:'text',placeholder:'如：每日签到+下单前置'},
+  {key:'budgetLimit',label:'预算上限',value:'',type:'text',placeholder:'如：¥150,000'}
+];
+var chatScript=[
+  {role:'ai',text:'你好！我是AI任务助手\n请描述你想创建的活动任务，我来帮你配置。'},
+  {role:'user',text:'做个中医节气签到，24个节气每个签到一次，先下单才能签，签满送养生礼包'},
+  {role:'ai',text:'好的，我理解这是一个中医节气主题的签到活动。让我来帮你规划方案...\n\n1️⃣ 活动类型：节气签到（two_layer大玩法）\n2️⃣ 覆盖24个节气，每个节气独立签到任务\n3️⃣ 前置条件：下单后解锁签到',collect:'activityType',slotValue:'节气签到'},
+  {role:'user',text:'对，面向全量用户'},
+  {role:'ai',text:'收到！全量用户 ✅\n\n关于奖励档位，建议设3档梯度激励：\n🥉 签满7天 → 红包5元\n🥈 签满15天 → 红包10元 + 养生茶\n🥇 签满24天 → 红包20元 + 养生礼盒\n\n另外，活动预算大概在什么范围？',collect:'targetAudience',slotValue:'全量用户'},
+  {role:'user',text:'预算15万左右，3档可以'},
+  {role:'ai',text:'预算15万确认 ✅  奖励3档确认 ✅\n\n⚡ 活动时间建议：\n2026.05.20（小满）→ 2026.12.21（冬至）\n覆盖完整节气周期',collect:'rewardType',slotValue:'梯度红包+实物'},
+  {role:'user',text:'时间OK'},
+  {role:'ai',text:'时间确认 ✅\n\n📋 核心机制：\n- 每日签到1次，跟随节气轮转\n- 需先完成任意下单才能解锁签到\n- 签到天数累计，达标自动发奖',collect:'timePeriod',slotValue:'5.20-12.21'},
+  {role:'user',text:'没问题，就这样'},
+  {role:'ai',text:'触发条件确认 ✅\n\n💰 预算分配：\n按10万参与用户估算，总预算约15万元\n3档比例 → 6:3:1\n\n所有要素已齐全！',collect:'triggerCondition',slotValue:'每日签到+下单前置'},
+  {role:'user',text:'好的'},
+  {role:'ai',text:'方案已生成，请查看右侧配置 →\n\n🎯 核心亮点：\n• 节气轮转机制提升用户新鲜感\n• 下单前置确保转化质量\n• 3档梯度激励最大化参与深度\n\n点击「生成玩法方案」进入方案详情 →',collect:'budgetLimit',slotValue:'¥150,000'}
+];
+
+/* Tab2 mock */
+var mockUserData={userId:'100892341',name:'小明同学',phone:'138****6789',registerTime:'2024-03-15',
+  tags:[{label:'活跃用户',cls:'info-tag-active'},{label:'高频签到',cls:'info-tag-signin'},{label:'美食达人',cls:'info-tag-food'}],
+  tasks:[
+    {id:'t1',name:'小满节气签到',status:'running',statusLabel:'进行中',type:'连续签到',period:'5.20 - 6.05',
+     progress:{current:4,total:7,unit:'天',percent:57,detail:'当前连续: 4天'},
+     rewards:[{icon:'✅',name:'Day3奖励',desc:'满减券5元',status:'已领取 05-22',cls:'claimed'},{icon:'⏳',name:'Day7大奖',desc:'满减券15元',status:'未达成',cls:'pending'}],
+     checkin:[{date:'5.20',status:'checked'},{date:'5.21',status:'checked'},{date:'5.22',status:'checked'},{date:'5.23',status:'checked'},{date:'5.24',status:'unchecked'},{date:'5.25',status:'unchecked'},{date:'5.26',status:'unchecked'}]},
+    {id:'t2',name:'春季美食探店挑战',status:'completed',statusLabel:'已完成',type:'消费任务',period:'4.01 - 4.30',
+     progress:{current:3,total:3,unit:'笔',percent:100,detail:'累计消费: ¥186.5'},
+     rewards:[{icon:'✅',name:'首单奖励',desc:'满减券8元',status:'已领取 04-05',cls:'claimed'},{icon:'✅',name:'三单达成',desc:'满减券15元',status:'已领取 04-18',cls:'claimed'}],checkin:null},
+    {id:'t3',name:'夏日饮品季',status:'running',statusLabel:'进行中',type:'消费任务',period:'5.15 - 6.15',
+     progress:{current:1,total:3,unit:'笔',percent:33,detail:'累计消费: ¥28.0'},
+     rewards:[{icon:'✅',name:'首单奖励',desc:'饮品券3元',status:'已领取 05-16',cls:'claimed'},{icon:'⏳',name:'三单达成',desc:'饮品券8元',status:'未达成',cls:'pending'}],checkin:null}
+  ],
+  summary:{total:3,running:2,completed:1,expired:0,totalRewards:5,claimed:3,unclaimed:2}
+};
+
+/* ===== Tab / Step Switch ===== */
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===(tab==='list'?0:1))});
+  document.getElementById('panel-list').style.display=tab==='list'?'':'none';
+  document.getElementById('panel-list').className=tab==='list'?'panel on':'panel';
+  document.getElementById('panel-query').style.display=tab==='query'?'':'none';
+  document.getElementById('panel-query').className=tab==='query'?'panel on':'panel';
+  document.getElementById('tabActions').style.display=tab==='list'?'':'none';
+  if(tab==='list')goStep('list');
+}
+function goStep(v){
+  ['v-list','v-s1','v-s2','v-s3'].forEach(function(id){document.getElementById(id).className='view'});
+  var map={list:'v-list',s1:'v-s1',s2:'v-s2',s3:'v-s3'};
+  document.getElementById(map[v]).className='view on';
+  document.getElementById('tabActions').style.display=v==='list'?'':'none';
+  if(v==='s1')startChat();
+  if(v==='s2')initStep2();
+}
+
+/* ===== Task List ===== */
+function renderTasks(filter){
+  var html='<table class="data-table"><thead><tr><th>任务名称</th><th>状态</th><th>类型</th><th>创建时间</th><th>创建人</th><th>参与人数</th><th>完成率</th><th>奖励发放</th><th>操作</th></tr></thead><tbody>';
+  var fv=(filter||'').toLowerCase(),has=false;
+  tasks.forEach(function(t){
+    var s=statusCfg[t.status];if(fv&&t.name.toLowerCase().indexOf(fv)===-1)return;has=true;
+    html+='<tr><td style="font-weight:500">'+t.name+'</td><td><span class="status-dot s-'+t.status+'">'+s.label+'</span></td><td>'+t.type+'</td><td style="color:var(--text-secondary);font-size:13px">'+t.time+'</td><td>'+t.creator+'</td><td>'+t.users.toLocaleString()+'</td><td>'+t.rate+'</td><td>'+t.rewards.toLocaleString()+'</td><td style="white-space:nowrap"><button class="op-link">编辑</button><span class="op-sep">|</span>';
+    if(t.status==='running')html+='<button class="op-link">暂停</button><span class="op-sep">|</span>';
+    else if(t.status==='draft'||t.status==='paused')html+='<button class="op-link">启动</button><span class="op-sep">|</span>';
+    html+='<button class="op-link">复制</button><span class="op-sep">|</span><button class="op-link danger">删除</button></td></tr>';
+  });
+  if(!has)html+='<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-tertiary)">暂无匹配任务</td></tr>';
+  html+='</tbody></table>';document.getElementById('taskList').innerHTML=html;
+}
+(function(){
+  var inp=document.getElementById('taskSearchInput'),clr=document.getElementById('taskSearchClear');
+  inp.addEventListener('keyup',function(){var v=inp.value.trim();clr.className=v?'s-clear show':'s-clear';renderTasks(v)});
+  clr.addEventListener('click',function(){inp.value='';clr.className='s-clear';renderTasks('')});
+})();
+
+/* ===== Step1: Chat + Elements ===== */
+function renderElements(){
+  var html='';
+  elements.forEach(function(e){
+    html+='<div class="elem-row"><span class="elem-status" id="es-'+e.key+'"></span><span class="elem-row-label">'+e.label+'</span><div class="elem-row-control">';
+    if(e.type==='select'){html+='<select class="elem-row-select" id="ec-'+e.key+'"><option value="">请选择</option>';e.options.forEach(function(o){html+='<option value="'+o+'">'+o+'</option>'});html+='</select>';}
+    else if(e.type==='daterange'){html+='<input class="elem-row-date" type="date" id="ec-'+e.key+'-start"><span style="color:var(--text-tertiary);font-size:12px">至</span><input class="elem-row-date" type="date" id="ec-'+e.key+'-end">';}
+    else{html+='<input class="elem-row-input" type="text" id="ec-'+e.key+'" placeholder="'+(e.placeholder||'')+'">';}
+    html+='</div></div>';
+  });
+  document.getElementById('elemForm').innerHTML=html;
+}
+var chatIdx=0,collected=0;
+function startChat(){
+  chatIdx=0;collected=0;
+  document.getElementById('chatMsgs').innerHTML='';
+  document.getElementById('progText').textContent='已收集 0/6';
+  document.getElementById('progFill').style.width='0';
+  document.getElementById('genWrap').style.display='none';
+  elements.forEach(function(e){
+    e.value='';var d=document.getElementById('es-'+e.key);if(d)d.classList.remove('filled');
+    if(e.type==='select'){var s=document.getElementById('ec-'+e.key);if(s)s.value='';}
+    else if(e.type==='daterange'){var a=document.getElementById('ec-'+e.key+'-start'),b=document.getElementById('ec-'+e.key+'-end');if(a)a.value='';if(b)b.value='';}
+    else{var i=document.getElementById('ec-'+e.key);if(i)i.value='';}
+  });
+  nextMsg();
+}
+function nextMsg(){
+  if(chatIdx>=chatScript.length)return;
+  var m=chatScript[chatIdx],box=document.getElementById('chatMsgs');
+  var div=document.createElement('div');div.className='msg '+m.role;
+  div.innerHTML='<div class="avatar">'+(m.role==='ai'?'🤖':'👤')+'</div><div class="bubble">'+m.text+'</div>';
+  box.appendChild(div);box.scrollTop=box.scrollHeight;
+  if(m.collect){
+    setTimeout(function(){
+      var d=document.getElementById('es-'+m.collect);if(d)d.classList.add('filled');
+      var eo=elements.find(function(e){return e.key===m.collect});
+      if(eo&&m.slotValue){
+        eo.value=m.slotValue;
+        if(eo.type==='select'){var s=document.getElementById('ec-'+m.collect);if(s)s.value=m.slotValue;}
+        else if(eo.type==='daterange'){var a=document.getElementById('ec-'+m.collect+'-start'),b=document.getElementById('ec-'+m.collect+'-end');if(a)a.value='2026-05-20';if(b)b.value='2026-12-21';}
+        else{var i=document.getElementById('ec-'+m.collect);if(i)i.value=m.slotValue;}
+      }
+      collected++;
+      document.getElementById('progText').textContent='已收集 '+collected+'/6';
+      document.getElementById('progFill').style.width=(collected/6*100)+'%';
+      if(collected>=6)document.getElementById('genWrap').style.display='';
+    },400);
+  }
+  chatIdx++;
+  if(chatIdx<chatScript.length)setTimeout(nextMsg,m.role==='ai'?1200:800);
+}
+
+/* ===== Step2: V7 Plan Cards ===== */
+var s2inited=false;
+function initStep2(){
+  if(s2inited)return;s2inited=true;
+  renderThinking();
+  renderPlanCards();
+  renderSummary();
+}
+
+/* Thinking typewriter */
+var thinkLines=[
+  '→ 识别玩法类型：节气签到（two_layer）',
+  '→ 父任务：中医节气签到，覆盖24节气',
+  '→ 子任务行为：signIn + 前置条件(order)',
+  '→ 奖励策略：建议3档梯度激励',
+  '→ 预算分配：15万 / 10万用户 → 人均1.5元',
+  '→ 时间档期：小满(5.20) → 冬至(12.21)',
+  '→ 成功指标：日均签到率 ≥ 35%',
+  '✓ 方案生成完毕，渲染方案卡片'
+];
+function renderThinking(){
+  var c=document.getElementById('thinkLines');c.innerHTML='';
+  thinkLines.forEach(function(line,i){
+    var d=document.createElement('div');
+    d.className='think-line'+(i===thinkLines.length-1?' done':'');
+    d.textContent=line;c.appendChild(d);
+    setTimeout(function(){d.classList.add('show')},200+i*350);
+  });
+  setTimeout(function(){
+    document.getElementById('thinkBadge').textContent='已完成';
+    document.getElementById('thinkBadge').style.background='var(--success-light)';
+    document.getElementById('thinkBadge').style.color='var(--success)';
+  },200+thinkLines.length*350);
+}
+
+/* Plan Cards */
+function renderPlanCards(){
+  var h='';
+  // Card 1: Overview
+  h+='<div class="plan-card"><div class="plan-card-hd"><span class="plan-card-icon">🎯</span>活动概览</div><div class="plan-card-body">';
+  h+='<div class="row"><span class="label">活动名称</span><strong>'+plan.name+'</strong></div>';
+  h+='<div class="row"><span class="label">活动时间</span><span class="editable" data-tooltip="点击编辑" data-field="dateStart" onclick="openEdit(this,\'开始日期\',\''+plan.dateStart+'\')">'+plan.dateStart+'</span> - <span class="editable" data-tooltip="点击编辑" data-field="dateEnd" onclick="openEdit(this,\'结束日期\',\''+plan.dateEnd+'\')">'+plan.dateEnd+'</span>（'+plan.dateLabel+'）</div>';
+  h+='<div class="row"><span class="label">目标人群</span><span class="editable" data-tooltip="点击编辑" data-field="audience" onclick="openEdit(this,\'目标人群\',\''+plan.audience+'\')">'+plan.audience+'</span></div>';
+  h+='<div class="row"><span class="label">活动目标</span><span class="editable" data-tooltip="点击编辑" data-field="goal" onclick="openEdit(this,\'活动目标\',\''+plan.goal+'\')">'+plan.goal+'</span></div>';
+  h+='</div></div>';
+
+  // Card 2: Mechanism
+  h+='<div class="plan-card"><div class="plan-card-hd"><span class="plan-card-icon">📋</span>玩法机制</div><div class="plan-card-body">';
+  h+='<ul>';
+  h+='<li>用户<strong><span class="editable" data-tooltip="点击编辑" data-field="signFreq" onclick="openEdit(this,\'签到频次\',\''+plan.signFreq+'\')">'+plan.signFreq+'</span></strong>，'+plan.signDesc+'</li>';
+  h+='<li>需<strong><span class="editable" data-tooltip="点击编辑" data-field="preCondition" onclick="openEdit(this,\'前置条件\',\''+plan.preCondition+'\')">'+plan.preCondition+'</span></strong>才能解锁当日签到</li>';
+  h+='<li>每个节气对应独立签到任务</li>';
+  h+='</ul>';
+  h+='<div class="ai-hint">💡 AI建议：'+plan.aiHint+'</div>';
+  h+='</div></div>';
+
+  // Card 3: Rewards
+  h+='<div class="plan-card"><div class="plan-card-hd"><span class="plan-card-icon">🎁</span>激励设计（3档梯度）</div><div class="plan-card-body">';
+  plan.tiers.forEach(function(t,i){
+    var lbl=t.label?'（'+t.label+'）':'';
+    h+='<div class="reward-tier"><div class="reward-tier-icon">'+t.icon+'</div><div class="reward-tier-body">';
+    h+='<div class="reward-tier-title">签满 <span class="editable" data-tooltip="点击编辑" data-field="tierDays-'+i+'" onclick="openTierEdit(this,'+i+',\'days\')">'+t.days+'天</span>'+lbl+'</div>';
+    h+='<div class="reward-tier-desc"><span class="editable" data-tooltip="点击编辑" data-field="tierReward-'+i+'" onclick="openTierEdit(this,'+i+',\'reward\')">'+t.reward+'</span>'+t.extra+'</div>';
+    h+='</div></div>';
+  });
+  h+='<div class="ai-hint" style="margin-top:12px">💰 预估总预算：<span class="editable" data-tooltip="点击编辑" data-field="budget" onclick="openEdit(this,\'预估预算\',\''+plan.budget+'\')">'+plan.budget+'</span>（'+plan.budgetNote+'）</div>';
+  h+='</div></div>';
+
+  // Card 4: Canvas
+  h+='<div class="plan-card"><div class="plan-card-hd"><span class="plan-card-icon">🗺️</span>节气任务一览</div><div class="plan-card-body">';
+  h+='<div class="canvas-master"><div class="canvas-master-name">'+plan.name+'</div><div class="canvas-master-meta">'+plan.dateStart+' → '+plan.dateEnd+' · '+s2Nodes.length+'个节气子任务</div></div>';
+  h+='<svg class="canvas-svg" id="canvasSvg" viewBox="0 0 520 44"></svg>';
+  h+='<div class="canvas-grid">';
+  s2Nodes.forEach(function(nd){
+    var tagCls=nd.s==='active'?'canvas-tag-a':'canvas-tag-d';
+    var tagLabel=nd.s==='active'?'进行中':'草稿';
+    h+='<div class="canvas-node"><div class="canvas-node-name">'+nd.n+'</div><div class="canvas-node-date">'+nd.t+'</div><div class="canvas-node-tags"><span class="canvas-tag canvas-tag-t">签到</span><span class="canvas-tag '+tagCls+'">'+tagLabel+'</span></div></div>';
+  });
+  h+='</div></div></div>';
+
+  document.getElementById('planCards').innerHTML=h;
+  drawCanvasSVG();
+}
+
+function drawCanvasSVG(){
+  var svg=document.getElementById('canvasSvg');if(!svg)return;
+  var W=520,H=44,cx=W/2,cols=Math.min(3,s2Nodes.length),cw=W/cols;
+  var pts=[];for(var c=0;c<cols;c++)pts.push(cw*c+cw/2);
+  var d='<defs><marker id="cdot" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="4" markerHeight="4"><circle cx="2" cy="2" r="1.5" fill="#C9CDD4"/></marker></defs>';
+  pts.forEach(function(x){d+='<line x1="'+cx+'" y1="4" x2="'+x+'" y2="'+(H-4)+'" stroke="#C9CDD4" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#cdot)"/>'});
+  d+='<rect x="'+(cx-60)+'" y="'+(H/2-8)+'" width="120" height="16" rx="3" fill="#F7F8FA" stroke="#E5E6EB" stroke-width=".5"/>';
+  d+='<text x="'+cx+'" y="'+(H/2+4)+'" text-anchor="middle" style="font-size:10px;fill:#86909C;font-family:inherit">子任务完成 → 计数+1</text>';
+  svg.innerHTML=d;
+}
+
+/* Summary Sidebar */
+function renderSummary(){
+  var items=[
+    {icon:'🎯',title:'活动目标',value:plan.goal,status:'ok'},
+    {icon:'👥',title:'目标人群',value:plan.audience,status:'ok'},
+    {icon:'⚡',title:'玩法机制',value:'节气签到+下单前置',status:'ok'},
+    {icon:'💰',title:'预算规模',value:'~15万',status:'ok'},
+    {icon:'📅',title:'时间档期',value:plan.dateLabel,status:'ok'},
+    {icon:'📊',title:'成功指标',value:plan.kpi,status:'warn'}
+  ];
+  var h='';
+  items.forEach(function(it){
+    var scls=it.status==='ok'?'ss-ok':'ss-warn';
+    var slbl=it.status==='ok'?'✅ 已识别':'⚠️ 待补充';
+    h+='<div class="summary-card"><div class="summary-card-icon">'+it.icon+'</div><div class="summary-card-body"><div class="summary-card-title">'+it.title+'<span class="'+scls+'">'+slbl+'</span></div><div class="summary-card-value">'+it.value+'</div></div></div>';
+  });
+  document.getElementById('summaryBody').innerHTML=h;
+  var ok=items.filter(function(i){return i.status==='ok'}).length;
+  document.getElementById('summaryProg').textContent=ok+'/'+items.length+' 要素已完成';
+  document.getElementById('summaryFill').style.width=(ok/items.length*100)+'%';
+}
+
+/* ===== Inline Edit Bubble ===== */
+var curEditEl=null,curEditField='';
+function openEdit(el,label,val){
+  closeBubble();
+  curEditEl=el;curEditField=el.getAttribute('data-field');
+  var bubble=document.getElementById('editBubble');
+  document.getElementById('editLabel').textContent=label;
+  document.getElementById('editInput').value=val;
+  var rect=el.getBoundingClientRect();
+  bubble.style.left=Math.max(8,rect.left)+'px';
+  bubble.style.top=(rect.bottom+6)+'px';
+  bubble.classList.add('show');
+  document.getElementById('editInput').focus();
+  document.getElementById('editInput').onkeydown=function(e){if(e.key==='Enter')confirmEdit();if(e.key==='Escape')closeBubble()};
+}
+function openTierEdit(el,idx,field){
+  closeBubble();
+  curEditEl=el;curEditField='tier-'+idx+'-'+field;
+  var bubble=document.getElementById('editBubble');
+  var t=plan.tiers[idx];
+  if(field==='days'){
+    document.getElementById('editLabel').textContent='签到天数';
+    document.getElementById('editInput').value=t.days;
+  }else{
+    document.getElementById('editLabel').textContent='奖励内容';
+    document.getElementById('editInput').value=t.reward;
+  }
+  var rect=el.getBoundingClientRect();
+  bubble.style.left=Math.max(8,rect.left)+'px';
+  bubble.style.top=(rect.bottom+6)+'px';
+  bubble.classList.add('show');
+  document.getElementById('editInput').focus();
+  document.getElementById('editInput').onkeydown=function(e){if(e.key==='Enter')confirmEdit();if(e.key==='Escape')closeBubble()};
+}
+function confirmEdit(){
+  var val=document.getElementById('editInput').value.trim();if(!val)return;
+  var f=curEditField;
+  if(f.startsWith('tier-')){
+    var parts=f.split('-');var idx=parseInt(parts[1]);var key=parts[2];
+    if(key==='days')plan.tiers[idx].days=parseInt(val)||plan.tiers[idx].days;
+    else plan.tiers[idx].reward=val;
+  }else{
+    if(plan.hasOwnProperty(f))plan[f]=val;
+  }
+  closeBubble();
+  renderPlanCards();
+  renderSummary();
+}
+function closeBubble(){document.getElementById('editBubble').classList.remove('show');curEditEl=null;curEditField='';}
+document.addEventListener('click',function(e){
+  var bubble=document.getElementById('editBubble');
+  if(bubble.classList.contains('show')&&!bubble.contains(e.target)&&(!curEditEl||!curEditEl.contains(e.target))){closeBubble();}
+});
+
+/* Step2 chat */
+function s2Send(){
+  var inp=document.getElementById('s2chatInput');var v=inp.value.trim();if(!v)return;
+  var area=document.getElementById('thinkArea');
+  var userLine=document.createElement('div');userLine.style.cssText='margin-bottom:6px;color:var(--primary);font-weight:500';userLine.textContent='👤 '+v;
+  area.appendChild(userLine);inp.value='';
+  setTimeout(function(){
+    var rLine=document.createElement('div');rLine.style.cssText='margin-bottom:6px';rLine.textContent='→ 已理解，正在调整方案...';area.appendChild(rLine);
+    setTimeout(function(){
+      var dLine=document.createElement('div');dLine.style.cssText='margin-bottom:6px;color:var(--primary)';dLine.textContent='✓ 方案已更新';area.appendChild(dLine);area.scrollTop=area.scrollHeight;
+    },800);
+  },600);
+  area.scrollTop=area.scrollHeight;
+}
+
+/* ===== Back to List ===== */
+function backToList(){
+  if(!tasks.find(function(t){return t.name==='中医节气签到'})){
+    tasks.unshift({id:99,name:'中医节气签到',status:'running',type:'节气签到',time:'2026-04-27 21:00',creator:'我',users:0,rate:'0%',rewards:0});
+  }
+  renderTasks();goStep('list');
+}
+
+/* ===== Tab2 ===== */
+function renderUserResult(data){
+  var h='<div class="section-title">用户信息</div><div class="info-grid">';
+  h+='<div class="info-item"><span class="il">用户ID:</span><span class="iv">'+data.userId+'</span></div>';
+  h+='<div class="info-item"><span class="il">昵称:</span><span class="iv">'+data.name+'</span></div>';
+  h+='<div class="info-item"><span class="il">手机:</span><span class="iv">'+data.phone+'</span></div>';
+  h+='<div class="info-item"><span class="il">注册时间:</span><span class="iv">'+data.registerTime+'</span></div>';
+  h+='</div><div style="display:flex;gap:8px;margin-top:10px;align-items:center"><span class="il" style="font-size:14px;color:var(--text-secondary)">标签:</span>';
+  data.tags.forEach(function(t){h+='<span class="info-tag '+t.cls+'">'+t.label+'</span>'});
+  h+='</div>';document.getElementById('uqUserInfo').innerHTML=h;
+  renderUserTasks(data.tasks,'all');
+  var s=data.summary;
+  document.getElementById('uqSummary').textContent='参与任务: '+s.total+' | 进行中: '+s.running+' | 已完成: '+s.completed+' | 已过期: '+s.expired+' | 累计奖励: '+s.totalRewards+'项(已领'+s.claimed+'/未领'+s.unclaimed+')';
+}
+function renderUserTasks(taskList,filter){
+  var html='<table class="data-table"><thead><tr><th>任务名称</th><th>状态</th><th>类型</th><th>周期</th><th>进度</th><th>奖励</th><th>操作</th></tr></thead><tbody>';
+  taskList.forEach(function(t,idx){
+    if(filter!=='all'&&t.status!==filter)return;
+    var dc=t.status==='running'?'s-running':t.status==='completed'?'s-completed':'s-expired';
+    var cl=0,pl=0;t.rewards.forEach(function(r){if(r.cls==='claimed')cl++;else pl++});
+    var rt=cl+'已领';if(pl>0)rt+='/'+pl+'待达成';
+    html+='<tr><td style="font-weight:500">'+t.name+'</td><td><span class="status-dot '+dc+'">'+t.statusLabel+'</span></td><td>'+t.type+'</td><td style="font-size:13px;color:var(--text-secondary)">'+t.period+'</td><td style="font-size:13px">'+t.progress.current+'/'+t.progress.total+t.progress.unit+' '+t.progress.percent+'%</td><td style="font-size:13px">'+rt+'</td><td><button class="op-link" onclick="toggleExpand(\'uq-exp-'+idx+'\')">详情</button></td></tr>';
+    html+='<tr class="expand-row"><td colspan="7"><div class="expand-content" id="uq-exp-'+idx+'"><table class="mini-table"><thead><tr><th>奖励名称</th><th>内容</th><th>状态</th></tr></thead><tbody>';
+    t.rewards.forEach(function(r){html+='<tr><td>'+r.icon+' '+r.name+'</td><td>'+r.desc+'</td><td>'+r.status+'</td></tr>'});
+    html+='</tbody></table>';
+    if(t.checkin){html+='<div class="checkin-text">签到记录: ';t.checkin.forEach(function(c){html+=(c.status==='checked'?'✅':'⬜')+c.date+' '});html+='</div>';}
+    html+='</div></td></tr>';
+  });
+  html+='</tbody></table>';document.getElementById('uqTaskTable').innerHTML=html;
+}
+function toggleExpand(id){var el=document.getElementById(id);if(!el)return;var o=el.classList.contains('open');document.querySelectorAll('.expand-content').forEach(function(e){e.classList.remove('open')});if(!o)el.classList.add('open');}
+
+document.getElementById('uqSearchBtn').addEventListener('click',function(){
+  var uid=document.getElementById('uqUserId').value.trim(),ph=document.getElementById('uqPhone').value.trim(),nk=document.getElementById('uqNickname').value.trim();
+  if(!uid&&!ph&&!nk)return;
+  document.getElementById('uqResult').style.display='none';document.getElementById('uqLoading').style.display='block';
+  setTimeout(function(){document.getElementById('uqLoading').style.display='none';document.getElementById('uqResult').style.display='block';renderUserResult(mockUserData)},250);
+});
+document.getElementById('uqResetBtn').addEventListener('click',function(){
+  document.getElementById('uqUserId').value='';document.getElementById('uqPhone').value='';document.getElementById('uqNickname').value='';document.getElementById('uqResult').style.display='none';
+});
+['uqUserId','uqPhone','uqNickname'].forEach(function(id){document.getElementById(id).addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('uqSearchBtn').click()})});
+document.getElementById('uqFilter').addEventListener('change',function(){renderUserTasks(mockUserData.tasks,this.value)});
+
+/* Init */
+renderTasks();renderElements();
+</script>
+</body>
+</html>

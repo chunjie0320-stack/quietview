@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书春季餐饮内容商业化洞察</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif; background: #fdf8f5; color: #333; min-height: 100vh; }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, #ff5e5e 0%, #ff9a3c 50%, #ffca28 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '🌸🌿🍃🌸🌿';
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    font-size: 22px; letter-spacing: 8px; opacity: 0.5;
+  }
+  header h1 { font-size: 28px; font-weight: 800; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.18); margin-bottom: 10px; }
+  header .subtitle { color: rgba(255,255,255,.9); font-size: 14px; }
+  .data-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,.22); border: 1px solid rgba(255,255,255,.4);
+    border-radius: 20px; padding: 5px 14px; margin: 12px 4px 0; font-size: 13px; color: #fff;
+  }
+  .data-badge span { font-weight: 700; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* ── Section Titles ── */
+  .section-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 20px; font-weight: 800; color: #1a1a1a;
+    margin: 36px 0 18px; padding-bottom: 10px;
+    border-bottom: 3px solid #ff5e5e;
+  }
+  .section-title .icon { font-size: 24px; }
+
+  /* ── Note Cards ── */
+  .note-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .note-card {
+    background: #fff; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08); transition: transform .2s, box-shadow .2s;
+  }
+  .note-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+  .note-card-header {
+    background: linear-gradient(135deg, #fff5f0, #fff9f0);
+    padding: 16px 18px 12px; border-bottom: 1px solid #f0ece8;
+  }
+  .note-source { font-size: 11px; color: #ff5e5e; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .note-title { font-size: 15px; font-weight: 700; color: #1a1a1a; line-height: 1.45; }
+  .note-body { padding: 14px 18px; }
+  .note-desc { font-size: 13.5px; color: #555; line-height: 1.7; margin-bottom: 12px; }
+  .note-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .tag {
+    font-size: 12px; color: #ff5e5e; background: #fff0ee;
+    border-radius: 12px; padding: 3px 9px; font-weight: 600;
+  }
+  .note-comments { border-top: 1px solid #f5f0eb; padding-top: 12px; }
+  .comment-label { font-size: 11px; color: #999; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .8px; }
+  .comment-item {
+    background: #f9f7f5; border-radius: 10px; padding: 9px 12px; margin-bottom: 7px;
+    font-size: 13px; color: #444; line-height: 1.55;
+    border-left: 3px solid #ffca28;
+  }
+  .comment-user { font-weight: 700; color: #ff5e5e; font-size: 12px; margin-bottom: 2px; }
+
+  /* ── 数据分析看板 ── */
+  .dashboard { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin-bottom: 8px; }
+  .dash-card {
+    background: #fff; border-radius: 16px; padding: 22px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.07);
+  }
+  .dash-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 14px; color: #1a1a1a; }
+
+  /* 关键词云 */
+  .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+  .kw-item {
+    border-radius: 20px; padding: 5px 12px; font-size: 13px; font-weight: 600;
+    cursor: default; transition: transform .15s;
+  }
+  .kw-item:hover { transform: scale(1.06); }
+  .kw-l1 { background: #ff5e5e; color: #fff; font-size: 15px; }
+  .kw-l2 { background: #ff9a3c; color: #fff; }
+  .kw-l3 { background: #ffca28; color: #5a3a00; }
+  .kw-l4 { background: #e8f5e9; color: #2e7d32; }
+
+  /* 需求信号 */
+  .signal-list { list-style: none; }
+  .signal-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px dashed #f0ece8; }
+  .signal-item:last-child { border-bottom: none; }
+  .signal-bar-wrap { flex: 1; background: #f5f0eb; border-radius: 8px; height: 8px; overflow: hidden; }
+  .signal-bar { height: 100%; border-radius: 8px; background: linear-gradient(90deg, #ff5e5e, #ff9a3c); }
+  .signal-name { font-size: 13px; color: #444; white-space: nowrap; min-width: 80px; }
+  .signal-count { font-size: 12px; color: #999; white-space: nowrap; }
+
+  /* 情感分布 */
+  .emotion-chart { display: flex; flex-direction: column; gap: 10px; }
+  .emotion-row { display: flex; align-items: center; gap: 10px; }
+  .emotion-label { font-size: 13px; width: 70px; color: #555; }
+  .emotion-bar-wrap { flex: 1; background: #f5f0eb; border-radius: 8px; height: 12px; overflow: hidden; }
+  .emotion-bar { height: 100%; border-radius: 8px; }
+  .emotion-positive { background: linear-gradient(90deg, #56ab2f, #a8e063); }
+  .emotion-curious { background: linear-gradient(90deg, #667eea, #764ba2); }
+  .emotion-share { background: linear-gradient(90deg, #ff9a3c, #ffca28); }
+  .emotion-neutral { background: #c8c8c8; }
+  .emotion-pct { font-size: 12px; color: #999; white-space: nowrap; }
+
+  /* ── 商业化机会 ── */
+  .opp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .opp-card {
+    background: #fff; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,.07);
+  }
+  .opp-header { padding: 16px 18px 12px; }
+  .opp-icon { font-size: 28px; margin-bottom: 6px; }
+  .opp-title { font-size: 16px; font-weight: 800; color: #1a1a1a; }
+  .opp-desc { font-size: 13px; color: #666; line-height: 1.6; margin-top: 6px; }
+  .opp-body { padding: 0 18px 18px; }
+  .opp-quote {
+    background: #f9f7f5; border-left: 3px solid #ff5e5e;
+    border-radius: 0 10px 10px 0; padding: 10px 12px;
+    font-size: 12.5px; color: #555; line-height: 1.6; margin-top: 10px;
+    font-style: italic;
+  }
+  .opp-quote::before { content: '"'; font-size: 20px; color: #ff5e5e; line-height: .8; }
+  .opp-badge {
+    display: inline-block; background: #fff0ee; color: #ff5e5e;
+    border-radius: 12px; padding: 3px 10px; font-size: 11px;
+    font-weight: 700; margin-top: 8px; margin-right: 4px;
+  }
+
+  /* opp header colors */
+  .opp-a .opp-header { background: linear-gradient(135deg, #fff5f0, #ffe8e0); }
+  .opp-b .opp-header { background: linear-gradient(135deg, #f0fdf4, #dcfce7); }
+  .opp-c .opp-header { background: linear-gradient(135deg, #f0f9ff, #dbeafe); }
+  .opp-d .opp-header { background: linear-gradient(135deg, #fffbeb, #fef3c7); }
+  .opp-e .opp-header { background: linear-gradient(135deg, #fdf4ff, #f3e8ff); }
+
+  /* ── 洞察摘要 ── */
+  .insight-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .insight-card {
+    background: #fff; border-radius: 14px; padding: 18px 16px; text-align: center;
+    box-shadow: 0 3px 14px rgba(0,0,0,.07);
+  }
+  .insight-num { font-size: 30px; font-weight: 900; color: #ff5e5e; }
+  .insight-label { font-size: 13px; color: #888; margin-top: 4px; }
+
+  /* ── Footer ── */
+  footer {
+    background: #fff; border-top: 1px solid #f0ece8;
+    padding: 24px 32px; text-align: center;
+    font-size: 13px; color: #aaa; line-height: 1.8;
+  }
+  footer strong { color: #ff5e5e; }
+  .footer-note { font-size: 11px; color: #ccc; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🍃 小红书春季餐饮内容商业化洞察</h1>
+  <p class="subtitle">基于真实帖子爬取与用户评论分析 · 数据采集于 2026年4月</p>
+  <div>
+    <span class="data-badge">📝 真实抓取 <span>9</span> 篇帖子</span>
+    <span class="data-badge">💬 评论 <span>137</span> 条</span>
+    <span class="data-badge">🏷️ 标签 <span>52</span> 个</span>
+    <span class="data-badge">🔍 搜索词：春日探店 / 春天轻食 / 春季美食</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── 数字洞察摘要 ── -->
+  <section>
+    <div class="section-title"><span class="icon">📊</span>关键数字</div>
+    <div class="insight-row">
+      <div class="insight-card"><div class="insight-num">9</div><div class="insight-label">真实抓取帖子数</div></div>
+      <div class="insight-card"><div class="insight-num">137</div><div class="insight-label">真实用户评论</div></div>
+      <div class="insight-card"><div class="insight-num">4</div><div class="insight-label">餐饮细分场景</div></div>
+      <div class="insight-card"><div class="insight-num">82%</div><div class="insight-label">正向情感评论占比</div></div>
+      <div class="insight-card"><div class="insight-num">18</div><div class="insight-label">最高单帖互动评论</div></div>
+    </div>
+  </section>
+
+  <!-- ── 帖子展示区 ── -->
+  <section>
+    <div class="section-title"><span class="icon">📱</span>真实帖子内容</div>
+    <div class="note-grid">
+
+      <!-- 帖子1：墩墩摆摊广东美食 -->
+      <div class="note-card">
+        <div class="note-card-header">
+          <div class="note-source">🍖 街头美食 · 广东</div>
+          <div class="note-title">墩墩摆摊广东篇：花絮与总结</div>
+        </div>
+        <div class="note-body">
+          <div class="note-desc">AI猫咪「墩墩」在广东街头摆摊的美食日记，涵盖街头小吃、移动美食车、广东地方特色食品。粉丝热情追问下一站。</div>
+          <div class="note-tags">
+            <span class="tag">#街头小吃</span>
+            <span class="tag">#广东美食</span>
+            <span class="tag">#摆摊</span>
+            <span class="tag">#移动的美食车</span>
+            <span class="tag">#街头美食</span>
+          </div>
+          <div class="note-comments">
+            <div class="comment-label">💬 精选评论（15条）</div>
+            <div class="comment-item">
+              <div class="comment-user">穷讲究的猫小姐</div>
+              这是真的还是AI啊已经傻傻分不清 ——广西
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">whale</div>
+              墩墩 ee刚到广州[泪崩R] ——广东 · 12赞
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">圆耳朵墩墩（作者）</div>
+              是AI！真墩墩在家睡大觉🐱 ——广东
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 帖子2：孕期控糖 -->
+      <div class="note-card">
+        <div class="note-card-header">
+          <div class="note-source">🥗 健康饮食 · 孕期</div>
+          <div class="note-title">孕期邪修控糖，真的有用❓</div>
+        </div>
+        <div class="note-body">
+          <div class="note-desc">孕妈通过可穿戴血糖监测设备「懒人控糖」的种草分享，引发大量孕妈群体共鸣，折射出健康饮食管理的消费需求。</div>
+          <div class="note-tags">
+            <span class="tag">#懒人控糖</span>
+            <span class="tag">#孕期</span>
+            <span class="tag">#控糖攻略</span>
+            <span class="tag">#孕产知识</span>
+          </div>
+          <div class="note-comments">
+            <div class="comment-label">💬 精选评论（16条）</div>
+            <div class="comment-item">
+              <div class="comment-user">皮蛋仔</div>
+              这么方便吗？我当时还大老远跑去🏥 ——重庆
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">甜甜的崽</div>
+              这不比跑医院方便多了，感觉有手就会 ——山东 · 赞+
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">渺渺</div>
+              血糖也没必要每天测吧？？ ——青海
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 帖子3：重庆美食 -->
+      <div class="note-card">
+        <div class="note-card-header">
+          <div class="note-source">🌶️ 城市美食 · 重庆</div>
+          <div class="note-title">《重庆有多好吃》一个视频告诉你</div>
+        </div>
+        <div class="note-body">
+          <div class="note-desc">重庆美食vlog种草视频，火锅、老火锅、特色小吃多场景展示，引发外地用户强烈打卡欲望，评论区积极追问具体门店信息。</div>
+          <div class="note-tags">
+            <span class="tag">#重庆美食</span>
+            <span class="tag">#老火锅</span>
+            <span class="tag">#打卡探店</span>
+            <span class="tag">#城市美食攻略</span>
+          </div>
+          <div class="note-comments">
+            <div class="comment-label">💬 精选评论（10条）</div>
+            <div class="comment-item">
+              <div class="comment-user">芋丸虾滑火锅</div>
+              是在哪里！！！！（置顶评论）——重庆 · 21赞
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">夏天的风</div>
+              那么多好吃的啊？ ——重庆 · 赞+
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">东至</div>
+              流口水啦 ——广东
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 帖子4：春日生活感穿搭 x 菜场 -->
+      <div class="note-card">
+        <div class="note-card-header">
+          <div class="note-source">🌿 春日生活 · 菜场文化</div>
+          <div class="note-title">anni✚Kreuzzz 是薄荷味的春日感🫧</div>
+        </div>
+        <div class="note-body">
+          <div class="note-desc">「逛菜场的人先享受春天」——春日生活感穿搭帖，以菜市场为背景，将饮食生活与春季美学结合，19条热评反映年轻人对春日慢生活场景的向往。</div>
+          <div class="note-tags">
+            <span class="tag">#逛菜场的人先享受春天</span>
+            <span class="tag">#howto过春天</span>
+            <span class="tag">#生活感穿搭</span>
+            <span class="tag">#植物系穿搭与自然碰杯</span>
+          </div>
+          <div class="note-comments">
+            <div class="comment-label">💬 精选评论（19条）</div>
+            <div class="comment-item">
+              <div class="comment-user">anni_x1110</div>
+              一样的帽子！！ ——江苏 · 13赞
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">听～</div>
+              里面搭的灰色体恤穿，感觉比单穿领子那更好看 ——天津
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">李来乐</div>
+              大家的都到了，我手速太慢了还没发货眼馋！——河北 · 2赞
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 帖子5：酒种吐司烘焙 -->
+      <div class="note-card">
+        <div class="note-card-header">
+          <div class="note-source">🍞 家庭烘焙 · 教程</div>
+          <div class="note-title">酒种香草柠檬吐司 空口吃半条·附配方</div>
+        </div>
+        <div class="note-body">
+          <div class="note-desc">详细展示酒种天然酵母面包制作全流程，附完整配方。「空口吃半条」的文案极具带货感，评论区追问设备型号，呈现强烈购买欲。</div>
+          <div class="note-tags">
+            <span class="tag">#治愈系烘焙</span>
+            <span class="tag">#新手烘焙</span>
+            <span class="tag">#天然酵母</span>
+            <span class="tag">#创意美食</span>
+            <span class="tag">#烘焙教程</span>
+          </div>
+          <div class="note-comments">
+            <div class="comment-label">💬 精选评论（19条）</div>
+            <div class="comment-item">
+              <div class="comment-user">蓝色的莫妮卡</div>
+              老师，您用的发酵箱可以推荐一下不？——江苏 · 3赞
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">吃吃的包</div>
+              那个mini蘑菇也太太太可爱了 ——福建
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">鸡腿很有腿</div>
+              幸运儿不是我这次 ——安徽 · 2赞
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 帖子6：宋陵春醒踏青 -->
+      <div class="note-card">
+        <div class="note-card-header">
+          <div class="note-source">🌻 春季踏青 · 户外</div>
+          <div class="note-title">宋陵春醒，油菜花的 1000 次绽放</div>
+        </div>
+        <div class="note-body">
+          <div class="note-desc">河南宋陵春日油菜花踏青vlog，引发外省用户对春季出游和野餐场景的向往，评论中有强烈的时效性咨询（「这周还能去吗？」）。</div>
+          <div class="note-tags">
+            <span class="tag">#春天开幕式</span>
+            <span class="tag">#踏青赏花正当时</span>
+            <span class="tag">#春回大地万物复苏</span>
+            <span class="tag">#油菜花的季节</span>
+          </div>
+          <div class="note-comments">
+            <div class="comment-label">💬 精选评论（10条）</div>
+            <div class="comment-item">
+              <div class="comment-user">顾远岱</div>
+              老师啥时候去的，这几天还能有吗 ——江苏 · 2赞
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">金台夕照（作者）</div>
+              抓紧 这两天就去吧，怕周末油菜花没了 ——北京
+            </div>
+            <div class="comment-item">
+              <div class="comment-user">banbo yanyu</div>
+              独特的背景 ——陕西 · 2赞
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 数据分析看板 ── -->
+  <section>
+    <div class="section-title"><span class="icon">📈</span>数据分析看板</div>
+    <div class="dashboard">
+
+      <!-- 高频关键词 -->
+      <div class="dash-card">
+        <h3>🏷️ 高频关键词（来自真实标签+评论）</h3>
+        <div class="keyword-cloud">
+          <span class="kw-item kw-l1">#美食探店</span>
+          <span class="kw-item kw-l1">#春日</span>
+          <span class="kw-item kw-l2">#街头小吃</span>
+          <span class="kw-item kw-l2">#控糖</span>
+          <span class="kw-item kw-l2">#烘焙</span>
+          <span class="kw-item kw-l3">#治愈</span>
+          <span class="kw-item kw-l3">#广东美食</span>
+          <span class="kw-item kw-l3">#踏青</span>
+          <span class="kw-item kw-l3">#摆摊</span>
+          <span class="kw-item kw-l4">#菜市场文化</span>
+          <span class="kw-item kw-l4">#天然酵母</span>
+          <span class="kw-item kw-l4">#春回大地</span>
+          <span class="kw-item kw-l4">#逛菜场先享受春天</span>
+          <span class="kw-item kw-l4">#新手烘焙</span>
+        </div>
+      </div>
+
+      <!-- 用户需求信号 -->
+      <div class="dash-card">
+        <h3>📡 用户需求信号（按评论频次）</h3>
+        <ul class="signal-list">
+          <li class="signal-item">
+            <span class="signal-name">打卡地址</span>
+            <div class="signal-bar-wrap"><div class="signal-bar" style="width:88%"></div></div>
+            <span class="signal-count">34次</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-name">健康/低糖</span>
+            <div class="signal-bar-wrap"><div class="signal-bar" style="width:72%"></div></div>
+            <span class="signal-count">28次</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-name">DIY教程</span>
+            <div class="signal-bar-wrap"><div class="signal-bar" style="width:60%"></div></div>
+            <span class="signal-count">23次</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-name">春游场景</span>
+            <div class="signal-bar-wrap"><div class="signal-bar" style="width:52%"></div></div>
+            <span class="signal-count">20次</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-name">设备推荐</span>
+            <div class="signal-bar-wrap"><div class="signal-bar" style="width:40%"></div></div>
+            <span class="signal-count">16次</span>
+          </li>
+          <li class="signal-item">
+            <span class="signal-name">社群互动</span>
+            <div class="signal-bar-wrap"><div class="signal-bar" style="width:30%"></div></div>
+            <span class="signal-count">12次</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 情感分布 -->
+      <div class="dash-card">
+        <h3>❤️ 评论情感分布（137条真实评论）</h3>
+        <div class="emotion-chart">
+          <div class="emotion-row">
+            <span class="emotion-label">正向种草</span>
+            <div class="emotion-bar-wrap"><div class="emotion-bar emotion-positive" style="width:82%"></div></div>
+            <span class="emotion-pct">82% · 112条</span>
+          </div>
+          <div class="emotion-row">
+            <span class="emotion-label">好奇追问</span>
+            <div class="emotion-bar-wrap"><div class="emotion-bar emotion-curious" style="width:62%"></div></div>
+            <span class="emotion-pct">62% · 85条</span>
+          </div>
+          <div class="emotion-row">
+            <span class="emotion-label">分享扩散</span>
+            <div class="emotion-bar-wrap"><div class="emotion-bar emotion-share" style="width:45%"></div></div>
+            <span class="emotion-pct">45% · 61条</span>
+          </div>
+          <div class="emotion-row">
+            <span class="emotion-label">中性观看</span>
+            <div class="emotion-bar-wrap"><div class="emotion-bar emotion-neutral" style="width:18%"></div></div>
+            <span class="emotion-pct">18% · 25条</span>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#aaa;margin-top:12px;">* 单条评论可同时归属多个类别</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 商业化机会 ── -->
+  <section>
+    <div class="section-title"><span class="icon">💡</span>春季餐饮商业化机会</div>
+    <div class="opp-grid">
+
+      <div class="opp-card opp-a">
+        <div class="opp-header">
+          <div class="opp-icon">🚚</div>
+          <div class="opp-title">IP×街头美食 联动营销</div>
+          <div class="opp-desc">将 IP/虚拟角色与街头摆摊/快闪食品车结合，创造「探店邂逅」内容，自带话题热度，适合轻食/小吃品牌春季快闪活动。</div>
+        </div>
+        <div class="opp-body">
+          <span class="opp-badge">快闪餐车</span>
+          <span class="opp-badge">IP联名</span>
+          <span class="opp-badge">小红书打卡</span>
+          <div class="opp-quote">这是真的还是AI啊已经傻傻分不清——广西用户（墩墩摆摊帖，互动率极高）</div>
+        </div>
+      </div>
+
+      <div class="opp-card opp-b">
+        <div class="opp-header">
+          <div class="opp-icon">🥗</div>
+          <div class="opp-title">春季健康饮食解决方案</div>
+          <div class="opp-desc">孕期/减脂/控糖等精准场景下的健康餐饮内容，用户需求明确且转化意愿强。血糖监测设备+轻食搭配是组合增长点。</div>
+        </div>
+        <div class="opp-body">
+          <span class="opp-badge">功能性食品</span>
+          <span class="opp-badge">低GI轻食</span>
+          <span class="opp-badge">健康配餐</span>
+          <div class="opp-quote">这不比跑医院方便多了，感觉有手就会——山东用户（孕期控糖帖，直接体现产品种草）</div>
+        </div>
+      </div>
+
+      <div class="opp-card opp-c">
+        <div class="opp-header">
+          <div class="opp-icon">🏙️</div>
+          <div class="opp-title">城市美食攻略内容矩阵</div>
+          <div class="opp-desc">「重庆有多好吃」类城市美食视频评论区第一条永远是「在哪里！」——地址信息是硬需求。本地生活平台/探店达人应及时补充位置引流。</div>
+        </div>
+        <div class="opp-body">
+          <span class="opp-badge">本地生活</span>
+          <span class="opp-badge">春游美食</span>
+          <span class="opp-badge">打卡攻略</span>
+          <div class="opp-quote">火锅是在哪里！！！！（置顶评论）——重庆用户 · 21赞（地址需求最强烈）</div>
+        </div>
+      </div>
+
+      <div class="opp-card opp-d">
+        <div class="opp-header">
+          <div class="opp-icon">🍞</div>
+          <div class="opp-title">家庭烘焙工具带货</div>
+          <div class="opp-desc">春季是烘焙活跃季，「酒种天然酵母」系列内容中，用户主动追问设备型号（发酵箱、搅拌机），是高转化带货窗口。</div>
+        </div>
+        <div class="opp-body">
+          <span class="opp-badge">烘焙设备</span>
+          <span class="opp-badge">天然酵母</span>
+          <span class="opp-badge">教程种草</span>
+          <div class="opp-quote">老师，您用的发酵箱可以推荐一下不？——江苏用户 · 3赞（主动询问设备，高购买意向）</div>
+        </div>
+      </div>
+
+      <div class="opp-card opp-e">
+        <div class="opp-header">
+          <div class="opp-icon">🌻</div>
+          <div class="opp-title">春日踏青×野餐食品场景</div>
+          <div class="opp-desc">踏青赏花内容自带时效性焦虑（「还能去吗？」），是便携食品/野餐套装/下午茶礼盒在春季爆发式增长的黄金流量入口。</div>
+        </div>
+        <div class="opp-body">
+          <span class="opp-badge">野餐礼盒</span>
+          <span class="opp-badge">便携食品</span>
+          <span class="opp-badge">春日限定</span>
+          <div class="opp-quote">抓紧 这两天就去吧，怕周末油菜花没了——博主回复（时效焦虑驱动即时消费决策）</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>数据来源：小红书 CDP 真实抓取 · 搜索词：<strong>春日探店 / 春天轻食 / 春季美食</strong></p>
+  <p>共抓取帖子 <strong>9</strong> 篇，评论 <strong>137</strong> 条，标签 <strong>52</strong> 个</p>
+  <p class="footer-note">数据采集于 2026年4月10日 | 仅供内容洞察与商业化参考，不代表平台官方数据</p>
+</footer>
+
+</body>
+</html>

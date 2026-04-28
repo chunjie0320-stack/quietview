@@ -1,0 +1,3391 @@
+:::title{nodeId="f9928d30-298d-470d-a8eb-59f56cef12be"}
+AI Native 任务中心 PRD v2.0 — 中医节气签到MVP
+:::
+
+:::horizontal_rule{nodeId="dd87c303-a931-438a-99f7-d88029bda00b"}:::
+
+:::paragraph{nodeId="889a3363-7187-4047-9cd8-23f6d780b366"}
+文档类型：系统PRD（非业务MRD） | 首发场景：中医节气签到 | MVP节点：2026年5月24日（小满）
+:::
+
+:::paragraph{nodeId="9aad4819-0bf6-4065-b3f1-f53f9ec91f87"}
+作者：郑春洁 | 最后更新：2026-04-24
+:::
+
+:::horizontal_rule{nodeId="d42baa2e-1623-41d1-83eb-d185fd25a939"}:::
+
+:::heading{level=2 nodeId="b9668081-430f-4e93-8849-cb32d3c98a49"}
+一、背景与问题
+:::
+
+:::heading{level=3 nodeId="fa9fef52-2d49-4266-966d-d5eef4edfd0c"}
+1.1 老系统三大结构性缺陷
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="377562b1-c06b-4353-8cc2-504ca3bf9d97"}
+:::table_row{nodeId="e8d5f473-da02-4155-9412-c38be39fa259"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="4af8bb0a-5fe3-40d0-862c-c91b8c1cbbd0"}
+:::paragraph{nodeId="ab958c2c-edc5-44de-80f4-fc6623ac72bc"}
+**#**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="ac1cffd7-ef89-43ce-b37f-83ac0f90518d"}
+:::paragraph{nodeId="b4d2ba19-354f-40f0-bce6-3a7428502ac8"}
+**缺陷**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="dd0dbf90-4d01-46a5-96ad-26fee50dfe08"}
+:::paragraph{nodeId="13c1bc68-d8ba-4986-a22e-5f35ddb677e1"}
+**表现**
+:::
+:::
+:::
+:::table_row{nodeId="21035426-0c9c-4c42-a099-3e6685624abb"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="7835e3bd-abb0-453f-abb2-fce2e1a15cea"}
+:::paragraph{nodeId="1356fb2a-c03f-4e9c-8dda-cba2af497ccd"}
+1
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="164069eb-f168-4a49-be02-81b8988485eb"}
+:::paragraph{nodeId="78bce570-1ecb-46a7-92e7-de1a3ae3a143"}
+短周期限制
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="9b3d8b43-e717-4ccf-8c8f-3d704db27582"}
+:::paragraph{nodeId="73873ac3-63af-49b6-9249-eb3013d9babd"}
+无法支持全年9场节气的跨周期累计签到
+:::
+:::
+:::
+:::table_row{nodeId="70adb817-1fdf-4bcd-84c4-99ff3ee30da3"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="a090f102-e53f-49dd-945a-5c0e6358bec1"}
+:::paragraph{nodeId="55cdb111-f16b-453f-bf21-44971e2fc2b1"}
+2
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="51d164fa-b594-4c77-9588-76b21a301fe0"}
+:::paragraph{nodeId="a955f53e-f25b-4187-846c-b2e318821e5c"}
+搭建效率低
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="f6b8c0fc-2ec7-469e-b9a0-1935b22cf7e1"}
+:::paragraph{nodeId="b86cfb8c-d725-4633-b4a7-0b0db1286581"}
+每场2-3天，全年9场≈18-27人天
+:::
+:::
+:::
+:::table_row{nodeId="fed4adad-61a3-4d3f-b099-920521f9fc3b"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="d43726c7-21b1-4968-9c13-991d1bf2a52c"}
+:::paragraph{nodeId="43d672e0-2822-4562-89a7-7e2158811791"}
+3
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="c45d5553-3731-4844-b4ae-3cb0e8aba63c"}
+:::paragraph{nodeId="63f99b6f-e7c8-45ae-8c27-43cb843ce1a0"}
+数据割裂
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="888c7a7e-4278-4374-b7ca-55b065ca96d4"}
+:::paragraph{nodeId="70720312-5996-4ff8-9037-9b8e3286a9e4"}
+组件间数据不联通，用户无法自助查进度
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="7801492b-3699-423e-b4f4-9029f32d6a17"}
+1.2 中医签到现状数据
+:::
+
+:::bullet_list{indent=0 nodeId="a16991ec-58f0-4d00-87ec-7bf11e775825"}
+:::list_item{level=0 hidden=false nodeId="1e5e282d-eec9-452d-ab8c-3c666f41c267"}
+:::paragraph{nodeId="2ab3596d-98b4-4d2d-822c-9a5b4e622e61"}
+参与人数：28,905人
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="ebfee152-f5af-409f-abc0-412ab82270bb"}
+:::paragraph{nodeId="0825697e-9e50-4dcd-afcc-44b4290d8ab9"}
+新客占比：81.7%
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="c479d5c0-adee-4aae-8d0e-53ba29070eeb"}
+:::paragraph{nodeId="f4e0d004-f66b-477c-854d-8f7c0a5528e1"}
+复购率：2.4%（偏低，签到到转化链路断裂）
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="faa9ad99-0bc8-4d56-8d70-6b58392d9702"}
+:::paragraph{nodeId="477159e8-0fe0-4fcc-a0b7-337d4ed6723b"}
+2026年目标：3万人/场，全年9场
+:::
+:::
+:::
+
+:::paragraph{nodeId="d35e48c1-4760-488d-91cc-0c824908e0ec"}
+来源：业务MRD
+:::
+
+:::heading{level=3 nodeId="d22aa8b6-82aa-444c-8a25-7b30bd43f887"}
+1.3 本PRD定位
+:::
+
+:::paragraph{nodeId="cf5a399a-2412-4d3b-8694-b0dae1c31d00"}
+本文档不是中医业务MRD，而是 AI Native 任务中心的系统PRD，以中医节气签到作为首个场景验证。
+:::
+
+:::horizontal_rule{nodeId="9d7312ba-23de-4dad-a121-fe0980ba5fdb"}:::
+
+:::heading{level=2 nodeId="a2d65487-d76f-4bcf-885a-cc4c40133c8a"}
+二、产品目标与演进路径
+:::
+
+:::heading{level=3 nodeId="da34d6ba-0f47-4b91-99ab-af10869c171e"}
+2.1 MVP 验证假设
+:::
+
+:::paragraph{nodeId="906cd94f-f607-4831-9bc5-04ed35208a4b"}
+AI Native 任务系统能否一次性解决上述3个结构性缺陷——长周期支持、搭建提效、数据闭环。
+:::
+
+:::heading{level=3 nodeId="b0535176-6caf-4ecc-8d23-cd0e6c8d95d7"}
+2.2 成功指标
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="ce2b84bd-2ea3-473d-8b03-b748091436d4"}
+:::table_row{nodeId="64bff9a3-7b63-4cde-901c-8acb44a4daee"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="805ef412-8717-4919-a678-9f28aa7e4b9b"}
+:::paragraph{nodeId="5ea924f0-ed7b-4f19-8b0c-1e3aac374491"}
+**指标**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="54fb62fa-5da3-45dd-92ca-1fb2b1bedb4e"}
+:::paragraph{nodeId="14800aaf-d3db-4223-ba69-4f5b8ae9c917"}
+**老系统基线**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="f7e268a1-71ad-4af1-a998-ab1c883d3452"}
+:::paragraph{nodeId="4aede7ed-ad57-4686-9871-1c9aa6cbf10b"}
+**MVP目标**
+:::
+:::
+:::
+:::table_row{nodeId="6f966aec-c478-404e-b888-651f1f2d8085"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="411733c0-1dca-408e-8577-cf341420c8ea"}
+:::paragraph{nodeId="c1bec465-6c35-460e-9f97-36a52cf406c4"}
+搭建效率
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="4ce31a2d-4a35-4aa2-8358-21a96e7d25b3"}
+:::paragraph{nodeId="7a9e3053-e8b2-4441-898f-e626634e47e3"}
+每场2-3天
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="af98f500-6ffc-42fe-bcc4-01c86884feeb"}
+:::paragraph{nodeId="82bbbe31-9576-48b1-a4f2-05070a27188d"}
+1小时内
+:::
+:::
+:::
+:::table_row{nodeId="19a2783c-9cf4-440d-a949-45246f9cc805"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="6f8f8477-b584-44fc-a94a-8f5c65b64383"}
+:::paragraph{nodeId="dbd9b68f-883f-418f-9bef-6c33e623865f"}
+用户自助
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="cdafda1b-befb-4137-a5f8-6acb8a655080"}
+:::paragraph{nodeId="d908619b-bcd9-4e5f-a56b-705afcb3922d"}
+进度不可查，TT工单频繁
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="08c0d60b-84e0-45f8-b578-494d703e3267"}
+:::paragraph{nodeId="1f6dac45-94e2-4615-a4d1-83967854cdd4"}
+TT工单减少80%
+:::
+:::
+:::
+:::table_row{nodeId="764b85e9-5bc6-493f-b9c9-bb2db03fc930"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="d8a4b435-75be-446b-91a8-647f24d71112"}
+:::paragraph{nodeId="ddc2812e-3eb4-46ce-93ea-351f5a9c807a"}
+数据闭环
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="b2bbeed2-71eb-4745-a69d-5bc8b5d50c92"}
+:::paragraph{nodeId="9ad3aa5c-5a81-42dc-b84a-b8ae89373767"}
+人工统计，组件割裂
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="02f1c573-9113-4747-b98e-f644967dadca"}
+:::paragraph{nodeId="868fce88-ac78-42e2-9ab4-706da8045aeb"}
+自动回流
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="7b846027-e997-4094-84ba-30080fe1846f"}
+2.3 演进路径
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="34936287-f192-4d58-bb8c-6eaa67e88730"}
+:::table_row{nodeId="496cdcd1-48ea-4beb-bc1c-cf2b5dfc8086"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="3499b76a-026e-409e-b0ca-909be0f92d5e"}
+:::paragraph{nodeId="ef61785f-9844-4f2c-918c-b401c6c0e888"}
+**阶段**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="fb25e228-ef51-4fde-9cf0-0a9000309724"}
+:::paragraph{nodeId="1d9b823b-71f9-4baf-aef4-0245286959af"}
+**时间**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="e2ff6333-e2b4-471c-8961-ad08eb4d6266"}
+:::paragraph{nodeId="94209345-0632-4293-aa04-69fccd6101e5"}
+**核心能力**
+:::
+:::
+:::
+:::table_row{nodeId="d8573fb5-38d5-4487-aac5-8bc73ac080fe"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="7b0a2b69-ce33-4fcd-8019-80fc5923acbe"}
+:::paragraph{nodeId="5af7a279-0a73-4493-82cb-7f8470d560f6"}
+Phase 0（MVP）
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="16c7c9d9-2d0d-41a1-a445-7f94a3faf2c1"}
+:::paragraph{nodeId="44f52f35-929e-4e72-9600-c8388bb01571"}
+小满 5/24
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="1af47a79-96e1-41b4-8de7-a4e1ef908aec"}
+:::paragraph{nodeId="7b934e4c-2051-4d1f-8c7a-d5120fa7af4e"}
+纯规则引擎
+:::
+:::
+:::
+:::table_row{nodeId="b223cac9-7488-4f70-82cd-5764d13db338"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="c891a8e5-4872-431f-880e-3d978ea67916"}
+:::paragraph{nodeId="5e8ea762-41b9-45b2-9a84-97e54d258dfb"}
+Phase 1
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="765a9e10-ebf2-4a61-82f7-c6e68318f54e"}
+:::paragraph{nodeId="b5844731-4b64-45ee-af18-eece765c0560"}
+Q3 2026
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="bd4debee-25b3-4267-8e9c-2488777cc1b2"}
+:::paragraph{nodeId="506372d0-38f6-486e-911c-1d362b761fe0"}
+Kafka实时事件驱动
+:::
+:::
+:::
+:::table_row{nodeId="5a8bfade-4147-4aec-ae08-734803424747"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="c2916938-82c6-4138-90a8-d62adaafae33"}
+:::paragraph{nodeId="e3eef457-affd-42ca-a202-c7b135c5a3f4"}
+Phase 2
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="a2d16350-c99c-47ca-b0d3-fa341bb25c65"}
+:::paragraph{nodeId="d26c9d70-b0b7-4b37-9d6e-63462f090a4c"}
+Q4 2026+
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="1db59597-aa45-4a7d-b1df-bfcf155d7307"}
+:::paragraph{nodeId="bd36e0c7-a419-4762-ae92-0e88cfb7f990"}
+LLM驱动
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="e370b237-a5c4-4d3a-bc56-a2bbde0bbb70"}
+2.4 小满倒排节点
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="9a15b6af-8d1d-4672-9b4c-bcc530c667d6"}
+:::table_row{nodeId="869519ff-d11e-44a4-949e-1ffefbabc138"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="d053c0d0-9b20-45ad-9f3a-8762f08abbfa"}
+:::paragraph{nodeId="a4a48ad8-8432-4f83-9be6-4e23e0a66dec"}
+**日期**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="9af30ff1-0cb6-4137-8558-2650494103ea"}
+:::paragraph{nodeId="b7bac2e4-1c41-4084-8bd5-2b231bda1f5a"}
+**里程碑**
+:::
+:::
+:::
+:::table_row{nodeId="25d4b8ed-c96d-490a-8852-5b577b4a836d"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="40f96b6f-41b7-4a4d-a7aa-0ff38d595899"}
+:::paragraph{nodeId="786c5e5e-343d-418b-97e8-d344a7771c14"}
+4/28
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="2eae6047-5774-480c-be5a-aaf2a4228be4"}
+:::paragraph{nodeId="793eb32c-c3f1-480d-a95a-c1f8de7fdd55"}
+PRD评审通过，技术方案启动
+:::
+:::
+:::
+:::table_row{nodeId="8b7eee9f-e607-4289-92a6-36022df529a1"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="51dd9237-7ba1-4a37-8760-92693e62d6dd"}
+:::paragraph{nodeId="85827c21-944d-458c-a1b5-566fd3f6b14a"}
+5/05
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="754fb899-093c-4acc-ba80-9f82a83cb6d0"}
+:::paragraph{nodeId="4bc9c243-6eaa-4b72-b79b-a72e26881d3e"}
+原子层+接口联调完成
+:::
+:::
+:::
+:::table_row{nodeId="fce6bbad-6cc0-49c9-9320-152753f41a2d"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="6ce23df7-fc54-411f-9692-e9ba8ecc8c52"}
+:::paragraph{nodeId="92d2195d-3691-42bd-b8ba-a97206269402"}
+5/12
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="f8e39793-bdd3-4e4b-ab28-c39e4654a740"}
+:::paragraph{nodeId="dd58d608-88f6-47f6-ad03-f6cf8384b507"}
+高达AI玩法组件联调完成
+:::
+:::
+:::
+:::table_row{nodeId="901b00e1-6a52-4722-9a29-61e7c4c16245"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="f481f2a9-1190-4eab-a210-0312cd77b6cb"}
+:::paragraph{nodeId="4a62bafd-cac1-45a1-bdab-d977a65a3e6f"}
+5/16
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="ef305bcd-9f5e-4066-aded-7e0156648b19"}
+:::paragraph{nodeId="91ddaebc-644d-4c99-aa99-4fe82ec3e68d"}
+全链路冒烟测试
+:::
+:::
+:::
+:::table_row{nodeId="3d7883a6-6240-4472-a70c-782eca79e56e"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="3f9ff5a5-427b-49f3-a87d-c678b73bf149"}
+:::paragraph{nodeId="c6410b94-c196-4ef1-afd7-a6db2f63a03d"}
+5/19
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="a11243ef-3a9b-40bb-97ec-25a233ffb012"}
+:::paragraph{nodeId="a89fe51e-9a76-40c6-b0ea-14d27935e99e"}
+UAT验收
+:::
+:::
+:::
+:::table_row{nodeId="b221c791-ba73-4626-bc92-60e6852fb293"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="ea632c3f-7ade-44e3-9887-d5a18986ffb6"}
+:::paragraph{nodeId="a3485f27-55a1-4b17-9ee4-b99bbb18a18c"}
+5/21
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="632a817c-c1e3-4706-abd7-1fd6cbf3370d"}
+:::paragraph{nodeId="41fdf3f0-f29f-424b-823e-1c49ecbbbede"}
+灰度发布
+:::
+:::
+:::
+:::table_row{nodeId="befd77e7-01a1-44a1-92a7-d89c44ec577e"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="1688ad7c-e784-4a7c-ad77-d7cfeab66a76"}
+:::paragraph{nodeId="16423e00-de18-4841-8bd0-8a7bb662f4a7"}
+5/24
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="b2533524-506e-42b7-8f60-47b85df90357"}
+:::paragraph{nodeId="3c5a80b9-80fc-42ab-bb24-fda0b1139582"}
+小满正式上线
+:::
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="309d2740-1584-4f7d-a2e4-a870ae8d28fb"}:::
+
+:::heading{level=2 nodeId="0396c21b-88a9-40ca-83b9-19442b76d587"}
+三、业务场景：中医节气签到
+:::
+
+:::heading{level=3 nodeId="ad265767-4e1f-4bec-9b33-72c42a20c970"}
+3.1 用户旅程
+:::
+
+:::blockquote{nodeId="1899ca81-602c-4a84-bb61-1e73384642fa"}
+:::paragraph{nodeId="b1aa6821-69ef-4e4c-9891-c759c1147179"}
+📌 流程图占位：[user-journey-v3-large.drawio] — 用户旅程流程图，请手动插入 draw.io 文件
+:::
+:::
+
+:::paragraph{nodeId="06b81f34-173a-4db5-b49d-913aedd4ed7e"}
+用户旅程说明：
+:::
+
+:::blockquote{nodeId="7246e167-a333-4100-bb1a-d660a564d68e"}
+:::paragraph{nodeId="238087af-a4c5-4686-b582-1b85184bbd80"}
+进入会场 → 看到签到地图（9个节气格子）→ 点击可签到格子 → 直接签到（MVP一期无前提任务）→ 签到成功 → 累计次数+1 → 达到门槛（3/5/7/9次）→ 领取奖品 → 虚拟券直接领取 / 实物奖品触发留资弹窗 → 留资成功等待运营发货 → 离开 / 等待下一节气
+:::
+:::
+
+:::heading{level=3 nodeId="f4fab263-2a48-4ed7-8299-3633b5cce069"}
+3.2 产品流程图（三层泳道）
+:::
+
+:::blockquote{nodeId="61bd3885-f1f3-4f56-9f79-d684d184cddf"}
+:::paragraph{nodeId="684ecae9-b5a0-465a-b68e-50406ad63604"}
+📌 流程图占位：[product-flow-v3-large.drawio] — 三层泳道产品流程图，请手动插入 draw.io 文件
+:::
+:::
+
+:::paragraph{nodeId="290dea87-94ab-4582-9b63-becc76693ff2"}
+运营层：表达意图 → AI识别关键要素 → 运营确认 → AI基于策略引擎生产玩法 → 关联高达组件 → 处理留资订单 → 发放实物奖品 → 监控数据
+:::
+
+:::paragraph{nodeId="77b86aff-5d99-4b3f-b7f9-e770b02c27d2"}
+AI层：意图识别 → 策略引擎编排 → 生成玩法ID → 自动关联高达组件 → 推送上线 → 留资推送至运营后台 → 数据回流
+:::
+
+:::paragraph{nodeId="d88f005f-5a02-4606-9380-ac42d88e89d3"}
+用户层：进入活动页 → 查看签到地图 → 点击签到 → 领取奖品 → 填写留资 → 接收实物奖品 → 离开
+:::
+
+:::heading{level=3 nodeId="5314e246-7543-4bb4-aabf-f3eefbce5964"}
+3.3 C端交互示意
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="f6d618d8-dd6e-432a-9bef-edc29833bbce"}
+:::table_row{nodeId="199ff630-e2f4-45dc-b716-23394274b9ee"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="e924ae12-ddff-4609-9037-c8ef1fed0b45"}
+:::paragraph{nodeId="82f426a9-553d-44dd-a2c0-04c1fad89cd9"}
+**区域**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="73fddfaf-d0a5-4dae-8218-a2bd8c028e1f"}
+:::paragraph{nodeId="73e1409e-154b-450b-942e-d01a4fc2c34f"}
+**内容**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="8094fad8-8861-4060-9674-60b5621b98ef"}
+:::paragraph{nodeId="2f0edef9-dd8e-4cb5-afd9-d5e273f68037"}
+**交互**
+:::
+:::
+:::
+:::table_row{nodeId="f5734a22-4fa1-473a-aa05-716cbe32e11e"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="763a8187-6e44-493f-a27d-0193b46b847d"}
+:::paragraph{nodeId="a58d0851-23ae-4f0a-800f-3dd715903be5"}
+奖品展示区（顶部）
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="c117dd07-14a9-4f1d-ba07-6690f69c3366"}
+:::paragraph{nodeId="a983dd85-2101-4f15-bddf-216ac860b6ec"}
+奖品图标+门槛标签
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="72444abe-652c-4bef-98c5-0132afd437de"}
+:::paragraph{nodeId="0cea0c9f-a7c1-4a1e-a7cf-56886207a87f"}
+≤4均分居中，>4横滑
+:::
+:::
+:::
+:::table_row{nodeId="2f5e5794-a2ea-44c3-91d7-7c131452a154"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="c1715ad3-7553-4871-8ad8-caa2a99d96d9"}
+:::paragraph{nodeId="f94e8ca8-b5ae-4050-814e-e828c9218a8b"}
+签到地图区（主体）
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="b71a911d-9167-4ddb-b995-978a9f00dc14"}
+:::paragraph{nodeId="8f0e5d22-7020-46f9-9ccf-6ac765b29832"}
+3×3九宫格
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="52fb85c7-1d8f-42e4-9071-7853e755d467"}
+:::paragraph{nodeId="93a0dad3-c1b3-4e7c-8654-09a965ea75e6"}
+4态渲染，可签状态带动效
+:::
+:::
+:::
+:::table_row{nodeId="de8ada1d-dbc0-4513-8846-61931d8befad"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="ec780822-bded-40de-aecf-4b2426b83fad"}
+:::paragraph{nodeId="01a08a31-7ea2-4616-9603-e216be8be934"}
+留资弹窗（浮层）
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="8a18d841-08ee-43c9-b8b4-816ed311fde3"}
+:::paragraph{nodeId="4db0401a-2b88-42d3-9f8c-dd3960687a51"}
+姓名/电话/地址表单
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="b42bacde-67de-4ec8-9de0-52232c133b66"}
+:::paragraph{nodeId="354bcec3-d907-42bb-b157-4b1ce520d128"}
+达到实物奖品门槛后触发
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="5c5c38cc-b6c6-4134-958d-6207fdc6bf54"}
+3.4 九场节气排期
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="9a21e1b7-342c-4537-ac3d-54fdecafb088"}
+:::table_row{nodeId="2ade121f-7795-4e03-8fbf-a06ad3518541"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="b5655b70-ace4-403e-a878-9ebe59ecc866"}
+:::paragraph{nodeId="4231b178-49f7-4f76-8299-6c68f9a6ed20"}
+**序号**
+:::
+:::
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="bae4f4b4-5a9e-4078-91df-437b9915b6a7"}
+:::paragraph{nodeId="e93be250-f27e-4abc-9bf5-4a308ccfe749"}
+**节气**
+:::
+:::
+:::table_header{colwidth="300" bgColor="#FFF" nodeId="679f2c53-f8e8-49df-940b-64a73df98262"}
+:::paragraph{nodeId="4aba7493-bbf6-4555-a32f-de0da07ac856"}
+**活动窗口**
+:::
+:::
+:::table_header{colwidth="170" bgColor="#FFF" nodeId="714208f2-e8c3-469b-83f3-136af0b8837a"}
+:::paragraph{nodeId="0c5324f0-177a-430d-8c53-d8ea2c8c49ff"}
+**备注**
+:::
+:::
+:::
+:::table_row{nodeId="bf3585bb-36a8-4e8d-bd9d-46fe0289a13b"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="44671fce-06a0-4622-9093-e26aa442c559"}
+:::paragraph{nodeId="1b76a3ad-3599-49c8-b793-7ec73930d0ee"}
+1
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="d89a1db8-13d6-4112-a131-3f0226b24255"}
+:::paragraph{nodeId="ec5697ad-c968-48cd-939d-fc92325deb81"}
+春分
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="e796250a-aa68-434d-adb5-7d97cf9fcd23"}
+:::paragraph{nodeId="19fadd59-5911-4bb7-af32-cc6f6c88d015"}
+3/20-3/31
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="56be5446-938b-4953-8287-f719a81c34f6"}
+:::paragraph{nodeId="c2f965aa-232a-4158-94c0-bf6ea2659d58"}
+已结束
+:::
+:::
+:::
+:::table_row{nodeId="70c45d41-9058-4cf9-a4af-4358e0a4b456"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="e56c28e7-8a63-4f3f-bf4e-49e095a40cd6"}
+:::paragraph{nodeId="7ba94817-7c15-423e-ac3f-d6f214302aff"}
+2
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="bba31d6a-0a86-4ac6-aa9a-f8873169b9bd"}
+:::paragraph{nodeId="13548ebf-1388-494b-9ce5-76f5441c65a7"}
+谷雨
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="4cc3e647-caf7-4028-a6e0-59b8c8b7397e"}
+:::paragraph{nodeId="4c1dc606-0911-45f6-baa7-316a4c1d14f6"}
+4/20-4/30
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="8df17a84-64a6-425f-bf94-162d07a11384"}
+:::paragraph{nodeId="4442c805-b09a-42a2-a99c-1e38643f3ed5"}
+进行中
+:::
+:::
+:::
+:::table_row{nodeId="55fe4648-7438-409b-adcf-495cbfd6192d"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="fcd7fce0-f429-49c6-8da0-59ea1afc5088"}
+:::paragraph{nodeId="d4da7919-b12a-412c-b98d-7126e8e77edc"}
+3
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="321220f5-1455-4abf-a82d-63657c9dd9c9"}
+:::paragraph{nodeId="b71e29be-b856-4b41-bacc-14789a91770f"}
+小满
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="37fcaf3b-204a-4bf8-a0de-7a6643238d21"}
+:::paragraph{nodeId="fd83394d-1d39-4027-a030-e41c28b73673"}
+5/13-5/24
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="cbfd961b-8971-4c1d-adc3-0cb96466285e"}
+:::paragraph{nodeId="141216eb-bb43-488c-910a-b2db1f382a66"}
+MVP首发
+:::
+:::
+:::
+:::table_row{nodeId="2a48e037-3cf9-4906-8af9-2696cb167621"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="7cabc1bc-4272-4fda-8b9e-25acdd254fc0"}
+:::paragraph{nodeId="25c53101-4a1c-40e7-acdf-d32152acca60"}
+4
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="f717699b-0cbf-4d5f-aa8f-9c7b426824e1"}
+:::paragraph{nodeId="f12f743e-e6e9-4a78-b0ef-4475be1b2943"}
+夏至
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="19b6f8df-6a07-4ecb-a5bc-cab06d6ec51a"}
+:::paragraph{nodeId="eab8d41d-94c3-4296-806c-00847dbc1bba"}
+6/21-7/01
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="b4471bf4-35e7-47ee-8a46-62450ce73b87"}
+:::paragraph{nodeId="b0273349-767a-41da-9461-0da640d2c1dc"}
+ 
+:::
+:::
+:::
+:::table_row{nodeId="9685b68b-2b83-4e82-90e6-9ded8dbbf051"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="dc1d319f-4da2-4b8b-8efa-32dc9fd91028"}
+:::paragraph{nodeId="e23802e2-d18a-4976-bcb8-1c239a481a75"}
+5
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="e2dd092f-a5c5-4225-ba15-a17094ad0c43"}
+:::paragraph{nodeId="2c3a310b-e155-44e8-92b4-1b852c298843"}
+三伏天
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="f025d933-6e8c-4a8a-8e19-8f5bb1fbf4c5"}
+:::paragraph{nodeId="95a4c5e5-a29a-4ac3-ad80-f9e907fd8884"}
+7/15-7/25
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="f463082d-b4d7-4fcc-be1a-d518756eca3b"}
+:::paragraph{nodeId="fa8b0b79-ebe1-4cdf-a521-3ecc4e6e1f71"}
+ 
+:::
+:::
+:::
+:::table_row{nodeId="34652c58-1659-415f-acc2-b53390e7832d"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="64474444-1bc1-4eb6-a766-cb62b93ff5f5"}
+:::paragraph{nodeId="b3f0459c-b47e-4429-af41-c1140f61afc7"}
+6
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="ef2f3eb0-4283-4b0d-a71a-3e87973d008a"}
+:::paragraph{nodeId="5ea5969e-25d9-4a4d-8a7b-38eff101f880"}
+秋分
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="27f99ae3-2613-4d53-8779-b32ef4b3609e"}
+:::paragraph{nodeId="f734164d-d322-4715-af3a-2c429f70ea78"}
+9/23-10/03
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="8594908e-e774-47ec-a014-93b8e545b512"}
+:::paragraph{nodeId="82e0aadc-fdb4-4c5b-9440-d4d9e4ced4fd"}
+ 
+:::
+:::
+:::
+:::table_row{nodeId="a5adbac5-cb18-4ec9-b9c0-3a3522f010e5"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="43cdd017-14e4-4ac3-945f-ed497d63e127"}
+:::paragraph{nodeId="823e613d-9dcf-4a24-8950-472ae67c7fc7"}
+7
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="b26dc043-369d-4d5e-9fe5-cb62ce3bbaeb"}
+:::paragraph{nodeId="4b297530-4d7c-4be7-8121-511c24a0efc6"}
+霜降
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="7df803fe-4f96-41eb-b139-9144fc3186f6"}
+:::paragraph{nodeId="1b1558ec-4b33-4b67-a0d9-f3750f99f668"}
+10/23-11/02
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="39ea38bd-1b4a-40ac-99e6-6dc6006dc771"}
+:::paragraph{nodeId="dfee3823-d671-4f25-9ab9-b578da006a2c"}
+ 
+:::
+:::
+:::
+:::table_row{nodeId="2e0a4fc5-efed-49a8-b62a-441b5aff8e9a"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="dc7dd595-ec0e-4700-801d-0bc14fb3aa9a"}
+:::paragraph{nodeId="6064ca13-b1da-499e-9ee3-f721fbf31fdf"}
+8
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="abb975c9-65ae-45e1-91a8-8d3ce124d2a8"}
+:::paragraph{nodeId="8e07b7a8-17e6-4e6d-a1e9-8d87f2536fb3"}
+小雪
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="fa8ce31a-3807-4f7c-b8fc-776ed3a1a8b9"}
+:::paragraph{nodeId="c3a185d6-9fb0-4b66-9b26-ca2cb5320626"}
+11/22-12/02
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="5123be5e-7660-4000-a193-9970213655c3"}
+:::paragraph{nodeId="bd3c3ad5-8e90-4ab1-bfbf-ca36eb9f027b"}
+ 
+:::
+:::
+:::
+:::table_row{nodeId="d91e72a2-81d6-42b7-adaf-bc2f61168590"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="fdbed8b6-21ca-496d-a559-831278c1b381"}
+:::paragraph{nodeId="710815eb-7357-4ec2-991c-7383e890fd78"}
+9
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="e5c783b3-a0a8-4324-ac8b-d03456617f97"}
+:::paragraph{nodeId="2e082003-67be-49db-8758-f87695378838"}
+冬至
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="c8f8aba6-6ea1-4bb0-a2fe-225160c4004b"}
+:::paragraph{nodeId="3458852d-6e19-4e15-8f04-844550d2a5a2"}
+12/22-12/31
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="b6de19ba-c26b-45f4-bd38-9dd86d7d9b88"}
+:::paragraph{nodeId="33cd4df3-9145-41fa-9dec-e5067d1ae6d1"}
+ 
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="fe7bb534-a6ad-4a92-9ed6-58c7b020c73c"}
+3.5 签到规则
+:::
+
+:::bullet_list{indent=0 nodeId="21667ba1-5e36-478f-9e8a-5e42cd8c06aa"}
+:::list_item{level=0 hidden=false nodeId="949224fe-078e-4013-9821-44b1934356aa"}
+:::paragraph{nodeId="dc971f9c-3f92-4fd7-aa81-1d959ffd3d26"}
+签到条件：MVP一期无前提条件，直接签到；后期可配置下单/分享等前提
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="fac3d643-9199-4b85-aa0f-a86b533df577"}
+:::paragraph{nodeId="6d6f7db2-0ebb-4b7e-9406-6281be1d29d4"}
+累计梯度：3次→基础奖品 / 5次→进阶 / 7次→高阶 / 9次→大奖
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="c2917d5d-6e75-4ebe-9449-4e5b34d9ce81"}
+:::paragraph{nodeId="7f5950d1-54f5-44b8-9862-ab3eb28ec848"}
+奖品类型：虚拟券（直接领取）+ 实物（留资邮寄，运营后台发货）
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="caeff8c3-547d-4d22-99f5-670384504e16"}
+:::paragraph{nodeId="d577563e-2ea5-47dc-b6f6-1c66045a60fc"}
+限制：每场每人最多签到1次，不可补签
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="4cb4cbc6-3cb3-41e1-9bb5-12481c8e90d7"}:::
+
+:::heading{level=2 nodeId="575deebc-7ab3-47b8-b98c-9685a3541069"}
+四、系统架构（四层）
+:::
+
+:::heading{level=3 nodeId="70e6bcf3-65d6-46e4-af11-08833e99a88f"}
+4.1 架构说明
+:::
+
+:::bullet_list{indent=0 nodeId="b8e6a16a-e1eb-49f7-9a53-b754eef16b84"}
+:::list_item{level=0 hidden=false nodeId="727fa951-a9ab-4535-8cdf-85f05caeeb52"}
+:::paragraph{nodeId="0acd3761-0a75-4791-baf4-1c11311d3a10"}
+基座层：复用任务中心2.0的任务引擎和高达搭建平台
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="7c481795-4875-472b-b1f5-8b3281469831"}
+:::paragraph{nodeId="fbc67526-868b-49c6-bf47-45911b9fe9cc"}
+原子层（MVP核心）：业务逻辑拆解为可组合的行为/约束/奖励原子
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="99bee828-bd0c-424f-a44d-a7400bdef5e0"}
+:::paragraph{nodeId="90688194-3ddd-4420-b8a6-6e3cc5fe81cf"}
+AI层：Phase 1引入Kafka事件驱动，Phase 2引入LLM
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="195bf3e4-6f9e-487f-ae9b-837707ea7d03"}
+:::paragraph{nodeId="b5bf4b63-e955-4be4-b4e8-3223f96813a7"}
+数据产品层：后续版本建设数据看板
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="ec6ce57c-3d4c-49d2-88e7-e603262c4b68"}
+4.2 原子能力清单
+:::
+
+:::paragraph{nodeId="5cf24f03-99b7-43fa-b777-d8bd8a2014c7"}
+**行为原子**
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="1f83bc99-bdcc-46e2-bd4e-6bd3a3840111"}
+:::table_row{nodeId="9ec9efb4-359d-4a54-bf99-544dab9747ce"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="d2f34c90-191b-45b0-8f68-88c8c0e75a66"}
+:::paragraph{nodeId="f82a155a-ecc7-4c46-9e28-7c45a3180746"}
+**原子**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="87c00686-a5d7-40c0-8e23-7bd55a762d87"}
+:::paragraph{nodeId="846a851b-f31a-4524-aca1-f56c7c5c53f5"}
+**说明**
+:::
+:::
+:::
+:::table_row{nodeId="b4071df5-ee76-4a10-8b91-1a2cce9f5ac0"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="a3122cd2-cfb9-4c85-a125-cbe4c38a7750"}
+:::paragraph{nodeId="e4b0bd4d-194b-48d6-baec-acd6e0b9e7a0"}
+signIn
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="a2a0b281-91e0-4de7-9444-6a6a5ceea12c"}
+:::paragraph{nodeId="a22c6f04-38fb-410b-a198-6170d89b6c1b"}
+签到
+:::
+:::
+:::
+:::table_row{nodeId="8ef76a83-f6ed-40d5-a656-f5602cd388d8"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="eef296a3-cc38-4722-a984-f7d38604cf03"}
+:::paragraph{nodeId="d90a5193-9217-4003-b623-c58bc398ab29"}
+view
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="1ccb494b-6cb6-451e-90b5-1777fa267044"}
+:::paragraph{nodeId="1349022c-c780-486f-b643-e7805baa799c"}
+浏览
+:::
+:::
+:::
+:::table_row{nodeId="6283fe0a-7980-4b23-9122-2fbd22c74e58"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="60d5427c-7787-4d5d-94cd-d531fb2d7eea"}
+:::paragraph{nodeId="c5f75761-3a34-44a7-9090-020b828dfa2a"}
+share
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="aa0957b4-57e7-4cd8-bc49-e1e9f349402c"}
+:::paragraph{nodeId="41e0fdec-1c63-4765-b47b-755a72ff4ef5"}
+分享
+:::
+:::
+:::
+:::table_row{nodeId="c21b0007-12ea-42a2-8bec-a90be2641624"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="320d0a7e-52c5-4ed4-b03d-f53f1d278336"}
+:::paragraph{nodeId="e62250b1-7adc-44ba-b76b-6f3096983e30"}
+subscribe
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="6f5e88b5-9127-4e1e-96cd-525b4e247ee8"}
+:::paragraph{nodeId="b264d3bf-472a-48d9-b06d-0d149ba21f96"}
+关注
+:::
+:::
+:::
+:::table_row{nodeId="57388040-df0b-48e7-a3b1-44f2a7244723"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="66b3f87d-f8fa-4b1d-bc18-6ebc3c7d430e"}
+:::paragraph{nodeId="ee3fe1b4-f688-4dca-b83e-c5f921bb7ac6"}
+invite
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="68cb28c0-4696-4ed1-b060-4826ac43c673"}
+:::paragraph{nodeId="214e9660-86c1-429a-9e85-9bf10d523f04"}
+邀请
+:::
+:::
+:::
+:::table_row{nodeId="3678979c-a929-4b6e-be5d-b945743dcb4b"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="9710497a-a6e6-4efa-a11c-3fb49a9e1b8c"}
+:::paragraph{nodeId="7f706ffe-be88-4d8b-ad46-92d8cccbdeca"}
+assist
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="2d3a28b1-2784-4ec3-834a-16e08edb6558"}
+:::paragraph{nodeId="d55f6356-68f4-486e-a50e-d5e345e1f9c1"}
+助力
+:::
+:::
+:::
+:::table_row{nodeId="23334578-3fd2-4348-8d19-48471f87caf0"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="ea7ca032-cb4c-498b-8eb5-1e002321b2ad"}
+:::paragraph{nodeId="bd40a384-555e-4679-98b4-8e4f16b0beab"}
+order
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="98c160b3-9b91-499e-b92a-97e95c4e179c"}
+:::paragraph{nodeId="8444c9ec-e7e4-4e1b-b8fc-bcf5628731d8"}
+下单
+:::
+:::
+:::
+:::
+
+:::paragraph{nodeId="f42103bd-02bc-4f8e-8c10-aee5387d16e1"}
+**约束原子**
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="3abafc3a-3a57-496e-b0d7-c15b9cc54759"}
+:::table_row{nodeId="aa0c68a6-d867-4712-80fa-84da003ef257"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="67f27cfe-c750-4890-a67b-78339c60fdd5"}
+:::paragraph{nodeId="27141e5a-3ba0-4140-bf6f-519bad0d3700"}
+**原子**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="04dbefdc-f0f2-46e5-9994-044b91a7c54a"}
+:::paragraph{nodeId="0404a7f9-e3b9-4784-bfef-2f8b6c85c508"}
+**说明**
+:::
+:::
+:::
+:::table_row{nodeId="9005018c-5e03-43ef-8a3e-7517e08de879"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="ebb3192f-ff9f-4301-97c4-1219e2b0ae9a"}
+:::paragraph{nodeId="ec1e2e37-2610-436c-bad5-5f3d00350012"}
+time_window
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="4959d634-8a12-4ee9-a1af-4b27f679dd67"}
+:::paragraph{nodeId="06a05823-762f-46c2-ab1e-64ddb17e7e51"}
+时间窗口
+:::
+:::
+:::
+:::table_row{nodeId="499d7ee9-5e4d-47f6-804e-08ca0732b141"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="dd3c2df8-94b0-4581-bab4-6f62ea0bd474"}
+:::paragraph{nodeId="3e7e5bc4-768e-41bb-9d48-b4a2653eeaeb"}
+threshold_ladder
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="35a64c62-85fe-48f7-a03b-c6f5412b2a37"}
+:::paragraph{nodeId="d7c0f79e-2dc9-4882-b27e-01f16e75bf81"}
+阶梯门槛
+:::
+:::
+:::
+:::table_row{nodeId="579042fe-9b81-4161-92eb-1158c60268f8"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="80b4780b-1734-42c2-830a-d0cc4cf487df"}
+:::paragraph{nodeId="6bebf57f-97b1-4100-aa29-f2e511b271d2"}
+cycle_period
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="e388a858-d405-4f34-a4bd-dbda53228b62"}
+:::paragraph{nodeId="d093bdcd-9b1c-424e-9bab-0c2870234494"}
+周期类型
+:::
+:::
+:::
+:::table_row{nodeId="c6f8ba34-05e8-4daa-9f55-f96ceba38eb4"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="ef363b3b-feeb-4c4d-bfd8-29810387a1fe"}
+:::paragraph{nodeId="ac4ed446-f464-4ff7-bfef-2c01bad4fd68"}
+daily_limit
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="ca7bdba5-49e6-43dc-9c45-8c90a6493bef"}
+:::paragraph{nodeId="ca940452-48c3-4710-988d-fb2f39cbb4b6"}
+每日上限
+:::
+:::
+:::
+:::table_row{nodeId="180bef1e-8c52-4dea-a85a-08c7c0349593"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="9d705ff2-2471-480c-ae76-a79d554f086a"}
+:::paragraph{nodeId="cc773650-c2f3-45ac-8d28-21eab594a378"}
+continuity_required
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="94c6ab5a-f04c-4472-88a2-eff04973db72"}
+:::paragraph{nodeId="546bc18c-1f19-491f-8e3a-1ebcc926509c"}
+连续性要求
+:::
+:::
+:::
+:::
+
+:::paragraph{nodeId="47a39ab4-6e2c-4636-8cb8-9dabe4b8d7b9"}
+**奖励原子**
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="459f18ad-8c09-46ad-a9fc-f0813b7c77ce"}
+:::table_row{nodeId="2b889d14-89d2-454e-84ab-c2b654202346"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="85a19ffd-b5c2-4699-a9e7-692e372bc6dc"}
+:::paragraph{nodeId="11854d6e-551c-4b56-9286-756b1ce09948"}
+**原子**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="b9be2d6e-fdf4-42ef-9b33-5475a1a60850"}
+:::paragraph{nodeId="e96023c0-454b-4eba-a2a1-62931e4d9e54"}
+**说明**
+:::
+:::
+:::
+:::table_row{nodeId="16a9e5bf-e543-4de3-89bf-73dd5b86308a"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="4d2340c2-8e93-43a0-a628-3cb137b5a65f"}
+:::paragraph{nodeId="f7dc8cfe-5acb-41b9-916f-79f7f67927b1"}
+reward_virtual
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="f5d79391-19e9-48ec-83ad-f1a8e8128b6d"}
+:::paragraph{nodeId="7b04e947-6867-4cac-ae2d-67493a333250"}
+虚拟奖品（券/积分）
+:::
+:::
+:::
+:::table_row{nodeId="7e730268-9ca6-4013-b98d-c4a6928539f1"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="ef7ece2f-6bfb-4ec0-aae8-6c97a58e0fc4"}
+:::paragraph{nodeId="56397981-f419-410f-94fa-bcd73e5d0067"}
+reward_physical
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="3a667f64-291e-4b75-8601-3d05d7874a9c"}
+:::paragraph{nodeId="c1a6f789-92bc-438c-a0ec-3086c0c11c97"}
+实物奖品
+:::
+:::
+:::
+:::table_row{nodeId="b8fa98a7-2a2b-440d-8f18-10f10efb8f4a"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="837777bb-65ba-4d33-9cf9-aeb0b398ca7f"}
+:::paragraph{nodeId="51e6e9a4-8fdd-4f80-88bf-7d5e4ba56543"}
+reward_threshold_trigger
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="431a1294-b1e4-45d8-b438-64478691d166"}
+:::paragraph{nodeId="4cd4843d-0b5f-4810-98c7-e0b65aef6c4e"}
+门槛触发奖励
+:::
+:::
+:::
+:::
+
+:::paragraph{nodeId="3955a132-88f4-435f-b363-86bc6363177d"}
+**新增**
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="cdbb5d4f-6698-4f77-8433-9a75ef42e8cb"}
+:::table_row{nodeId="6db56ce8-3f5f-4fad-bd44-152d8ceffd7d"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="e3284c61-fc46-4626-9e77-57c612534f8c"}
+:::paragraph{nodeId="98588ffc-9bf7-40be-82e8-a79b876cde53"}
+**原子**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="fec639d0-25b0-44eb-bc94-5d7d0b046b14"}
+:::paragraph{nodeId="47b56d48-b1b3-4778-ab9a-8e0407eb5eb9"}
+**说明**
+:::
+:::
+:::
+:::table_row{nodeId="1cc82a67-53d7-4968-adc1-5d5cbf0d9691"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="9b6eca5b-fddf-49d7-aecf-23954a8cab6b"}
+:::paragraph{nodeId="bc5ba53d-1a0e-4569-9865-da9827f85dbd"}
+checkin_long_period
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="d2700f6c-f84c-4e80-b332-adb4ce80c1ef"}
+:::paragraph{nodeId="0f8cf899-1609-4c32-aa27-d5ce31560106"}
+长周期跨节气签到（LONG_PERIOD_CHECKIN类型）
+:::
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="f89aed70-d1e2-40ec-be7c-6228429c2bad"}:::
+
+:::heading{level=2 nodeId="246ae994-f793-45c3-9e69-79c97f34662f"}
+五、能力清单（MVP P0 = 13项）
+:::
+
+:::heading{level=3 nodeId="efbd684b-498c-4410-963d-a3db73546e17"}
+Step 1：意图识别
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="16dbe6d1-8ef0-4ce0-aedf-1d9669d011bf"}
+:::table_row{nodeId="21badf4a-bd85-429c-8607-fea8bb824716"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="54e01ee8-4ae7-41fa-8cdf-0f6adedf633e"}
+:::paragraph{nodeId="41f87a0a-b096-4057-8ff7-7c7d55844883"}
+**编号**
+:::
+:::
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="327b9419-e183-472b-8137-ff8940f20c63"}
+:::paragraph{nodeId="a24c5d8b-b307-4ef0-bcf7-5c628f6f973f"}
+**能力**
+:::
+:::
+:::table_header{colwidth="300" bgColor="#FFF" nodeId="75bfb07c-a2a2-40fa-bddf-7d21dcdf3395"}
+:::paragraph{nodeId="ef61c114-503a-4fa9-98ba-6f0ea3892471"}
+**优先级**
+:::
+:::
+:::table_header{colwidth="170" bgColor="#FFF" nodeId="ae1561fc-7077-4653-a5ca-36cbe660e35d"}
+:::paragraph{nodeId="7338a2c8-1c4d-418c-8e85-97626e256478"}
+**依赖方**
+:::
+:::
+:::
+:::table_row{nodeId="5d5fce7a-4d73-4819-b51b-c7e5c1a07835"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="e9653a9a-71ab-41f3-963f-3037eb309c78"}
+:::paragraph{nodeId="4f4c76b8-ef0f-45f6-9a7e-1daf666f0f5d"}
+B
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="4728985c-9e9f-4e74-b754-60d9cb9835c1"}
+:::paragraph{nodeId="e5439718-2039-45bf-a82f-1a0ace4ca00f"}
+节气时间窗口匹配
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="afd03bb8-4257-44b0-86ff-739c3cbcc19a"}
+:::paragraph{nodeId="ad8ec362-d595-4300-adb0-9434155d1c45"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="c7c8c02d-b7fd-45bd-8ed6-273a66501471"}
+:::paragraph{nodeId="a7d8562a-a368-465e-b997-de0036c7df6f"}
+日历服务
+:::
+:::
+:::
+:::table_row{nodeId="138915bf-fae8-4dd1-a685-6ae1b37b207e"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="402fdcf7-a396-4972-ae6b-cc775bca713c"}
+:::paragraph{nodeId="9dcf53ea-79f1-49c3-ae18-923b45bee7c0"}
+C
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="8d92ca8e-4dfd-4390-a4b2-73c0578ed26e"}
+:::paragraph{nodeId="8ba9a764-c9f4-420d-949e-afa2bd781db2"}
+历史签到行为读取
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="d6a45226-52a2-4d99-a6ad-b76fe5d39fab"}
+:::paragraph{nodeId="f15515a3-6faa-4ce6-97e2-aabbe07d05d7"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="3fbb05f8-7a7b-49e0-bfcb-6b946c02490a"}
+:::paragraph{nodeId="30a2a7c0-9fe9-4cdd-8d94-77eac62f2b1c"}
+新建存储
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="4e2d497f-583b-4444-9014-e8cd4008f8a0"}
+Step 2：策略引擎
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="99fd633f-24de-43c0-a5a9-553c65600e45"}
+:::table_row{nodeId="7629d52f-4c9c-4575-b75a-3cea79935c04"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="3762bce9-26d7-49eb-96ec-c5672e37f7f3"}
+:::paragraph{nodeId="e86f36ed-2b12-479c-8244-7a7b19a70bf4"}
+**编号**
+:::
+:::
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="47622cee-4dfc-47e7-a60e-9a9daa0bcb92"}
+:::paragraph{nodeId="f13e105e-5a0b-48a9-a7db-22298e313d2f"}
+**能力**
+:::
+:::
+:::table_header{colwidth="300" bgColor="#FFF" nodeId="1961d80d-7358-4231-a399-72c58405174e"}
+:::paragraph{nodeId="d9880a10-cea8-4a9b-8fef-80c39c26977c"}
+**优先级**
+:::
+:::
+:::table_header{colwidth="170" bgColor="#FFF" nodeId="df699023-0157-433d-bc2a-8dfe874882fc"}
+:::paragraph{nodeId="ca212aa3-13db-430e-898b-1f63fdb30dce"}
+**依赖方**
+:::
+:::
+:::
+:::table_row{nodeId="0e2af0a4-f24a-4117-a263-5c7602aeb978"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="3b556514-98ee-49fc-9fad-4aab1ddfe972"}
+:::paragraph{nodeId="cfdbc6cc-fce5-4fc5-9694-bdcdfba823cf"}
+F
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="587dfe76-4a90-49d6-8bd1-13eebbfdcbe2"}
+:::paragraph{nodeId="44e56941-58ca-491e-bd3b-c60df72cfd6c"}
+阶梯门槛配置
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="4a2781b4-de04-4c08-a8b2-bc7a74ef299b"}
+:::paragraph{nodeId="0541e6a9-d814-48fb-9e3e-d23448a23a49"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="b029ec9a-c51c-4ad4-a7dc-fe5ff30210e4"}
+:::paragraph{nodeId="6fa99f5d-2d8d-49cc-b426-06cb1fbc8443"}
+—
+:::
+:::
+:::
+:::table_row{nodeId="53e3a08e-1a7b-41d5-8f58-065071c46cdb"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="71320a68-15b7-4eaf-8730-cc21cec7bcd7"}
+:::paragraph{nodeId="7cddc7df-fd7a-4904-ba08-58a59b51511f"}
+G
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="71bf4945-f03d-4217-9457-4d267028c899"}
+:::paragraph{nodeId="a465a58d-77b2-4147-9a7c-752e8f61778d"}
+签到前提条件
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="04205367-620c-4509-9169-91fca531df4d"}
+:::paragraph{nodeId="fa87dfd5-fc36-4801-835f-fe134e121a7d"}
+P1（MVP不实现）
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="b4e67f1f-4aba-47f3-8640-0f22189395b8"}
+:::paragraph{nodeId="759a1e82-05ee-45c7-8148-d738522fddcf"}
+订单/分享事件
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="cfa5cb26-43cf-4782-b2bc-c338f441962d"}
+Step 3：玩法生产
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="b82f83e7-4fed-4f06-b9c8-dd79b6565a86"}
+:::table_row{nodeId="7cb96645-b9a1-4ce8-8b48-75c507e3dc35"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="70b76f98-a156-4217-b21d-7a63b370f0c7"}
+:::paragraph{nodeId="aaea281e-4742-49fd-a79d-0444f435eae4"}
+**编号**
+:::
+:::
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="922085af-7cba-4205-99db-696647045b92"}
+:::paragraph{nodeId="e3546b2e-989d-4887-9060-f4be8149a59c"}
+**能力**
+:::
+:::
+:::table_header{colwidth="300" bgColor="#FFF" nodeId="e03ea28b-27d7-4451-86ee-024b700e56b2"}
+:::paragraph{nodeId="dda2a5ff-8239-48d3-b7e8-ca0bfac29ef5"}
+**优先级**
+:::
+:::
+:::table_header{colwidth="170" bgColor="#FFF" nodeId="e928be96-9737-4ce6-aa41-e988cee9d9d6"}
+:::paragraph{nodeId="ea8cd0de-b848-4ef3-ae4f-993d24d04b37"}
+**依赖方**
+:::
+:::
+:::
+:::table_row{nodeId="8659308c-1daf-4101-ba84-153daadb1e12"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="0f35a09c-9157-44d9-b438-47a931035294"}
+:::paragraph{nodeId="4030acac-13e6-4bd0-928e-87f70dfbea27"}
+H
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="78a25fe9-d11f-42d6-a72b-2084a0dcd4f5"}
+:::paragraph{nodeId="33ee1934-f059-410f-bdbd-377b71c7276a"}
+长周期跨节气签到
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="3d08252a-b5f0-4976-bc18-4b082fbe0286"}
+:::paragraph{nodeId="f29f36fe-14e8-48c4-a239-b6111b76e4eb"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="a7be9ca8-c28f-41df-a1cc-277a2e42a228"}
+:::paragraph{nodeId="b9a3ddbc-f42c-4abc-8ebb-7324879da283"}
+新建
+:::
+:::
+:::
+:::table_row{nodeId="bcfb2cbe-8a39-433e-a03d-e1f96e1377b9"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="35e2cdff-a5a9-490b-9bbc-7d070d941b66"}
+:::paragraph{nodeId="a78bd7e0-141c-4d49-8007-a96d61d45359"}
+I
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="b9fdb74a-8071-4343-a9c5-193512b0380a"}
+:::paragraph{nodeId="1b682a3c-095e-4435-a5e5-bcb875358b92"}
+原子能力编排
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="1065d44e-66c8-4918-bc88-f405b9c9b15c"}
+:::paragraph{nodeId="a24990dc-2e86-4849-a070-a8b4e8e267fd"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="453ed909-f92f-405f-b54a-6587b42cb42e"}
+:::paragraph{nodeId="eb7ea580-a2f6-44d4-b69a-7f29a66edf39"}
+原子层
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="6c16924d-bf51-4352-98f7-a63b09aa5a2d"}
+Step 4：玩法投放
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="61774e41-f07e-47cd-9092-a1d636506227"}
+:::table_row{nodeId="07789cf1-16ba-4084-9bae-0b66e544622c"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="63aff20a-767d-4aca-ab51-75e792d340da"}
+:::paragraph{nodeId="b8271ef5-5a44-4b9b-bed2-859da97c2367"}
+**编号**
+:::
+:::
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="082ddd66-7c2a-4f87-a8ac-4dda3f806d42"}
+:::paragraph{nodeId="6af70eb0-571b-41e2-918f-1aea7baf5009"}
+**能力**
+:::
+:::
+:::table_header{colwidth="300" bgColor="#FFF" nodeId="cec945f4-34ab-4d06-9656-cabb54605696"}
+:::paragraph{nodeId="cd86af2a-2789-408b-bd91-8b85ab240eeb"}
+**优先级**
+:::
+:::
+:::table_header{colwidth="170" bgColor="#FFF" nodeId="8f27049a-8cc6-49d9-8c2d-3273c18a409e"}
+:::paragraph{nodeId="6244c305-9ee7-4e4f-a232-f7ce1ec9b3e1"}
+**依赖方**
+:::
+:::
+:::
+:::table_row{nodeId="92d7e2f5-0ee7-4580-adb2-c98546a9f77a"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="624e4854-5f06-4430-8348-76c30f98737f"}
+:::paragraph{nodeId="49141f49-ddd9-4466-8cae-a34d6dabbb70"}
+K
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="43834677-645e-4c9d-8316-31d96e755360"}
+:::paragraph{nodeId="6d0e83da-331e-44f6-8938-718be9e338c4"}
+AI玩法组件（高达侧）
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="ee20fac9-a6a0-4293-828c-a8d7d151c46a"}
+:::paragraph{nodeId="f84eae88-4669-410b-bb8d-39fd592f5266"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="7265ed76-d959-452a-b446-7d91ff98d311"}
+:::paragraph{nodeId="685cbdaa-b56e-4ec6-b5e0-64b9b44fb055"}
+高达团队
+:::
+:::
+:::
+:::table_row{nodeId="f0c81556-f110-4f41-8055-3ef3535e4805"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="3a69fedb-b8a9-44e8-8684-4e9682f933bf"}
+:::paragraph{nodeId="36d7c588-6404-417c-a7e8-2a72e786ebab"}
+L
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="4b24d112-0920-4ea5-b965-e3f626db9b80"}
+:::paragraph{nodeId="f2231c5c-46d8-4e4a-898e-a30bb22e1bb9"}
+签到地图格子渲染
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="7f16b201-2742-45ba-ab0a-f5fcef588ad9"}
+:::paragraph{nodeId="6857b4d8-915e-4edf-a7ce-a96cb2f6364f"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="3f1b2b34-ecb8-4b13-b2c5-d4537a3589bd"}
+:::paragraph{nodeId="e415c9de-476a-4d0e-91e7-c1a7fb1fe075"}
+K
+:::
+:::
+:::
+:::table_row{nodeId="7b487b4d-0214-4522-80b1-6985c93b5f6b"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="082eac61-c072-4eca-9cc2-ce10e13da0f6"}
+:::paragraph{nodeId="5ba3e5ed-d05e-4fa3-a623-1d46590ba6af"}
+M
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="be640cf7-b9e6-492d-a266-73e4077bedb9"}
+:::paragraph{nodeId="41657546-dd08-4451-b36b-d287089f94f6"}
+奖品展示区
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="113c77d7-e152-46b3-82a2-9bddad82ff64"}
+:::paragraph{nodeId="f6be6f15-007e-415b-8247-9334f26a8541"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="9908de27-6b8c-48c5-b11c-5deb3d7c3afb"}
+:::paragraph{nodeId="86f6b334-5187-40fe-8992-8bbf8cbb5260"}
+K
+:::
+:::
+:::
+:::table_row{nodeId="19fc986d-961a-4040-832a-84121080075c"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="3e1edda2-b0e8-4a40-8598-d7ca584fc91a"}
+:::paragraph{nodeId="7a14e13e-6f23-41ab-b13f-3e32a9e4c17f"}
+N
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="482e3d32-a6d2-4c84-883a-db2b96c74203"}
+:::paragraph{nodeId="a207161d-0f28-4ec3-a839-a9cceb53c644"}
+签到+奖品一体化组件
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="8cd02d68-cbdf-4fcb-96e4-d2564b904c9f"}
+:::paragraph{nodeId="7bb11897-58b9-46a0-92b6-5433e7ebfd7c"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="8c6b7119-6904-4220-b323-228fc6557d14"}
+:::paragraph{nodeId="683b6d8a-7661-4322-aa80-4a5f974d87fc"}
+K
+:::
+:::
+:::
+:::table_row{nodeId="a4534f06-226b-4d00-b59a-d85a75160474"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="16540598-08c6-4775-95d6-682118d9dc8a"}
+:::paragraph{nodeId="c5a4ba6b-903f-4a41-81cc-7998169caca6"}
+O
+:::
+:::
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="6b26943e-e10d-4a84-be2f-a5bff1418fa9"}
+:::paragraph{nodeId="6a435972-7bcb-4532-887e-017260a59f9c"}
+留资组件智能编排
+:::
+:::
+:::table_cell{colwidth="300" bgColor="#FFF" nodeId="23bfd82d-56ae-4544-93e3-57f300e02673"}
+:::paragraph{nodeId="0ea8c5cd-4414-4c6b-9a0e-a838e36dca86"}
+P0
+:::
+:::
+:::table_cell{colwidth="170" bgColor="#FFF" nodeId="40d4bad8-369a-4168-b670-1b53f4fff2f5"}
+:::paragraph{nodeId="b8fa3127-112d-43aa-83dc-e310d5ff5a4f"}
+高达留资组件
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="4a9578d1-ded8-4eb2-8e3a-41ed621de90b"}
+通用能力
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="83e17f94-b8b5-4982-b356-778f69e5a28a"}
+:::table_row{nodeId="7990db2c-5194-4b93-afea-47c0e79b4cd7"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="b658acf4-a4c0-48e9-afe9-2f183581b516"}
+:::paragraph{nodeId="7c36b987-4ce0-4d81-b1b4-a0689cb9609f"}
+**编号**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="e75baaee-8db9-4b19-acae-647ca8e2ef17"}
+:::paragraph{nodeId="efa0f77b-2a5b-439a-8767-7a6ea916c9ef"}
+**能力**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="aaae7add-c838-4753-9184-147ff910b823"}
+:::paragraph{nodeId="646732ca-ae57-4f0d-b12f-ff24f2f7baea"}
+**优先级**
+:::
+:::
+:::
+:::table_row{nodeId="65fab99c-55f9-4d3f-a04f-9040134a2abd"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="a966e67c-2c77-45c7-b28a-92429811480b"}
+:::paragraph{nodeId="b9686e26-8435-4efb-b042-2ff2b4a07141"}
+S
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="e209637b-68a1-4682-ad0b-2620bacd2bc7"}
+:::paragraph{nodeId="6cab2117-4407-4e71-ba62-cad89447545c"}
+兜底策略（4种场景）
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="e896873a-1b0c-4963-94db-0af22d2b6259"}
+:::paragraph{nodeId="e131325f-6d09-46ec-8862-b85cf0c02a86"}
+P0
+:::
+:::
+:::
+:::table_row{nodeId="85b45e9f-017a-4b86-b856-12ef2638e387"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="e6f82766-1e47-4a37-a475-649a72be5e6c"}
+:::paragraph{nodeId="1cee6e89-9112-4bbb-a5f3-7782004604c0"}
+T
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="6c6781eb-a1f3-457c-acc9-db3731337d91"}
+:::paragraph{nodeId="407211cc-dd4e-494f-a213-682ba38dc131"}
+断点续传/状态恢复
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="8ea26169-a3d3-409e-8db7-1f151fe42b7c"}
+:::paragraph{nodeId="398568df-d287-439e-a93d-dcc32635d05a"}
+P0
+:::
+:::
+:::
+:::table_row{nodeId="8c7e2a93-3460-4ad2-b590-1ab53dd3d85d"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="db02af62-61d1-46ac-a2b7-d55ca52dd458"}
+:::paragraph{nodeId="da010589-e316-4f96-923e-52cc3927dacb"}
+U
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="6046c5d6-0958-4bec-8fc1-79264b7bf649"}
+:::paragraph{nodeId="87c6a80d-6ed9-4788-b5e2-e0f2162567de"}
+埋点设计
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="62474892-e126-4fa3-9ffd-9802a1fcc9c1"}
+:::paragraph{nodeId="cf5ba6fb-aa0d-43d7-a7dc-4dd76907b004"}
+P0
+:::
+:::
+:::
+:::
+
+:::paragraph{nodeId="7a94387e-f5bc-4edd-92be-cda4387067d8"}
+MVP P0 汇总：B/C/F/H/I/K/L/M/N/O/S/T/U = 13项
+:::
+
+:::horizontal_rule{nodeId="1db6f02c-e715-433c-a5c2-b22fbad31f46"}:::
+
+:::heading{level=2 nodeId="f5448dde-e1bf-486d-b52e-fa5efb1136c7"}
+六、系统流程设计
+:::
+
+:::heading{level=3 nodeId="c8701595-efde-44e2-8bd6-11838d7557c4"}
+6.1 完整系统流程
+:::
+
+:::blockquote{nodeId="3cd9fa8c-01f5-4737-9df5-37ef05649153"}
+:::paragraph{nodeId="0758e3a5-e600-4332-841e-c08305f57c1b"}
+📌 流程图占位：[system-flow.drawio] — 完整系统流程图，请手动插入 draw.io 文件
+:::
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="439954da-9b12-4468-af68-f085f2e39a7f"}
+:::table_row{nodeId="4b982ffb-21c1-4df7-84ec-96c781ee9e8c"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="d5b49adf-c371-4f86-abfb-4ccef67d1f21"}
+:::paragraph{nodeId="0a3a935b-32a6-4249-8a79-8cf4a776229f"}
+**步骤**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="542a1b11-7acd-4f20-9c7f-ffc44b3301f6"}
+:::paragraph{nodeId="1f279a18-5866-4273-bdad-2126e2d64e0e"}
+**核心能力**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="639ea834-a237-4615-8d96-d85a17124c69"}
+:::paragraph{nodeId="8ceb82e3-2de8-445d-abb3-2aff2cb7fa54"}
+**P0项**
+:::
+:::
+:::
+:::table_row{nodeId="6b7c65f1-a58c-438b-b4b1-eca706867619"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="23559a1e-78d3-4146-8609-b2ae8b180b62"}
+:::paragraph{nodeId="67ee95f6-32e0-4dbf-9a9e-7fc9b2221f3f"}
+Step 1 意图识别
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="f669ac99-80a2-4736-8daa-43ff3889c5e2"}
+:::paragraph{nodeId="74a2a202-717d-44be-a4ae-dc0356c65bde"}
+节气窗口匹配 + 历史行为读取
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="eaf39c20-b3d2-4145-b805-af88f6528a13"}
+:::paragraph{nodeId="03099405-3828-49cc-8a6a-4a9c1b840c39"}
+B、C
+:::
+:::
+:::
+:::table_row{nodeId="1f89730c-3eed-42b0-b250-0a0320ea46da"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="7a36ad82-79a3-4aca-9398-f2b560322839"}
+:::paragraph{nodeId="118eddc8-a389-4e83-932b-9a96855d1868"}
+Step 2 策略引擎
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="e2fffaed-318d-41e3-8de4-8366e60e9301"}
+:::paragraph{nodeId="14bf7683-cb22-4642-b2c2-1b84813577a8"}
+阶梯门槛配置
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="78c7270c-acb6-44e1-8412-e95c9b9cb249"}
+:::paragraph{nodeId="2e1fc156-209e-41b6-ad9a-c3f7e3f7d3ec"}
+F
+:::
+:::
+:::
+:::table_row{nodeId="abde8615-d065-4e55-a50d-e13c6b9154f5"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="ef3cf524-8ae5-43f9-b450-bd35143175d7"}
+:::paragraph{nodeId="0a3a1e35-b641-41f5-8b1d-d0e6e07b561b"}
+Step 3 玩法生产
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="d9484491-850c-4c46-8911-4d31c937a97e"}
+:::paragraph{nodeId="2d6cb7b6-92cf-4f6f-91d7-2bc8e31050b4"}
+长周期签到 + 原子编排 → 生成玩法ID
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="3e2698c1-8a43-4883-86aa-79b0f6e12c05"}
+:::paragraph{nodeId="a474cab8-81ca-4389-b423-3b9301b36e10"}
+H、I
+:::
+:::
+:::
+:::table_row{nodeId="b8e5ddd1-955f-431a-8aca-ae05a148ec31"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="0025b8a3-c3af-42e3-be0e-7abde48dce9f"}
+:::paragraph{nodeId="200ef2b7-211c-4623-ae91-ccde666c129b"}
+Step 4 高达投放
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="dd2175c6-027a-4d71-b66b-77e41de13013"}
+:::paragraph{nodeId="5ac8f446-c7aa-401c-ae4e-be6835ec12b1"}
+AI玩法组件 + 格子/奖品/一体化渲染
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="304e2661-9465-4dcc-bce9-28604b284e36"}
+:::paragraph{nodeId="887a1d01-5132-49f3-b3af-41fe4fce1fb2"}
+K、L、M、N
+:::
+:::
+:::
+:::table_row{nodeId="9f171adf-4185-4785-b879-df0a0d2c1034"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="c322cfe1-424a-4f98-8159-2434e5d94c6e"}
+:::paragraph{nodeId="4c94676e-c7e8-42f1-83df-0b51fc47f847"}
+Step 5 资源位投放
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="f871f5d8-49d7-47be-bbaf-809d60789005"}
+:::paragraph{nodeId="88b40b4c-b136-476b-9127-76e6b7fe96a3"}
+留资编排 + 兜底/断点续传
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="652130fb-35c0-451f-bc2b-0a8dbe36a427"}
+:::paragraph{nodeId="23d82bad-2224-4b6e-8f3f-85d7ccc96076"}
+O、S、T
+:::
+:::
+:::
+:::
+
+:::paragraph{nodeId="de27b69a-30d3-4c76-baec-5f504b61e4c0"}
+数据回流：埋点(U) → 数据看板 → 漏斗分析/门槛达成率/留资转化率
+:::
+
+:::heading{level=3 nodeId="a71f8f75-84f3-4306-820e-6faf3eb15b80"}
+6.2 AI层与高达组件层对接
+:::
+
+:::blockquote{nodeId="5747e053-0e9d-493a-99b5-3e0190e1a16f"}
+:::paragraph{nodeId="d5863ffe-963a-4043-ba14-267b26cf52c5"}
+📌 流程图占位：[ai-gaoda-integration.drawio] — AI层与高达对接流程图，请手动插入 draw.io 文件
+:::
+:::
+
+:::paragraph{nodeId="84ba43a3-5ddf-4abd-abff-8b81f1138f56"}
+对接总览：运营M端创建玩法 → 生成玩法ID → AI识别实物奖品自动创建留资表单 → 配置一次性下发高达 → C端初始化查询 → 签到/领奖交互 → 留资弹窗 → 数据回流
+:::
+
+:::paragraph{nodeId="b6d42d59-7a23-4f1b-9dfd-52cd3e70475a"}
+**关键接口清单**
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="4daf2555-e86d-4506-bfb7-f0ae67621677"}
+:::table_row{nodeId="9f0f6b0e-9634-4d5c-9c67-79562a63211b"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="0d123a95-9bbb-4bfe-91ea-0c1e8a5d8a48"}
+:::paragraph{nodeId="5da4c09d-2059-4124-b3fe-cc0ef7628eba"}
+**接口**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="a13fae2e-c7f7-43da-a19b-965891d19a7e"}
+:::paragraph{nodeId="a3187549-fde2-441c-a102-bb580b856cda"}
+**方法**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="32b8f9d2-b8fc-4ddd-8195-989d36efbf6b"}
+:::paragraph{nodeId="4e024409-c79b-4fc2-85f4-27c330ad0d82"}
+**说明**
+:::
+:::
+:::
+:::table_row{nodeId="0b401649-94f9-4567-a944-a1f8958ed0bf"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="64ec82c5-559c-4cd7-a23b-af7895904f3c"}
+:::paragraph{nodeId="dddce705-fef8-43a1-8062-7f32fd0d2950"}
+留资表单创建
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="b6526bc2-856c-475e-abce-126ebdde536c"}
+:::paragraph{nodeId="7c0531c5-35d4-45eb-a059-6ae01d2a10f6"}
+POST /form/create
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="4471817c-fa5a-4a58-9d87-6ffb85c33e0b"}
+:::paragraph{nodeId="1f021640-d25e-48e6-96a5-8774057eaff8"}
+AI识别实物奖品时自动调用，返回formId
+:::
+:::
+:::
+:::table_row{nodeId="026d033f-dee1-44ef-aac6-721c8b101386"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="50dc2504-289b-4929-9d99-1cd8a80fc2e0"}
+:::paragraph{nodeId="a8ff4a13-a21d-4b92-9479-4731e55d5790"}
+配置下发
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="f91a1103-8894-4fab-9e56-4fc902e996e1"}
+:::paragraph{nodeId="10838e2f-786a-4a81-80e5-b8078552e63f"}
+POST /config
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="3f2627b8-528a-461e-8498-8fa255d97689"}
+:::paragraph{nodeId="97ff6bc4-329b-496a-ade6-666f2eb3da43"}
+传递playId+玩法配置+留资formId
+:::
+:::
+:::
+:::table_row{nodeId="7111a3d5-2ebf-437f-9834-bf19d1f6a6dc"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="dcf9c26d-d4e9-4da4-8200-ccbb469b814b"}
+:::paragraph{nodeId="7396f582-5843-48b3-9312-10cb007b4b88"}
+玩法状态查询
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="e4061088-e08d-41cb-b701-21642e833b2a"}
+:::paragraph{nodeId="ce7f037c-8e6a-4ebb-8aa7-17d6eefff835"}
+GET /api/play/{playId}/status
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="27eb288a-a8f9-4146-b1b8-b16e94529320"}
+:::paragraph{nodeId="39f0d71c-0c83-4755-bf4a-bf4ed5d4687c"}
+C端初始化时高达发起
+:::
+:::
+:::
+:::table_row{nodeId="ee794e13-617c-48e9-a034-b1b3efcd2206"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="d66cce76-1179-4c77-8db8-e8d0e996f18b"}
+:::paragraph{nodeId="784f9d96-22cf-4e13-85ea-8d41c4d4c650"}
+签到请求
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="16dff12a-aa78-4378-9b8a-87b4a716dc0e"}
+:::paragraph{nodeId="9ecc1e3d-4873-452f-b79c-5e0841abd1b0"}
+POST /api/play/{playId}/checkin
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="85416f08-037a-453b-9aa9-118e4eae38d7"}
+:::paragraph{nodeId="76b83837-1092-43d4-80e2-c0abbf822ed2"}
+返回累计次数+是否达标
+:::
+:::
+:::
+:::table_row{nodeId="8549bc45-6e87-438c-b4d8-5b178e7233e0"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="66ef8443-0ae0-4e33-bde3-6c8234ecd34f"}
+:::paragraph{nodeId="58a4abb1-17b8-4f9e-aa80-3c802ec2dfd9"}
+奖品领取
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="06fbeaae-fd83-4eca-abdd-054bd871cff2"}
+:::paragraph{nodeId="88201fb7-9289-4fe7-a144-86e04810b667"}
+POST /api/play/{playId}/reward/claim
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="2d45df8b-fd35-447d-b206-a7667236f0c6"}
+:::paragraph{nodeId="2016792e-674d-43fa-bf5e-34ae95d0506b"}
+needLeadForm=true时高达弹留资窗
+:::
+:::
+:::
+:::table_row{nodeId="03c0c6dc-354a-4d77-9d27-15a99fe6e9e1"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="1e891ba6-7ab6-4bf7-ae0c-95b3ea8a6881"}
+:::paragraph{nodeId="2188a873-9d78-4d32-aa3f-2ef293e47b7e"}
+留资数据查询
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="4a5fa7be-bfd4-459c-95de-44525a7bc525"}
+:::paragraph{nodeId="6a3e18c2-dc40-4e28-b8dd-9fe2fa0eff8a"}
+GET /api/form/{formId}/data
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="612acfe6-ab2e-4a56-aece-128f07c6023e"}
+:::paragraph{nodeId="79173a1c-a07a-401d-99ba-79903bf9f0c1"}
+运营后台查询留资信息
+:::
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="96262c79-383d-40d9-9b18-46eef4d129a3"}:::
+
+:::heading{level=2 nodeId="27176002-806e-4549-8e86-cf5db7440f25"}
+七、M端产品设计（操作台）
+:::
+
+:::paragraph{}
+本章按「AI Native 任务系统」操作台的页面维度，逐一说明M端各页面的功能需求与交互规范。操作台包含两个主Tab：「任务列表」和「信息查询」。新建任务流程为三步链路：AI对话配置 → 策略引擎生产 → 确认发布。
+:::
+
+:::heading{level=3}
+7.1 任务列表页（Tab1 默认页）
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false}
+:::table_row{}
+:::table_header{colwidth="100" bgColor="#F0F5FF"}
+:::paragraph{}
+**模块/页面**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#F0F5FF"}
+:::paragraph{}
+**原型示意图**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#F0F5FF"}
+:::paragraph{}
+**需求点**
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="100" rowspan=4}
+:::paragraph{}
+**任务列表页**
+:::
+:::
+:::table_cell{colwidth="220" rowspan=4}
+:::paragraph{}
+![任务列表页](https://km.sankuai.com/api/file/2759500322/234264578794){width=600 height=375}
+:::
+:::
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**页面布局**
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+顶部双Tab栏：「任务列表」(默认选中) / 「信息查询」，点击切换页面
+:::
+:::
+:::list_item{}
+:::paragraph{}
+搜索区：左侧搜索框（placeholder="搜索任务名称..."），支持实时模糊搜索+清空重置
+:::
+:::
+:::list_item{}
+:::paragraph{}
+右侧「+ 新建任务」主按钮（蓝色高亮），点击进入 Step 1 AI对话配置
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**任务数据表格**
+:::
+:::paragraph{}
+表头字段（左→右）：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**任务名称** `[text]`：任务标题，最大20字
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**状态** `[status-dot]`：四态圆点标识——草稿(灰#94A3B8) / 运行中(绿#22C55E) / 已暂停(橙#F59E0B) / 已结束(灰#94A3B8)
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**类型** `[tag]`：玩法类型标签，如"连续签到""消费挑战""浏览任务""集卡活动""限时秒杀"
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**创建时间** `[datetime]`：YYYY-MM-DD HH:mm 格式
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**创建人** `[text]`：创建者姓名
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**参与人数** `[number]`：当前参与人数，千分位逗号
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**完成率** `[percentage]`：已完成/总参与，百分比展示
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**奖励发放** `[ratio]`：已发放/总奖励数
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**操作** `[button-group]`：编辑 / 暂停(或启动) / 复制 / 删除
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**行操作按钮**
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**编辑** `[button]`：所有状态均可点击，进入 Step 1 编辑模式
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**暂停/启动** `[toggle-button]`：运行中→暂停，已暂停→启动，其他状态禁用(灰色不可点击)
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**复制** `[button]`：一键复制任务配置，生成新草稿
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**删除** `[button, danger]`：二次确认弹窗「确定删除此任务？」→ 确认/取消
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**空状态**
+:::
+:::paragraph{}
+搜索无结果时：居中显示「暂无匹配任务」提示文案，隐藏表格区域
+:::
+:::
+:::
+:::
+
+:::heading{level=3}
+7.2 Step 1：AI对话配置（新建任务）
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false}
+:::table_row{}
+:::table_header{colwidth="100" bgColor="#F0F5FF"}
+:::paragraph{}
+**模块/页面**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#F0F5FF"}
+:::paragraph{}
+**原型示意图**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#F0F5FF"}
+:::paragraph{}
+**需求点**
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="100" rowspan=4}
+:::paragraph{}
+**Step 1 AI对话配置**
+:::
+:::
+:::table_cell{colwidth="220" rowspan=4}
+:::paragraph{}
+![AI对话配置](https://km.sankuai.com/api/file/2759500322/234264887000){width=600 height=375}
+:::
+:::
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**页面结构**
+:::
+:::paragraph{}
+左右双栏布局：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+左栏(60%)：AI对话区
+:::
+:::
+:::list_item{}
+:::paragraph{}
+右栏(40%)：任务要素配置表单
+:::
+:::
+:::list_item{}
+:::paragraph{}
+左上角「← 返回列表」按钮回到任务列表页
+:::
+:::
+:::list_item{}
+:::paragraph{}
+顶部面包屑：Step 1/3 · AI对话配置
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**AI对话区（左栏）**
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+对话式交互界面，AI助手通过多轮对话引导运营描述活动意图
+:::
+:::
+:::list_item{}
+:::paragraph{}
+AI消息气泡(左)：蓝底白字，展示引导问题和确认信息；头部标注「● AI任务助手 · 在线」
+:::
+:::
+:::list_item{}
+:::paragraph{}
+用户消息气泡(右)：灰底黑字，展示运营输入
+:::
+:::
+:::list_item{}
+:::paragraph{}
+底部输入框 `[textarea]`：placeholder="描述你的活动任务..."，右侧发送按钮(蓝色圆形↑图标)，支持 Enter 发送
+:::
+:::
+:::list_item{}
+:::paragraph{}
+每识别一项要素，右栏对应表单控件自动填入值，左侧绿色圆点标记已收集
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**任务要素配置表单（右栏）**
+:::
+:::paragraph{}
+标题「任务要素配置」，6项核心要素，AI填入后运营可手动修改：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**活动类型** `[select]`：下拉选项（连续签到/答题/浏览/下单/助力），左侧绿色圆点表示已收集
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**目标人群** `[text-input]`：自由文本描述，如"全量用户(18-45岁)"
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**奖励方式** `[select]`：下拉选项（阶梯优惠券/积分/实物/红包）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**活动时间** `[date-range-picker]`：开始日期 ~ 结束日期，日历选择器
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**触发条件** `[text-input]`：自由文本，如"连续签到+断签重置"
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**预算上限** `[text-input]`：数字输入，带¥前缀，如"¥50,000"
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**收集进度**
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+底部进度条「已收集 N/6」，蓝色进度条填充
+:::
+:::
+:::list_item{}
+:::paragraph{}
+6项全部收集完毕后出现「生成玩法方案」主按钮（蓝色实心），点击进入 Step 2
+:::
+:::
+:::list_item{}
+:::paragraph{}
+未收集完时按钮禁用(灰色不可点击)
+:::
+:::
+:::
+:::
+:::
+:::
+
+:::heading{level=3}
+7.3 Step 2：策略引擎 → 玩法生产
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false}
+:::table_row{}
+:::table_header{colwidth="100" bgColor="#F0F5FF"}
+:::paragraph{}
+**模块/页面**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#F0F5FF"}
+:::paragraph{}
+**原型示意图**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#F0F5FF"}
+:::paragraph{}
+**需求点**
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="100" rowspan=6}
+:::paragraph{}
+**Step 2 策略引擎**
+:::
+:::
+:::table_cell{colwidth="220" rowspan=6}
+:::paragraph{}
+![策略引擎](https://km.sankuai.com/api/file/2759500322/234264579764){width=600 height=375}
+:::
+:::
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**页面结构**
+:::
+:::paragraph{}
+左右双栏布局：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+左栏：策略推理日志区（实时展示引擎推理过程）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+右栏：玩法原子配置面板（可编辑的规则树）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+左上角「← 返回对话」按钮回到 Step 1
+:::
+:::
+:::list_item{}
+:::paragraph{}
+顶部面包屑：Step 2/3 · 策略引擎 → 玩法生产
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**策略推理区（左栏）**
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**推理过程** `[typewriter]`：逐行打字机效果展示推理日志——▼ 策略推理中...，含意图识别→匹配行为原子→匹配约束原子→匹配奖励原子→推荐参数
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**关键词高亮** `[highlight]`：原子名称（signIn / time_window / threshold_ladder 等）和关键参数（金额/人群）自动高亮标记
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**折叠/展开** `[toggle]`：点击推理区标题栏 ▼/▶ 可折叠/展开推理日志
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**推理统计** `[badge]`：底部显示「推理耗时 X.Xs · 匹配 N 个原子」
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**玩法原子配置面板（右栏）——整体结构**
+:::
+:::paragraph{}
+标题「玩法原子配置」，面板分为三个 section（彩色 badge 区分）：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+🔵 **行为原子(B)**——蓝色 badge
+:::
+:::
+:::list_item{}
+:::paragraph{}
+🟡 **约束原子(C)**——黄色 badge
+:::
+:::
+:::list_item{}
+:::paragraph{}
+🟢 **奖励原子(R)**——绿色 badge
+:::
+:::
+:::
+:::paragraph{}
+三个 section 之间有悬浮的「且/或」连接符，绿色=且(AND)、橙色=或(OR)，点击可切换逻辑关系
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**行为原子(B) 配置**
+:::
+:::paragraph{}
+**signIn** 原子卡片：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**原子类型** `[readonly-tag]`：`signIn` 标签（灰底code样式）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**签到类型** `[select]`：连续签到 / 累计签到 / 单次签到
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**目标天数** `[number-input]`：输入框，单位"天"，如"7"
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**约束原子(C) 配置**
+:::
+:::paragraph{}
+4个子原子行，每行左侧有 `code` 标签标识原子名：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**time_window** `[date-range-picker]`：时间窗口，活动起止日期选择器
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**threshold_ladder** `[text-input]`：阶梯设置，如"1, 3, 5, 7"天
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**cycle_period** `[select]`：循环周期——每日重置 / 每周重置 / 不重置
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**continuity** `[toggle + text]`：需连续开关(ON/OFF) + 说明文案"断签重置进度"
+:::
+:::
+:::
+:::paragraph{}
+底部「+ 添加约束条件」`[button, dashed]`
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**奖励原子(R) 配置 & 底部操作**
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**reward_slot × N** `[input-group]`：每个 slot 含奖品名称 `[text]` + 库存数量 `[number]`
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**threshold_trigger** `[readonly-tag]`：阶梯关联展示，只读
+:::
+:::
+:::list_item{}
+:::paragraph{}
+底部「+ 添加奖励规则」`[button, dashed]`
+:::
+:::
+:::
+:::paragraph{}
+页面底部操作：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+「确认方案并发布」`[button, primary, full-width]`：蓝色实心大按钮，校验通过后进入 Step 3
+:::
+:::
+:::list_item{}
+:::paragraph{}
+「← 返回对话」`[button, text]`：文字链接，回到 Step 1
+:::
+:::
+:::
+:::
+:::
+:::
+
+:::heading{level=3}
+7.4 Step 3：确认发布
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false}
+:::table_row{}
+:::table_header{colwidth="100" bgColor="#F0F5FF"}
+:::paragraph{}
+**模块/页面**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#F0F5FF"}
+:::paragraph{}
+**原型示意图**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#F0F5FF"}
+:::paragraph{}
+**需求点**
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="100" rowspan=3}
+:::paragraph{}
+**Step 3 确认发布**
+:::
+:::
+:::table_cell{colwidth="220" rowspan=3}
+:::paragraph{}
+![确认发布](https://km.sankuai.com/api/file/2759500322/234265067554){width=600 height=375}
+:::
+:::
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**成功标识**
+:::
+:::paragraph{}
+居中卡片布局：顶部绿色圆形对勾图标 ✅ + 大标题「任务创建成功！」
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**任务摘要卡片**
+:::
+:::paragraph{}
+居中浅灰底卡片，两列布局（label: value），展示确认信息：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+任务名称（如"夏日签到乐"）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+任务类型（如"连续签到"）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+活动时间（如"2026-05-20 ~ 2026-06-05"）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+目标人群（如"全量用户"）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+奖励方式（如"阶梯优惠券（5/10/15/30元）"）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+预算上限（如"¥50,000"）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+状态：● 运行中（绿色圆点+文字）
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**返回操作**
+:::
+:::paragraph{}
+「← 返回任务列表」`[button, primary]`：蓝色实心按钮，返回后列表自动新增刚创建的任务记录
+:::
+:::
+:::
+:::
+
+:::heading{level=3}
+7.5 信息查询页（Tab2）
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false}
+:::table_row{}
+:::table_header{colwidth="100" bgColor="#F0F5FF"}
+:::paragraph{}
+**模块/页面**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#F0F5FF"}
+:::paragraph{}
+**原型示意图**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#F0F5FF"}
+:::paragraph{}
+**需求点**
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="100" rowspan=6}
+:::paragraph{}
+**信息查询页**
+:::
+:::
+:::table_cell{colwidth="220" rowspan=6}
+:::paragraph{}
+![信息查询](https://km.sankuai.com/api/file/2759500322/234264947769){width=600 height=375}
+:::
+:::
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**查询条件区**
+:::
+:::paragraph{}
+三个并排输入框 + 两个操作按钮：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**用户ID** `[text-input]`：placeholder="请输入用户ID"
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**手机号** `[text-input]`：placeholder="请输入手机号"
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**用户昵称** `[text-input]`：placeholder="请输入用户昵称"
+:::
+:::
+:::list_item{}
+:::paragraph{}
+支持任意单个或多条件组合查询。输入框内回车 = 点击「查询」
+:::
+:::
+:::list_item{}
+:::paragraph{}
+「查询」`[button, primary]`（蓝色实心） + 「重置」`[button]`（灰色描边），重置清空所有输入并隐藏结果区
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**加载状态**
+:::
+:::paragraph{}
+查询中显示 loading 动画 + 「正在查询用户信息...」提示文字
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**用户信息卡**
+:::
+:::paragraph{}
+展示查询到的用户概况：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+用户ID / 昵称 / 手机号（中间4位脱敏 `138****6789`） / 注册时间
+:::
+:::
+:::list_item{}
+:::paragraph{}
+用户标签 `[tag-group]`：彩色 tag 展示，如"活跃用户"(蓝) / "高频签到"(绿) / "美食达人"(橙)
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**任务筛选 & 参与任务明细表**
+:::
+:::paragraph{}
+「参与的任务」标题右侧 `[select]`：全部/进行中/已完成/已过期，切换即时过滤下方表格。
+:::
+:::paragraph{}
+表头字段：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**任务名称** `[text]`
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**状态** `[status-dot]`：进行中(绿)/已完成(蓝)/已过期(灰)
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**类型** `[tag]`：连续签到/消费任务/限时活动/打卡活动等
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**任务周期** `[date-range]`：M.DD - M.DD 格式
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**进度** `[progress]`：N/M天(或N/M笔订单) + 百分比
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**奖励获取** `[text]`：如"2已领/1待达成""3已领"
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**操作** `[button]`：「详情」蓝色文字链接
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**展开详情**
+:::
+:::paragraph{}
+点击「详情」展开行内子区域：
+:::
+:::ordered_list{}
+:::list_item{}
+:::paragraph{}
+**奖励明细子表**：奖励名称 / 内容 / 状态（已领取 ✅ / 待达成 ⏳）
+:::
+:::
+:::list_item{}
+:::paragraph{}
+**签到记录**：日期序列（✅ 已签 / ⬜ 未签），横向排列
+:::
+:::
+:::
+:::
+:::
+
+:::table_row{}
+:::table_cell{colwidth="430"}
+:::paragraph{}
+**汇总统计行**
+:::
+:::paragraph{}
+底部一行汇总：参与任务总数 | 进行中: N | 已完成: N | 已过期: N | 累计奖励: N项(已领M/未领K)
+:::
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="d9625884-da33-4d27-ba40-1427b2b1e15a"}:::
+
+:::heading{level=2 nodeId="a6294b8c-667c-4117-b7c8-012d889c0d0e"}
+八、C端渲染规范
+:::
+
+:::heading{level=3 nodeId="d2d9f63c-8052-4913-a3d2-6205dd220135"}
+8.1 签到格子4态状态机
+:::
+
+:::blockquote{nodeId="22ce513c-9697-40ab-b5b9-2a358af182b7"}
+:::paragraph{nodeId="75048838-1674-46b5-8956-98c67e50d564"}
+📌 流程图占位：[signin-state-machine.drawio] — 签到格子4态状态机图，请手动插入 draw.io 文件
+:::
+:::
+
+:::paragraph{nodeId="f6ed6f0c-cdfe-4926-8b24-5f30e5c76922"}
+状态转换：NOT_STARTED —[窗口开启]→ CAN_SIGN —[签到成功]→ SIGNED / —[窗口关闭未签]→ EXPIRED
+:::
+
+:::paragraph{nodeId="6dbc1d4e-7b1f-4bb8-8611-7aae310e8747"}
+约束：单向转换，无逆向。SIGNED和EXPIRED为终态。
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="d49547df-bc8a-4b72-8cbb-1e449b858325"}
+:::table_row{nodeId="29030b61-c670-488a-98ed-1ce061d6cd02"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="a04fdbb6-52c0-4572-8959-d1c084c34331"}
+:::paragraph{nodeId="21c8898a-7b8d-4775-99e6-6202732a8be9"}
+**状态**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="115a404a-4abe-4796-8c64-f73886b1ad45"}
+:::paragraph{nodeId="bba8dc15-7f6b-4047-ab30-c23feb241f7b"}
+**视觉**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="5849d46f-3e02-432e-a876-675cdc5f81a6"}
+:::paragraph{nodeId="3e0dc081-d80a-4fc8-9fc7-d3ea3da86acf"}
+**交互**
+:::
+:::
+:::
+:::table_row{nodeId="774cccfc-2bc0-4496-963c-b2d192da7c17"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="3029791a-3373-4016-b015-d297f59f4d97"}
+:::paragraph{nodeId="b5418a41-f780-4c9c-b1d7-8780a5f5b180"}
+NOT_STARTED
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="ddc6b971-4ee9-477d-942f-b421b32da82d"}
+:::paragraph{nodeId="6318c1a6-6aa1-44de-9502-deac258d1e35"}
+灰色锁定，显示节气名
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="c4d7a11f-0499-4733-9564-228f7fca0b7a"}
+:::paragraph{nodeId="d5c1df13-64c8-4878-a653-1eeb3c913be1"}
+不可点击
+:::
+:::
+:::
+:::table_row{nodeId="9f849057-e3ae-4e1a-886a-c354091e5c1d"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="95f284b1-0f69-4f86-9868-7d20c22f8ff1"}
+:::paragraph{nodeId="5afaba49-0168-40f7-b854-866f4e17439b"}
+CAN_SIGN
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="e8122136-1059-4678-a47a-6fb40f2dc32a"}
+:::paragraph{nodeId="7c5e907e-672d-406d-b426-1297f4364f3f"}
+高亮+呼吸动效
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="25f0e777-2c78-4c0e-a3ac-f3b0ce7b0b76"}
+:::paragraph{nodeId="c2160c32-7388-4a63-8ade-34a778f30e21"}
+可点击签到
+:::
+:::
+:::
+:::table_row{nodeId="2c49363c-0d4c-4142-8f84-3951ca478686"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="5ac1bd8b-4b05-4130-82a4-62ddfe826e67"}
+:::paragraph{nodeId="d2eae820-b4ff-4d4e-98ce-c40e9321ac22"}
+SIGNED
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="a854b648-0cdf-4be4-a164-6cbe4d820e43"}
+:::paragraph{nodeId="609c1f1d-f7bc-4141-8e89-a6f2e9fec273"}
+打勾+品牌色填充
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="2f6cb13d-e213-4be6-a96e-37f9017871cf"}
+:::paragraph{nodeId="a6b7f79d-c2de-4082-a4cf-2fa94384fa51"}
+不可点击
+:::
+:::
+:::
+:::table_row{nodeId="4cda43a1-e72d-4e26-ba49-6c86386cfc6d"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="1e85eb6d-76b6-48fd-9713-d0afd76c7355"}
+:::paragraph{nodeId="f47184b5-5f9f-454c-ac2e-89b945498f24"}
+EXPIRED
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="143de543-2d1f-4b1e-9644-ce259d6fd79d"}
+:::paragraph{nodeId="8321bcc9-a5b4-4972-91ff-5ec29c878447"}
+灰色+已过期
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="0ef82999-84db-4fe4-aee2-aab704889dff"}
+:::paragraph{nodeId="228a1438-0587-4339-9351-9408a33fd7cb"}
+不可点击
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="1010ceb3-b4cf-4b5e-8317-bf657c2da002"}
+8.2 奖品展示区
+:::
+
+:::bullet_list{indent=0 nodeId="10227eb5-9874-490d-badf-117889f9aa79"}
+:::list_item{level=0 hidden=false nodeId="29c3640d-4144-4c72-9856-5b55c9329829"}
+:::paragraph{nodeId="f7127cb8-5b33-4487-913f-5c373f35c756"}
+位置：签到格子区上方
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="c5df0372-c3b0-4992-9faa-2eb477b092db"}
+:::paragraph{nodeId="9f5a2ed7-a0c6-4962-a641-5385c321b9f9"}
+布局：≤4个均分居中，>4个横滑
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="5bef9b16-8c84-4f9c-a01d-b274d94db2c7"}
+:::paragraph{nodeId="e90d8abf-be95-431d-a500-07164901c12a"}
+状态：LOCKED（灰色）/ CLAIMABLE（高亮+领取按钮）/ CLAIMED（已领取）
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="f5f4b00f-ea31-497a-82d8-ade7edb0d29d"}
+8.3 留资弹窗
+:::
+
+:::bullet_list{indent=0 nodeId="d179075a-644e-4a83-bc71-95e4e979e518"}
+:::list_item{level=0 hidden=false nodeId="28b0afd6-6d76-452f-a8c5-e65a2a379347"}
+:::paragraph{nodeId="55914e87-3782-46c0-85de-6f583aecd538"}
+触发：达到实物奖品门槛后自动弹出
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="83f0d56e-c1c7-4691-9f26-8401d6f130b2"}
+:::paragraph{nodeId="b8fb9b1f-2d2e-4b6a-be44-39ad82b515c4"}
+字段：姓名（必填）/ 电话（必填，11位校验）/ 地址（必填）
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="d94f8502-afc3-4398-bfbb-25e11fd09703"}
+:::paragraph{nodeId="a47d41a2-dc66-422a-bc81-90a45800ce1c"}
+提交后：toast提示留资成功
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="01d3a6af-2440-4079-8143-4e0daac6cd0f"}
+8.4 兜底文案
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="1d4a5e7b-8793-477b-ae2f-3556df26256c"}
+:::table_row{nodeId="95c66ca5-7b82-4838-8144-518e7d12d37a"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="9def9ac6-aa74-48c5-9aa2-93065441fc7f"}
+:::paragraph{nodeId="74d70697-a638-4fa2-8506-a74d87e079e0"}
+**场景**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="b424773a-129b-4438-b7aa-be93893acffd"}
+:::paragraph{nodeId="e7aed6c9-ea1b-429a-9004-b18b8b76ee48"}
+**文案**
+:::
+:::
+:::
+:::table_row{nodeId="fdc7224e-1d6e-466c-917f-ed30008b93c3"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="838ba980-a5a8-4ca9-93e7-da94dddba684"}
+:::paragraph{nodeId="ac199e25-7207-411a-a175-ac6f58d9ed8e"}
+未开始
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="89edc813-f923-4a69-88f2-c75d33a22f05"}
+:::paragraph{nodeId="cacc8df8-dc89-45c1-90c1-6bc34863a73f"}
+活动即将开始，敬请期待
+:::
+:::
+:::
+:::table_row{nodeId="131bd0c6-a417-4bff-8e8e-9ac301c20058"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="e27f7e96-ebee-45cd-9985-c175e0ffa7c7"}
+:::paragraph{nodeId="2f28112a-a34f-4a9c-a98e-343bde0a1da9"}
+已结束
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="51d13d6d-67db-4c92-9877-adbda46a7c92"}
+:::paragraph{nodeId="5e908fae-6901-4ae2-ace9-b6e7b2e666cb"}
+活动已结束，感谢参与
+:::
+:::
+:::
+:::table_row{nodeId="69d0d8a7-0ec3-4ea7-ab0b-ab6195e8d266"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="256bcf26-1dbd-4b4e-8b58-573a44dec5ab"}
+:::paragraph{nodeId="0efd7cbd-1f59-4235-abb7-da612aa8a28b"}
+不可参与
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="0ac1aae0-2498-4075-957c-c42b4aed1d31"}
+:::paragraph{nodeId="5768f9f1-8650-4bb4-b676-e1c1a406c6c9"}
+暂不符合参与条件
+:::
+:::
+:::
+:::table_row{nodeId="14306d52-58c3-42a4-a482-c91a4b7f2293"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="afeb3b4d-0b0d-4481-abb8-ea7dc9ff2e73"}
+:::paragraph{nodeId="78d28aca-76e3-47b6-837c-c30f9752ff39"}
+网络异常
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="71fbf3ac-87cf-4d31-a732-ef27d2a4505e"}
+:::paragraph{nodeId="1dfba9c2-7d9a-4a37-ba20-1b3be48e460c"}
+网络开小差了，请稍后重试
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="4aab91d1-782c-4f82-97fb-410eb539a4a6"}
+8.5 断点续传
+:::
+
+:::paragraph{nodeId="926c897f-4aaf-4dd9-920c-d3729e6c8be2"}
+页面加载 → 拉取用户全量签到状态 → 找到当前节气窗口 → 跳过已完成节气 → 恢复到正确状态节点。中途退出再进入，所有已签/已过期/已领奖状态保持不变。
+:::
+
+:::horizontal_rule{nodeId="7f884cf9-cef9-4a36-9fbc-b08829c49b6e"}:::
+
+:::heading{level=2 nodeId="7b911321-662a-432b-8bb4-195acb8154e6"}
+九、接口契约
+:::
+
+:::heading{level=3 nodeId="aa294f37-0e6d-40d8-8077-562890d5118b"}
+9.1 玩法查询
+:::
+
+:::paragraph{nodeId="3f4fae2f-f785-4f8d-826e-33d97d0fa941"}
+GET /api/play/{playId}/status?userId={userId}
+:::
+
+:::paragraph{nodeId="c658c7e2-e588-426a-a599-9ffe7a985cef"}
+返回：taskList（每个节气格子状态）、totalSignedCount、rewardList（含领取状态）
+:::
+
+:::heading{level=3 nodeId="84a6738b-1870-48bf-b667-503c122c142b"}
+9.2 签到
+:::
+
+:::paragraph{nodeId="10d42f1a-d852-43ed-93b5-b12cfc9d7811"}
+POST /api/play/{playId}/checkin
+:::
+
+:::paragraph{nodeId="9a4f911b-ac28-45e4-aa96-e633f98bb25c"}
+Request: { userId, taskIndex } → Response: { success, totalSignedCount, thresholdReached, unlockedRewardId }
+:::
+
+:::heading{level=3 nodeId="03d47d1f-b4ea-444d-afdc-1788a60e3e48"}
+9.3 奖品领取
+:::
+
+:::paragraph{nodeId="ec0ec5e1-fdea-4505-8cae-410c94efe4a2"}
+POST /api/play/{playId}/reward/claim
+:::
+
+:::paragraph{nodeId="5d5ebd5c-b065-44af-b8c7-e0dfdd915ddc"}
+Request: { userId, rewardId } → Response: { success, claimToken, needLeadForm, formId }
+:::
+
+:::paragraph{nodeId="32e9857e-75a0-49d4-8e9e-6e27e527c690"}
+needLeadForm=true时，高达前端根据formId调用留资组件弹窗
+:::
+
+:::horizontal_rule{nodeId="d54b708c-387d-493a-9407-f0cbb8e4c21f"}:::
+
+:::heading{level=2 nodeId="868b6846-968d-4a3b-86b6-204412d3ae97"}
+十、埋点设计
+:::
+
+:::heading{level=3 nodeId="83a7e84d-4f66-440f-bfb9-7b8378ed2e02"}
+10.1 公共字段
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="2e182526-6954-47e5-b941-bba9a74a3853"}
+:::table_row{nodeId="bf6693ad-436e-4758-9422-a315e850c4f7"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="e032d4bf-8560-4295-a24b-953824c3119a"}
+:::paragraph{nodeId="6a500dfa-a4db-437a-a2ae-b6d8277b9f26"}
+**字段**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="30661e1c-9807-43f7-ae4b-64496df03ae7"}
+:::paragraph{nodeId="6fe7836f-c574-4595-9334-fe6d519ae31d"}
+**说明**
+:::
+:::
+:::
+:::table_row{nodeId="c9641308-f3a1-4762-afa4-fd9853bd0a1b"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="d2b4df90-0b92-4cd7-94f8-98db123b37ca"}
+:::paragraph{nodeId="8ed4ae21-8998-4dc9-a216-c3d93f8b9f17"}
+bid
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="b1f27391-b2e9-4e87-a417-bc4baf87ff81"}
+:::paragraph{nodeId="6a9a9c8c-c412-4ea1-a0a2-d67a794b7217"}
+业务ID
+:::
+:::
+:::
+:::table_row{nodeId="65247a0a-c754-42b5-a964-101fafb3bb5e"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="cd6dfc28-f381-48e6-b579-88e58f008185"}
+:::paragraph{nodeId="70b4c06c-3131-4d9a-aee5-913aae9f0134"}
+cid
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="92174680-d154-4776-8b0d-c25ee018fcd1"}
+:::paragraph{nodeId="c34b10db-fccc-4fb0-940d-961c66d1d246"}
+组件ID
+:::
+:::
+:::
+:::table_row{nodeId="8dc22a48-87ae-4719-8007-038f1b2f3344"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="13ced19d-fb7d-4acd-afec-47172f46f5f7"}
+:::paragraph{nodeId="35059b3e-987e-4de9-87a3-7ddbcd1f1822"}
+platform
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="2a66f6e5-d5ec-4288-8c8a-52eb70e03523"}
+:::paragraph{nodeId="3ac84cce-718d-475d-ad36-0017096318c3"}
+APP / H5 / 小程序
+:::
+:::
+:::
+:::table_row{nodeId="873f9023-ff74-4d58-9a5a-a36dc563c724"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="4a7773f4-3e22-4006-8bb7-8b06b7b3817c"}
+:::paragraph{nodeId="1fe406f1-4c5e-499f-bb1d-a465916753b0"}
+deviceId
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="ffce8855-0e36-4a0c-aaf7-607fb90c31a8"}
+:::paragraph{nodeId="9ec664c6-990f-4efb-9e27-f64a0a30630f"}
+设备标识
+:::
+:::
+:::
+:::table_row{nodeId="25a5d1cb-14c5-4c5a-8300-10249273800d"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="c946867c-23b8-4b92-91c9-9c81e7766f73"}
+:::paragraph{nodeId="c8f2c023-5368-4615-b557-cf006622f64a"}
+sessionId
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="4114b2c5-b429-4303-b964-af1e754c7674"}
+:::paragraph{nodeId="cda51d15-35c4-4841-9076-3863ffdeaa6d"}
+会话标识
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="b9d95fd5-09dd-47af-adf8-112bb06cd9bb"}
+10.2 事件清单
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="6640a3d6-35e1-41f1-a420-5366ec6ebe87"}
+:::table_row{nodeId="a6a4bf38-448b-47f9-b8cb-a5685aee752f"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="0e51aae6-ea8e-4138-a4a6-c23b93eb2981"}
+:::paragraph{nodeId="35ac3fae-645e-46ef-b71e-357b7a46acec"}
+**事件**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="926d1b55-f222-4567-aefd-e5bf9288bc52"}
+:::paragraph{nodeId="f4d62b46-3726-45db-88ce-7524e47dc465"}
+**触发时机**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="4c6983d4-8c15-4a82-b9ad-f8d551e1d422"}
+:::paragraph{nodeId="1e4915a5-5e34-4103-98df-eaad1c251284"}
+**专属字段**
+:::
+:::
+:::
+:::table_row{nodeId="637db643-4fbc-4ed1-b779-ebb73c386855"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="9c055699-030c-417f-b3b9-908a6d1c5fe8"}
+:::paragraph{nodeId="e74ddf19-a5da-45de-b9cf-fb0a10dd2776"}
+page_view
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="e93fc06a-6420-4e4a-9f34-59285304c0b6"}
+:::paragraph{nodeId="2dab4091-8fa5-4250-b6bf-d2c74cfe62c6"}
+进入签到页
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="cada8f38-d567-42a8-a164-75789ac9a7f9"}
+:::paragraph{nodeId="543bf92f-4366-45ff-92ac-c4a559468141"}
+playId, userId, solarTerm
+:::
+:::
+:::
+:::table_row{nodeId="fb4262db-676e-450a-9eac-dcd9ffbf3261"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="96d10cbd-9ff2-4ed3-8866-2f62248d9b77"}
+:::paragraph{nodeId="cfc388db-a285-430b-bb0e-20649e5ec32c"}
+checkin_click
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="35e83366-8e77-49e2-898f-76f818e29e7d"}
+:::paragraph{nodeId="4b2bcc5a-d607-46c9-9bc6-7c43be3f491c"}
+点击签到格子
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="130d1f52-25f7-476d-a0b1-08fa8731e957"}
+:::paragraph{nodeId="7a5c46f0-b98a-41bd-885f-fd7e740cca97"}
+playId, taskIndex, status
+:::
+:::
+:::
+:::table_row{nodeId="46e40960-817b-49d0-9ef5-a62b596d04b6"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="160f047c-2086-44b5-9e2e-3c9ad818eec8"}
+:::paragraph{nodeId="5e844840-b24e-4e3a-8970-4ec59aa247b7"}
+checkin_success
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="1b9839a6-a436-4696-9dff-f9e430d503ac"}
+:::paragraph{nodeId="5e84139f-4f65-41a0-ab97-e2430faddbec"}
+签到成功回调
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="e697e022-2f0f-4136-a4b2-5d43c5a246e0"}
+:::paragraph{nodeId="471b998a-6e2b-4498-978c-b6358e9053ff"}
+totalCount, isThresholdReached
+:::
+:::
+:::
+:::table_row{nodeId="815ec5d7-0172-45ba-bdda-08bbd244a716"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="6188e2d7-b8fa-4e2d-9c10-ff5ce17e0f01"}
+:::paragraph{nodeId="0a1f6d1d-d0a5-45a9-bfdf-e7004a5dd0d8"}
+reward_claim
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="96c71ca8-1694-4d7a-a377-4985491d7a66"}
+:::paragraph{nodeId="95b351f7-b9d3-4419-ae8b-7e167d591f3c"}
+点击领取奖品
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="6b46bf47-d029-4ddf-8a1b-ff38886a9d18"}
+:::paragraph{nodeId="e7502eaf-a6e9-4441-a696-ddc820418dd1"}
+rewardId, rewardType, threshold
+:::
+:::
+:::
+:::table_row{nodeId="2dc89bc2-d756-4ed2-a3c2-e4979c961d18"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="3e762e1c-53c6-4590-9649-a6d579471d8e"}
+:::paragraph{nodeId="817d823b-6517-4db7-8358-582ac7f4c760"}
+lead_form_submit
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="c1f3905d-5cbb-4fb2-a1da-c1de364f8ab2"}
+:::paragraph{nodeId="4a1536eb-fe24-4257-98a9-61a6ee0b1ab8"}
+提交留资表单
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="0fd5a7ad-8b78-4842-a4e9-c84bdb7edabe"}
+:::paragraph{nodeId="4943eb1b-5e6b-4561-b356-0d89827b82ba"}
+formFields(加密)
+:::
+:::
+:::
+:::table_row{nodeId="32e6427b-513d-4882-a216-74a1de71ae26"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="5941ef39-207f-4e7c-a2b9-6d9257fcedfc"}
+:::paragraph{nodeId="53a1bf9f-faea-49cb-afae-1924f150dcce"}
+share_click
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="cc5e4b43-4380-429b-976e-b2ca9c093e09"}
+:::paragraph{nodeId="1c8534a4-cffb-4bdc-828a-7bebb81c9081"}
+点击分享
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="ce76dcd2-6bee-4eb2-8ff9-a20c8eed6fac"}
+:::paragraph{nodeId="8f60af9b-4697-47f4-9a6d-fbde8d3aba7b"}
+shareChannel
+:::
+:::
+:::
+:::
+
+:::heading{level=3 nodeId="971a11b3-3804-4e31-9c68-b657db4885a2"}
+10.3 数据应用
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="20faabbf-83c0-4bdf-a6bd-93248d66ab1b"}
+:::table_row{nodeId="ea76ff19-218a-4ab5-84f7-bc1effca85d8"}
+:::table_header{colwidth="100" bgColor="#FFF" nodeId="af81c665-fb45-4ccd-87f4-d56d61cc9f45"}
+:::paragraph{nodeId="de4f838a-08bf-4358-90f8-0942541705a6"}
+**场景**
+:::
+:::
+:::table_header{colwidth="430" bgColor="#FFF" nodeId="49364bef-8e19-4a2f-8d38-632008db4c4f"}
+:::paragraph{nodeId="c71dabb9-c16c-4735-976a-deb94778029a"}
+**数据来源**
+:::
+:::
+:::table_header{colwidth="220" bgColor="#FFF" nodeId="c69cb694-14d1-46ed-8bfb-e029ecbed022"}
+:::paragraph{nodeId="964e1f26-81f6-415f-b2e6-4b81ac548216"}
+**产出**
+:::
+:::
+:::
+:::table_row{nodeId="7c5a2ad9-6d44-4c59-9a5c-8e8c58fe122f"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="2bd69c65-c8ca-4913-9e6f-11cb43473a4d"}
+:::paragraph{nodeId="c7d41632-e38d-4447-acde-afa6d66664a2"}
+签到漏斗
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="c7a9bda1-ec19-48bf-befe-c34a9f47c852"}
+:::paragraph{nodeId="af4a07d3-f1b9-43d4-8961-a536427ee58f"}
+page_view→click→success
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="edc682a4-723e-4e0a-ad54-92c7e5d06699"}
+:::paragraph{nodeId="ac03c457-84df-4353-9e0e-c8764780558f"}
+各环节转化率
+:::
+:::
+:::
+:::table_row{nodeId="059f5578-2e07-4752-a636-544e32781097"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="c3878174-22e9-46cc-9297-ab2b968a7907"}
+:::paragraph{nodeId="35af94c9-4887-4ab8-a701-aea7eca361aa"}
+奖品效果
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="5c69568b-56a3-4876-9c71-df303e2d81c7"}
+:::paragraph{nodeId="35e68b5e-f99a-49f2-9ff4-633e9cdb51fa"}
+success→claim
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="311985b0-d8b1-4ea9-83ab-aa352d829ddc"}
+:::paragraph{nodeId="c2d376b6-eeaf-4499-b601-b882a8f395d6"}
+门槛达成率×领取率
+:::
+:::
+:::
+:::table_row{nodeId="fe9666a9-605c-4713-a555-03cba212e195"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="ccd0367c-a478-4c50-b82c-9d08413bb0c2"}
+:::paragraph{nodeId="764bbe9a-2494-446f-9561-ee9566d23ebb"}
+留资转化
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="e300a121-496f-4278-ade3-3077de5dc670"}
+:::paragraph{nodeId="e744581e-bd06-47bb-8e95-9988bd5a11a8"}
+claim(PHYSICAL)→submit
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="d5dae2eb-b963-4016-b6ff-a89902da684c"}
+:::paragraph{nodeId="9ccb02d4-ad27-43ce-a3cc-0e2794a6ebbe"}
+留资完成率
+:::
+:::
+:::
+:::table_row{nodeId="f5d33094-1f17-46e6-996b-8d76df83c513"}
+:::table_cell{colwidth="100" bgColor="#FFF" nodeId="606b85f8-05e0-4a53-ab08-71c0f22ed3e8"}
+:::paragraph{nodeId="6659f090-2a96-4ac0-85c5-d1c9d1ae9867"}
+分享裂变
+:::
+:::
+:::table_cell{colwidth="430" bgColor="#FFF" nodeId="c4602df8-ab99-412b-91d7-74ddbf768402"}
+:::paragraph{nodeId="e21894f8-b8ff-497b-af4e-f704456a4417"}
+share_click+新用户归因
+:::
+:::
+:::table_cell{colwidth="220" bgColor="#FFF" nodeId="efaee0c1-98c1-441e-a95c-2be2538493e5"}
+:::paragraph{nodeId="797e72db-976f-4214-bca9-f864d7e3617a"}
+新增UV
+:::
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="e2e36fb9-f182-421b-8310-f38216ceff34"}:::
+
+:::heading{level=2 nodeId="00d41ee8-f4c6-488a-a808-7977f2014397"}
+附录：术语表
+:::
+
+:::table{borderColor="#dddddd" borderStyle="solid" borderWidth=1 responsive=false nodeId="22dd0852-b556-44bb-b340-3b686aea303e"}
+:::table_row{nodeId="0083841d-9c07-426a-bde1-daa57fecdfdb"}
+:::table_header{colwidth="180" bgColor="#FFF" nodeId="9c0fd42d-2566-4196-b04b-61136b718b6e"}
+:::paragraph{nodeId="2eebcad8-8377-4eb6-9085-cf4966d69d6b"}
+**术语**
+:::
+:::
+:::table_header{colwidth="570" bgColor="#FFF" nodeId="a72e28e3-0436-4e1b-a50f-a5d200d1dade"}
+:::paragraph{nodeId="55038b2b-19f0-41f4-81fb-7b589553aa16"}
+**含义**
+:::
+:::
+:::
+:::table_row{nodeId="6acf2af8-284a-4919-b129-4c997d59ffa6"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="a08e689e-8fbc-4d17-9e5d-cd319ba70686"}
+:::paragraph{nodeId="38250611-b4af-4d28-b1b3-93a749414131"}
+高达
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="de282c19-9cfe-46c6-9377-6a18fe3361e0"}
+:::paragraph{nodeId="2080bee4-5801-45d1-bbed-8d744ddc1775"}
+美团搭建平台
+:::
+:::
+:::
+:::table_row{nodeId="88b5e978-16eb-4ceb-8e45-6108de9e6373"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="921779a9-5c33-4f87-86f0-880049a96601"}
+:::paragraph{nodeId="56496a6b-7e75-4046-a691-c217a0ac07ed"}
+玩法ID
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="c97f76c1-2b6a-4e05-95a5-8f76bd0e0e4a"}
+:::paragraph{nodeId="e8f59ee2-819b-45e4-8fdb-ae3f3b2b2a21"}
+任务中心唯一标识，串联M端配置和C端渲染
+:::
+:::
+:::
+:::table_row{nodeId="ab7865c2-4c74-4171-a03e-96e6b766f036"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="88deb944-fa3d-4683-a30d-d36bfc89f103"}
+:::paragraph{nodeId="c87c8fe8-9bee-433e-9086-5fd1e13a8d60"}
+LONG_PERIOD_CHECKIN
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="2ceeead4-a332-438d-a4f8-ec701675b3ce"}
+:::paragraph{nodeId="aee42b73-6db7-4da4-86e5-e8f9bff39a90"}
+新增玩法类型，跨期累计签到
+:::
+:::
+:::
+:::table_row{nodeId="2d95b278-122f-4b97-b01e-44d98f3f7c57"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="74ac7ef8-6ed5-48e7-8592-d7bc3735bb5a"}
+:::paragraph{nodeId="541dc010-f64f-463a-8289-9e4d0d37d01a"}
+原子
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="0640c996-cb4a-4563-9dcc-75fd508670b3"}
+:::paragraph{nodeId="9da16989-0263-4dd6-927a-c65bfeabffea"}
+最小粒度的行为/约束/奖励单元
+:::
+:::
+:::
+:::table_row{nodeId="944eefe4-aa33-4b91-954c-9aa8bfd8fd37"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="91d7c602-3fd1-4910-b2b2-02119a593347"}
+:::paragraph{nodeId="119bb1eb-f507-4987-88ea-cf719bbe8854"}
+Persona
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="113c4c0b-8a46-4152-b5d0-c078cbecfa49"}
+:::paragraph{nodeId="784d67d5-01f1-46b8-9cae-3b76f2745cb1"}
+美团用户画像平台
+:::
+:::
+:::
+:::table_row{nodeId="32bed157-7b1e-46ab-b860-1d3c3e92dc10"}
+:::table_cell{colwidth="180" bgColor="#FFF" nodeId="f38aaab6-2014-4d5a-b073-632b421f7026"}
+:::paragraph{nodeId="65931ba8-a4a4-49ed-892e-b98061fa92b8"}
+formId
+:::
+:::
+:::table_cell{colwidth="570" bgColor="#FFF" nodeId="c29498d9-7c55-43f4-9d63-a4daf582dd47"}
+:::paragraph{nodeId="9059bbd6-d88b-4df1-9dd9-fe7906e6ae7b"}
+高达留资组件表单标识
+:::
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="abc69607-b1f0-44e6-aedc-066ebbbe2f86"}:::
+
+:::paragraph{nodeId="a8c8a3b2-0d8e-4036-95e5-4298a69a50c4"}
+相关链接：
+:::
+
+:::bullet_list{indent=0 nodeId="b2d93d20-c08f-487d-91fd-cb2c292c5f20"}
+:::list_item{level=0 hidden=false nodeId="c2f68b35-899a-445b-b239-89f943d5fd87"}
+:::paragraph{nodeId="35f98fef-ae7c-4b5c-b8da-d0e3a53ca24e"}
+业务MRD：https://km.sankuai.com/collabpage/2707322068
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="7c00d13d-6a56-4688-9368-22ace0c89f59"}
+:::paragraph{nodeId="df744d93-930f-4340-a85e-cb2ab219d2fa"}
+千人千面方案：https://km.sankuai.com/collabpage/2757355508
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="ab59bca6-f546-45d3-bd1e-f5f255ab8700"}
+:::paragraph{nodeId="df806f67-ca9d-401b-93db-16468f8f75b9"}
+AI Native方案初版：https://km.sankuai.com/collabpage/2756586746
+:::
+:::
+:::
+
+:::horizontal_rule{nodeId="68954533-bbf0-4fa5-b0b0-9182c2d61e9e"}:::
+
+:::paragraph{nodeId="c2eefd82-d75d-45b8-b414-2fb5705b56aa"}
+流程图文件清单（本地drawio，需手动上传）：
+:::
+
+:::bullet_list{indent=0 nodeId="22a02b38-8428-4b96-82f6-cf9a0dbbde3d"}
+:::list_item{level=0 hidden=false nodeId="6fcfa7c8-0fc6-486b-9ebb-9e713208a64a"}
+:::paragraph{nodeId="dce31488-61ca-4d71-8575-44664dc530e8"}
+user-journey-v3-large.drawio — 用户旅程流程图
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="8c25f2e9-4665-4d2e-9c8d-744c09662adf"}
+:::paragraph{nodeId="b582cfec-e6de-4926-95ba-d81a4ca27007"}
+product-flow-v3-large.drawio — 三层泳道产品流程图
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="d756bd5c-f82e-4629-92f8-6632db5412f5"}
+:::paragraph{nodeId="052255d2-cffd-4ccf-9b45-e45df80e5ccc"}
+system-flow.drawio — 完整系统流程图
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="81821ef3-59b3-4dc6-bf54-8eef0b126bc2"}
+:::paragraph{nodeId="a7a85b9e-387c-4b13-b2a7-22b9df725b72"}
+ai-gaoda-integration.drawio — AI层与高达对接流程图
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="94f7b460-e68d-47a9-aae1-abc7d403c06b"}
+:::paragraph{nodeId="e45cec5b-328c-43ae-a1e1-5b73732fa988"}
+m-platform-detail.drawio — M端6步创建向导详细流程图
+:::
+:::
+:::list_item{level=0 hidden=false nodeId="199560e1-51c5-4275-b55a-884a6f9f9d4c"}
+:::paragraph{nodeId="d471151a-265a-4e3b-8c0a-4e29d8f2e0dd"}
+signin-state-machine.drawio — 签到格子4态状态机图
+:::
+:::
+:::

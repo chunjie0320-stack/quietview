@@ -1,0 +1,5 @@
+2026/04/10-19:35:56.415 b6e2d Creating DB /mnt/openclaw/.openclaw/workspace/~/.xhs-browser-chrome-data/Default/Local Storage/leveldb since it was missing.
+2026/04/10-19:35:56.437 b6e2d Reusing MANIFEST /mnt/openclaw/.openclaw/workspace/~/.xhs-browser-chrome-data/Default/Local Storage/leveldb/MANIFEST-000001
+2026/04/10-20:24:10.086 b6e33 Level-0 table #5: started
+2026/04/10-20:24:10.091 b6e33 Level-0 table #5: 22618 bytes OK
+2026/04/10-20:24:10.096 b6e33 Delete type=0 #3

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书春季内容商业化洞察 | xhs-fetcher</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --coral: #FF6B6B;
+    --coral-light: #FFB3B3;
+    --coral-dark: #E05252;
+    --spring-green: #52C97A;
+    --spring-green-light: #B8EDCC;
+    --spring-green-dark: #3AA85E;
+    --cream: #FFF8F0;
+    --cream-dark: #F5EDE0;
+    --text-primary: #2D2D2D;
+    --text-secondary: #6B6B6B;
+    --text-light: #A0A0A0;
+    --white: #FFFFFF;
+    --border: #EDE4D8;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.14);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+
+  /* ======= HEADER ======= */
+  .header {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 40%, #FFD166 100%);
+    padding: 48px 40px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -80px;
+    width: 320px; height: 320px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 60px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(4px);
+  }
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .header-sub {
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    margin-bottom: 36px;
+  }
+  .stats-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: var(--radius-sm);
+    padding: 18px 28px;
+    min-width: 160px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 2px;
+  }
+
+  /* ======= NAV TABS ======= */
+  .nav-tabs {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    padding: 0 40px;
+  }
+  .tab-btn {
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--coral); }
+  .tab-btn.active {
+    color: var(--coral);
+    border-bottom-color: var(--coral);
+    font-weight: 700;
+  }
+
+  /* ======= MAIN CONTENT ======= */
+  .main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+  }
+
+  /* ======= POST CARDS ======= */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .post-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .post-cover {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .post-cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.12));
+  }
+
+  .cover-spring-outing { background: linear-gradient(135deg, #84C5A3, #52C97A, #A8E063); }
+  .cover-coffee { background: linear-gradient(135deg, #C0956A, #A07040, #DEB887); }
+  .cover-light-food { background: linear-gradient(135deg, #7EC8A2, #52C97A, #B5EAD7); }
+  .cover-snack { background: linear-gradient(135deg, #FF9966, #FF6B6B, #FFD166); }
+  .cover-picnic { background: linear-gradient(135deg, #98D8C8, #52B788, #B7E4C7); }
+  .cover-bbq { background: linear-gradient(135deg, #E07B54, #C04000, #FF6B35); }
+
+  .post-body { padding: 18px; }
+  .post-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .post-excerpt {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .tag-green { background: var(--spring-green-light); color: var(--spring-green-dark); }
+  .tag-coral { background: #FFE8E8; color: var(--coral-dark); }
+  .tag-orange { background: #FFF0E0; color: #C07000; }
+  .tag-blue { background: #E0EEFF; color: #2060C0; }
+  .tag-purple { background: #F0E8FF; color: #7040C0; }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .post-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .author-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: white;
+    font-weight: 700;
+  }
+  .avatar-1 { background: linear-gradient(135deg, #FF6B6B, #FFD166); }
+  .avatar-2 { background: linear-gradient(135deg, #52C97A, #20B2AA); }
+  .avatar-3 { background: linear-gradient(135deg, #8B5CF6, #EC4899); }
+  .avatar-4 { background: linear-gradient(135deg, #F59E0B, #EF4444); }
+  .avatar-5 { background: linear-gradient(135deg, #3B82F6, #8B5CF6); }
+  .avatar-6 { background: linear-gradient(135deg, #10B981, #3B82F6); }
+
+  .author-name { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+  .post-likes {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--coral);
+    font-weight: 600;
+  }
+
+  /* Comments Preview */
+  .comments-section { padding: 0 18px 18px; }
+  .comments-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .comment-item {
+    background: var(--cream);
+    border-radius: var(--radius-xs);
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    position: relative;
+    border-left: 2px solid var(--coral-light);
+  }
+  .comment-user {
+    font-weight: 700;
+    color: var(--coral-dark);
+    margin-right: 4px;
+  }
+  .intent-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .intent-buy { background: #FFF0CC; color: #B07000; }
+  .intent-ask { background: #E8F4FF; color: #1060A0; }
+  .intent-share { background: #E8FFE8; color: #2A8040; }
+
+  /* ======= ANALYSIS SECTION ======= */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .chart-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card.full-width {
+    grid-column: 1 / -1;
+  }
+  .chart-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .chart-desc {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+
+  #chart-freq { width: 100%; height: 320px; }
+  #chart-emotion { width: 100%; height: 320px; }
+  #chart-heatmap { width: 100%; height: 380px; }
+
+  /* ======= HEATMAP CUSTOM ======= */
+  .heatmap-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .heatmap-table th {
+    padding: 10px 14px;
+    background: var(--cream-dark);
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+    border: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .heatmap-table td {
+    padding: 12px 14px;
+    text-align: center;
+    border: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 14px;
+    transition: transform 0.15s;
+    cursor: default;
+  }
+  .heatmap-table td:hover { transform: scale(1.05); }
+  .heatmap-table td.row-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--cream-dark);
+    text-align: left;
+    transform: none;
+    cursor: default;
+  }
+  .heat-0 { background: #FFF8F0; color: #C0A080; }
+  .heat-1 { background: #FFE0CC; color: #A05000; }
+  .heat-2 { background: #FFB880; color: #7A3000; }
+  .heat-3 { background: #FF8850; color: #5A1800; }
+  .heat-4 { background: #FF5520; color: #fff; }
+
+  /* ======= OPPORTUNITY CARDS ======= */
+  .opportunity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .opp-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .opp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .opp-header {
+    padding: 22px 22px 14px;
+    position: relative;
+  }
+  .opp-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .opp-scene {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .opp-arrow {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .opp-category {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--coral);
+  }
+  .opp-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 22px;
+  }
+  .opp-body { padding: 16px 22px 20px; }
+  .opp-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .opp-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 56px;
+    padding-top: 1px;
+  }
+  .opp-value {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .opp-conversion {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius-xs);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .conv-green { background: var(--spring-green-light); color: #1A6A3A; }
+  .conv-orange { background: #FFF0D8; color: #7A4000; }
+  .conv-purple { background: #F0E8FF; color: #5030A0; }
+  .conv-blue { background: #E0F0FF; color: #1050A0; }
+
+  .opp-stripe {
+    height: 4px;
+  }
+  .stripe-coral { background: linear-gradient(90deg, var(--coral), #FFB347); }
+  .stripe-green { background: linear-gradient(90deg, var(--spring-green), #A8E063); }
+  .stripe-purple { background: linear-gradient(90deg, #8B5CF6, #EC4899); }
+  .stripe-blue { background: linear-gradient(90deg, #3B82F6, #06B6D4); }
+
+  /* ======= FOOTER ======= */
+  .footer {
+    background: var(--text-primary);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 28px 40px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .footer strong { color: var(--coral-light); }
+
+  /* ======= KEYWORD PILLS ======= */
+  .wordcloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+  }
+  .word-pill {
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-weight: 700;
+    cursor: default;
+    transition: transform 0.15s;
+  }
+  .word-pill:hover { transform: scale(1.08); }
+
+  /* ======= UTILITY ======= */
+  .flex-row { display: flex; align-items: center; gap: 8px; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-coral { background: var(--coral); }
+  .dot-green { background: var(--spring-green); }
+  .dot-orange { background: #FF9800; }
+  .dot-blue { background: #2196F3; }
+
+  @media (max-width: 768px) {
+    .header { padding: 32px 20px 40px; }
+    .header h1 { font-size: 24px; }
+    .main { padding: 24px 20px 60px; }
+    .nav-inner { padding: 0 16px; overflow-x: auto; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .charts-grid .chart-card.full-width { grid-column: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">🌸 xhs-fetcher · 2026年4月 春季专题</div>
+    <h1>小红书春季内容商业化洞察</h1>
+    <p class="header-sub">基于小红书春季相关帖子的内容抓取与结构化分析，挖掘高价值商业场景</p>
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-num">2,847</span>
+        <div class="stat-label">📝 抓取帖子数</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">18,634</span>
+        <div class="stat-label">💬 评论条数</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">94.2<small style="font-size:18px">%</small></span>
+        <div class="stat-label">✅ 正面情绪占比</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">4</span>
+        <div class="stat-label">🎯 商业机会场景</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <div class="nav-inner">
+    <button class="tab-btn active" onclick="switchTab('posts', this)">📱 内容抓取</button>
+    <button class="tab-btn" onclick="switchTab('analysis', this)">📊 分析看板</button>
+    <button class="tab-btn" onclick="switchTab('opportunity', this)">🚀 商业机会</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ===== SECTION: POSTS ===== -->
+  <div class="section active" id="sec-posts">
+    <h2 class="section-title">内容抓取展示区</h2>
+    <p class="section-sub">模拟抓取小红书春季高互动帖子，标注商业意图信号 · 展示典型样本 6 篇</p>
+    <div class="posts-grid">
+
+      <!-- Card 1: 春游便当 -->
+      <div class="post-card">
+        <div class="post-cover cover-spring-outing">🍱</div>
+        <div class="post-body">
+          <div class="post-title">春游必备｜5款不踩雷的春游便当，好看又好吃！</div>
+          <div class="post-excerpt">周末带娃去玉渊潭赏樱，提前一晚做好了这几款便当。饭团+炸鸡腿+厚蛋烧+樱花蛋的组合，颜值超高，拍出来绝对是朋友圈top1。关键是做法简单，新手也能搞定！</div>
+          <div class="post-tags">
+            <span class="tag tag-green">#春游</span>
+            <span class="tag tag-coral">#便当</span>
+            <span class="tag tag-orange">#樱花季</span>
+            <span class="tag tag-blue">#亲子</span>
+          </div>
+          <div class="post-meta">
+            <div class="post-author">
+              <div class="author-avatar avatar-1">樱</div>
+              <span class="author-name">樱花便当研究所</span>
+            </div>
+            <div class="post-likes">❤️ 3.2万</div>
+          </div>
+        </div>
+        <div class="comments-section">
+          <div class="comments-title">💬 高价值评论</div>
+          <div class="comment-item">
+            <span class="comment-user">小可爱Leo：</span>求问饭团用什么米？我每次都散…<span class="intent-badge intent-ask">求教</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">不会做饭的胖橘：</span>直接买现成的在哪买啊，懒得做了🥲<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">周周酱：</span>外卖能不能出个便当套餐啊，打包带走那种！<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: 春日咖啡 -->
+      <div class="post-card">
+        <div class="post-cover cover-coffee">☕</div>
+        <div class="post-body">
+          <div class="post-title">春日续命计划｜这5杯花香咖啡让我爱上了早起</div>
+          <div class="post-excerpt">最近发现一个秘密：在公司楼下咖啡店点了杯玫瑰拿铁，喝完一整天心情都是好的。整理了最近喝到的几款春日限定，有连锁有小店，各个价位都有。花香+咖啡=春天的标配！</div>
+          <div class="post-tags">
+            <span class="tag tag-coral">#春日咖啡</span>
+            <span class="tag tag-purple">#花香拿铁</span>
+            <span class="tag tag-orange">#咖啡推荐</span>
+            <span class="tag tag-green">#限定</span>
+          </div>
+          <div class="post-meta">
+            <div class="post-author">
+              <div class="author-avatar avatar-2">咖</div>
+              <span class="author-name">咖啡上瘾的Nora</span>
+            </div>
+            <div class="post-likes">❤️ 5.8万</div>
+          </div>
+        </div>
+        <div class="comments-section">
+          <div class="comments-title">💬 高价值评论</div>
+          <div class="comment-item">
+            <span class="comment-user">焦糖玛奇朵：</span>美团有没有这款！！赶紧上线<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">摸鱼专家007：</span>求下午茶套餐推荐，咖啡+甜点一起点那种<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">睡不醒的鱼：</span>外卖送来还好喝吗？会不会凉了变味<span class="intent-badge intent-ask">求教</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: 换季轻食 -->
+      <div class="post-card">
+        <div class="post-cover cover-light-food">🥗</div>
+        <div class="post-body">
+          <div class="post-title">换季减脂｜一周轻食计划，春天不再藏肉肉</div>
+          <div class="post-excerpt">开春穿薄衣服才发现冬天囤了多少肥，马上制定了一周轻食计划！鸡胸肉沙拉/藜麦碗/低卡便当轮流吃，配合每天跳绳20分钟，一周瘦了1.5斤！关键是真的不难吃，分享给同样想春日瘦身的姐妹。</div>
+          <div class="post-tags">
+            <span class="tag tag-green">#轻食减脂</span>
+            <span class="tag tag-coral">#春日变美</span>
+            <span class="tag tag-blue">#健康饮食</span>
+            <span class="tag tag-orange">#低卡</span>
+          </div>
+          <div class="post-meta">
+            <div class="post-author">
+              <div class="author-avatar avatar-3">瘦</div>
+              <span class="author-name">轻食人生Mia</span>
+            </div>
+            <div class="post-likes">❤️ 4.1万</div>
+          </div>
+        </div>
+        <div class="comments-section">
+          <div class="comments-title">💬 高价值评论</div>
+          <div class="comment-item">
+            <span class="comment-user">胖了三斤的小美：</span>能外卖点到吗？自己做太麻烦了😭<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">减脂第99天：</span>这个藜麦沙拉哪买的？美团搜不到<span class="intent-badge intent-ask">求教</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">营养师在线：</span>推荐蛋白质再高一点，加个鸡蛋更完整<span class="intent-badge intent-share">建议</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: 出游零食 -->
+      <div class="post-card">
+        <div class="post-cover cover-snack">🍬</div>
+        <div class="post-body">
+          <div class="post-title">春游零食清单｜背包里装这些，路上不饿还好拍！</div>
+          <div class="post-excerpt">每次春游最怕半路饿！整理了一份零食清单：能量棒/混合坚果/脱水水果片/迷你饼干/小瓶橙汁，既好带又不占地方。重点是颜值高，拍照超级出片，户外野餐感拉满！</div>
+          <div class="post-tags">
+            <span class="tag tag-orange">#出游零食</span>
+            <span class="tag tag-coral">#野餐</span>
+            <span class="tag tag-green">#春游必备</span>
+            <span class="tag tag-blue">#好物分享</span>
+          </div>
+          <div class="post-meta">
+            <div class="post-author">
+              <div class="author-avatar avatar-4">零</div>
+              <span class="author-name">零食测评小达人</span>
+            </div>
+            <div class="post-likes">❤️ 2.9万</div>
+          </div>
+        </div>
+        <div class="comments-section">
+          <div class="comments-title">💬 高价值评论</div>
+          <div class="comment-item">
+            <span class="comment-user">吃不饱的大胃王：</span>能不能美团上直接买一整套啊！组合购那种<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">户外爱好者Ken：</span>能量棒哪个牌子？爬山用能撑多久<span class="intent-badge intent-ask">求教</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">小兔纸爱野餐：</span>一起去香山野餐！下周日！<span class="intent-badge intent-share">分享</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: 野餐垫打卡 -->
+      <div class="post-card">
+        <div class="post-cover cover-picnic">🌿</div>
+        <div class="post-body">
+          <div class="post-title">北京春天最适合野餐的8个地点，人少景美！</div>
+          <div class="post-excerpt">不是奥森玉渊潭，是这几个宝藏地点！奥野、将府公园、温榆河公园…草坪宽、人少、可以自带食物。周末带上野餐垫、气球、三明治，就是最治愈的春日下午。附上各地点详细攻略！</div>
+          <div class="post-tags">
+            <span class="tag tag-green">#北京野餐</span>
+            <span class="tag tag-coral">#春天打卡</span>
+            <span class="tag tag-blue">#公园攻略</span>
+            <span class="tag tag-orange">#周末出行</span>
+          </div>
+          <div class="post-meta">
+            <div class="post-author">
+              <div class="author-avatar avatar-5">野</div>
+              <span class="author-name">北京野餐地图</span>
+            </div>
+            <div class="post-likes">❤️ 7.3万</div>
+          </div>
+        </div>
+        <div class="comments-section">
+          <div class="comments-title">💬 高价值评论</div>
+          <div class="comment-item">
+            <span class="comment-user">春天快来：</span>附近有外卖可以送到公园门口吗？<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">宅家第365天：</span>有没有那种现成野餐套餐可以点<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">摄影师小杰：</span>温榆河真的美！下次去帮拍！<span class="intent-badge intent-share">分享</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: 北京烤串 -->
+      <div class="post-card">
+        <div class="post-cover cover-bbq">🔥</div>
+        <div class="post-body">
+          <div class="post-title">北京人的春天仪式感｜撸串配啤酒，这才是春天应有的样子</div>
+          <div class="post-excerpt">天一暖和，北京人的DNA就动了——撸串！约了三个朋友去了五道口一家新开的烤串店，羊肉串/烤腰子/爆皮烤鸡翅，搭上冰镇啤酒，这就是北京春天最正确的打开方式。性价比超高！</div>
+          <div class="post-tags">
+            <span class="tag tag-coral">#北京烤串</span>
+            <span class="tag tag-orange">#撸串</span>
+            <span class="tag tag-green">#春日聚餐</span>
+            <span class="tag tag-blue">#好吃不贵</span>
+          </div>
+          <div class="post-meta">
+            <div class="post-author">
+              <div class="author-avatar avatar-6">串</div>
+              <span class="author-name">吃串不长肉的Tony</span>
+            </div>
+            <div class="post-likes">❤️ 6.1万</div>
+          </div>
+        </div>
+        <div class="comments-section">
+          <div class="comments-title">💬 高价值评论</div>
+          <div class="comment-item">
+            <span class="comment-user">烤串爱好者：</span>求推荐可以外带的烤串店！野餐带过去<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">啤酒肚预警：</span>能外卖吗？外卖烤串到底行不行啊<span class="intent-badge intent-buy">购买意图</span>
+          </div>
+          <div class="comment-item">
+            <span class="comment-user">周五下班后：</span>一个人去丢人吗哈哈哈哈想去<span class="intent-badge intent-ask">求教</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== SECTION: ANALYSIS ===== -->
+  <div class="section" id="sec-analysis">
+    <h2 class="section-title">分析看板</h2>
+    <p class="section-sub">基于 2,847 篇帖子 + 18,634 条评论的结构化分析结果</p>
+
+    <div class="charts-grid">
+      <!-- 高频需求词 -->
+      <div class="chart-card">
+        <div class="chart-title">🔤 高频需求词 Top 10</div>
+        <div class="chart-desc">评论区提取 · 按出现频次降序排列</div>
+        <div id="chart-freq"></div>
+      </div>
+
+      <!-- 情绪分布 -->
+      <div class="chart-card">
+        <div class="chart-title">😊 用户情绪分布</div>
+        <div class="chart-desc">基于 NLP 情绪标注模型 · 评论级别分析</div>
+        <div id="chart-emotion"></div>
+      </div>
+
+      <!-- 热力矩阵 -->
+      <div class="chart-card full-width">
+        <div class="chart-title">🔥 商业意图热力矩阵</div>
+        <div class="chart-desc">场景 × 品类 · 颜色越深代表用户商业意图越强烈（1-5分）</div>
+        <div style="overflow-x:auto;margin-top:8px;">
+          <table class="heatmap-table">
+            <thead>
+              <tr>
+                <th style="min-width:100px;">场景 \ 品类</th>
+                <th>便携食品</th>
+                <th>咖啡饮品</th>
+                <th>轻食沙拉</th>
+                <th>烤串烧烤</th>
+                <th>烘焙甜品</th>
+                <th>零食小吃</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="row-header">🌸 春游出行</td>
+                <td class="heat-4">5.0</td>
+                <td class="heat-2">2.8</td>
+                <td class="heat-2">2.5</td>
+                <td class="heat-1">1.8</td>
+                <td class="heat-2">2.2</td>
+                <td class="heat-4">4.6</td>
+              </tr>
+              <tr>
+                <td class="row-header">☀️ 午间休息</td>
+                <td class="heat-2">2.4</td>
+                <td class="heat-4">4.8</td>
+                <td class="heat-3">3.9</td>
+                <td class="heat-1">1.2</td>
+                <td class="heat-3">3.5</td>
+                <td class="heat-2">2.6</td>
+              </tr>
+              <tr>
+                <td class="row-header">💪 减脂健身</td>
+                <td class="heat-2">2.8</td>
+                <td class="heat-1">1.5</td>
+                <td class="heat-4">4.9</td>
+                <td class="heat-0">0.8</td>
+                <td class="heat-1">1.0</td>
+                <td class="heat-2">2.1</td>
+              </tr>
+              <tr>
+                <td class="row-header">🎉 朋友聚餐</td>
+                <td class="heat-1">1.6</td>
+                <td class="heat-2">2.2</td>
+                <td class="heat-2">2.0</td>
+                <td class="heat-4">4.7</td>
+                <td class="heat-2">2.8</td>
+                <td class="heat-2">2.3</td>
+              </tr>
+              <tr>
+                <td class="row-header">🌿 公园野餐</td>
+                <td class="heat-4">4.5</td>
+                <td class="heat-3">3.2</td>
+                <td class="heat-3">3.0</td>
+                <td class="heat-2">2.5</td>
+                <td class="heat-4">4.2</td>
+                <td class="heat-4">4.8</td>
+              </tr>
+              <tr>
+                <td class="row-header">🏢 办公下午茶</td>
+                <td class="heat-1">1.4</td>
+                <td class="heat-4">4.6</td>
+                <td class="heat-2">2.3</td>
+                <td class="heat-0">0.6</td>
+                <td class="heat-3">3.8</td>
+                <td class="heat-2">2.9</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 图例 -->
+        <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;font-size:12px;color:var(--text-secondary);">
+          <div class="flex-row"><span style="display:inline-block;width:18px;height:14px;border-radius:3px;background:#FFF8F0;border:1px solid #E0C8A8;"></span> 低（&lt;1.5）</div>
+          <div class="flex-row"><span style="display:inline-block;width:18px;height:14px;border-radius:3px;background:#FFE0CC;"></span> 较低（1.5-2.5）</div>
+          <div class="flex-row"><span style="display:inline-block;width:18px;height:14px;border-radius:3px;background:#FFB880;"></span> 中等（2.5-3.5）</div>
+          <div class="flex-row"><span style="display:inline-block;width:18px;height:14px;border-radius:3px;background:#FF8850;"></span> 较高（3.5-4.5）</div>
+          <div class="flex-row"><span style="display:inline-block;width:18px;height:14px;border-radius:3px;background:#FF5520;"></span> 高（&gt;4.5）</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Word cloud pills -->
+    <div class="chart-card" style="margin-top:0;">
+      <div class="chart-title">🏷️ 商业意图标签云</div>
+      <div class="chart-desc">从评论中提取的用户商业意图关键词</div>
+      <div class="wordcloud" id="wordcloud"></div>
+    </div>
+
+  </div>
+
+  <!-- ===== SECTION: OPPORTUNITY ===== -->
+  <div class="section" id="sec-opportunity">
+    <h2 class="section-title">商业化机会卡片</h2>
+    <p class="section-sub">基于内容分析，识别4大高潜力商业场景 · 美团/外卖/到餐营销主题建议</p>
+    <div class="opportunity-grid">
+
+      <!-- Opp 1: 春游出发前 -->
+      <div class="opp-card">
+        <div class="opp-stripe stripe-coral"></div>
+        <div class="opp-header">
+          <span class="opp-icon">🎒</span>
+          <div class="opp-scene">春游出发前</div>
+          <div class="opp-arrow">▸ 用户场景</div>
+          <div class="opp-category">便携零食 · 便当套餐 · 饮品</div>
+        </div>
+        <div class="opp-divider"></div>
+        <div class="opp-body">
+          <div class="opp-row">
+            <div class="opp-label">场景</div>
+            <div class="opp-value">周末春游/公园野餐出发前，需要提前采购便携食物，时间窗口在出行前2小时内</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">目标用户</div>
+            <div class="opp-value">25-35岁女性，有娃家庭 + 情侣档，注重颜值和便携性</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">推荐商品</div>
+            <div class="opp-value">饭团便当盒套餐、混合坚果礼包、能量棒、三明治、迷你果汁</div>
+          </div>
+          <div class="opp-conversion conv-orange">
+            💡 <strong>转化逻辑：</strong>用户在小红书看完攻略后，跳转美团下单「春游伴手包」组合套餐，打包时效承诺30分钟送达，转化率预估提升 <strong>22%</strong>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:12px;background:#FFF0E0;color:#B06000;padding:3px 10px;border-radius:12px;font-weight:600;">📦 预制便当</span>
+            <span style="font-size:12px;background:#E8F8EE;color:#2A7A40;padding:3px 10px;border-radius:12px;font-weight:600;">🌿 营销主题：春游出发包</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opp 2: 春日续命咖啡 -->
+      <div class="opp-card">
+        <div class="opp-stripe stripe-green"></div>
+        <div class="opp-header">
+          <span class="opp-icon">☕</span>
+          <div class="opp-scene">春日续命咖啡</div>
+          <div class="opp-arrow">▸ 用户场景</div>
+          <div class="opp-category">咖啡 · 花香饮品 · 下午茶</div>
+        </div>
+        <div class="opp-divider"></div>
+        <div class="opp-body">
+          <div class="opp-row">
+            <div class="opp-label">场景</div>
+            <div class="opp-value">工作日上午或下午茶时间，通勤后/会议前，需要提神同时满足春日仪式感</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">目标用户</div>
+            <div class="opp-value">22-30岁都市白领，咖啡依赖型用户，对花香/限定/颜值高度敏感</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">推荐商品</div>
+            <div class="opp-value">玫瑰拿铁、樱花美式、桂花茶拿铁、春日甜品下午茶套餐</div>
+          </div>
+          <div class="opp-conversion conv-green">
+            💡 <strong>转化逻辑：</strong>推出「春日续命计划」会员特权——工作日 10:00-14:00 咖啡8折 + 花香限定款首单免配送费，与内容种草形成闭环，预估复购率提升 <strong>35%</strong>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:12px;background:#E8F8EE;color:#2A7A40;padding:3px 10px;border-radius:12px;font-weight:600;">☕ 花香限定</span>
+            <span style="font-size:12px;background:#FFF0E8;color:#B05000;padding:3px 10px;border-radius:12px;font-weight:600;">🌸 营销主题：春日续命计划</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opp 3: 换季轻食周 -->
+      <div class="opp-card">
+        <div class="opp-stripe stripe-purple"></div>
+        <div class="opp-header">
+          <span class="opp-icon">🥗</span>
+          <div class="opp-scene">换季轻食周</div>
+          <div class="opp-arrow">▸ 用户场景</div>
+          <div class="opp-category">沙拉 · 低卡便当 · 健康套餐</div>
+        </div>
+        <div class="opp-divider"></div>
+        <div class="opp-body">
+          <div class="opp-row">
+            <div class="opp-label">场景</div>
+            <div class="opp-value">换季后"开春减脂"心理触发，工作日午餐/晚餐场景，周期性消费需求（1-2周）</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">目标用户</div>
+            <div class="opp-value">20-35岁女性，减脂意愿强，懒得自己做但想吃得健康，愿意为「管住嘴」付溢价</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">推荐商品</div>
+            <div class="opp-value">鸡胸肉沙拉套餐、藜麦碗、低卡便当（含热量标注）、7天轻食打卡套餐</div>
+          </div>
+          <div class="opp-conversion conv-purple">
+            💡 <strong>转化逻辑：</strong>「7天轻食打卡套餐」预付制，绑定美团健康频道打卡功能，完成打卡返积分，形成高黏性消费习惯，用户LTV预估提升 <strong>40%</strong>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:12px;background:#F0E8FF;color:#6030A0;padding:3px 10px;border-radius:12px;font-weight:600;">💪 健康套餐</span>
+            <span style="font-size:12px;background:#E8F8EE;color:#2A7A40;padding:3px 10px;border-radius:12px;font-weight:600;">🌱 营销主题：换季减脂周</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opp 4: 北京人的春天烤串 -->
+      <div class="opp-card">
+        <div class="opp-stripe stripe-blue"></div>
+        <div class="opp-header">
+          <span class="opp-icon">🔥</span>
+          <div class="opp-scene">北京人的春天烤串</div>
+          <div class="opp-arrow">▸ 用户场景</div>
+          <div class="opp-category">烤串 · 外带烤肉 · 朋友聚餐</div>
+        </div>
+        <div class="opp-divider"></div>
+        <div class="opp-body">
+          <div class="opp-row">
+            <div class="opp-label">场景</div>
+            <div class="opp-value">周末晚间/公园边摊，朋友3-6人聚餐，天气暖和后的社交型餐饮需求爆发</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">目标用户</div>
+            <div class="opp-value">22-35岁男女混搭群体，北京本地用户，注重性价比和氛围感，有外带到公园需求</div>
+          </div>
+          <div class="opp-row">
+            <div class="opp-label">推荐商品</div>
+            <div class="opp-value">外带烤串拼盘（羊肉/鸡翅/腰子）、烤肉野餐套餐、配啤酒组合套餐</div>
+          </div>
+          <div class="opp-conversion conv-blue">
+            💡 <strong>转化逻辑：</strong>推出「公园烧烤外送」专题，联合周边烤串商家做打包优化，配合「带去公园」标签筛选，周末15:00-20:00 峰时配送，GMV 预估提升 <strong>28%</strong>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:12px;background:#E0F0FF;color:#1050A0;padding:3px 10px;border-radius:12px;font-weight:600;">🍢 外带烤串</span>
+            <span style="font-size:12px;background:#FFE8E8;color:#A02020;padding:3px 10px;border-radius:12px;font-weight:600;">🔥 营销主题：北京烤串春日局</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Summary insight -->
+    <div style="margin-top:32px;background:linear-gradient(135deg,#FF6B6B11,#52C97A11);border:1px solid var(--border);border-radius:var(--radius);padding:28px;">
+      <div style="font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:16px;">📌 综合洞察：春季营销 3 条核心建议</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+        <div style="background:white;border-radius:var(--radius-sm);padding:16px;border-left:4px solid var(--coral);">
+          <div style="font-size:13px;font-weight:700;color:var(--coral);margin-bottom:6px;">① 内容种草→即时下单闭环</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">用户在小红书看完帖子后购买意图最强，需在评论区/帖子底部植入「美团直达」跳转，缩短种草到成交路径</div>
+        </div>
+        <div style="background:white;border-radius:var(--radius-sm);padding:16px;border-left:4px solid var(--spring-green);">
+          <div style="font-size:13px;font-weight:700;color:var(--spring-green-dark);margin-bottom:6px;">② 场景化套餐优于单品</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">评论中「有没有套餐」「能不能组合购」出现频率极高，套餐设计应与具体春季场景绑定（春游包/轻食套/烤串局）</div>
+        </div>
+        <div style="background:white;border-radius:var(--radius-sm);padding:16px;border-left:4px solid #8B5CF6;">
+          <div style="font-size:13px;font-weight:700;color:#7040C0;margin-bottom:6px;">③ 颜值即转化率</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">高赞帖子中「好看」「好拍」「出片」关键词出现率超68%，包装视觉升级和摆盘创意能直接拉动UGC二次传播</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>数据来源：小红书 xhs-fetcher · 分析时间：<strong>2026年4月</strong> · 数据仅供内部分析参考</div>
+  <div style="margin-top:4px;font-size:12px;opacity:0.6;">本报告数据为模拟演示数据 · 商业洞察仅代表分析方向建议 · Powered by OpenClaw × 美团商业化洞察团队</div>
+</div>
+
+<script>
+// ===== TAB SWITCH =====
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'analysis') {
+    setTimeout(initCharts, 100);
+  }
+}
+
+// ===== WORD CLOUD =====
+var words = [
+  { text: '外卖可以点吗', size: 28, color: '#FF6B6B' },
+  { text: '有没有套餐', size: 24, color: '#E05252' },
+  { text: '哪里买', size: 22, color: '#FF9800' },
+  { text: '美团搜不到', size: 20, color: '#52C97A' },
+  { text: '好看', size: 26, color: '#FF6B6B' },
+  { text: '便携', size: 18, color: '#3AA85E' },
+  { text: '低卡', size: 22, color: '#8B5CF6' },
+  { text: '出片', size: 20, color: '#EC4899' },
+  { text: '能量够吗', size: 16, color: '#2196F3' },
+  { text: '组合购', size: 24, color: '#FF6B6B' },
+  { text: '现成的', size: 20, color: '#C07000' },
+  { text: '仪式感', size: 22, color: '#8B5CF6' },
+  { text: '好拍照', size: 18, color: '#EC4899' },
+  { text: '配啤酒', size: 16, color: '#2196F3' },
+  { text: '外带打包', size: 20, color: '#E05252' }
+];
+
+function initWordCloud() {
+  var container = document.getElementById('wordcloud');
+  if (!container) return;
+  container.innerHTML = '';
+  words.forEach(function(w) {
+    var el = document.createElement('span');
+    el.className = 'word-pill';
+    el.textContent = w.text;
+    el.style.fontSize = w.size + 'px';
+    el.style.background = w.color + '18';
+    el.style.color = w.color;
+    el.style.borderColor = w.color + '40';
+    el.style.border = '1.5px solid ' + w.color + '40';
+    container.appendChild(el);
+  });
+}
+initWordCloud();
+
+// ===== ECHARTS =====
+var chartsInited = false;
+
+function initCharts() {
+  if (chartsInited) return;
+  chartsInited = true;
+
+  // Chart 1: 高频需求词 横向柱状图
+  var freqChart = echarts.init(document.getElementById('chart-freq'));
+  freqChart.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    grid: { left: '3%', right: '8%', bottom: '3%', top: '3%', containLabel: true },
+    xAxis: {
+      type: 'value',
+      axisLine: { show: false },
+      splitLine: { lineStyle: { color: '#F5EDE0' } },
+      axisLabel: { color: '#A0A0A0', fontSize: 11 }
+    },
+    yAxis: {
+      type: 'category',
+      data: ['在哪里买', '低卡健康', '好拍照出片', '仪式感', '便携', '组合套餐', '现成的', '外卖能点吗', '好看', '有没有套餐'].reverse(),
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: { color: '#6B6B6B', fontSize: 12 }
+    },
+    series: [{
+      name: '出现频次',
+      type: 'bar',
+      data: [842, 986, 1124, 1256, 1389, 1567, 1723, 1891, 2108, 2347].reverse(),
+      itemStyle: {
+        borderRadius: [0, 6, 6, 0],
+        color: function(params) {
+          var colors = ['#FFB3B3','#FFB3B3','#FF9090','#FF7070','#FF6B6B','#FF5555','#FF4040','#E83030','#D42020','#C01010'];
+          return colors[params.dataIndex] || '#FF6B6B';
+        }
+      },
+      label: {
+        show: true,
+        position: 'right',
+        color: '#6B6B6B',
+        fontSize: 11
+      }
+    }]
+  });
+
+  // Chart 2: 情绪分布 饼图
+  var emotionChart = echarts.init(document.getElementById('chart-emotion'));
+  emotionChart.setOption({
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}: {c}条 ({d}%)'
+    },
+    legend: {
+      orient: 'vertical',
+      right: '5%',
+      top: 'center',
+      icon: 'circle',
+      itemWidth: 10,
+      itemHeight: 10,
+      textStyle: { color: '#6B6B6B', fontSize: 12 }
+    },
+    series: [{
+      name: '情绪分布',
+      type: 'pie',
+      radius: ['42%', '70%'],
+      center: ['38%', '50%'],
+      avoidLabelOverlap: false,
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 16,
+          fontWeight: 'bold',
+          color: '#2D2D2D'
+        }
+      },
+      labelLine: { show: false },
+      data: [
+        { value: 10842, name: '😊 正面情感', itemStyle: { color: '#52C97A' } },
+        { value: 4367, name: '🤩 期待兴奋', itemStyle: { color: '#FFB347' } },
+        { value: 2156, name: '🤔 建议反馈', itemStyle: { color: '#6B9FFF' } },
+        { value: 1083, name: '😤 抱怨吐槽', itemStyle: { color: '#FF6B6B' } },
+        { value: 186, name: '😐 中性', itemStyle: { color: '#C0C0C0' } }
+      ]
+    }]
+  });
+
+  window.addEventListener('resize', function() {
+    freqChart.resize();
+    emotionChart.resize();
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI美食选题引擎</title>
+<!-- 配置文件：FRIDAY_APP_ID 在此修改 -->
+<script src="config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F7F4;
+    --surface: #FFFFFF;
+    --surface-alt: #EEF5EF;
+    --surface-glass: rgba(255,255,255,0.85);
+    --accent: #3A8B5C;
+    --accent-hover: #2E7349;
+    --accent-light: #6ABF8A;
+    --accent-bg: #E8F5EE;
+    --accent-glow: rgba(58,139,92,0.18);
+    --text: #18261A;
+    --text-secondary: #567860;
+    --text-tertiary: #8FAF94;
+    --border: #D2E8D8;
+    --border-light: #E4F0E6;
+    --canvas-bg-1: #16341E;
+    --canvas-bg-2: #0B2213;
+    --shadow-xs: 0 1px 4px rgba(20,60,30,0.06);
+    --shadow-sm: 0 2px 10px rgba(20,60,30,0.08);
+    --shadow-md: 0 6px 24px rgba(20,60,30,0.10);
+    --shadow-glow: 0 4px 20px rgba(58,139,92,0.22);
+    --radius-sm: 14px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+    --font: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    --font-cn: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --t: 0.25s;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-cn); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+
+  /* ── Header ── */
+  .header { position: sticky; top: 0; z-index: 100; background: var(--surface-glass); backdrop-filter: saturate(200%) blur(20px); -webkit-backdrop-filter: saturate(200%) blur(20px); border-bottom: 1px solid var(--border-light); padding: 14px 0; }
+  .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.4px; font-family: var(--font); }
+  .logo-icon { width: 28px; height: 28px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: var(--shadow-glow); }
+  .logo-text em { color: var(--accent); font-style: normal; }
+  .header-badge { font-size: 12px; font-weight: 500; color: var(--text-tertiary); background: var(--surface-alt); padding: 5px 12px; border-radius: 100px; border: 1px solid var(--border-light); }
+
+  /* ── Main ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 28px 96px; }
+
+  /* ── Mode Switcher ── */
+  .mode-switcher-wrap { display: flex; justify-content: center; margin-bottom: 36px; }
+  .pill-switch { display: inline-flex; background: var(--surface); border-radius: 100px; padding: 4px; gap: 3px; border: 1px solid var(--border); box-shadow: var(--shadow-xs); }
+  .pill-btn { padding: 9px 26px; border-radius: 100px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: var(--text-secondary); transition: all var(--t) var(--ease); outline: none; letter-spacing: -0.1px; font-family: var(--font-cn); }
+  .pill-btn.active { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color: #fff; box-shadow: var(--shadow-glow); font-weight: 600; }
+
+  /* ── Flow Nav ── */
+  .flow-nav { display: flex; align-items: center; gap: 6px; margin-bottom: 28px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .flow-nav::-webkit-scrollbar { display: none; }
+  .flow-step-btn { display: flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 600; background: var(--surface); color: var(--text-tertiary); border: 1px solid var(--border-light); cursor: default; white-space: nowrap; letter-spacing: -0.1px; transition: all var(--t) var(--ease); box-shadow: var(--shadow-xs); }
+  .flow-step-btn.done { background: var(--accent-bg); color: var(--accent); border-color: rgba(58,139,92,0.2); }
+  .flow-step-btn.current { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #fff; border-color: transparent; box-shadow: var(--shadow-glow); }
+  .flow-step-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.7; }
+  .flow-arrow { color: var(--border); font-size: 14px; flex-shrink: 0; }
+
+  /* ── Step sections ── */
+  .step-section { display: none; animation: fadeUp var(--t) var(--ease) forwards; }
+  .step-section.visible { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Section header ── */
+  .section-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 5px; line-height: 1.2; }
+  .section-subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: -0.1px; line-height: 1.5; }
+
+  /* ── Buttons ── */
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 32px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color: #fff; font-size: 15px; font-weight: 600; font-family: var(--font-cn); border: none; border-radius: 100px; cursor: pointer; transition: all var(--t) var(--ease); letter-spacing: -0.2px; outline: none; box-shadow: 0 3px 14px var(--accent-glow); }
+  .btn-primary:hover { background: linear-gradient(135deg, var(--accent-hover) 0%, #57A878 100%); transform: translateY(-2px); box-shadow: 0 6px 22px rgba(58,139,92,0.32); }
+  .btn-generate { display: flex; align-items: center; gap: 8px; padding: 13px 28px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color: #fff; font-size: 14px; font-weight: 600; font-family: var(--font-cn); border: none; border-radius: 100px; cursor: pointer; transition: all var(--t) var(--ease); letter-spacing: -0.2px; outline: none; width: 100%; justify-content: center; box-shadow: 0 3px 14px var(--accent-glow); }
+  .btn-generate:hover { background: linear-gradient(135deg, var(--accent-hover) 0%, #57A878 100%); transform: translateY(-2px); }
+
+  /* ── Step Divider ── */
+  .step-divider { display: flex; align-items: center; gap: 16px; margin: 36px 0; }
+  .step-divider-line { flex: 1; height: 1px; background: var(--border-light); }
+  .step-divider-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; padding: 6px 16px; background: var(--accent-bg); border-radius: 100px; border: 1px solid rgba(58,139,92,0.15); font-family: var(--font); }
+
+  /* ── Step 1: AI对话输入 ── */
+  .input-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 36px; box-shadow: var(--shadow-sm); border-top: 3px solid var(--accent); position: relative; overflow: hidden; }
+  .input-card::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle at 100% 0%, rgba(58,139,92,0.06) 0%, transparent 70%); pointer-events: none; }
+  .input-label { font-size: 11px; font-weight: 700; color: var(--text-tertiary); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px; font-family: var(--font); }
+  .input-box { width: 100%; padding: 16px 20px; font-size: 15px; font-family: var(--font-cn); color: var(--text); background: var(--surface-alt); border: 1.5px solid var(--border); border-radius: var(--radius-sm); outline: none; transition: all var(--t) var(--ease); letter-spacing: -0.2px; resize: none; height: 96px; line-height: 1.7; }
+  .input-box:focus { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px var(--accent-glow); }
+  .input-box::placeholder { color: var(--text-tertiary); }
+
+  /* 示例引导语 */
+  .input-examples { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .input-example-chip { padding: 6px 14px; border-radius: 100px; font-size: 12px; color: var(--text-secondary); background: var(--surface-alt); border: 1px solid var(--border-light); cursor: pointer; transition: all var(--t) var(--ease); }
+  .input-example-chip:hover { background: var(--accent-bg); border-color: rgba(58,139,92,0.3); color: var(--accent); }
+  .input-examples-label { font-size: 12px; color: var(--text-tertiary); width: 100%; margin-bottom: 2px; }
+
+  /* AI解析动画 */
+  .parse-loading { display: none; align-items: center; gap: 10px; padding: 16px 0 4px; color: var(--text-secondary); font-size: 14px; }
+  .parse-loading.show { display: flex; }
+  .parse-dots span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin: 0 2px; animation: parseDot 1.2s infinite ease-in-out; }
+  .parse-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .parse-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes parseDot { 0%,80%,100%{transform:scale(0.6);opacity:0.4} 40%{transform:scale(1);opacity:1} }
+
+  /* 参数确认卡 */
+  .analysis-context { display:none; margin-bottom:14px; padding:9px 16px; background:linear-gradient(90deg,rgba(58,139,92,0.10),rgba(58,139,92,0.04)); border:1px solid rgba(58,139,92,0.22); border-radius:100px; font-size:13px; font-weight:600; color:var(--accent); letter-spacing:-0.1px; }
+  .analysis-context.show { display:block; }
+  .confirm-card { display: none; margin-top: 20px; background: linear-gradient(135deg, #F0FAF5 0%, #F8FDF9 100%); border: 1.5px solid rgba(58,139,92,0.22); border-radius: var(--radius-md); padding: 22px 26px; animation: fadeUp var(--t) var(--ease) forwards; }
+  .confirm-card.show { display: block; }
+  .confirm-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+  .confirm-card-icon { width: 28px; height: 28px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .confirm-card-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .confirm-card-subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+  .confirm-params { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+  .confirm-param { background: var(--surface); border: 1px solid var(--border-light); border-radius: 12px; padding: 12px 14px; }
+  .confirm-param-key { font-size: 10px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; font-family: var(--font); }
+  .confirm-param-val { font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: -0.2px; }
+  .confirm-param-val.accent { color: var(--accent); }
+  /* 目标类型说明 */
+  .goal-explain { background: var(--surface); border: 1px solid var(--border-light); border-radius: 12px; padding: 12px 16px; margin-bottom: 18px; display: flex; gap: 16px; }
+  .goal-option { flex: 1; display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 10px; cursor: pointer; border: 1.5px solid transparent; transition: all var(--t) var(--ease); }
+  .goal-option.selected { border-color: var(--accent); background: var(--accent-bg); }
+  .goal-option-icon { font-size: 18px; flex-shrink: 0; }
+  .goal-option-text { flex: 1; }
+  .goal-option-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .goal-option-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.55; }
+  .confirm-footer { display: flex; align-items: center; gap: 10px; }
+  .confirm-hint { font-size: 12px; color: var(--text-tertiary); flex: 1; }
+  .btn-rewrite { padding: 10px 22px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--text-secondary); transition: all var(--t) var(--ease); outline: none; font-family: var(--font-cn); }
+  .btn-rewrite:hover { border-color: var(--accent); color: var(--accent); }
+
+  .tags-label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 12px; letter-spacing: -0.1px; font-weight: 500; }
+  .tags-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .tag-group-label { font-size: 11px; color: var(--text-secondary); font-weight: 700; width: 100%; margin-bottom: 5px; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .tag { padding: 6px 15px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer; background: var(--surface-alt); color: var(--text-secondary); border: 1px solid var(--border); transition: all var(--t) var(--ease); user-select: none; }
+  .tag:hover { background: var(--accent-bg); border-color: rgba(58,139,92,0.3); color: var(--accent); transform: translateY(-1px); }
+  .tag.selected { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #fff; border-color: transparent; box-shadow: 0 2px 10px var(--accent-glow); transform: translateY(-1px); }
+
+  /* ══════════════════════════════════════
+     STEP 2: 两栏主布局
+     左：气泡图（一级品类）
+     右：下钻面板（二级品类 or 详情）
+  ══════════════════════════════════════ */
+  .step2-layout {
+    display: grid;
+    grid-template-columns: 560px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* ── 气泡图卡片 ── */
+  .chart-card {
+    background: linear-gradient(145deg, var(--canvas-bg-1) 0%, var(--canvas-bg-2) 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    padding: 20px 20px 14px;
+    box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .chart-card canvas { display: block; width: 100%; }
+  .chart-hint { font-size: 11px; color: rgba(255,255,255,0.32); text-align: center; margin-top: 10px; }
+  .chart-legend { display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+  .chart-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: rgba(255,255,255,0.42); }
+  .chart-legend-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .bubble-mode-tab { display: inline-flex; background: rgba(255,255,255,0.07); border-radius: 100px; padding: 3px; gap: 2px; border: 1px solid rgba(255,255,255,0.1); }
+  .bubble-mode-btn { padding: 5px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.5); transition: all var(--t) var(--ease); outline: none; font-family: var(--font-cn); }
+  .bubble-mode-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #fff; box-shadow: 0 2px 8px var(--accent-glow); font-weight: 600; }
+
+  /* Tooltip */
+  .bubble-tooltip { position: absolute; background: rgba(12,22,14,0.95); color: #fff; padding: 9px 13px; border-radius: 12px; font-size: 13px; font-weight: 600; pointer-events: none; display: none; white-space: nowrap; transform: translate(-50%, -100%); z-index: 10; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+  .bubble-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: rgba(12,22,14,0.95); }
+
+  /* ══════════════════════════════════════
+     右侧面板：三种状态
+     1. .panel-empty  —— 初始空白
+     2. .panel-l2     —— 二级品类列表
+     3. .panel-detail —— 单品类详情
+  ══════════════════════════════════════ */
+  .right-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeUp var(--t) var(--ease);
+  }
+
+  /* 面板顶部导航条 */
+  .panel-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--surface-alt);
+    flex-shrink: 0;
+  }
+  .panel-nav-back {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+    background: var(--accent-bg);
+    border: 1px solid rgba(58,139,92,0.2);
+    border-radius: 100px;
+    padding: 4px 12px;
+    transition: all var(--t) var(--ease);
+    outline: none;
+    flex-shrink: 0;
+  }
+  .panel-nav-back:hover { background: var(--accent); color: #fff; border-color: transparent; }
+  .panel-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    flex: 1;
+    min-width: 0;
+  }
+  .panel-breadcrumb-l1 { color: var(--text-secondary); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .panel-breadcrumb-arrow { font-size: 12px; color: var(--border); flex-shrink: 0; }
+  .panel-breadcrumb-l2 { color: var(--accent); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* 面板 body：可滚动区域 */
+  .panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+
+  /* ── 空面板 ── */
+  .panel-empty-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: var(--text-tertiary);
+  }
+  .panel-empty-icon { font-size: 36px; opacity: 0.6; }
+  .panel-empty-text { font-size: 14px; color: var(--text-tertiary); text-align: center; line-height: 1.6; }
+
+  /* ── 一级品类标题 ── */
+  .l1-header { margin-bottom: 18px; }
+  .l1-title { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.4px; margin-bottom: 5px; }
+  .l1-meta { display: flex; align-items: center; gap: 10px; }
+  .l1-heat-badge {
+    font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 100px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: #fff; box-shadow: 0 2px 8px var(--accent-glow);
+  }
+  .l1-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ── 二级品类网格 ── */
+  .l2-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .l2-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border-light);
+    background: var(--surface);
+    cursor: pointer;
+    transition: all var(--t) var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+  .l2-item:hover { border-color: var(--accent-light); background: var(--accent-bg); transform: translateX(3px); }
+  .l2-item.selected { border-color: var(--accent); background: linear-gradient(135deg, #F0FAF5 0%, var(--surface) 60%); box-shadow: 0 0 0 2px var(--accent-glow); }
+
+  /* 排名数字 */
+  .l2-rank {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+    flex-shrink: 0;
+    font-family: var(--font);
+    font-variant-numeric: tabular-nums;
+  }
+  .l2-rank.top3 { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #fff; box-shadow: 0 1px 6px var(--accent-glow); }
+  .l2-rank.normal { background: var(--surface-alt); color: var(--text-tertiary); border: 1px solid var(--border-light); }
+
+  /* 品类名 */
+  .l2-name { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; letter-spacing: -0.2px; }
+  .l2-item.selected .l2-name { color: var(--accent); }
+
+  /* 热度进度条 */
+  .l2-bar-wrap { flex: 0 0 100px; display: flex; align-items: center; gap: 7px; }
+  .l2-bar-track { flex: 1; height: 5px; background: var(--surface-alt); border-radius: 100px; overflow: hidden; }
+  .l2-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transition: width 0.6s var(--ease); }
+  .l2-bar-val { font-size: 11px; font-weight: 700; color: var(--text-tertiary); width: 22px; text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* 标签小角标 */
+  .l2-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; flex-shrink: 0; }
+  .l2-tag-rise { background: #FFF3E0; color: #D4720A; border: 1px solid #FFD59A; }
+  .l2-tag-hot  { background: #FFEBEE; color: #C62828; border: 1px solid #FFCDD2; }
+  .l2-tag-new  { background: #E8F5E9; color: #2E7D32; border: 1px solid #C8E6C9; }
+  .l2-tag-niche { background: #F3E5F5; color: #7B1FA2; border: 1px solid #E1BEE7; }
+  .l2-tag-trend { background: #E3F2FD; color: #1565C0; border: 1px solid #BBDEFB; }
+
+  /* 点击后展开的详情（在l2-item下方插入，非弹窗）*/
+  .l2-detail-row {
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #F0FAF5 0%, #F8FDF9 100%);
+    border-radius: 12px;
+    border: 1.5px solid rgba(58,139,92,0.18);
+    margin-top: -4px;
+    margin-bottom: 4px;
+    display: none;
+    animation: fadeUp var(--t) var(--ease) forwards;
+    border-left: 3px solid var(--accent);
+  }
+  .l2-detail-row.open { display: block; }
+
+  .l2-detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .l2-dtag { padding: 4px 11px; border-radius: 100px; font-size: 12px; font-weight: 500; }
+  .ldt-1 { background: #EBF2FF; color: #2C5FA8; }
+  .ldt-2 { background: var(--accent-bg); color: #2A6B3A; }
+  .ldt-3 { background: #F2EEFF; color: #6040A8; }
+  .ldt-4 { background: #FFF0EB; color: #B84020; }
+  .ldt-5 { background: #E8F8F5; color: #0A7A65; }
+
+  .l2-detail-pain {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.65;
+    margin-bottom: 12px; letter-spacing: -0.1px;
+  }
+
+  .l2-detail-prompt {
+    background: rgba(58,139,92,0.06);
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1px solid rgba(58,139,92,0.1);
+    margin-bottom: 10px;
+  }
+  .l2-detail-prompt-header { font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; font-family: var(--font); }
+  .l2-detail-prompt code { font-family: 'DM Mono', 'SF Mono', 'Fira Code', monospace; font-size: 11.5px; color: var(--text); line-height: 1.7; white-space: pre-wrap; word-break: break-all; display: block; }
+
+  .l2-detail-btns { display: flex; gap: 8px; margin-top: 12px; }
+  .l2-detail-btn-topic { flex: 1; padding: 9px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-cn); border: 1.5px solid var(--accent); background: transparent; color: var(--accent); transition: all var(--t) var(--ease); outline: none; text-align: center; }
+  .l2-detail-btn-topic:hover { background: var(--accent); color: #fff; }
+  .l2-detail-btn-preview { flex: 1; padding: 9px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-cn); border: none; background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #fff; transition: all var(--t) var(--ease); outline: none; text-align: center; box-shadow: 0 2px 8px var(--accent-glow); }
+  .l2-detail-btn-preview:hover { background: linear-gradient(135deg, var(--accent-hover), #57A878); transform: translateY(-1px); }
+
+  /* ── 帖子列表 ── */
+  .l2-posts { margin-top: 10px; }
+  .l2-posts-header { font-size: 10px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px; font-family: var(--font); }
+  .l2-post-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border-light); margin-bottom: 5px; text-decoration: none; transition: all var(--t) var(--ease); }
+  .l2-post-item:hover { border-color: var(--accent-light); background: var(--accent-bg); transform: translateX(2px); }
+  .l2-post-platform { font-size: 13px; flex-shrink: 0; }
+  .l2-post-body { flex: 1; min-width: 0; }
+  .l2-post-title { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+  .l2-post-meta { font-size: 11px; color: var(--text-tertiary); display: flex; align-items: center; gap: 6px; }
+  .l2-post-likes { color: var(--accent); font-weight: 600; }
+  .l2-post-arrow { font-size: 11px; color: var(--text-tertiary); flex-shrink: 0; margin-top: 2px; transition: transform var(--t) var(--ease); }
+  .l2-post-item:hover .l2-post-arrow { transform: translateX(3px); color: var(--accent); }
+
+  /* ── Step 3: 痛点 ── */
+  .pain-summary { background: linear-gradient(135deg, var(--accent-bg) 0%, #F4FAF6 100%); border: 1px solid rgba(58,139,92,0.15); border-radius: var(--radius-md); padding: 22px 26px; margin-bottom: 26px; display: flex; gap: 14px; align-items: flex-start; }
+  .pain-summary-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .pain-summary-text { font-size: 14px; color: var(--text); line-height: 1.65; }
+  .pain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .pain-col { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow-xs); transition: all var(--t) var(--ease); border-top: 2px solid transparent; }
+  .pain-col:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-top-color: var(--accent-light); }
+  .pain-col-header { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+  .pain-comment { background: var(--surface-alt); border-radius: 12px; padding: 13px 15px; margin-bottom: 10px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; border: 1px solid var(--border-light); border-left: 2px solid var(--accent-light); transition: all var(--t) var(--ease); }
+  .pain-comment:hover { border-left-color: var(--accent); background: var(--accent-bg); }
+  .pain-comment-author { font-size: 11px; color: var(--text-tertiary); margin-top: 7px; font-weight: 600; }
+
+  /* ── Step 4: 选题卡 ── */
+  .topic-layout { display: grid; grid-template-columns: 360px 1fr; gap: 20px; align-items: start; }
+  .topic-list { display: flex; flex-direction: column; gap: 10px; }
+  .topic-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 20px 22px; cursor: pointer; transition: all var(--t) var(--ease); box-shadow: var(--shadow-xs); border-left: 3px solid transparent; }
+  .topic-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-left-color: var(--accent-light); }
+  .topic-card.active { border-color: var(--accent); border-left-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow-sm); background: linear-gradient(135deg, #F0FAF5 0%, var(--surface) 60%); }
+  .topic-card-num { font-size: 10px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px; font-family: var(--font); }
+  .topic-card.active .topic-card-num { color: var(--accent); }
+  .topic-card-title { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px; line-height: 1.38; }
+  .topic-card-reason { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+  .topic-card-footer { display: flex; justify-content: flex-end; margin-top: 13px; }
+  .btn-select { padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--font-cn); border: 1.5px solid var(--accent); background: transparent; color: var(--accent); transition: all var(--t) var(--ease); outline: none; }
+  .btn-select:hover, .topic-card.active .btn-select { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #fff; border-color: transparent; box-shadow: 0 2px 8px var(--accent-glow); }
+  .topic-detail { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; box-shadow: var(--shadow-sm); animation: fadeUp var(--t) var(--ease) forwards; position: sticky; top: 72px; }
+  .detail-label { font-size: 10px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; margin-top: 22px; font-family: var(--font); }
+  .detail-label:first-child { margin-top: 0; }
+  .detail-title { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 16px; line-height: 1.3; }
+  .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .progress-name { font-size: 12px; color: var(--text-secondary); width: 68px; flex-shrink: 0; font-weight: 500; }
+  .progress-track { flex: 1; height: 5px; background: var(--surface-alt); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transition: width 0.8s var(--ease); }
+  .progress-val { font-size: 12px; color: var(--text-tertiary); width: 28px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .pain-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 6px; }
+  .pain-tag { padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; background: #FFF0F0; color: #B83030; border: 1px solid #FFD5D5; }
+  .reason-text { font-size: 13px; color: var(--text-secondary); line-height: 1.68; margin-top: 6px; }
+
+  /* ── Step 5 ── */
+  .hero-cover { width: 100%; height: 300px; border-radius: var(--radius-lg); overflow: hidden; position: relative; margin-bottom: 24px; box-shadow: var(--shadow-md); }
+  .hero-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.76) 0%, rgba(0,0,0,0.22) 50%, rgba(0,0,0,0.04) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+  .hero-badge { display: inline-block; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.28); color: rgba(255,255,255,0.92); font-size: 11px; font-weight: 600; padding: 5px 14px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; backdrop-filter: blur(10px); width: fit-content; }
+  .hero-title { font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -0.8px; line-height: 1.22; }
+  .hero-subtitle { font-size: 15px; color: rgba(255,255,255,0.75); margin-top: 8px; }
+  .ip-card { background: linear-gradient(135deg, #1D3020 0%, #263D29 100%); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 24px; display: flex; gap: 14px; align-items: flex-start; border: 1px solid rgba(106,191,138,0.15); box-shadow: var(--shadow-sm); }
+  .ip-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; border: 1.5px solid rgba(255,255,255,0.12); }
+  .ip-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .ip-text { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.65; }
+  .supply-title { font-size: 17px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+  .supply-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 24px; }
+  .supply-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px 20px; box-shadow: var(--shadow-xs); transition: all var(--t) var(--ease); border-top: 2px solid var(--border); }
+  .supply-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-top-color: var(--accent-light); }
+  .supply-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .supply-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 11px; border-radius: 100px; background: var(--accent-bg); color: var(--accent); margin-bottom: 10px; border: 1px solid rgba(58,139,92,0.2); }
+  .supply-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .supply-score { display: flex; align-items: center; gap: 4px; margin-top: 10px; }
+  .supply-star { color: #F59E0B; font-size: 13px; }
+  .supply-score-val { font-size: 13px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+  .prompt-block { background: var(--accent-bg); border-radius: var(--radius-md); padding: 20px 24px; margin-top: 4px; border: 1px solid rgba(58,139,92,0.15); }
+  .prompt-block-header { font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; font-family: var(--font); }
+  .prompt-block code { font-family: 'DM Mono', 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: var(--text); line-height: 1.7; white-space: pre-wrap; word-break: break-all; display: block; }
+  .content-intro { background: linear-gradient(135deg, var(--accent-bg) 0%, #F4FAF6 100%); border: 1px solid rgba(58,139,92,0.15); border-radius: var(--radius-md); padding: 24px 28px; margin-bottom: 32px; font-size: 15px; color: var(--text); line-height: 1.72; }
+  .content-section { margin-bottom: 40px; }
+  .content-num { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; font-family: var(--font); }
+  .content-section-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.6px; margin-bottom: 16px; line-height: 1.3; }
+  .content-section-body { font-size: 15px; color: var(--text-secondary); line-height: 1.78; margin-bottom: 12px; }
+  .content-img-wrap { border-radius: var(--radius-md); overflow: hidden; margin: 20px 0 10px; box-shadow: var(--shadow-sm); }
+  .content-img-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.5s var(--ease); }
+  .content-img-wrap:hover img { transform: scale(1.02); }
+  .content-img-prompt { font-size: 12px; color: var(--text-tertiary); margin-top: 7px; padding: 0 4px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 880px) {
+    .step2-layout { grid-template-columns: 1fr; }
+    .pain-grid { grid-template-columns: repeat(2,1fr); }
+    .topic-layout { grid-template-columns: 1fr; }
+    .supply-list { grid-template-columns: 1fr; }
+    .main { padding: 28px 16px 72px; }
+  }
+
+  /* ── API Loading Overlay ── */
+  .api-loading-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.35);
+    display: none; align-items: center; justify-content: center;
+    z-index: 9999; backdrop-filter: blur(4px);
+  }
+  .api-loading-overlay.show { display: flex; }
+  .api-loading-box {
+    background: var(--surface); border-radius: var(--radius-lg);
+    padding: 32px 40px; text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2); min-width: 220px;
+  }
+  .api-loading-spinner {
+    width: 40px; height: 40px; margin: 0 auto 16px;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: oc-spin 0.8s linear infinite;
+  }
+  @keyframes oc-spin { to { transform: rotate(360deg); } }
+  .api-loading-text { font-size: 14px; color: var(--text-secondary); }
+
+  /* ── Error Toast ── */
+  .error-toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(0);
+    background: #C62828; color: #fff; padding: 12px 24px; border-radius: 100px;
+    font-size: 13px; font-weight: 600; display: none; z-index: 9999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-width: 90vw; text-align: center;
+  }
+  .error-toast.show { display: block; animation: fadeUp 0.2s var(--ease) forwards; }
+
+  /* ── Chart Loading ── */
+  .chart-loading {
+    position: absolute; inset: 0; border-radius: var(--radius-lg);
+    background: rgba(22,52,30,0.88); display: none;
+    align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+    z-index: 5;
+  }
+  .chart-loading.show { display: flex; }
+  .chart-loading-spinner {
+    width: 32px; height: 32px;
+    border: 2.5px solid rgba(255,255,255,0.2); border-top-color: var(--accent-light);
+    border-radius: 50%; animation: oc-spin 0.8s linear infinite;
+  }
+  .chart-loading-text { font-size: 13px; color: rgba(255,255,255,0.65); }
+
+  /* ── Drill Loading (right panel) ── */
+  .panel-drill-loading {
+    display: none; flex-direction: column; align-items: center;
+    justify-content: center; gap: 12px; padding: 48px 20px; color: var(--text-tertiary);
+  }
+  .panel-drill-loading.show { display: flex; }
+  .panel-drill-spinner {
+    width: 28px; height: 28px;
+    border: 2.5px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: oc-spin 0.8s linear infinite;
+  }
+  .panel-drill-text { font-size: 13px; color: var(--text-secondary); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🍜</div>
+      <div class="logo-text">AI美食 <em>选题引擎</em></div>
+    </div>
+    <div class="header-badge">Demo · 北京美食版</div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- Flow Nav -->
+  <div class="flow-nav">
+    <div class="flow-step-btn current" id="fnav-1"><div class="flow-step-dot"></div>输入</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step-btn" id="fnav-2"><div class="flow-step-dot"></div>热点分析</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step-btn" id="fnav-3"><div class="flow-step-dot"></div>痛点洞察</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step-btn" id="fnav-4"><div class="flow-step-dot"></div>选题</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step-btn" id="fnav-5"><div class="flow-step-dot"></div>内容预览</div>
+  </div>
+
+  <!-- ═══ STEP 1 ═══ -->
+  <div class="step-section visible" id="step-1">
+    <div class="section-title">告诉我你想做什么选题</div>
+    <div class="section-subtitle">用自然语言描述你的需求，AI 会识别地域、人群、目标等关键要素</div>
+    <div class="input-card">
+      <div class="input-label">输入你的需求</div>
+      <textarea class="input-box" id="user-input" placeholder="例：帮我找上海春季美食的商业化选题，面向年轻白领，偏咖啡和轻食方向"></textarea>
+      <div class="input-examples">
+        <div class="input-examples-label">💡 试试这些</div>
+        <span class="input-example-chip" onclick="fillExample(this)">北京烤鸭热点，带货转化方向</span>
+        <span class="input-example-chip" onclick="fillExample(this)">全国美食，五一节假日，亲子家庭</span>
+        <span class="input-example-chip" onclick="fillExample(this)">上海新潮餐厅，小红书种草内容</span>
+        <span class="input-example-chip" onclick="fillExample(this)">成都街头小吃，外地游客视角</span>
+      </div>
+
+      <!-- AI 解析中 -->
+      <div class="parse-loading" id="parse-loading">
+        <div class="parse-dots"><span></span><span></span><span></span></div>
+        <span>AI 正在识别你的需求…</span>
+      </div>
+
+      <!-- 参数确认卡 -->
+      <div class="confirm-card" id="confirm-card">
+        <div class="confirm-card-header">
+          <div class="confirm-card-icon">✅</div>
+          <div>
+            <div class="confirm-card-title">我理解你的需求如下，确认后开始分析</div>
+            <div class="confirm-card-subtitle">如有偏差，直接修改上方输入重新解析</div>
+          </div>
+        </div>
+
+        <div class="confirm-params">
+          <div class="confirm-param">
+            <div class="confirm-param-key">🗺️ 地域</div>
+            <div class="confirm-param-val accent" id="cpv-region">北京</div>
+          </div>
+          <div class="confirm-param">
+            <div class="confirm-param-key">🍜 品类/方向</div>
+            <div class="confirm-param-val" id="cpv-category">美食（不限）</div>
+          </div>
+          <div class="confirm-param">
+            <div class="confirm-param-key">👥 目标人群</div>
+            <div class="confirm-param-val" id="cpv-audience">不限</div>
+          </div>
+          <div class="confirm-param">
+            <div class="confirm-param-key">🗓️ 时间/场景</div>
+            <div class="confirm-param-val" id="cpv-season">当前时节</div>
+          </div>
+          <div class="confirm-param" style="grid-column:span 2;">
+            <div class="confirm-param-key">💬 其他意图</div>
+            <div class="confirm-param-val" id="cpv-extra" style="font-size:13px;color:var(--text-secondary);">无</div>
+          </div>
+        </div>
+
+        <!-- 目标类型选择（带说明） -->
+        <div class="confirm-param-key" style="margin-bottom:8px;">🎯 会场目标</div>
+        <div class="goal-explain">
+          <div class="goal-option selected" id="goal-commercial" onclick="selectGoal('commercial')">
+            <div class="goal-option-icon">🛒</div>
+            <div class="goal-option-text">
+              <div class="goal-option-name">商业化</div>
+              <div class="goal-option-desc">有品类/SKU对应，目标是带货转化下单，选题强调「买什么、值不值、怎么选」</div>
+            </div>
+          </div>
+          <div class="goal-option" id="goal-content" onclick="selectGoal('content')">
+            <div class="goal-option-icon">📝</div>
+            <div class="goal-option-text">
+              <div class="goal-option-name">内容型</div>
+              <div class="goal-option-desc">以情绪/故事/话题为主，目标是心智种草，选题强调「情感共鸣、趋势讨论、文化认同」</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="confirm-footer">
+          <div class="confirm-hint">识别结果仅供参考，可随时修改输入重新解析</div>
+          <button class="btn-rewrite" onclick="resetStep1()">重新输入</button>
+          <button class="btn-primary" style="padding:11px 28px;font-size:14px;" onclick="startAnalysis()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;flex-shrink:0;"><path d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+            确认，开始分析
+          </button>
+        </div>
+      </div>
+
+      <div id="step1-btn-wrap" style="margin-top:22px;">
+        <button class="btn-primary" onclick="parseInput()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 0v4m0 12v-4m-6-6H2m20 0h-4"/><circle cx="12" cy="12" r="3"/></svg>
+          AI 解析需求
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 2: 一级气泡 + 二级下钻 ═══ -->
+  <div class="step-section" id="step-2">
+    <div class="section-title">热点分析</div>
+    <div id="analysis-context" class="analysis-context"></div>
+    <div class="section-subtitle" id="step2-subtitle">
+      点击气泡 → 展开该品类下的 20 个细分方向 → 再点细分查看洞察
+    </div>
+
+    <!-- 当前分析模式标签（只读，源自第一页选择） -->
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+      <div id="step2-mode-badge" style="display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;background:var(--accent-bg);color:var(--accent);border:1px solid rgba(58,139,92,0.2);">
+        <span id="step2-mode-icon">🛒</span>
+        <span id="step2-mode-text">商业化模式</span>
+      </div>
+    </div>
+
+    <!-- 两栏主体 -->
+    <div class="step2-layout">
+
+      <!-- 左：气泡图（一级6个大类） -->
+      <div class="chart-card" style="position:relative;">
+
+        <div class="chart-loading" id="chart-loading"><div class="chart-loading-spinner"></div><div class="chart-loading-text">AI 正在生成热点数据…</div></div>
+        <canvas id="bubble-canvas" width="520" height="380"></canvas>
+        <div id="bubble-tooltip" class="bubble-tooltip"></div>
+        <div class="chart-hint" id="chart-hint">点击气泡 → 展开二级品类清单 →</div>
+        <div id="bubble-axis-labels" style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:6px;padding:0 8px;min-height:16px;"></div>
+        <div class="chart-legend">
+          <div class="chart-legend-item"><span class="chart-legend-dot" style="background:rgba(255,130,90,0.75);"></span>传统京味</div>
+          <div class="chart-legend-item"><span class="chart-legend-dot" style="background:rgba(80,180,240,0.75);"></span>新潮饮品</div>
+          <div class="chart-legend-item"><span class="chart-legend-dot" style="background:rgba(110,200,110,0.75);"></span>夜市烧烤</div>
+          <div class="chart-legend-item"><span class="chart-legend-dot" style="background:rgba(200,160,230,0.75);"></span>健康轻食</div>
+        </div>
+      </div>
+
+      <!-- 右：下钻面板（初始空、点击后填充二级列表） -->
+      <div class="right-panel" id="right-panel">
+        <!-- 状态1: 空 -->
+        <div id="panel-empty" class="panel-body">
+          <div class="panel-empty-inner">
+            <div class="panel-empty-icon">👈</div>
+            <div class="panel-empty-text">点击左侧气泡<br>查看该品类下的细分热点</div>
+          </div>
+        </div>
+
+        <!-- 状态2: 二级品类列表（默认隐藏） -->
+        <div id="panel-l2" style="display:none;flex:1;overflow:hidden;display:none;flex-direction:column;">
+          <div class="panel-nav" id="panel-nav">
+            <div class="panel-breadcrumb">
+              <span class="panel-breadcrumb-l1" id="breadcrumb-l1">一级品类</span>
+              <span class="panel-breadcrumb-arrow">›</span>
+              <span style="color:var(--text-tertiary);font-size:13px;">细分方向</span>
+            </div>
+          </div>
+          <div class="panel-body" id="panel-l2-body">
+            <!-- 动态填充 -->
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end step2-layout -->
+
+    <div class="step-divider"><div class="step-divider-line"></div><div class="step-divider-label">生成选题方案</div><div class="step-divider-line"></div></div>
+    <div style="display:flex;justify-content:center;">
+      <button class="btn-primary" onclick="goStep(4)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        查看选题方案
+      </button>
+    </div>
+  </div><!-- end step-2 -->
+
+  <!-- ═══ STEP 3 已合并入 STEP 2，此节点仅作跳转占位 ═══ -->
+  <div class="step-section" id="step-3" style="display:none!important;"></div>
+
+  <!-- ═══ STEP 4 ═══ -->
+  <div class="step-section" id="step-4">
+    <div class="section-title">精选选题方案</div>
+    <div class="section-subtitle">AI基于热点+痛点数据生成 · 点击选题查看详情</div>
+    <div class="topic-layout">
+      <div class="topic-list">
+        <div class="topic-card active" id="tc-1" onclick="selectTopic(1)">
+          <div class="topic-card-num">NO. 01</div>
+          <div class="topic-card-title">北京烤鸭避坑终极指南 · 2026本地版</div>
+          <div class="topic-card-reason">热度第一，「避坑/本地推荐」框架传播力强，商业化转化效率极高</div>
+          <div class="topic-card-footer"><button class="btn-select">选择此选题</button></div>
+        </div>
+        <div class="topic-card" id="tc-2" onclick="selectTopic(2)">
+          <div class="topic-card-num">NO. 02</div>
+          <div class="topic-card-title">北京胡同美食地图 · 老字号不完全手册</div>
+          <div class="topic-card-reason">胡同文化+老字号双重情感溢价，收藏率高，长尾传播周期超90天</div>
+          <div class="topic-card-footer"><button class="btn-select">选择此选题</button></div>
+        </div>
+        <div class="topic-card" id="tc-3" onclick="selectTopic(3)">
+          <div class="topic-card-num">NO. 03</div>
+          <div class="topic-card-title">北京夜市烤串全攻略 · 从鼓楼到工体</div>
+          <div class="topic-card-reason">夜市文化夏季强流量，供给资源丰富，周末场景转化率高</div>
+          <div class="topic-card-footer"><button class="btn-select">选择此选题</button></div>
+        </div>
+        <div class="topic-card" id="tc-4" onclick="selectTopic(4)">
+          <div class="topic-card-num">NO. 04</div>
+          <div class="topic-card-title">新潮趋势：北京日料一人食 & 韩式融合</div>
+          <div class="topic-card-reason">一人食赛道持续爆发，高颜值+精致感命中Z世代核心需求</div>
+          <div class="topic-card-footer"><button class="btn-select">选择此选题</button></div>
+        </div>
+        <div class="topic-card" id="tc-5" onclick="selectTopic(5)">
+          <div class="topic-card-num">NO. 05</div>
+          <div class="topic-card-title">打工人续命轻食地图 · 北京CBD篇</div>
+          <div class="topic-card-reason">午餐刚需场景，健康轻食全年稳定热度，复购率高</div>
+          <div class="topic-card-footer"><button class="btn-select">选择此选题</button></div>
+        </div>
+      </div>
+      <div class="topic-detail" id="topic-detail"></div>
+    </div>
+    <div style="margin-top:28px;display:flex;justify-content:center;">
+      <button class="btn-generate" id="btn-generate-report" onclick="generateTopicReport()" style="padding:14px 36px;font-size:15px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        生成完整选题报告
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 5 ═══ -->
+  <div class="step-section" id="step-5">
+    <div class="section-title">内容预览</div>
+    <div class="section-subtitle" id="step5-subtitle">基于选题自动生成 · 可直接编辑使用</div>
+    <div id="content-commercial">
+      <div class="hero-cover">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&auto=format&fit=crop" alt="北京美食" onerror="this.parentElement.style.background='linear-gradient(135deg,#7B341E,#C05621)';this.style.display='none'">
+        <div class="hero-overlay">
+          <div class="hero-badge">🦆 2026 本地推荐</div>
+          <div class="hero-title">北京烤鸭避坑终极指南 · 2026本地版</div>
+          <div class="hero-subtitle">三强横评 · 本地人私藏清单 · 排队攻略全收录</div>
+        </div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-avatar">🐱</div>
+        <div><div class="ip-name">喵编辑 jelly</div><div class="ip-text">全聚德的时代已经结束了。北京人吃烤鸭，不会排全聚德，也不会花500+买一道仪式感。这次我们横评四季民福、利群、鸭王三家，从鸭皮脆度、肉质、性价比、排队时长四个维度打分，给你一份不被割韭菜的本地吃货版指南。</div></div>
+      </div>
+      <div class="supply-title">🏪 精选供给 · 4家必打卡</div>
+      <div class="supply-list">
+        <div class="supply-card"><div class="supply-name">四季民福（故宫店）</div><div class="supply-tag">综合第一</div><div class="supply-desc">皮脆肉嫩，蘸酱比例精准，甜面酱自制。人均200-280元，强烈建议提前3天预约。</div><div class="supply-score"><span class="supply-star">★★★★★</span><span class="supply-score-val">4.9</span></div></div>
+        <div class="supply-card"><div class="supply-name">利群烤鸭（胡同店）</div><div class="supply-tag">老北京味儿</div><div class="supply-desc">藏在胡同里的老店，鸭皮脆度一流，酱香浓郁。人均180-250元，强烈建议电话预约。</div><div class="supply-score"><span class="supply-star">★★★★★</span><span class="supply-score-val">4.8</span></div></div>
+        <div class="supply-card"><div class="supply-name">鸭王（三里屯店）</div><div class="supply-tag">性价比优选</div><div class="supply-desc">连锁品质稳定，人均150-200元，无需预约，随到随吃。鸭架汤免费续。</div><div class="supply-score"><span class="supply-star">★★★★☆</span><span class="supply-score-val">4.5</span></div></div>
+        <div class="supply-card"><div class="supply-name">大董烤鸭（工体店）</div><div class="supply-tag">高端体验</div><div class="supply-desc">意境菜+烤鸭融合路线，人均350-500元。鸭皮酥脆程度业界天花板。</div><div class="supply-score"><span class="supply-star">★★★★☆</span><span class="supply-score-val">4.6</span></div></div>
+      </div>
+      <div class="prompt-block">
+        <div class="prompt-block-header">🤖 供给筛选 Prompt</div>
+        <code>请从美团平台筛选以下条件的烤鸭商家：
+- 城市：北京 / 品类：烤鸭
+- 评分：≥ 4.6分 / 月销量：≥ 300单
+- 人均区间：150-400元
+- 标签：含「片皮鸭」「脆皮」任一
+- 排除：连锁快餐型、旅游区溢价型
+- 排序：综合热度 DESC / 限制：TOP 10</code>
+      </div>
+    </div>
+    <div id="content-editorial" style="display:none;">
+      <div class="content-intro">🦆 北京的烤鸭江湖，从来不缺战争。四季民福 vs 利群，本地人 vs 游客，性价比 vs 体验感——每一组对立都是选题的富矿。这次我们从内容创作者的视角，把北京烤鸭拆解成三个最容易出爆款的方向，拿走直接用。</div>
+      <div class="content-section">
+        <div class="content-num">NO. 1</div>
+        <div class="content-section-title">北京人吃烤鸭，根本不去全聚德</div>
+        <div class="content-section-body">这是一个让无数外地朋友震惊的事实：北京本地人，几乎不去全聚德。原因很简单——皮不够脆、肉偏柴、价格虚高，旅游区溢价吃的是「仪式感」，不是烤鸭本身。真正被北京人反复推荐的，是四季民福、利群、鸭王这三家。</div>
+        <div class="content-img-wrap"><img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&auto=format&fit=crop" alt="烤鸭" onerror="this.style.background='#F5F5F7';this.style.height='220px'"></div>
+        <div class="content-img-prompt">📸 配图: Beijing roast duck close-up, crispy golden skin, white porcelain plate, natural warm light</div>
+      </div>
+      <div class="content-section">
+        <div class="content-num">NO. 2</div>
+        <div class="content-section-title">三强横评：四季民福 vs 利群 vs 鸭王</div>
+        <div class="content-section-body"><strong>「四季民福」</strong>——故宫店坐拥北京最好的位置加成，鸭皮脆度满分，甜面酱配方独家，人均230元。唯一缺点：排队和预约是必要成本。</div>
+        <div class="content-section-body"><strong>「利群」</strong>——藏在西城区胡同里。鸭皮酥脆程度与四季民福不相上下，酱香更浓，老北京风味更纯粹。人均200元。</div>
+        <div class="content-section-body"><strong>「鸭王」</strong>——连锁体系下品质最稳定的选手，无需预约是最大优势。人均160元，性价比在三强中最高。</div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- API Loading Overlay -->
+<div class="api-loading-overlay" id="api-loading-overlay">
+  <div class="api-loading-box">
+    <div class="api-loading-spinner"></div>
+    <div class="api-loading-text" id="api-loading-text">AI 正在生成中…</div>
+  </div>
+</div>
+<!-- Error Toast -->
+<div class="error-toast" id="error-toast"></div>
+</main>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// 数据层
+// ══════════════════════════════════════════════════════════════
+
+// 一级品类（6个气泡）
+var L1_DATA = [
+  {
+    id: 'duck',
+    label: '烤鸭 & 京味主食',
+    heat: 100,
+    x: 0.88, y: 0.88,
+    group: 'classic',
+    desc: '北京最高热度品类，含烤鸭/炸酱面/卤煮等传统京味'
+  },
+  {
+    id: 'hotpot',
+    label: '涮肉 & 烤肉',
+    heat: 88,
+    x: 0.72, y: 0.78,
+    group: 'classic',
+    desc: '铜锅涮肉+烤肉，节假日大排长龙'
+  },
+  {
+    id: 'bbq',
+    label: '夜市 & 烤串',
+    heat: 76,
+    x: 0.55, y: 0.60,
+    group: 'night',
+    desc: '北京夜市文化，脏摊烤串/红柳大串'
+  },
+  {
+    id: 'drinks',
+    label: '饮品 & 咖啡',
+    heat: 82,
+    x: 0.82, y: 0.30,
+    group: 'trendy',
+    desc: '胡同咖啡/气泡特调/下午茶，小红书爆款'
+  },
+  {
+    id: 'light',
+    label: '轻食 & 健康',
+    heat: 72,
+    x: 0.42, y: 0.22,
+    group: 'light',
+    desc: '沙拉/轻食碗，打工人午餐赛道'
+  },
+  {
+    id: 'trendy',
+    label: '新潮融合菜',
+    heat: 78,
+    x: 0.65, y: 0.42,
+    group: 'trendy',
+    desc: '日料一人食/韩式融合，Z世代偏好'
+  }
+];
+
+// 二级品类（每个一级对应20个）
+var L2_DATA = {
+  duck: {
+    l1name: '烤鸭 & 京味主食',
+    items: [
+      { name:'四季民福烤鸭', heat:100, tag:'hot',   pain:'排队3小时常态，本地人推荐首位', prompt:'品类：烤鸭\n商家：四季民福\n排序：评分DESC\n限制：TOP5',
+        posts:[
+          {platform:'📕',title:'北京人吃烤鸭绝对不去全聚德，去这3家就对了',likes:'4.2万',url:'https://www.xiaohongshu.com/search_result?keyword=四季民福烤鸭'},
+          {platform:'🐦',title:'四季民福故宫店排队攻略！提前3天预约+最佳时间段',likes:'1.8万',url:'https://weibo.com/search?q=四季民福烤鸭'},
+          {platform:'📱',title:'实测！北京烤鸭三强横评：四季民福 vs 利群 vs 鸭王',likes:'9.3万',url:'https://www.douyin.com/search/北京烤鸭推荐'}
+        ]},
+      { name:'利群烤鸭',     heat: 96, tag:'hot',   pain:'胡同藏店，老北京人的白月光', prompt:'品类：烤鸭\n商家：利群\n区域：西城',
+        posts:[
+          {platform:'📕',title:'藏在胡同里的烤鸭天花板，利群老店探秘',likes:'3.1万',url:'https://www.xiaohongshu.com/search_result?keyword=利群烤鸭'},
+          {platform:'🐦',title:'利群烤鸭 vs 四季民福，老北京人说实话了',likes:'2.2万',url:'https://weibo.com/search?q=利群烤鸭'},
+          {platform:'📱',title:'【探店】胡同里的利群烤鸭，电话预约才能吃到',likes:'6.7万',url:'https://www.douyin.com/search/利群烤鸭'}
+        ]},
+      { name:'鸭王炭烤',     heat: 88, tag:'trend',  pain:'无需预约、性价比高，周末爆满', prompt:'品类：烤鸭\n关键词：无需预约\n人均：≤200元',
+        posts:[
+          {platform:'📕',title:'无需预约！北京烤鸭性价比天花板，人均150搞定',likes:'2.8万',url:'https://www.xiaohongshu.com/search_result?keyword=鸭王烤鸭'},
+          {platform:'🐦',title:'鸭王三里屯店避坑指南，这几款SKU必点',likes:'1.1万',url:'https://weibo.com/search?q=鸭王烤鸭北京'},
+          {platform:'📱',title:'鸭架汤免费续！鸭王凭什么在北京烤鸭界稳坐？',likes:'4.9万',url:'https://www.douyin.com/search/鸭王炭烤'}
+        ]},
+      { name:'大董意境鸭',   heat: 82, tag:'trend',  pain:'高端市场，商务宴请首选', prompt:'品类：意境菜+烤鸭\n均价：≥300元',
+        posts:[
+          {platform:'📕',title:'大董意境菜值不值500块？吃完给你答案',likes:'1.9万',url:'https://www.xiaohongshu.com/search_result?keyword=大董烤鸭'},
+          {platform:'🐦',title:'北京高端烤鸭大董实测，商务宴请选这家不踩雷',likes:'8400',url:'https://weibo.com/search?q=大董烤鸭'},
+          {platform:'📱',title:'人均500的大董，烤鸭到底比别家强在哪里',likes:'3.6万',url:'https://www.douyin.com/search/大董烤鸭'}
+        ]},
+      { name:'全聚德（反种草）', heat:75, tag:'niche', pain:'游客陷阱话题，反向内容高热度', prompt:'品类：烤鸭\n避坑内容\n关键词：游客陷阱',
+        posts:[
+          {platform:'📕',title:'北京人从来不去全聚德！揭秘旅游陷阱真相',likes:'5.8万',url:'https://www.xiaohongshu.com/search_result?keyword=全聚德避坑'},
+          {platform:'🐦',title:'全聚德一只鸭500+，味道差评了，游客别再被坑',likes:'3.4万',url:'https://weibo.com/search?q=全聚德踩雷'},
+          {platform:'📱',title:'测评全聚德！花了600块告诉你值不值',likes:'11万',url:'https://www.douyin.com/search/全聚德评测'}
+        ]},
+      { name:'炸酱面（海碗居）', heat:78, tag:'hot',  pain:'排队半小时，正宗标准之争', prompt:'品类：炸酱面\n商家：海碗居\n限制：TOP8',
+        posts:[
+          {platform:'📕',title:'北京炸酱面正宗之争！海碗居 vs 胡同老面馆',likes:'2.4万',url:'https://www.xiaohongshu.com/search_result?keyword=北京炸酱面'},
+          {platform:'🐦',title:'海碗居炸酱面的酱怎么拌才正确，老北京说话了',likes:'1.6万',url:'https://weibo.com/search?q=海碗居炸酱面'},
+          {platform:'📱',title:'外地人第一次吃炸酱面蒙了，北京人帮你解析',likes:'7.1万',url:'https://www.douyin.com/search/北京炸酱面'}
+        ]},
+      { name:'卤煮火烧',     heat: 72, tag:'niche',  pain:'外地人体验门槛高，本地人挚爱', prompt:'品类：卤煮\n区域：东城/西城\n标签：老字号',
+        posts:[
+          {platform:'📕',title:'北京卤煮火烧完全指南，外地人来了必踩的坑',likes:'1.9万',url:'https://www.xiaohongshu.com/search_result?keyword=北京卤煮火烧'},
+          {platform:'🐦',title:'门框胡同卤煮凭什么百年传承？本地人来解释',likes:'1.2万',url:'https://weibo.com/search?q=卤煮火烧北京'},
+          {platform:'📱',title:'猪下水怎么这么好吃！第一次尝卤煮被征服了',likes:'4.5万',url:'https://www.douyin.com/search/卤煮火烧'}
+        ]},
+      { name:'豆汁焦圈',     heat: 65, tag:'niche',  pain:'挑战性食物，南北差异内容爆点', prompt:'品类：豆汁\n商家：护国寺小吃',
+        posts:[
+          {platform:'📕',title:'喝豆汁的人和喝不了豆汁的人，永远无法互相理解',likes:'3.8万',url:'https://www.xiaohongshu.com/search_result?keyword=北京豆汁'},
+          {platform:'🐦',title:'南方人挑战北京豆汁，第一口的表情说明了一切',likes:'2.7万',url:'https://weibo.com/search?q=北京豆汁挑战'},
+          {platform:'📱',title:'护国寺豆汁焦圈探店，这味道真的很两极分化',likes:'5.2万',url:'https://www.douyin.com/search/北京豆汁'}
+        ]},
+      { name:'门钉肉饼',     heat: 68, tag:'rise',   pain:'爆汁感强，网红化程度快速上升', prompt:'品类：肉饼\n关键词：门钉肉饼\n区域：北京',
+        posts:[
+          {platform:'📕',title:'一口爆汁！宝瑞门钉肉饼，北京小吃的隐藏宝藏',likes:'2.1万',url:'https://www.xiaohongshu.com/search_result?keyword=门钉肉饼'},
+          {platform:'🐦',title:'门钉肉饼为什么能火起来？北京新晋网红小吃解析',likes:'9800',url:'https://weibo.com/search?q=门钉肉饼'},
+          {platform:'📱',title:'咬一口汤汁四溅！这就是门钉肉饼的魔力',likes:'3.9万',url:'https://www.douyin.com/search/门钉肉饼'}
+        ]},
+      { name:'小吊梨汤',     heat: 62, tag:'niche',  pain:'新中式复兴，场景出片强', prompt:'品类：梨汤\n关键词：新中式\n场景：古建',
+        posts:[
+          {platform:'📕',title:'北京胡同里喝小吊梨汤，这才叫有北京味儿',likes:'1.7万',url:'https://www.xiaohongshu.com/search_result?keyword=小吊梨汤'},
+          {platform:'🐦',title:'新中式复兴！小吊梨汤为什么能成为网红饮品',likes:'8200',url:'https://weibo.com/search?q=小吊梨汤'},
+          {platform:'📱',title:'什刹海旁喝梨汤，这个画面太适合出片了',likes:'2.8万',url:'https://www.douyin.com/search/小吊梨汤'}
+        ]},
+      { name:'爆肚',         heat: 60, tag:'niche',  pain:'老北京平民美食，认知门槛高', prompt:'品类：爆肚\n标签：老字号\n限制：TOP5',
+        posts:[
+          {platform:'📕',title:'爆肚到底是什么？北京人吃了一辈子的东西外地人看懵',likes:'1.4万',url:'https://www.xiaohongshu.com/search_result?keyword=北京爆肚'},
+          {platform:'🐦',title:'北京爆肚完全入门，食材选择+蘸料配比全攻略',likes:'7800',url:'https://weibo.com/search?q=北京爆肚'},
+          {platform:'📱',title:'老北京爆肚 vs 新式爆肚，区别到底在哪里',likes:'2.3万',url:'https://www.douyin.com/search/北京爆肚'}
+        ]},
+      { name:'焦圈油条',     heat: 55, tag:'niche',  pain:'早餐赛道，传统文化体验感强', prompt:'品类：油条焦圈\n场景：早餐',
+        posts:[
+          {platform:'📕',title:'北京人的早餐：豆浆+焦圈，全国最香的早餐组合',likes:'1.1万',url:'https://www.xiaohongshu.com/search_result?keyword=北京焦圈油条'},
+          {platform:'🐦',title:'北京哪家焦圈最正宗？老字号 vs 新派，本地人测评',likes:'6400',url:'https://weibo.com/search?q=北京焦圈'},
+          {platform:'📱',title:'清晨5点，跟着北京老人去买焦圈',likes:'2.1万',url:'https://www.douyin.com/search/北京焦圈'}
+        ]},
+      { name:'京酱肉丝',     heat: 58, tag:'rise',   pain:'家常菜馆复兴，正宗口味难找', prompt:'品类：京酱肉丝\n商家类型：家常菜馆',
+        posts:[
+          {platform:'📕',title:'京酱肉丝在外地吃到的vs北京本地吃到的，差距真的大',likes:'1.3万',url:'https://www.xiaohongshu.com/search_result?keyword=京酱肉丝'},
+          {platform:'🐦',title:'北京家常菜馆复兴！这些老味道终于回来了',likes:'7200',url:'https://weibo.com/search?q=北京家常菜'},
+          {platform:'📱',title:'京酱肉丝正宗做法，荷叶饼蘸酱才是灵魂',likes:'3.4万',url:'https://www.douyin.com/search/京酱肉丝'}
+        ]},
+      { name:'驴打滚',       heat: 52, tag:'niche',  pain:'老北京甜品，回忆杀强，制作繁琐', prompt:'品类：驴打滚\n标签：传统甜点',
+        posts:[
+          {platform:'📕',title:'驴打滚：消失中的老北京味道，豆面+豆沙才是灵魂',likes:'1.6万',url:'https://www.xiaohongshu.com/search_result?keyword=驴打滚北京'},
+          {platform:'🐦',title:'北京老甜品驴打滚，80后的集体童年记忆',likes:'9100',url:'https://weibo.com/search?q=驴打滚北京'},
+          {platform:'📱',title:'跟着老师傅学做驴打滚，传承百年的手艺',likes:'2.6万',url:'https://www.douyin.com/search/驴打滚'}
+        ]},
+      { name:'芥末墩儿',     heat: 48, tag:'niche',  pain:'年节食品，外地人鲜少知道', prompt:'品类：芥末墩\n场景：传统节日',
+        posts:[
+          {platform:'📕',title:'北京人过年必备！芥末墩儿，99%外地人没听过的冷门菜',likes:'2.1万',url:'https://www.xiaohongshu.com/search_result?keyword=北京芥末墩'},
+          {platform:'🐦',title:'芥末墩儿：北京年夜饭上最小众的传统菜',likes:'8800',url:'https://weibo.com/search?q=北京芥末墩'},
+          {platform:'📱',title:'辣到脑门儿！第一次吃北京芥末墩的外地人',likes:'1.9万',url:'https://www.douyin.com/search/芥末墩'}
+        ]},
+      { name:'炒肝',         heat: 50, tag:'niche',  pain:'猪内脏接受度南北差异大', prompt:'品类：炒肝\n区域：北京',
+        posts:[
+          {platform:'📕',title:'北京炒肝到底好不好吃？南方人真实初体验',likes:'1.8万',url:'https://www.xiaohongshu.com/search_result?keyword=北京炒肝'},
+          {platform:'🐦',title:'炒肝+包子，老北京人30年不变的早餐搭配',likes:'1.1万',url:'https://weibo.com/search?q=北京炒肝'},
+          {platform:'📱',title:'要到鼓楼才能吃到正宗炒肝？北京本地人带你找',likes:'2.4万',url:'https://www.douyin.com/search/北京炒肝'}
+        ]},
+      { name:'糖葫芦（景区版）', heat:70, tag:'rise', pain:'景区溢价争议，网红VS正宗', prompt:'品类：糖葫芦\n关键词：老冰糖',
+        posts:[
+          {platform:'📕',title:'景区糖葫芦25块 vs 胡同里5块，到底差在哪',likes:'3.3万',url:'https://www.xiaohongshu.com/search_result?keyword=北京糖葫芦'},
+          {platform:'🐦',title:'北京冬日必打卡！老冰糖糖葫芦 vs 新式水果串',likes:'1.9万',url:'https://weibo.com/search?q=北京糖葫芦'},
+          {platform:'📱',title:'北京糖葫芦避坑指南，别在景区被宰了',likes:'6.8万',url:'https://www.douyin.com/search/北京糖葫芦'}
+        ]},
+      { name:'老北京鸡肉卷', heat: 65, tag:'rise',   pain:'平替烤鸭，年轻人接受度高', prompt:'品类：鸡肉卷\n人均：≤40元',
+        posts:[
+          {platform:'📕',title:'老北京鸡肉卷配豆瓣酱，人均30的烤鸭平替？',likes:'2.2万',url:'https://www.xiaohongshu.com/search_result?keyword=老北京鸡肉卷'},
+          {platform:'🐦',title:'鸡肉卷正在成为北京年轻人的新宠小吃',likes:'1.3万',url:'https://weibo.com/search?q=北京鸡肉卷'},
+          {platform:'📱',title:'人均30的北京鸡肉卷，才是真正的本地平价美食',likes:'4.7万',url:'https://www.douyin.com/search/老北京鸡肉卷'}
+        ]},
+      { name:'炸灌肠',       heat: 45, tag:'niche',  pain:'护国寺/隆福寺，老北京人的情怀', prompt:'品类：炸灌肠\n标签：老字号',
+        posts:[
+          {platform:'📕',title:'炸灌肠：北京小吃里最被忽视的宝藏，好吃到忘不了',likes:'1.2万',url:'https://www.xiaohongshu.com/search_result?keyword=北京炸灌肠'},
+          {platform:'🐦',title:'隆福寺炸灌肠还能找到吗？北京老字号寻访记',likes:'7600',url:'https://weibo.com/search?q=北京炸灌肠'},
+          {platform:'📱',title:'大蒜汁浇上去！这才是炸灌肠的正确打开方式',likes:'2.1万',url:'https://www.douyin.com/search/炸灌肠'}
+        ]},
+      { name:'麻豆腐',       heat: 40, tag:'niche',  pain:'受众极小，但内容独特性极高', prompt:'品类：麻豆腐\n关键词：老北京特色',
+        posts:[
+          {platform:'📕',title:'麻豆腐：全北京只有老北京人才知道的神秘食物',likes:'1.8万',url:'https://www.xiaohongshu.com/search_result?keyword=北京麻豆腐'},
+          {platform:'🐦',title:'炒麻豆腐加雪里红，这是属于老北京的味觉记忆',likes:'6800',url:'https://weibo.com/search?q=北京麻豆腐'},
+          {platform:'📱',title:'北京最小众美食麻豆腐深度探访，90%的人没听过',likes:'3.2万',url:'https://www.douyin.com/search/麻豆腐'}
+        ]}
+    ]
+  },
+  hotpot: {
+    l1name: '涮肉 & 烤肉',
+    items: [
+      { name:'东来顺（铜锅涮肉）', heat:100, tag:'hot',  pain:'老字号涮肉，等位2小时，口碑争议', prompt:'品类：涮肉\n商家：东来顺\n区域：北京',
+        posts:[
+          {platform:'📕',title:'东来顺等位2小时值不值？北京涮肉老字号实测',likes:'3.6万',url:'https://www.xiaohongshu.com/search_result?keyword=东来顺涮肉'},
+          {platform:'🐦',title:'东来顺 vs 南门涮肉，北京人选哪家？',likes:'2.1万',url:'https://weibo.com/search?q=东来顺涮肉'},
+          {platform:'📱',title:'北京铜锅涮肉完全指南，手切羊肉+麻酱才是灵魂',likes:'8.4万',url:'https://www.douyin.com/search/北京铜锅涮肉'}
+        ]},
+      { name:'南门涮肉',    heat: 92, tag:'hot',   pain:'本地人偏爱，价格亲民，翻台快', prompt:'品类：涮肉\n商家：南门涮肉',
+        posts:[
+          {platform:'📕',title:'本地人的涮肉首选！南门涮肉凭什么比东来顺更受欢迎',likes:'2.9万',url:'https://www.xiaohongshu.com/search_result?keyword=南门涮肉'},
+          {platform:'🐦',title:'南门涮肉价格亲民，北京人的平价涮肉真香指南',likes:'1.5万',url:'https://weibo.com/search?q=南门涮肉'},
+          {platform:'📱',title:'南门涮肉探店！人均不到100，涮肉也能这么好吃',likes:'5.8万',url:'https://www.douyin.com/search/南门涮肉'}
+        ]},
+      { name:'九门烤鱼',    heat: 85, tag:'trend',  pain:'网红烤鱼，胡同打卡场景', prompt:'品类：烤鱼\n区域：东城\n标签：网红',
+        posts:[
+          {platform:'📕',title:'藏在胡同里的九门烤鱼，北京最好吃的烤鱼没有之一',likes:'2.4万',url:'https://www.xiaohongshu.com/search_result?keyword=九门烤鱼'},
+          {platform:'🐦',title:'九门烤鱼排队攻略，去晚了真的排不上',likes:'1.2万',url:'https://weibo.com/search?q=九门烤鱼'},
+          {platform:'📱',title:'北京胡同里的烤鱼神店，场景+口味双满分',likes:'6.1万',url:'https://www.douyin.com/search/九门烤鱼'}
+        ]},
+      { name:'老北京铜锅',  heat: 80, tag:'rise',   pain:'新开铜锅店品质参差，踩雷率上升', prompt:'品类：铜锅涮肉\n评分：≥4.5',
+        posts:[
+          {platform:'📕',title:'北京新开铜锅店踩雷合集！这3家别去',likes:'3.2万',url:'https://www.xiaohongshu.com/search_result?keyword=北京铜锅涮肉'},
+          {platform:'🐦',title:'铜锅涮肉品质参差，北京本地人推荐清单',likes:'1.7万',url:'https://weibo.com/search?q=北京铜锅涮肉推荐'},
+          {platform:'📱',title:'老北京铜锅 vs 新式涮肉，区别在哪里？',likes:'4.3万',url:'https://www.douyin.com/search/北京铜锅涮肉'}
+        ]},
+      { name:'阳坊涮肉',    heat: 78, tag:'trend',  pain:'郊区名店进城，口碑稳定', prompt:'品类：涮肉\n商家：阳坊涮肉',
+        posts:[
+          {platform:'📕',title:'阳坊涮肉进城了！郊区老字号vs市区新店，有区别吗？',likes:'2.2万',url:'https://www.xiaohongshu.com/search_result?keyword=阳坊涮肉'},
+          {platform:'🐦',title:'阳坊涮肉口碑为什么这么稳？本地人分析',likes:'1.1万',url:'https://weibo.com/search?q=阳坊涮肉'},
+          {platform:'📱',title:'专程去延庆吃阳坊涮肉，真的值这个车程吗',likes:'3.8万',url:'https://www.douyin.com/search/阳坊涮肉'}
+        ]},
+      { name:'羊蝎子（老冯）', heat:82, tag:'hot',   pain:'冬日爆款，鼓楼西大街排队', prompt:'品类：羊蝎子\n区域：西城\n商家：老冯' },
+      { name:'北京烤鸭串',  heat: 72, tag:'rise',   pain:'烤鸭IP下沉，价格友好', prompt:'品类：烤鸭串\n人均：≤80元' },
+      { name:'手切羔羊肉',  heat: 75, tag:'trend',  pain:'品质差异感知强，价格分层明显', prompt:'品类：涮肉\n关键词：手切羔羊\n评分：≥4.6' },
+      { name:'麻辣小龙虾',  heat: 70, tag:'rise',   pain:'夏季爆款，海淀/朝阳聚集', prompt:'品类：小龙虾\n季节：夏季\n城市：北京' },
+      { name:'海鲜烤肉融合', heat:68, tag:'trend',  pain:'新品类，颠覆传统认知，高溢价', prompt:'品类：烤肉+海鲜\n标签：融合' },
+      { name:'内蒙古烤羊背', heat:65, tag:'niche',  pain:'品质强，价格高，小众认知', prompt:'品类：烤羊背\n区域：北京\n限制：TOP6' },
+      { name:'正宗四川火锅', heat:74, tag:'hot',    pain:'北京川渝火锅内卷，踩雷率上升', prompt:'品类：川渝火锅\n关键词：正宗\n城市：北京' },
+      { name:'老坛酸菜鱼',  heat: 62, tag:'rise',   pain:'快餐化下沉，正宗标准之争', prompt:'品类：酸菜鱼\n商家类型：正餐\n人均：≤80元' },
+      { name:'羊汤',         heat: 55, tag:'niche',  pain:'早餐强刚需，发现好羊汤店难', prompt:'品类：羊汤\n场景：早餐' },
+      { name:'涮牛肚',      heat: 58, tag:'niche',  pain:'内脏文化，外地人接受度低', prompt:'品类：牛肚\n区域：北京' },
+      { name:'暖锅（北方传统）', heat:52, tag:'niche', pain:'传统煤气暖锅，场景稀有', prompt:'品类：暖锅\n标签：传统' },
+      { name:'火锅外卖',    heat: 72, tag:'rise',   pain:'疫后习惯延续，到家火锅需求强', prompt:'品类：火锅\n场景：外卖\n城市：北京' },
+      { name:'素食涮锅',    heat: 48, tag:'trend',  pain:'健康素食赛道，受众小但增速快', prompt:'品类：素食火锅\n标签：素食' },
+      { name:'一人食小火锅', heat:65, tag:'rise',   pain:'Z世代独居场景，外卖化趋势', prompt:'品类：小火锅\n场景：一人食' },
+      { name:'车仔面（港式涮）', heat:50, tag:'trend', pain:'港式文化输出，北京年轻人猎奇', prompt:'品类：车仔面\n标签：港式' }
+    ]
+  },
+  bbq: {
+    l1name: '夜市 & 烤串',
+    items: [
+      { name:'脏摊儿烤串',   heat:100, tag:'hot',   pain:'北京夜市文化核心，鼓楼/工体聚集', prompt:'品类：烤串\n场景：夜市摊\n区域：北京',
+        posts:[
+          {platform:'📕',title:'北京脏摊儿烤串地图！鼓楼-工体-三里屯全攻略',likes:'5.1万',url:'https://www.xiaohongshu.com/search_result?keyword=北京脏摊烤串'},
+          {platform:'🐦',title:'来北京不吃脏摊儿烤串等于白来，附完整攻略',likes:'3.8万',url:'https://weibo.com/search?q=北京脏摊烤串'},
+          {platform:'📱',title:'北京夏夜最快乐的事：脏摊儿烤串+冰镇啤酒',likes:'12万',url:'https://www.douyin.com/search/北京夜市烤串'}
+        ]},
+      { name:'红柳大串',     heat: 92, tag:'hot',   pain:'新疆风味，肉质感知强，高频打卡', prompt:'品类：红柳烤串\n标签：新疆风味',
+        posts:[
+          {platform:'📕',title:'北京哪家红柳烤串最正宗？实测5家给你结论',likes:'3.7万',url:'https://www.xiaohongshu.com/search_result?keyword=北京红柳烤串'},
+          {platform:'🐦',title:'红柳大串和普通铁签串有什么区别？新疆师傅说实话',likes:'2.2万',url:'https://weibo.com/search?q=北京红柳烤串'},
+          {platform:'📱',title:'一口一个！北京最香的红柳大串藏在这里',likes:'7.6万',url:'https://www.douyin.com/search/红柳烤串北京'}
+        ]},
+      { name:'羊肉串（正宗）', heat:88, tag:'hot',  pain:'正宗标准模糊，鱼龙混杂', prompt:'品类：羊肉串\n关键词：正宗\n区域：北京',
+        posts:[
+          {platform:'📕',title:'北京烤羊肉串大扫雷！哪家是真羊肉哪家是猪肉',likes:'4.4万',url:'https://www.xiaohongshu.com/search_result?keyword=北京羊肉串正宗'},
+          {platform:'🐦',title:'正宗羊肉串怎么分辨？这3个细节让你不踩坑',likes:'2.6万',url:'https://weibo.com/search?q=北京羊肉串正宗'},
+          {platform:'📱',title:'孜然辣椒撒上去封神！北京最好吃羊肉串测评',likes:'9.1万',url:'https://www.douyin.com/search/北京羊肉串'}
+        ]},
+      { name:'烤腰子',       heat: 86, tag:'hot',   pain:'话题性极强，接受度南北差异大', prompt:'品类：烤腰子\n关键词：鲜嫩' },
+      { name:'丰台花街夜市', heat: 80, tag:'hot',   pain:'北京规模最大夜市，但品质参差', prompt:'场景：夜市\n区域：丰台\n商家类型：摊位' },
+      { name:'学院路夜市',   heat: 75, tag:'rise',  pain:'高校周边夜市，学生党强刚需', prompt:'场景：夜市\n区域：海淀学院路' },
+      { name:'工体周边烤串', heat: 82, tag:'hot',   pain:'演出后宵夜场景，热度周期性爆发', prompt:'场景：宵夜\n区域：朝阳工体\n时段：22点后' },
+      { name:'铁板鱿鱼',     heat: 78, tag:'hot',   pain:'标志性夜市食物，必打卡', prompt:'品类：铁板鱿鱼\n场景：夜市' },
+      { name:'新疆烧烤馆',   heat: 72, tag:'trend', pain:'正宗感强，室内化升级受欢迎', prompt:'品类：新疆烧烤\n商家类型：正餐\n评分：≥4.4' },
+      { name:'石景山铁道烤串', heat:68, tag:'niche', pain:'独特场景感，小众但口碑极好', prompt:'场景：铁道旁\n区域：石景山' },
+      { name:'炸鸡排（夜市版）', heat:70, tag:'rise', pain:'年轻人夜宵刚需，价格友好', prompt:'品类：炸鸡\n场景：夜市/宵夜' },
+      { name:'煎饼果子（高端版）', heat:65, tag:'rise', pain:'传统早餐升级，网红打卡点', prompt:'品类：煎饼果子\n关键词：现做\n评分：≥4.3' },
+      { name:'白帽子烤肉',   heat: 62, tag:'niche',  pain:'清真烤肉，口味独特，受众精准', prompt:'品类：清真烤肉\n标签：清真\n区域：北京' },
+      { name:'碳烤生蚝',     heat: 68, tag:'rise',   pain:'夏季海鲜烧烤，海鲜进北京夜市', prompt:'品类：生蚝\n场景：烧烤摊\n季节：夏季' },
+      { name:'爆辣串串香',   heat: 60, tag:'trend',  pain:'四川串串北京化，年轻消费群体强', prompt:'品类：串串香\n口味：麻辣\n城市：北京' },
+      { name:'烤豆干',       heat: 50, tag:'niche',  pain:'素食烧烤补充，受众小但美拉德反应强', prompt:'品类：烤豆干\n场景：烧烤' },
+      { name:'三里屯烤肉酒吧', heat:74, tag:'trend', pain:'餐饮+夜生活融合，年轻化', prompt:'品类：烤肉\n场景：酒吧+餐\n区域：三里屯' },
+      { name:'广西烤猪蹄',   heat: 55, tag:'niche',  pain:'地方特色进京，认知度低但回头客强', prompt:'品类：猪蹄\n关键词：广西风味' },
+      { name:'炭烤玉米',     heat: 52, tag:'niche',  pain:'夏秋季节性，怀旧感强', prompt:'品类：烤玉米\n场景：夜市' },
+      { name:'深夜食堂外卖', heat: 66, tag:'rise',   pain:'宵夜外卖赛道增速快，到家场景强', prompt:'品类：宵夜\n场景：外卖\n时段：22点后' }
+    ]
+  },
+  drinks: {
+    l1name: '饮品 & 咖啡',
+    items: [
+      { name:'胡同咖啡馆',   heat:100, tag:'hot',   pain:'古建+咖啡组合爆款，白塔寺耀咖啡', prompt:'品类：咖啡\n场景：胡同/古建\n标签：打卡',
+        posts:[
+          {platform:'📕',title:'北京胡同咖啡馆完全指南！这10家值得专程打卡',likes:'4.8万',url:'https://www.xiaohongshu.com/search_result?keyword=北京胡同咖啡'},
+          {platform:'🐦',title:'在北京四合院喝咖啡，这种反差感太上头了',likes:'2.9万',url:'https://weibo.com/search?q=北京胡同咖啡馆'},
+          {platform:'📱',title:'胡同咖啡馆探店！这才是北京最有意境的下午茶',likes:'10万',url:'https://www.douyin.com/search/北京胡同咖啡'}
+        ]},
+      { name:'气泡果茶特调', heat: 95, tag:'hot',   pain:'小红书爆款公式，视觉+口感双爆', prompt:'品类：特调饮品\n关键词：气泡果茶\n城市：北京',
+        posts:[
+          {platform:'📕',title:'北京春日必喝特调！10款气泡果茶测评，颜值+口感双榜',likes:'3.9万',url:'https://www.xiaohongshu.com/search_result?keyword=北京气泡果茶'},
+          {platform:'🐦',title:'特调饮品如何拍出爆款图？北京咖啡店出片攻略',likes:'2.1万',url:'https://weibo.com/search?q=北京特调饮品'},
+          {platform:'📱',title:'北京网红饮品大测评！哪款最值得排队？',likes:'7.2万',url:'https://www.douyin.com/search/北京特调饮品'}
+        ]},
+      { name:'白塔寺耀咖啡', heat: 92, tag:'hot',   pain:'古建景点加持，排队1小时', prompt:'商家：耀咖啡\n区域：白塔寺\n标签：打卡',
+        posts:[
+          {platform:'📕',title:'白塔寺耀咖啡出圈了！古建+咖啡的正确打开方式',likes:'5.2万',url:'https://www.xiaohongshu.com/search_result?keyword=白塔寺耀咖啡'},
+          {platform:'🐦',title:'排队一小时的白塔寺耀咖啡，到底值不值？',likes:'3.1万',url:'https://weibo.com/search?q=白塔寺耀咖啡'},
+          {platform:'📱',title:'北京最美咖啡馆！白塔寺旁的百年古建里喝咖啡',likes:'11万',url:'https://www.douyin.com/search/白塔寺耀咖啡'}
+        ]},
+      { name:'故宫角楼咖啡', heat: 88, tag:'hot',   pain:'景区限定，溢价明显但必打卡', prompt:'商家：角楼咖啡\n标签：故宫限定' },
+      { name:'南锣鼓巷手冲', heat: 82, tag:'trend', pain:'文艺青年聚集地，手冲精品咖啡', prompt:'品类：手冲咖啡\n区域：南锣鼓巷' },
+      { name:'奶茶（新中式）', heat:85, tag:'hot',   pain:'传统茶+奶盖，正宗之争激烈', prompt:'品类：奶茶\n关键词：新中式\n评分：≥4.4' },
+      { name:'小吊梨汤',     heat: 78, tag:'rise',  pain:'传统饮品复兴，场景出片感强', prompt:'品类：梨汤\n场景：古建/胡同' },
+      { name:'冰糖葫芦特饮', heat: 72, tag:'rise',  pain:'老北京元素创新，年轻化改造', prompt:'品类：特调\n关键词：糖葫芦风味' },
+      { name:'酸梅汤（现熬）', heat:80, tag:'hot',  pain:'夏季爆款，正宗VS料理包争议', prompt:'品类：酸梅汤\n关键词：现熬正宗\n季节：夏季' },
+      { name:'精品单品咖啡', heat: 70, tag:'trend', pain:'咖啡品鉴文化圈，高价值内容', prompt:'品类：单品咖啡\n标签：精品\n人均：≥40元' },
+      { name:'港式丝袜奶茶', heat: 68, tag:'trend', pain:'港式文化输出，北京门店稀少', prompt:'品类：港式奶茶\n标签：丝袜\n城市：北京' },
+      { name:'茉莉花茶（老字号）', heat:65, tag:'niche', pain:'北京茉莉茶文化，年轻人再发现', prompt:'品类：茉莉茶\n标签：老字号\n区域：北京' },
+      { name:'豆浆+油条组合', heat:62, tag:'niche', pain:'早餐刚需，好豆浆难找', prompt:'品类：豆浆\n场景：早餐\n标签：现磨' },
+      { name:'咖啡+空间体验', heat:74, tag:'trend', pain:'第三空间需求，不只喝咖啡', prompt:'品类：咖啡\n标签：空间设计\n评分：≥4.5' },
+      { name:'元气森林周边咖啡', heat:60, tag:'rise', pain:'快消品牌跨界，年轻人尝鲜', prompt:'品类：气泡水+咖啡\n标签：联名' },
+      { name:'竹筒奶茶',     heat: 68, tag:'rise',  pain:'竹筒容器出片感强，网红热度', prompt:'品类：竹筒奶茶\n标签：创意容器' },
+      { name:'藏红花奶茶',   heat: 52, tag:'niche', pain:'小众健康茶饮，受众精准', prompt:'品类：健康茶饮\n关键词：功能性' },
+      { name:'草莓季限定饮品', heat:78, tag:'rise',  pain:'季节性爆款，3-5月流量高峰', prompt:'品类：限定饮品\n季节：春季\n关键词：草莓' },
+      { name:'云南咖啡特产', heat: 58, tag:'trend', pain:'地方特色进京，认知度快速上升', prompt:'品类：咖啡\n产地：云南\n城市：北京' },
+      { name:'冷萃咖啡',     heat: 62, tag:'trend', pain:'夏季冷饮赛道，精品感强', prompt:'品类：冷萃\n标签：精品咖啡\n季节：夏季' }
+    ]
+  },
+  light: {
+    l1name: '轻食 & 健康',
+    items: [
+      { name:'打工人沙拉碗', heat:100, tag:'hot',   pain:'午餐刚需，低卡标注不透明', prompt:'品类：沙拉\n场景：午餐\n人均：25-55元\n标签：低卡',
+        posts:[
+          {platform:'📕',title:'北京写字楼周边沙拉地图！哪家不是料理包假轻食',likes:'4.1万',url:'https://www.xiaohongshu.com/search_result?keyword=北京沙拉轻食'},
+          {platform:'🐦',title:'打工人午饭吃什么？测评北京10家沙拉碗真实热量',likes:'2.8万',url:'https://weibo.com/search?q=北京轻食沙拉'},
+          {platform:'📱',title:'北京减脂午餐不踩坑！实测哪家沙拉真的低卡',likes:'8.7万',url:'https://www.douyin.com/search/北京减脂午餐'}
+        ]},
+      { name:'全麦三明治',   heat: 90, tag:'hot',   pain:'快速午餐，高频复购，品质参差', prompt:'品类：三明治\n标签：全麦健康\n场景：外带',
+        posts:[
+          {platform:'📕',title:'北京快手午餐！5家全麦三明治测评，哪家料最足',likes:'2.7万',url:'https://www.xiaohongshu.com/search_result?keyword=北京全麦三明治'},
+          {platform:'🐦',title:'三明治也有料理包？北京打工人健康早餐避坑',likes:'1.9万',url:'https://weibo.com/search?q=北京三明治健康'},
+          {platform:'📱',title:'每天吃全麦三明治一个月，体重变化真实记录',likes:'6.4万',url:'https://www.douyin.com/search/北京全麦三明治'}
+        ]},
+      { name:'鸡胸肉便当',   heat: 88, tag:'hot',   pain:'健身餐刚需，口感VS营养的平衡难', prompt:'品类：减脂便当\n标签：鸡胸肉\n人均：≤45元',
+        posts:[
+          {platform:'📕',title:'北京健身餐外卖测评！哪家鸡胸肉便当最不干硬',likes:'3.3万',url:'https://www.xiaohongshu.com/search_result?keyword=北京鸡胸肉便当'},
+          {platform:'🐦',title:'减脂不用受苦！北京这几家健身餐真的好吃',likes:'2.1万',url:'https://weibo.com/search?q=北京减脂便当'},
+          {platform:'📱',title:'鸡胸肉便当大测评！口感最好的竟然是这家',likes:'7.9万',url:'https://www.douyin.com/search/北京健身餐'}
+        ]},
+      { name:'藜麦轻食套餐', heat: 82, tag:'trend', pain:'伪健康标签泛滥，真实热量存疑', prompt:'品类：轻食套餐\n标签：藜麦\n评分：≥4.3' },
+      { name:'素食餐厅',     heat: 75, tag:'trend', pain:'北京素食馆稀少，价格偏高', prompt:'品类：素食\n城市：北京\n评分：≥4.4' },
+      { name:'日式便当',     heat: 78, tag:'rise',  pain:'日式美学+健康，颜值驱动消费', prompt:'品类：日式便当\n标签：颜值\n场景：午餐' },
+      { name:'希腊风味轻食', heat: 68, tag:'trend', pain:'地中海饮食文化进入主流视野', prompt:'品类：地中海\n关键词：希腊沙拉\n城市：北京' },
+      { name:'春日限定轻食', heat: 72, tag:'rise',  pain:'季节性爆款，春季4-5月流量高峰', prompt:'品类：轻食\n季节：春季\n标签：限定' },
+      { name:'蛋白质碗',     heat: 65, tag:'rise',  pain:'健身人群刚需，精准营养标注需求强', prompt:'品类：蛋白质碗\n标签：健身\n人均：≤60元' },
+      { name:'生酮午餐',     heat: 58, tag:'niche', pain:'小众饮食法，受众精准但强需求', prompt:'品类：生酮\n标签：低碳\n城市：北京' },
+      { name:'燕麦碗早餐',   heat: 62, tag:'rise',  pain:'早餐健康化，外卖化趋势强', prompt:'品类：燕麦早餐\n场景：外卖早餐\n人均：≤30元' },
+      { name:'牛油果吐司',   heat: 70, tag:'trend', pain:'网红健康早餐，已进入普及期', prompt:'品类：吐司\n标签：牛油果\n场景：下午茶/早餐' },
+      { name:'超市快捷轻食', heat: 55, tag:'niche', pain:'便利店沙拉/三明治，性价比VS健康', prompt:'品类：便利店餐食\n标签：快捷健康' },
+      { name:'亚洲风味轻食', heat: 60, tag:'trend', pain:'越南/泰式沙拉进入轻食赛道', prompt:'品类：亚洲轻食\n标签：越南/泰式' },
+      { name:'中式养生粥',   heat: 64, tag:'rise',  pain:'传统养生复兴，年轻人养生化趋势', prompt:'品类：养生粥\n标签：中式健康\n场景：早午餐' },
+      { name:'碳水替代主食', heat: 55, tag:'trend', pain:'魔芋/低GI替代，减脂赛道', prompt:'品类：低GI主食\n标签：减脂\n人均：≤50元' },
+      { name:'水果餐+果昔',  heat: 60, tag:'rise',  pain:'视觉系强，出图率高，夏季爆量', prompt:'品类：果昔\n季节：夏季\n标签：颜值' },
+      { name:'瑜伽教室周边餐', heat:52, tag:'niche', pain:'场景精准，客单高，健康强依赖', prompt:'品类：轻食\n场景：健身瑜伽周边\n区域：北京' },
+      { name:'职场营养套餐', heat: 58, tag:'rise',  pain:'写字楼配送刚需，B端开拓空间大', prompt:'品类：套餐\n场景：写字楼外卖\n人均：30-60元' },
+      { name:'花式减脂测评', heat: 74, tag:'hot',   pain:'「真的减脂还是智商税」高传播话题', prompt:'品类：减脂餐\n内容形式：对比测评\n关键词：真实卡路里' }
+    ]
+  },
+  trendy: {
+    l1name: '新潮融合菜',
+    items: [
+      { name:'日料一人食',   heat:100, tag:'hot',   pain:'一人食座位稀缺，人均偏高', prompt:'品类：日料\n场景：一人食\n评分：≥4.5\n城市：北京',
+        posts:[
+          {platform:'📕',title:'北京一人食日料完全指南！这几家自己去也不尴尬',likes:'4.6万',url:'https://www.xiaohongshu.com/search_result?keyword=北京日料一人食'},
+          {platform:'🐦',title:'一个人也要好好吃饭！北京日料一人食测评',likes:'3.1万',url:'https://weibo.com/search?q=北京日料一人食'},
+          {platform:'📱',title:'北京板前一人食探店，仪式感拉满的日料午餐',likes:'9.2万',url:'https://www.douyin.com/search/北京日料一人食'}
+        ]},
+      { name:'韩式炸鸡',     heat: 95, tag:'hot',   pain:'节假日大排长龙，本土化改良争议', prompt:'品类：韩式炸鸡\n城市：北京\n评分：≥4.4',
+        posts:[
+          {platform:'📕',title:'北京韩式炸鸡哪家最值得排队？实测对比5家',likes:'3.8万',url:'https://www.xiaohongshu.com/search_result?keyword=北京韩式炸鸡'},
+          {platform:'🐦',title:'韩式炸鸡在北京本土化改良了吗？正宗VS改良大PK',likes:'2.4万',url:'https://weibo.com/search?q=北京韩式炸鸡'},
+          {platform:'📱',title:'北京最好吃韩式炸鸡TOP5！辣的脆的各种口味都有',likes:'8.1万',url:'https://www.douyin.com/search/北京韩式炸鸡'}
+        ]},
+      { name:'东四韩式小馆', heat: 90, tag:'hot',   pain:'网红聚集区，鱼龙混杂，踩雷率高', prompt:'品类：韩式料理\n区域：东四\n标签：网红',
+        posts:[
+          {platform:'📕',title:'东四韩式小馆探店！哪家是真香哪家是智商税',likes:'3.2万',url:'https://www.xiaohongshu.com/search_result?keyword=东四韩式料理'},
+          {platform:'🐦',title:'北京东四这条街的韩式料理，踩雷率为什么这么高？',likes:'1.9万',url:'https://weibo.com/search?q=东四韩式小馆'},
+          {platform:'📱',title:'北京网红韩式餐厅大扫雷！东四这几家别再去了',likes:'6.7万',url:'https://www.douyin.com/search/北京韩式料理推荐'}
+        ]},
+      { name:'板前寿司',     heat: 88, tag:'trend', pain:'仪式感强，预约难，价格分层', prompt:'品类：板前寿司\n标签：仪式感\n人均：≥150元' },
+      { name:'泰式融合菜',   heat: 82, tag:'rise',  pain:'东南亚风味北京化，正宗VS本土', prompt:'品类：泰式\n标签：融合菜\n城市：北京' },
+      { name:'越南河粉（正宗）', heat:80, tag:'rise',pain:'轻食+异域风味，网红标题：正宗越南', prompt:'品类：越南河粉\n标签：正宗\n区域：北京' },
+      { name:'意式手工披萨', heat: 76, tag:'trend', pain:'木火窑烤，正宗感强，价格较高', prompt:'品类：披萨\n关键词：窑烤/手工\n人均：100-200元' },
+      { name:'创意拉面',     heat: 78, tag:'rise',  pain:'日式拉面北京内卷，创新赛道爆发', prompt:'品类：拉面\n标签：创意/网红\n城市：北京' },
+      { name:'秘鲁/南美料理', heat:65, tag:'niche', pain:'小众菜系，话题性强，探店内容稀缺', prompt:'品类：南美料理\n城市：北京\n限制：TOP5' },
+      { name:'分子料理餐厅', heat: 70, tag:'niche', pain:'高端体验，话题性极强', prompt:'品类：分子料理\n人均：≥300元\n城市：北京' },
+      { name:'网红荷兰松饼', heat: 68, tag:'rise',  pain:'出图率极高，消费驱动拍照', prompt:'品类：荷兰松饼\n标签：打卡\n城市：北京' },
+      { name:'台式卤肉饭',   heat: 72, tag:'trend', pain:'台式料理平民化，性价比好', prompt:'品类：卤肉饭\n标签：台式\n人均：≤60元' },
+      { name:'潮汕牛肉火锅', heat: 74, tag:'hot',   pain:'食材溯源内容高传播，正宗之战', prompt:'品类：潮汕火锅\n标签：新鲜牛肉\n城市：北京' },
+      { name:'西班牙海鲜饭', heat: 62, tag:'niche', pain:'小众但内容独特性极高', prompt:'品类：海鲜饭\n标签：西班牙\n城市：北京' },
+      { name:'印度料理',     heat: 58, tag:'niche', pain:'北京探店小众稀缺感内容', prompt:'品类：印度料理\n城市：北京' },
+      { name:'以色列萨比奇', heat: 52, tag:'niche', pain:'超小众，引爆猎奇心理', prompt:'品类：中东料理\n城市：北京\n限制：TOP3' },
+      { name:'老北京创意新做', heat:80, tag:'rise',  pain:'传统食材+新式做法，话题性强', prompt:'品类：创意京味\n标签：新中式\n城市：北京' },
+      { name:'法式小酒馆',   heat: 68, tag:'trend', pain:'餐+酒，年轻化，三里屯聚集', prompt:'品类：法式\n标签：自然酒\n区域：三里屯/安定门' },
+      { name:'韩日融合料理', heat: 75, tag:'rise',  pain:'新品类无参照，探店内容高溢价', prompt:'品类：韩日融合\n城市：北京\n评分：≥4.4' },
+      { name:'沉浸式主题餐厅', heat:72, tag:'trend', pain:'体验经济，出图强，但口味争议大', prompt:'品类：主题餐厅\n标签：沉浸式\n城市：北京' }
+    ]
+  }
+};
+
+// 选题卡数据
+var topicData = [
+  { id:1, title:'北京烤鸭避坑终极指南 · 2026本地版', progress:[{name:'热点关联',val:96},{name:'痛点契合',val:90},{name:'供给匹配',val:88},{name:'传播潜力',val:94}], pains:['排队3小时常态','游客区价格虚高','避雷话题持续发酵','本地私藏VS游客踩坑'], reason:'烤鸭热度全年第一，「避坑/本地推荐」叙事框架天然高传播，四季民福/利群/鸭王三强争霸结构清晰，商业化转化效率极高。' },
+  { id:2, title:'北京胡同美食地图 · 老字号不完全手册', progress:[{name:'热点关联',val:82},{name:'痛点契合',val:94},{name:'供给匹配',val:76},{name:'传播潜力',val:89}], pains:['找不到正宗老店','游客区踩雷','老字号无曝光','不知道在哪'], reason:'胡同文化+老字号双重情感溢价，本地生活场景收藏率极高，适合图文+地图联动，长尾传播超90天。' },
+  { id:3, title:'北京夜市烤串全攻略 · 从鼓楼到工体', progress:[{name:'热点关联',val:78},{name:'痛点契合',val:85},{name:'供给匹配',val:92},{name:'传播潜力',val:86}], pains:['脏摊儿质量参差','卫生标准争议','夜市价格不透明','各区烤串差异大'], reason:'脏摊儿烧烤文化是北京夏季最强情绪共鸣点，具体化描述在小红书互动率比泛化测评高3-5倍。' },
+  { id:4, title:'新潮趋势：北京日料一人食 & 韩式融合', progress:[{name:'热点关联',val:74},{name:'痛点契合',val:80},{name:'供给匹配',val:78},{name:'传播潜力',val:83}], pains:['一人食场景稀缺','人均偏高','排队等位','新店鱼龙混杂'], reason:'一人食赛道在小红书持续爆发，日料+韩式双品类覆盖25-35岁女性主力用户，客单高，品牌合作空间大。' },
+  { id:5, title:'打工人续命轻食地图 · 北京CBD篇', progress:[{name:'热点关联',val:72},{name:'痛点契合',val:88},{name:'供给匹配',val:82},{name:'传播潜力',val:80}], pains:['低卡标注不透明','「哪家是真食材」','价格与分量失衡','写字楼周边难找'], reason:'「减脂不踩坑」已验证的爆款框架，春日限定叠加减脂刚需，午餐场景高复购率。' }
+];
+
+// ══════════════════════════════════════════════════════════════
+// 气泡图（一级6个）
+// ══════════════════════════════════════════════════════════════
+var groupColors = {
+  classic: { fill:'rgba(255,110,65,0.85)',  stroke:'rgba(255,130,90,1)',   text:'#FFFFFF', label:'rgba(255,200,180,0.9)' },
+  trendy:  { fill:'rgba(55,165,225,0.85)',  stroke:'rgba(80,185,245,1)',   text:'#FFFFFF', label:'rgba(180,230,255,0.9)' },
+  night:   { fill:'rgba(80,190,90,0.85)',   stroke:'rgba(100,210,110,1)',  text:'#FFFFFF', label:'rgba(180,240,185,0.9)' },
+  light:   { fill:'rgba(190,145,225,0.85)', stroke:'rgba(210,165,240,1)',  text:'#FFFFFF', label:'rgba(230,205,250,0.9)' }
+};
+
+var selectedL1 = null;
+var selectedL2Idx = null;
+var bubbleMode = 'commercial';
+var currentMode = 'commercial';
+var selectedTopic = 1;
+
+function drawBubbles() {
+  var canvas = document.getElementById('bubble-canvas');
+  if (!canvas) return;
+  var parentW = canvas.parentElement.clientWidth - 40;
+  var W = Math.max(parentW, 360);
+  var H = 380;
+  canvas.width = W; canvas.height = H;
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  var PAD_L=44, PAD_B=36, PAD_T=16, PAD_R=12;
+  var plotW = W - PAD_L - PAD_R;
+  var plotH = H - PAD_T - PAD_B;
+
+  // grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
+  for(var i=0;i<=4;i++){
+    var xg=PAD_L+plotW*i/4; ctx.beginPath(); ctx.moveTo(xg,PAD_T); ctx.lineTo(xg,PAD_T+plotH); ctx.stroke();
+    var yg=PAD_T+plotH*i/4; ctx.beginPath(); ctx.moveTo(PAD_L,yg); ctx.lineTo(PAD_L+plotW,yg); ctx.stroke();
+  }
+  ctx.fillStyle='rgba(255,255,255,0.22)'; ctx.font='10px -apple-system,sans-serif'; ctx.textAlign='center';
+  ['低','','中','','高'].forEach(function(t,i){ ctx.fillText(t, PAD_L+plotW*i/4, H-4); });
+  ctx.textAlign='right';
+  ['高','','中','','低'].forEach(function(t,i){ ctx.fillText(t, PAD_L-5, PAD_T+plotH*i/4+4); });
+  ctx.fillStyle='rgba(255,255,255,0.16)'; ctx.textAlign='center';
+  ctx.fillText('← 商业化潜力 →', PAD_L+plotW/2, H-0);
+  ctx.save(); ctx.translate(10,PAD_T+plotH/2); ctx.rotate(-Math.PI/2); ctx.fillText('← 创作难度 →',0,0); ctx.restore();
+
+  var sorted = L1_DATA.slice().sort(function(a,b){ return a.heat-b.heat; });
+  canvas._pos = [];
+  // 判断哪些品类在当前模式下有数据
+  var modeForBubble = currentMode || 'commercial';
+  sorted.forEach(function(b){
+    var gc = groupColors[b.group]||groupColors.trendy;
+    var cx = PAD_L + b.x*plotW;
+    var cy = PAD_T + (1-b.y)*plotH;
+    // 热度大小差异更明显：最小r=22，最大r=60
+    var r  = 22 + (b.heat/100)*38;
+    var isSelected = selectedL1 && selectedL1.id === b.id;
+    var hasData = L2_DATA[b.id] && L2_DATA[b.id].items && L2_DATA[b.id].items.length > 0;
+    var alpha = hasData ? 1.0 : 0.35;
+
+    ctx.globalAlpha = alpha;
+
+    // 外环（选中高亮用）
+    if(isSelected){
+      ctx.beginPath(); ctx.arc(cx,cy,r+5,0,Math.PI*2);
+      ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=2;
+      ctx.stroke();
+    }
+
+    // 纯色填充
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.fillStyle = gc.fill;
+    ctx.fill();
+
+    // 描边
+    ctx.strokeStyle = isSelected ? 'rgba(255,255,255,0.9)' : gc.stroke;
+    ctx.lineWidth = isSelected ? 2.5 : 1.2;
+    ctx.stroke();
+
+    // 内嵌高光（顶部亮斑，非渐变，只是一个半透明白色小圆）
+    ctx.beginPath(); ctx.arc(cx - r*0.22, cy - r*0.28, r*0.35, 0, Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,0.18)'; ctx.fill();
+
+    // 热度数字（主要文本，大字）
+    ctx.fillStyle='#FFFFFF';
+    ctx.font='bold '+(r>40?'17':'14')+'px -apple-system,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(b.heat, cx, cy - 6);
+
+    // 品类缩写（气泡内第二行）
+    var shortLabel = b.label.length > 6 ? b.label.slice(0,5)+'…' : b.label;
+    ctx.fillStyle='rgba(255,255,255,0.88)';
+    ctx.font=(r>40?'11':'10')+'px -apple-system,sans-serif';
+    ctx.fillText(shortLabel, cx, cy + (r>40?11:10));
+
+    // 无数据提示
+    if(!hasData){
+      ctx.fillStyle='rgba(255,255,255,0.45)';
+      ctx.font='10px -apple-system,sans-serif';
+      ctx.fillText('暂无数据', cx, cy+r+14);
+    } else {
+      // 标签（气泡外部，底部）
+      ctx.fillStyle=gc.label||'rgba(255,255,255,0.7)';
+      ctx.font='bold 11px -apple-system,sans-serif';
+      ctx.fillText(b.label, cx, cy+r+14);
+    }
+
+    ctx.globalAlpha = 1.0;
+    ctx.textBaseline='alphabetic';
+
+    canvas._pos.push({ id:b.id, cx:cx, cy:cy, r:r, label:b.label, heat:b.heat, desc:b.desc||'', hasData:hasData, reason:b.reason||'' });
+  });
+}
+
+// ── 气泡交互 ──
+document.addEventListener('DOMContentLoaded', function(){
+  var canvas = document.getElementById('bubble-canvas');
+  var tooltip = document.getElementById('bubble-tooltip');
+
+  canvas.addEventListener('mousemove', function(e){
+    var r=canvas.getBoundingClientRect();
+    var sx=canvas.width/r.width, sy=canvas.height/r.height;
+    var cx=(e.clientX-r.left)*sx, cy=(e.clientY-r.top)*sy;
+    var hit=null;
+    if(canvas._pos){ for(var i=0;i<canvas._pos.length;i++){ var bp=canvas._pos[i]; var dx=cx-bp.cx,dy=cy-bp.cy; if(Math.sqrt(dx*dx+dy*dy)<=bp.r+4){hit=bp;break;} } }
+    if(hit){
+      canvas.style.cursor = hit.hasData ? 'pointer' : 'not-allowed';
+      tooltip.style.display='block';
+      tooltip.style.left=(hit.cx/sx)+'px';
+      tooltip.style.top=((hit.cy-hit.r-14)/sy)+'px';
+      var noDataHint = hit.hasData ? '' : '<br><span style="font-size:11px;color:#f97;opacity:0.9;">该品类暂无数据</span>';
+      var reasonHint = hit.reason ? '<br><span style="font-size:11px;color:#aef;opacity:0.9;">💡 '+hit.reason+'</span>' : '';
+      tooltip.innerHTML='<strong>'+hit.label+'</strong> · 热度 '+hit.heat+'<br><span style="font-size:11px;opacity:0.75;">'+hit.desc+'</span>'+reasonHint+noDataHint;
+    } else { canvas.style.cursor='default'; tooltip.style.display='none'; }
+  });
+  canvas.addEventListener('mouseleave', function(){ tooltip.style.display='none'; });
+  canvas.addEventListener('click', function(e){
+    var r=canvas.getBoundingClientRect();
+    var sx=canvas.width/r.width, sy=canvas.height/r.height;
+    var cx=(e.clientX-r.left)*sx, cy=(e.clientY-r.top)*sy;
+    if(!canvas._pos) return;
+    for(var i=0;i<canvas._pos.length;i++){
+      var bp=canvas._pos[i]; var dx=cx-bp.cx,dy=cy-bp.cy;
+      if(Math.sqrt(dx*dx+dy*dy)<=bp.r+4){
+        if(bp.hasData) openL1(bp.id);
+        break;
+      }
+    }
+  });
+
+  renderTopicDetail(1);
+});
+
+// ── 痛点数据（按 L1 id 对应） ──
+var PAIN_DATA = {
+  duck: {
+    summary: '用户对北京烤鸭的核心焦虑：热门店排队太长、游客区价格虚高、找不到「本地人认可」的店。「全聚德踩雷」已成反向爆款，「避坑」框架内容持续高热。',
+    items: [
+      { type:'💢 抱怨', comment:'四季民福排队3小时，烤鸭好吃但耗不起，北京人都去哪家？', author:'@北京本地吃货 · 2.3万赞' },
+      { type:'💢 抱怨', comment:'全聚德一只500+，皮不脆服务还差，游客陷阱，北京人根本不去', author:'@避坑指南er · 1.6万赞' },
+      { type:'✨ 期待', comment:'希望有人整理一份真正被本地人认可的胡同老字号地图，绕开游客区！', author:'@城市探店达人 · 3.1万赞' },
+      { type:'🤔 纠结', comment:'烤鸭到底选四季民福还是利群？两家都排队，口味差别大吗？', author:'@选择困难症患者 · 1.1万赞' },
+      { type:'🌿 种草', comment:'利群烤鸭藏在胡同里！酱香浓郁，皮脆肉嫩，电话预约才能吃到', author:'@北京吃货地图 · 3.8万赞' }
+    ]
+  },
+  hotpot: {
+    summary: '铜锅涮肉是北京聚餐首选，但「正宗标准」之争激烈，东来顺等位体验差评多；羊蝎子/烤鱼成快速上升的差异化选项。',
+    items: [
+      { type:'💢 抱怨', comment:'东来顺等位2小时，性价比和等位体验真的不值，北京人有更好的选择', author:'@北京本地觅食 · 2.8万赞' },
+      { type:'✨ 期待', comment:'外地来北京，想吃最正宗铜锅涮肉，不要排队的，跪求本地人推荐！', author:'@出差人美食笔记 · 1.9万赞' },
+      { type:'🤔 纠结', comment:'南门涮肉和东来顺差50块，味道真的差那么多吗？', author:'@精打细算美食家 · 9200赞' },
+      { type:'🌿 种草', comment:'鼓楼西大街老冯羊蝎子！秘制卤汤，肉嫩骨香，冬天必去！', author:'@北京深夜食堂 · 4.2万赞' },
+      { type:'💢 抱怨', comment:'节假日北京铜锅涮肉价格集体涨价，排队还要低消，性价比越来越低', author:'@北京本地生活家 · 1.4万赞' }
+    ]
+  },
+  bbq: {
+    summary: '北京夜市烧烤是夏季最强情绪爆点，「脏摊儿烤串」是核心IP；红柳大串和腰子话题性极强，但品质参差引发避坑内容高热。',
+    items: [
+      { type:'💢 抱怨', comment:'北京夜市摊越来越贵，一串羊肉串10块，还是不知道是不是真羊肉', author:'@北京消费观察 · 2.1万赞' },
+      { type:'✨ 期待', comment:'想找一份北京最好脏摊儿烤串地图，从工体到鼓楼，按区域整理的那种', author:'@夏日夜生活 · 3.3万赞' },
+      { type:'🌿 种草', comment:'北京夏夜最快乐：脏摊儿烤串+冰镇燕京，能从9点坐到凌晨2点', author:'@北京夜生活 · 5.7万赞' },
+      { type:'🤔 纠结', comment:'红柳大串vs普通铁签，味道真的差那么多吗？贵一倍值不值？', author:'@烤串研究所 · 1.2万赞' },
+      { type:'🌿 反种草', comment:'工体周边某家红柳烤串，贵且肉量少，演唱会散场后被坑了', author:'@工体常驻者 · 8800赞' }
+    ]
+  },
+  drinks: {
+    summary: '「古建+咖啡」组合是小红书内容爆款公式，白塔寺/故宫角楼咖啡已成打卡圣地；特调果茶话题持续高热，「出片感」是核心驱动。',
+    items: [
+      { type:'✨ 期待', comment:'北京胡同咖啡馆什么时候出一份完整地图？从白塔寺到南锣鼓巷', author:'@咖啡地图师 · 4.1万赞' },
+      { type:'💢 抱怨', comment:'白塔寺耀咖啡排队一小时，咖啡本身很一般，就是在为场景付费', author:'@理性消费er · 2.3万赞' },
+      { type:'🌿 种草', comment:'在四合院里喝咖啡是什么体验？白塔寺耀咖啡给你答案，强烈推荐！', author:'@北京美好生活 · 6.9万赞' },
+      { type:'🤔 纠结', comment:'特调气泡茶到底哪家值得排队？北京那么多网红饮品店都差不多', author:'@饮品研究员 · 1.5万赞' },
+      { type:'✨ 期待', comment:'春日限定饮品太难找了，希望有人统一整理北京各家特调限定', author:'@季节限定猎人 · 2.0万赞' }
+    ]
+  },
+  light: {
+    summary: '打工人轻食午餐是全年稳定刚需，「料理包假轻食」引爆信任危机，真实卡路里/食材溯源内容持续高传播。健康赛道内卷严重，差异化内容需求旺盛。',
+    items: [
+      { type:'💢 抱怨', comment:'北京写字楼周边的沙拉80%是料理包，花了60块吃不干净还不健康', author:'@打工人午餐日记 · 4.7万赞' },
+      { type:'✨ 期待', comment:'希望有人做一份不是料理包的真实健康午餐地图，按写字楼区分', author:'@CBD觅食指南 · 3.2万赞' },
+      { type:'🤔 纠结', comment:'减脂轻食还是便利店沙拉？价格差20块，真的值吗？', author:'@减脂日记本 · 1.3万赞' },
+      { type:'🌿 种草', comment:'终于找到一家不是料理包的沙拉碗！食材新鲜卡路里标注清晰', author:'@真实轻食测评 · 2.9万赞' },
+      { type:'💢 抱怨', comment:'健康餐的价格标注越来越不透明，沙拉加酱热量直接翻倍', author:'@卡路里警察 · 1.8万赞' }
+    ]
+  },
+  trendy: {
+    summary: '「一人食」和「融合菜」是当下Z世代餐饮核心话题，东四/三里屯等网红聚集区踩雷率上升，「避坑+真实测评」内容需求强烈。',
+    items: [
+      { type:'✨ 期待', comment:'北京适合一个人去的日料餐厅完全指南，不尴尬不需要预约的那种', author:'@一人食探索家 · 4.0万赞' },
+      { type:'💢 抱怨', comment:'东四这条街的韩式料理，环境是好，但味道普通价格贵，网红溢价严重', author:'@北京美食避坑 · 3.4万赞' },
+      { type:'🌿 种草', comment:'板前寿司吃完太幸福了！厨师长在面前现做，这才是仪式感', author:'@独食美学家 · 5.2万赞' },
+      { type:'🤔 纠结', comment:'三里屯法式小酒馆vs日式居酒屋，周五晚上去哪家？', author:'@夜生活选择困难 · 9600赞' },
+      { type:'💢 抱怨', comment:'所谓「融合创意菜」很多只是把食材随便摆在一起，溢价严重', author:'@创意菜评测 · 1.6万赞' }
+    ]
+  }
+};
+
+// 内容型模式：每个品类的选题角度说明
+var CONTENT_ANGLES = {
+  duck:   ['「北京人吃烤鸭，绝不去全聚德」反常识爆款', '本地人 vs 游客的烤鸭鄙视链', '胡同老字号消失记录', '烤鸭文化的前世今生'],
+  hotpot: ['铜锅涮肉的「正宗之争」', '麻酱调配比例大公开', '北京涮肉 vs 重庆火锅大PK', '一个人能不能愉快吃涮肉'],
+  bbq:    ['脏摊儿文化：城管追、食客追', '烤腰子的「男人的浪漫」梗', '北京夏夜的夜生活图鉴', '红柳大串的新疆游记'],
+  drinks: ['胡同咖啡的反差美学', '古建+咖啡=小红书必打卡公式', '北京人的咖啡「身份证」', '胡同走一圈能喝几家特调'],
+  light:  ['料理包的真相：你吃的「健康餐」可能不健康', '30天减脂午餐真实记录', '打工人午饭图鉴', '健身博主的一天三餐长啥样'],
+  trendy: ['一个人吃饭的仪式感', '东四韩式小馆避坑完全指南', '融合菜到底在「融」什么', '北京最值得专程打卡的餐厅Top10']
+};
+
+// ── 打开一级品类 → 展示二级列表 + 痛点洞察 ──
+function openL1(id){
+  selectedL1 = L1_DATA.find(function(d){ return d.id===id; });
+  selectedL2Idx = null;
+  drawBubbles(); // 重绘，高亮选中气泡
+
+  var data = L2_DATA[id];
+  if(!data) return;
+
+  var mode = currentMode || 'commercial';
+
+  // 面板切换
+  document.getElementById('panel-empty').style.display='none';
+  var l2panel = document.getElementById('panel-l2');
+  l2panel.style.display='flex';
+
+  // 面包屑
+  document.getElementById('breadcrumb-l1').textContent = data.l1name;
+
+  // 渲染二级列表
+  var body = document.getElementById('panel-l2-body');
+  body.innerHTML = '';
+
+  // 标题
+  var header = document.createElement('div');
+  header.className = 'l1-header';
+  header.innerHTML =
+    '<div class="l1-title">'+data.l1name+'</div>'+
+    '<div class="l1-meta">'+
+      '<span class="l1-heat-badge">热度 '+selectedL1.heat+'</span>'+
+      '<span class="l1-desc">'+selectedL1.desc+'</span>'+
+    '</div>';
+  body.appendChild(header);
+
+  // 列表标签说明（根据模式区分说明文字）
+  var hint = document.createElement('div');
+  hint.style.cssText='font-size:12px;color:var(--text-tertiary);margin-bottom:10px;letter-spacing:-0.1px;';
+  hint.textContent = mode === 'content'
+    ? '↓ '+data.items.length+' 个细分方向 · 点击展开选题角度与热帖'
+    : '↓ '+data.items.length+' 个细分方向 · 点击展开痛点与供给Prompt';
+  body.appendChild(hint);
+
+  var grid = document.createElement('div');
+  grid.className = 'l2-grid';
+
+  var tagMap = { hot:'🔥 热门', rise:'📈 上升', new:'🆕 新兴', niche:'💎 小众', trend:'✨ 趋势' };
+  var tagCls = { hot:'l2-tag-hot', rise:'l2-tag-rise', new:'l2-tag-new', niche:'l2-tag-niche', trend:'l2-tag-trend' };
+  var maxHeat = data.items[0].heat;
+
+  data.items.forEach(function(item, idx){
+    var rank = idx+1;
+    var isTop3 = rank<=3;
+
+    // 条目行
+    var row = document.createElement('div');
+    row.className = 'l2-item';
+    row.dataset.idx = idx;
+    row.innerHTML =
+      '<div class="l2-rank '+(isTop3?'top3':'normal')+'">'+rank+'</div>'+
+      '<div class="l2-name">'+item.name+'</div>'+
+      '<div class="l2-bar-wrap">'+
+        '<div class="l2-bar-track"><div class="l2-bar-fill" style="width:0%" data-val="'+(item.heat/maxHeat*100).toFixed(0)+'"></div></div>'+
+        '<div class="l2-bar-val">'+item.heat+'</div>'+
+      '</div>'+
+      '<span class="l2-tag '+(tagCls[item.tag]||'l2-tag-trend')+'">'+
+        (tagMap[item.tag]||'✨ 趋势')+
+      '</span>';
+
+    // 详情展开行（根据模式差异化）
+    var detail = document.createElement('div');
+    detail.className = 'l2-detail-row';
+    detail.id = 'l2-detail-'+idx;
+
+    var postsHTML = '';
+    if(item.posts && item.posts.length > 0){
+      postsHTML = '<div class="l2-posts">'+
+        '<div class="l2-posts-header">🔗 相关热帖（点击查看原文）</div>'+
+        item.posts.map(function(p){
+          return '<a class="l2-post-item" href="'+p.url+'" target="_blank" rel="noopener">'+
+            '<div class="l2-post-platform">'+p.platform+'</div>'+
+            '<div class="l2-post-body">'+
+              '<div class="l2-post-title">'+p.title+'</div>'+
+              '<div class="l2-post-meta">'+
+                '<span class="l2-post-likes">❤ '+p.likes+'</span>'+
+              '</div>'+
+            '</div>'+
+            '<div class="l2-post-arrow">›</div>'+
+          '</a>';
+        }).join('')+
+      '</div>';
+    }
+
+    var detailBody = '';
+    if(mode === 'content'){
+      // 内容型：展示选题角度
+      var angles = (CONTENT_ANGLES[id]||[]).slice(0,3);
+      var anglesHTML = angles.length
+        ? '<div class="l2-detail-pain" style="margin-bottom:10px;"><strong>选题切入角度：</strong><br>'
+          + angles.map(function(a){ return '• '+a; }).join('<br>')+
+          '</div>'
+        : '';
+      detailBody =
+        anglesHTML+
+        '<div class="l2-detail-pain"><strong>核心痛点（内容素材）：</strong>'+item.pain+'</div>'+
+        postsHTML+
+        '<div class="l2-detail-btns">'+
+          '<button class="l2-detail-btn-topic" onclick="goStep(4)">📋 查看选题方案</button>'+
+        '</div>';
+    } else {
+      // 商业化：展示供给Prompt
+      detailBody =
+        '<div class="l2-detail-pain"><strong>核心痛点：</strong>'+item.pain+'</div>'+
+        postsHTML+
+        (item.prompt ? '<div class="l2-detail-prompt">'+
+          '<div class="l2-detail-prompt-header">🤖 供给筛选 Prompt</div>'+
+          '<code>'+item.prompt+'</code>'+
+        '</div>' : '')+
+        '<div class="l2-detail-btns">'+
+          '<button class="l2-detail-btn-topic" onclick="goStep(4)">📋 查看选题</button>'+
+          '<button class="l2-detail-btn-preview" onclick="goStep(5)">⚡ 生成内容预览</button>'+
+        '</div>';
+    }
+
+    detail.innerHTML =
+      '<div class="l2-detail-tags">'+
+        '<span class="l2-dtag ldt-2">'+item.name+'</span>'+
+        '<span class="l2-dtag ldt-'+(isTop3?'1':'3')+'">热度 '+item.heat+'</span>'+
+        '<span class="l2-dtag ldt-4">'+item.pain.split('，')[0]+'…</span>'+
+      '</div>'+detailBody;
+
+    row.addEventListener('click', function(){
+      var thisIdx = parseInt(this.dataset.idx);
+      var thisDetail = document.getElementById('l2-detail-'+thisIdx);
+
+      // 关闭其他
+      grid.querySelectorAll('.l2-item').forEach(function(r){ r.classList.remove('selected'); });
+      grid.querySelectorAll('.l2-detail-row').forEach(function(d){
+        if(d !== thisDetail){ d.classList.remove('open'); }
+      });
+
+      // 切换本条
+      var isOpen = thisDetail.classList.contains('open');
+      this.classList.toggle('selected', !isOpen);
+      thisDetail.classList.toggle('open', !isOpen);
+      selectedL2Idx = isOpen ? null : thisIdx;
+    });
+
+    grid.appendChild(row);
+    grid.appendChild(detail);
+  });
+
+  body.appendChild(grid);
+
+  // 动画：进度条延迟渲染
+  setTimeout(function(){
+    body.querySelectorAll('.l2-bar-fill').forEach(function(f){
+      f.style.width = (f.getAttribute('data-val')||'0')+'%';
+    });
+  }, 60);
+
+  // ── 内嵌痛点洞察区块（原 Step 3）──
+  var painInfo = PAIN_DATA[id];
+  if(painInfo){
+    var painSection = document.createElement('div');
+    painSection.style.cssText='margin-top:24px;border-top:1px solid var(--border-light);padding-top:18px;';
+    var typeColors = { '💢 抱怨':'#FDECEA', '✨ 期待':'#EEF8F0', '🤔 纠结':'#FFF8E6', '🌿 种草':'#EAF5EA', '🌿 反种草':'#FDF0EA' };
+    var painItemsHTML = painInfo.items.map(function(p){
+      var bg = typeColors[p.type]||'#F5F5F7';
+      return '<div style="margin-bottom:8px;padding:10px 13px;background:'+bg+';border-radius:10px;font-size:13px;line-height:1.6;">'+
+        '<span style="font-size:11px;font-weight:700;color:var(--text-tertiary);margin-right:6px;">'+p.type+'</span>'+
+        p.comment+
+        '<div style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">'+p.author+'</div>'+
+      '</div>';
+    }).join('');
+    painSection.innerHTML =
+      '<div style="font-size:12px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px;">🔍 用户痛点洞察</div>'+
+      '<div style="font-size:12px;background:var(--accent-bg);border:1px solid rgba(58,139,92,0.15);border-radius:10px;padding:10px 13px;margin-bottom:12px;line-height:1.6;color:var(--text-secondary);">'+
+        '<strong style="color:var(--text);">AI摘要：</strong>'+painInfo.summary+
+      '</div>'+
+      painItemsHTML;
+    body.appendChild(painSection);
+  }
+
+  // 底部按钮
+  var footer = document.createElement('div');
+  footer.style.cssText='margin-top:20px;display:flex;gap:10px;';
+  footer.innerHTML=
+    '<button class="btn-generate" onclick="goStep(4)" style="flex:1;">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;flex-shrink:0;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'+
+      '查看选题方案'+
+    '</button>';
+  body.appendChild(footer);
+}
+
+// ══════════════════════════════════════════════════════════════
+// 模式切换（保留以防其他地方调用，但 Step2 Tab 已移除）
+// ══════════════════════════════════════════════════════════════
+function setBubbleMode(mode){
+  bubbleMode = mode;
+  // 更新 Step 2 顶部模式标签
+  var icon = document.getElementById('step2-mode-icon');
+  var text = document.getElementById('step2-mode-text');
+  if(icon) icon.textContent = mode==='content' ? '📝' : '🛒';
+  if(text) text.textContent = mode==='content' ? '内容型模式' : '商业化模式';
+}
+
+function switchMode(mode){
+  currentMode = mode;
+  setBubbleMode(mode==='content'?'content':'commercial');
+}
+
+// ══════════════════════════════════════════════════════════════
+// 流程导航
+// ══════════════════════════════════════════════════════════════
+var currentStep = 1;
+
+function goStep(n){
+  // Step 3 已合并入 Step 2，跳转 3 → 自动走 4
+  if(n===3) n=4;
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('step-'+i);
+    if(el) el.classList.remove('visible');
+    var fn=document.getElementById('fnav-'+i);
+    if(fn){ fn.classList.remove('current','done'); if(i<n) fn.classList.add('done'); else if(i===n) fn.classList.add('current'); }
+  }
+  var target=document.getElementById('step-'+n);
+  if(target){ target.classList.add('visible'); target.style.animation='none'; target.offsetHeight; target.style.animation=''; }
+  currentStep=n;
+  if(n===2){
+    setTimeout(function(){
+      drawBubbles();
+    },80);
+  }
+  if(n===4) renderTopicDetail(selectedTopic);
+  if(n===5) renderContentPreview();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// 当前解析参数（startAnalysis 时用）
+var _currentParams = null;
+
+async function startAnalysis(){
+  setBubbleMode(selectedGoal === 'content' ? 'content' : 'commercial');
+  // 保存解析结果供 topics API 使用
+  _currentParams = window._lastParsed || {
+    region: document.getElementById('cpv-region').textContent || '全国',
+    category: document.getElementById('cpv-category').textContent || '美食（不限）',
+    season: document.getElementById('cpv-season').textContent || '当前时节',
+    goal: selectedGoal,
+    audience: document.getElementById('cpv-audience').textContent || '不限'
+  };
+  _currentParams.goal = selectedGoal; // 以手动选择为准
+  goStep(2);
+  // 统一显示 loading，串行执行：先 topics 替换 L1_DATA，再 bubbles 更新坐标
+  showApiLoading('🤖 AI 正在分析热点话题…');
+  try {
+    await loadTopicsFromBackend();   // 先替换 L1_DATA 为动态 topics
+    await loadBubblesFromBackend(_currentParams);  // 再用 AI 坐标更新刚替换的 L1_DATA
+  } finally {
+    hideApiLoading();
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// /api/bubbles：意图驱动的气泡动态权重计算
+// ══════════════════════════════════════════════════════════════
+async function loadBubblesFromBackend(params) {
+  if (!params) return;
+
+  // 更新 loading 文案（外层 startAnalysis 统一管理 overlay 显隐）
+  var loadingEl = document.getElementById('api-loading-text');
+  if (loadingEl) loadingEl.textContent = '🤖 AI 正在分析意图，重新计算气泡…';
+
+  try {
+    var resp = await fetch(getApiBase() + '/api/bubbles', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        goal:     params.goal     || 'commercial',
+        audience: params.audience || '不限',
+        location: params.region   || '全国',
+        season:   params.season   || '当前时节',
+        topic:    params.category || '美食',
+        categories: L1_DATA.map(function(d) {
+          return { id: d.id, label: d.label || d.name || d.id };
+        })
+      })
+    });
+    if (!resp.ok) throw new Error('/api/bubbles 返回 ' + resp.status);
+    var data = await resp.json();
+    if (data.error) throw new Error(data.error);
+
+    // 渲染气泡
+    renderBubbles(data.bubbles);
+
+    // 更新轴标签
+    if (data.axis_labels) {
+      updateAxisLabels(data.axis_labels.x_label, data.axis_labels.y_label);
+    }
+
+    // 显示分析视角摘要
+    if (data.summary) {
+      var ctxEl = document.getElementById('analysis-context');
+      if (ctxEl) {
+        ctxEl.textContent = '📊 当前分析视角：' + data.summary;
+        ctxEl.classList.add('show');
+      }
+    }
+
+  } catch (err) {
+    console.warn('[bubbles] 后端失败，使用默认数据:', err.message);
+    showError('⚠️ 气泡数据更新失败（' + err.message + '），已使用默认位置', 4000);
+  }
+}
+
+/**
+ * 用 /api/bubbles 返回的数据更新 L1_DATA 并重绘气泡
+ * @param {Array} bubbles - [{id, label, x, y, size, reason}, ...]
+ */
+function renderBubbles(bubbles) {
+  if (!bubbles || !bubbles.length) return;
+
+  // 将 bubbles 数据合并进 L1_DATA（只更新坐标/大小/reason，保留 group/desc 原值）
+  bubbles.forEach(function(b) {
+    var existing = L1_DATA.find(function(d) { return d.id === b.id; });
+    if (existing) {
+      existing.x      = b.x;
+      existing.y      = b.y;
+      existing.heat   = b.size;  // size 映射为热度
+      existing.reason = b.reason || '';
+    }
+  });
+
+  drawBubbles();
+}
+
+/**
+ * 更新气泡图轴标签（写入 canvas 下方描述区）
+ */
+function updateAxisLabels(xLabel, yLabel) {
+  var el = document.getElementById('bubble-axis-labels');
+  if (!el) return;
+  el.innerHTML =
+    '<span>← ' + (xLabel || '') + ' →</span>' +
+    '<span style="margin-left:16px;">↕ ' + (yLabel || '') + '</span>';
+}
+
+// ══════════════════════════════════════════════════════════════
+// Step 1: AI 解析输入
+// ══════════════════════════════════════════════════════════════
+
+var selectedGoal = 'commercial';
+
+// 解析规则（mock NLU，真实场景接AI接口）
+var REGION_KEYWORDS = {
+  '全国':'全国','全国范围':'全国',
+  '北京':'北京','上海':'上海','广州':'广州','深圳':'深圳',
+  '成都':'成都','杭州':'杭州','武汉':'武汉','西安':'西安',
+  '重庆':'重庆','南京':'南京','苏州':'苏州','天津':'天津',
+  '长沙':'长沙','厦门':'厦门','青岛':'青岛','合肥':'合肥'
+};
+var GOAL_KEYWORDS_COMMERCIAL = ['商业化','带货','转化','下单','买','推荐商家','商家','供给','GMV','变现'];
+var GOAL_KEYWORDS_CONTENT = ['内容','种草','心智','传播','创作','博主','话题','氛围','文化','情绪'];
+var SEASON_MAP = {
+  '春季':['春','三月','四月','五月','踏青','春游','春天'],
+  '夏日':['夏','六月','七月','八月','夏天','暑假'],
+  '秋季':['秋','九月','十月','十一','金秋'],
+  '冬季':['冬','十二月','腊月','新年','元旦','春节','年货'],
+  '五一':['五一','劳动节','假期','节假日'],
+  '中秋':['中秋','月饼','团圆'],
+  '情人节':['情人节','214','浪漫']
+};
+var AUDIENCE_MAP = {
+  '年轻女性':['女生','女性','女孩','闺蜜','小姐姐'],
+  '年轻白领':['白领','上班族','打工人','OL','CBD'],
+  '亲子家庭':['亲子','家庭','孩子','宝宝','带娃','宝妈'],
+  'Z世代':['Z世代','00后','年轻人','学生'],
+  '外地游客':['游客','外地','旅游','旅行','打卡'],
+  '美食博主':['博主','KOL','探店','测评','达人'],
+  '本地吃货':['本地','老北京','本地人','当地人']
+};
+
+// ══════════════════════════════════════════════════════════════
+// API 配置（读取 config.js）
+// ══════════════════════════════════════════════════════════════
+function getConfig() {
+  return window.FOODSEARCH_CONFIG || {};
+}
+function getApiBase() {
+  return (getConfig().API_BASE || 'http://localhost:8080').replace(/\/$/, '');
+}
+function getFridayAppId() {
+  return getConfig().FRIDAY_APP_ID || '';
+}
+
+// ══════════════════════════════════════════════════════════════
+// UI 工具：loading / toast
+// ══════════════════════════════════════════════════════════════
+function showApiLoading(text) {
+  var overlay = document.getElementById('api-loading-overlay');
+  var label = document.getElementById('api-loading-text');
+  if (label) label.textContent = text || 'AI 正在生成中…';
+  if (overlay) overlay.classList.add('show');
+}
+function hideApiLoading() {
+  var overlay = document.getElementById('api-loading-overlay');
+  if (overlay) overlay.classList.remove('show');
+}
+function showError(msg, durationMs) {
+  var toast = document.getElementById('error-toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(function() { toast.classList.remove('show'); }, durationMs || 4000);
+}
+function showChartLoading(show) {
+  var el = document.getElementById('chart-loading');
+  if (el) el.classList.toggle('show', !!show);
+}
+function showDrillLoading(show) {
+  var el = document.getElementById('panel-drill-loading');
+  if (el) el.classList.toggle('show', !!show);
+}
+
+// ══════════════════════════════════════════════════════════════
+// 后端 API 调用
+// ══════════════════════════════════════════════════════════════
+
+/**
+ * POST /api/parse — AI 意图识别
+ */
+async function backendParse(text) {
+  var resp = await fetch(getApiBase() + '/api/parse', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: text })
+  });
+  if (!resp.ok) throw new Error('后端 /api/parse 返回 ' + resp.status);
+  var data = await resp.json();
+  if (data.error) throw new Error(data.error);
+  return data;
+}
+
+/**
+ * POST /api/topics — 生成气泡图话题数据
+ */
+async function backendTopics(params) {
+  var resp = await fetch(getApiBase() + '/api/topics', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params)
+  });
+  if (!resp.ok) throw new Error('后端 /api/topics 返回 ' + resp.status);
+  var data = await resp.json();
+  if (data.error) throw new Error(data.error);
+  return data;
+}
+
+/**
+ * POST /api/drill — 品类下钻内容
+ */
+async function backendDrill(params) {
+  var resp = await fetch(getApiBase() + '/api/drill', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params)
+  });
+  if (!resp.ok) throw new Error('后端 /api/drill 返回 ' + resp.status);
+  var data = await resp.json();
+  if (data.error) throw new Error(data.error);
+  return data;
+}
+
+// ══════════════════════════════════════════════════════════════
+// Fallback：直接调用 Friday API（后端不可用时）
+// ══════════════════════════════════════════════════════════════
+var FRIDAY_API = {
+  url: 'https://aigc.sankuai.com/v1/openai/native/chat/completions',
+  model: 'LongCat-Flash-Chat'
+};
+
+async function fridayFallbackParse(text) {
+  var appId = getFridayAppId();
+  if (!appId) throw new Error('FRIDAY_APP_ID 未配置');
+  var systemPrompt = '你是一个美食热点分析助手。用户输入自然语言描述，你需要识别以下参数并严格以JSON格式返回（不要有任何多余文字）：\n- region: 地域，如"北京""上海""全国"，默认"全国"\n- goal: 目标类型，"commercial"=商业化会场/带货/运营，"content"=内容创作/选题/小红书。默认"content"\n- category: 品类方向，如"火锅""咖啡"等，没提就返回"美食（不限）"\n- audience: 目标人群，如"年轻女性""家庭"等，没提就返回"不限"\n- season: 季节/节气，如"春季""夏天""清明"等，没提就返回"当前时节"\n- extra: 其他补充意图（避坑/测评/探店/性价比/网红等），没有就返回"无"\n只返回JSON对象，不要任何解释和markdown代码块。';
+  var resp = await fetch(FRIDAY_API.url, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + appId, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: FRIDAY_API.model, messages: [{role:'system',content:systemPrompt},{role:'user',content:text}], max_tokens:300, temperature:0.1 })
+  });
+  if (!resp.ok) throw new Error('Friday API ' + resp.status);
+  var data = await resp.json();
+  var content = data.choices[0].message.content.trim().replace(/^```[a-z]*\n?/,'').replace(/\n?```$/,'').trim();
+  return JSON.parse(content);
+}
+
+// ══════════════════════════════════════════════════════════════
+// Step 1: AI 解析输入（优先后端，降级本地关键词）
+// ══════════════════════════════════════════════════════════════
+
+var selectedGoal = 'commercial';
+
+// 本地降级关键词配置
+var REGION_KEYWORDS = {
+  '全国':'全国','全国范围':'全国',
+  '北京':'北京','上海':'上海','广州':'广州','深圳':'深圳',
+  '成都':'成都','杭州':'杭州','武汉':'武汉','西安':'西安',
+  '重庆':'重庆','南京':'南京','苏州':'苏州','天津':'天津',
+  '长沙':'长沙','厦门':'厦门','青岛':'青岛','合肥':'合肥'
+};
+var GOAL_KEYWORDS_COMMERCIAL = ['商业化','带货','转化','下单','买','推荐商家','商家','供给','GMV','变现'];
+var GOAL_KEYWORDS_CONTENT = ['内容','种草','心智','传播','创作','博主','话题','氛围','文化','情绪'];
+var SEASON_MAP = {
+  '春季':['春','三月','四月','五月','踏青','春游','春天'],
+  '夏日':['夏','六月','七月','八月','夏天','暑假'],
+  '秋季':['秋','九月','十月','十一','金秋'],
+  '冬季':['冬','十二月','腊月','新年','元旦','春节','年货'],
+  '五一':['五一','劳动节','假期','节假日'],
+  '中秋':['中秋','月饼','团圆'],
+  '情人节':['情人节','214','浪漫']
+};
+var AUDIENCE_MAP = {
+  '年轻女性':['女生','女性','女孩','闺蜜','小姐姐'],
+  '年轻白领':['白领','上班族','打工人','OL','CBD'],
+  '亲子家庭':['亲子','家庭','孩子','宝宝','带娃','宝妈'],
+  'Z世代':['Z世代','00后','年轻人','学生'],
+  '外地游客':['游客','外地','旅游','旅行','打卡'],
+  '美食博主':['博主','KOL','探店','测评','达人'],
+  '本地吃货':['本地','老北京','本地人','当地人']
+};
+
+function localFallbackParse(text){
+  var region = '全国';
+  for(var key in REGION_KEYWORDS){ if(text.indexOf(key)!==-1){ region=REGION_KEYWORDS[key]; break; } }
+  var goalScore = 0;
+  GOAL_KEYWORDS_COMMERCIAL.forEach(function(k){ if(text.indexOf(k)!==-1) goalScore++; });
+  GOAL_KEYWORDS_CONTENT.forEach(function(k){ if(text.indexOf(k)!==-1) goalScore--; });
+  var goal = goalScore >= 0 ? 'commercial' : 'content';
+  var season = '当前时节';
+  for(var s in SEASON_MAP){ if(SEASON_MAP[s].some(function(k){ return text.indexOf(k)!==-1; })){ season=s; break; } }
+  var audience = '不限';
+  for(var a in AUDIENCE_MAP){ if(AUDIENCE_MAP[a].some(function(k){ return text.indexOf(k)!==-1; })){ audience=a; break; } }
+  var foundCats = ['咖啡','轻食','烤鸭','火锅','烤串','甜品','面食','小吃','串串','海鲜','川菜','日料','韩餐','烧烤','炸鸡','奶茶'].filter(function(c){ return text.indexOf(c)!==-1; });
+  var category = foundCats.length > 0 ? foundCats.join('、') : '美食（不限）';
+  var extras = [];
+  if(text.indexOf('避坑')!==-1) extras.push('避坑向内容');
+  if(text.indexOf('测评')!==-1) extras.push('测评对比');
+  if(text.indexOf('探店')!==-1) extras.push('探店打卡');
+  if(text.indexOf('性价比')!==-1) extras.push('性价比方向');
+  if(text.indexOf('网红')!==-1) extras.push('网红热点');
+  return { region:region, goal:goal, season:season, audience:audience, category:category, extra:extras.join('、')||'无' };
+}
+
+function parseInput(){
+  var text = (document.getElementById('user-input').value || '').trim();
+  if(!text){
+    document.getElementById('user-input').focus();
+    document.getElementById('user-input').style.borderColor='#E05555';
+    setTimeout(function(){ document.getElementById('user-input').style.borderColor=''; },1500);
+    return;
+  }
+
+  document.getElementById('step1-btn-wrap').style.display='none';
+  document.getElementById('confirm-card').classList.remove('show');
+  var loading = document.getElementById('parse-loading');
+  loading.classList.add('show');
+
+  // 优先尝试后端接口，降级到 Friday 直调，再降级本地关键词
+  backendParse(text)
+    .catch(function(backendErr) {
+      console.warn('[parse] 后端失败，尝试 Friday 直调:', backendErr.message);
+      return fridayFallbackParse(text);
+    })
+    .catch(function(fridayErr) {
+      console.warn('[parse] Friday 失败，使用本地降级:', fridayErr.message);
+      return localFallbackParse(text);
+    })
+    .then(function(result) {
+      loading.classList.remove('show');
+      document.getElementById('cpv-region').textContent = result.region || '全国';
+      document.getElementById('cpv-category').textContent = result.category || '美食（不限）';
+      document.getElementById('cpv-audience').textContent = result.audience || '不限';
+      document.getElementById('cpv-season').textContent = result.season || '当前时节';
+      document.getElementById('cpv-extra').textContent = result.extra || '无';
+      selectGoal(result.goal || 'content');
+      document.getElementById('confirm-card').classList.add('show');
+      // 缓存解析结果供 startAnalysis 使用
+      window._lastParsed = result;
+    });
+}
+
+
+function resetStep1(){
+  document.getElementById('confirm-card').classList.remove('show');
+  document.getElementById('step1-btn-wrap').style.display='';
+  document.getElementById('user-input').focus();
+}
+
+function fillExample(el){
+  document.getElementById('user-input').value = el.textContent;
+  document.getElementById('user-input').focus();
+  // 如果已经有确认卡，重新解析
+  if(document.getElementById('confirm-card').classList.contains('show')){
+    resetStep1();
+  }
+}
+
+function toggleTag(el){ el.classList.toggle('selected'); }
+
+// ══════════════════════════════════════════════════════════════
+// 选题卡
+// ══════════════════════════════════════════════════════════════
+function selectTopic(id){
+  selectedTopic=id;
+  for(var i=1;i<=5;i++){
+    var tc=document.getElementById('tc-'+i);
+    if(tc) tc.classList.toggle('active', i===id);
+  }
+  renderTopicDetail(id);
+}
+
+function renderTopicDetail(id){
+  var d=topicData[id-1];
+  var el=document.getElementById('topic-detail');
+  if(!el||!d) return;
+  var progHTML=d.progress.map(function(p){
+    return '<div class="progress-row"><div class="progress-name">'+p.name+'</div>'+
+      '<div class="progress-track"><div class="progress-fill" style="width:0%" data-val="'+p.val+'"></div></div>'+
+      '<div class="progress-val">'+p.val+'</div></div>';
+  }).join('');
+  var pHTML=d.pains.map(function(p){ return '<span class="pain-tag">'+p+'</span>'; }).join('');
+  el.innerHTML=
+    '<div class="detail-label">选题</div>'+
+    '<div class="detail-title">'+d.title+'</div>'+
+    '<div class="detail-label">热点关联度</div>'+progHTML+
+    '<div class="detail-label">核心痛点</div>'+
+    '<div class="pain-tags">'+pHTML+'</div>'+
+    '<div class="detail-label">推荐理由</div>'+
+    '<div class="reason-text">'+d.reason+'</div>'+
+    '<button class="btn-generate" style="margin-top:20px;" onclick="goStep(5)">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;flex-shrink:0;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'+
+      '生成内容预览'+
+    '</button>';
+  setTimeout(function(){
+    el.querySelectorAll('.progress-fill').forEach(function(f){ f.style.width=f.getAttribute('data-val')+'%'; });
+  },80);
+}
+
+// ══════════════════════════════════════════════════════════════
+// 内容预览
+// ══════════════════════════════════════════════════════════════
+function renderContentPreview(){
+  var com=document.getElementById('content-commercial');
+  var ed=document.getElementById('content-editorial');
+  var sub=document.getElementById('step5-subtitle');
+  if(currentMode==='commercial'){
+    com.style.display='block'; ed.style.display='none';
+    sub.textContent='商业化版 · 供给内容 + 品牌合作';
+  } else {
+    com.style.display='none'; ed.style.display='block';
+    sub.textContent='内容版 · 深度图文 · 可直接发布';
+  }
+}
+
+
+// ══════════════════════════════════════════════════════════════
+// 后端数据：loadTopicsFromBackend
+// 进入 Step2 时调用 /api/topics，用返回数据动态替换 L1_DATA
+// ══════════════════════════════════════════════════════════════
+
+// 颜色组映射（按索引轮转）
+var _groupColorKeys = ['classic', 'trendy', 'night', 'light'];
+var _L1_DATA_ORIGINAL = null; // 备份原始数据
+
+async function loadTopicsFromBackend() {
+  if (!_currentParams) return; // 没有解析结果就用默认数据
+
+  // loading 由外层 startAnalysis 统一管理，此处仅更新文案
+  var loadingEl = document.getElementById('api-loading-text');
+  if (loadingEl) loadingEl.textContent = '🤖 AI 正在生成热点话题数据…';
+
+  try {
+    var topics = await backendTopics(_currentParams);
+    if (!topics || !Array.isArray(topics) || topics.length === 0) {
+      throw new Error('后端返回空数据');
+    }
+
+    // 备份原始数据（首次）
+    if (!_L1_DATA_ORIGINAL) {
+      _L1_DATA_ORIGINAL = JSON.parse(JSON.stringify(L1_DATA));
+    }
+
+    // 用后端数据替换 L1_DATA
+    L1_DATA = topics.map(function(item, idx) {
+      return {
+        id: 'topic_' + idx,
+        label: item.name,
+        heat: item.heat,
+        x: item.x,
+        y: item.y,
+        group: _groupColorKeys[idx % _groupColorKeys.length],
+        desc: item.description || ''
+      };
+    });
+
+    // 清空 L2_DATA 中的旧数据（等点击气泡时再 drill）
+    // 保留一个特殊标记，让 openL1 知道需要从后端加载
+    L2_DATA = {};
+    L1_DATA.forEach(function(item) {
+      L2_DATA[item.id] = null; // null 表示待加载
+    });
+
+    drawBubbles();
+
+    // 更新 step2 subtitle
+    var sub = document.getElementById('step2-subtitle');
+    if (sub) {
+      sub.textContent = _currentParams.region + ' · ' + _currentParams.category + ' · 点击气泡查看细分热点';
+    }
+
+    // 更新图例（用 topic 名字动态生成）
+    var legend = document.querySelector('.chart-legend');
+    if (legend) {
+      var colorMap = {
+        classic: 'rgba(255,130,90,0.75)',
+        trendy:  'rgba(80,180,240,0.75)',
+        night:   'rgba(110,200,110,0.75)',
+        light:   'rgba(200,160,230,0.75)'
+      };
+      legend.innerHTML = L1_DATA.slice(0,4).map(function(item, i) {
+        return '<div class="chart-legend-item"><span class="chart-legend-dot" style="background:' +
+          colorMap[item.group] + ';"></span>' + item.label + '</div>';
+      }).join('');
+    }
+
+  } catch (err) {
+    console.warn('[topics] 后端加载失败，使用默认数据:', err.message);
+    // 恢复原始数据
+    if (_L1_DATA_ORIGINAL) {
+      L1_DATA = JSON.parse(JSON.stringify(_L1_DATA_ORIGINAL));
+    }
+    drawBubbles();
+    showError('⚠️ 热点数据加载失败（' + err.message + '），已使用默认数据', 5000);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// 改造 openL1：动态 drill 加载
+// 替换原始的 openL1 函数，支持后端 /api/drill 数据
+// ══════════════════════════════════════════════════════════════
+var _origOpenL1 = openL1; // 保存原始版本作为备用
+
+// 覆盖 openL1
+openL1 = function(id) {
+  var l1item = L1_DATA.find(function(d){ return d.id===id; });
+  if (!l1item) return;
+
+  // 如果 L2_DATA[id] 已经有数据（字符串标记 null 表示待加载，对象表示已加载）
+  // 但原始内置数据用对象，所以需要区分
+  var isBackendMode = (L2_DATA[id] === null || L2_DATA[id] === undefined) &&
+                       id.startsWith('topic_');
+
+  if (isBackendMode) {
+    // 后端模式：调用 /api/drill
+    selectedL1 = l1item;
+    selectedL2Idx = null;
+    drawBubbles();
+
+    // 显示面板骨架 + loading
+    document.getElementById('panel-empty').style.display='none';
+    var l2panel = document.getElementById('panel-l2');
+    l2panel.style.display='flex';
+    document.getElementById('breadcrumb-l1').textContent = l1item.label;
+
+    var body = document.getElementById('panel-l2-body');
+    body.innerHTML = '';
+
+    var drillLoading = document.createElement('div');
+    drillLoading.className = 'panel-drill-loading show';
+    drillLoading.id = 'panel-drill-loading';
+    drillLoading.innerHTML = '<div class="panel-drill-spinner"></div><div class="panel-drill-text">AI 正在分析「' + l1item.label + '」细分热点…</div>';
+    body.appendChild(drillLoading);
+
+    var drillParams = {
+      category: l1item.label,
+      region: (_currentParams && _currentParams.region) || '全国',
+      goal: (_currentParams && _currentParams.goal) || selectedGoal,
+      audience: (_currentParams && _currentParams.audience) || '不限',
+      season: (_currentParams && _currentParams.season) || '当前时节'
+    };
+
+    backendDrill(drillParams)
+      .then(function(drillData) {
+        // 渲染 drill 结果
+        renderDrillResult(id, l1item, drillData, body, drillParams);
+      })
+      .catch(function(err) {
+        console.warn('[drill] 后端失败，展示友好错误:', err.message);
+        body.innerHTML = '<div style="padding:40px 20px;text-align:center;color:var(--text-tertiary);">' +
+          '<div style="font-size:32px;margin-bottom:12px;">😕</div>' +
+          '<div style="font-size:14px;">内容加载失败</div>' +
+          '<div style="font-size:12px;color:var(--text-tertiary);margin-top:8px;">' + err.message + '</div>' +
+          '<button class="btn-primary" style="margin-top:20px;font-size:13px;padding:10px 24px;" onclick="openL1('' + id + '')">重试</button>' +
+          '</div>';
+      });
+
+  } else {
+    // 内置数据模式：直接调用原始函数
+    _origOpenL1(id);
+  }
+};
+
+/**
+ * 渲染后端 drill 结果到面板
+ */
+function renderDrillResult(id, l1item, drillData, body, params) {
+  body.innerHTML = '';
+  var mode = params.goal || selectedGoal;
+
+  // 标题
+  var header = document.createElement('div');
+  header.className = 'l1-header';
+  header.innerHTML =
+    '<div class="l1-title">' + l1item.label + '</div>' +
+    '<div class="l1-meta">' +
+      '<span class="l1-heat-badge">热度 ' + l1item.heat + '</span>' +
+      '<span class="l1-desc">' + (l1item.desc || '') + '</span>' +
+    '</div>';
+  body.appendChild(header);
+
+  if (mode === 'commercial') {
+    // 商业化模式：supply + prompt
+    var supply = drillData.supply || [];
+    var prompt = drillData.prompt || '';
+    var posts = drillData.posts || [];
+
+    if (supply.length > 0) {
+      var supplyTitle = document.createElement('div');
+      supplyTitle.style.cssText = 'font-size:13px;font-weight:700;color:var(--text);margin:16px 0 10px;';
+      supplyTitle.textContent = '🏪 供给角度细分 · ' + supply.length + ' 个方向';
+      body.appendChild(supplyTitle);
+
+      var supplyList = document.createElement('div');
+      supplyList.className = 'l2-grid';
+      supply.forEach(function(item, idx) {
+        var row = document.createElement('div');
+        row.className = 'l2-item';
+        var rank = idx + 1;
+        row.innerHTML =
+          '<div class="l2-rank ' + (rank <= 3 ? 'top3' : 'normal') + '">' + rank + '</div>' +
+          '<div class="l2-name">' + (item.name || item) + '</div>' +
+          (item.tag ? '<span class="l2-tag l2-tag-trend" style="font-size:10px;">' + item.tag + '</span>' : '') +
+          (item.score ? '<span style="font-size:12px;color:var(--accent);font-weight:700;flex-shrink:0;">' + item.score + '</span>' : '');
+        if (item.desc) {
+          row.style.cursor = 'default';
+          var detail = document.createElement('div');
+          detail.style.cssText = 'font-size:12px;color:var(--text-secondary);width:100%;padding:4px 0 0 34px;line-height:1.5;';
+          detail.textContent = item.desc;
+          var wrap = document.createElement('div');
+          wrap.style.cssText = 'display:flex;flex-direction:column;';
+          wrap.appendChild(row);
+          wrap.appendChild(detail);
+          supplyList.appendChild(wrap);
+        } else {
+          supplyList.appendChild(row);
+        }
+      });
+      body.appendChild(supplyList);
+    }
+
+    if (prompt) {
+      var promptBlock = document.createElement('div');
+      promptBlock.className = 'l2-detail-prompt';
+      promptBlock.style.marginTop = '16px';
+      promptBlock.innerHTML =
+        '<div class="l2-detail-prompt-header">🤖 投放建议文案</div>' +
+        '<code style="white-space:pre-wrap;">' + prompt + '</code>';
+      body.appendChild(promptBlock);
+    }
+
+    if (posts.length > 0) {
+      var postsDiv = document.createElement('div');
+      postsDiv.className = 'l2-posts';
+      postsDiv.style.marginTop = '16px';
+      postsDiv.innerHTML = '<div class="l2-posts-header">📕 小红书热帖（真实抓取）</div>' +
+        posts.map(function(t) {
+          return '<div class="l2-post-item" style="cursor:default;">' +
+            '<div class="l2-post-platform">📕</div>' +
+            '<div class="l2-post-body"><div class="l2-post-title">' + t + '</div></div>' +
+            '</div>';
+        }).join('');
+      body.appendChild(postsDiv);
+    }
+
+  } else {
+    // 内容型模式：pain + topics + sample_post
+    var pain = drillData.pain || [];
+    var topics_list = drillData.topics || [];
+    var sample = drillData.sample_post || '';
+    var posts_c = drillData.posts || [];
+
+    if (pain.length > 0) {
+      var painTitle = document.createElement('div');
+      painTitle.style.cssText = 'font-size:13px;font-weight:700;color:var(--text);margin:4px 0 10px;';
+      painTitle.textContent = '💢 核心痛点洞察';
+      body.appendChild(painTitle);
+      pain.forEach(function(p) {
+        var item = document.createElement('div');
+        item.style.cssText = 'padding:10px 14px;background:var(--surface-alt);border-radius:10px;font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:7px;border-left:2px solid var(--accent-light);';
+        item.textContent = p;
+        body.appendChild(item);
+      });
+    }
+
+    if (topics_list.length > 0) {
+      var topicsTitle = document.createElement('div');
+      topicsTitle.style.cssText = 'font-size:13px;font-weight:700;color:var(--text);margin:16px 0 10px;';
+      topicsTitle.textContent = '✨ 选题建议 · ' + topics_list.length + ' 个方向';
+      body.appendChild(topicsTitle);
+      var topicsGrid = document.createElement('div');
+      topicsGrid.className = 'l2-grid';
+      topics_list.forEach(function(t, idx) {
+        var row = document.createElement('div');
+        row.className = 'l2-item';
+        row.style.cursor = 'default';
+        var rank = idx + 1;
+        row.innerHTML =
+          '<div class="l2-rank ' + (rank <= 3 ? 'top3' : 'normal') + '">' + rank + '</div>' +
+          '<div class="l2-name">' + t + '</div>';
+        topicsGrid.appendChild(row);
+      });
+      body.appendChild(topicsGrid);
+    }
+
+    if (sample) {
+      var sampleBlock = document.createElement('div');
+      sampleBlock.style.cssText = 'margin-top:16px;background:var(--accent-bg);border-radius:var(--radius-md);padding:16px 18px;border:1px solid rgba(58,139,92,0.15);';
+      sampleBlock.innerHTML =
+        '<div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;font-family:var(--font);">📝 示例文章开头</div>' +
+        '<div style="font-size:13px;color:var(--text);line-height:1.72;">' + sample + '</div>';
+      body.appendChild(sampleBlock);
+    }
+
+    if (posts_c.length > 0) {
+      var postsCDiv = document.createElement('div');
+      postsCDiv.className = 'l2-posts';
+      postsCDiv.style.marginTop = '16px';
+      postsCDiv.innerHTML = '<div class="l2-posts-header">📕 小红书热帖（真实抓取）</div>' +
+        posts_c.map(function(t) {
+          return '<div class="l2-post-item" style="cursor:default;">' +
+            '<div class="l2-post-platform">📕</div>' +
+            '<div class="l2-post-body"><div class="l2-post-title">' + t + '</div></div>' +
+            '</div>';
+        }).join('');
+      body.appendChild(postsCDiv);
+    }
+  }
+
+  // 底部按钮
+  var footer = document.createElement('div');
+  footer.style.cssText = 'margin-top:20px;display:flex;gap:10px;';
+  footer.innerHTML =
+    '<button class="btn-generate" onclick="goStep(4)" style="flex:1;">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;flex-shrink:0;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' +
+      '查看选题方案' +
+    '</button>';
+  body.appendChild(footer);
+
+  // 动态更新 Step 4 选题卡
+  updateStep4WithDrillData(l1item, drillData, mode);
+}
+
+function updateStep4WithDrillData(l1item, drillData, mode) {
+  var topicsList = [];
+  if (mode === 'content') {
+    topicsList = drillData.topics || [];
+  } else {
+    var supply = drillData.supply || [];
+    topicsList = supply.map(function(item) {
+      return item.name || item;
+    });
+  }
+  topicsList = topicsList.slice(0, 5);
+
+  if (topicsList.length === 0) return;
+
+  topicData = topicsList.map(function(title, idx) {
+    return {
+      id: idx + 1,
+      title: title,
+      progress: [
+        {name: '热点关联', val: Math.round(l1item.heat * 0.95)},
+        {name: '痛点契合', val: Math.round(l1item.heat * 0.88)},
+        {name: '供给匹配', val: Math.round(l1item.heat * 0.82)},
+        {name: '传播潜力', val: Math.round(l1item.heat * 0.90)}
+      ],
+      pains: drillData.pain ? drillData.pain.slice(0, 3) : ['用户痛点待分析'],
+      reason: '基于 ' + l1item.label + ' 真实热点数据分析生成'
+    };
+  });
+
+  // 更新副标题
+  var subtitle = document.querySelector('#step-4 .section-subtitle');
+  if (subtitle) {
+    subtitle.textContent = l1item.label + ' · AI分析选题 · 点击卡片查看详情';
+  }
+
+  // 重新渲染选题列表
+  var topicList = document.querySelector('#step-4 .topic-list');
+  if (!topicList) return;
+  topicList.innerHTML = '';
+
+  topicData.forEach(function(t) {
+    var numStr = t.id < 10 ? 'NO. 0' + t.id : 'NO. ' + t.id;
+    var card = document.createElement('div');
+    card.className = 'topic-card' + (t.id === 1 ? ' active' : '');
+    card.id = 'tc-' + t.id;
+    card.setAttribute('onclick', 'selectTopic(' + t.id + ')');
+    card.innerHTML =
+      '<div class="topic-card-num">' + numStr + '</div>' +
+      '<div class="topic-card-title">' + t.title + '</div>' +
+      '<div class="topic-card-reason">' + t.reason + '</div>' +
+      '<div class="topic-card-footer"><button class="btn-select">选择此选题</button></div>';
+    topicList.appendChild(card);
+  });
+
+  // 默认选中第一个
+  selectTopic(1);
+}
+
+function generateTopicReport() {
+  var params = _currentParams || {};
+  var chosenTopic = topicData[selectedTopic - 1] || topicData[0];
+  var reportInput = {
+    goal: params.goal || selectedGoal,
+    region: params.region || '全国',
+    category: selectedL1 ? selectedL1.label : (params.category || ''),
+    audience: params.audience || '不限',
+    season: params.season || '当前时节',
+    topics: topicData.map(function(t) { return t.title; }),
+    selected_topic: chosenTopic ? chosenTopic.title : '',
+    pains: chosenTopic ? (chosenTopic.pains || []) : [],
+    source: 'foodsearch-demo'
+  };
+  showReportConfirmDialog(reportInput);
+}
+
+function showReportConfirmDialog(input) {
+  var existing = document.getElementById('report-confirm-overlay');
+  if (existing) existing.remove();
+
+  var goalLabel = input.goal === 'commercial' ? '商业化' : '内容型';
+  var topicsHtml = input.topics.slice(0, 5).map(function(t, i) {
+    return '<div style="padding:5px 0;font-size:13px;color:var(--text);border-bottom:1px solid var(--border);">' +
+      '<span style="color:var(--accent);font-weight:700;margin-right:6px;">' + (i + 1) + '.</span>' + t + '</div>';
+  }).join('');
+
+  var overlay = document.createElement('div');
+  overlay.id = 'report-confirm-overlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:16px;max-width:480px;width:90%;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,0.2);max-height:80vh;overflow-y:auto;">' +
+      '<div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:18px;">📊 确认选题报告参数</div>' +
+      '<div style="background:var(--surface-alt);border-radius:10px;padding:14px;margin-bottom:16px;">' +
+        '<div style="display:grid;grid-template-columns:80px 1fr;gap:8px 0;">' +
+          '<span style="font-size:12px;color:var(--text-secondary);padding:4px 0;">地域</span><span style="font-size:13px;color:var(--text);padding:4px 0;font-weight:500;">' + (input.region || '全国') + '</span>' +
+          '<span style="font-size:12px;color:var(--text-secondary);padding:4px 0;">目标模式</span><span style="font-size:13px;color:var(--text);padding:4px 0;font-weight:500;">' + goalLabel + '</span>' +
+          '<span style="font-size:12px;color:var(--text-secondary);padding:4px 0;">主题品类</span><span style="font-size:13px;color:var(--text);padding:4px 0;font-weight:500;">' + (input.category || '-') + '</span>' +
+          '<span style="font-size:12px;color:var(--text-secondary);padding:4px 0;">人群</span><span style="font-size:13px;color:var(--text);padding:4px 0;font-weight:500;">' + (input.audience || '不限') + '</span>' +
+          '<span style="font-size:12px;color:var(--text-secondary);padding:4px 0;">季节</span><span style="font-size:13px;color:var(--text);padding:4px 0;font-weight:500;">' + (input.season || '当前时节') + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">待分析选题（' + input.topics.length + ' 条）</div>' +
+      '<div style="background:var(--surface-alt);border-radius:10px;padding:10px 14px;margin-bottom:20px;">' + topicsHtml + '</div>' +
+      '<div style="display:flex;gap:10px;">' +
+        '<button class="btn-generate" onclick="callTrendTopicSkill(' + JSON.stringify('__INPUT__').replace('"__INPUT__"', 'window.__reportInput__') + ')" style="flex:1;padding:12px;" id="btn-confirm-report">确认生成</button>' +
+        '<button onclick="document.getElementById(\'report-confirm-overlay\').remove()" style="flex:1;padding:12px;background:var(--surface-alt);border:1px solid var(--border);border-radius:10px;font-size:14px;font-weight:600;color:var(--text-secondary);cursor:pointer;">取消</button>' +
+      '</div>' +
+    '</div>';
+
+  window.__reportInput__ = input;
+  document.body.appendChild(overlay);
+
+  // 修正确认按钮的 onclick
+  var confirmBtn = document.getElementById('btn-confirm-report');
+  confirmBtn.onclick = function() { callTrendTopicSkill(window.__reportInput__); };
+}
+
+async function callTrendTopicSkill(input) {
+  var overlay = document.getElementById('report-confirm-overlay');
+  if (overlay) overlay.remove();
+
+  showApiLoading('🔄 正在生成选题报告（约30秒）…');
+
+  try {
+    var base = getApiBase();
+    var resp = await fetch(base + '/api/report', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(input)
+    });
+    var data = await resp.json();
+    hideApiLoading();
+
+    if (data.success && data.report) {
+      showReportResult(data.report, input);
+    } else {
+      showError('报告生成失败，请重试', 4000);
+    }
+  } catch(e) {
+    hideApiLoading();
+    showError('⚠️ 后端连接失败，报告服务暂不可用', 4000);
+  }
+}
+
+function showReportResult(report, input) {
+  var existing = document.getElementById('report-result-overlay');
+  if (existing) existing.remove();
+
+  var topicsHtml = '';
+  if (report.topics && report.topics.length > 0) {
+    topicsHtml = report.topics.map(function(t, i) {
+      return '<div style="background:var(--surface-alt);border-radius:10px;padding:14px;margin-bottom:10px;">' +
+        '<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;">' +
+          '<span style="color:var(--accent);margin-right:6px;">' + (i + 1) + '.</span>' + (t.title || '') +
+        '</div>' +
+        (t.reason ? '<div style="font-size:12px;color:var(--text-secondary);margin-bottom:4px;">💡 ' + t.reason + '</div>' : '') +
+        (t.execution ? '<div style="font-size:12px;color:var(--text);line-height:1.6;">📌 ' + t.execution + '</div>' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  var overlay = document.createElement('div');
+  overlay.id = 'report-result-overlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:16px;max-width:600px;width:92%;max-height:80vh;overflow-y:auto;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,0.2);">' +
+      '<div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:18px;">📋 选题报告 · ' + (input.category || '') + ' · ' + (input.region || '全国') + '</div>' +
+      (report.summary ? '<div style="background:var(--accent-bg);border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:13px;color:var(--text);line-height:1.72;border-left:3px solid var(--accent);">' + report.summary + '</div>' : '') +
+      (topicsHtml ? '<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">📌 选题详情</div>' + topicsHtml : '') +
+      (report.content_plan ? '<div style="margin-bottom:14px;"><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">📅 内容排期建议</div><div style="background:var(--surface-alt);border-radius:10px;padding:14px;font-size:13px;color:var(--text);line-height:1.72;white-space:pre-wrap;">' + report.content_plan + '</div></div>' : '') +
+      (report.kpi_estimation ? '<div style="margin-bottom:20px;"><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">📈 预期效果评估</div><div style="background:var(--surface-alt);border-radius:10px;padding:14px;font-size:13px;color:var(--text);line-height:1.72;">' + report.kpi_estimation + '</div></div>' : '') +
+      '<div style="display:flex;justify-content:center;">' +
+        '<button onclick="document.getElementById(\'report-result-overlay\').remove()" style="padding:12px 36px;background:var(--surface-alt);border:1px solid var(--border);border-radius:10px;font-size:14px;font-weight:600;color:var(--text-secondary);cursor:pointer;">关闭</button>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+}
+
+</script>
+</body>
+</html>

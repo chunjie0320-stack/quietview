@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中医节气签到地图 x AI千人千面 Demo V3</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',Arial,sans-serif;background:#F5F0EB;color:#333;display:flex;justify-content:center;padding:20px 0;min-height:100vh}
+.mc{width:1200px;max-width:98vw}
+.pt{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.ptab{padding:10px 24px;border-radius:24px;border:2px solid #ddd;background:#fff;cursor:pointer;font-size:14px;font-weight:600;transition:all .3s;user-select:none}
+.ptab:hover{border-color:#FFC107}
+.ptab.active{color:#fff;border-color:transparent;transform:scale(1.05)}
+.ptab[data-p=wj].active{background:linear-gradient(135deg,#1a3a0a,#2D5016)}
+.ptab[data-p=xl].active{background:linear-gradient(135deg,#66BB6A,#AED581);color:#1b4d1b}
+.ptab[data-p=lz].active{background:linear-gradient(135deg,#BF360C,#E65100);color:#fff}
+.ca{display:flex;justify-content:center;gap:28px;align-items:flex-start}
+.pf{width:390px;min-width:390px;height:844px;border-radius:44px;background:#000;padding:12px;box-shadow:0 20px 60px rgba(0,0,0,.25),inset 0 0 0 2px #333;position:relative;flex-shrink:0}
+.pn{width:120px;height:28px;background:#000;border-radius:0 0 16px 16px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:100}
+.ps{width:100%;height:100%;border-radius:34px;overflow:hidden;position:relative;transition:background .5s}
+.psc{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;padding-bottom:120px;scroll-behavior:smooth}
+.psc::-webkit-scrollbar{width:3px}
+.psc::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:3px}
+.ba{padding:36px 16px 14px;text-align:center;border-radius:0 0 20px 20px;transition:all .5s}
+.bti{font-size:22px;font-weight:800;margin-bottom:4px;text-shadow:1px 1px 2px rgba(0,0,0,.1);letter-spacing:1px}
+.bsu{font-size:12px;opacity:.85;margin-bottom:6px}
+.bbdg{display:inline-block;padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;margin-bottom:8px;transition:all .5s}
+.ccrd{background:rgba(255,255,255,.92);border-radius:12px;padding:10px 14px;display:inline-block;box-shadow:0 2px 8px rgba(0,0,0,.08);backdrop-filter:blur(4px)}
+.ccrd .stn{font-size:16px;font-weight:700;color:#5A3A00}.ccrd .dtd{font-size:11px;color:#888;margin-top:2px}
+.pbar{margin:12px 16px 0;background:rgba(255,255,255,.9);border-radius:10px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.pbar-l{display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px}
+.pbar-t{background:#e0e0e0;height:10px;border-radius:5px;overflow:visible;position:relative}
+.pbar-f{height:100%;border-radius:5px;transition:width .8s ease}
+.pbar-brk{position:absolute;top:-2px;height:14px;width:3px;background:#FF1744;border-radius:1px}
+.ce{margin:12px 16px;background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.cbtn{width:100%;padding:14px;border:none;border-radius:12px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.cbtn:hover{transform:scale(1.02)}
+.chnt{font-size:11px;color:#999;text-align:center;margin-top:6px}
+.countdown{font-family:'Courier New',monospace;font-size:15px;font-weight:800;color:#FF1744;letter-spacing:2px;margin-top:4px;text-align:center}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+.cbtn-shimmer::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 2.5s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.cbtn-bounce{animation:bounce 1.5s ease-in-out infinite}
+@keyframes btnpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,23,68,.5)}50%{box-shadow:0 0 20px 6px rgba(255,23,68,.3)}}
+.cbtn-pulse{animation:btnpulse 1.2s ease-in-out infinite}
+.cr{display:flex;gap:6px;margin:8px 16px 0;transition:all .3s}
+.ci{flex:1;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;font-weight:600;position:relative;overflow:hidden}
+.ci .cv{font-size:16px;font-weight:800;display:block}.ci .ctag{position:absolute;top:0;right:0;padding:1px 6px;border-radius:0 8px 0 6px;font-size:8px;font-weight:700;color:#fff}
+.ci-timer{position:absolute;top:0;left:0;right:0;background:rgba(255,23,68,.85);color:#fff;font-size:9px;font-weight:700;padding:2px 0;text-align:center;letter-spacing:1px}
+.ci-big{flex:2!important;padding:14px 4px!important}.ci-big .cv{font-size:28px!important}
+.ma{position:relative;width:100%;min-height:960px;padding:20px 0;transition:background 1s}
+.msvg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.mdeco{position:absolute;font-size:18px;z-index:0;opacity:.6;pointer-events:none}
+.sw{position:absolute;z-index:10;transition:all .4s}
+.pol{background:#fff;padding:6px 6px 20px 6px;box-shadow:2px 3px 10px rgba(0,0,0,.14);border-radius:3px;width:130px;position:relative;transition:all .4s}
+.pol:hover{box-shadow:3px 5px 16px rgba(0,0,0,.22);z-index:20}
+.pp{width:100%;height:78px;border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;transition:all .4s}
+.prab{font-size:26px;position:absolute;bottom:1px;right:2px;opacity:.7}
+.ptxt{font-size:10px;font-weight:600;color:#5A3A00;text-align:center;margin-top:3px;line-height:1.3;padding:0 2px}
+.psts{font-size:9px;margin-top:1px;text-align:center}
+.stag{padding:3px 8px;border-radius:2px;font-size:10px;font-weight:700;box-shadow:1px 1px 3px rgba(0,0,0,.1);white-space:nowrap;position:absolute;z-index:15}
+.pini{font-size:16px;position:absolute;z-index:15}
+.sbdg{position:absolute;top:-6px;right:-6px;font-size:14px;z-index:20}
+@keyframes vipglow{0%,100%{box-shadow:2px 3px 12px rgba(201,168,50,.3)}50%{box-shadow:2px 3px 20px rgba(201,168,50,.6)}}
+.pol-vip{border:2px solid #c9a832!important;animation:vipglow 2s ease-in-out infinite}
+.pol-locked{opacity:.45!important}
+.pol-locked .pp{filter:grayscale(.6) brightness(.85)}
+.lock-ov{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.65);display:flex;align-items:center;justify-content:center;font-size:28px;z-index:5;border-radius:2px}
+@keyframes guidepulse{0%,100%{box-shadow:0 0 0 0 rgba(102,187,106,.4)}50%{box-shadow:0 0 16px 6px rgba(102,187,106,.3)}}
+.pol-guide{border:2px solid #66BB6A!important;animation:guidepulse 1.5s ease-in-out infinite}
+@keyframes breakflash{0%,100%{border-color:#FF1744;box-shadow:0 0 8px rgba(255,23,68,.3)}50%{border-color:#FF8A80;box-shadow:0 0 16px rgba(255,23,68,.5)}}
+.pol-break{border:2px solid #FF1744!important;animation:breakflash 1s ease-in-out infinite}
+.pol-nxt{opacity:.7;border:1px dashed #c9a832!important}
+.glbl{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);padding:3px 10px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap;z-index:25;color:#fff}
+.ra{display:flex;justify-content:space-around;padding:14px 12px;background:rgba(255,255,255,.7);margin:8px 12px;border-radius:12px}
+.ri{text-align:center;font-size:10px;color:#666;padding:4px;border-radius:8px}
+.ric{font-size:24px;display:block;margin-bottom:2px}.ris{font-size:11px;margin-top:2px;font-weight:600}
+@keyframes rwblink{0%,100%{opacity:1}50%{opacity:.4}}
+.bsc{margin:10px 12px;padding:14px 16px;border-radius:12px;font-size:13px;font-weight:700;text-align:center;cursor:pointer;transition:all .3s}
+.bsc:hover{transform:scale(1.02)}
+.pfl{position:absolute;bottom:54px;left:8px;right:8px;padding:10px 14px;border-radius:12px;font-size:12px;z-index:50;backdrop-filter:blur(6px);box-shadow:0 4px 12px rgba(0,0,0,.3);line-height:1.5;transition:all .5s}
+@keyframes pushpulse{0%,100%{box-shadow:0 4px 12px rgba(255,23,68,.3)}50%{box-shadow:0 4px 24px rgba(255,23,68,.6)}}
+.pfl-pulse{animation:pushpulse 1.2s ease-in-out infinite}
+.btabs{position:absolute;bottom:0;left:0;right:0;height:50px;background:#fff;display:flex;border-top:1px solid #eee;z-index:60;border-radius:0 0 34px 34px}
+.btab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#999;gap:2px}.btab.act{color:#FFC107;font-weight:700}.btic{font-size:18px}
+.sp{width:360px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.06);position:sticky;top:20px;max-height:844px;overflow-y:auto}
+.sp::-webkit-scrollbar{width:3px}.sp::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
+.spn{font-size:18px;font-weight:800;margin-bottom:4px}
+.spd{font-size:12px;color:#888;margin-bottom:14px;line-height:1.5}
+.sp-sum{margin:0 0 14px;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;text-align:center;line-height:1.6}
+.radar-wrap{text-align:center;margin-bottom:14px}
+.radar-wrap canvas{display:block;margin:0 auto}
+.dl{list-style:none}
+.dit{padding:10px 0;border-bottom:1px solid #f0f0f0}.dit:last-child{border-bottom:none}
+.dih{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.dib{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.din{font-size:12px;font-weight:700;color:#555}
+.div{font-size:13px;font-weight:600;color:#222;margin-left:26px}
+.dif{font-size:10px;color:#999;margin-left:26px;margin-top:2px;line-height:1.4}
+.pgti{text-align:center;margin-bottom:16px}.pgti h1{font-size:22px;font-weight:800;color:#333}.pgti p{font-size:13px;color:#888;margin-top:4px}
+.fi{animation:fadeIn .4s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.s1{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}.s2{background:linear-gradient(135deg,#DCEDC8,#AED581)}.s3{background:linear-gradient(135deg,#C8E6C9,#81C784)}.s4{background:linear-gradient(135deg,#A5D6A7,#66BB6A)}.s5{background:linear-gradient(135deg,#FFF9C4,#FFE082)}.s6{background:linear-gradient(135deg,#FFE0B2,#FFCC80)}.s7{background:linear-gradient(135deg,#FFCC80,#FFB74D)}.s8{background:linear-gradient(135deg,#D7CCC8,#BCAAA4)}.s9{background:linear-gradient(135deg,#BCAAA4,#A1887F)}
+</style>
+</head>
+<body>
+<div class="mc">
+<div class="pgti"><h1>🏥 中医节气签到地图 × AI千人千面</h1><p>同一个签到活动，三种用户看到完全不同的页面体验</p></div>
+<div class="pt">
+<div class="ptab active" data-p="wj" onclick="sw('wj')">🧘 养生达人·王姐</div>
+<div class="ptab" data-p="xl" onclick="sw('xl')">🌱 尝鲜小白·小林</div>
+<div class="ptab" data-p="lz" onclick="sw('lz')">😴 沉睡用户·老张</div>
+</div>
+<div class="ca">
+<div class="pf"><div class="pn"></div>
+<div class="ps" id="ps">
+<div class="psc" id="psc">
+<div class="ba" id="ba"><div class="bti" id="bti"></div><div class="bsu" id="bsu"></div><div class="bbdg" id="bbdg"></div><br><div class="ccrd"><div class="stn">谷雨 · 四月二十日</div><div class="dtd">农历三月初四 · 2026年</div></div></div>
+<div class="pbar" id="pbar"></div>
+<div class="ce" id="ce"><button class="cbtn" id="cbtn"></button><div class="chnt" id="chnt"></div><div class="countdown" id="cdwn" style="display:none"></div></div>
+<div class="cr" id="cpr"></div>
+<div class="ma" id="ma">
+<svg class="msvg" viewBox="0 0 358 960" preserveAspectRatio="xMidYMid meet"><path id="rp" fill="none" stroke-width="2.5" opacity="0.45"/></svg>
+<div class="mdeco" style="top:60px;left:20px">🌸</div><div class="mdeco" style="top:180px;right:25px">🌸</div><div class="mdeco" style="top:340px;left:15px">🌿</div><div class="mdeco" style="top:500px;right:20px">☀️</div><div class="mdeco" style="top:620px;left:25px">🍂</div><div class="mdeco" style="top:740px;right:18px">🌰</div><div class="mdeco" style="top:850px;left:30px">❄️</div>
+<div id="sc"></div>
+</div>
+<div class="ra" id="ra"></div>
+<div class="bsc" id="bsc"></div>
+</div>
+<div class="pfl" id="pfl"></div>
+<div class="btabs"><div class="btab act"><span class="btic">📅</span>谷雨签到</div><div class="btab"><span class="btic">🏠</span>主会场</div><div class="btab"><span class="btic">🌿</span>中医方剂</div><div class="btab"><span class="btic">✨</span>祛痘</div></div>
+</div>
+</div>
+<div class="sp" id="sp"></div>
+</div>
+</div>
+<script>
+var P=[{x:210,y:30,r:-3,s:'s1'},{x:70,y:130,r:5,s:'s2'},{x:210,y:230,r:-4,s:'s3'},{x:70,y:330,r:6,s:'s4'},{x:210,y:430,r:-5,s:'s5'},{x:70,y:530,r:4,s:'s6'},{x:210,y:630,r:-6,s:'s7'},{x:70,y:730,r:5,s:'s8'},{x:210,y:830,r:-3,s:'s9'}];
+var TN=[{n:'春分',d:'3.20-4.3'},{n:'谷雨',d:'4.13-4.27'},{n:'小满',d:'5.20-6.4'},{n:'夏至',d:'6.21-7.5'},{n:'三伏',d:'7.15-8.24'},{n:'秋分',d:'9.22-10.7'},{n:'霜降',d:'10.23-11.6'},{n:'小雪',d:'11.22-12.6'},{n:'冬至',d:'12.21-1.5'}];
+var cdTimer=null;
+var D={
+wj:{
+nm:'🧘 养生达人·王姐',ds:'35岁 | 高消费复购 | 月均¥800+ | 已签5天',
+bg:'linear-gradient(135deg,#1a3a0a,#2D5016)',fc:'#f5e6b8',pageBg:'#FDF6EC',mapBg:'linear-gradient(180deg,#FDF8EE,#F5EDD8)',
+ti:'累计签到 领大奖',su:'专属养生定制方案',bdg:'🏆 VIP养生家',bdgBg:'linear-gradient(135deg,#c9a832,#f0d860)',bdgCo:'#3a2800',
+prog:71,progTxt:'5/7 即将达成终极奖励！',progCo:'linear-gradient(90deg,#2D5016,#4CAF50)',progBrk:-1,
+bb:'linear-gradient(135deg,#1a3a0a,#2D5016)',bx:'继续打卡 →',bc:'#f5e6b8',btnCls:'cbtn-shimmer',ht:'再签2天解锁神秘大礼🎁',showCd:false,
+cp:[{a:'¥40',c:'满420减',bg:'linear-gradient(135deg,#FFF8E1,#FFF3C4)',bd:'2px solid #c9a832',co:'#5A3A00',tag:'VIP',tagBg:'#c9a832',big:0,tmr:0},
+{a:'¥27',c:'满287减',bg:'linear-gradient(135deg,#FFF8E1,#FFF3C4)',bd:'2px solid #c9a832',co:'#5A3A00',tag:'VIP',tagBg:'#c9a832',big:0,tmr:0},
+{a:'¥18',c:'满188减',bg:'linear-gradient(135deg,#FFF8E1,#FFF3C4)',bd:'2px solid #c9a832',co:'#5A3A00',tag:'VIP',tagBg:'#c9a832',big:0,tmr:0}],
+st:[{t:'推拿精选¥388',s:'✅已领',u:1},{t:'艾灸月卡¥1280',s:'✅已领',u:1},{t:'体质调理¥568',s:'✅已领',u:1},{t:'药膳食补¥428',s:'✅已领',u:1},{t:'三伏贴¥328',s:'✅已领',u:1},{t:'秋季润肺¥298',s:'🔜即将',u:0,nxt:1},{t:'膏方进补¥488',s:'🔒',u:0},{t:'温泉养生¥668',s:'🔒',u:0},{t:'冬令进补¥888',s:'🔒',u:0}],
+routeColor:'#c9a832',routeW:3,routeD:'',tagBg:'#FFF3B0',tagCo:'#6B4F00',
+pu:'🧘 王姐，明天小满节气开启，VIP养生方案已备好',puBg:'rgba(0,0,0,.88)',puCo:'#f5e6b8',puBd:'1px solid #c9a832',puCls:'',
+rw:[{i:'💰',l:'三次签到礼',s:'✅',c:'#4CAF50',hl:'#c9a832'},{i:'🧧',l:'五次签到礼',s:'✅',c:'#4CAF50',hl:'#c9a832'},{i:'🎫',l:'七次签到礼',s:'🔜即将',c:'#FF9800',hl:''},{i:'🎁',l:'神秘大礼',s:'🔜即将',c:'#FF9800',hl:''}],
+bscTxt:'📊 您的年度养生报告 →',bscBg:'#fffef8',bscBd:'2px solid #c9a832',bscCo:'#5A3A00',
+sum:'高价值用户 → 高门槛高回报，VIP留存',sumBg:'linear-gradient(135deg,#1a3a0a,#2D5016)',sumCo:'#f5e6b8',
+rad:[95,85,71,80,90],radCo:'rgba(45,80,22,0.7)',radFill:'rgba(45,80,22,0.15)',
+dm:[{id:'❶',n:'用户分层',v:'高价值复购用户',d:'vs 小林新客/老张沉睡',co:'#2D5016'},{id:'❷',n:'消费能力',v:'月均¥800+ 客单¥400+',d:'vs 小林¥30内/老张¥100',co:'#2D5016'},{id:'❸',n:'签到进度',v:'5/7天 即将达成终极奖励',d:'vs 小林0/7/老张2/7断签',co:'#2D5016'},{id:'❹',n:'券面额',v:'¥40/¥27/¥18 高面额VIP',d:'vs 小林¥5+免单/老张¥15+限时',co:'#2D5016'},{id:'❺',n:'商品推荐',v:'高端¥328~¥888',d:'vs 小林入门¥9.9/老张中端¥39',co:'#2D5016'},{id:'❻',n:'话术',v:'VIP尊享·专属定制',d:'vs 新手友好/限时回归',co:'#2D5016'},{id:'❼',n:'紧迫感',v:'再签2天进度激励',d:'vs 首签翻倍/48h倒计时',co:'#2D5016'},{id:'❽',n:'Push',v:'VIP方案预告',d:'vs 体验券/过期逼单',co:'#2D5016'}]
+},
+xl:{
+nm:'🌱 尝鲜小白·小林',ds:'22岁 | 首次参与 | 低频新客 | 预算敏感',
+bg:'linear-gradient(135deg,#81C784,#C8E6C9)',fc:'#1b4d1b',pageBg:'#F0FFF0',mapBg:'linear-gradient(180deg,#F0FFF0,#E8F5E9)',
+ti:'累计签到 领大奖',su:'你的第一次节气养生之旅 ✨',bdg:'🌱 养生新手',bdgBg:'linear-gradient(135deg,#81C784,#C8E6C9)',bdgCo:'#1b4d1b',
+prog:0,progTxt:'签到1次即可点亮进度 💡',progCo:'#e0e0e0',progBrk:-1,
+bb:'linear-gradient(135deg,#66BB6A,#AED581)',bx:'🎉 开启养生旅程',bc:'#1b4d1b',btnCls:'cbtn-bounce',ht:'首签奖励翻倍 ✨',showCd:false,
+cp:[{a:'¥5',c:'满29减',bg:'linear-gradient(135deg,#E8F5E9,#C8E6C9)',bd:'1px solid #A5D6A7',co:'#2E7D32',tag:'新人',tagBg:'#66BB6A',big:0,tmr:0},
+{a:'免单',c:'体验券',bg:'linear-gradient(135deg,#C8E6C9,#A5D6A7)',bd:'2px solid #66BB6A',co:'#1b5e20',tag:'首签',tagBg:'#43A047',big:1,tmr:0},
+{a:'¥3',c:'满19减',bg:'linear-gradient(135deg,#E8F5E9,#C8E6C9)',bd:'1px solid #A5D6A7',co:'#2E7D32',tag:'新人',tagBg:'#66BB6A',big:0,tmr:0}],
+st:[{t:'肩颈放松¥29.9',s:'💡首选推荐',u:0,guide:1},{t:'足浴体验¥19.9',s:'🔒',u:0},{t:'养生茶饮¥9.9',s:'🔒',u:0},{t:'刮痧体验¥39.9',s:'🔒',u:0},{t:'艾灸入门¥49.9',s:'🔒',u:0},{t:'拔罐体验¥29.9',s:'🔒',u:0},{t:'泡脚套餐¥25.9',s:'🔒',u:0},{t:'暖宫调理¥59.9',s:'🔒',u:0},{t:'冬季暖身¥69.9',s:'🔒',u:0}],
+routeColor:'#bbb',routeW:2,routeD:'8 6',tagBg:'#E8F5E9',tagCo:'#2E7D32',
+pu:'🌿 小林，完成首次签到即得体验券，29.9元享肩颈放松~',puBg:'rgba(46,125,50,.9)',puCo:'#fff',puBd:'none',puCls:'',
+rw:[{i:'💰',l:'三次签到礼',s:'🔒',c:'#999',hl:''},{i:'🧧',l:'五次签到礼',s:'🔒',c:'#999',hl:''},{i:'🎫',l:'七次签到礼',s:'🔒',c:'#999',hl:''},{i:'🎁',l:'神秘大礼',s:'🔒',c:'#999',hl:''}],
+bscTxt:'📖 养生新手指南 →',bscBg:'#f0fff0',bscBd:'2px solid #81C784',bscCo:'#2E7D32',
+sum:'新客破冰 → 低门槛高频引导，养成签到习惯',sumBg:'linear-gradient(135deg,#43A047,#66BB6A)',sumCo:'#fff',
+rad:[20,10,0,15,10],radCo:'rgba(102,187,106,0.7)',radFill:'rgba(102,187,106,0.15)',
+dm:[{id:'❶',n:'用户分层',v:'新客探索期',d:'vs 王姐复购/老张沉睡',co:'#43A047'},{id:'❷',n:'消费能力',v:'预算敏感 ¥30以内',d:'vs 王姐¥800+/老张¥100',co:'#43A047'},{id:'❸',n:'签到进度',v:'0/7天 全新开始',d:'vs 王姐5/7/老张2/7',co:'#43A047'},{id:'❹',n:'券面额',v:'¥5/¥3/免单 低门槛引流',d:'vs 王姐¥40VIP/老张¥25限时',co:'#43A047'},{id:'❺',n:'商品推荐',v:'入门体验 ¥9.9~¥69.9',d:'vs 王姐¥328+/老张¥39+',co:'#43A047'},{id:'❻',n:'话术',v:'首次体验·新手友好',d:'vs VIP尊享/限时回归',co:'#43A047'},{id:'❼',n:'紧迫感',v:'首签翻倍奖励激励',d:'vs 再签2天/48h倒计时',co:'#43A047'},{id:'❽',n:'Push',v:'体验券+低价利益点',d:'vs VIP预告/过期逼单',co:'#43A047'}]
+},
+lz:{
+nm:'😴 沉睡用户·老张',ds:'40岁 | 去年参与今年断签 | 30天未回访',
+bg:'linear-gradient(135deg,#BF360C,#E65100)',fc:'#fff',pageBg:'#FFF8F0',mapBg:'linear-gradient(180deg,#FFF8F0,#FFE8D0)',
+ti:'累计签到 领大奖',su:'好久不见，专属回归礼等你 💪',bdg:'🔥 限时回归',bdgBg:'linear-gradient(135deg,#FF1744,#FF5252)',bdgCo:'#fff',
+prog:28,progTxt:'2/7 回归补签继续累计',progCo:'linear-gradient(90deg,#FF6D00,#FF9100)',progBrk:28,
+bb:'linear-gradient(135deg,#BF360C,#E65100)',bx:'⏰ 立即回归签到',bc:'#fff',btnCls:'cbtn-pulse',ht:'断签不清零，继续累计！',showCd:true,
+cp:[{a:'¥15',c:'满99回归',bg:'linear-gradient(135deg,#FFF3E0,#FFE0B2)',bd:'2px solid #FF6D00',co:'#BF360C',tag:'回归',tagBg:'#E65100',big:0,tmr:1},
+{a:'¥25',c:'满199限时',bg:'linear-gradient(135deg,#FFE0B2,#FFCC80)',bd:'2px solid #FF6D00',co:'#BF360C',tag:'限时',tagBg:'#FF1744',big:0,tmr:1},
+{a:'¥10',c:'无门槛回归礼',bg:'linear-gradient(135deg,#FFF3E0,#FFE0B2)',bd:'2px solid #FF6D00',co:'#BF360C',tag:'回归',tagBg:'#E65100',big:0,tmr:1}],
+st:[{t:'推拿5折¥99',s:'✅已领',u:1},{t:'足浴回归¥39',s:'✅已领',u:1},{t:'回归补签¥1',s:'⚠️断签！',u:0,brk:1},{t:'中药泡脚¥59',s:'🔒',u:0},{t:'刮痧套餐¥79',s:'🔒',u:0},{t:'推拿月卡¥199',s:'🔒',u:0},{t:'秋冬进补¥129',s:'🔒',u:0},{t:'药膳套餐¥149',s:'🔒',u:0},{t:'年度大礼包¥299',s:'🔒',u:0}],
+routeColor:'#BF360C',routeW:2,routeD:'6 4',tagBg:'#FFE0B2',tagCo:'#BF360C',
+pu:'⏰ 老张，您的回归礼即将过期！48h内签到领¥25专享券',puBg:'rgba(191,54,12,.92)',puCo:'#fff',puBd:'1px solid #FF5252',puCls:'pfl-pulse',
+rw:[{i:'💰',l:'三次签到礼',s:'🔜差1次',c:'#FF9800',hl:'#FF6D00',blink:1},{i:'🧧',l:'五次签到礼',s:'🔒',c:'#999',hl:''},{i:'🎫',l:'七次签到礼',s:'🔒',c:'#999',hl:''},{i:'🎁',l:'神秘大礼',s:'🔒',c:'#999',hl:''}],
+bscTxt:'🎁 回归专属福利包 限时48h →',bscBg:'#FFF3E0',bscBd:'2px solid #FF6D00',bscCo:'#BF360C',
+sum:'沉睡召回 → 限时紧迫+断签不清零，唤醒回流',sumBg:'linear-gradient(135deg,#BF360C,#E65100)',sumCo:'#fff',
+rad:[50,30,28,55,45],radCo:'rgba(191,54,12,0.7)',radFill:'rgba(191,54,12,0.15)',
+dm:[{id:'❶',n:'用户分层',v:'沉睡召回期（30天未访）',d:'vs 王姐复购/小林新客',co:'#BF360C'},{id:'❷',n:'消费能力',v:'中等 客单¥100',d:'vs 王姐¥800+/小林¥30内',co:'#BF360C'},{id:'❸',n:'签到进度',v:'2/7天 去年遗留+断签',d:'vs 王姐5/7/小林0/7',co:'#BF360C'},{id:'❹',n:'券面额',v:'¥15/¥25/¥10 回归+限时48h',d:'vs 王姐¥40VIP/小林¥5+免单',co:'#BF360C'},{id:'❺',n:'商品推荐',v:'中端回归价 ¥39~¥299',d:'vs 王姐¥328+/小林¥9.9+',co:'#BF360C'},{id:'❻',n:'话术',v:'好久不见·限时回归·48h',d:'vs VIP尊享/新手友好',co:'#BF360C'},{id:'❼',n:'紧迫感',v:'48h倒计时+断签不清零',d:'vs 再签2天/首签翻倍',co:'#BF360C'},{id:'❽',n:'Push',v:'过期提醒+限时逼单',d:'vs VIP预告/体验券',co:'#BF360C'}]
+}
+};
+
+function drawRoute(key){
+var d=D[key],rp=document.getElementById('rp');
+var pts=P.map(function(p){return{x:p.x+65,y:p.y+50}});
+var path='M'+pts[0].x+' '+pts[0].y;
+for(var i=0;i<pts.length-1;i++){var cx1=pts[i].x,cy1=pts[i].y+40,cx2=pts[i+1].x,cy2=pts[i+1].y-40;path+=' C'+cx1+' '+cy1+' '+cx2+' '+cy2+' '+pts[i+1].x+' '+pts[i+1].y;}
+rp.setAttribute('d',path);
+rp.setAttribute('stroke',d.routeColor);
+rp.setAttribute('stroke-width',d.routeW);
+rp.setAttribute('stroke-dasharray',d.routeD);
+rp.setAttribute('opacity','0.55');
+}
+
+function renderStations(key){
+var d=D[key],c=document.getElementById('sc');c.innerHTML='';
+for(var i=0;i<9;i++){
+var p=P[i],t=TN[i],s=d.st[i],isL=p.x<150;
+var w=document.createElement('div');w.className='sw';w.style.left=p.x+'px';w.style.top=p.y+'px';
+var pin=document.createElement('div');pin.className='pini';pin.textContent='📍';pin.style.left=isL?'-18px':'132px';pin.style.top='30px';w.appendChild(pin);
+var tag=document.createElement('div');tag.className='stag';tag.textContent=t.n+' '+t.d;tag.style.background=d.tagBg;tag.style.color=d.tagCo;tag.style.transform='rotate('+(isL?'-2':'2')+'deg)';
+if(isL){tag.style.right='-10px';tag.style.top='-14px';}else{tag.style.left='-10px';tag.style.top='-14px';}
+w.appendChild(tag);
+var pol=document.createElement('div');pol.className='pol';pol.style.transform='rotate('+p.r+'deg)';
+// V3: Visual state classes
+if(s.u){pol.classList.add('pol-vip');}
+else if(s.guide){pol.classList.add('pol-guide');}
+else if(s.brk){pol.classList.add('pol-break');}
+else if(s.nxt){pol.classList.add('pol-nxt');}
+else{pol.classList.add('pol-locked');}
+var photo=document.createElement('div');photo.className='pp '+p.s;
+var rabbit=document.createElement('div');rabbit.className='prab';rabbit.textContent='🐰';photo.appendChild(rabbit);
+// Lock overlay for locked stations
+if(!s.u && !s.guide && !s.brk && !s.nxt){
+var ov=document.createElement('div');ov.className='lock-ov';ov.textContent='🔒';photo.appendChild(ov);
+}
+if(s.guide){
+var ov2=document.createElement('div');ov2.className='lock-ov';ov2.style.background='rgba(102,187,106,.15)';ov2.style.fontSize='14px';ov2.style.fontWeight='700';ov2.style.color='#2E7D32';ov2.textContent='从这里开始→';photo.appendChild(ov2);
+}
+if(s.brk){
+var ov3=document.createElement('div');ov3.className='lock-ov';ov3.style.background='rgba(255,23,68,.12)';ov3.style.fontSize='20px';ov3.textContent='⚠️';photo.appendChild(ov3);
+}
+pol.appendChild(photo);
+var txt=document.createElement('div');txt.className='ptxt';txt.textContent=s.t;pol.appendChild(txt);
+var sts=document.createElement('div');sts.className='psts';sts.style.color=s.u?'#4CAF50':(s.brk?'#FF1744':'#999');sts.style.fontWeight=s.brk?'700':'400';sts.textContent=s.s;pol.appendChild(sts);
+if(s.u){var bdg=document.createElement('div');bdg.className='sbdg';bdg.textContent='✅';pol.appendChild(bdg);}
+if(s.brk){var bdg2=document.createElement('div');bdg2.className='sbdg';bdg2.style.animation='rwblink 1s ease-in-out infinite';bdg2.textContent='⚠️';pol.appendChild(bdg2);}
+// Guide label
+if(s.guide){var gl=document.createElement('div');gl.className='glbl';gl.style.background='#43A047';gl.textContent='🌱 首签翻倍';pol.appendChild(gl);}
+if(s.brk){var gl2=document.createElement('div');gl2.className='glbl';gl2.style.background='#FF1744';gl2.textContent='⚡ 补签仅¥1';pol.appendChild(gl2);}
+if(s.nxt){var gl3=document.createElement('div');gl3.className='glbl';gl3.style.background='#c9a832';gl3.textContent='🔜 即将解锁';pol.appendChild(gl3);}
+w.appendChild(pol);c.appendChild(w);
+}
+}
+
+function renderCoupons(key){
+var d=D[key],el=document.getElementById('cpr');el.innerHTML='';
+d.cp.forEach(function(c){
+var cls='ci'+(c.big?' ci-big':'');
+var h='<div class="'+cls+'" style="background:'+c.bg+';border:'+c.bd+';color:'+c.co+'">';
+if(c.tag)h+='<div class="ctag" style="background:'+c.tagBg+'">'+c.tag+'</div>';
+if(c.tmr)h+='<div class="ci-timer">限时 48h</div>';
+h+='<span class="cv">'+c.a+'</span>'+c.c+'</div>';
+el.innerHTML+=h;
+});
+}
+
+function renderProgressBar(key){
+var d=D[key],el=document.getElementById('pbar');
+var brk='';
+if(d.progBrk>0){brk='<div class="pbar-brk" style="left:'+d.progBrk+'%"></div>';}
+var fillBg=d.prog>0?d.progCo:'#e0e0e0';
+el.innerHTML='<div class="pbar-l"><span>签到进度</span><span>'+d.progTxt+'</span></div><div class="pbar-t"><div class="pbar-f" style="width:'+d.prog+'%;background:'+fillBg+'"></div>'+brk+'</div>';
+}
+
+function renderRewards(key){
+var d=D[key],el=document.getElementById('ra');el.innerHTML='';
+d.rw.forEach(function(r){
+var sty='';if(r.hl)sty='border:2px solid '+r.hl+';border-radius:10px;padding:6px 4px;';
+var blink=r.blink?' style="animation:rwblink 1s ease-in-out infinite"':'';
+el.innerHTML+='<div class="ri" style="'+sty+'"><span class="ric">'+r.i+'</span>'+r.l+'<div class="ris" style="color:'+r.c+'"'+blink+'>'+r.s+'</div></div>';
+});
+}
+
+function drawRadar(cv,vals,co,fill){
+var ctx=cv.getContext('2d'),w=cv.width,h=cv.height,cx=w/2,cy=h/2,r=55;
+ctx.clearRect(0,0,w,h);
+var labs=['消费力','活跃度','签到','券额','客单价'];
+var angles=[];for(var i=0;i<5;i++)angles.push(-Math.PI/2+i*2*Math.PI/5);
+// Grid
+[.25,.5,.75,1].forEach(function(s){
+ctx.beginPath();for(var i=0;i<5;i++){var x=cx+r*s*Math.cos(angles[i]),y=cy+r*s*Math.sin(angles[i]);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+ctx.closePath();ctx.strokeStyle='rgba(0,0,0,.08)';ctx.stroke();
+});
+// Axes
+angles.forEach(function(a){ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));ctx.strokeStyle='rgba(0,0,0,.06)';ctx.stroke();});
+// Data
+ctx.beginPath();
+for(var i=0;i<5;i++){var v=vals[i]/100,x=cx+r*v*Math.cos(angles[i]),y=cy+r*v*Math.sin(angles[i]);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=co;ctx.lineWidth=2;ctx.stroke();
+// Dots
+for(var i=0;i<5;i++){var v=vals[i]/100,x=cx+r*v*Math.cos(angles[i]),y=cy+r*v*Math.sin(angles[i]);ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fillStyle=co;ctx.fill();}
+// Labels
+ctx.fillStyle='#666';ctx.font='600 9px PingFang SC,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+for(var i=0;i<5;i++){var lx=cx+(r+16)*Math.cos(angles[i]),ly=cy+(r+16)*Math.sin(angles[i]);ctx.fillText(labs[i],lx,ly);}
+}
+
+function renderPanel(key){
+var d=D[key],el=document.getElementById('sp');
+var h='<div class="spn">'+d.nm+'</div><div class="spd">'+d.ds+'</div>';
+h+='<div class="sp-sum" style="background:'+d.sumBg+';color:'+d.sumCo+'">'+d.sum+'</div>';
+h+='<div class="radar-wrap"><canvas id="radarCv" width="180" height="180"></canvas></div>';
+h+='<ul class="dl">';
+d.dm.forEach(function(dm){h+='<li class="dit"><div class="dih"><div class="dib" style="background:'+dm.co+'">'+dm.id+'</div><span class="din">'+dm.n+'</span></div><div class="div">'+dm.v+'</div><div class="dif">'+dm.d+'</div></li>';});
+h+='</ul>';
+el.innerHTML=h;el.classList.add('fi');setTimeout(function(){el.classList.remove('fi')},500);
+// Draw radar
+var cv=document.getElementById('radarCv');
+if(cv)drawRadar(cv,d.rad,d.radCo,d.radFill);
+}
+
+function startCountdown(){
+if(cdTimer)clearInterval(cdTimer);
+var el=document.getElementById('cdwn');
+var sec=47*3600+23*60+15;
+function upd(){
+if(sec<=0){clearInterval(cdTimer);el.textContent='已过期';return;}
+var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s2=sec%60;
+el.textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s2<10?'0':'')+s2;
+sec--;
+}
+upd();cdTimer=setInterval(upd,1000);
+}
+
+function sw(key){
+var d=D[key];
+document.querySelectorAll('.ptab').forEach(function(t){t.classList.remove('active')});
+document.querySelector('.ptab[data-p="'+key+'"]').classList.add('active');
+// Page bg
+document.getElementById('ps').style.background=d.pageBg;
+// Banner
+var ba=document.getElementById('ba');ba.style.background=d.bg;ba.style.color=d.fc;
+document.getElementById('bti').textContent=d.ti;
+document.getElementById('bsu').textContent=d.su;
+var bdg=document.getElementById('bbdg');bdg.textContent=d.bdg;bdg.style.background=d.bdgBg;bdg.style.color=d.bdgCo;
+// Map bg
+document.getElementById('ma').style.background=d.mapBg;
+// Progress
+renderProgressBar(key);
+// Button
+var btn=document.getElementById('cbtn');btn.style.background=d.bb;btn.style.color=d.bc;btn.textContent=d.bx;btn.className='cbtn '+d.btnCls;
+document.getElementById('chnt').textContent=d.ht;
+// Countdown
+var cdel=document.getElementById('cdwn');
+if(d.showCd){cdel.style.display='block';startCountdown();}else{cdel.style.display='none';if(cdTimer)clearInterval(cdTimer);}
+// Push
+var pfl=document.getElementById('pfl');pfl.textContent=d.pu;pfl.style.background=d.puBg;pfl.style.color=d.puCo;pfl.style.border=d.puBd;pfl.className='pfl '+(d.puCls||'');
+// Coupons
+renderCoupons(key);
+// Stations + route
+drawRoute(key);renderStations(key);
+// Rewards
+renderRewards(key);
+// Bottom card
+var bsc=document.getElementById('bsc');bsc.textContent=d.bscTxt;bsc.style.background=d.bscBg;bsc.style.border=d.bscBd;bsc.style.color=d.bscCo;
+// Panel
+renderPanel(key);
+document.getElementById('psc').scrollTop=0;
+}
+sw('wj');
+</script>
+</body>
+</html>

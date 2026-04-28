@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-04-24T05:00:00.000Z" agent="OpenClaw" version="24.0.0" type="device">
+  <diagram id="product-flow" name="产品流程图（泳道）">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ========== 泳道背景 ========== -->
+        <!-- 运营层泳道 -->
+        <mxCell id="lane1" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#F5F5F5;strokeColor=#CCCCCC;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="30" width="1620" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="lane1_label" value="运&#xa;营&#xa;层" style="text;html=1;align=center;verticalAlign=middle;fillColor=#4A90D9;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="60" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 系统层泳道 -->
+        <mxCell id="lane2" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#FAFAFA;strokeColor=#CCCCCC;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="230" width="1620" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="lane2_label" value="系&#xa;统&#xa;层" style="text;html=1;align=center;verticalAlign=middle;fillColor=#50B86C;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="60" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 用户层泳道 -->
+        <mxCell id="lane3" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#F5F5F5;strokeColor=#CCCCCC;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="430" width="1620" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="lane3_label" value="用&#xa;户&#xa;层" style="text;html=1;align=center;verticalAlign=middle;fillColor=#E8923F;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="60" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ========== 运营层节点（蓝色） ========== -->
+        <mxCell id="op1" value="M端创建玩法" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="80" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="op2" value="配置节气列表&#xa;（9个时间窗口）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="75" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="op3" value="配置签到规则&#xa;（前提：下单/分享）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="500" y="75" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="op4" value="配置奖品梯度&#xa;（3/5/7/9次门槛）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="75" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="op5" value="配置留资表单&#xa;（姓名/电话/地址）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="880" y="75" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="op6" value="预览 &amp; 提交" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="80" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 运营层连线 -->
+        <mxCell id="oe1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="op1" target="op2" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="oe2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="op2" target="op3" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="oe3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="op3" target="op4" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="oe4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="op4" target="op5" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="oe5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="op5" target="op6" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- ========== 系统层节点（绿色） ========== -->
+        <mxCell id="sys1" value="生成玩法ID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="295" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys2" value="AI策略引擎&#xa;（节气匹配+状态机）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="510" y="290" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys3" value="高达组件对接&#xa;（关联玩法ID）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="730" y="290" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys4" value="C端动态渲染&#xa;（状态机驱动）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="940" y="290" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys5" value="数据回传&#xa;（签到+留资+奖品）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="290" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sys6" value="M端数据看板" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="295" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 系统层连线 -->
+        <mxCell id="se1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sys1" target="sys2" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sys2" target="sys3" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sys3" target="sys4" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sys4" target="sys5" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sys5" target="sys6" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- 跨层连线：运营→系统 -->
+        <mxCell id="cross1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;strokeColor=#888888;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="op6" target="sys1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ========== 用户层节点（橙色） ========== -->
+        <mxCell id="usr1" value="进入会场&#xa;看到签到地图" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="495" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="usr2" value="交互签到&#xa;（完成前提任务）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="540" y="495" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="usr3" value="查看奖品进度&#xa;（3/5/7/9次门槛）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="750" y="495" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="usr4" value="领取奖品" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="500" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="usr5" value="填写留资&#xa;（姓名/电话/地址）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="495" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="usr6" value="等待收货 / 完成" style="ellipse;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#FFFFFF;strokeColor=#222222;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="500" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 用户层连线 -->
+        <mxCell id="ue1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="usr1" target="usr2" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ue2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="usr2" target="usr3" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ue3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="usr3" target="usr4" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ue4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="usr4" target="usr5" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ue5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="usr5" target="usr6" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- 跨层连线：系统→用户 -->
+        <mxCell id="cross2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;strokeColor=#888888;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="sys4" target="usr1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 跨层连线：系统→运营（数据回看） -->
+        <mxCell id="cross3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;dashed=1;strokeColor=#888888;exitX=0.5;exitY=0;entryX=1;entryY=0.5;" edge="1" source="sys6" target="op6" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1445" y="200" />
+              <mxPoint x="1230" y="200" />
+              <mxPoint x="1230" y="105" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

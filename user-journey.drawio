@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-04-24T05:00:00.000Z" agent="OpenClaw" version="24.0.0" type="device">
+  <diagram id="user-journey" name="用户旅程图">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ========== 阶段1：入场（蓝色 #4A90D9） ========== -->
+        <mxCell id="2" value="进入会场" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="3" value="看到签到地图&#xa;（9个节气格子）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="230" y="335" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="2" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="5" value="当前节气&#xa;可签到？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#4A90D9;fontColor=#FFFFFF;strokeColor=#3A7BC8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="325" width="130" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="3" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="7" value="等待下一节气" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B0B0B0;fontColor=#FFFFFF;strokeColor=#999999;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="440" y="470" width="120" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="8" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="5" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ========== 阶段2：完成任务（绿色 #50B86C） ========== -->
+        <mxCell id="9" value="完成前提任务？&#xa;（下单≥1 or 分享≥1）" style="rhombus;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="610" y="315" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="10" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="5" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="11" value="引导完成任务&#xa;（去下单/去分享）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="630" y="470" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="12" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="9" target="11" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="13" value="签到成功&#xa;累计次数+1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#50B86C;fontColor=#FFFFFF;strokeColor=#3DA55A;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="340" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="14" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="9" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ========== 阶段3：领奖与留资（橙色 #E8923F） ========== -->
+        <mxCell id="15" value="达到奖品门槛？&#xa;（3/5/7/9次）" style="rhombus;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="320" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="13" target="15" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="17" value="继续等待&#xa;下一节气签到" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B0B0B0;fontColor=#FFFFFF;strokeColor=#999999;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1035" y="470" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="18" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="15" target="17" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="19" value="领取奖品" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="340" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="20" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="15" target="19" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="21" value="实物奖品？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1245" y="190" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" source="19" target="21" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="23" value="虚拟奖品到账&#xa;（优惠券等）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="200" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="24" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" source="21" target="23" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="25" value="填写留资&#xa;（姓名/电话/地址）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="200" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="26" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="21" target="25" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="27" value="邮寄实物奖品" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8923F;fontColor=#FFFFFF;strokeColor=#D07A2F;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="100" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" source="25" target="27" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="29" value="结束 / 等待下一节气" style="ellipse;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#FFFFFF;strokeColor=#222222;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1395" y="340" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="19" target="29" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ========== 阶段标签 ========== -->
+        <mxCell id="31" value="阶段1：入场" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#4A90D9;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="32" value="阶段2：签到" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#50B86C;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="280" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="33" value="阶段3：领奖与留资" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#E8923F;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="280" width="140" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

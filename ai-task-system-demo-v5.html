@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI任务系统 V5</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--b:#3370FF;--bl:#E8F0FF;--bb:#F0F5FF;--g1:#F7F8FA;--g2:#F2F3F5;--g3:#E5E6EB;--g4:#C9CDD4;--g5:#86909C;--g6:#4E5969;--g7:#1D2129;--w:#FFF;--gn:#00B42A;--or:#FF7D00;--r:4px}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;font-size:13px;color:var(--g7);background:var(--g1);line-height:1.5;letter-spacing:0}
+/* Header */
+.hd{height:48px;background:var(--w);border-bottom:1px solid var(--g3);display:flex;align-items:center;padding:0 20px;gap:12px}
+.hd-t{font-size:15px;font-weight:600}
+.hd-tag{font-size:11px;background:var(--bl);color:var(--b);padding:2px 8px;border-radius:var(--r)}
+.hd-r{margin-left:auto;font-size:12px;color:var(--g5)}
+/* Main */
+.mn{display:flex;height:calc(100vh - 100px);overflow:hidden}
+/* Left panel */
+.lp{width:250px;min-width:250px;background:var(--w);border-right:1px solid var(--g3);display:flex;flex-direction:column}
+.ph{padding:10px 14px;border-bottom:1px solid var(--g3);display:flex;align-items:center;justify-content:space-between}
+.pt{font-size:13px;font-weight:600}
+.pb{font-size:11px;background:var(--bl);color:var(--b);padding:1px 6px;border-radius:var(--r)}
+.lb{padding:12px 14px;overflow-y:auto;flex:1}
+.fg{margin-bottom:10px}
+.fl{display:block;font-size:12px;color:var(--g5);margin-bottom:3px;font-weight:500}
+.fc{width:100%;height:30px;padding:0 8px;border:1px solid var(--g3);border-radius:var(--r);font-size:13px;color:var(--g7);background:var(--w);outline:none;font-family:inherit}
+.fc:focus{border-color:var(--b);box-shadow:0 0 0 2px rgba(51,112,255,.1)}
+select.fc{cursor:pointer;-webkit-appearance:auto;appearance:auto}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:var(--r);background:var(--bl);color:var(--b);margin-top:3px}
+/* Center canvas */
+.cc{flex:1;min-width:0;background:var(--g1);border-right:1px solid var(--g3);display:flex;flex-direction:column}
+.ch{position:sticky;top:0;z-index:10;padding:10px 14px;background:var(--w);border-bottom:1px solid var(--g3);display:flex;align-items:center;justify-content:space-between}
+.ca{flex:1;position:relative;padding:20px 16px;background-image:radial-gradient(circle,var(--g4) .5px,transparent .5px);background-size:16px 16px;display:flex;flex-direction:column;align-items:center;overflow-y:auto}
+/* Nodes */
+.nd{background:var(--w);border:1.5px solid var(--g3);border-radius:var(--r);cursor:pointer;transition:border-color .15s,box-shadow .15s;user-select:none}
+.nd:hover{border-color:var(--b)}
+.nd.sel{border-color:var(--b);box-shadow:0 0 0 2px rgba(51,112,255,.15)}
+/* Master node */
+.ms{width:420px;padding:12px 16px;border-width:2px}
+.ms .nn{font-size:14px;font-weight:600;margin-bottom:5px}
+.ms .nm{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--g6)}
+.ml{color:var(--g5);margin-right:2px}
+.thr{display:flex;gap:4px;margin-top:5px}
+.thr span{font-size:11px;padding:1px 6px;border-radius:var(--r);background:var(--bl);color:var(--b)}
+/* SVG connector */
+.cvs{width:420px;height:52px;flex-shrink:0}
+/* Sub grid */
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:420px}
+.sn{padding:8px 10px}
+.sn .nn{font-size:12px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sn .nt{font-size:11px;color:var(--g5);margin-bottom:3px}
+.sn .tgs{display:flex;gap:4px}
+.st{font-size:10px;padding:1px 5px;border-radius:var(--r)}
+.st-d{background:var(--g2);color:var(--g5)}
+.st-a{background:#E8FFEA;color:var(--gn)}
+.st-e{background:#FFF0E0;color:var(--or)}
+.ty{font-size:10px;padding:1px 5px;border-radius:var(--r);background:var(--bl);color:var(--b)}
+/* Right panel */
+.rp{flex:1;min-width:420px;background:var(--w);display:flex;flex-direction:column;overflow:hidden}
+.rh{padding:10px 14px;border-bottom:1px solid var(--g3);display:flex;align-items:center;gap:8px}
+.ri{width:6px;height:6px;border-radius:50%;background:var(--b)}
+.rb{flex:1;overflow-y:auto;padding:14px 16px}
+/* Section */
+.sc{margin-bottom:14px}
+.sh{font-size:12px;font-weight:600;padding-bottom:6px;border-bottom:1px solid var(--g3);margin-bottom:8px}
+/* Form rows */
+.fr{display:flex;align-items:center;margin-bottom:7px}
+.fr .fl{width:72px;min-width:72px;margin-bottom:0;text-align:right;padding-right:8px}
+.fr .fc{flex:1}
+/* Reward table — stacked card layout for right panel fit */
+.rw-list{display:flex;flex-direction:column;gap:8px}
+.rw-card{border:1px solid var(--g3);border-radius:var(--r);padding:10px 12px;background:var(--g1)}
+.rw-card:hover{border-color:var(--b)}
+.rw-hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rw-tier{font-size:13px;font-weight:600;color:var(--b);min-width:36px}
+.rw-type{font-size:11px;padding:1px 6px;border-radius:var(--r);background:var(--bl);color:var(--b)}
+.rw-name{font-size:12px;color:var(--g7);margin-left:auto}
+.rw-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;font-size:12px}
+.rw-body .rw-l{color:var(--g5);font-size:11px}
+.rw-body .rw-v{color:var(--g7)}
+.rw-persona{grid-column:1/-1;margin-top:2px;font-size:11px;color:var(--g6);line-height:1.6}
+.rw-persona span{background:var(--g2);padding:1px 6px;border-radius:2px;margin-right:4px;display:inline-block;margin-bottom:2px}
+.ab{display:inline-flex;align-items:center;font-size:12px;color:var(--b);cursor:pointer;padding:5px 0;background:none;border:none;font-family:inherit}
+.ab:hover{text-decoration:underline}
+/* Toggle */
+.tgr{display:inline-flex;border:1px solid var(--g3);border-radius:var(--r);overflow:hidden}
+.tb{padding:3px 10px;font-size:12px;cursor:pointer;border:none;background:var(--w);color:var(--g6);font-family:inherit;transition:all .15s}
+.tb.a-and{background:var(--gn);color:var(--w)}
+.tb.a-or{background:var(--or);color:var(--w)}
+/* Multi tags */
+.mt{display:flex;flex-wrap:wrap;gap:4px}
+.mg{font-size:11px;padding:2px 8px;border-radius:var(--r);background:var(--g2);color:var(--g6)}
+/* Misc */
+.eh{font-size:12px;color:var(--g5);padding:10px 0}
+.bdr{display:flex;align-items:center;gap:8px;padding:6px 0}
+.bdr .fl{width:72px;min-width:72px;text-align:right;padding-right:8px;margin:0}
+.bdr .fc{width:140px;flex:none}
+.bu{font-size:12px;color:var(--g5)}
+/* Footer */
+.ft{height:52px;min-height:52px;background:var(--w);border-top:1px solid var(--g3);display:flex;align-items:center;justify-content:flex-end;padding:0 20px;gap:10px}
+.btn{height:32px;padding:0 16px;border-radius:var(--r);font-size:13px;cursor:pointer;font-family:inherit;border:none;transition:all .15s}
+.btn-d{background:var(--w);border:1px solid var(--g3);color:var(--g6)}
+.btn-d:hover{border-color:var(--b);color:var(--b)}
+.btn-p{background:var(--b);color:var(--w)}
+.btn-p:hover{background:#2860E0}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div class="hd-t">AI任务系统</div>
+  <div class="hd-tag">V5</div>
+  <div class="hd-r">活动运营组 · 中医节气签到</div>
+</div>
+
+<div class="mn">
+  <!-- Left -->
+  <div class="lp">
+    <div class="ph"><span class="pt">AI策略</span><span class="pb">已识别</span></div>
+    <div class="lb">
+      <div class="fg"><label class="fl">所属团队</label><select class="fc"><option>活动运营组</option><option>增长策略组</option><option>品牌营销组</option></select></div>
+      <div class="fg"><label class="fl">活动名称</label><input class="fc" value="中医节气签到"></div>
+      <div class="fg"><label class="fl">活动时间</label><input class="fc" value="2026-04-01 ~ 2026-08-31"></div>
+      <div class="fg"><label class="fl">目标人群</label><select class="fc"><option>全量用户</option><option>新客</option><option>流失用户</option><option>高价值用户</option></select></div>
+      <div class="fg"><label class="fl">展示变量</label><input class="fc" value="节气签到"></div>
+      <div class="fg"><label class="fl">行为类型</label><select class="fc"><option>子任务完成</option><option>签到</option><option>下单</option><option>浏览</option></select><div class="pill">subPlayComplete</div></div>
+    </div>
+  </div>
+
+  <!-- Center Canvas -->
+  <div class="cc">
+    <div class="ch"><span class="pt">任务画布</span><span style="font-size:11px;color:var(--g5)">点击节点查看配置</span></div>
+    <div class="ca">
+      <!-- Master node -->
+      <div class="nd ms sel" data-id="master" onclick="pick('master')">
+        <div class="nn">中医节气签到</div>
+        <div class="nm">
+          <span><span class="ml">周期</span>2026/4/1 ~ 8/31</span>
+          <span><span class="ml">行为</span>子任务完成</span>
+          <span><span class="ml">人群</span>全量用户</span>
+        </div>
+        <div class="thr"><span>3次档</span><span>5次档</span><span>9次档</span></div>
+      </div>
+      <!-- SVG connectors -->
+      <svg class="cvs" id="svg" viewBox="0 0 420 52">
+        <defs><marker id="dot" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="4" markerHeight="4"><circle cx="2" cy="2" r="1.5" fill="#C9CDD4"/></marker></defs>
+      </svg>
+      <!-- Sub grid -->
+      <div class="sg" id="grid"></div>
+    </div>
+  </div>
+
+  <!-- Right -->
+  <div class="rp">
+    <div class="rh"><div class="ri"></div><span class="pt" id="rT">中医节气签到 · 大玩法配置</span></div>
+    <div class="rb" id="rB"></div>
+  </div>
+</div>
+
+<div class="ft">
+  <button class="btn btn-d">保存草稿</button>
+  <button class="btn btn-p">提交审核</button>
+</div>
+
+<script>
+var D=[
+{id:'guyu',n:'谷雨签到',t:'4/17 ~ 4/27',s:'active',d1:'2026-04-17',d2:'2026-04-27'},
+{id:'lixia',n:'立夏签到',t:'5/5 ~ 5/15',s:'active',d1:'2026-05-05',d2:'2026-05-15'},
+{id:'xiaoman',n:'小满签到',t:'5/20 ~ 5/30',s:'draft',d1:'2026-05-20',d2:'2026-05-30'},
+{id:'mangzhong',n:'芒种签到',t:'6/5 ~ 6/15',s:'draft',d1:'2026-06-05',d2:'2026-06-15'},
+{id:'xiazhi',n:'夏至签到',t:'6/21 ~ 7/1',s:'draft',d1:'2026-06-21',d2:'2026-07-01'},
+{id:'xiaoshu',n:'小暑签到',t:'7/6 ~ 7/16',s:'draft',d1:'2026-07-06',d2:'2026-07-16'},
+{id:'dashu',n:'大暑签到',t:'7/22 ~ 8/1',s:'draft',d1:'2026-07-22',d2:'2026-08-01'},
+{id:'liqiu',n:'立秋签到',t:'8/7 ~ 8/17',s:'draft',d1:'2026-08-07',d2:'2026-08-17'},
+{id:'chushu',n:'处暑签到',t:'8/22 ~ 8/31',s:'draft',d1:'2026-08-22',d2:'2026-08-31'}
+];
+var SL={active:'进行中',draft:'草稿',ended:'已结束'};
+var SC={active:'st-a',draft:'st-d',ended:'st-e'};
+// Build grid
+var gEl=document.getElementById('grid');
+D.forEach(function(t){
+  var d=document.createElement('div');
+  d.className='nd sn';d.setAttribute('data-id',t.id);
+  d.onclick=function(){pick(t.id)};
+  d.innerHTML='<div class="nn">'+t.n+'</div><div class="nt">'+t.t+'</div><div class="tgs"><span class="ty">签到</span><span class="st '+SC[t.s]+'">'+SL[t.s]+'</span></div>';
+  gEl.appendChild(d);
+});
+// Draw SVG lines
+(function(){
+  var svg=document.getElementById('svg');
+  var W=420,H=52,cx=W/2;
+  // 3 columns, each col has 3 rows → connect to 3 col centers
+  var cw=W/3;
+  var pts=[];
+  for(var c=0;c<3;c++) pts.push(cw*c+cw/2);
+  var html=svg.innerHTML;
+  pts.forEach(function(x){
+    html+='<line x1="'+cx+'" y1="4" x2="'+x+'" y2="'+(H-4)+'" stroke="#C9CDD4" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#dot)"/>';
+  });
+  // label with background
+  html+='<rect x="'+(cx-56)+'" y="'+(H/2-8)+'" width="112" height="16" rx="3" fill="#F7F8FA" stroke="#E5E6EB" stroke-width=".5"/>';
+  html+='<text x="'+cx+'" y="'+(H/2+4)+'" text-anchor="middle" style="font-size:10px;fill:#86909C;font-family:inherit">子任务完成 → 计数+1</text>';
+  svg.innerHTML=html;
+})();
+
+var cur='master';
+function pick(id){
+  cur=id;
+  document.querySelectorAll('.nd').forEach(function(e){
+    e.classList.toggle('sel',e.getAttribute('data-id')===id);
+  });
+  render(id);
+}
+function render(id){
+  var tEl=document.getElementById('rT'),bEl=document.getElementById('rB');
+  if(id==='master'){
+    tEl.textContent='中医节气签到 · 大玩法配置';
+    bEl.innerHTML=masterCfg();
+  }else{
+    var t=D.find(function(x){return x.id===id});
+    tEl.textContent=t.n+' · 子任务配置';
+    bEl.innerHTML=subCfg(t);
+  }
+}
+function masterCfg(){
+  return '<div class="sc"><div class="sh">规则配置</div>'
+    +row('周期规则',sel(['整季累计','按月','按周','自定义周期'],'整季累计'))
+    +row('阶梯门槛',inp('3, 5, 9'))
+    +row('连续性',sel(['累计（不要求连续）','连续','间隔'],'累计（不要求连续）'))
+    +row('每期上限',inp('9'))
+    +row('前置条件',sel(['无','下单','浏览','分享'],'无'))
+    +row('组合逻辑',sel(['无（单一任务）','AND','OR'],'无（单一任务）'))
+    +'</div>'
+    +'<div class="sc"><div class="sh">奖励配置</div>'
+    +'<div class="rw-list">'
+    +rwCard('3次','奖励包','PKG_TCM_TIER3','节气3次档奖励包','20,000','完成即发',['流失用户→COUPON_8_LOST','新客→COUPON_5_NEW','默认→COUPON_5_DEFAULT'])
+    +rwCard('5次','奖励包','PKG_TCM_TIER5','节气5次档奖励包','10,000','完成即发',['流失用户→COUPON_15_LOST','新客→COUPON_10_NEW','默认→COUPON_10_DEFAULT'])
+    +rwCard('9次','抽奖机会','LOTTERY_TCM_GRAND','神秘大礼抽奖','500','完成即发',[])
+    +'</div>'
+    +'<button class="ab">+ 新增档位</button>'
+    +'</div>'
+    +'<div class="sc"><div class="sh">预算</div>'
+    +'<div class="bdr"><label class="fl">总预算</label><input class="fc" value="200,000"><span class="bu">元</span></div>'
+    +'</div>';
+}
+function rwCard(tier,type,key,name,qty,method,personas){
+  var pHtml='';
+  if(personas.length){
+    pHtml='<div class="rw-persona">'+personas.map(function(p){return '<span>'+p+'</span>'}).join('')+'</div>';
+  }else{
+    pHtml='<div class="rw-persona" style="color:var(--g5)">— 无画像分组</div>';
+  }
+  return '<div class="rw-card">'
+    +'<div class="rw-hd"><span class="rw-tier">'+tier+'</span><span class="rw-type">'+type+'</span><span class="rw-name">'+name+'</span></div>'
+    +'<div class="rw-body">'
+    +'<div><div class="rw-l">奖励密钥</div><div class="rw-v">'+key+'</div></div>'
+    +'<div><div class="rw-l">发放数量</div><div class="rw-v">'+qty+'</div></div>'
+    +'<div><div class="rw-l">发放方式</div><div class="rw-v">'+method+'</div></div>'
+    +pHtml
+    +'</div></div>';
+}
+function subCfg(t){
+  return '<div class="sc"><div class="sh">基本信息</div>'
+    +row('任务名称',inp(t.n))
+    +row('时间范围',inp(t.d1+' ~ '+t.d2))
+    +row('行为类型',sel(['签到','下单','浏览','分享'],'签到'))
+    +'</div>'
+    +'<div class="sc"><div class="sh">规则配置</div>'
+    +row('周期规则',sel(['自定义周期','整季累计','按月','按周'],'自定义周期'))
+    +row('完成门槛',inp('1'))
+    +row('每期上限',inp('1'))
+    +row('连续性',sel(['累计','连续','间隔'],'累计'))
+    +'</div>'
+    +'<div class="sc"><div class="sh">前置条件</div>'
+    +'<div class="fr"><label class="fl">前置行为</label><div class="mt"><span class="mg">下单</span><span class="mg">浏览</span></div></div>'
+    +row('前置门槛',inp('≥1次'))
+    +row('消耗模式',sel(['消耗型','非消耗型'],'消耗型'))
+    +row('行为归属',sel(['当前活动周期','全局','自定义时段'],'当前活动周期'))
+    +'<div class="fr"><label class="fl">组合逻辑</label><div class="tgr"><button class="tb" data-v="and" onclick="tgl(this)">AND</button><button class="tb a-or" data-v="or" onclick="tgl(this)">OR</button></div></div>'
+    +'</div>'
+    +'<div class="sc"><div class="sh">奖励配置</div>'
+    +'<div class="eh">本案例不配置奖励（系统支持子任务独立配置奖励）</div>'
+    +'<button class="ab">+ 配置奖励</button>'
+    +'</div>';
+}
+// Helpers
+function row(l,c){return '<div class="fr"><label class="fl">'+l+'</label>'+c+'</div>';}
+function inp(v){return '<input class="fc" value="'+v+'">';}
+function sel(o,s){var h='<select class="fc">';o.forEach(function(x){h+='<option'+(x===s?' selected':'')+'>'+x+'</option>';});return h+'</select>';}
+function tgl(b){b.parentElement.querySelectorAll('.tb').forEach(function(x){x.className='tb'});b.classList.add(b.getAttribute('data-v')==='and'?'a-and':'a-or');}
+// Init
+pick('master');
+</script>
+</body>
+</html>

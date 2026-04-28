@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中医节气签到 × AI千人千面 Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#f0f0f0;display:flex;justify-content:center;padding:20px 0;min-height:100vh}.mc{width:1180px;max-width:100%}.hd{text-align:center;margin-bottom:18px}.hd h1{font-size:21px;color:#1a1a1a;margin-bottom:3px}.hd p{font-size:12px;color:#999}.tb{display:flex;background:#fff;border-radius:12px;padding:4px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.06)}.ti{flex:1;padding:11px 6px;text-align:center;border-radius:10px;cursor:pointer;transition:all .25s;font-size:12px;line-height:1.4;color:#666}.ti:hover{background:#f9f9f9}.ti.ac{background:#FFC107;color:#1a1a1a;font-weight:600;box-shadow:0 2px 8px rgba(255,193,7,.3)}.tn{font-weight:600;font-size:13px;display:block}.td{font-size:10px;opacity:.8;display:block;margin-top:2px}.ca{display:flex;gap:22px;justify-content:center;align-items:flex-start}.pf{width:390px;min-width:390px;height:844px;background:#000;border-radius:44px;padding:12px;box-shadow:0 20px 60px rgba(0,0,0,.15);position:relative}.ps{width:100%;height:100%;background:#f5f5f5;border-radius:34px;overflow:hidden;position:relative}.di{width:120px;height:34px;background:#000;border-radius:20px;position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:20}.sb{height:50px;padding:14px 24px 0;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;position:relative;z-index:10;color:#fff}.pc{height:calc(100% - 50px - 68px);overflow-y:auto;-webkit-overflow-scrolling:touch}.pc::-webkit-scrollbar{width:0}.bb{height:68px;background:#fff;border-top:1px solid #eee;display:flex;align-items:center;justify-content:space-around;padding:0 8px 14px;position:absolute;bottom:0;left:0;right:0;border-radius:0 0 34px 34px;z-index:10}.bi{text-align:center;font-size:9px;color:#999}.bi.ba{color:#FFC107;font-weight:600}.bi .bc{font-size:18px;display:block;margin-bottom:1px}.bn{position:relative;height:176px;margin-top:-50px;padding-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden}.bn .bg{position:absolute;inset:0}.bn .bx{position:relative;z-index:1;padding-top:16px}.bn .bt{font-size:21px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.2);margin-bottom:3px}.bn .bs{font-size:12px;color:rgba(255,255,255,.9)}.bn .ip{font-size:34px;margin-bottom:3px}.dt{display:inline-block;background:rgba(255,193,7,.92);color:#1a1a1a;font-size:8px;padding:1px 5px;border-radius:7px;font-weight:600;margin-left:3px;vertical-align:middle;white-space:nowrap}.cs{margin:9px 11px;background:#fff;border-radius:13px;padding:14px;box-shadow:0 1px 5px rgba(0,0,0,.04)}.st{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:5px}.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.ch .fv{font-size:17px;font-weight:700;color:#2e7d32}.ch .fd{font-size:11px;color:#999}.mr{display:flex;justify-content:space-between;margin-bottom:8px}.md{text-align:center;font-size:9px;color:#999}.md .do{width:22px;height:22px;border-radius:50%;margin:0 auto 2px;display:flex;align-items:center;justify-content:center;font-size:10px}.md .do.r{background:#FFC107;color:#fff}.md .do.u{background:#e8e8e8;color:#bbb}.pw{background:#f0f0f0;border-radius:10px;height:9px;margin-bottom:6px;overflow:hidden}.pfl{height:100%;border-radius:10px;transition:width .5s}.pi{display:flex;justify-content:space-between;font-size:10px;color:#999;margin-bottom:8px}.ht{text-align:center;font-size:12px;color:#555;margin-bottom:12px;line-height:1.5}.cb{display:block;width:100%;padding:11px;border:none;border-radius:22px;font-size:15px;font-weight:700;color:#fff;cursor:pointer}.cl{display:flex;flex-direction:column;gap:8px}.cc{display:flex;border-radius:9px;overflow:hidden;height:58px;box-shadow:0 1px 3px rgba(0,0,0,.05)}.cfl{width:82px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;font-weight:700}.cfa{font-size:20px;line-height:1}.cfu{font-size:10px;font-weight:400}.cfr{flex:1;padding:7px 10px;display:flex;flex-direction:column;justify-content:center;background:#fafafa}.cfc{font-size:11px;color:#666}.cft{font-size:9px;color:#999;margin-top:2px}.cg{width:55px;display:flex;align-items:center;justify-content:center;background:#fafafa}.cg button{padding:4px 9px;border-radius:12px;border:none;font-size:10px;font-weight:600;color:#fff;cursor:pointer}.rl{display:flex;flex-direction:column;gap:9px}.ri{display:flex;gap:9px;padding-bottom:9px;border-bottom:1px solid #f5f5f5}.ri:last-child{border-bottom:none;padding-bottom:0}.rim{width:66px;height:66px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}.rin{flex:1;display:flex;flex-direction:column;justify-content:center}.rin .rn{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:2px}.rin .rd{font-size:10px;color:#999;margin-bottom:3px}.rin .rp{font-size:15px;font-weight:700;color:#e53935}.rin .rp .ro{font-size:10px;color:#ccc;text-decoration:line-through;margin-left:5px;font-weight:400}.ms{padding:12px 4px}.mt{display:flex;align-items:flex-start;justify-content:space-between;position:relative;padding:0 2px}.ml{position:absolute;top:16px;left:16px;right:16px;height:3px;background:#e8e8e8;z-index:0}.mf{position:absolute;top:16px;left:16px;height:3px;z-index:1;border-radius:2px;transition:width .5s}.mn{width:32px;text-align:center;position:relative;z-index:2}.mn .nd{width:32px;height:32px;border-radius:50%;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .3s}.mn .nd.lt{background:#4caf50;color:#fff}.mn .nd.dm{background:#e8e8e8;color:#bbb}.mn .nd.cu{background:#FFC107;color:#fff;animation:pu 2s infinite}.mn .nd.bk{background:#ff9800;color:#fff;border:2px dashed #e65100}.mn .nm{font-size:7px;color:#999}.mn .nm.an{color:#2e7d32;font-weight:600}@keyframes pu{0%,100%{box-shadow:0 2px 8px rgba(255,193,7,.4)}50%{box-shadow:0 2px 16px rgba(255,193,7,.7)}}.pn{margin:10px 11px;padding:11px 12px;border-radius:13px;display:flex;align-items:center;gap:9px;box-shadow:0 3px 14px rgba(0,0,0,.1);animation:su .5s ease}.pn .px{font-size:22px;flex-shrink:0}.pn .pt{font-size:11px;line-height:1.5;color:#333;flex:1}.pn .pa{font-size:9px;color:#999;display:block;margin-top:2px}@keyframes su{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}.dp{flex:1;max-width:420px;background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.06);position:sticky;top:20px;max-height:844px;overflow-y:auto}.dp::-webkit-scrollbar{width:3px}.dp::-webkit-scrollbar-thumb{background:#ddd;border-radius:3px}.dp .dpt{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px}.dp .dpp{font-size:12px;color:#666;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #f0f0f0}.dr{padding:9px 0;border-bottom:1px solid #f7f7f7}.dr:last-child{border-bottom:none}.dr .dl{font-size:11px;font-weight:700;color:#e6a700;margin-bottom:3px}.dr .dv{font-size:11px;color:#555;line-height:1.6}.pb{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:600;margin-bottom:6px}.fi{animation:fi .3s ease}@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@media(max-width:1200px){.mc{width:100%;padding:0 10px}.ca{flex-direction:column;align-items:center}.dp{max-width:390px;position:static}}
+</style>
+</head>
+<body>
+<div class="mc">
+<div class="hd"><h1>🐰 中医节气签到 × AI千人千面 Demo</h1><p>签到地图主题骨架不变，不同用户画像看到差异化内容 · 共8个差异维度</p></div>
+<div class="tb" id="T"></div>
+<div class="ca">
+<div class="pf"><div class="ps"><div class="di"></div><div class="sb"><span>16:37</span><div style="display:flex;gap:4px;font-size:11px"><span>📶</span><span>🔋</span></div></div><div class="pc" id="P"></div><div class="bb"><div class="bi ba"><span class="bc">📅</span>谷雨签到</div><div class="bi"><span class="bc">🏠</span>主会场</div><div class="bi"><span class="bc">🏺</span>中医方剂</div><div class="bi"><span class="bc">✨</span>祛痘</div></div></div></div>
+<div class="dp" id="D"></div>
+</div>
+</div>
+<script>
+var F=['春分','谷雨','小满','夏至','三伏','秋分','霜降','小雪','冬至'],DL=['❶ 签到天数','❷ 奖励力度','❸ 文案/Push','❹ 养生内容','❺ 供给推荐','❻ 视觉风格','❼ 地图进度','❽ 断签召回'],ct=0;
+var Z=[
+{name:'🧘 养生达人·王姐',sn:'王姐',desc:'35岁 | 高消费复购 | 月均¥800+ | 已签5天',bc:'#2e7d32',bb:'#e8f5e9',
+bg:'linear-gradient(135deg,#1b5e20,#2e7d32 40%,#388e3c)',bt:'谷雨祛湿馆',bsub:'专属养生定制方案',
+ck:5,tt:7,pc:71,pcl:'#4caf50',ht:'再签2天解锁神秘大礼🎁',btx:'继续打卡',bcl:'#2e7d32',bd:0,
+cp:[{a:'40',u:'¥',c:'满420元可用',t:'谷雨·高端养生券',cl:'#2e7d32'},{a:'27',u:'¥',c:'满287元可用',t:'谷雨·精选调理券',cl:'#388e3c'},{a:'18',u:'¥',c:'满188元可用',t:'谷雨·日常保健券',cl:'#43a047'}],
+rc:[{i:'💆',n:'推拿精选套餐',d:'名师手法·90分钟深度调理',p:'¥388',o:'',g:'#e8f5e9'},{i:'🔥',n:'艾灸调理月卡',d:'每周2次·持续温补经络',p:'¥1280',o:'',g:'#fff3e0'},{i:'📋',n:'体质调理方案',d:'一对一中医师定制方案',p:'¥568',o:'',g:'#fce4ec'}],
+ml:3,mc:2,mb:-1,pi:'🧘',px:'王姐，明天小满节气开启，您的VIP养生方案已备好',pbg:'#e8f5e9',
+df:['已签到 5/7 天，进度71%，接近满签','¥40满420 / ¥27满287 / ¥18满188（高额高门槛）','按钮"继续打卡" / Push强调VIP专属方案','推拿精选·艾灸月卡·体质调理（高端深度服务）','¥388 / ¥1280 / ¥568（高客单价供给）','深绿高端色调，"专属养生定制方案"','地图亮至小满（第3节气），进度领先','无断签，Push侧重预告下一节气VIP权益']},
+{name:'🌱 尝鲜小白·小林',sn:'小林',desc:'22岁 | 首次参与 | 低频新客 | 朋友圈引流',bc:'#558b2f',bb:'#f1f8e9',
+bg:'linear-gradient(135deg,#7cb342,#9ccc65 40%,#c5e1a5)',bt:'谷雨祛湿馆',bsub:'你的第一次节气养生之旅',
+ck:0,tt:7,pc:0,pcl:'#8bc34a',ht:'开始你的第一次签到吧！首签奖励翻倍✨',btx:'立即签到',bcl:'#7cb342',bd:0,
+cp:[{a:'5',u:'¥',c:'满29元可用',t:'新人首单券',cl:'#7cb342'},{a:'3',u:'¥',c:'满19元可用',t:'尝鲜体验券',cl:'#8bc34a'},{a:'免单',u:'',c:'指定商品免费体验',t:'新客专属体验券',cl:'#9ccc65'}],
+rc:[{i:'💆',n:'肩颈放松体验',d:'新客专享·30分钟舒缓放松',p:'¥29.9',o:'',g:'#f1f8e9'},{i:'🦶',n:'足浴尝鲜价',d:'草本足浴·解锁养生第一步',p:'¥19.9',o:'',g:'#fff8e1'},{i:'🍵',n:'养生茶饮体验装',d:'谷雨祛湿茶3包装·限量领',p:'¥9.9',o:'',g:'#e8f5e9'}],
+ml:1,mc:1,mb:-1,pi:'🌿',px:'小林，完成首次签到即得体验券，29.9元享肩颈放松~',pbg:'#f1f8e9',
+df:['已签到 0/7 天，全新开始，首签翻倍激励','¥5满29 / ¥3满19 / 免单体验券（低门槛引导首单）','按钮"立即签到" / Push引导首次体验低价服务','肩颈放松·足浴尝鲜·养生茶饮（低门槛入门体验）','¥29.9 / ¥19.9 / ¥9.9（低客单价引导转化）','清新明亮嫩绿色调，"你的第一次节气养生之旅"','地图仅亮春分（第1节气），刚刚起步','无断签，Push侧重首次体验引导和低价利益点']},
+{name:'😴 沉睡用户·老张',sn:'老张',desc:'40岁 | 去年参与 | 断签15天 | 30天未回访',bc:'#e65100',bb:'#fff3e0',
+bg:'linear-gradient(135deg,#e65100,#ff9800 40%,#ffb74d)',bt:'谷雨祛湿馆',bsub:'好久不见，专属回归礼等你',
+ck:3,tt:7,pc:43,pcl:'#ff9800',ht:'回归签到，断签不清零，继续累计💪',btx:'回归签到',bcl:'#e65100',bd:15,
+cp:[{a:'15',u:'¥',c:'满99元可用',t:'回归专享券',cl:'#e65100'},{a:'25',u:'¥',c:'满199元可用·限时48h',t:'限时回归大券',cl:'#ff9800'},{a:'10',u:'¥',c:'满59元可用',t:'老客温暖券',cl:'#ffb74d'}],
+rc:[{i:'💆',n:'老客回归5折·推拿',d:'回归专属·60分钟经典推拿',p:'¥99',o:'¥199',g:'#fff3e0'},{i:'🦶',n:'中药泡脚套餐',d:'草本温经·回归特惠',p:'¥59',o:'¥89',g:'#fbe9e7'},{i:'🧧',n:'回归签到红包',d:'连续签到3天额外领¥8红包',p:'¥8',o:'',g:'#fff8e1'}],
+ml:2,mc:1,mb:1,pi:'⏰',px:'老张，您的回归礼即将过期！48h内签到领¥25专享券',pbg:'#fff3e0',
+df:['已签到 3/7 天，中断15天，断签不清零继续累计','¥15满99 / ¥25满199限时48h / ¥10满59（中等力度+紧迫感）','按钮"回归签到" / Push强调限时过期紧迫感','回归5折推拿·中药泡脚·回归红包（折扣突出+情感召回）','¥99(原¥199) / ¥59(原¥89) / ¥8红包（折扣力度突出）','温暖金色调+回归感，"好久不见，专属回归礼等你"','地图亮至谷雨（第2节气），有断签标记⚠️','断签15天召回，Push强调48h限时+过期紧迫']}
+];
+
+function rT(){var h='';for(var i=0;i<Z.length;i++){h+='<div class="ti'+(i===ct?' ac':'')+'" onclick="sw('+i+')"><span class="tn">'+Z[i].name+'</span><span class="td">'+Z[i].desc+'</span></div>';}document.getElementById('T').innerHTML=h;}
+
+function rP(){
+var p=Z[ct],h='';
+// A. Banner
+h+='<div class="bn"><div class="bg" style="background:'+p.bg+'"></div><div class="bx"><div class="ip">🐰</div><div class="bt">'+p.bt+'</div><div class="bs">'+p.bsub+' <span class="dt">❻视觉风格</span></div></div></div>';
+// B. Checkin
+h+='<div class="cs"><div class="ch"><span class="fv">谷雨 · 四月二十日</span><span class="fd">2026年4月20日</span></div>';
+var ms=[{d:1,l:'Day1'},{d:3,l:'3次礼'},{d:5,l:'5次礼'},{d:7,l:'满签礼'}];
+h+='<div class="mr">';for(var m=0;m<ms.length;m++){var r=p.ck>=ms[m].d;h+='<div class="md"><div class="do '+(r?'r':'u')+'">'+(r?'✓':ms[m].d)+'</div>'+ms[m].l+'</div>';}h+='</div>';
+h+='<div class="pw"><div class="pfl" style="width:'+p.pc+'%;background:'+p.pcl+'"></div></div>';
+h+='<div class="pi"><span>已签到 '+p.ck+'/'+p.tt+' 天';
+if(p.bd>0)h+=' <span style="color:#e65100;font-weight:600">（已中断'+p.bd+'天）</span>';
+h+=' <span class="dt">❶签到天数</span></span><span>'+p.pc+'%</span></div>';
+h+='<div class="ht">'+p.ht+'</div>';
+h+='<button class="cb" style="background:'+p.bcl+'">'+p.btx+' <span class="dt" style="background:rgba(255,255,255,.3);color:#fff">❸文案</span></button></div>';
+// C. Coupons
+h+='<div class="cs"><div class="st">🎫 谷雨养生券包 <span class="dt">❷奖励力度</span></div><div class="cl">';
+for(var c=0;c<p.cp.length;c++){var q=p.cp[c];h+='<div class="cc"><div class="cfl" style="background:'+q.cl+'"><span class="cfa">'+q.a+'</span><span class="cfu">'+q.u+'</span></div><div class="cfr"><div class="cfc">'+q.c+'</div><div class="cft">'+q.t+'</div></div><div class="cg"><button style="background:'+q.cl+'">领取</button></div></div>';}
+h+='</div></div>';
+// D. Recommend
+h+='<div class="cs"><div class="st">🌿 谷雨养生推荐 <span class="dt">❹❺内容+供给</span></div><div class="rl">';
+for(var r=0;r<p.rc.length;r++){var v=p.rc[r];h+='<div class="ri"><div class="rim" style="background:'+v.g+'">'+v.i+'</div><div class="rin"><div class="rn">'+v.n+'</div><div class="rd">'+v.d+'</div><div class="rp">'+v.p;if(v.o)h+='<span class="ro">'+v.o+'</span>';h+='</div></div></div>';}
+h+='</div></div>';
+// E. Map
+h+='<div class="cs"><div class="st">🗺️ 签到地图 <span class="dt">❼地图进度</span></div><div class="ms"><div class="mt"><div class="ml"></div>';
+var tw=F.length>1?((p.ml-1)/(F.length-1)*100):0;if(tw<0)tw=0;
+h+='<div class="mf" style="width:'+tw+'%;background:#4caf50"></div>';
+for(var f=0;f<F.length;f++){
+  var cls='dm';
+  if(f<p.ml)cls='lt';
+  if(f===p.mc)cls='cu';
+  if(f===p.mb)cls='bk';
+  var na=f<=p.ml?'an':'';
+  h+='<div class="mn"><div class="nd '+cls+'">'+(f+1)+'</div><div class="nm '+na+'">'+F[f]+'</div></div>';
+}
+h+='</div></div></div>';
+// F. Push
+h+='<div class="pn" style="background:'+p.pbg+'"><div class="px">'+p.pi+'</div><div class="pt">'+p.px+'<span class="pa">美团 · 中医养生频道 <span class="dt">❸❽Push/召回</span></span></div></div>';
+h+='<div style="height:16px"></div>';
+document.getElementById('P').innerHTML='<div class="fi">'+h+'</div>';document.getElementById('P').scrollTop=0;
+}
+
+function rD(){
+var p=Z[ct],h='';
+h+='<div class="dpt">📊 差异对比面板</div>';
+h+='<div class="dpp"><span class="pb" style="background:'+p.bb+';color:'+p.bc+'">'+p.name+'</span><br>'+p.desc+'</div>';
+for(var i=0;i<DL.length;i++){h+='<div class="dr"><div class="dl">'+DL[i]+'</div><div class="dv">'+p.df[i]+'</div></div>';}
+document.getElementById('D').innerHTML='<div class="fi">'+h+'</div>';
+}
+
+function sw(i){ct=i;rT();rP();rD();}
+rT();rP();rD();
+</script>
+</body>
+</html>

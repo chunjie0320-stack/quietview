@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Native 任务中心 · 全链路流程图</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #0A0F1E;
+  color: #E2E8F0;
+  min-height: 100vh;
+  padding: 40px 32px 60px;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.page-title h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+.page-title p {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+/* ===== 三步骤主轨道 ===== */
+.flow-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin: 36px auto 0;
+  max-width: 1200px;
+  position: relative;
+}
+
+.flow-step {
+  flex: 1;
+  position: relative;
+}
+
+/* 连接箭头 */
+.flow-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 64px;
+  width: 52px;
+  flex-shrink: 0;
+}
+.arrow-line {
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(180deg, #334155, #475569);
+  display: none;
+}
+.arrow-h {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.arrow-dash {
+  height: 2px;
+  width: 18px;
+  background: #334155;
+}
+.arrow-head {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #475569;
+}
+.arrow-label {
+  font-size: 10px;
+  color: #475569;
+  margin-top: 6px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* 步骤卡片 */
+.step-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  height: 100%;
+}
+
+.step-header {
+  padding: 18px 20px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-title-block h2 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.step-title-block .step-subtitle {
+  font-size: 12px;
+  opacity: 0.65;
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+/* Step 1 - 蓝色 */
+.step-1 .step-card { background: linear-gradient(160deg, #0d1b3e 0%, #0f1f2e 100%); }
+.step-1 .step-header { background: rgba(99,179,237,0.07); border-bottom: 1px solid rgba(99,179,237,0.12); }
+.step-1 .step-num { background: rgba(99,179,237,0.15); color: #63B3ED; border: 1px solid rgba(99,179,237,0.3); }
+.step-1 h2 { color: #93C5FD; }
+.step-1 .step-subtitle { color: #93C5FD; }
+.step-1 .tag { background: rgba(99,179,237,0.1); border-color: rgba(99,179,237,0.25); color: #93C5FD; }
+.step-1 .ai-badge { background: rgba(99,179,237,0.12); border-color: rgba(99,179,237,0.2); color: #63B3ED; }
+.step-1 .key-item { border-left-color: #63B3ED; }
+
+/* Step 2 - 紫色 */
+.step-2 .step-card { background: linear-gradient(160deg, #1a0d3e 0%, #1a0f2e 100%); }
+.step-2 .step-header { background: rgba(167,139,250,0.07); border-bottom: 1px solid rgba(167,139,250,0.12); }
+.step-2 .step-num { background: rgba(167,139,250,0.15); color: #A78BFA; border: 1px solid rgba(167,139,250,0.3); }
+.step-2 h2 { color: #C4B5FD; }
+.step-2 .step-subtitle { color: #C4B5FD; }
+.step-2 .tag { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.25); color: #C4B5FD; }
+.step-2 .ai-badge { background: rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.2); color: #A78BFA; }
+.step-2 .key-item { border-left-color: #A78BFA; }
+
+/* Step 3 - 绿色 */
+.step-3 .step-card { background: linear-gradient(160deg, #0d3e1a 0%, #0f2e1a 100%); }
+.step-3 .step-header { background: rgba(104,211,145,0.07); border-bottom: 1px solid rgba(104,211,145,0.12); }
+.step-3 .step-num { background: rgba(104,211,145,0.15); color: #68D391; border: 1px solid rgba(104,211,145,0.3); }
+.step-3 h2 { color: #86EFAC; }
+.step-3 .step-subtitle { color: #86EFAC; }
+.step-3 .tag { background: rgba(104,211,145,0.1); border-color: rgba(104,211,145,0.25); color: #86EFAC; }
+.step-3 .ai-badge { background: rgba(104,211,145,0.12); border-color: rgba(104,211,145,0.2); color: #68D391; }
+.step-3 .key-item { border-left-color: #68D391; }
+
+/* 卡片内容 */
+.step-body { padding: 16px 20px 20px; }
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  margin-bottom: 14px;
+  letter-spacing: 0.2px;
+}
+.ai-badge::before {
+  content: '✦';
+  font-size: 9px;
+}
+
+.key-list { display: flex; flex-direction: column; gap: 8px; }
+
+.key-item {
+  padding: 10px 12px;
+  border-left: 3px solid;
+  background: rgba(255,255,255,0.03);
+  border-radius: 0 8px 8px 0;
+}
+.key-item .ki-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E2E8F0;
+  margin-bottom: 3px;
+}
+.key-item .ki-desc {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.tag {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-weight: 500;
+}
+
+/* ===== 数据回流行 ===== */
+.data-flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto 0;
+  max-width: 1200px;
+  gap: 12px;
+  position: relative;
+}
+.data-flow-row::before {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(251,191,36,0.3) 30%, rgba(251,191,36,0.3) 70%, transparent);
+}
+
+.data-flow-label {
+  font-size: 11px;
+  color: #F6AD55;
+  background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+.data-flow-arrow-left {
+  font-size: 14px;
+  color: rgba(251,191,36,0.6);
+}
+
+/* ===== 底部对比说明 ===== */
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px auto 0;
+  max-width: 1200px;
+}
+
+.compare-card {
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.compare-card.old {
+  background: rgba(239,68,68,0.05);
+  border-color: rgba(239,68,68,0.15);
+}
+.compare-card.new {
+  background: rgba(34,197,94,0.05);
+  border-color: rgba(34,197,94,0.15);
+}
+.compare-card h3 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.compare-card.old h3 { color: #FC8181; }
+.compare-card.new h3 { color: #68D391; }
+
+.compare-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.compare-list li {
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  line-height: 1.5;
+}
+.compare-list li::before { flex-shrink: 0; margin-top: 1px; }
+.compare-card.old .compare-list li::before { content: '✕'; color: #FC8181; font-size: 11px; }
+.compare-card.new .compare-list li::before { content: '✓'; color: #68D391; font-size: 11px; }
+
+/* ===== 技术模块行 ===== */
+.tech-row {
+  display: flex;
+  gap: 10px;
+  margin: 24px auto 0;
+  max-width: 1200px;
+  flex-wrap: wrap;
+}
+
+.tech-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+.tech-chip .tc-icon { font-size: 14px; }
+.tech-chip .tc-name { font-weight: 600; color: #CBD5E1; }
+.tech-chip .tc-desc { color: #475569; font-size: 11px; margin-left: 2px; }
+
+.section-label {
+  font-size: 11px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 28px auto 10px;
+  max-width: 1200px;
+  font-weight: 600;
+}
+
+</style>
+</head>
+<body>
+
+<div class="page-title">
+  <h1>AI Native 任务中心 · 全链路产品化流程</h1>
+  <p>面向 RD & PM · 核心环节拆解 · 数据流向 · B端→系统→C端 全链路可视化</p>
+</div>
+
+<!-- 三步主流程 -->
+<div class="flow-track">
+
+  <!-- Step 1 -->
+  <div class="flow-step step-1">
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title-block">
+          <h2>意图识别 & 要素提取</h2>
+          <div class="step-subtitle">B端 · 运营配置层</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="ai-badge">AI 接管：意图 NLU + 要素自动填充</div>
+        <div class="key-list">
+          <div class="key-item">
+            <div class="ki-title">自然语言输入</div>
+            <div class="ki-desc">运营一句话描述需求，无需填表单</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">意图分类（intent_type）</div>
+            <div class="ki-desc">DORMANT / CHURN_RISK / NEW_USER / FREQUENCY_DROP / CATEGORY_EXPLORE / PRICE_SENSITIVE</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">5要素自动提取</div>
+            <div class="ki-desc">目标人群 · 激励方案 · 触达时间 · 预算上限 · 触达方式</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">领取门槛推荐</div>
+            <div class="ki-desc">根据意图类型 AI 推荐：弹出即领 / 浏览后领 / 下单后领</div>
+          </div>
+        </div>
+        <div class="tags-row">
+          <span class="tag">Friday API</span>
+          <span class="tag">LongCat-Flash</span>
+          <span class="tag">Persona 标签</span>
+          <span class="tag">System Prompt 结构化</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 箭头1 -->
+  <div class="flow-arrow">
+    <div class="arrow-h">
+      <div class="arrow-dash"></div>
+      <div class="arrow-dash"></div>
+      <div class="arrow-head"></div>
+    </div>
+    <div class="arrow-label">确认启动</div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="flow-step step-2">
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title-block">
+          <h2>AI 策略决策 & 系统调度</h2>
+          <div class="step-subtitle">平台层 · 调度执行层</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="ai-badge">AI 接管：策略生成 + 动态调度</div>
+        <div class="key-list">
+          <div class="key-item">
+            <div class="ki-title">人群圈选（Persona）</div>
+            <div class="ki-desc">根据意图自动生成标签组合，估算覆盖人数</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">推送策略生成</div>
+            <div class="ki-desc">触达时机 · 频控规则 · A/B 分组 · 个性化文案</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">预算分配 & 审批</div>
+            <div class="ki-desc">超阈值自动触发审批流，预算消耗实时追踪</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">任务调度执行</div>
+            <div class="ki-desc">触达人数 · 领取率 · 转化率 · 实时监控看板</div>
+          </div>
+        </div>
+        <div class="tags-row">
+          <span class="tag">任务调度引擎</span>
+          <span class="tag">频控系统</span>
+          <span class="tag">预算风控</span>
+          <span class="tag">A/B 实验</span>
+          <span class="tag">实时监控</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 箭头2 -->
+  <div class="flow-arrow">
+    <div class="arrow-h">
+      <div class="arrow-dash"></div>
+      <div class="arrow-dash"></div>
+      <div class="arrow-head"></div>
+    </div>
+    <div class="arrow-label">下发触达</div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="flow-step step-3">
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title-block">
+          <h2>C端渲染 & 数据回流</h2>
+          <div class="step-subtitle">C端 · 用户触达层 · 运营闭环</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="ai-badge">AI 接管：内容个性化 + 归因分析</div>
+        <div class="key-list">
+          <div class="key-item">
+            <div class="ki-title">用户端渲染</div>
+            <div class="ki-desc">推送通知 · 活动会场 · 优惠券展示（内容与 B 端策略直接绑定）</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">个性化内容生成</div>
+            <div class="ki-desc">根据用户画像动态生成文案、商品推荐、券面额</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">行为数据回流</div>
+            <div class="ki-desc">点击 / 领取 / 消费 / 转化数据实时上报回平台</div>
+          </div>
+          <div class="key-item">
+            <div class="ki-title">运营跟踪 & 归因</div>
+            <div class="ki-desc">效果归因 · ROI 计算 · AI 自动生成优化建议</div>
+          </div>
+        </div>
+        <div class="tags-row">
+          <span class="tag">活动会场</span>
+          <span class="tag">Push 通知</span>
+          <span class="tag">埋点上报</span>
+          <span class="tag">归因引擎</span>
+          <span class="tag">LLM 文案</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 数据回流箭头 -->
+<div class="data-flow-row">
+  <span class="data-flow-arrow-left">↙</span>
+  <span class="data-flow-label">数据回流：C端行为 → 平台 → 运营跟踪 → 策略优化闭环</span>
+  <span class="data-flow-arrow-left">↙</span>
+</div>
+
+<!-- 技术模块 -->
+<div class="section-label">关键技术模块</div>
+<div class="tech-row">
+  <div class="tech-chip"><span class="tc-icon">🧠</span><span class="tc-name">Friday API</span><span class="tc-desc">意图识别 NLU</span></div>
+  <div class="tech-chip"><span class="tc-icon">👤</span><span class="tc-name">Persona 标签</span><span class="tc-desc">人群圈选引擎</span></div>
+  <div class="tech-chip"><span class="tc-icon">⚙️</span><span class="tc-name">任务调度系统</span><span class="tc-desc">执行 & 频控</span></div>
+  <div class="tech-chip"><span class="tc-icon">💰</span><span class="tc-name">预算风控</span><span class="tc-desc">动态分配 & 审批</span></div>
+  <div class="tech-chip"><span class="tc-icon">📊</span><span class="tc-name">埋点 & 归因</span><span class="tc-desc">数据回流闭环</span></div>
+  <div class="tech-chip"><span class="tc-icon">✍️</span><span class="tc-name">LLM 文案</span><span class="tc-desc">个性化内容生成</span></div>
+  <div class="tech-chip"><span class="tc-icon">🔬</span><span class="tc-name">A/B 实验</span><span class="tc-desc">策略对比验证</span></div>
+</div>
+
+<!-- 传统 vs AI Native 对比 -->
+<div class="section-label">传统任务中心 vs AI Native · 核心差异</div>
+<div class="compare-row">
+  <div class="compare-card old">
+    <h3>🔴 传统任务中心（2.0）</h3>
+    <ul class="compare-list">
+      <li>运营手动填10+个配置字段</li>
+      <li>圈人群需要单独建 Persona 包，依赖数据团队</li>
+      <li>文案由运营手写，无个性化</li>
+      <li>券策略靠经验选择，无 AI 推荐</li>
+      <li>事后看报表，无实时优化建议</li>
+      <li>配置到发布：≥30分钟</li>
+    </ul>
+  </div>
+  <div class="compare-card new">
+    <h3>🟢 AI Native 任务中心</h3>
+    <ul class="compare-list">
+      <li>运营说一句话，AI 自动拆解5要素</li>
+      <li>AI 根据意图自动推荐 Persona 标签组合</li>
+      <li>LLM 动态生成个性化文案，与用户画像绑定</li>
+      <li>AI 推荐领取门槛 & 激励方案，可调整</li>
+      <li>实时监控 + AI 自动归因 + 优化建议闭环</li>
+      <li>配置到发布：&lt;3分钟</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

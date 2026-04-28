@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Native 任务中心 — 运营配置对话</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080a;--bg2:#101111;--bg3:#1b1c1e;
+  --border:hsl(195,5%,15%);--border2:#2f3031;
+  --text:#f9f9f9;--text2:#cecece;--text3:#9c9c9d;--dim:#6a6b6c;
+  --blue:hsl(202,100%,67%);--blue-bg:hsla(202,100%,67%,0.12);--blue-dim:hsla(202,100%,67%,0.06);
+  --green:hsl(151,59%,59%);--green-bg:hsla(151,59%,59%,0.10);
+  --yellow:hsl(43,100%,60%);--yellow-bg:hsla(43,100%,60%,0.10);
+  --red:#f87171;
+  --orange:#F7931E;
+  --r:14px;--rs:8px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:0.2px;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse at center,rgba(85,179,255,0.06) 0%,transparent 65%);pointer-events:none;z-index:0;}
+
+.app{position:relative;z-index:1;display:flex;height:100vh;max-width:1280px;margin:0 auto;}
+
+/* ── CHAT PANEL ── */
+.chat-panel{flex:1;display:flex;flex-direction:column;border-right:1px solid var(--border);min-width:0;}
+.chat-header{padding:18px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.chat-logo{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue) 0%,hsl(220,90%,60%) 100%);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.chat-header h1{font-size:15px;font-weight:600;}
+.chat-badge{margin-left:auto;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--blue-bg);color:var(--blue);border:1px solid hsla(202,100%,67%,.2);}
+
+.chat-messages{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;}
+.chat-messages::-webkit-scrollbar{width:4px;}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+.msg{display:flex;gap:10px;align-items:flex-start;animation:msgIn .3s ease;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.msg.user{flex-direction:row-reverse;}
+.msg-av{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.msg.ai .msg-av{background:linear-gradient(135deg,var(--blue),hsl(220,90%,60%));color:#fff;}
+.msg.user .msg-av{background:var(--bg3);color:var(--text3);border:1px solid var(--border2);}
+.msg-bub{max-width:72%;padding:11px 14px;border-radius:var(--r);font-size:13.5px;line-height:1.7;}
+.msg.ai .msg-bub{background:var(--bg3);border:1px solid var(--border);border-top-left-radius:4px;}
+.msg.user .msg-bub{background:var(--blue-bg);border:1px solid hsla(202,100%,67%,.2);border-top-right-radius:4px;}
+.msg-bub strong{color:var(--blue);font-weight:600;}
+
+.typing-wrap{display:flex;gap:10px;align-items:flex-start;}
+.typing{display:flex;align-items:center;gap:5px;padding:14px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);border-top-left-radius:4px;}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--dim);animation:blink 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}
+.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 28px 12px;}
+.chip{font-size:12px;padding:5px 12px;border-radius:20px;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);transition:all .18s;white-space:nowrap;}
+.chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-dim);}
+
+.action-chips{display:flex;gap:8px;padding-left:40px;margin-top:2px;}
+.action-chip{font-size:12px;padding:5px 12px;border-radius:8px;cursor:pointer;border:1px solid hsla(202,100%,67%,.3);background:var(--blue-dim);color:var(--blue);transition:all .18s;white-space:nowrap;font-weight:500;}
+.action-chip:hover{background:var(--blue-bg);}
+
+.chat-input-area{padding:14px 28px 20px;border-top:1px solid var(--border);flex-shrink:0;}
+.input-row{display:flex;align-items:flex-end;gap:10px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:10px 14px;transition:border-color .2s;}
+.input-row:focus-within{border-color:hsla(202,100%,67%,.4);}
+.input-row textarea{flex:1;background:transparent;border:none;outline:none;resize:none;color:var(--text);font-size:13.5px;font-family:inherit;line-height:1.5;max-height:100px;min-height:22px;}
+.input-row textarea::placeholder{color:var(--dim);}
+.send-btn{width:32px;height:32px;border-radius:8px;border:none;cursor:pointer;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .18s;}
+.send-btn:hover{opacity:.85;}
+.send-btn:disabled{opacity:.3;cursor:not-allowed;}
+.send-btn svg{width:15px;height:15px;fill:none;stroke:#07080a;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── RIGHT PANEL ── */
+.card-panel{width:340px;flex-shrink:0;display:flex;flex-direction:column;padding:22px 20px 20px;gap:18px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;}
+.card-panel::-webkit-scrollbar{width:4px;}
+.card-panel::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+.panel-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.7px;text-transform:uppercase;}
+
+.prog-wrap{display:flex;flex-direction:column;gap:6px;}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);}
+.prog-bg{height:4px;border-radius:2px;background:var(--border2);overflow:hidden;}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .5s ease;}
+
+.legend{display:flex;gap:14px;}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--dim);}
+.leg-dot{width:7px;height:7px;border-radius:50%;}
+.leg-dot.filled{background:var(--green);}
+.leg-dot.warn{background:var(--yellow);}
+.leg-dot.miss{background:var(--border2);}
+
+.elem-list{display:flex;flex-direction:column;gap:9px;}
+.elem-row{border-radius:var(--rs);border:1px solid var(--border);background:var(--bg2);overflow:hidden;transition:border-color .4s,background .4s;}
+.elem-row.filled{border-color:hsla(151,59%,59%,.35);background:var(--green-bg);}
+.elem-row.warn{border-color:hsla(43,100%,60%,.35);background:var(--yellow-bg);}
+.elem-head{display:flex;align-items:center;gap:8px;padding:10px 12px;}
+.elem-icon{font-size:14px;flex-shrink:0;}
+.elem-label{flex:1;font-size:12.5px;font-weight:500;color:var(--text2);}
+.elem-tag-req{font-size:10px;color:var(--red);font-weight:600;}
+.elem-tag-opt{font-size:10px;color:var(--dim);}
+.elem-st{font-size:16px;line-height:1;}
+.elem-val{font-size:11.5px;color:var(--text);line-height:1.5;padding:0 12px 9px 12px;border-top:1px solid hsla(151,59%,59%,.15);}
+.elem-row.warn .elem-val{border-top-color:hsla(43,100%,60%,.2);}
+
+.divider{height:1px;background:var(--border);}
+
+.ai-preview{border-radius:var(--rs);border:1px solid var(--border);background:var(--bg2);padding:13px;display:flex;flex-direction:column;gap:9px;}
+.ai-preview-ttl{font-size:10.5px;font-weight:700;color:var(--dim);letter-spacing:.5px;text-transform:uppercase;}
+.ai-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;}
+.ai-row .ak{color:var(--text3);}
+.ai-row .av{color:var(--text);font-weight:500;}
+.ai-row .av.ai-val{color:var(--blue);}
+
+.launch-btn{width:100%;padding:12px;border-radius:var(--r);border:none;cursor:pointer;font-size:14px;font-weight:600;background:linear-gradient(135deg,var(--blue),hsl(220,90%,60%));color:#fff;transition:opacity .2s,transform .1s;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.2px;}
+.launch-btn:hover:not(:disabled){opacity:.9;transform:translateY(-1px);}
+.launch-btn:disabled{opacity:.3;cursor:not-allowed;}
+.launch-btn.done{background:linear-gradient(135deg,var(--green),hsl(160,60%,45%));}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ────── CHAT PANEL ────── -->
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div class="chat-logo">🤖</div>
+      <h1>AI 配置助手</h1>
+      <div class="chat-badge">任务中心 · AI Native</div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg ai">
+        <div class="msg-av">AI</div>
+        <div class="msg-bub">
+          你好！我来帮你完成这次任务配置 👋<br><br>
+          直接用自然语言告诉我活动诉求就好，比如：<br>
+          <strong>"五一期间给流失用户做艾灸促活，预算 5 万"</strong><br><br>
+          我会自动解析出所有关键要素，缺什么我来问你。
+        </div>
+      </div>
+    </div>
+
+    <div class="chips" id="quickChips">
+      <div class="chip" onclick="useChip(this)">五一期间给流失用户做艾灸促活，预算 5 万</div>
+      <div class="chip" onclick="useChip(this)">下周搞新用户首单转化，推拿和足疗都可以发</div>
+      <div class="chip" onclick="useChip(this)">本月底提升低频用户复购，不限类目</div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="input-row">
+        <textarea id="userInput" placeholder="描述活动诉求..." rows="1"
+          onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMsg()">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────── RIGHT PANEL ────── -->
+  <div class="card-panel">
+    <div class="panel-title">要素卡</div>
+
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span id="progText">等待配置…</span>
+        <span id="progNum">0 / 4</span>
+      </div>
+      <div class="prog-bg"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot filled"></div>已确认</div>
+      <div class="leg-item"><div class="leg-dot warn"></div>需确认</div>
+      <div class="leg-item"><div class="leg-dot miss"></div>待填写</div>
+    </div>
+
+    <div class="elem-list">
+      <div class="elem-row" id="elem-budget">
+        <div class="elem-head">
+          <span class="elem-icon">💰</span>
+          <span class="elem-label">预算上限</span>
+          <span class="elem-tag-req">必填</span>
+          <span class="elem-st" id="st-budget">⬜</span>
+        </div>
+      </div>
+      <div class="elem-row" id="elem-period">
+        <div class="elem-head">
+          <span class="elem-icon">📅</span>
+          <span class="elem-label">活动档期</span>
+          <span class="elem-tag-req">必填</span>
+          <span class="elem-st" id="st-period">⬜</span>
+        </div>
+      </div>
+      <div class="elem-row" id="elem-kpi">
+        <div class="elem-head">
+          <span class="elem-icon">🎯</span>
+          <span class="elem-label">目标 KPI</span>
+          <span class="elem-tag-req">必填</span>
+          <span class="elem-st" id="st-kpi">⬜</span>
+        </div>
+      </div>
+      <div class="elem-row" id="elem-pool">
+        <div class="elem-head">
+          <span class="elem-icon">🎁</span>
+          <span class="elem-label">激励池</span>
+          <span class="elem-tag-req">必填</span>
+          <span class="elem-st" id="st-pool">⬜</span>
+        </div>
+      </div>
+      <div class="elem-row" id="elem-audience">
+        <div class="elem-head">
+          <span class="elem-icon">👥</span>
+          <span class="elem-label">目标人群</span>
+          <span class="elem-tag-opt">选填 · 默认AI全量</span>
+          <span class="elem-st" id="st-audience">⬜</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div id="aiPreviewWrap" style="display:none">
+      <div class="panel-title" style="margin-bottom:10px">AI 决策预览</div>
+      <div class="ai-preview">
+        <div class="ai-preview-ttl">系统将自动执行</div>
+        <div class="ai-row"><span class="ak">选人策略</span><span class="av ai-val">AI 意图识别 · 6类</span></div>
+        <div class="ai-row"><span class="ak">激励类型</span><span class="av ai-val">AI 最优匹配</span></div>
+        <div class="ai-row"><span class="ak">发送文案</span><span class="av ai-val">LLM 个性化生成</span></div>
+        <div class="ai-row"><span class="ak">触达时机</span><span class="av ai-val">行为事件驱动</span></div>
+        <div class="divider"></div>
+        <div class="ai-row"><span class="ak">降级兜底</span><span class="av">三层规则兜底</span></div>
+      </div>
+    </div>
+
+    <button class="launch-btn" id="launchBtn" disabled onclick="handleLaunch()">
+      <span>⚡</span><span id="launchTxt">启动 AI 任务</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+const S = {
+  budget: null, period: null, kpi: null, pool: null, audience: null,
+  step: 'idle',  // idle | extracted | asking | confirm | done
+  askingFor: null,
+  scenario: null,
+};
+
+// ═══════════════════════════════════════════════
+//  SCENARIO DATA
+// ═══════════════════════════════════════════════
+const SCENARIOS = {
+  s1: {
+    extract: {
+      budget:   { value:'总预算 5 万元', confirmed:false },
+      period:   { value:'五一假期（4月30日—5月4日）', confirmed:false },
+      kpi:      { value:'促活 · 流失用户复购', confirmed:false },
+      pool:     null,
+      audience: { value:'流失用户（CHURN_RISK）', confirmed:false },
+    },
+    aiReply: '好的，我解析到这些信息：\n\n💰 **预算**：5 万元\n📅 **档期**：五一假期（4月30日—5月4日）\n🎯 **KPI**：促活 · 流失用户复购\n👥 **人群**：流失用户（CHURN_RISK）\n\n还差一个必填项没有：\n\n**🎁 激励池——可以用哪些券？**\n艾灸体验券、推拿优惠券、满减券……告诉我可以投哪些类型。',
+    missing: 'pool',
+  },
+  s2: {
+    extract: {
+      budget:   null,
+      period:   { value:'下周（4月14日—4月20日）', confirmed:false },
+      kpi:      { value:'新用户首单转化', confirmed:false },
+      pool:     { value:'推拿体验券 / 足疗优惠券', confirmed:false },
+      audience: { value:'新用户（NEW_USER）', confirmed:false },
+    },
+    aiReply: '收到！解析如下：\n\n📅 **档期**：下周（4月14日—4月20日）\n🎯 **KPI**：新用户首单转化\n🎁 **激励池**：推拿体验券 / 足疗优惠券\n👥 **人群**：新用户（NEW_USER）\n\n还差一个必填项：\n\n**💰 预算上限是多少？**\n总额或单用户上限都行。',
+    missing: 'budget',
+  },
+  s3: {
+    extract: {
+      budget:   null,
+      period:   { value:'本月底（4月25日—4月30日）', confirmed:false },
+      kpi:      { value:'提升复购频次', confirmed:false },
+      pool:     { value:'全品类通用券（不限类目）', confirmed:false },
+      audience: { value:'低频用户（FREQUENCY_DROP）', confirmed:false },
+    },
+    aiReply: '好，我理解你的意思：\n\n📅 **档期**：本月底（4月25日—4月30日）\n🎯 **KPI**：提升复购频次\n🎁 **激励池**：全品类通用券\n👥 **人群**：低频用户（FREQUENCY_DROP）\n\n还差：\n\n**💰 这次活动的预算上限是多少？**',
+    missing: 'budget',
+  },
+};
+
+// 追问后的回答 → 补填缺失项
+const FILL_ANSWERS = {
+  pool: {
+    keywords: ['券', '艾灸', '推拿', '满减', '足疗', '体验'],
+    fill: { value:'艾灸体验券（30元）/ 推拿优惠券（20元立减）', confirmed:false },
+    reply: '明白！激励池已记录：\n\n🎁 **艾灸体验券**（30元，参考核销率 38%）\n🎁 **推拿优惠券**（20元立减，参考核销率 44%）\n\n所有必填要素已齐全，请确认一下整体配置——',
+  },
+  budget: {
+    keywords: ['万', '元', '千', '预算', '上限', '3', '4', '5', '6', '8', '10'],
+    fill: { value:null, confirmed:false },  // 动态取用户输入
+    reply: '预算上限已记录。所有必填要素齐了，请确认一下整体配置——',
+  },
+};
+
+// ═══════════════════════════════════════════════
+//  DOM HELPERS
+// ═══════════════════════════════════════════════
+function addMsg(role, html, delay=0) {
+  return new Promise(res => setTimeout(() => {
+    const wrap = document.getElementById('chatMessages');
+    const d = document.createElement('div');
+    d.className = 'msg ' + role;
+    d.innerHTML = `<div class="msg-av">${role==='ai'?'AI':'我'}</div><div class="msg-bub">${md(html)}</div>`;
+    wrap.appendChild(d);
+    wrap.scrollTop = wrap.scrollHeight;
+    res();
+  }, delay));
+}
+
+function showTyping(ms=1100) {
+  return new Promise(res => {
+    const wrap = document.getElementById('chatMessages');
+    const d = document.createElement('div');
+    d.className = 'msg ai'; d.id = 'typing-ind';
+    d.innerHTML = `<div class="msg-av">AI</div><div class="msg-bub"><div class="typing"><span></span><span></span><span></span></div></div>`;
+    wrap.appendChild(d); wrap.scrollTop = wrap.scrollHeight;
+    setTimeout(() => { d.remove(); res(); }, ms);
+  });
+}
+
+function addActionChips(chips) {
+  const wrap = document.getElementById('chatMessages');
+  const d = document.createElement('div');
+  d.className = 'action-chips'; d.id = 'action-chips';
+  chips.forEach(c => {
+    const btn = document.createElement('div');
+    btn.className = 'action-chip';
+    btn.textContent = c.label;
+    btn.onclick = () => { d.remove(); c.action(); };
+    d.appendChild(btn);
+  });
+  wrap.appendChild(d); wrap.scrollTop = wrap.scrollHeight;
+}
+
+function md(text) {
+  return text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+}
+
+function setElem(key, state, value) {
+  const row = document.getElementById('elem-' + key);
+  const st  = document.getElementById('st-' + key);
+  row.className = 'elem-row ' + (state==='filled'?'filled':state==='warn'?'warn':'');
+
+  // remove old value div
+  const old = row.querySelector('.elem-val');
+  if (old) old.remove();
+
+  if (state === 'filled') {
+    st.textContent = '✅';
+    if (value) {
+      const v = document.createElement('div');
+      v.className = 'elem-val'; v.textContent = value;
+      row.appendChild(v);
+    }
+  } else if (state === 'warn') {
+    st.textContent = '⚠️';
+    if (value) {
+      const v = document.createElement('div');
+      v.className = 'elem-val'; v.textContent = value;
+      row.appendChild(v);
+    }
+  } else {
+    st.textContent = '⬜';
+  }
+}
+
+function updateProgress() {
+  const required = ['budget','period','kpi','pool'];
+  const filled = required.filter(k => S[k] && S[k].confirmed).length;
+  const pct = Math.round(filled/required.length*100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progNum').textContent = filled + ' / ' + required.length;
+  document.getElementById('progText').textContent =
+    filled === 0 ? '等待配置…' :
+    filled < required.length ? '配置中…' :
+    '✅ 必填项已齐全';
+}
+
+// ═══════════════════════════════════════════════
+//  FLOW
+// ═══════════════════════════════════════════════
+function detectScenario(text) {
+  if (text.includes('五一')||text.includes('艾灸')||text.includes('流失')) return 's1';
+  if (text.includes('新用户')||text.includes('推拿')||text.includes('足疗')) return 's2';
+  if (text.includes('低频')||text.includes('复购')||text.includes('本月')) return 's3';
+  return null;
+}
+
+async function handleFirstInput(text) {
+  const sKey = detectScenario(text);
+  if (!sKey) {
+    await showTyping(900);
+    await addMsg('ai','嗯……我还没完全理解你的活动诉求。你可以告诉我大概是什么时间、面向哪类用户、想达成什么目标吗？');
+    return;
+  }
+  S.scenario = sKey;
+  const sc = SCENARIOS[sKey];
+
+  // apply extracted elements (warn = extracted not confirmed)
+  for (const [k,v] of Object.entries(sc.extract)) {
+    S[k] = v;
+    if (v) setElem(k,'warn',v.value);
+  }
+  updateProgress();
+
+  await showTyping(1300);
+  await addMsg('ai', sc.aiReply);
+
+  S.step = 'asking';
+  S.askingFor = sc.missing;
+}
+
+async function handleAskingReply(text) {
+  const key = S.askingFor;
+  const ans = FILL_ANSWERS[key];
+
+  // fill the missing element
+  const fillVal = key==='budget'
+    ? (text.match(/\d+[\s万千元]*/)?.[0]?.trim() + '（用户输入）' || text.substring(0,20))
+    : ans.fill.value;
+
+  S[key] = { value: fillVal, confirmed: false };
+  setElem(key,'warn',fillVal);
+  updateProgress();
+
+  await showTyping(1000);
+  await addMsg('ai', ans.reply + '\n\n' + buildConfirmSummary());
+
+  // mark all as confirmed in UI now
+  setTimeout(confirmAllElements, 400);
+
+  S.step = 'confirm';
+
+  addActionChips([
+    { label:'✅ 确认并启动', action: doLaunch },
+    { label:'✏️ 修改配置',   action: doEdit   },
+  ]);
+}
+
+function buildConfirmSummary() {
+  const b  = S.budget?.value   || '—';
+  const p  = S.period?.value   || '—';
+  const k  = S.kpi?.value      || '—';
+  const pl = S.pool?.value     || '—';
+  const a  = S.audience?.value || 'AI 全量决策';
+  return `💰 **预算**：${b}\n📅 **档期**：${p}\n🎯 **KPI**：${k}\n🎁 **激励池**：${pl}\n👥 **人群**：${a}`;
+}
+
+function confirmAllElements() {
+  ['budget','period','kpi','pool','audience'].forEach(k => {
+    if (S[k]) {
+      S[k].confirmed = true;
+      setElem(k,'filled',S[k].value);
+    }
+  });
+  updateProgress();
+  document.getElementById('aiPreviewWrap').style.display = 'flex';
+  document.getElementById('aiPreviewWrap').style.flexDirection = 'column';
+  document.getElementById('aiPreviewWrap').style.gap = '10px';
+  document.getElementById('launchBtn').disabled = false;
+}
+
+async function doLaunch() {
+  const chips = document.getElementById('action-chips');
+  if (chips) chips.remove();
+  confirmAllElements();
+  S.step = 'done';
+  S.launched = true;
+  await addMsg('ai','🚀 **AI 任务已启动！**\n\n系统正在接管以下决策：\n\n- 🔍 意图识别 · 筛选目标用户\n- 🎯 激励决策 · 匹配最优券种\n- ✍️ 文案生成 · 个性化内容\n- ⏰ 触达时机 · 行为事件驱动\n\n你可以在**任务监控面板**查看实时进度。本次配置完成！');
+  const btn = document.getElementById('launchBtn');
+  btn.classList.add('done');
+  document.getElementById('launchTxt').textContent = '任务已启动 ✓';
+  btn.disabled = true;
+}
+
+function doEdit() {
+  const chips = document.getElementById('action-chips');
+  if (chips) chips.remove();
+  addMsg('ai','好，你想修改哪个要素？直接告诉我就好。');
+  S.step = 'idle';
+  S.scenario = null;
+}
+
+// ═══════════════════════════════════════════════
+//  INPUT HANDLERS
+// ═══════════════════════════════════════════════
+async function sendMsg() {
+  const ta = document.getElementById('userInput');
+  const text = ta.value.trim();
+  if (!text) return;
+  ta.value = ''; autoResize(ta);
+
+  // hide quick chips
+  const qc = document.getElementById('quickChips');
+  if (qc) qc.style.display = 'none';
+
+  await addMsg('user', text);
+  document.getElementById('sendBtn').disabled = true;
+
+  if (S.step === 'idle' || S.step === 'extracted') {
+    await handleFirstInput(text);
+  } else if (S.step === 'asking') {
+    await handleAskingReply(text);
+  } else if (S.step === 'confirm' || S.step === 'done') {
+    await showTyping(800);
+    await addMsg('ai','配置已启动，如果需要重新配置，请刷新页面开始新的活动。');
+  } else {
+    await handleFirstInput(text);
+  }
+
+  document.getElementById('sendBtn').disabled = false;
+  ta.focus();
+}
+
+function useChip(el) {
+  const ta = document.getElementById('userInput');
+  ta.value = el.textContent;
+  autoResize(ta);
+  sendMsg();
+}
+
+function handleKey(e) {
+  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+}
+
+function autoResize(ta) {
+  ta.style.height = 'auto';
+  ta.style.height = Math.min(ta.scrollHeight, 100) + 'px';
+}
+
+function handleLaunch() {
+  if (S.step === 'confirm') doLaunch();
+}
+</script>
+</body>
+</html>

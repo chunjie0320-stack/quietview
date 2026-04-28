@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI美食选题引擎 · Story版</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7FAF5;
+  --primary: #4A9B6F;
+  --primary-light: #7EC8A4;
+  --accent: #FF7A5C;
+  --text: #2C3E2D;
+  --text2: #6B8C6E;
+  --text3: #9BB89E;
+  --border: #DCF0E4;
+  --shadow: 0 4px 24px rgba(74,155,111,0.12);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.10);
+  --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-cn: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-cn); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* ── Progress bar ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 3px; background: #DCF0E4;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, #4A9B6F, #7EC8A4);
+  transition: width 0.4s ease;
+}
+
+/* ── Header ── */
+.hdr {
+  position: sticky; top: 3px; z-index: 100;
+  background: rgba(255,255,255,0.94); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hdr-logo { font-family: var(--font); font-size: 15px; font-weight: 700; color: var(--text); }
+.hdr-logo span { color: var(--primary); }
+.hdr-right { display: flex; align-items: center; gap: 12px; }
+.mode-tabs { display: flex; background: #EDF5EF; border-radius: 100px; padding: 3px; gap: 2px; border: 1px solid var(--border); }
+.mode-tab { padding: 5px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: var(--text2); transition: var(--transition); font-family: var(--font-cn); outline: none; }
+.mode-tab.active { background: linear-gradient(135deg, #4A9B6F, #7EC8A4); color: #fff; font-weight: 600; }
+.progress-label { font-size: 12px; color: var(--text3); font-family: var(--font); white-space: nowrap; }
+
+/* ── Main ── */
+.main { max-width: 700px; margin: 0 auto; padding: 28px 20px 120px; }
+
+/* ── Category Card ── */
+.cat-card {
+  border-radius: 22px; padding: 28px 28px 22px;
+  border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+  margin-bottom: 20px; position: relative; overflow: hidden;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.cat-card.entering { animation: slideIn 0.32s ease both; }
+@keyframes slideIn { from { opacity:0; transform:translateX(32px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideInLeft { from { opacity:0; transform:translateX(-32px); } to { opacity:1; transform:translateX(0); } }
+.cat-card.entering-left { animation: slideInLeft 0.32s ease both; }
+
+.cat-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; }
+.cat-emoji { font-size: 40px; line-height: 1; }
+.cat-heat-badge {
+  padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;
+  font-family: var(--font); color: #fff;
+  background: linear-gradient(135deg, #FF7A5C, #FF9A5C);
+  box-shadow: 0 2px 8px rgba(255,122,92,0.30);
+}
+
+.cat-name { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; color: var(--text); }
+.cat-type-tag {
+  display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px;
+  border-radius: 100px; margin-bottom: 14px; font-family: var(--font);
+}
+
+.heat-bar-wrap { margin-bottom: 16px; }
+.heat-bar-label { font-size: 11px; color: var(--text2); margin-bottom: 5px; display: flex; justify-content: space-between; }
+.heat-bar-track { height: 8px; background: rgba(255,255,255,0.6); border-radius: 100px; overflow: hidden; }
+.heat-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, #4A9B6F, #7EC8A4); }
+.potential-stars { font-size: 13px; color: var(--text2); margin-bottom: 18px; }
+.potential-stars span { color: var(--primary); }
+
+/* Pain tags */
+.pain-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.pain-tag {
+  padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 500;
+  background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.08); color: var(--text);
+  line-height: 1.4; max-width: 100%;
+}
+
+/* Commercial mode: prompt */
+.prompt-section { margin-bottom: 16px; }
+.prompt-header { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-family: var(--font); }
+.prompt-box-mini {
+  background: rgba(255,255,255,0.7); border-radius: 12px; padding: 12px 14px;
+  border: 1px solid rgba(74,155,111,0.25); font-family: 'DM Mono','SF Mono',monospace;
+  font-size: 11px; color: var(--text); line-height: 1.6; white-space: pre-wrap;
+}
+
+/* Content mode: topics */
+.topics-section { margin-bottom: 16px; }
+.topics-label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-family: var(--font); }
+.topic-pill-list { display: flex; flex-direction: column; gap: 7px; }
+.topic-pill {
+  padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,0.7);
+  border: 1.5px solid rgba(74,155,111,0.2); cursor: pointer; transition: var(--transition);
+  display: flex; align-items: center; gap: 10px;
+}
+.topic-pill:hover, .topic-pill.active { border-color: var(--primary); background: rgba(255,255,255,0.9); }
+.topic-pill-num { font-size: 10px; font-weight: 700; color: var(--text3); font-family: var(--font); width: 22px; flex-shrink: 0; }
+.topic-pill.active .topic-pill-num { color: var(--primary); }
+.topic-pill-text { flex: 1; font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+.topic-pill-arrow { font-size: 12px; color: var(--text3); }
+
+/* Nav buttons */
+.nav-row {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 6px;
+}
+.nav-btn {
+  display: flex; align-items: center; gap: 6px; padding: 10px 20px;
+  border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer;
+  border: 1.5px solid var(--border); background: #fff; color: var(--text2);
+  transition: var(--transition); font-family: var(--font-cn); outline: none;
+}
+.nav-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+.nav-btn.primary-btn {
+  background: linear-gradient(135deg, #4A9B6F, #7EC8A4); color: #fff; border-color: transparent;
+  box-shadow: 0 3px 12px rgba(74,155,111,0.25);
+}
+.nav-btn.primary-btn:hover { box-shadow: 0 5px 20px rgba(74,155,111,0.35); border-color: transparent; color: #fff; }
+
+/* ── Thumbnail strip ── */
+.thumb-strip-wrap { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 10px 0 12px; }
+.thumb-strip { display: flex; gap: 8px; overflow-x: auto; padding: 0 20px; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
+.thumb-strip::-webkit-scrollbar { display: none; }
+.thumb-item {
+  flex-shrink: 0; padding: 6px 14px; border-radius: 100px; border: 1.5px solid var(--border);
+  font-size: 12px; font-weight: 500; cursor: pointer; transition: var(--transition);
+  background: #fff; color: var(--text2); white-space: nowrap;
+}
+.thumb-item:hover { border-color: var(--primary-light); color: var(--primary); }
+.thumb-item.active { background: linear-gradient(135deg, #4A9B6F, #7EC8A4); color: #fff; border-color: transparent; box-shadow: 0 2px 8px rgba(74,155,111,0.25); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+<header class="hdr">
+  <div class="hdr-logo">AI美食 <span>选题引擎</span></div>
+  <div class="hdr-right">
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="tab-commercial" onclick="switchMode('commercial')">💼 商业化</button>
+      <button class="mode-tab" id="tab-content" onclick="switchMode('content')">📝 内容型</button>
+    </div>
+    <div class="progress-label" id="progress-label">品类 1 / 8</div>
+  </div>
+</header>
+
+<main class="main">
+  <div id="cat-card-wrap"></div>
+
+  <div class="nav-row">
+    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">← 上一个</button>
+    <button class="nav-btn primary-btn" id="btn-next" onclick="navigate(1)">下一个 →</button>
+  </div>
+</main>
+
+<div class="thumb-strip-wrap">
+  <div class="thumb-strip" id="thumb-strip"></div>
+</div>
+
+<script>
+var currentMode = 'commercial';
+var currentIdx = 0;
+var lastDirection = 'right';
+
+var categories = [
+  {
+    name: '烤鸭', emoji: '🦆', heat: 95, type: '地道京味', typeColor: '#FF8C6B',
+    gradient: 'linear-gradient(135deg, #FFF3ED, #FFE5D5)',
+    stars: 5,
+    pains: ['「四季民福排队3小时才吃上」', '「关晓彤忽悠我去了全聚德」', '游客区均价500+被诟病', '老字号要完蛋了'],
+    prompt: '筛选烤鸭商家：评分≥4.6，月销≥300\n人均150-400元，标签含「片皮鸭」「脆皮」\n排除：连锁快餐/旅游区溢价 → TOP10',
+    topics: ['北京烤鸭避坑终极指南 · 2026本地版', '四季民福 vs 利群 vs 鸭王三强横评', '外地人来北京吃烤鸭的正确打开方式']
+  },
+  {
+    name: '铜锅涮肉', emoji: '🥘', heat: 88, type: '地道京味', typeColor: '#FF8C6B',
+    gradient: 'linear-gradient(135deg, #FFF8ED, #FFECD0)',
+    stars: 4,
+    pains: ['「东来顺PK南门涮肉400元差距实测」', '「别再踩东来顺的坑了」', '老北京麻酱比例存疑', '节假日等位2小时是常态'],
+    prompt: '筛选铜锅涮肉商家：评分≥4.5，月销≥200\n人均80-200元，标签含「老北京」「麻酱」\n输出：TOP8',
+    topics: ['铜锅涮肉避坑指南 · 本地人版', '老北京涮肉 vs 新潮火锅大PK', '一百元以内的北京涮肉去哪吃']
+  },
+  {
+    name: '咖啡特调', emoji: '☕', heat: 82, type: '新潮趋势', typeColor: '#5BB8E8',
+    gradient: 'linear-gradient(135deg, #F5F0FF, #EDE5FF)',
+    stars: 4,
+    pains: ['「白塔寺药店耀咖啡」胡同特调成爆款', '古建+咖啡被过度复制同质化', '特调定价30-45元性价比存疑', '下午茶座位竞争激烈'],
+    prompt: '筛选创意咖啡商家：评分≥4.7，月销≥150\n人均30-60元，标签含「特调」「胡同」\n优先有独特故事的场景咖啡 → TOP6',
+    topics: ['北京胡同咖啡全图鉴 · 2026春季版', '白塔寺药店到鼓楼东大街 · 咖啡路线', '古建里的咖啡：打卡还是体验？']
+  },
+  {
+    name: '春季轻食', emoji: '🥗', heat: 78, type: '新潮趋势', typeColor: '#5BB8E8',
+    gradient: 'linear-gradient(135deg, #F0FFF8, #DCFFE8)',
+    stars: 4,
+    pains: ['「哪家是真食材哪家是料理包」', '低卡标注不透明减脂党被坑', '「春日限定打工人午餐救星」', '价格与分量失衡'],
+    prompt: '筛选春季轻食商家：评分≥4.5，月销≥100\n人均40-80元，标签含「低卡」「轻食」\n优先真实热量标注、无料理包 → TOP6',
+    topics: ['打工人春季减脂午餐地图 · 北京CBD篇', '北京轻食真实测评 · 含热量+是否料理包', '春日限定沙拉哪家强？实测10家']
+  },
+  {
+    name: '北京烤串', emoji: '🍢', heat: 75, type: '夜市休闲', typeColor: '#7DC87A',
+    gradient: 'linear-gradient(135deg, #FFF0F5, #FFE0EC)',
+    stars: 4,
+    pains: ['「来北京不吃脏摊儿烧烤等于白来」', '「丰台花街夜市铁板鱿鱼一口入魂」', '脏摊儿卫生标准不统一', '「石景山铁道烤串直接封神」'],
+    prompt: '筛选夜市烤串商家：评分≥4.4，月销≥300\n人均50-120元，标签含「烤串」「夜市」\n优先有特色地域标签 → TOP8',
+    topics: ['北京夜市烤串全攻略 · 从鼓楼到工体', '脏摊儿烧烤文化：消失还是进化？', '北京各区烤串千人安利汇总']
+  },
+  {
+    name: '炸酱面', emoji: '🍜', heat: 72, type: '地道京味', typeColor: '#FF8C6B',
+    gradient: 'linear-gradient(135deg, #FFFBF0, #FFF3CC)',
+    stars: 3,
+    pains: ['海碗居排队现象严重', '各家酱料配比差异大，「正宗」标准模糊', '外地人不知道怎么拌', '新店难超越老字号口碑'],
+    prompt: '筛选炸酱面商家：评分≥4.5\n标签含「炸酱面」「老北京\"\n优先：口碑老店、有传承故事 → TOP6',
+    topics: ['老北京炸酱面：哪家才算正宗？', '海碗居排队3小时值不值？实测对比', '外地人的第一碗炸酱面指南']
+  },
+  {
+    name: '日料一人食', emoji: '🍱', heat: 65, type: '新潮趋势', typeColor: '#5BB8E8',
+    gradient: 'linear-gradient(135deg, #F0F8FF, #DDEEFF)',
+    stars: 4,
+    pains: ['一人食座位稀缺节假日难预约', '人均120-180对价格敏感用户门槛高', '过度网红化导致体验下滑', '本土化改良与正宗之争'],
+    prompt: '筛选日料一人食商家：评分≥4.6\n人均80-200元，标签含「一人食」「板前」\n输出：TOP6',
+    topics: ['北京日料一人食图鉴 · 人均100以内', '一个人去吃寿司：北京最好的板前体验', '日料新潮还是跟风？一人食背后的消费真相']
+  },
+  {
+    name: '豆汁焦圈', emoji: '🫙', heat: 60, type: '地道京味', typeColor: '#FF8C6B',
+    gradient: 'linear-gradient(135deg, #F5F5FF, #EBEBFF)',
+    stars: 3,
+    pains: ['豆汁是「挑战性食物」外地人接受度极低', '护国寺节假日大排长龙', '传统小吃面临年轻化断层', '味道和气味太重劝退新人'],
+    prompt: '筛选老北京特色小吃：\n标签含「豆汁」「焦圈」「护国寺\"\n优先有文化故事的老字号 → TOP5',
+    topics: ['豆汁到底好不好喝？南方人第一次体验实录', '北京最后的老字号小吃：去还是不去？', '护国寺小吃全攻略 · 排队值不值评分']
+  }
+];
+
+function renderCard(idx, direction) {
+  var c = categories[idx];
+  var wrap = document.getElementById('cat-card-wrap');
+  var html = '';
+  html += '<div class="cat-card ' + (direction === 'right' ? 'entering' : 'entering-left') + '" style="background:' + c.gradient + '">';
+  html += '<div class="cat-header"><div class="cat-emoji">' + c.emoji + '</div><div class="cat-heat-badge">🔥 热度 ' + c.heat + '</div></div>';
+  html += '<div class="cat-name">' + c.name + '</div>';
+  html += '<span class="cat-type-tag" style="background:' + c.typeColor + '22;color:' + c.typeColor + ';border:1.5px solid ' + c.typeColor + '44">' + c.type + '</span>';
+  html += '<div class="heat-bar-wrap">';
+  html += '<div class="heat-bar-label"><span>内容热度</span><span style="font-family:var(--font);font-weight:600;color:var(--primary)">' + c.heat + '/100</span></div>';
+  html += '<div class="heat-bar-track"><div class="heat-bar-fill" style="width:' + c.heat + '%"></div></div></div>';
+  var starsStr = '';
+  for(var i=0;i<5;i++) starsStr += (i < c.stars ? '★' : '☆');
+  html += '<div class="potential-stars">商业化潜力 <span>' + starsStr + '</span></div>';
+
+  // Pain tags
+  html += '<div class="pain-tags">';
+  c.pains.forEach(function(p){ html += '<div class="pain-tag">' + p + '</div>'; });
+  html += '</div>';
+
+  if (currentMode === 'commercial') {
+    html += '<div class="prompt-section">';
+    html += '<div class="prompt-header">🤖 供给筛选 Prompt</div>';
+    html += '<div class="prompt-box-mini">' + c.prompt + '</div>';
+    html += '</div>';
+  } else {
+    html += '<div class="topics-section">';
+    html += '<div class="topics-label">✨ 推荐选题</div>';
+    html += '<div class="topic-pill-list">';
+    c.topics.forEach(function(t, i){
+      html += '<div class="topic-pill' + (i===0?' active':'') + '" onclick="this.parentElement.querySelectorAll(\'.topic-pill\').forEach(function(x){x.classList.remove(\'active\')});this.classList.add(\'active\')">';
+      html += '<div class="topic-pill-num">0' + (i+1) + '</div>';
+      html += '<div class="topic-pill-text">' + t + '</div>';
+      html += '<div class="topic-pill-arrow">›</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  html += '</div>';
+  wrap.innerHTML = html;
+}
+
+function renderThumbs() {
+  var strip = document.getElementById('thumb-strip');
+  var html = '';
+  categories.forEach(function(c, i){
+    html += '<div class="thumb-item' + (i===currentIdx?' active':'') + '" id="thumb-' + i + '" onclick="jumpTo(' + i + ')">' + c.emoji + ' ' + c.name + '</div>';
+  });
+  strip.innerHTML = html;
+  var activeThumb = document.getElementById('thumb-' + currentIdx);
+  if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+function updateProgress() {
+  var pct = ((currentIdx + 1) / categories.length * 100) + '%';
+  document.getElementById('progress-fill').style.width = pct;
+  document.getElementById('progress-label').textContent = '品类 ' + (currentIdx+1) + ' / ' + categories.length;
+  document.getElementById('btn-prev').disabled = currentIdx === 0;
+  document.getElementById('btn-prev').style.opacity = currentIdx === 0 ? '0.4' : '1';
+  document.getElementById('btn-next').textContent = currentIdx === categories.length - 1 ? '重新开始 ↺' : '下一个 →';
+}
+
+function navigate(dir) {
+  if (dir === 1 && currentIdx === categories.length - 1) { jumpTo(0); return; }
+  var newIdx = currentIdx + dir;
+  if (newIdx < 0 || newIdx >= categories.length) return;
+  lastDirection = dir === 1 ? 'right' : 'left';
+  currentIdx = newIdx;
+  renderCard(currentIdx, lastDirection);
+  renderThumbs();
+  updateProgress();
+}
+
+function jumpTo(idx) {
+  lastDirection = idx > currentIdx ? 'right' : 'left';
+  currentIdx = idx;
+  renderCard(currentIdx, lastDirection);
+  renderThumbs();
+  updateProgress();
+}
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('tab-commercial').classList.toggle('active', mode==='commercial');
+  document.getElementById('tab-content').classList.toggle('active', mode==='content');
+  renderCard(currentIdx, 'right');
+}
+
+// Init
+window.onload = function() {
+  renderCard(0, 'right');
+  renderThumbs();
+  updateProgress();
+};
+</script>
+</body>
+</html>

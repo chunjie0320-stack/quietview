@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Native 任务中心 MVP — 美团外卖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080a;--bg2:#101111;--bg3:#1b1c1e;
+  --border:hsl(195,5%,15%);--border2:#2f3031;
+  --text:#f9f9f9;--text2:#cecece;--text3:#9c9c9d;--dim:#6a6b6c;
+  --red:hsl(202,100%,67%);--red-bg:hsla(202,100%,67%,0.15);
+  --blue:hsl(202,100%,67%);--blue-bg:hsla(202,100%,67%,0.15);
+  --green:hsl(151,59%,59%);--yellow:hsl(43,100%,60%);
+  --meituan-orange:#F7931E;
+  --glass:rgba(255,255,255,0.04);--glass-b:rgba(255,255,255,0.08);
+  --r:16px;--rs:10px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-feature-settings:"calt","kern","liga","ss03";letter-spacing:0.2px;min-height:100vh;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse at center,rgba(85,179,255,0.08) 0%,transparent 65%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 32px 80px}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+.s1{padding:72px 0 64px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--red-bg);border:1px solid rgba(85,179,255,0.35);border-radius:100px;padding:6px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pdot 2s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.pitch-hd{text-align:center;margin-bottom:64px}
+.pitch-title{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--text2) 50%,var(--red) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pitch-sub{font-size:18px;color:var(--text3);font-weight:400;letter-spacing:.01em}
+.pitch-sub span{color:var(--meituan-orange);font-weight:600}
+.cmp-grid{display:grid;grid-template-columns:1fr auto 1fr;margin-bottom:48px;align-items:stretch}
+.cmp-card{background:var(--bg2);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden;transition:border-color .3s;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 4px 6px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.06)}
+.cmp-card.legacy{border-radius:var(--r) 0 0 var(--r);border-right:none}
+.cmp-card.ainative{border-radius:0 var(--r) var(--r) 0;border-left:none;border-color:rgba(85,179,255,0.3);background:rgba(85,179,255,0.04)}
+.cmp-card.ainative::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(85,179,255,0.06) 0%,transparent 60%);pointer-events:none}
+.cmp-div{display:flex;align-items:center;justify-content:center;padding:0 16px;position:relative}
+.cmp-div::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:1px;background:linear-gradient(to bottom,transparent,var(--border),transparent)}
+.vs{width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-size:12px;font-weight:700;color:var(--text3);position:relative;z-index:1}
+.cmp-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:20px}
+.cmp-tag.leg{background:rgba(255,255,255,.06);color:var(--text3)}
+.cmp-tag.new{background:var(--red-bg);color:var(--red)}
+.cmp-card h3{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:24px;color:var(--text)}
+.cmp-item{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.cmp-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px}
+.cmp-ico.m{background:rgba(248,113,113,.15)}
+.cmp-ico.p{background:var(--red-bg)}
+.cmp-lbl{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.cmp-desc{font-size:14px;color:var(--text2);line-height:1.5}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:default;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 4px 6px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.06)}
+.kpi:hover{transform:translateY(-2px);border-color:var(--border2);box-shadow:0 0 0 1px rgba(255,255,255,0.08),0 8px 16px rgba(0,0,0,0.5),0 16px 40px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--meituan-orange),transparent);opacity:.6}
+.kpi-num{font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;color:var(--meituan-orange);line-height:1;margin-bottom:8px;letter-spacing:-.02em}
+.kpi-num span{font-size:22px}
+.kpi-lbl{font-size:14px;color:var(--text3);line-height:1.4}
+.kpi-sub{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--dim);margin-top:8px;text-transform:uppercase;letter-spacing:.05em}
+.s2{padding:64px 0;border-top:1px solid var(--border)}
+.sec-hd{text-align:center;margin-bottom:48px}
+.sec-title{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:32px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px;color:var(--text)}
+.sec-desc{font-size:15px;color:var(--text3)}
+.atom-pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:32px;position:relative}
+.atom-pipe::before{content:'';position:absolute;top:50%;left:24px;right:24px;height:1px;background:linear-gradient(90deg,transparent,var(--border) 15%,var(--border) 85%,transparent);transform:translateY(-50%);pointer-events:none;z-index:0}
+.atom{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:20px 12px;text-align:center;position:relative;z-index:1;transition:all .4s cubic-bezier(.34,1.56,.64,1);cursor:default;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 4px 6px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.06)}
+.atom::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center top,var(--blue-bg),transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none}
+.atom.active{border-color:var(--blue);background:var(--blue-bg);transform:translateY(-4px);box-shadow:0 0 0 1px var(--blue),0 8px 32px hsla(202,100%,67%,0.25),0 16px 40px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08)}
+.atom.active::after{opacity:1}
+.atom.done{border-color:rgba(74,222,128,.4);background:rgba(74,222,128,.05)}
+.atom-icon{font-size:24px;margin-bottom:10px;display:block}
+.atom-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.atom-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:8px}
+.atom-data{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);line-height:1.5;min-height:40px;transition:color .4s;word-break:break-all}
+.atom.active .atom-data{color:var(--blue)}
+.atom.done .atom-data{color:var(--green)}
+.trig-wrap{text-align:center;margin-bottom:32px}
+.btn-trig{display:inline-flex;align-items:center;gap:10px;background:var(--red);border:none;border-radius:8px;padding:14px 36px;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;font-weight:600;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(85,179,255,0.35);letter-spacing:.01em}
+.btn-trig:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(85,179,255,0.45);background:#5eb8ff}
+.btn-trig:active{transform:translateY(0)}
+.btn-trig:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.result-wrap{max-width:480px;margin:0 auto;opacity:0;transform:translateY(20px);transition:all .5s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.result-wrap.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.result-card{background:rgba(85,179,255,0.06);border:1px solid rgba(85,179,255,0.3);border-radius:var(--r);padding:28px;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 4px 6px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.06)}
+.result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--meituan-orange))}
+.result-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:12px}
+.result-title{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px}
+.result-copy{font-size:14px;color:var(--text3);line-height:1.6;margin-bottom:20px;padding:12px 16px;background:rgba(0,0,0,.3);border-radius:8px;border-left:3px solid var(--meituan-orange)}
+.result-meta{display:flex;gap:8px;flex-wrap:wrap}
+.mchip{padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)}
+.mchip.hl{background:hsla(30,93%,54%,0.15);border-color:rgba(247,147,30,.4);color:var(--meituan-orange)}
+.demo-log{background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:var(--rs);padding:16px 20px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);line-height:2;max-height:0;overflow:hidden;transition:max-height .6s ease}
+.demo-log.open{max-height:200px}
+.log-line{opacity:0;animation:logfade .3s ease forwards}
+@keyframes logfade{to{opacity:1}}
+.log-ok{color:var(--green)}
+.log-info{color:var(--blue)}
+.log-warn{color:var(--yellow)}
+.s3{padding:64px 0;border-top:1px solid var(--border)}
+.user-sw{display:flex;justify-content:center;gap:8px;margin-bottom:40px}
+.utab{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .2s;color:var(--text3);font-size:14px;font-weight:500;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif}
+.utab:hover{border-color:var(--border2);color:var(--text)}
+.utab.on{background:var(--red-bg);border-color:rgba(85,179,255,0.5);color:var(--text)}
+.uavt{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.upanel{display:none;grid-template-columns:1fr 1fr;gap:24px;animation:fsu .4s ease}
+.upanel.on{display:grid}
+@keyframes fsu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.mob{background:var(--bg2);border:1px solid var(--border2);border-radius:24px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 24px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,0.06)}
+.mob-status{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 8px;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.mob-hd{padding:8px 20px 16px;border-bottom:1px solid var(--border)}
+.mob-hd h4{font-size:16px;font-weight:700;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-0.01em;margin-bottom:2px}
+.mob-hd p{font-size:12px;color:var(--text3)}
+.tcard{margin:16px;background:linear-gradient(135deg,var(--red-bg),rgba(85,179,255,0.04));border:1px solid rgba(85,179,255,0.25);border-radius:16px;padding:20px;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 4px 6px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.06)}
+.tcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--meituan-orange))}
+.ttype{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.ttype.churn{background:var(--red-bg);color:var(--red);border:1px solid rgba(85,179,255,0.3)}
+.ttype.habit{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.ttype.newu{background:rgba(250,204,21,.15);color:var(--yellow);border:1px solid rgba(250,204,21,.3)}
+.thead{font-size:15px;font-weight:600;line-height:1.4;margin-bottom:10px;color:var(--text)}
+.treward{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.tramt{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--meituan-orange);line-height:1}
+.tramt sup{font-size:14px}
+.trdesc{font-size:12px;color:var(--text3);line-height:1.4}
+.tbar{height:4px;background:var(--border2);border-radius:2px;margin-bottom:12px;overflow:hidden}
+.tbar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--red),var(--meituan-orange));transition:width 1s ease}
+.tcta{display:block;width:100%;padding:12px;background:var(--red);border:none;border-radius:8px;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px;font-weight:600;color:#fff;cursor:pointer;transition:all .2s;text-align:center}
+.tcta:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(85,179,255,0.4);background:#5eb8ff}
+.info{display:flex;flex-direction:column;gap:16px}
+.iblock{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:20px;box-shadow:0 0 0 1px rgba(255,255,255,0.06),0 4px 6px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.06)}
+.iblock-title{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:12px}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px}
+.irow:last-child{border-bottom:none}
+.ikey{color:var(--text3)}
+.ival{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);font-weight:500}
+.ival.pink{color:var(--red)}
+.ival.green{color:var(--green)}
+.ival.yellow{color:var(--yellow)}
+.ival.accent{color:var(--meituan-orange)}
+.ival.prim{color:var(--blue)}
+.trace{font-size:12px;line-height:1.8;color:var(--text3)}
+.tline{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.tarr{color:var(--blue);flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--dim);font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ══════════════ SECTION 1: PITCH ══════════════ -->
+  <section class="s1">
+    <div class="pitch-hd rv">
+      <div class="badge"><span class="badge-dot"></span>MVP · 中医签到 · 外卖健康类目</div>
+      <h1 class="pitch-title">AI Native 任务中心 MVP</h1>
+      <p class="pitch-sub">从<span>「运营配置」</span>到<span>「系统感知」</span>——让 AI 替运营做决策</p>
+    </div>
+
+    <div class="cmp-grid rv" style="transition-delay:.1s">
+      <div class="cmp-card legacy">
+        <div class="cmp-tag leg">⚙️ 传统任务中心 2.0</div>
+        <h3>运营手动配置</h3>
+        <div class="cmp-item">
+          <div class="cmp-ico m">❌</div>
+          <div>
+            <div class="cmp-lbl">任务生成</div>
+            <div class="cmp-desc">运营写签到规则 → 选激励 → 定文案，全程人工，每次发版需 1~3 天</div>
+          </div>
+        </div>
+        <div class="cmp-item">
+          <div class="cmp-ico m">❌</div>
+          <div>
+            <div class="cmp-lbl">激励决策</div>
+            <div class="cmp-desc">固定档位满减，千人一券，无法感知用户流失风险和偏好差异</div>
+          </div>
+        </div>
+        <div class="cmp-item">
+          <div class="cmp-ico m">❌</div>
+          <div>
+            <div class="cmp-lbl">文案</div>
+            <div class="cmp-desc">固定模板文案下发所有用户，无个性化，点击率天花板低</div>
+          </div>
+        </div>
+      </div>
+      <div class="cmp-div"><div class="vs">VS</div></div>
+      <div class="cmp-card ainative">
+        <div class="cmp-tag new">🤖 AI Native 任务中心</div>
+        <h3>系统自主感知决策</h3>
+        <div class="cmp-item">
+          <div class="cmp-ico p">✅</div>
+          <div>
+            <div class="cmp-lbl">任务生成</div>
+            <div class="cmp-desc">实时行为信号触发，Kafka事件驱动，毫秒级响应，零人工介入</div>
+          </div>
+        </div>
+        <div class="cmp-item">
+          <div class="cmp-ico p">✅</div>
+          <div>
+            <div class="cmp-lbl">激励决策</div>
+            <div class="cmp-desc">AI识别6类意图，结合偏好权重决策激励类型/力度，YAML安全护栏兜底</div>
+          </div>
+        </div>
+        <div class="cmp-item">
+          <div class="cmp-ico p">✅</div>
+          <div>
+            <div class="cmp-lbl">文案</div>
+            <div class="cmp-desc">基于意图+行为特征生成个性化文案，流失用户/新用户/高频用户各不同</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kpi-grid rv" style="transition-delay:.2s">
+      <div class="kpi">
+        <div class="kpi-num">60<span>%+</span></div>
+        <div class="kpi-lbl">意图识别准确率目标</div>
+        <div class="kpi-sub">Intent Recognition Accuracy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">+15<span>%</span></div>
+        <div class="kpi-lbl">任务完成率 vs 静态传统任务</div>
+        <div class="kpi-sub">Task Completion Uplift</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">≈0</div>
+        <div class="kpi-lbl">核销率无明显下降</div>
+        <div class="kpi-sub">Coupon Redemption Rate Delta</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 2: ARCH ══════════════ -->
+  <section class="s2">
+    <div class="sec-hd rv">
+      <h2 class="sec-title">🏗️ 系统架构 · 7个原子层</h2>
+      <p class="sec-desc">点击「触发演示」，模拟用户王小花（CHURN_RISK）触发签到事件的完整链路</p>
+    </div>
+
+    <div class="atom-pipe rv" style="transition-delay:.1s" id="pipeline">
+      <div class="atom" id="a1">
+        <span class="atom-icon">📡</span>
+        <div class="atom-num">Layer 01</div>
+        <div class="atom-name">行为信号采集</div>
+        <div class="atom-data" id="d1">等待触发...</div>
+      </div>
+      <div class="atom" id="a2">
+        <span class="atom-icon">🏷️</span>
+        <div class="atom-num">Layer 02</div>
+        <div class="atom-name">用户偏好标签</div>
+        <div class="atom-data" id="d2">等待触发...</div>
+      </div>
+      <div class="atom" id="a3">
+        <span class="atom-icon">🧠</span>
+        <div class="atom-num">Layer 03</div>
+        <div class="atom-name">意图识别</div>
+        <div class="atom-data" id="d3">等待触发...</div>
+      </div>
+      <div class="atom" id="a4">
+        <span class="atom-icon">⚡</span>
+        <div class="atom-num">Layer 04</div>
+        <div class="atom-name">激励决策 asB</div>
+        <div class="atom-data" id="d4">等待触发...</div>
+      </div>
+      <div class="atom" id="a5">
+        <span class="atom-icon">✍️</span>
+        <div class="atom-num">Layer 05</div>
+        <div class="atom-name">文案生成</div>
+        <div class="atom-data" id="d5">等待触发...</div>
+      </div>
+      <div class="atom" id="a6">
+        <span class="atom-icon">🚀</span>
+        <div class="atom-num">Layer 06</div>
+        <div class="atom-name">任务下发</div>
+        <div class="atom-data" id="d6">等待触发...</div>
+      </div>
+      <div class="atom" id="a7">
+        <span class="atom-icon">📊</span>
+        <div class="atom-num">Layer 07</div>
+        <div class="atom-name">效果回流</div>
+        <div class="atom-data" id="d7">等待触发...</div>
+      </div>
+    </div>
+
+    <div class="trig-wrap rv" style="transition-delay:.2s">
+      <button class="btn-trig" id="trigBtn" onclick="runDemo()">
+        <span class="btn-icon">▶</span>
+        触发演示 · 王小花 签到事件
+      </button>
+    </div>
+
+    <div class="demo-log" id="demoLog"></div>
+
+    <div class="result-wrap" id="resultWrap">
+      <div class="result-card">
+        <div class="result-lbl">✅ AI Generated Task · 王小花</div>
+        <div class="result-title">📋 中医养生签到任务</div>
+        <div class="result-copy">「你已经14天没来了，我们想你了 🌿 回来领专属大额满减券，今日下单立减30元」</div>
+        <div class="result-meta">
+          <span class="mchip">CHURN_RISK</span>
+          <span class="mchip hl">满减30元券</span>
+          <span class="mchip">门槛: ≥80元</span>
+          <span class="mchip">幂等key: wangxiaohua_20240415</span>
+          <span class="mchip">下发: 成功</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 3: USERS ══════════════ -->
+  <section class="s3">
+    <div class="sec-hd rv">
+      <h2 class="sec-title">📱 前台用户视角 · 签到任务卡片</h2>
+      <p class="sec-desc">同一个中医签到活动，AI 为三类用户生成了完全不同的任务卡片</p>
+    </div>
+
+    <div class="user-sw rv" style="transition-delay:.1s">
+      <div class="utab on" onclick="switchUser(0)" id="utab0">
+        <div class="uavt" style="background:rgba(85,179,255,.15)">🌸</div>
+        王小花 · CHURN_RISK
+      </div>
+      <div class="utab" onclick="switchUser(1)" id="utab1">
+        <div class="uavt" style="background:rgba(74,222,128,.15)">💪</div>
+        李大明 · HABIT_STRONG
+      </div>
+      <div class="utab" onclick="switchUser(2)" id="utab2">
+        <div class="uavt" style="background:rgba(250,204,21,.15)">⭐</div>
+        张小新 · NEW_UNKNOWN
+      </div>
+    </div>
+
+    <div class="user-panels">
+
+      <!-- 王小花 -->
+      <div class="upanel on" id="upanel0">
+        <div class="mob">
+          <div class="mob-status">
+            <span>09:41</span>
+            <span>🔋📶</span>
+          </div>
+          <div class="mob-hd">
+            <h4>🌿 中医养生任务中心</h4>
+            <p>今日为你精选 · AI 专属推荐</p>
+          </div>
+          <div class="tcard">
+            <div class="ttype churn">💔 流失召回</div>
+            <div class="thead">你已经14天没来了，我们想你了 🌿</div>
+            <div class="treward">
+              <div class="tramt"><sup>¥</sup>30</div>
+              <div class="trdesc">专属大额满减券<br>满80元可用</div>
+            </div>
+            <div class="tbar"><div class="tbar-fill" style="width:0%" id="bar0"></div></div>
+            <button class="tcta" onclick="this.textContent='已签到 ✅'">立即签到领券</button>
+          </div>
+          <div style="padding:0 16px 16px">
+            <div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;text-align:center;padding:8px;background:var(--red-bg);border-radius:8px;border:1px solid rgba(85,179,255,0.15)">
+              🎯 AI 判断你偏好「艾灸推拿」，已定向推荐同类商品
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <div class="iblock">
+            <div class="iblock-title">👤 用户画像</div>
+            <div class="irow"><span class="ikey">姓名</span><span class="ival">王小花</span></div>
+            <div class="irow"><span class="ikey">最近活跃</span><span class="ival pink">14天前</span></div>
+            <div class="irow"><span class="ikey">历史订单</span><span class="ival">23单（艾灸×12，推拿×8）</span></div>
+            <div class="irow"><span class="ikey">偏好权重</span><span class="ival">艾灸0.71 推拿0.52</span></div>
+            <div class="irow"><span class="ikey">意图标签</span><span class="ival pink">CHURN_RISK</span></div>
+          </div>
+          <div class="iblock">
+            <div class="iblock-title">⚡ AI 决策链路</div>
+            <div class="trace">
+              <div class="tline"><span class="tarr">→</span><span>意图识别：CHURN_RISK（静默14天，流失概率82%）</span></div>
+              <div class="tline"><span class="tarr">→</span><span>激励策略：高额满减（力度=3，门槛80元）</span></div>
+              <div class="tline"><span class="tarr">→</span><span>安全护栏：库存充足 ✓ 频控通过 ✓ 预算余量 ✓</span></div>
+              <div class="tline"><span class="tarr">→</span><span>文案模板：CHURN_RECALL_v2，填充偏好品类</span></div>
+              <div class="tline"><span class="tarr">→</span><span>下发成功，幂等写入，核销监听已挂载</span></div>
+            </div>
+          </div>
+          <div class="iblock">
+            <div class="iblock-title">📊 预期效果</div>
+            <div class="irow"><span class="ikey">预计核销率</span><span class="ival accent">38%</span></div>
+            <div class="irow"><span class="ikey">vs 静态任务</span><span class="ival accent">+22%</span></div>
+            <div class="irow"><span class="ikey">ROI 预估</span><span class="ival prim">4.2x</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 李大明 -->
+      <div class="upanel" id="upanel1">
+        <div class="mob">
+          <div class="mob-status">
+            <span>09:41</span>
+            <span>🔋📶</span>
+          </div>
+          <div class="mob-hd">
+            <h4>🌿 中医养生任务中心</h4>
+            <p>今日为你精选 · AI 专属推荐</p>
+          </div>
+          <div class="tcard" style="background:linear-gradient(135deg,rgba(74,222,128,.12),rgba(74,222,128,.04));border-color:rgba(74,222,128,.3)">
+            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--blue))"></div>
+            <div class="ttype habit">🔥 连续签到</div>
+            <div class="thead">连续签到7天啦！今日积分 ×2 🎉</div>
+            <div class="treward">
+              <div class="tramt" style="color:var(--green)">×2</div>
+              <div class="trdesc">积分翻倍<br>今日签到得200积分</div>
+            </div>
+            <div class="tbar"><div class="tbar-fill" style="width:71%;background:linear-gradient(90deg,var(--green),var(--blue))"></div></div>
+            <button class="tcta" style="background:linear-gradient(135deg,var(--green),var(--blue));color:#07080a" onclick="this.textContent='已签到 ✅'">签到领双倍积分</button>
+          </div>
+          <div style="padding:0 16px 16px">
+            <div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;text-align:center;padding:8px;background:rgba(74,222,128,.06);border-radius:8px;border:1px solid rgba(74,222,128,.15)">
+              🏆 连续签到7天，距离月度达人称号还差3天
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <div class="iblock">
+            <div class="iblock-title">👤 用户画像</div>
+            <div class="irow"><span class="ikey">姓名</span><span class="ival">李大明</span></div>
+            <div class="irow"><span class="ikey">最近活跃</span><span class="ival green">今天（连签7天）</span></div>
+            <div class="irow"><span class="ikey">历史订单</span><span class="ival">67单（正骨×28，足疗×21）</span></div>
+            <div class="irow"><span class="ikey">偏好权重</span><span class="ival">正骨0.83 足疗0.64</span></div>
+            <div class="irow"><span class="ikey">意图标签</span><span class="ival green">HABIT_STRONG</span></div>
+          </div>
+          <div class="iblock">
+            <div class="iblock-title">⚡ AI 决策链路</div>
+            <div class="trace">
+              <div class="tline"><span class="tarr">→</span><span>意图识别：HABIT_STRONG（连签7天，月活≥20次）</span></div>
+              <div class="tline"><span class="tarr">→</span><span>激励策略：积分翻倍（力度=2，成本最低）</span></div>
+              <div class="tline"><span class="tarr">→</span><span>安全护栏：积分库存充足 ✓ 频控通过 ✓</span></div>
+              <div class="tline"><span class="tarr">→</span><span>文案模板：HABIT_CELEBRATION_v1，填充连签天数</span></div>
+              <div class="tline"><span class="tarr">→</span><span>下发成功，用户期待感激励更强</span></div>
+            </div>
+          </div>
+          <div class="iblock">
+            <div class="iblock-title">📊 预期效果</div>
+            <div class="irow"><span class="ikey">预计完成率</span><span class="ival accent">91%</span></div>
+            <div class="irow"><span class="ikey">vs 静态任务</span><span class="ival accent">+18%</span></div>
+            <div class="irow"><span class="ikey">激励成本</span><span class="ival green">↓ 60%（积分成本低）</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 张小新 -->
+      <div class="upanel" id="upanel2">
+        <div class="mob">
+          <div class="mob-status">
+            <span>09:41</span>
+            <span>🔋📶</span>
+          </div>
+          <div class="mob-hd">
+            <h4>🌿 中医养生任务中心</h4>
+            <p>今日为你精选 · AI 专属推荐</p>
+          </div>
+          <div class="tcard" style="background:linear-gradient(135deg,rgba(250,204,21,.12),rgba(250,204,21,.04));border-color:rgba(250,204,21,.3)">
+            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--yellow),var(--meituan-orange))"></div>
+            <div class="ttype newu">✨ 新人专属</div>
+            <div class="thead">首次体验中医养生，送你新人体验礼包 🎁</div>
+            <div class="treward">
+              <div class="tramt" style="color:var(--yellow);font-size:22px;line-height:1.2">礼包</div>
+              <div class="trdesc">新人体验礼包<br>5元无门槛券×3张</div>
+            </div>
+            <div class="tbar"><div class="tbar-fill" style="width:0%;background:linear-gradient(90deg,var(--yellow),var(--meituan-orange))"></div></div>
+            <button class="tcta" style="background:linear-gradient(135deg,var(--yellow),var(--meituan-orange));color:#07080a" onclick="this.textContent='已签到 ✅'">领取新人礼包</button>
+          </div>
+          <div style="padding:0 16px 16px">
+            <div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;text-align:center;padding:8px;background:rgba(250,204,21,.05);border-radius:8px;border:1px solid rgba(250,204,21,.15)">
+              🔍 AI 暂无偏好数据，以低门槛探索型激励打开认知
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <div class="iblock">
+            <div class="iblock-title">👤 用户画像</div>
+            <div class="irow"><span class="ikey">姓名</span><span class="ival">张小新</span></div>
+            <div class="irow"><span class="ikey">中医类历史</span><span class="ival yellow">0单（首次）</span></div>
+            <div class="irow"><span class="ikey">外卖总订单</span><span class="ival">3单（近30天）</span></div>
+            <div class="irow"><span class="ikey">偏好权重</span><span class="ival yellow">未知（数据不足）</span></div>
+            <div class="irow"><span class="ikey">意图标签</span><span class="ival yellow">NEW_UNKNOWN</span></div>
+          </div>
+          <div class="iblock">
+            <div class="iblock-title">⚡ AI 决策链路</div>
+            <div class="trace">
+              <div class="tline"><span class="tarr">→</span><span>意图识别：NEW_UNKNOWN（类目首次+数据稀疏）</span></div>
+              <div class="tline"><span class="tarr">→</span><span>激励策略：新人礼包（探索型，多张小面值）</span></div>
+              <div class="tline"><span class="tarr">→</span><span>安全护栏：新人标识验证 ✓ 防羊毛机制 ✓</span></div>
+              <div class="tline"><span class="tarr">→</span><span>文案模板：NEW_USER_WELCOME_v1，低认知门槛</span></div>
+              <div class="tline"><span class="tarr">→</span><span>目标：首单转化，后续积累偏好数据</span></div>
+            </div>
+          </div>
+          <div class="iblock">
+            <div class="iblock-title">📊 预期效果</div>
+            <div class="irow"><span class="ikey">首单转化率</span><span class="ival accent">22%</span></div>
+            <div class="irow"><span class="ikey">7日复购率</span><span class="ival accent">35%（历史新人）</span></div>
+            <div class="irow"><span class="ikey">LTV价值</span><span class="ival prim">播种期，长线价值高</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="footer">
+    美团外卖 · AI Native 任务中心 MVP · 中医签到场景 Demo · © 2024
+  </div>
+
+</div>
+<script>
+// Reveal on scroll
+(function(){
+  var els = document.querySelectorAll('.rv');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+    });
+  },{threshold:0.1});
+  els.forEach(function(el){ io.observe(el); });
+})();
+
+// Progress bar animation on tab switch
+function animateBar(idx){
+  var bars = [null, document.getElementById('bar0'), null, null];
+  if(bars[idx]) setTimeout(function(){ bars[idx].style.width = '28%'; }, 300);
+}
+setTimeout(function(){ animateBar(0); }, 800);
+
+// User switcher
+function switchUser(idx){
+  for(var i=0;i<3;i++){
+    document.getElementById('utab'+i).classList.remove('on');
+    document.getElementById('upanel'+i).classList.remove('on');
+  }
+  document.getElementById('utab'+idx).classList.add('on');
+  document.getElementById('upanel'+idx).classList.add('on');
+}
+
+// Demo pipeline
+var demoRunning = false;
+var demoSteps = [
+  {
+    id:'a1', dataId:'d1',
+    data:'event: CHECKIN\nuid: wxh_001\nts: 1713139200\ntopic: tcenter-sign'
+  },
+  {
+    id:'a2', dataId:'d2',
+    data:'艾灸:0.71\n推拿:0.52\n足疗:0.31\n正骨:0.18'
+  },
+  {
+    id:'a3', dataId:'d3',
+    data:'intent: CHURN_RISK\nsilent_days: 14\nchurn_prob: 0.82\nconf: 0.91'
+  },
+  {
+    id:'a4', dataId:'d4',
+    data:'type: MANJIAN\namount: 30\nthreshold: 80\nguard: PASS×3'
+  },
+  {
+    id:'a5', dataId:'d5',
+    data:'tpl: CHURN_RECALL_v2\n→ "你已经14天没来了\n回来领专属大额券"'
+  },
+  {
+    id:'a6', dataId:'d6',
+    data:'idempotent: ✓\nfreq_ctl: PASS\nretry: 0\nstatus: OK'
+  },
+  {
+    id:'a7', dataId:'d7',
+    data:'hook: coupon_verify\nAB: group_ai\nboard: live'
+  }
+];
+
+var logLines = [
+  '[INFO]  Kafka event received: CHECKIN uid=wxh_001',
+  '[INFO]  Feature table lookup: 14 days silent, 23 orders',
+  '[INFO]  Intent model inference: CHURN_RISK (conf=0.91)',
+  '[WARN]  High churn risk detected → upgrading incentive tier',
+  '[INFO]  asB decision: MANJIAN ¥30 / threshold ¥80',
+  '[OK]    Safety guards: budget ✓ stock ✓ freq_ctl ✓',
+  '[INFO]  Copywriting generated via CHURN_RECALL_v2 template',
+  '[OK]    Task dispatched, idempotent key written',
+  '[OK]    Effect callback registered, AB group: ai_native'
+];
+
+function addLog(line, cls, delay){
+  var log = document.getElementById('demoLog');
+  setTimeout(function(){
+    var d = document.createElement('div');
+    d.className = 'log-line ' + cls;
+    d.textContent = line;
+    d.style.animationDelay = '0ms';
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+  }, delay);
+}
+
+function runDemo(){
+  if(demoRunning) return;
+  demoRunning = true;
+  var btn = document.getElementById('trigBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 执行中...';
+
+  // Reset
+  demoSteps.forEach(function(s){
+    var a = document.getElementById(s.id);
+    a.classList.remove('active','done');
+    document.getElementById(s.dataId).textContent = '等待触发...';
+  });
+  document.getElementById('resultWrap').classList.remove('show');
+  var log = document.getElementById('demoLog');
+  log.innerHTML = '';
+  log.classList.add('open');
+
+  logLines.forEach(function(line, i){
+    var cls = line.startsWith('[OK]') ? 'log-ok' : line.startsWith('[WARN]') ? 'log-warn' : 'log-info';
+    addLog(line, cls, i * 420 + 200);
+  });
+
+  demoSteps.forEach(function(s, i){
+    var delay = i * 750;
+    setTimeout(function(){
+      // activate current
+      var aEl = document.getElementById(s.id);
+      aEl.classList.add('active');
+      document.getElementById(s.dataId).textContent = s.data;
+      // mark previous done
+      if(i > 0){
+        var prevEl = document.getElementById(demoSteps[i-1].id);
+        prevEl.classList.remove('active');
+        prevEl.classList.add('done');
+      }
+    }, delay);
+  });
+
+  // finish last
+  var lastDelay = demoSteps.length * 750;
+  setTimeout(function(){
+    var lastA = document.getElementById(demoSteps[demoSteps.length-1].id);
+    lastA.classList.remove('active');
+    lastA.classList.add('done');
+    document.getElementById('resultWrap').classList.add('show');
+    btn.disabled = false;
+    btn.innerHTML = '<span class="btn-icon">🔄</span> 重新演示';
+    demoRunning = false;
+  }, lastDelay + 600);
+}
+</script>
+</body>
+</html>

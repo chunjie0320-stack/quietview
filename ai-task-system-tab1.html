@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI任务系统</title>
+<style>
+:root {
+  --primary:#FFC107;--primary-dark:#FFA000;--primary-light:#FFF3CD;--primary-hover:#FFD54F;
+  --secondary:#FF6F00;--secondary-light:#FFE0B2;
+  --bg:#F7F8FA;--surface:#FFFFFF;--surface-hover:#FAFBFC;--surface-active:#FFF8E1;
+  --border:#E8E8E8;--border-light:#F0F0F0;--border-focus:#FFC107;
+  --text:#1D2129;--text-secondary:#86909C;--text-tertiary:#C9CDD4;--text-link:#FF6F00;
+  --success:#00B42A;--success-light:#E8FFEA;--warning:#FF7D00;--warning-light:#FFF3E8;
+  --error:#F53F3F;--info:#3491FA;
+  --tag-draft:#C9CDD4;--tag-running:#00B42A;--tag-paused:#FF7D00;--tag-ended:#86909C;
+  --font:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  --font-mono:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 24px rgba(0,0,0,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);font-size:14px;line-height:22px;color:var(--text);background:var(--bg)}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select{font-family:inherit;font-size:14px}
+
+.app{max-width:1440px;margin:0 auto;min-height:100vh}
+.header{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:100}
+.header-title{font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px}
+.logo{width:24px;height:24px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px}
+
+.tabs{height:48px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:stretch;padding:0 24px;gap:32px}
+.tab-btn{position:relative;font-size:14px;color:var(--text-secondary);transition:color .15s}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--text);font-weight:600}
+.tab-btn.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--primary);border-radius:3px 3px 0 0}
+.tabs-right{margin-left:auto;display:flex;align-items:center}
+.btn-p{background:var(--primary);color:var(--text);height:36px;padding:0 20px;border-radius:8px;font-weight:500;font-size:14px;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+.btn-p:hover{background:var(--primary-hover);box-shadow:var(--shadow-sm)}
+.btn-s{background:var(--surface);color:var(--text);border:1px solid var(--border);height:32px;padding:0 16px;border-radius:8px;font-size:14px;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+.btn-s:hover{background:var(--surface-hover)}
+.btn-t{background:transparent;color:var(--text-link);height:32px;padding:0 8px;font-size:14px;display:inline-flex;align-items:center;gap:4px}
+.btn-t:hover{background:var(--surface-active);border-radius:4px}
+.btn-icon{width:28px;height:28px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:14px}
+.btn-icon:hover{background:var(--surface-hover);color:var(--text)}
+
+.content{padding:24px}
+.panel{display:none}.panel.on{display:block}
+.view{display:none}.view.on{display:block}
+
+/* Task List */
+.task-list{display:flex;flex-direction:column;gap:12px}
+.task-card{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all .3s;min-height:96px}
+.task-card:hover{border-color:var(--primary-light);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.tc-bar{width:4px;flex-shrink:0}
+.tc-body{flex:1;padding:16px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tc-r1{display:flex;align-items:center;gap:8px}
+.tc-name{font-size:16px;font-weight:600;line-height:24px}
+.tc-tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:500}
+.tc-r2{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--text-secondary)}
+.tc-type{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;background:var(--primary-light);color:var(--secondary);font-size:11px;font-weight:500}
+.tc-r3{display:flex;align-items:center;gap:24px;font-size:12px;color:var(--text-secondary)}
+.tc-mv{color:var(--text);font-weight:500}
+.tc-actions{display:flex;align-items:center;gap:2px;padding:16px 16px 16px 0;flex-shrink:0}
+
+/* Step1 */
+.s1-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s1-layout{display:flex;gap:24px;height:calc(100vh - 56px - 48px - 48px - 80px);min-height:520px}
+.chat-p{flex:0 0 60%;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.chat-hd{height:48px;padding:0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border-light);font-weight:500}
+.chat-hd .dot{width:8px;height:8px;border-radius:50%;background:var(--success)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.msg{display:flex;gap:8px;max-width:85%}
+.msg.ai{align-self:flex-start}.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.msg.ai .avatar{background:var(--primary-light)}.msg.user .avatar{background:#E8F3FF;color:var(--info)}
+.bubble{padding:10px 14px;border-radius:12px;font-size:14px;line-height:22px;white-space:pre-wrap}
+.msg.ai .bubble{background:#F2F3F5;border-top-left-radius:4px}.msg.user .bubble{background:var(--primary-light);border-top-right-radius:4px}
+.chat-in{height:64px;padding:0 16px;display:flex;align-items:center;gap:8px;border-top:1px solid var(--border-light)}
+.chat-input{flex:1;height:36px;padding:0 12px;border:1px solid var(--border);border-radius:8px;outline:none;font-size:14px}
+.chat-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(255,193,7,.2)}
+.send-btn{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px}
+.send-btn:hover{background:var(--primary-hover)}
+
+.elem-p{flex:0 0 40%;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.elem-hd{padding:16px;border-bottom:1px solid var(--border-light);font-size:16px;font-weight:600}
+.elem-grid{flex:1;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-content:start}
+.elem-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px 8px;border:1px dashed var(--text-tertiary);border-radius:8px;text-align:center;transition:all .3s;min-height:90px}
+.elem-cell.lit{border-style:solid;border-color:var(--primary);background:var(--primary-light);animation:eLit .4s cubic-bezier(.68,-.55,.27,1.55)}
+@keyframes eLit{0%{transform:scale(.8);opacity:0}50%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+.elem-icon{font-size:24px}
+.elem-lbl{font-size:12px;color:var(--text-secondary);font-weight:500}
+.elem-cell.lit .elem-lbl{color:var(--text)}
+.elem-chk{display:none;font-size:11px;color:var(--success)}.elem-cell.lit .elem-chk{display:block}
+.elem-ft{padding:16px;border-top:1px solid var(--border-light);display:flex;flex-direction:column;gap:8px}
+.prog-wrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)}
+.prog-track{flex:1;height:4px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
+.gen-wrap{text-align:center}
+
+/* Step2 */
+.s2-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s2-layout{display:flex;gap:16px;height:calc(100vh - 56px - 48px - 48px - 80px);min-height:520px}
+.think-p{flex:0 0 35%;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.think-p::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--primary);border-radius:12px 0 0 12px}
+.think-hd{padding:12px 16px 12px 20px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border-light);font-size:14px;font-weight:500;cursor:pointer;user-select:none}
+.think-caret{transition:transform .3s}.think-hd.collapsed .think-caret{transform:rotate(-90deg)}
+.spinner{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.think-body{flex:1;overflow-y:auto;padding:16px 20px;font-family:var(--font-mono);font-size:13px;line-height:24px;color:var(--text-secondary);transition:max-height .3s,padding .3s}
+.think-body.collapsed{max-height:0!important;padding-top:0;padding-bottom:0;overflow:hidden}
+.think-body .hl{color:var(--primary);font-weight:600}
+.think-ft{padding:8px 20px;border-top:1px solid var(--border-light);font-size:12px;color:var(--text-tertiary)}
+
+.phone-wrap{flex:0 0 30%;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:center}
+.phone-lbl{font-size:12px;color:var(--text-secondary);font-weight:500}
+.phone-shell{width:310px;background:#1D2129;border-radius:40px;padding:12px;box-shadow:var(--shadow-lg);position:relative}
+.phone-notch{width:120px;height:24px;background:#1D2129;border-radius:0 0 14px 14px;position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:2}
+.phone-screen{width:100%;aspect-ratio:375/667;background:#FFF;border-radius:28px;overflow:hidden;position:relative}
+.phone-ct{width:100%;height:100%;overflow-y:auto}
+.ph-banner{background:linear-gradient(135deg,#FF6F00,#FFC107);color:#FFF;text-align:center;padding:32px 16px 20px;font-size:18px;font-weight:600}
+.ph-sub{font-size:11px;opacity:.85;margin-top:4px}
+.ph-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:14px 12px}
+.ph-day{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;border:1px solid var(--border-light);color:var(--text)}
+.ph-day.chk{background:var(--success);color:#FFF;border-color:var(--success)}
+.ph-day.now{border-color:var(--primary);background:var(--primary-light);font-weight:600}
+.ph-rewards{padding:0 12px 12px;display:flex;flex-direction:column;gap:6px}
+.ph-rr{display:flex;align-items:center;gap:6px;padding:8px 10px;background:#FAFBFC;border-radius:8px;font-size:11px}
+.ph-rb{padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;color:#FFF;background:var(--primary-dark);white-space:nowrap}
+.ph-rd{flex:1;color:var(--text-secondary)}
+.ph-rv{color:var(--error);font-weight:600}
+.ph-cta{margin:8px 12px 16px;height:36px;background:linear-gradient(135deg,#FF6F00,#FFC107);color:#FFF;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+
+.atom-p{flex:0 0 35%;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;overflow:hidden}
+.atom-hd{padding:12px 16px;border-bottom:1px solid var(--border-light);font-size:16px;font-weight:600}
+.atom-bd{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.atom-grp{border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.ag-hd{padding:8px 12px;background:#FAFBFC;font-size:12px;font-weight:600;color:var(--text-secondary);display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.5px}
+.ag-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#FFF}
+.ag-icon.bh{background:var(--info)}.ag-icon.ct{background:var(--warning)}.ag-icon.rw{background:var(--success)}
+.ar{padding:10px 12px;border-top:1px solid var(--border-light);display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12px}
+.ar-name{font-weight:500;color:var(--primary-dark);padding:2px 6px;background:var(--primary-light);border-radius:4px;font-size:11px}
+.ar-lbl{color:var(--text-secondary);white-space:nowrap}
+.ar-in{height:24px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;outline:none;min-width:60px}
+.ar-in:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(255,193,7,.2)}
+.ar-sel{height:24px;padding:0 6px;border:1px solid var(--border);border-radius:4px;font-size:12px;outline:none;background:#FFF;cursor:pointer}
+.ar-tog{position:relative;width:36px;height:20px;border-radius:10px;background:var(--border);cursor:pointer;transition:background .15s;display:inline-block}
+.ar-tog.on{background:var(--success)}
+.ar-tog::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#FFF;transition:transform .15s;box-shadow:var(--shadow-sm)}
+.ar-tog.on::after{transform:translateX(16px)}
+.conn{display:flex;justify-content:center;padding:4px 0}
+.conn-pill{height:28px;padding:0 12px;border-radius:14px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;border:1px solid var(--border);color:var(--text-secondary);transition:all .15s}
+.conn-pill.active{background:var(--primary);color:var(--text);border-color:var(--primary)}
+.add-rule{border:1px dashed var(--border);border-radius:8px;padding:10px;text-align:center;color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all .15s}
+.add-rule:hover{background:var(--primary-light);border-color:var(--primary);color:var(--text)}
+.atom-ft{padding:16px;border-top:1px solid var(--border-light);text-align:center}
+
+/* Step3 */
+.s3-center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:24px}
+.s3-check{width:80px;height:80px;border-radius:50%;background:var(--success-light);display:flex;align-items:center;justify-content:center;font-size:40px;animation:s3Pop .5s cubic-bezier(.68,-.55,.27,1.55)}
+@keyframes s3Pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.s3-title{font-size:24px;font-weight:600}
+.s3-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;width:480px;max-width:100%;box-shadow:var(--shadow-sm)}
+.s3-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px solid var(--border-light)}
+.s3-row:last-child{border-bottom:none}
+.s3-row-l{color:var(--text-secondary)}.s3-row-r{font-weight:500}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header"><div class="header-title"><div class="logo">⚡</div>AI任务系统</div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">任务列表</button>
+    <button class="tab-btn" onclick="switchTab('query')">信息查询</button>
+    <div class="tabs-right" id="tabActions"><button class="btn-p" onclick="goStep('s1')">+ 新建任务</button></div>
+  </div>
+
+  <div class="panel on" id="panel-list">
+    <div class="content">
+      <!-- Task List View -->
+      <div class="view on" id="v-list">
+        <div class="task-list" id="taskList"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="view" id="v-s1">
+        <div class="s1-top"><button class="btn-t" onclick="goStep('list')">← 返回列表</button><span style="color:var(--text-secondary);font-size:12px">Step 1 / 3 · AI对话配置</span></div>
+        <div class="s1-layout">
+          <div class="chat-p">
+            <div class="chat-hd"><div class="dot"></div>AI任务助手 · 在线</div>
+            <div class="chat-msgs" id="chatMsgs"></div>
+            <div class="chat-in"><input class="chat-input" placeholder="描述你的活动任务..." readonly><button class="send-btn">↑</button></div>
+          </div>
+          <div class="elem-p">
+            <div class="elem-hd">📋 任务要素收集</div>
+            <div class="elem-grid" id="elemGrid"></div>
+            <div class="elem-ft">
+              <div class="prog-wrap"><span id="progText">已收集 0/6</span><div class="prog-track"><div class="prog-fill" id="progFill" style="width:0"></div></div></div>
+              <div class="gen-wrap" id="genWrap" style="display:none"><button class="btn-p" style="height:40px;padding:0 32px;font-size:14px" onclick="goStep('s2')">🚀 生成玩法方案</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="view" id="v-s2">
+        <div class="s2-top"><button class="btn-t" onclick="goStep('s1')">← 返回对话</button><span style="color:var(--text-secondary);font-size:12px">Step 2 / 3 · 策略引擎 → 玩法生产</span></div>
+        <div class="s2-layout">
+          <div class="think-p">
+            <div class="think-hd" id="thinkHd" onclick="toggleThink()"><span class="think-caret">▼</span><div class="spinner"></div><span>策略推理中...</span></div>
+            <div class="think-body" id="thinkBody"></div>
+            <div class="think-ft">推理耗时 2.3s · 匹配 8 个原子</div>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone-lbl">📱 C端预览</div>
+            <div class="phone-shell">
+              <div class="phone-notch"></div>
+              <div class="phone-screen"><div class="phone-ct">
+                <div class="ph-banner">🌞 夏日签到乐<div class="ph-sub">连续签到7天，赢超值大券包</div></div>
+                <div class="ph-cal" id="phCal"></div>
+                <div class="ph-rewards">
+                  <div class="ph-rr"><div class="ph-rb">签1天</div><div class="ph-rd">签到奖励</div><div class="ph-rv">5元券</div></div>
+                  <div class="ph-rr"><div class="ph-rb">签3天</div><div class="ph-rd">连续签到奖励</div><div class="ph-rv">10元券</div></div>
+                  <div class="ph-rr"><div class="ph-rb">签5天</div><div class="ph-rd">坚持签到奖励</div><div class="ph-rv">15元券</div></div>
+                  <div class="ph-rr"><div class="ph-rb">签7天</div><div class="ph-rd">全勤大奖</div><div class="ph-rv">30元券包</div></div>
+                </div>
+                <div class="ph-cta">🔥 立即签到</div>
+              </div></div>
+            </div>
+          </div>
+          <div class="atom-p">
+            <div class="atom-hd">⚙️ 玩法原子配置</div>
+            <div class="atom-bd" id="atomBody"></div>
+            <div class="atom-ft"><button class="btn-p" style="height:40px;padding:0 32px;width:100%" onclick="goStep('s3')">✅ 确认方案并发布</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="view" id="v-s3">
+        <div class="s3-center">
+          <div class="s3-check">✓</div>
+          <div class="s3-title">任务创建成功！</div>
+          <div class="s3-card">
+            <div class="s3-row"><span class="s3-row-l">任务名称</span><span class="s3-row-r">夏日签到乐</span></div>
+            <div class="s3-row"><span class="s3-row-l">任务类型</span><span class="s3-row-r">连续签到</span></div>
+            <div class="s3-row"><span class="s3-row-l">活动时间</span><span class="s3-row-r">2026-05-20 ~ 2026-06-05</span></div>
+            <div class="s3-row"><span class="s3-row-l">目标人群</span><span class="s3-row-r">全量用户</span></div>
+            <div class="s3-row"><span class="s3-row-l">奖励方式</span><span class="s3-row-r">阶梯优惠券（5/10/15/30元）</span></div>
+            <div class="s3-row"><span class="s3-row-l">预算上限</span><span class="s3-row-r">¥50,000</span></div>
+            <div class="s3-row"><span class="s3-row-l">状态</span><span class="s3-row-r" style="color:var(--success)">● 运行中</span></div>
+          </div>
+          <button class="btn-p" style="height:40px;padding:0 32px" onclick="backToList()">← 返回任务列表</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab2 placeholder -->
+  <div class="panel" id="panel-query" style="display:none">
+    <div id="tab-query" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+/* ===== Data ===== */
+var tasks = [
+  {id:1,name:'小满节气签到',status:'running',type:'连续签到',time:'2026-04-18 10:30',creator:'张三',users:12580,rate:'67.3%',rewards:8456},
+  {id:2,name:'芒种烤串挑战',status:'draft',type:'消费挑战',time:'2026-04-20 14:00',creator:'李四',users:0,rate:'0%',rewards:0},
+  {id:3,name:'夏至消暑任务',status:'paused',type:'浏览任务',time:'2026-04-15 09:15',creator:'王五',users:8920,rate:'45.1%',rewards:4023},
+  {id:4,name:'端午粽子集卡',status:'ended',type:'集卡活动',time:'2026-04-01 16:45',creator:'赵六',users:35210,rate:'82.5%',rewards:29048},
+  {id:5,name:'立夏尝鲜周',status:'running',type:'限时秒杀',time:'2026-04-22 11:00',creator:'孙七',users:6340,rate:'58.9%',rewards:3732}
+];
+var statusCfg = {
+  draft:{color:'#C9CDD4',bg:'#F7F8FA',label:'草稿'},
+  running:{color:'#00B42A',bg:'#E8FFEA',label:'运行中'},
+  paused:{color:'#FF7D00',bg:'#FFF3E8',label:'已暂停'},
+  ended:{color:'#86909C',bg:'#F2F3F5',label:'已结束'}
+};
+var elements = [
+  {key:'activityType',icon:'🎯',label:'活动类型'},
+  {key:'targetAudience',icon:'👥',label:'目标人群'},
+  {key:'rewardType',icon:'🎁',label:'奖励方式'},
+  {key:'timePeriod',icon:'📅',label:'时间周期'},
+  {key:'triggerCondition',icon:'⚡',label:'触发条件'},
+  {key:'budgetLimit',icon:'💰',label:'预算上限'}
+];
+var chatScript = [
+  {role:'ai',text:'你好！我是AI任务助手 🤖\n请描述你想创建的活动任务，我来帮你配置。'},
+  {role:'user',text:'我想做一个夏季签到活动，连续签到7天领券'},
+  {role:'ai',text:'好的！夏季签到活动是个好选择 👍\n\n让我帮你确认几个核心要素：\n\n1️⃣ 活动类型：连续签到\n2️⃣ 目标人群：需要确认范围...',collect:'activityType'},
+  {role:'user',text:'面向全量用户，18-45岁为主'},
+  {role:'ai',text:'收到！面向全量用户，核心年龄段18-45岁 ✅\n\n接下来确认奖励方式：\n建议采用阶梯式优惠券激励——\n签1天→5元，签3天→10元，签5天→15元，签7天→30元大券包\n\n你觉得这个方案如何？',collect:'targetAudience'},
+  {role:'user',text:'不错，就用这个阶梯券方案'},
+  {role:'ai',text:'阶梯券方案确认 ✅\n\n时间安排方面：\n📅 建议：2026年5月20日 ~ 6月5日（共17天窗口期）\n这样覆盖小满到芒种节气，契合夏季主题。',collect:'rewardType'},
+  {role:'user',text:'时间OK，就这个'},
+  {role:'ai',text:'时间确认 ✅\n\n⚡ 触发条件：\n- 每日签到1次即算完成\n- 需连续签到，断签从头计\n- 签到时间窗口：每日 00:00 - 23:59',collect:'timePeriod'},
+  {role:'user',text:'可以，连续签到断签重置'},
+  {role:'ai',text:'触发条件确认 ✅\n\n💰 最后确认预算上限：\n按预估参与10万人、平均领券2.5张计算，\n建议预算上限设为 ¥50,000\n\n是否OK？',collect:'triggerCondition'},
+  {role:'user',text:'50000可以，就这样'},
+  {role:'ai',text:'所有要素收集完毕！🎉\n\n📋 汇总：\n- 活动类型：连续签到\n- 目标人群：全量用户（18-45岁）\n- 奖励方式：阶梯优惠券（5/10/15/30元）\n- 时间周期：5.20-6.05\n- 触发条件：每日签到+连续机制\n- 预算上限：¥50,000\n\n点击右侧「生成玩法方案」进入策略引擎 →',collect:'budgetLimit'}
+];
+
+var thinkLines = [
+  {text:'▶ 意图识别：连续签到 + 领券激励',hls:['连续签到','领券激励']},
+  {text:'▶ 匹配行为原子：',hls:[]},
+  {text:'  signIn（签到）',hls:['signIn']},
+  {text:'▶ 匹配约束原子：',hls:[]},
+  {text:'  time_window（7天窗口期）',hls:['time_window']},
+  {text:'  threshold_ladder（1/3/5/7天阶梯）',hls:['threshold_ladder']},
+  {text:'  cycle_period（每日重置）',hls:['cycle_period']},
+  {text:'  continuity_required（连续签到）',hls:['continuity_required']},
+  {text:'▶ 匹配奖励原子：',hls:[]},
+  {text:'  reward_slot（虚拟券×4档）',hls:['reward_slot']},
+  {text:'  reward_threshold_trigger（阶梯触发）',hls:['reward_threshold_trigger']},
+  {text:'▶ 推荐参数：奖励预算=¥50,000，人群=全量',hls:['¥50,000','全量']},
+  {text:'▶ 方案生成完毕 ✅',hls:[]}
+];
+
+/* ===== Tab Switch ===== */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===(tab==='list'?0:1))});
+  document.getElementById('panel-list').className = tab==='list'?'panel on':'panel';
+  document.getElementById('panel-list').style.display = tab==='list'?'':'none';
+  document.getElementById('panel-query').className = tab==='query'?'panel on':'panel';
+  document.getElementById('panel-query').style.display = tab==='query'?'':'none';
+  document.getElementById('tabActions').style.display = tab==='list'?'':'none';
+  if(tab==='list') goStep('list');
+}
+
+/* ===== View Switch ===== */
+function goStep(v) {
+  ['v-list','v-s1','v-s2','v-s3'].forEach(function(id){document.getElementById(id).className='view'});
+  var map={list:'v-list',s1:'v-s1',s2:'v-s2',s3:'v-s3'};
+  document.getElementById(map[v]).className='view on';
+  document.getElementById('tabActions').style.display = v==='list'?'':'none';
+  if(v==='s1') startChat();
+  if(v==='s2'){ startThinking(); }
+}
+
+/* ===== Render Task List ===== */
+function renderTasks() {
+  var html='';
+  tasks.forEach(function(t){
+    var s=statusCfg[t.status];
+    html+='<div class="task-card">'
+      +'<div class="tc-bar" style="background:'+s.color+'"></div>'
+      +'<div class="tc-body">'
+      +'<div class="tc-r1"><span class="tc-name">'+t.name+'</span><span class="tc-tag" style="color:'+s.color+';background:'+s.bg+'">'+s.label+'</span></div>'
+      +'<div class="tc-r2"><span class="tc-type">'+t.type+'</span><span>'+t.time+'</span><span>'+t.creator+'</span></div>'
+      +'<div class="tc-r3"><span class="tc-mv">👥 '+t.users.toLocaleString()+'</span> 参与<span class="tc-mv">📊 '+t.rate+'</span> 完成率<span class="tc-mv">🎁 '+t.rewards.toLocaleString()+'</span> 发放</div>'
+      +'</div>'
+      +'<div class="tc-actions">'
+      +'<button class="btn-icon" title="编辑">✏️</button>'
+      +'<button class="btn-icon" title="'+(t.status==='running'?'暂停':'启动')+'">⏸</button>'
+      +'<button class="btn-icon" title="复制">📋</button>'
+      +'<button class="btn-icon" title="删除">🗑</button>'
+      +'</div></div>';
+  });
+  document.getElementById('taskList').innerHTML=html;
+}
+
+/* ===== Render Elements Grid ===== */
+function renderElements() {
+  var html='';
+  elements.forEach(function(e){
+    html+='<div class="elem-cell" id="ec-'+e.key+'"><div class="elem-icon">'+e.icon+'</div><div class="elem-lbl">'+e.label+'</div><div class="elem-chk">✓</div></div>';
+  });
+  document.getElementById('elemGrid').innerHTML=html;
+}
+
+/* ===== Chat Animation ===== */
+var chatIdx=0, collected=0;
+function startChat(){
+  chatIdx=0;collected=0;
+  document.getElementById('chatMsgs').innerHTML='';
+  document.getElementById('progText').textContent='已收集 0/6';
+  document.getElementById('progFill').style.width='0';
+  document.getElementById('genWrap').style.display='none';
+  elements.forEach(function(e){document.getElementById('ec-'+e.key).classList.remove('lit')});
+  nextMsg();
+}
+function nextMsg(){
+  if(chatIdx>=chatScript.length)return;
+  var m=chatScript[chatIdx];
+  var box=document.getElementById('chatMsgs');
+  var div=document.createElement('div');
+  div.className='msg '+m.role;
+  div.innerHTML='<div class="avatar">'+(m.role==='ai'?'🤖':'👤')+'</div><div class="bubble">'+m.text+'</div>';
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+  if(m.collect){
+    setTimeout(function(){
+      document.getElementById('ec-'+m.collect).classList.add('lit');
+      collected++;
+      document.getElementById('progText').textContent='已收集 '+collected+'/6';
+      document.getElementById('progFill').style.width=(collected/6*100)+'%';
+      if(collected>=6){
+        document.getElementById('genWrap').style.display='';
+      }
+    },400);
+  }
+  chatIdx++;
+  if(chatIdx<chatScript.length) setTimeout(nextMsg, m.role==='ai'?1200:800);
+}
+
+/* ===== Phone Calendar ===== */
+function renderPhoneCal(){
+  var html='';
+  for(var i=1;i<=7;i++){
+    var cls='ph-day';
+    if(i<=3) cls+=' chk';
+    else if(i===4) cls+=' now';
+    html+='<div class="'+cls+'">'+( i<=3? '✓':'Day'+i)+'</div>';
+  }
+  document.getElementById('phCal').innerHTML=html;
+}
+
+/* ===== Thinking Typewriter ===== */
+function startThinking(){
+  var body=document.getElementById('thinkBody');
+  body.innerHTML='';
+  body.className='think-body';
+  document.getElementById('thinkHd').className='think-hd';
+  var lineIdx=0;
+  function typeLine(){
+    if(lineIdx>=thinkLines.length)return;
+    var ln=thinkLines[lineIdx];
+    var div=document.createElement('div');
+    div.style.marginBottom='4px';
+    var t=ln.text;
+    ln.hls.forEach(function(h){
+      t=t.replace(h,'<span class="hl">'+h+'</span>');
+    });
+    div.innerHTML=t;
+    body.appendChild(div);
+    body.scrollTop=body.scrollHeight;
+    lineIdx++;
+    setTimeout(typeLine,200);
+  }
+  typeLine();
+}
+function toggleThink(){
+  var hd=document.getElementById('thinkHd');
+  var bd=document.getElementById('thinkBody');
+  hd.classList.toggle('collapsed');
+  bd.classList.toggle('collapsed');
+}
+
+/* ===== Atom Config ===== */
+function renderAtoms(){
+  var html='';
+  // Behavior group
+  html+='<div class="atom-grp"><div class="ag-hd"><div class="ag-icon bh">B</div>行为原子</div>';
+  html+='<div class="ar"><span class="ar-name">signIn</span><span class="ar-lbl">类型</span><input class="ar-in" value="连续签到" style="width:80px"><span class="ar-lbl">目标</span><input class="ar-in" value="7" style="width:40px"><span class="ar-lbl">天</span></div>';
+  html+='</div>';
+  // Connector
+  html+='<div class="conn"><span class="conn-pill active">AND</span></div>';
+  // Constraint group
+  html+='<div class="atom-grp"><div class="ag-hd"><div class="ag-icon ct">C</div>约束原子</div>';
+  html+='<div class="ar"><span class="ar-name">time_window</span><span class="ar-lbl">开始</span><input class="ar-in" type="date" value="2026-05-20" style="width:130px"><span class="ar-lbl">结束</span><input class="ar-in" type="date" value="2026-06-05" style="width:130px"></div>';
+  html+='<div class="ar"><span class="ar-name">threshold_ladder</span><span class="ar-lbl">阶梯</span><input class="ar-in" value="1, 3, 5, 7" style="width:100px"><span class="ar-lbl">天</span></div>';
+  html+='<div class="ar"><span class="ar-name">cycle_period</span><span class="ar-lbl">周期</span><select class="ar-sel"><option>每日重置</option><option>每周重置</option><option>不重置</option></select></div>';
+  html+='<div class="ar"><span class="ar-name">continuity_required</span><span class="ar-lbl">需连续</span><div class="ar-tog on" onclick="this.classList.toggle(\'on\')"></div></div>';
+  html+='</div>';
+  // Connector
+  html+='<div class="conn"><span class="conn-pill active">AND</span></div>';
+  // Reward group
+  html+='<div class="atom-grp"><div class="ag-hd"><div class="ag-icon rw">R</div>奖励原子</div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 1</span><input class="ar-in" value="5元券" style="width:60px"><span class="ar-lbl">库存</span><input class="ar-in" value="50000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 2</span><input class="ar-in" value="10元券" style="width:60px"><span class="ar-lbl">库存</span><input class="ar-in" value="30000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 3</span><input class="ar-in" value="15元券" style="width:60px"><span class="ar-lbl">库存</span><input class="ar-in" value="20000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 4</span><input class="ar-in" value="30元券包" style="width:70px"><span class="ar-lbl">库存</span><input class="ar-in" value="10000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_threshold_trigger</span><span class="ar-lbl">触发</span><input class="ar-in" value="与阶梯关联" style="width:90px" readonly></div>';
+  html+='</div>';
+  // Add rule
+  html+='<div class="add-rule">+ 添加规则</div>';
+  document.getElementById('atomBody').innerHTML=html;
+}
+
+/* ===== Back to List (after publish) ===== */
+function backToList(){
+  // Add new task at top
+  if(!tasks.find(function(t){return t.name==='夏日签到乐'})){
+    tasks.unshift({id:99,name:'夏日签到乐',status:'running',type:'连续签到',time:'2026-04-24 21:50',creator:'我',users:0,rate:'0%',rewards:0});
+  }
+  renderTasks();
+  goStep('list');
+}
+
+/* ===== Init ===== */
+renderTasks();
+renderElements();
+renderPhoneCal();
+renderAtoms();
+</script>
+</body>
+</html>

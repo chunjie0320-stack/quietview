@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Native 任务玩法 - 系统三层架构</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  background: #fff; 
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  padding: 40px 30px;
+  color: #333;
+}
+
+/* ===== 标题 ===== */
+.arch-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+.arch-subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 32px;
+}
+
+/* ===== 整体容器 ===== */
+.arch-container {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ===== 阶段容器（drawio风格） ===== */
+.stage {
+  border: 1.5px solid #bbb;
+  border-radius: 4px;
+  background: #fff;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.stage-header {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1.5px solid #bbb;
+  letter-spacing: 1px;
+}
+.stage-body {
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stage-desc {
+  font-size: 10px;
+  color: #888;
+  text-align: center;
+  margin-bottom: 4px;
+  font-style: italic;
+}
+
+/* 阶段颜色 */
+.stage-input .stage-header { background: #E8F5E9; color: #2E7D32; border-color: #A5D6A7; }
+.stage-input { border-color: #A5D6A7; }
+
+.stage-engine .stage-header { background: #FFF3E0; color: #E65100; border-color: #FFCC80; }
+.stage-engine { border-color: #FFCC80; }
+
+.stage-factory .stage-header { background: #E3F2FD; color: #1565C0; border-color: #90CAF9; }
+.stage-factory { border-color: #90CAF9; }
+
+.stage-render .stage-header { background: #F3E5F5; color: #7B1FA2; border-color: #CE93D8; }
+.stage-render { border-color: #CE93D8; }
+
+/* ===== 内部方块 ===== */
+.block {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #FAFAFA;
+  padding: 6px 8px;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.4;
+}
+.block-group {
+  border: 1px dashed #bbb;
+  border-radius: 3px;
+  padding: 6px 6px 8px;
+  background: #FDFDFD;
+}
+.block-group-title {
+  font-size: 10px;
+  color: #777;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.block-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.block-sm {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  background: #fff;
+  padding: 3px 6px;
+  font-size: 10px;
+  color: #555;
+  white-space: nowrap;
+}
+
+/* 高亮块 */
+.block-highlight {
+  border-color: #FF9800;
+  background: #FFF8E1;
+}
+.block-ai {
+  border-color: #7C4DFF;
+  background: #EDE7F6;
+  position: relative;
+}
+.block-ai::before {
+  content: '🤖';
+  position: absolute;
+  top: -2px;
+  right: 2px;
+  font-size: 9px;
+}
+.block-data {
+  border-color: #26A69A;
+  background: #E0F2F1;
+}
+
+/* ===== 箭头连接器 ===== */
+.arrow-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-width: 40px;
+  position: relative;
+  flex-shrink: 0;
+}
+.arrow-connector::before {
+  content: '';
+  width: 24px;
+  height: 1.5px;
+  background: #888;
+}
+.arrow-connector::after {
+  content: '';
+  border: 5px solid transparent;
+  border-left: 7px solid #888;
+  margin-left: -1px;
+}
+.arrow-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -160%);
+  font-size: 9px;
+  color: #999;
+  white-space: nowrap;
+}
+
+/* ===== 底部数据回流 ===== */
+.feedback-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  height: 52px;
+}
+.feedback-line {
+  position: absolute;
+  bottom: 16px;
+  left: 50px;
+  right: 50px;
+  height: 1.5px;
+  background: #78909C;
+}
+.feedback-arrow-left {
+  position: absolute;
+  bottom: 12px;
+  left: 44px;
+  border: 5px solid transparent;
+  border-right: 7px solid #78909C;
+}
+.feedback-label {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #607D8B;
+  background: #fff;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+.feedback-icon {
+  font-size: 12px;
+}
+
+/* ===== 图例 ===== */
+.legend {
+  max-width: 1200px;
+  margin: 24px auto 0;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #777;
+}
+.legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+}
+
+/* ===== 子层标签 ===== */
+.sublayer {
+  font-size: 9px;
+  color: #aaa;
+  text-align: center;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== 内部三层分区（策略引擎内部） ===== */
+.inner-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.inner-layer {
+  border-left: 3px solid;
+  padding: 4px 6px;
+  border-radius: 0 3px 3px 0;
+  background: #FAFAFA;
+}
+.inner-layer-title {
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.il-knowledge { border-color: #FF9800; }
+.il-match { border-color: #2196F3; }
+.il-output { border-color: #4CAF50; }
+
+/* ===== MVP标签 ===== */
+.mvp-tag {
+  display: inline-block;
+  font-size: 8px;
+  background: #FF5722;
+  color: #fff;
+  border-radius: 2px;
+  padding: 1px 4px;
+  vertical-align: middle;
+  margin-left: 3px;
+  font-weight: 600;
+}
+.future-tag {
+  display: inline-block;
+  font-size: 8px;
+  background: #9E9E9E;
+  color: #fff;
+  border-radius: 2px;
+  padding: 1px 4px;
+  vertical-align: middle;
+  margin-left: 3px;
+}
+</style>
+</head>
+<body>
+
+<div class="arch-title">AI Native 任务玩法 · 系统三层架构</div>
+<div class="arch-subtitle">策略引擎 → 玩法工厂 → 呈现层 ｜ 数据回流驱动迭代</div>
+
+<!-- ===== 主架构 ===== -->
+<div class="arch-container">
+
+  <!-- ▌输入层 -->
+  <div class="stage stage-input" style="flex:0.7;">
+    <div class="stage-header">📥 输入</div>
+    <div class="stage-body">
+      <div class="block">运营意图<br><span style="font-size:10px;color:#888;">召回/促活/拉新/提频</span></div>
+      <div class="block">用户画像<br><span style="font-size:10px;color:#888;">Persona标签 × 行为数据</span></div>
+      <div class="block">业务约束<br><span style="font-size:10px;color:#888;">预算 / 券库存 / 时间窗口</span></div>
+    </div>
+    <div class="sublayer">运营侧 · 意图表达</div>
+  </div>
+
+  <div class="arrow-connector">
+    <span class="arrow-label">意图+画像</span>
+  </div>
+
+  <!-- ▌第一层：策略引擎 -->
+  <div class="stage stage-engine" style="flex:1.4;">
+    <div class="stage-header">⚙️ 策略引擎 <span style="font-size:10px;font-weight:400;">— 决定「做什么」</span></div>
+    <div class="stage-body">
+      <div class="inner-layers">
+        <!-- 策略知识层 -->
+        <div class="inner-layer il-knowledge">
+          <div class="inner-layer-title">📚 策略知识层 <span style="font-size:9px;font-weight:400;color:#999;">（弹药库）</span></div>
+          <div class="block-row">
+            <div class="block-sm block-data">历史活动效果数据</div>
+            <div class="block-sm block-data">运营经验规则</div>
+            <div class="block-sm block-data">行业Best Practice</div>
+          </div>
+        </div>
+        <!-- 策略匹配层 -->
+        <div class="inner-layer il-match">
+          <div class="inner-layer-title">🧠 策略匹配层 <span style="font-size:9px;font-weight:400;color:#999;">（大脑）</span></div>
+          <div class="block-row">
+            <div class="block-sm">规则匹配 <span class="mvp-tag">MVP</span></div>
+            <div class="block-sm block-ai">AI模型推荐 <span class="future-tag">长期</span></div>
+          </div>
+          <div style="font-size:9px;color:#999;text-align:center;margin-top:3px;">
+            意图×画像 → 最优策略参数组合
+          </div>
+        </div>
+        <!-- 策略输出层 -->
+        <div class="inner-layer il-output">
+          <div class="inner-layer-title">📤 策略输出层 <span style="font-size:9px;font-weight:400;color:#999;">（结论）</span></div>
+          <div class="block-row">
+            <div class="block-sm">激励力度</div>
+            <div class="block-sm">行为链长度</div>
+            <div class="block-sm">触达时机</div>
+            <div class="block-sm">门槛梯度</div>
+            <div class="block-sm">循环周期</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sublayer">体 · 能力层</div>
+  </div>
+
+  <div class="arrow-connector">
+    <span class="arrow-label">参数组合</span>
+  </div>
+
+  <!-- ▌第二层：玩法工厂 -->
+  <div class="stage stage-factory" style="flex:1.2;">
+    <div class="stage-header">🏭 玩法工厂 <span style="font-size:10px;font-weight:400;">— 决定「怎么做」</span></div>
+    <div class="stage-body">
+      <div class="block-group">
+        <div class="block-group-title">玩法模板库（半成品仓库）</div>
+        <div class="block-row">
+          <div class="block-sm">签到打卡</div>
+          <div class="block-sm">消费满返</div>
+          <div class="block-sm">阶梯奖励</div>
+          <div class="block-sm">限时挑战</div>
+        </div>
+      </div>
+      <div class="block" style="margin-top:4px;">
+        <strong>行为链编排</strong><br>
+        <span style="font-size:10px;color:#888;">模板 + 策略参数 → 具体玩法实例</span>
+      </div>
+      <div class="block-group" style="margin-top:4px;">
+        <div class="block-group-title">原子能力（8大类）</div>
+        <div class="block-row">
+          <div class="block-sm">行为事件</div>
+          <div class="block-sm">达成规则</div>
+          <div class="block-sm">奖励类型</div>
+          <div class="block-sm">触达时机</div>
+        </div>
+        <div class="block-row" style="margin-top:3px;">
+          <div class="block-sm">文案模板</div>
+          <div class="block-sm">人群条件</div>
+          <div class="block-sm">循环周期</div>
+          <div class="block-sm">呈现形态</div>
+        </div>
+      </div>
+    </div>
+    <div class="sublayer">体 · 能力层</div>
+  </div>
+
+  <div class="arrow-connector">
+    <span class="arrow-label">玩法实例</span>
+  </div>
+
+  <!-- ▌第三层：呈现层 -->
+  <div class="stage stage-render" style="flex:1.0;">
+    <div class="stage-header">🎨 呈现层 <span style="font-size:10px;font-weight:400;">— 决定「看起来像什么」</span></div>
+    <div class="stage-body">
+      <div class="block">
+        <strong>选形态</strong><br>
+        <span style="font-size:10px;color:#888;">签到日历 / 进度条 / 任务列表 / 卡片</span>
+      </div>
+      <div class="block">
+        <strong>选风格</strong><br>
+        <span style="font-size:10px;color:#888;">配色 / 主题 / 节日氛围</span>
+      </div>
+      <div class="block block-ai">
+        <strong>选文案</strong><br>
+        <span style="font-size:10px;color:#888;">AI千人千面文案生成</span>
+      </div>
+      <div class="block-group" style="margin-top:2px;">
+        <div class="block-group-title">高达样式参考</div>
+        <div class="block-row">
+          <div class="block-sm">签到组件</div>
+          <div class="block-sm">进度条</div>
+          <div class="block-sm">弹窗</div>
+        </div>
+      </div>
+    </div>
+    <div class="sublayer">用 · 呈现层</div>
+  </div>
+
+</div>
+
+<!-- ===== 数据回流 ===== -->
+<div class="feedback-bar">
+  <div class="feedback-line"></div>
+  <div class="feedback-arrow-left"></div>
+  <div class="feedback-label"><span class="feedback-icon">🔄</span> 效果数据回流 · 策略知识沉淀（签到率 / 转化率 / ROI → 知识层更新）</div>
+</div>
+
+<!-- ===== 图例 ===== -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-box" style="background:#E0F2F1;border-color:#26A69A;"></div>数据/知识</div>
+  <div class="legend-item"><div class="legend-box" style="background:#EDE7F6;border-color:#7C4DFF;"></div>AI能力</div>
+  <div class="legend-item"><div class="legend-box" style="background:#FFF8E1;border-color:#FF9800;"></div>高亮模块</div>
+  <div class="legend-item"><span class="mvp-tag">MVP</span> 一期实现</div>
+  <div class="legend-item"><span class="future-tag">长期</span> 后续迭代</div>
+  <div class="legend-item" style="color:#aaa;">体=策略引擎+玩法工厂 ｜ 用=呈现层</div>
+</div>
+
+</body>
+</html>

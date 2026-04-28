@@ -1,0 +1,318 @@
+{
+  "meta": {
+    "name": "AI任务系统设计规范",
+    "version": "1.0.0",
+    "author": "设计总监",
+    "date": "2026-04-24",
+    "description": "美团AI任务系统Demo的完整UI设计规范，基于美团暖色系B端运营工具风格"
+  },
+  "colors": {
+    "primary": "#FFC107",
+    "primaryDark": "#FFA000",
+    "primaryLight": "#FFF3CD",
+    "primaryHover": "#FFD54F",
+    "secondary": "#FF6F00",
+    "secondaryLight": "#FFE0B2",
+    "background": "#F7F8FA",
+    "surface": "#FFFFFF",
+    "surfaceHover": "#FAFBFC",
+    "surfaceActive": "#FFF8E1",
+    "border": "#E8E8E8",
+    "borderLight": "#F0F0F0",
+    "borderFocus": "#FFC107",
+    "text": "#1D2129",
+    "textSecondary": "#86909C",
+    "textTertiary": "#C9CDD4",
+    "textLink": "#FF6F00",
+    "success": "#00B42A",
+    "successLight": "#E8FFEA",
+    "warning": "#FF7D00",
+    "warningLight": "#FFF3E8",
+    "error": "#F53F3F",
+    "errorLight": "#FFECE8",
+    "info": "#3491FA",
+    "infoLight": "#E8F3FF",
+    "tagDraft": "#C9CDD4",
+    "tagRunning": "#00B42A",
+    "tagPaused": "#FF7D00",
+    "tagEnded": "#86909C"
+  },
+  "typography": {
+    "fontFamily": "-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "headingFont": "-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "sizes": {
+      "h1": "24px",
+      "h2": "20px",
+      "h3": "16px",
+      "body": "14px",
+      "small": "12px",
+      "caption": "11px"
+    },
+    "lineHeights": {
+      "h1": "32px",
+      "h2": "28px",
+      "h3": "24px",
+      "body": "22px",
+      "small": "20px",
+      "caption": "16px"
+    },
+    "fontWeights": {
+      "bold": 600,
+      "medium": 500,
+      "regular": 400
+    }
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "xxl": "48px"
+  },
+  "borderRadius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "12px",
+    "full": "9999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0, 0, 0, 0.06)",
+    "md": "0 4px 12px rgba(0, 0, 0, 0.08)",
+    "lg": "0 8px 24px rgba(0, 0, 0, 0.12)"
+  },
+  "layout": {
+    "pageMaxWidth": "1440px",
+    "sidebarWidth": "240px",
+    "contentPadding": "24px",
+    "headerHeight": "56px",
+    "tabBarHeight": "48px",
+    "leftPanelWidth": "55%",
+    "rightPanelWidth": "45%",
+    "chatPanelWidth": "400px",
+    "phonePreviewWidth": "375px",
+    "phonePreviewHeight": "667px"
+  },
+  "components": {
+    "taskCard": {
+      "description": "任务列表中的任务卡片，展示任务名称、类型、状态、关键指标和操作按钮",
+      "layout": "水平卡片布局，左侧状态色条(4px宽) + 主体内容区。主体分三行：第一行=任务名称(h3加粗)+状态Tag(圆角胶囊)；第二行=任务类型标签+创建时间+创建人；第三行=关键指标横排(参与人数/完成率/奖励发放)。右侧固定操作区：编辑/暂停/复制/删除。卡片间距12px，悬停时border变为primaryLight，加md阴影。",
+      "states": ["draft", "running", "paused", "ended"],
+      "stateStyles": {
+        "draft": { "color": "#C9CDD4", "bgColor": "#F7F8FA", "label": "草稿" },
+        "running": { "color": "#00B42A", "bgColor": "#E8FFEA", "label": "运行中" },
+        "paused": { "color": "#FF7D00", "bgColor": "#FFF3E8", "label": "已暂停" },
+        "ended": { "color": "#86909C", "bgColor": "#F2F3F5", "label": "已结束" }
+      },
+      "dimensions": {
+        "minHeight": "96px",
+        "padding": "16px 20px",
+        "statusBarWidth": "4px",
+        "gap": "12px"
+      }
+    },
+    "atomConfigPanel": {
+      "description": "原子配置面板，参考人群圈选的卡片化条件组布局，用于展示和编辑策略引擎生成的原子规则",
+      "layout": "左右分栏布局。左栏为条件组区域：每个条件组是一张白色卡片(md圆角+sm阴影)，内含多个原子规则行。原子规则行=可折叠卡片，左侧图标+规则类型标签，中间为参数编辑区(inline表单)，右侧删除按钮。条件组之间用AND/OR连接器(圆角胶囊按钮，点击切换)。底部'+添加规则'按钮(虚线边框)。右栏为规则摘要/预览区。",
+      "features": [
+        "卡片化原子展示：每个原子规则为独立可编辑卡片，支持折叠/展开",
+        "条件组AND/OR：组间逻辑切换器，胶囊按钮样式，primary色高亮选中态",
+        "参数可编辑：原子卡片展开后内嵌表单（输入框/下拉/数字步进器），编辑态border变为primaryFocus",
+        "+添加规则：虚线边框按钮，hover时变为primaryLight填充",
+        "拖拽排序：原子卡片支持拖拽手柄调整顺序",
+        "规则校验：不合规参数红色边框+errorLight底色提示"
+      ],
+      "dimensions": {
+        "cardPadding": "16px",
+        "ruleRowHeight": "48px",
+        "connectorSize": "32px",
+        "groupGap": "16px"
+      }
+    },
+    "aiChatPanel": {
+      "description": "AI对话面板，运营与AI对话配置任务的主交互区域",
+      "layout": "经典IM对话布局，固定宽度400px。顶部标题栏(AI助手名称+状态指示灯)。中间消息流区域：AI消息靠左(浅灰底#F2F3F5圆角气泡)，用户消息靠右(primaryLight底色圆角气泡)。AI消息可内嵌结构化卡片(要素收集卡片/策略摘要卡片)。底部固定输入区：圆角输入框+发送按钮(primary色圆形)。支持快捷指令提示(输入/触发)。",
+      "dimensions": {
+        "width": "400px",
+        "headerHeight": "48px",
+        "inputAreaHeight": "64px",
+        "messageBubbleMaxWidth": "85%",
+        "messageBubbleRadius": "12px",
+        "messageGap": "16px"
+      }
+    },
+    "requirementCard": {
+      "description": "要素收集卡片，嵌入AI对话中展示6个核心要素的收集进度",
+      "layout": "嵌入气泡的结构化卡片(白底+md圆角+sm阴影)。卡片标题'任务要素'。内部2行3列网格布局，共6个要素格子。每个格子=圆形图标(24px)+要素名称+状态。未收集态：图标灰色(#C9CDD4)+虚线边框；已收集态：图标亮灯(primary色)+实线边框+填充primaryLight底色，微弹跳动画。6个要素：活动类型、目标人群、奖励方式、时间周期、触发条件、预算上限。底部进度条：已收集数/总数，primary色填充。",
+      "elements": [
+        { "key": "activityType", "label": "活动类型", "icon": "🎯" },
+        { "key": "targetAudience", "label": "目标人群", "icon": "👥" },
+        { "key": "rewardType", "label": "奖励方式", "icon": "🎁" },
+        { "key": "timePeriod", "label": "时间周期", "icon": "📅" },
+        { "key": "triggerCondition", "label": "触发条件", "icon": "⚡" },
+        { "key": "budgetLimit", "label": "预算上限", "icon": "💰" }
+      ],
+      "dimensions": {
+        "cardPadding": "16px",
+        "gridGap": "12px",
+        "elementSize": "80px",
+        "iconSize": "24px",
+        "progressBarHeight": "4px"
+      }
+    },
+    "thinkingPanel": {
+      "description": "策略Thinking打字机面板，展示AI策略引擎的推理过程",
+      "layout": "全宽展开面板(白底+左侧4px primary色条)。顶部=折叠/展开按钮+'策略推理中...'标题+旋转加载图标。内容区=等宽字体(monospace)打字机效果逐字输出，模拟思考过程。文字颜色textSecondary，关键词(原子名称/参数值)高亮为primary色加粗。底部=推理耗时统计+原子数量汇总。展开/折叠有平滑高度过渡动画(300ms ease)。",
+      "dimensions": {
+        "padding": "16px 20px",
+        "statusBarWidth": "4px",
+        "lineHeight": "24px",
+        "maxHeight": "320px",
+        "typingSpeed": "30ms/char"
+      },
+      "textStyle": {
+        "fontFamily": "'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace",
+        "fontSize": "13px",
+        "color": "#86909C",
+        "highlightColor": "#FFC107"
+      }
+    },
+    "phonePreview": {
+      "description": "C端手机模拟器，实时预览生成的营销活动页面效果",
+      "layout": "居中放置的手机外壳模拟器(375x667 iPhone比例)。外壳=深灰色圆角边框(borderRadius 40px)+顶部刘海槽位模拟。内部iframe或组件渲染区，展示C端活动页面。底部操作栏：刷新按钮+设备切换(iPhone/Android)+横竖屏切换。手机壳外左上角='C端预览'标题标签。",
+      "dimensions": {
+        "frameWidth": "375px",
+        "frameHeight": "667px",
+        "shellPadding": "12px",
+        "shellBorderRadius": "40px",
+        "shellColor": "#1D2129",
+        "notchWidth": "120px",
+        "notchHeight": "24px",
+        "toolbarHeight": "40px"
+      }
+    },
+    "queryTable": {
+      "description": "信息查询表格，用于Tab2的用户查询/任务维度查询/事件流水展示",
+      "layout": "标准B端数据表格。顶部筛选栏=搜索框(左)+筛选器组(标签式多选，参考人群圈选的标签筛选器样式)+日期范围选择器+导出按钮(右)。表格区域=固定表头+斑马纹行(奇数行白色，偶数行#FAFBFC)+行悬停态(surfaceHover)。列支持排序(表头箭头)+固定列(左侧ID列/右侧操作列)。底部分页器：页码+每页条数选择+总数统计。空状态=居中插画+文案。",
+      "dimensions": {
+        "headerHeight": "48px",
+        "rowHeight": "52px",
+        "filterBarHeight": "56px",
+        "cellPadding": "12px 16px",
+        "paginationHeight": "48px"
+      },
+      "filterStyles": {
+        "searchWidth": "280px",
+        "tagHeight": "28px",
+        "tagBorderRadius": "14px",
+        "activeTagBg": "#FFF3CD",
+        "activeTagBorder": "#FFC107"
+      }
+    },
+    "statsCard": {
+      "description": "统计指标卡片，展示任务维度的核心数据指标",
+      "layout": "横排等宽卡片组(一行4个)。每张卡片=白底+sm圆角+sm阴影。内部上下布局：上方=指标标题(small字号textSecondary)+趋势箭头(绿涨红跌)；下方=核心数值(h2字号加粗text色)+环比变化百分比(small字号)。卡片左侧可选装饰色条(4px宽，按指标类型着色)。悬停时lg阴影+微上移(translateY -2px)过渡。",
+      "dimensions": {
+        "height": "108px",
+        "padding": "16px 20px",
+        "gap": "16px",
+        "decorBarWidth": "4px",
+        "gridColumns": 4
+      }
+    },
+    "funnelChart": {
+      "description": "漏斗图组件，展示任务转化各环节的流转数据",
+      "layout": "居中漏斗图+右侧数据标注。漏斗层级：曝光→点击→参与→完成→领奖，每层颜色从primaryLight渐变到primaryDark(由浅到深)。每层右侧标注=阶段名称+绝对数值+转化率百分比。层与层之间的转化率用连接线+百分比标注。底部汇总栏=总转化率(大字加粗)+对比基准。支持hover高亮单层+tooltip详情。",
+      "stages": [
+        { "key": "exposure", "label": "曝光", "color": "#FFF3CD" },
+        { "key": "click", "label": "点击", "color": "#FFE082" },
+        { "key": "participate", "label": "参与", "color": "#FFD54F" },
+        { "key": "complete", "label": "完成", "color": "#FFC107" },
+        { "key": "reward", "label": "领奖", "color": "#FFA000" }
+      ],
+      "dimensions": {
+        "width": "100%",
+        "maxWidth": "600px",
+        "stageHeight": "56px",
+        "stageGap": "4px",
+        "labelOffset": "24px",
+        "topWidth": "100%",
+        "bottomWidth": "40%"
+      }
+    },
+    "tabBar": {
+      "description": "顶部Tab切换栏（任务列表/信息查询）",
+      "layout": "水平Tab栏，底部border分割线。Tab项=文字标签+底部指示条(选中态primary色3px下划线)。未选中态textSecondary色，选中态text色加粗。Tab间距32px。右侧可放置全局操作按钮。",
+      "dimensions": {
+        "height": "48px",
+        "indicatorHeight": "3px",
+        "tabGap": "32px",
+        "padding": "0 24px"
+      }
+    },
+    "button": {
+      "description": "通用按钮规范",
+      "variants": {
+        "primary": { "bg": "#FFC107", "text": "#1D2129", "hoverBg": "#FFD54F", "borderRadius": "8px" },
+        "secondary": { "bg": "#FFFFFF", "text": "#1D2129", "border": "#E8E8E8", "hoverBg": "#FAFBFC", "borderRadius": "8px" },
+        "text": { "bg": "transparent", "text": "#FF6F00", "hoverBg": "#FFF8E1" },
+        "danger": { "bg": "#F53F3F", "text": "#FFFFFF", "hoverBg": "#F76560", "borderRadius": "8px" }
+      },
+      "sizes": {
+        "lg": { "height": "40px", "padding": "0 24px", "fontSize": "14px" },
+        "md": { "height": "32px", "padding": "0 16px", "fontSize": "14px" },
+        "sm": { "height": "24px", "padding": "0 12px", "fontSize": "12px" }
+      }
+    },
+    "input": {
+      "description": "通用输入框规范",
+      "styles": {
+        "height": "32px",
+        "padding": "4px 12px",
+        "borderRadius": "8px",
+        "border": "1px solid #E8E8E8",
+        "focusBorder": "1px solid #FFC107",
+        "focusShadow": "0 0 0 2px rgba(255, 193, 7, 0.2)",
+        "placeholder": "#C9CDD4",
+        "fontSize": "14px"
+      }
+    },
+    "tag": {
+      "description": "标签/徽章规范",
+      "styles": {
+        "height": "22px",
+        "padding": "0 8px",
+        "borderRadius": "11px",
+        "fontSize": "12px",
+        "fontWeight": 500
+      }
+    }
+  },
+  "animations": {
+    "transition": {
+      "fast": "150ms ease",
+      "normal": "300ms ease",
+      "slow": "500ms ease"
+    },
+    "hover": {
+      "cardLift": "transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12);",
+      "duration": "300ms"
+    },
+    "typing": {
+      "cursorBlink": "1s step-end infinite",
+      "charDelay": "30ms"
+    },
+    "elementLit": {
+      "description": "要素亮灯时的微弹跳动画",
+      "keyframes": "0%{transform:scale(0.8);opacity:0} 50%{transform:scale(1.1)} 100%{transform:scale(1);opacity:1}",
+      "duration": "400ms",
+      "easing": "cubic-bezier(0.68, -0.55, 0.27, 1.55)"
+    }
+  },
+  "zIndex": {
+    "dropdown": 1000,
+    "modal": 1050,
+    "toast": 1100,
+    "tooltip": 1200
+  }
+}

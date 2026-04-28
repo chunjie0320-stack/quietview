@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任务中心运营配置 · AI Native</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #070B14;
+  --bg-secondary: #0D1526;
+  --bg-card: #111C35;
+  --border-subtle: rgba(99,179,237,0.15);
+  --accent-blue: #63B3ED;
+  --accent-cyan: #4FD1C5;
+  --accent-green: #68D391;
+  --accent-yellow: #F6E05E;
+  --accent-red: #FC8181;
+  --text-primary: #E2E8F0;
+  --text-secondary: #A0AEC0;
+  --text-muted: #4A5568;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ===== LAYOUT ===== */
+.app-container {
+  display: flex;
+  height: 100vh;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ===== LEFT PANEL ===== */
+.left-panel {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+/* Header */
+.chat-header {
+  padding: 20px 28px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, rgba(13,21,38,0.95) 0%, transparent 100%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 0 16px rgba(99,179,237,0.4);
+}
+
+.header-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(99,179,237,0.08);
+  border: 1px solid rgba(99,179,237,0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--accent-cyan);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse-green 2s infinite;
+}
+
+/* Messages */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(99,179,237,0.2);
+  border-radius: 2px;
+}
+
+/* Message bubble */
+.message-row {
+  display: flex;
+  gap: 10px;
+  animation: slideInUp 0.35s cubic-bezier(0.22,0.61,0.36,1) both;
+}
+
+.message-row.user-row {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.avatar.ai-avatar {
+  background: linear-gradient(135deg, #1a2d5a, #0d2040);
+  border: 1px solid rgba(99,179,237,0.3);
+  box-shadow: 0 0 12px rgba(99,179,237,0.15);
+}
+
+.avatar.user-avatar {
+  background: linear-gradient(135deg, #1a3a2a, #0d2820);
+  border: 1px solid rgba(104,211,145,0.3);
+}
+
+.bubble {
+  max-width: 78%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+.bubble.ai-bubble {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-top-left-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(99,179,237,0.04);
+}
+
+.bubble.user-bubble {
+  background: linear-gradient(135deg, rgba(99,179,237,0.12), rgba(79,209,197,0.08));
+  border: 1px solid rgba(99,179,237,0.25);
+  border-top-right-radius: 4px;
+}
+
+.bubble-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Loading dots */
+.loading-bubble {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 18px;
+}
+
+.dot-jump {
+  width: 7px;
+  height: 7px;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  animation: dotJump 1.2s infinite ease-in-out;
+}
+.dot-jump:nth-child(2) { animation-delay: 0.2s; }
+.dot-jump:nth-child(3) { animation-delay: 0.4s; }
+
+/* Quick phrases */
+.quick-phrases {
+  padding: 12px 28px 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.phrase-chip {
+  padding: 6px 12px;
+  background: rgba(99,179,237,0.06);
+  border: 1px solid rgba(99,179,237,0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phrase-chip:hover {
+  background: rgba(99,179,237,0.15);
+  border-color: rgba(99,179,237,0.4);
+  box-shadow: 0 0 10px rgba(99,179,237,0.15);
+}
+
+/* Input area */
+.chat-input-area {
+  padding: 14px 28px 20px;
+  flex-shrink: 0;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 10px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: rgba(99,179,237,0.4);
+  box-shadow: 0 0 0 3px rgba(99,179,237,0.07), 0 0 20px rgba(99,179,237,0.08);
+}
+
+#chatInput {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  min-height: 22px;
+  max-height: 120px;
+}
+
+#chatInput::placeholder {
+  color: var(--text-muted);
+}
+
+.send-btn {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.send-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.send-btn:hover::after {
+  transform: translateX(100%);
+}
+
+.send-btn:hover {
+  box-shadow: 0 0 16px rgba(99,179,237,0.5);
+  transform: translateY(-1px);
+}
+
+.send-btn:active {
+  transform: translateY(0);
+}
+
+.send-icon {
+  fill: white;
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== RIGHT PANEL ===== */
+.right-panel {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  overflow-y: auto;
+}
+
+.right-panel::-webkit-scrollbar {
+  width: 4px;
+}
+.right-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.right-panel::-webkit-scrollbar-thumb {
+  background: rgba(99,179,237,0.15);
+  border-radius: 2px;
+}
+
+.right-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.right-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.right-title-icon {
+  font-size: 17px;
+}
+
+.config-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* Elements card */
+.elements-card {
+  margin: 20px 24px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.elements-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(99,179,237,0.2), transparent, rgba(79,209,197,0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.elements-card-header {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.element-row {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.element-row:last-child {
+  border-bottom: none;
+}
+
+.element-row:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.element-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.element-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.element-name {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.element-label {
+  font-weight: 600;
+}
+
+.status-lamp {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.status-lamp.red {
+  background: var(--accent-red);
+  box-shadow: 0 0 6px rgba(252,129,129,0.6);
+  animation: blinkSlow 2s infinite;
+}
+
+.status-lamp.yellow {
+  background: var(--accent-yellow);
+  box-shadow: 0 0 6px rgba(246,224,94,0.5);
+}
+
+.status-lamp.green {
+  background: var(--accent-green);
+  box-shadow: 0 0 8px rgba(104,211,145,0.6);
+  animation: pulse-green 2s infinite;
+}
+
+.element-value {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+  word-break: break-all;
+}
+
+.element-value.empty {
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.element-value:hover {
+  border-color: var(--border-subtle);
+  background: rgba(255,255,255,0.03);
+}
+
+.element-value.editing {
+  border-color: rgba(99,179,237,0.4);
+  background: rgba(99,179,237,0.05);
+  outline: none;
+}
+
+.element-suggestion {
+  font-size: 11px;
+  color: var(--accent-yellow);
+  margin-top: 4px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.element-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.adopt-btn {
+  padding: 4px 10px;
+  background: rgba(246,224,94,0.1);
+  border: 1px solid rgba(246,224,94,0.35);
+  border-radius: 6px;
+  color: var(--accent-yellow);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.adopt-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(246,224,94,0.2) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.adopt-btn:hover::after {
+  transform: translateX(100%);
+}
+
+.adopt-btn:hover {
+  background: rgba(246,224,94,0.18);
+  box-shadow: 0 0 10px rgba(246,224,94,0.25);
+}
+
+/* Stats card */
+.stats-card {
+  margin: 16px 24px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(79,209,197,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.stats-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stats-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stats-value .unit {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.stats-empty {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Budget warning */
+.budget-warning {
+  margin: 12px 24px 0;
+  padding: 12px 16px;
+  background: rgba(252,129,129,0.08);
+  border: 1px solid rgba(252,129,129,0.25);
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--accent-red);
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.budget-warning.show {
+  display: flex;
+}
+
+.warning-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Submit button */
+.submit-area {
+  padding: 20px 24px 28px;
+  margin-top: auto;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: not-allowed;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+}
+
+.submit-btn.disabled {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.submit-btn.active {
+  background: linear-gradient(135deg, #2d7a4f, #1a5c3a);
+  color: var(--accent-green);
+  border: 1px solid rgba(104,211,145,0.3);
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(104,211,145,0.25), 0 0 50px rgba(104,211,145,0.08);
+  animation: glowGreen 2s infinite;
+}
+
+.submit-btn.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(104,211,145,0.2) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.submit-btn.active:hover::after {
+  transform: translateX(100%);
+}
+
+.submit-btn.active:hover {
+  box-shadow: 0 0 32px rgba(104,211,145,0.4), 0 0 60px rgba(104,211,145,0.12);
+  transform: translateY(-1px);
+}
+
+/* Progress bar */
+.progress-bar-wrapper {
+  margin: 14px 24px 0;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.progress-track {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.22,0.61,0.36,1);
+  box-shadow: 0 0 8px rgba(79,209,197,0.4);
+}
+
+/* Success modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7,11,20,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.modal-overlay.show {
+  display: flex;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(104,211,145,0.3);
+  border-radius: 20px;
+  padding: 36px 40px;
+  max-width: 520px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 0 60px rgba(104,211,145,0.12), 0 20px 60px rgba(0,0,0,0.5);
+  animation: scaleIn 0.35s cubic-bezier(0.22,0.61,0.36,1);
+}
+
+.modal-success-icon {
+  text-align: center;
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-green);
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.modal-summary {
+  background: rgba(104,211,145,0.05);
+  border: 1px solid rgba(104,211,145,0.15);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.8;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 24px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.modal-close {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(104,211,145,0.15), rgba(79,209,197,0.1));
+  border: 1px solid rgba(104,211,145,0.3);
+  border-radius: 10px;
+  color: var(--accent-green);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(104,211,145,0.2);
+  box-shadow: 0 0 16px rgba(104,211,145,0.2);
+}
+
+/* Task ID badge */
+.task-id-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: rgba(79,209,197,0.08);
+  border: 1px solid rgba(79,209,197,0.2);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent-cyan);
+  margin-bottom: 16px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dotJump {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-8px); opacity: 1; }
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 6px rgba(104,211,145,0.5); }
+  50% { box-shadow: 0 0 14px rgba(104,211,145,0.9); }
+}
+
+@keyframes blinkSlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes glowGreen {
+  0%, 100% { box-shadow: 0 0 24px rgba(104,211,145,0.25); }
+  50% { box-shadow: 0 0 36px rgba(104,211,145,0.45); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Inline edit field */
+input.inline-edit {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--accent-blue);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  padding: 2px 4px;
+}
+
+.system-msg {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  padding: 4px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- ===== LEFT PANEL ===== -->
+  <div class="left-panel">
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="logo-mark">🎯</div>
+        <div>
+          <div class="header-title">任务中心运营配置</div>
+          <div class="header-subtitle">AI Native · 健康业务</div>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="status-badge">
+          <div class="status-dot"></div>
+          Friday API · 就绪
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="system-msg">— 会话开始 —</div>
+      <div class="message-row">
+        <div class="avatar ai-avatar">🤖</div>
+        <div>
+          <div class="bubble ai-bubble">
+            你好！我是美团健康业务 AI 运营配置助手。<br><br>
+            请告诉我你的推送策略需求，例如目标人群、激励方式、触达时间和预算，我会帮你快速完成配置。<br><br>
+            你可以直接描述，也可以点击下方的快捷短语开始 👇
+          </div>
+          <div class="bubble-meta">AI 助手 · 刚刚</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-phrases" id="quickPhrases">
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">五一节前，推送给近3个月没来过的艾灸用户</div>
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">新用户首单推拿，激励ID：PKG_20240501</div>
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">本月复购率低于2次的用户，发按摩优惠券</div>
+      <div class="phrase-chip" onclick="sendQuickPhrase(this)">下周一早上推送给流失超60天的高价值用户</div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="input-wrapper">
+        <textarea id="chatInput" placeholder="描述你的推送策略需求..." rows="1"></textarea>
+        <button class="send-btn" onclick="handleSend()" title="发送">
+          <svg class="send-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RIGHT PANEL ===== -->
+  <div class="right-panel">
+    <div class="right-header">
+      <div class="right-title">
+        <span class="right-title-icon">⚙️</span>
+        要素配置卡
+      </div>
+      <div class="config-id" id="configId">CFG-DRAFT</div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-bar-wrapper">
+      <div class="progress-label">
+        <span>配置完成度</span>
+        <span id="progressText">0 / 5 要素已确认</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Elements Card -->
+    <div class="elements-card">
+      <div class="elements-card-header">推送策略要素</div>
+
+      <!-- A5: target_audience -->
+      <div class="element-row" id="row-target_audience">
+        <div class="element-icon">👥</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">目标人群</span>
+            <span class="status-lamp red" id="lamp-target_audience"></span>
+          </div>
+          <div class="element-value empty" id="val-target_audience" onclick="startEdit('target_audience', this)">未配置</div>
+          <div class="element-suggestion" id="sug-target_audience" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-target_audience" style="display:none" onclick="adoptSuggestion('target_audience')">采用</button>
+        </div>
+      </div>
+
+      <!-- A4: incentive_id -->
+      <div class="element-row" id="row-incentive_id">
+        <div class="element-icon">🎁</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">激励方案</span>
+            <span class="status-lamp red" id="lamp-incentive_id"></span>
+          </div>
+          <div class="element-value empty" id="val-incentive_id" onclick="startEdit('incentive_id', this)">未配置</div>
+          <div class="element-suggestion" id="sug-incentive_id" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-incentive_id" style="display:none" onclick="adoptSuggestion('incentive_id')">采用</button>
+        </div>
+      </div>
+
+      <!-- A1: trigger_time -->
+      <div class="element-row" id="row-trigger_time">
+        <div class="element-icon">⏰</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">触达时间</span>
+            <span class="status-lamp red" id="lamp-trigger_time"></span>
+          </div>
+          <div class="element-value empty" id="val-trigger_time" onclick="startEdit('trigger_time', this)">未配置</div>
+          <div class="element-suggestion" id="sug-trigger_time" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-trigger_time" style="display:none" onclick="adoptSuggestion('trigger_time')">采用</button>
+        </div>
+      </div>
+
+      <!-- A6: budget -->
+      <div class="element-row" id="row-budget">
+        <div class="element-icon">💰</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">预算上限</span>
+            <span class="status-lamp red" id="lamp-budget"></span>
+          </div>
+          <div class="element-value empty" id="val-budget" onclick="startEdit('budget', this)">未配置</div>
+          <div class="element-suggestion" id="sug-budget" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-budget" style="display:none" onclick="adoptSuggestion('budget')">采用</button>
+        </div>
+      </div>
+
+      <!-- channel -->
+      <div class="element-row" id="row-channel">
+        <div class="element-icon">📡</div>
+        <div class="element-body">
+          <div class="element-name">
+            <span class="element-label">触达方式</span>
+            <span class="status-lamp red" id="lamp-channel"></span>
+          </div>
+          <div class="element-value empty" id="val-channel" onclick="startEdit('channel', this)">未配置</div>
+          <div class="element-suggestion" id="sug-channel" style="display:none"></div>
+        </div>
+        <div class="element-actions">
+          <button class="adopt-btn" id="adopt-channel" style="display:none" onclick="adoptSuggestion('channel')">采用</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-card">
+      <div class="stats-label">预估触达人数</div>
+      <div id="statsValue">
+        <div class="stats-empty">待 AI 分析人群后更新</div>
+      </div>
+    </div>
+
+    <!-- Budget warning -->
+    <div class="budget-warning" id="budgetWarning">
+      <span class="warning-icon">⚠️</span>
+      <span id="budgetWarningText"></span>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button class="submit-btn disabled" id="submitBtn" onclick="handleSubmit()">
+        🔒 全部要素确认后可启动
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card">
+    <div class="modal-success-icon">🚀</div>
+    <div class="modal-title">推送策略已启动！</div>
+    <div class="modal-subtitle">配置已提交，系统正在调度执行</div>
+    <div class="task-id-badge" id="modalTaskId">TASK-XXXXXX</div>
+    <div class="modal-summary" id="modalSummary">正在生成决策摘要...</div>
+    <button class="modal-close" onclick="closeModal()">关闭，继续配置</button>
+  </div>
+</div>
+
+<script>
+// ===== CONFIG =====
+const FRIDAY_APP_ID = "22037445065107296341";
+const FRIDAY_ENDPOINT = "https://aigc.sankuai.com/v1/openai/native/chat/completions";
+
+const SYSTEM_PROMPT = `你是一个美团健康业务的AI运营配置助手。你的任务是帮助运营人员配置健康任务推送策略。
+
+当运营输入需求时，你需要：
+1. 识别并提取以下要素：目标人群、激励方式（激励ID）、触达时间、预算上限、触达方式
+2. 对于缺失的要素，主动追问或给出建议
+3. 对于模糊的人群描述，建议Persona标签方案（如"近30天无消费+有过推拿记录"）
+4. 回复格式为JSON，结构如下：
+
+{
+  "reply": "给运营看的自然语言回复",
+  "elements": {
+    "target_audience": {"value": "描述或null", "status": "green|yellow|red", "suggestion": "AI建议（黄色时有）"},
+    "incentive_id": {"value": "ID或null", "status": "green|yellow|red", "suggestion": "AI建议"},
+    "trigger_time": {"value": "时间描述或null", "status": "green|yellow|red", "suggestion": "AI建议"},
+    "budget": {"value": "金额或null", "status": "green|yellow|red", "suggestion": "AI建议"},
+    "channel": {"value": "触达方式或null", "status": "green|yellow|red", "suggestion": "AI建议"}
+  },
+  "estimated_users": "预估人数（如'约12万人'）或null",
+  "budget_warning": "预算警告信息或null"
+}
+
+注意：只输出JSON，不要有任何多余文字。`;
+
+// ===== STATE =====
+let elements = {
+  target_audience: { value: null, status: 'red', suggestion: null },
+  incentive_id: { value: null, status: 'red', suggestion: null },
+  trigger_time: { value: null, status: 'red', suggestion: null },
+  budget: { value: null, status: 'red', suggestion: null },
+  channel: { value: null, status: 'red', suggestion: null }
+};
+let conversationHistory = [];
+let isLoading = false;
+
+// ===== FRIDAY API =====
+async function callFriday(messages) {
+  const resp = await fetch(FRIDAY_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${FRIDAY_APP_ID}`
+    },
+    body: JSON.stringify({
+      model: "LongCat-Flash-Chat",
+      messages,
+      temperature: 0.3,
+      max_tokens: 800
+    })
+  });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  const data = await resp.json();
+  return data.choices[0].message.content;
+}
+
+// ===== MOCK FALLBACK =====
+function mockParse(text) {
+  const t = text;
+  let audience = null, incentive = null, time = null, budget = null, channel = null;
+  let audienceStatus = 'red', incentiveStatus = 'red', timeStatus = 'red', budgetStatus = 'red', channelStatus = 'red';
+  let audienceSug = null, incentiveSug = null, timeSug = null, budgetSug = null, channelSug = null;
+  let estimatedUsers = null, budgetWarning = null;
+
+  // Audience detection
+  if (/艾灸/.test(t)) {
+    audience = '近3个月无消费的艾灸偏好用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 8.2 万人';
+  } else if (/推拿/.test(t)) {
+    audience = '有推拿消费记录的用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 15.7 万人';
+  } else if (/按摩/.test(t)) {
+    audience = '近1个月消费按摩用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 22.1 万人';
+  } else if (/流失/.test(t)) {
+    audience = '流失超60天的高价值用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 11.3 万人';
+  } else if (/新用户/.test(t)) {
+    audience = '首次下单用户（新用户）';
+    audienceStatus = 'green';
+    estimatedUsers = '约 6.5 万人';
+  } else if (/复购/.test(t)) {
+    audience = '本月复购率低于2次的用户';
+    audienceStatus = 'green';
+    estimatedUsers = '约 18.4 万人';
+  } else {
+    audienceSug = '建议使用 Persona 标签：近30天无消费 + 有健康项目浏览记录';
+    audienceStatus = 'yellow';
+  }
+
+  // Incentive detection
+  const idMatch = t.match(/PKG_[\w]+/);
+  if (idMatch) {
+    incentive = idMatch[0];
+    incentiveStatus = 'green';
+  } else if (/优惠券/.test(t)) {
+    incentive = 'COUPON_HEALTH_001';
+    incentiveStatus = 'green';
+  } else {
+    incentiveSug = '建议使用 PKG_HEALTH_DISCOUNT_10 (9折按摩体验券)';
+    incentiveStatus = 'yellow';
+  }
+
+  // Time detection
+  if (/五一/.test(t)) {
+    time = '2024-04-28 至 2024-05-05 节前推送';
+    timeStatus = 'green';
+  } else if (/下周一/.test(t)) {
+    time = '下周一 09:00-10:00';
+    timeStatus = 'green';
+  } else if (/早上/.test(t)) {
+    time = '工作日 08:30-10:00';
+    timeStatus = 'green';
+  } else {
+    timeSug = '建议：工作日早上 09:00（打开率峰值时段）';
+    timeStatus = 'yellow';
+  }
+
+  // Budget detection
+  const budgetMatch = t.match(/(\d+)\s*万/);
+  if (budgetMatch) {
+    const num = parseInt(budgetMatch[1]);
+    budget = `${num}万元`;
+    budgetStatus = 'green';
+    if (num >= 50) {
+      budgetWarning = `⚠️ 预算 ${num}万元 超过50万元阈值，需提交运营总监审批后方可执行。`;
+    }
+  } else {
+    budgetSug = '建议初始预算：10万元（可覆盖预估人群首轮触达）';
+    budgetStatus = 'yellow';
+  }
+
+  // Channel detection
+  if (/短信/.test(t)) {
+    channel = '短信';
+    channelStatus = 'green';
+  } else if (/push/.test(t) || /Push/.test(t) || /推送/.test(t)) {
+    channel = 'App Push';
+    channelStatus = 'green';
+  } else {
+    channelSug = '建议：App Push + 大众点评消息（组合触达，提升12%转化）';
+    channelStatus = 'yellow';
+  }
+
+  // Build reply
+  const missing = [];
+  if (audienceStatus === 'yellow') missing.push('目标人群');
+  if (incentiveStatus === 'yellow') missing.push('激励方案');
+  if (timeStatus === 'yellow') missing.push('触达时间');
+  if (budgetStatus === 'yellow') missing.push('预算上限');
+  if (channelStatus === 'yellow') missing.push('触达方式');
+
+  let reply = '已解析你的需求配置：\n';
+  if (audience) reply += `✅ 目标人群：${audience}\n`;
+  if (incentive) reply += `✅ 激励方案：${incentive}\n`;
+  if (time) reply += `✅ 触达时间：${time}\n`;
+  if (budget) reply += `✅ 预算：${budget}\n`;
+  if (missing.length > 0) {
+    reply += `\n以下要素我给出了建议，请确认采用：${missing.join('、')}。点击右侧卡片中的"采用"按钮即可确认。`;
+  } else {
+    reply += '\n所有要素已确认 ✅ 可以点击"确认启动"提交配置！';
+  }
+
+  return {
+    reply,
+    elements: {
+      target_audience: { value: audience, status: audienceStatus, suggestion: audienceSug },
+      incentive_id: { value: incentive, status: incentiveStatus, suggestion: incentiveSug },
+      trigger_time: { value: time, status: timeStatus, suggestion: timeSug },
+      budget: { value: budget, status: budgetStatus, suggestion: budgetSug },
+      channel: { value: channel, status: channelStatus, suggestion: channelSug }
+    },
+    estimated_users: estimatedUsers,
+    budget_warning: budgetWarning
+  };
+}
+
+// ===== SEND MESSAGE =====
+async function handleSend() {
+  if (isLoading) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  input.style.height = 'auto';
+  addUserMessage(text);
+  await processMessage(text);
+}
+
+function sendQuickPhrase(el) {
+  const text = el.textContent;
+  const input = document.getElementById('chatInput');
+  input.value = text;
+  handleSend();
+}
+
+function addUserMessage(text) {
+  const now = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  const row = document.createElement('div');
+  row.className = 'message-row user-row';
+  row.innerHTML = `
+    <div class="avatar user-avatar">👤</div>
+    <div>
+      <div class="bubble user-bubble">${escapeHtml(text)}</div>
+      <div class="bubble-meta" style="text-align:right">运营配置员 · ${now}</div>
+    </div>
+  `;
+  const messages = document.getElementById('chatMessages');
+  messages.appendChild(row);
+  scrollToBottom();
+  conversationHistory.push({ role: 'user', content: text });
+}
+
+function addLoadingBubble() {
+  const row = document.createElement('div');
+  row.className = 'message-row';
+  row.id = 'loadingRow';
+  row.innerHTML = `
+    <div class="avatar ai-avatar">🤖</div>
+    <div>
+      <div class="bubble ai-bubble loading-bubble">
+        <div class="dot-jump"></div>
+        <div class="dot-jump"></div>
+        <div class="dot-jump"></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('chatMessages').appendChild(row);
+  scrollToBottom();
+}
+
+function removeLoadingBubble() {
+  const el = document.getElementById('loadingRow');
+  if (el) el.remove();
+}
+
+function addAIMessage(text) {
+  removeLoadingBubble();
+  const now = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  const row = document.createElement('div');
+  row.className = 'message-row';
+  row.innerHTML = `
+    <div class="avatar ai-avatar">🤖</div>
+    <div>
+      <div class="bubble ai-bubble">${text.replace(/\n/g, '<br>')}</div>
+      <div class="bubble-meta">AI 助手 · ${now}</div>
+    </div>
+  `;
+  document.getElementById('chatMessages').appendChild(row);
+  scrollToBottom();
+  conversationHistory.push({ role: 'assistant', content: text });
+}
+
+async function processMessage(userText) {
+  isLoading = true;
+  addLoadingBubble();
+
+  let parsed = null;
+  try {
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...conversationHistory.slice(-6)
+    ];
+    const raw = await callFriday(messages);
+    // Try to extract JSON
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      parsed = JSON.parse(jsonMatch[0]);
+    } else {
+      throw new Error('No JSON found');
+    }
+  } catch (e) {
+    console.warn('[Friday API fallback]', e.message);
+    parsed = mockParse(userText);
+  }
+
+  removeLoadingBubble();
+  addAIMessage(parsed.reply || '已为你分析需求，请查看右侧要素配置卡。');
+
+  // Update elements
+  if (parsed.elements) {
+    updateElements(parsed.elements);
+  }
+
+  // Update stats
+  if (parsed.estimated_users) {
+    updateStats(parsed.estimated_users);
+  }
+
+  // Budget warning
+  if (parsed.budget_warning) {
+    showBudgetWarning(parsed.budget_warning);
+  } else {
+    hideBudgetWarning();
+  }
+
+  // Check also for budget > 50w from elements
+  if (elements.budget.value) {
+    const num = parseFloat(elements.budget.value.replace(/[^0-9.]/g, ''));
+    if (!isNaN(num) && num >= 50) {
+      showBudgetWarning(`预算 ${elements.budget.value} 超过50万元阈值，需提交运营总监审批后方可执行。`);
+    }
+  }
+
+  updateProgress();
+  updateSubmitBtn();
+  isLoading = false;
+}
+
+// ===== ELEMENTS =====
+function updateElements(newEls) {
+  const keys = ['target_audience', 'incentive_id', 'trigger_time', 'budget', 'channel'];
+  keys.forEach(key => {
+    if (!newEls[key]) return;
+    const el = newEls[key];
+
+    // Merge: if already green, keep green
+    if (elements[key].status === 'green' && !el.value) return;
+
+    elements[key].value = el.value;
+    elements[key].status = el.status;
+    elements[key].suggestion = el.suggestion;
+
+    renderElementRow(key);
+  });
+}
+
+function renderElementRow(key) {
+  const el = elements[key];
+  const lamp = document.getElementById(`lamp-${key}`);
+  const val = document.getElementById(`val-${key}`);
+  const sug = document.getElementById(`sug-${key}`);
+  const adoptBtn = document.getElementById(`adopt-${key}`);
+
+  // Lamp
+  lamp.className = `status-lamp ${el.status}`;
+
+  // Value
+  if (el.value) {
+    val.textContent = el.value;
+    val.className = 'element-value';
+  } else {
+    val.textContent = '未配置';
+    val.className = 'element-value empty';
+  }
+
+  // Suggestion
+  if (el.status === 'yellow' && el.suggestion) {
+    sug.textContent = `💡 ${el.suggestion}`;
+    sug.style.display = 'block';
+    adoptBtn.style.display = 'inline-flex';
+  } else {
+    sug.style.display = 'none';
+    adoptBtn.style.display = 'none';
+  }
+}
+
+function adoptSuggestion(key) {
+  const el = elements[key];
+  if (el.suggestion) {
+    // Extract value from suggestion or use suggestion as value
+    let adoptedVal = el.suggestion.replace(/^建议[:：]?\s*/, '').replace(/（.*?）/g, '').trim();
+    // Clean up
+    adoptedVal = adoptedVal.split('，')[0].split('(')[0].trim();
+    elements[key].value = adoptedVal;
+  }
+  elements[key].status = 'green';
+  elements[key].suggestion = null;
+  renderElementRow(key);
+  updateProgress();
+  updateSubmitBtn();
+
+  // Add confirmation message
+  addSystemNote(`✅ "${getElementName(key)}" 已采用 AI 建议并确认`);
+}
+
+function getElementName(key) {
+  const names = {
+    target_audience: '目标人群',
+    incentive_id: '激励方案',
+    trigger_time: '触达时间',
+    budget: '预算上限',
+    channel: '触达方式'
+  };
+  return names[key] || key;
+}
+
+function addSystemNote(text) {
+  const el = document.createElement('div');
+  el.className = 'system-msg';
+  el.textContent = text;
+  document.getElementById('chatMessages').appendChild(el);
+  scrollToBottom();
+}
+
+// ===== INLINE EDIT =====
+function startEdit(key, el) {
+  if (el.tagName === 'INPUT') return;
+  const currentVal = elements[key].value || '';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'inline-edit';
+  input.value = currentVal;
+  el.replaceWith(input);
+  input.focus();
+  input.id = `val-${key}`;
+
+  input.addEventListener('blur', () => finishEdit(key, input));
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); finishEdit(key, input); }
+    if (e.key === 'Escape') { renderElementRow(key); }
+  });
+}
+
+function finishEdit(key, input) {
+  const newVal = input.value.trim();
+  if (newVal) {
+    elements[key].value = newVal;
+    elements[key].status = 'green';
+    elements[key].suggestion = null;
+    renderElementRow(key);
+    updateProgress();
+    updateSubmitBtn();
+    addSystemNote(`✏️ "${getElementName(key)}" 已手动编辑确认`);
+  } else {
+    renderElementRow(key);
+  }
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  const keys = ['target_audience', 'incentive_id', 'trigger_time', 'budget', 'channel'];
+  const greenCount = keys.filter(k => elements[k].status === 'green').length;
+  const pct = (greenCount / 5) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${greenCount} / 5 要素已确认`;
+}
+
+function updateSubmitBtn() {
+  const btn = document.getElementById('submitBtn');
+  const keys = ['target_audience', 'incentive_id', 'trigger_time', 'budget', 'channel'];
+  const allGreen = keys.every(k => elements[k].status === 'green');
+  if (allGreen) {
+    btn.className = 'submit-btn active';
+    btn.textContent = '✅ 确认启动推送策略';
+  } else {
+    btn.className = 'submit-btn disabled';
+    const remaining = keys.filter(k => elements[k].status !== 'green').length;
+    btn.textContent = `🔒 还有 ${remaining} 个要素待确认`;
+  }
+}
+
+// ===== STATS =====
+function updateStats(estimatedText) {
+  const el = document.getElementById('statsValue');
+  // Extract number for display
+  const numMatch = estimatedText.match(/([\d.]+)\s*(万|千|百)/);
+  if (numMatch) {
+    el.innerHTML = `<div class="stats-value">${numMatch[1]}<span class="unit">${numMatch[2]}人</span></div>`;
+  } else {
+    el.innerHTML = `<div class="stats-value" style="font-size:18px">${estimatedText}</div>`;
+  }
+}
+
+// ===== BUDGET WARNING =====
+function showBudgetWarning(msg) {
+  const el = document.getElementById('budgetWarning');
+  document.getElementById('budgetWarningText').textContent = msg;
+  el.classList.add('show');
+}
+
+function hideBudgetWarning() {
+  document.getElementById('budgetWarning').classList.remove('show');
+}
+
+// ===== SUBMIT =====
+async function handleSubmit() {
+  const keys = ['target_audience', 'incentive_id', 'trigger_time', 'budget', 'channel'];
+  if (!keys.every(k => elements[k].status === 'green')) return;
+
+  const taskId = 'TASK-' + Math.random().toString(36).substr(2,6).toUpperCase();
+  document.getElementById('modalTaskId').textContent = taskId;
+  document.getElementById('configId').textContent = taskId;
+
+  document.getElementById('modalOverlay').classList.add('show');
+
+  // Generate summary
+  const summaryEl = document.getElementById('modalSummary');
+  summaryEl.textContent = '正在生成决策摘要...';
+
+  try {
+    const summaryMessages = [
+      { role: 'system', content: '你是美团健康业务AI运营配置助手，请用简洁的JSON格式输出决策摘要，包含：任务ID、目标人群、激励方案、触达时间、预算、触达方式、预计影响。只输出JSON。' },
+      {
+        role: 'user',
+        content: `请为以下配置生成决策摘要：
+目标人群：${elements.target_audience.value}
+激励方案：${elements.incentive_id.value}
+触达时间：${elements.trigger_time.value}
+预算：${elements.budget.value}
+触达方式：${elements.channel.value}
+任务ID：${taskId}`
+      }
+    ];
+    const raw = await callFriday(summaryMessages);
+    summaryEl.textContent = raw;
+  } catch (e) {
+    summaryEl.textContent = JSON.stringify({
+      任务ID: taskId,
+      目标人群: elements.target_audience.value,
+      激励方案: elements.incentive_id.value,
+      触达时间: elements.trigger_time.value,
+      预算: elements.budget.value,
+      触达方式: elements.channel.value,
+      状态: '已提交，等待调度执行',
+      提交时间: new Date().toLocaleString('zh-CN')
+    }, null, 2);
+  }
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  resetAll();
+}
+
+function resetAll() {
+  elements = {
+    target_audience: { value: null, status: 'red', suggestion: null },
+    incentive_id: { value: null, status: 'red', suggestion: null },
+    trigger_time: { value: null, status: 'red', suggestion: null },
+    budget: { value: null, status: 'red', suggestion: null },
+    channel: { value: null, status: 'red', suggestion: null }
+  };
+  ['target_audience','incentive_id','trigger_time','budget','channel'].forEach(renderElementRow);
+  updateProgress();
+  updateSubmitBtn();
+  hideBudgetWarning();
+  document.getElementById('statsValue').innerHTML = '<div class="stats-empty">待 AI 分析人群后更新</div>';
+  conversationHistory = [];
+  document.getElementById('configId').textContent = 'CFG-DRAFT';
+  addSystemNote('— 新会话开始 —');
+}
+
+// ===== HELPERS =====
+function scrollToBottom() {
+  const el = document.getElementById('chatMessages');
+  setTimeout(() => { el.scrollTop = el.scrollHeight; }, 50);
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Auto-resize textarea
+document.getElementById('chatInput').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+
+document.getElementById('chatInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSend();
+  }
+});
+
+// Init
+updateProgress();
+updateSubmitBtn();
+</script>
+</body>
+</html>

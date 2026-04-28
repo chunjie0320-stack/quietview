@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中医节气签到地图 x AI千人千面 Demo V2</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,PingFang SC,Helvetica Neue,Arial,sans-serif;background:#F5F0EB;color:#333;display:flex;justify-content:center;padding:20px 0;min-height:100vh}
+.mc{width:1200px;max-width:98vw}
+.pt{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.ptab{padding:10px 24px;border-radius:24px;border:2px solid #ddd;background:#fff;cursor:pointer;font-size:14px;font-weight:600;transition:all .3s;user-select:none}
+.ptab:hover{border-color:#FFC107}
+.ptab.active{color:#fff;border-color:transparent;transform:scale(1.05)}
+.ptab[data-p=wj].active{background:linear-gradient(135deg,#2D5016,#4A7C2E)}
+.ptab[data-p=xl].active{background:linear-gradient(135deg,#7CB342,#AED581);color:#2E5B1A}
+.ptab[data-p=lz].active{background:linear-gradient(135deg,#D4A017,#F0C040);color:#5A3A00}
+.ca{display:flex;justify-content:center;gap:28px;align-items:flex-start}
+.pf{width:390px;min-width:390px;height:844px;border-radius:44px;background:#000;padding:12px;box-shadow:0 20px 60px rgba(0,0,0,.25),inset 0 0 0 2px #333;position:relative;flex-shrink:0}
+.pn{width:120px;height:28px;background:#000;border-radius:0 0 16px 16px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:100}
+.ps{width:100%;height:100%;border-radius:34px;overflow:hidden;position:relative;background:#FDF6EC}
+.psc{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;padding-bottom:120px;scroll-behavior:smooth}
+.psc::-webkit-scrollbar{width:3px}
+.psc::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:3px}
+.ba{padding:36px 16px 12px;text-align:center;border-radius:0 0 20px 20px;transition:background .5s}
+.bti{font-size:22px;font-weight:800;margin-bottom:4px;text-shadow:1px 1px 2px rgba(0,0,0,.1);letter-spacing:1px}
+.bsu{font-size:12px;opacity:.85;margin-bottom:10px}
+.ccrd{background:rgba(255,255,255,.92);border-radius:12px;padding:10px 14px;display:inline-block;box-shadow:0 2px 8px rgba(0,0,0,.08);backdrop-filter:blur(4px)}
+.ccrd .stn{font-size:16px;font-weight:700;color:#5A3A00}
+.ccrd .dtd{font-size:11px;color:#888;margin-top:2px}
+.ce{margin:12px 16px;background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.cbtn{width:100%;padding:12px;border:none;border-radius:10px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:all .3s}
+.cbtn:hover{transform:scale(1.02)}
+.chnt{font-size:11px;color:#999;text-align:center;margin-top:6px}
+.cr{display:flex;gap:6px;margin:8px 16px 0}
+.ci{flex:1;background:linear-gradient(135deg,#FFF8E1,#FFF3C4);border:1px dashed #E6C200;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#8B6914;font-weight:600}
+.ci .cv{font-size:16px;color:#D4A017;font-weight:800;display:block}
+.ma{position:relative;width:100%;min-height:960px;padding:20px 0;background:linear-gradient(180deg,#FDF8EE 0%,#FBF4E4 30%,#F8EFDA 60%,#F5E8CE 100%)}
+.msvg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.mdeco{position:absolute;font-size:18px;z-index:0;opacity:.6;pointer-events:none}
+.sw{position:absolute;z-index:10}
+.pol{background:#fff;padding:6px 6px 20px 6px;box-shadow:2px 3px 10px rgba(0,0,0,.14);border-radius:3px;width:130px;position:relative;transition:all .3s}
+.pol:hover{box-shadow:3px 5px 16px rgba(0,0,0,.22);z-index:20}
+.pp{width:100%;height:78px;border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.prab{font-size:26px;position:absolute;bottom:1px;right:2px;opacity:.7}
+.ptxt{font-size:10px;font-weight:600;color:#5A3A00;text-align:center;margin-top:3px;line-height:1.3;padding:0 2px}
+.psts{font-size:9px;margin-top:1px;text-align:center}
+.stag{background:#FFF3B0;padding:3px 8px;border-radius:2px;font-size:10px;font-weight:700;color:#6B4F00;box-shadow:1px 1px 3px rgba(0,0,0,.1);white-space:nowrap;position:absolute;z-index:15}
+.pini{font-size:16px;position:absolute;z-index:15}
+.sbdg{position:absolute;top:-6px;right:-6px;font-size:14px;z-index:20}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.blink{animation:blink 1.2s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:2px 3px 10px rgba(0,0,0,.14)}50%{box-shadow:2px 3px 16px rgba(255,140,0,.5)}}
+.glowc{animation:glow 1.5s ease-in-out infinite}
+.ra{display:flex;justify-content:space-around;padding:14px 12px;background:rgba(255,255,255,.7);margin:8px 12px;border-radius:12px}
+.ri{text-align:center;font-size:10px;color:#666}
+.ric{font-size:24px;display:block;margin-bottom:2px}
+.ris{font-size:11px;margin-top:2px;font-weight:600}
+.pfl{position:absolute;bottom:54px;left:8px;right:8px;background:rgba(0,0,0,.82);color:#fff;padding:10px 14px;border-radius:12px;font-size:12px;z-index:50;backdrop-filter:blur(6px);box-shadow:0 4px 12px rgba(0,0,0,.3);line-height:1.5}
+.btabs{position:absolute;bottom:0;left:0;right:0;height:50px;background:#fff;display:flex;border-top:1px solid #eee;z-index:60;border-radius:0 0 34px 34px}
+.btab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#999;gap:2px}
+.btab.act{color:#FFC107;font-weight:700}
+.btic{font-size:18px}
+.sp{width:340px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.06);position:sticky;top:20px;max-height:844px;overflow-y:auto}
+.sp::-webkit-scrollbar{width:3px}
+.sp::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
+.spn{font-size:18px;font-weight:800;margin-bottom:4px}
+.spd{font-size:12px;color:#888;margin-bottom:14px;line-height:1.5}
+.dl{list-style:none}
+.dit{padding:10px 0;border-bottom:1px solid #f0f0f0}
+.dit:last-child{border-bottom:none}
+.dih{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.dib{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.din{font-size:12px;font-weight:700;color:#555}
+.div{font-size:13px;font-weight:600;color:#222;margin-left:26px}
+.dif{font-size:10px;color:#999;margin-left:26px;margin-top:2px;line-height:1.4}
+.pgti{text-align:center;margin-bottom:16px}
+.pgti h1{font-size:22px;font-weight:800;color:#333}
+.pgti p{font-size:13px;color:#888;margin-top:4px}
+.fi{animation:fadeIn .4s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.s1{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}
+.s2{background:linear-gradient(135deg,#DCEDC8,#AED581)}
+.s3{background:linear-gradient(135deg,#C8E6C9,#81C784)}
+.s4{background:linear-gradient(135deg,#A5D6A7,#66BB6A)}
+.s5{background:linear-gradient(135deg,#FFF9C4,#FFE082)}
+.s6{background:linear-gradient(135deg,#FFE0B2,#FFCC80)}
+.s7{background:linear-gradient(135deg,#FFCC80,#FFB74D)}
+.s8{background:linear-gradient(135deg,#D7CCC8,#BCAAA4)}
+.s9{background:linear-gradient(135deg,#BCAAA4,#A1887F)}
+.pol.lk .pp{filter:grayscale(.6) brightness(.92)}
+.pol.lk{opacity:.7}
+</style>
+</head>
+<body>
+<div class="mc">
+  <div class="pgti"><h1>🏥 中医节气签到地图 × AI千人千面</h1><p>同一个签到活动，三种用户看到完全不同的内容</p></div>
+  <div class="pt">
+    <div class="ptab active" data-p="wj" onclick="sw('wj')">🧘 养生达人·王姐</div>
+    <div class="ptab" data-p="xl" onclick="sw('xl')">🌱 尝鲜小白·小林</div>
+    <div class="ptab" data-p="lz" onclick="sw('lz')">😴 沉睡用户·老张</div>
+  </div>
+  <div class="ca">
+    <div class="pf"><div class="pn"></div>
+      <div class="ps">
+        <div class="psc" id="psc">
+          <div class="ba" id="ba"><div class="bti" id="bti"></div><div class="bsu" id="bsu"></div><div class="ccrd"><div class="stn">谷雨 · 四月二十日</div><div class="dtd">农历三月初四 · 2026年</div></div></div>
+          <div class="ce"><button class="cbtn" id="cbtn"></button><div class="chnt" id="chnt"></div></div>
+          <div class="cr" id="cpr"></div>
+          <div class="ma" id="ma">
+            <svg class="msvg" viewBox="0 0 358 960" preserveAspectRatio="xMidYMid meet"><path id="rp" fill="none" stroke="#8B6914" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.45"/></svg>
+            <div class="mdeco" style="top:60px;left:20px">🌸</div><div class="mdeco" style="top:180px;right:25px">🌸</div>
+            <div class="mdeco" style="top:340px;left:15px">🌿</div><div class="mdeco" style="top:500px;right:20px">☀️</div>
+            <div class="mdeco" style="top:620px;left:25px">🍂</div><div class="mdeco" style="top:740px;right:18px">🌰</div>
+            <div class="mdeco" style="top:850px;left:30px">❄️</div>
+            <div id="sc"></div>
+          </div>
+          <div class="ra" id="ra"></div>
+        </div>
+        <div class="pfl" id="pfl"></div>
+        <div class="btabs">
+          <div class="btab act"><span class="btic">📅</span>谷雨签到</div>
+          <div class="btab"><span class="btic">🏠</span>主会场</div>
+          <div class="btab"><span class="btic">🌿</span>中医方剂</div>
+          <div class="btab"><span class="btic">✨</span>祛痘</div>
+        </div>
+      </div>
+    </div>
+    <div class="sp" id="sp"></div>
+  </div>
+</div>
+<script>
+// Station positions (S-shape snake layout)
+var P=[
+  {x:210,y:30,r:-3,s:'s1'},{x:70,y:130,r:5,s:'s2'},{x:210,y:230,r:-4,s:'s3'},
+  {x:70,y:330,r:6,s:'s4'},{x:210,y:430,r:-5,s:'s5'},{x:70,y:530,r:4,s:'s6'},
+  {x:210,y:630,r:-6,s:'s7'},{x:70,y:730,r:5,s:'s8'},{x:210,y:830,r:-3,s:'s9'}
+];
+// Solar terms
+var T=[
+  {n:'春分',d:'3.20-4.3'},{n:'谷雨',d:'4.13-4.27'},{n:'小满',d:'5.20-6.4'},
+  {n:'夏至',d:'6.21-7.5'},{n:'三伏',d:'7.15-8.24'},{n:'秋分',d:'9.22-10.7'},
+  {n:'霜降',d:'10.23-11.6'},{n:'小雪',d:'11.22-12.6'},{n:'冬至',d:'12.21-1.5'}
+];
+
+// Persona data
+var D={
+wj:{
+  nm:'\u{1f9d8} 养生达人·王姐',ds:'35岁 | 高消费复购 | 月均¥800+ | 已签5天',
+  bg:'linear-gradient(135deg,#2D5016,#4A7C2E)',fc:'#fff',
+  ti:'累计签到 领大奖',su:'专属养生定制方案',
+  bb:'linear-gradient(135deg,#2D5016,#4A7C2E)',bx:'继续打卡',bc:'#fff',
+  ht:'再签2天解锁神秘大礼\u{1f381}',
+  cp:[{a:'¥40',c:'满420减'},{a:'¥27',c:'满287减'},{a:'¥18',c:'满188减'}],
+  st:[
+    {t:'推拿精选¥388',s:'✅已领',u:1},{t:'艾灸月卡¥1280',s:'✅已领',u:1},
+    {t:'体质调理¥568',s:'✅已领',u:1},{t:'药膳食补¥428',s:'✅已领',u:1},
+    {t:'三伏贴套餐¥328',s:'✅已领',u:1},{t:'秋季润肺方¥298',s:'🔒待解锁',u:0},
+    {t:'膏方进补¥488',s:'🔒待解锁',u:0},{t:'温泉养生¥668',s:'🔒待解锁',u:0},
+    {t:'冬令进补¥888',s:'🔒待解锁',u:0}
+  ],
+  pu:'\u{1f9d8} 王姐，明天小满节气开启，VIP养生方案已备好',
+  rw:[
+    {i:'💰',l:'三次签到礼',s:'✅',c:'#4CAF50'},{i:'🧧',l:'五次签到礼',s:'✅',c:'#4CAF50'},
+    {i:'🎫',l:'七次签到礼',s:'🔜',c:'#FF9800'},{i:'\u{1f381}',l:'神秘大礼',s:'🔜',c:'#FF9800'}
+  ],
+  sp:{},
+  dm:[
+    {id:'❶',n:'用户分层',v:'高价值复购用户',d:'小林：新客探索期 / 老张：沉睡召回期',co:'#2D5016'},
+    {id:'❷',n:'消费能力',v:'月均¥800+，客单价¥400+',d:'小林：预算敏感¥30内 / 老张：中等¥100',co:'#2D5016'},
+    {id:'❸',n:'签到进度',v:'5/7天（即将达成终极奖励）',d:'小林：0/7 / 老张：2/7断签',co:'#2D5016'},
+    {id:'❹',n:'券面额策略',v:'¥40/¥27/¥18 高门槛高面额',d:'小林：¥5/¥3/免单 / 老张：¥15/¥25/¥10',co:'#2D5016'},
+    {id:'❺',n:'商品推荐',v:'高端养生套餐 ¥328~¥888',d:'小林：入门¥9.9~69.9 / 老张：中端¥39~299',co:'#2D5016'},
+    {id:'❻',n:'话术调性',v:'VIP尊享、专属定制',d:'小林：新手友好 / 老张：限时回归',co:'#2D5016'},
+    {id:'❼',n:'紧迫感策略',v:'进度激励（再签2天）',d:'小林：首签翻倍 / 老张：48h倒计时',co:'#2D5016'},
+    {id:'❽',n:'Push策略',v:'VIP方案预告',d:'小林：体验券 / 老张：过期提醒',co:'#2D5016'}
+  ]
+},
+xl:{
+  nm:'🌱 尝鲜小白·小林',ds:'22岁 | 首次参与 | 低频新客',
+  bg:'linear-gradient(135deg,#7CB342,#AED581)',fc:'#2E5B1A',
+  ti:'累计签到 领大奖',su:'你的第一次节气养生之旅✨',
+  bb:'linear-gradient(135deg,#7CB342,#AED581)',bx:'立即签到',bc:'#2E5B1A',
+  ht:'首签奖励翻倍✨',
+  cp:[{a:'¥5',c:'满29减'},{a:'¥3',c:'满19减'},{a:'免单',c:'体验券'}],
+  st:[
+    {t:'肩颈放松¥29.9',s:'💡推荐首选',u:0,bk:1},{t:'足浴体验¥19.9',s:'🔒',u:0},
+    {t:'养生茶饮¥9.9',s:'🔒',u:0},{t:'刮痧体验¥39.9',s:'🔒',u:0},
+    {t:'艾灸入门¥49.9',s:'🔒',u:0},{t:'拔罐体验¥29.9',s:'🔒',u:0},
+    {t:'泡脚套餐¥25.9',s:'🔒',u:0},{t:'暖宫调理¥59.9',s:'🔒',u:0},
+    {t:'冬季暖身套餐¥69.9',s:'🔒',u:0}
+  ],
+  pu:'🌿 小林，完成首次签到即得体验券，29.9元享肩颈放松~',
+  rw:[
+    {i:'💰',l:'三次签到礼',s:'🔒',c:'#999'},{i:'🧧',l:'五次签到礼',s:'🔒',c:'#999'},
+    {i:'🎫',l:'七次签到礼',s:'🔒',c:'#999'},{i:'\u{1f381}',l:'神秘大礼',s:'🔒',c:'#999'}
+  ],
+  sp:{0:{lb:'从这里开始！',bk:1}},
+  dm:[
+    {id:'❶',n:'用户分层',v:'新客探索期',d:'王姐：高价值复购 / 老张：沉睡召回',co:'#7CB342'},
+    {id:'❷',n:'消费能力',v:'预算敏感 ¥30以内',d:'王姐：月均¥800+ / 老张：¥100左右',co:'#7CB342'},
+    {id:'❸',n:'签到进度',v:'0/7天（全新开始）',d:'王姐：5/7天 / 老张：2/7断签',co:'#7CB342'},
+    {id:'❹',n:'券面额策略',v:'¥5/¥3/免单 低门槛引流',d:'王姐：¥40/27/18 / 老张：¥15/25/10',co:'#7CB342'},
+    {id:'❺',n:'商品推荐',v:'入门体验 ¥9.9~¥69.9',d:'王姐：高端¥328~888 / 老张：中端¥39~299',co:'#7CB342'},
+    {id:'❻',n:'话术调性',v:'首次体验、新手友好',d:'王姐：VIP尊享 / 老张：限时回归',co:'#7CB342'},
+    {id:'❼',n:'紧迫感策略',v:'首签翻倍奖励',d:'王姐：再签2天 / 老张：48h倒计时',co:'#7CB342'},
+    {id:'❽',n:'Push策略',v:'体验券+低价利益点',d:'王姐：VIP预告 / 老张：过期逼单',co:'#7CB342'}
+  ]
+},
+lz:{
+  nm:'😴 沉睡用户·老张',ds:'40岁 | 去年参与今年断签 | 30天未回访',
+  bg:'linear-gradient(135deg,#D4A017,#F0C040)',fc:'#5A3A00',
+  ti:'累计签到 领大奖',su:'好久不见，专属回归礼等你💪',
+  bb:'linear-gradient(135deg,#D4A017,#F0C040)',bx:'回归签到',bc:'#5A3A00',
+  ht:'断签不清零，继续累计！限时48h',
+  cp:[{a:'¥15',c:'满99回归专享'},{a:'¥25',c:'满199限时48h'},{a:'¥10',c:'无门槛回归礼'}],
+  st:[
+    {t:'推拿5折¥99',s:'✅已领',u:1},{t:'足浴回归价¥39',s:'✅已领',u:1},
+    {t:'回归补签¥1',s:'⚠️断签！',u:0,w:1},{t:'中药泡脚¥59',s:'🔒',u:0},
+    {t:'刮痧套餐¥79',s:'🔒',u:0},{t:'推拿月卡¥199',s:'🔒',u:0},
+    {t:'秋冬进补¥129',s:'🔒',u:0},{t:'药膳套餐¥149',s:'🔒',u:0},
+    {t:'年度回归大礼包¥299',s:'🔒',u:0}
+  ],
+  pu:'⏰ 老张，您的回归礼即将过期！48h内签到领¥25专享券',
+  rw:[
+    {i:'💰',l:'三次签到礼',s:'🔜差1次',c:'#FF9800'},{i:'🧧',l:'五次签到礼',s:'🔒',c:'#999'},
+    {i:'🎫',l:'七次签到礼',s:'🔒',c:'#999'},{i:'\u{1f381}',l:'神秘大礼',s:'🔒',c:'#999'}
+  ],
+  sp:{2:{lb:'⚠️补签¥1',gw:1}},
+  dm:[
+    {id:'❶',n:'用户分层',v:'沉睡召回期（30天未回访）',d:'王姐：高价值复购 / 小林：新客',co:'#D4A017'},
+    {id:'❷',n:'消费能力',v:'中等消费 客单价¥100',d:'王姐：月均¥800+ / 小林：¥30内',co:'#D4A017'},
+    {id:'❸',n:'签到进度',v:'2/7天（去年遗留+断签）',d:'王姐：5/7 / 小林：0/7',co:'#D4A017'},
+    {id:'❹',n:'券面额策略',v:'¥15/¥25/¥10 回归专享+限时',d:'王姐：¥40/27/18 / 小林：¥5/3/免单',co:'#D4A017'},
+    {id:'❺',n:'商品推荐',v:'中端回归价 ¥39~¥299',d:'王姐：高端¥328~888 / 小林：入门¥9.9~69.9',co:'#D4A017'},
+    {id:'❻',n:'话术调性',v:'好久不见、专属回归、限时48h',d:'王姐：VIP尊享 / 小林：新手友好',co:'#D4A017'},
+    {id:'❼',n:'紧迫感策略',v:'48h倒计时+断签不清零',d:'王姐：再签2天 / 小林：首签翻倍',co:'#D4A017'},
+    {id:'❽',n:'Push策略',v:'过期提醒+限时优惠逼单',d:'王姐：VIP预告 / 小林：体验券',co:'#D4A017'}
+  ]
+}
+};
+
+// Draw SVG S-shape route
+function drawRoute(){
+  var pts=P.map(function(p){return{x:p.x+65,y:p.y+50}});
+  var d='M'+pts[0].x+' '+pts[0].y;
+  for(var i=0;i<pts.length-1;i++){
+    var cx1=pts[i].x,cy1=pts[i].y+40;
+    var cx2=pts[i+1].x,cy2=pts[i+1].y-40;
+    d+=' C'+cx1+' '+cy1+' '+cx2+' '+cy2+' '+pts[i+1].x+' '+pts[i+1].y;
+  }
+  document.getElementById('rp').setAttribute('d',d);
+}
+
+// Render stations
+function renderStations(key){
+  var d=D[key],c=document.getElementById('sc');
+  c.innerHTML='';
+  for(var i=0;i<9;i++){
+    var p=P[i],t=T[i],s=d.st[i];
+    var isLeft=p.x<150;
+    var wrap=document.createElement('div');
+    wrap.className='sw';
+    wrap.style.left=p.x+'px';
+    wrap.style.top=p.y+'px';
+
+    // Pin icon
+    var pin=document.createElement('div');
+    pin.className='pini';
+    pin.textContent='\u{1f4cd}';
+    pin.style.left=isLeft?'-18px':'132px';
+    pin.style.top='30px';
+    wrap.appendChild(pin);
+
+    // Solar tag
+    var tag=document.createElement('div');
+    tag.className='stag';
+    tag.textContent=t.n+' '+t.d;
+    tag.style.transform='rotate('+(isLeft?'-2':'2')+'deg)';
+    if(isLeft){tag.style.right='-10px';tag.style.top='-14px';}
+    else{tag.style.left='-10px';tag.style.top='-14px';}
+    wrap.appendChild(tag);
+
+    // Polaroid card
+    var pol=document.createElement('div');
+    pol.className='pol'+(s.u?'':' lk');
+    pol.style.transform='rotate('+p.r+'deg)';
+
+    // Special effects
+    var sp=d.sp[i];
+    if(sp){
+      if(sp.bk)pol.className+=' blink';
+      if(sp.gw)pol.className+=' glowc';
+    }
+    if(s.w)pol.className+=' glowc';
+    if(s.bk)pol.className+=' blink';
+
+    // Photo area
+    var photo=document.createElement('div');
+    photo.className='pp '+p.s;
+    var rabbit=document.createElement('div');
+    rabbit.className='prab';
+    rabbit.textContent='\u{1f430}';
+    photo.appendChild(rabbit);
+    pol.appendChild(photo);
+
+    // Text
+    var txt=document.createElement('div');
+    txt.className='ptxt';
+    txt.textContent=s.t;
+    pol.appendChild(txt);
+
+    // Status
+    var sts=document.createElement('div');
+    sts.className='psts';
+    sts.style.color=s.u?'#4CAF50':(s.w?'#FF5722':'#999');
+    sts.textContent=s.s;
+    pol.appendChild(sts);
+
+    // Badge
+    if(s.u){
+      var bdg=document.createElement('div');
+      bdg.className='sbdg';
+      bdg.textContent='✅';
+      pol.appendChild(bdg);
+    }else if(s.w){
+      var bdg2=document.createElement('div');
+      bdg2.className='sbdg blink';
+      bdg2.textContent='⚠️';
+      pol.appendChild(bdg2);
+    }
+
+    // Special label
+    if(sp&&sp.lb){
+      var lbl=document.createElement('div');
+      lbl.style.cssText='position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);background:#FF5722;color:#fff;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;white-space:nowrap;z-index:25';
+      if(sp.bk)lbl.className='blink';
+      lbl.textContent=sp.lb;
+      pol.appendChild(lbl);
+    }
+
+    wrap.appendChild(pol);
+    c.appendChild(wrap);
+  }
+}
+
+// Render coupons
+function renderCoupons(key){
+  var d=D[key],el=document.getElementById('cpr');
+  el.innerHTML='';
+  d.cp.forEach(function(c){
+    el.innerHTML+='<div class="ci"><span class="cv">'+c.a+'</span>'+c.c+'</div>';
+  });
+}
+
+// Render rewards
+function renderRewards(key){
+  var d=D[key],el=document.getElementById('ra');
+  el.innerHTML='';
+  d.rw.forEach(function(r){
+    el.innerHTML+='<div class="ri"><span class="ric">'+r.i+'</span>'+r.l+'<div class="ris" style="color:'+r.c+'">'+r.s+'</div></div>';
+  });
+}
+
+// Render side panel
+function renderPanel(key){
+  var d=D[key],el=document.getElementById('sp');
+  var h='<div class="spn">'+d.nm+'</div><div class="spd">'+d.ds+'</div><ul class="dl">';
+  d.dm.forEach(function(dm){
+    h+='<li class="dit"><div class="dih"><div class="dib" style="background:'+dm.co+'">'+dm.id+'</div><span class="din">'+dm.n+'</span></div><div class="div">'+dm.v+'</div><div class="dif">'+dm.d+'</div></li>';
+  });
+  h+='</ul>';
+  el.innerHTML=h;
+  el.classList.add('fi');
+  setTimeout(function(){el.classList.remove('fi')},500);
+}
+
+// Switch persona
+function sw(key){
+  var d=D[key];
+  // Update tabs
+  document.querySelectorAll('.ptab').forEach(function(t){t.classList.remove('active')});
+  document.querySelector('.ptab[data-p="'+key+'"]').classList.add('active');
+  // Banner
+  var ba=document.getElementById('ba');
+  ba.style.background=d.bg;
+  ba.style.color=d.fc;
+  document.getElementById('bti').textContent=d.ti;
+  document.getElementById('bsu').textContent=d.su;
+  // Button
+  var btn=document.getElementById('cbtn');
+  btn.style.background=d.bb;
+  btn.style.color=d.bc||'#fff';
+  btn.textContent=d.bx;
+  document.getElementById('chnt').textContent=d.ht;
+  // Push
+  document.getElementById('pfl').textContent=d.pu;
+  // Render components
+  renderCoupons(key);
+  renderStations(key);
+  renderRewards(key);
+  renderPanel(key);
+  // Scroll to top
+  document.getElementById('psc').scrollTop=0;
+}
+
+// Init
+drawRoute();
+sw('wj');
+</script>
+</body>
+</html>

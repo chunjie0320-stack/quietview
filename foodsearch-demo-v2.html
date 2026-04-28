@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI美食选题引擎 · Dashboard版</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7FAF5;
+  --card: #FFFFFF;
+  --primary: #4A9B6F;
+  --primary-light: #7EC8A4;
+  --accent: #FF7A5C;
+  --text: #2C3E2D;
+  --text2: #6B8C6E;
+  --text3: #9BB89E;
+  --border: #DCF0E4;
+  --surface: #EDF5EF;
+  --shadow: 0 2px 12px rgba(74,155,111,0.10);
+  --shadow-lg: 0 6px 32px rgba(74,155,111,0.14);
+  --r: 16px;
+  --r-lg: 20px;
+  --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-cn: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-cn); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+/* ── Header ── */
+.hdr {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hdr-logo { font-family: var(--font); font-size: 16px; font-weight: 700; color: var(--text); }
+.hdr-logo span { color: var(--primary); }
+.mode-tabs { display: flex; background: var(--surface); border-radius: 100px; padding: 3px; gap: 2px; border: 1px solid var(--border); }
+.mode-tab {
+  padding: 6px 18px; border-radius: 100px; font-size: 13px; font-weight: 500;
+  cursor: pointer; border: none; background: transparent; color: var(--text2);
+  transition: var(--transition); font-family: var(--font-cn); outline: none;
+}
+.mode-tab.active { background: linear-gradient(135deg, #4A9B6F, #7EC8A4); color: #fff; font-weight: 600; box-shadow: 0 2px 8px rgba(74,155,111,0.25); }
+.hdr-subtitle { font-size: 12px; color: var(--text3); font-family: var(--font); }
+
+/* ── Layout ── */
+.layout { display: flex; height: calc(100vh - 58px); overflow: hidden; }
+
+/* ── Left Panel ── */
+.left-panel {
+  width: 300px; flex-shrink: 0;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.left-scroll { flex: 1; overflow-y: auto; padding: 20px 18px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+.panel-label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; font-family: var(--font); }
+
+.input-wrap { margin-bottom: 16px; }
+.input-mini {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
+  border-radius: 12px; font-size: 13px; color: var(--text); background: var(--bg);
+  font-family: var(--font-cn); resize: none; outline: none; line-height: 1.5;
+  transition: border-color 0.2s;
+}
+.input-mini:focus { border-color: var(--primary); }
+
+.btn-analyze {
+  width: 100%; padding: 11px; border: none; border-radius: 12px;
+  background: linear-gradient(135deg, #4A9B6F, #7EC8A4);
+  color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+  font-family: var(--font-cn); transition: var(--transition); outline: none;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.btn-analyze:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74,155,111,0.30); }
+
+.divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+.tag-group { margin-bottom: 12px; }
+.tag-group-label { font-size: 11px; color: var(--text3); margin-bottom: 6px; font-weight: 600; font-family: var(--font); }
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 500;
+  border: 1.5px solid var(--border); color: var(--text2); cursor: pointer;
+  transition: var(--transition); background: transparent;
+}
+.tag:hover { border-color: var(--primary); color: var(--primary); }
+.tag.active { background: linear-gradient(135deg, #4A9B6F, #7EC8A4); color: #fff; border-color: transparent; }
+
+/* Canvas area */
+.canvas-wrap { margin-bottom: 4px; position: relative; }
+#bubble-canvas { width: 100%; height: 200px; display: block; cursor: pointer; border-radius: 12px; background: var(--bg); }
+.canvas-hint { font-size: 11px; color: var(--text3); text-align: center; margin-top: 6px; }
+.legend-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text2); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* ── Right Panel ── */
+.right-panel { flex: 1; overflow-y: auto; padding: 24px 28px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+.right-empty {
+  height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; color: var(--text3);
+}
+.right-empty .empty-icon { font-size: 48px; opacity: 0.5; }
+.right-empty .empty-text { font-size: 15px; font-weight: 500; }
+.right-empty .empty-sub { font-size: 13px; }
+
+/* ── Right Content Cards ── */
+.section-block {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 20px 22px; margin-bottom: 16px;
+  box-shadow: var(--shadow); animation: fadeUp 0.32s ease both;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+.block-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.block-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.block-title { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+.block-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+/* Metrics row */
+.metrics-row { display: flex; gap: 10px; margin-bottom: 4px; }
+.metric-card { flex: 1; background: var(--surface); border-radius: 12px; padding: 12px 14px; border: 1px solid var(--border); }
+.metric-val { font-size: 22px; font-weight: 700; color: var(--primary); font-family: var(--font); }
+.metric-label { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+/* Bar */
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-label { font-size: 12px; color: var(--text2); width: 60px; flex-shrink: 0; }
+.bar-track { flex: 1; height: 6px; background: var(--surface); border-radius: 100px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, #4A9B6F, #7EC8A4); transition: width 0.6s ease; }
+.bar-val { font-size: 11px; color: var(--text2); width: 28px; text-align: right; font-family: var(--font); font-weight: 600; }
+
+/* Pain comments */
+.pain-list { display: flex; flex-direction: column; gap: 8px; }
+.pain-item { padding: 10px 13px; background: var(--bg); border-radius: 10px; border: 1px solid var(--border); font-size: 13px; color: var(--text); line-height: 1.55; }
+.pain-author { font-size: 11px; color: var(--text3); margin-top: 5px; }
+
+/* Supply prompt */
+.prompt-box { background: #F0FAF5; border-radius: 12px; padding: 14px 16px; border: 1px solid #C4E8D4; }
+.prompt-label { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-family: var(--font); }
+.prompt-code { font-family: 'DM Mono','SF Mono','Fira Code',monospace; font-size: 11.5px; color: var(--text); line-height: 1.65; white-space: pre-wrap; }
+
+/* Topic cards */
+.topic-grid { display: flex; flex-direction: column; gap: 8px; }
+.tc {
+  padding: 14px 16px; border-radius: 14px; border: 1.5px solid var(--border);
+  cursor: pointer; transition: var(--transition); background: var(--card);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.tc:hover { border-color: var(--primary-light); background: #F5FCF8; }
+.tc.active { border-color: var(--primary); background: linear-gradient(135deg, #F0FAF5, #FFFFFF); }
+.tc-num { font-size: 10px; font-weight: 700; color: var(--text3); font-family: var(--font); text-transform: uppercase; letter-spacing: 0.5px; padding-top: 2px; width: 28px; flex-shrink: 0; }
+.tc.active .tc-num { color: var(--primary); }
+.tc-body { flex: 1; }
+.tc-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+.tc-reason { font-size: 12px; color: var(--text2); line-height: 1.45; }
+.tc-arrow { font-size: 14px; color: var(--text3); padding-top: 2px; }
+.tc.active .tc-arrow { color: var(--primary); }
+.btn-gen {
+  margin-top: 14px; padding: 11px 20px; border: none; border-radius: 100px;
+  background: linear-gradient(135deg, #4A9B6F, #7EC8A4); color: #fff;
+  font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font-cn);
+  transition: var(--transition); outline: none; display: flex; align-items: center; gap: 6px;
+}
+.btn-gen:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74,155,111,0.28); }
+
+/* Content preview */
+.preview-cover {
+  width: 100%; height: 180px; border-radius: 14px; overflow: hidden;
+  margin-bottom: 14px; position: relative; background: linear-gradient(135deg, #2C3E2D, #4A9B6F);
+}
+.preview-cover img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+.preview-cover-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 18px; background: linear-gradient(transparent, rgba(0,0,0,0.55)); color: #fff; }
+.preview-cover-title { font-size: 16px; font-weight: 700; line-height: 1.35; }
+.preview-cover-sub { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+
+.supply-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.supply-item { padding: 12px 14px; background: var(--bg); border-radius: 12px; border: 1px solid var(--border); }
+.supply-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.supply-tag-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 100px; background: linear-gradient(135deg,#4A9B6F,#7EC8A4); color: #fff; margin-bottom: 6px; }
+.supply-desc-text { font-size: 11.5px; color: var(--text2); line-height: 1.5; }
+.stars { color: #FF9500; font-size: 11px; margin-top: 5px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-logo">AI美食 <span>选题引擎</span></div>
+  <div class="mode-tabs">
+    <button class="mode-tab active" id="tab-commercial" onclick="switchMode('commercial')">💼 商业化</button>
+    <button class="mode-tab" id="tab-content" onclick="switchMode('content')">📝 内容型</button>
+  </div>
+  <div class="hdr-subtitle">Dashboard · 北京美食版</div>
+</header>
+
+<div class="layout">
+  <!-- LEFT -->
+  <div class="left-panel">
+    <div class="left-scroll">
+      <div class="panel-label">选题方向</div>
+      <div class="input-wrap">
+        <textarea class="input-mini" id="user-input" rows="2">帮我做北京美食选题</textarea>
+      </div>
+      <button class="btn-analyze" onclick="onAnalyze()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        开始分析
+      </button>
+
+      <div class="divider"></div>
+
+      <div class="panel-label">热点品类气泡图</div>
+      <div class="canvas-wrap">
+        <canvas id="bubble-canvas" width="264" height="200"></canvas>
+        <div class="canvas-hint" id="canvas-hint">点击气泡查看详情 →</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-item"><div class="legend-dot" style="background:#FF8C6B"></div>地道京味</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5BB8E8"></div>新潮趋势</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7DC87A"></div>夜市休闲</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="panel-label">筛选条件</div>
+      <div class="tag-group">
+        <div class="tag-group-label">🗺️ 地区</div>
+        <div class="tags-wrap">
+          <span class="tag" onclick="toggleTag(this)">朝阳</span>
+          <span class="tag" onclick="toggleTag(this)">西城</span>
+          <span class="tag" onclick="toggleTag(this)">东城</span>
+          <span class="tag" onclick="toggleTag(this)">海淀</span>
+        </div>
+      </div>
+      <div class="tag-group">
+        <div class="tag-group-label">🍜 品类</div>
+        <div class="tags-wrap">
+          <span class="tag" onclick="toggleTag(this)">地道京味</span>
+          <span class="tag" onclick="toggleTag(this)">新潮趋势</span>
+          <span class="tag" onclick="toggleTag(this)">夜市烧烤</span>
+          <span class="tag" onclick="toggleTag(this)">老字号</span>
+        </div>
+      </div>
+      <div class="tag-group">
+        <div class="tag-group-label">👥 人群</div>
+        <div class="tags-wrap">
+          <span class="tag" onclick="toggleTag(this)">美食博主</span>
+          <span class="tag" onclick="toggleTag(this)">外地游客</span>
+          <span class="tag" onclick="toggleTag(this)">本地吃货</span>
+          <span class="tag" onclick="toggleTag(this)">Z世代</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-panel" id="right-panel">
+    <div class="right-empty" id="right-empty">
+      <div class="empty-icon">🍜</div>
+      <div class="empty-text">点击左侧气泡开始分析</div>
+      <div class="empty-sub">选择一个品类，查看热度数据、痛点洞察与选题方案</div>
+    </div>
+    <div id="right-content" style="display:none;"></div>
+  </div>
+</div>
+
+<script>
+var currentMode = 'commercial';
+var selectedBubble = null;
+var selectedTopicIdx = 0;
+
+var bubbles = [
+  { name:'烤鸭',       heat:95, cx:0.82, cy:0.18, r:28, cat:'traditional', color:'#FF8C6B' },
+  { name:'铜锅涮肉',   heat:88, cx:0.65, cy:0.28, r:24, cat:'traditional', color:'#FF8C6B' },
+  { name:'咖啡特调',   heat:82, cx:0.72, cy:0.62, r:21, cat:'trend',       color:'#5BB8E8' },
+  { name:'春季轻食',   heat:78, cx:0.50, cy:0.55, r:19, cat:'trend',       color:'#5BB8E8' },
+  { name:'北京烤串',   heat:75, cx:0.30, cy:0.72, r:18, cat:'night',       color:'#7DC87A' },
+  { name:'炸酱面',     heat:72, cx:0.45, cy:0.25, r:17, cat:'traditional', color:'#FF8C6B' },
+  { name:'羊蝎子',     heat:68, cx:0.20, cy:0.45, r:16, cat:'night',       color:'#7DC87A' },
+  { name:'日料一人食', heat:65, cx:0.78, cy:0.45, r:15, cat:'trend',       color:'#5BB8E8' },
+  { name:'豆汁焦圈',   heat:60, cx:0.32, cy:0.38, r:14, cat:'traditional', color:'#FF8C6B' },
+  { name:'卤煮火烧',   heat:58, cx:0.55, cy:0.75, r:13, cat:'traditional', color:'#FF8C6B' },
+  { name:'创意甜品',   heat:55, cx:0.62, cy:0.42, r:13, cat:'trend',       color:'#5BB8E8' },
+  { name:'小吊梨汤',   heat:50, cx:0.18, cy:0.22, r:12, cat:'traditional', color:'#FF8C6B' }
+];
+
+var painData = {
+  '烤鸭':       { pain: ['「四季民福排队3小时才吃上」「关晓彤忽悠我去了全聚德」', '游客区均价500+被诟病性价比低', '「老字号要完蛋了，本地人另有隐藏清单」', '排队vs预约的决策焦虑'], prompt: '请从美团平台筛选烤鸭商家：\n- 评分 ≥ 4.6，月销量 ≥ 300\n- 人均 150-400元\n- 标签含「片皮鸭」「脆皮」\n- 排除：连锁快餐、旅游区溢价\n- 输出：TOP 10，含均价、等位时长' },
+  '铜锅涮肉':   { pain: ['「东来顺PK南门涮肉，400元差距实测」', '「别再踩东来顺的坑了」', '老北京麻酱比例存疑', '节假日等位2小时是常态'], prompt: '请筛选铜锅涮肉商家：\n- 评分 ≥ 4.5，月销量 ≥ 200\n- 人均 80-200元\n- 标签含「老北京」「麻酱」「铜锅」\n- 优先：含鲜牛肉、特色料碟\n- 输出：TOP 8，含人均和热度' },
+  '咖啡特调':   { pain: ['「白塔寺药店耀咖啡」胡同特调成爆款', '古建+咖啡公式被过度复制，同质化严重', '特调定价30-45元性价比存疑', '下午茶座位竞争激烈'], prompt: '请筛选创意咖啡特调商家：\n- 评分 ≥ 4.7，月销量 ≥ 150\n- 人均 30-60元\n- 标签含「特调」「网红」「胡同」\n- 优先：有独特故事的场景咖啡\n- 输出：TOP 6' },
+  '春季轻食':   { pain: ['「哪家是真食材哪家是料理包」', '低卡标注不透明，减脂党被坑', '「春日限定打工人午餐救星」', '价格与分量失衡严重'], prompt: '请筛选春季轻食商家：\n- 评分 ≥ 4.5，月销量 ≥ 100\n- 人均 40-80元\n- 标签含「低卡」「轻食」「沙拉」\n- 优先：真实热量标注、无料理包\n- 输出：TOP 6' },
+  '北京烤串':   { pain: ['「来北京不吃脏摊儿烧烤等于白来」', '「丰台花街夜市铁板鱿鱼一口入魂」', '脏摊儿卫生标准不统一引发讨论', '「石景山铁道烤串风格封神」'], prompt: '请筛选夜市烤串商家：\n- 评分 ≥ 4.4，月销量 ≥ 300\n- 人均 50-120元\n- 标签含「烤串」「夜市」「羊肉串」\n- 优先：有特色地域标签\n- 输出：TOP 8' },
+  '炸酱面':     { pain: ['海碗居排队现象严重', '各家酱料配比差异大，"正宗"标准模糊', '外地人不知道怎么拌，体验门槛高', '新店难以超越老字号口碑'], prompt: '请筛选炸酱面商家：\n- 评分 ≥ 4.5\n- 标签含「炸酱面」「老北京」\n- 优先：口碑老店、有传承故事\n- 输出：TOP 6' },
+  '羊蝎子':     { pain: ['冬日爆款但夏季热度骤降，季节性强', '卤汤品质参差不齐', '鼓楼附近新开店质量良莠不齐', '踩雷率上升'], prompt: '请筛选羊蝎子商家：\n- 评分 ≥ 4.5，月销量 ≥ 100\n- 人均 80-150元\n- 标签含「羊蝎子」「秘制卤汤」\n- 输出：TOP 6' },
+  '日料一人食': { pain: ['一人食座位稀缺，节假日难预约', '人均120-180对价格敏感用户门槛高', '部分商家过度网红化导致体验下滑', '本土化改良与正宗之争'], prompt: '请筛选日料一人食商家：\n- 评分 ≥ 4.6\n- 人均 80-200元\n- 标签含「一人食」「板前」「日料」\n- 输出：TOP 6' },
+  '豆汁焦圈':   { pain: ['豆汁是"挑战性食物"，外地人接受度极低', '护国寺小吃节假日大排长龙', '传统小吃面临年轻化断层危机', '味道和气味太重劝退新人'], prompt: '请筛选老北京特色小吃商家：\n- 标签含「豆汁」「焦圈」「护国寺」\n- 优先：有文化故事的老字号\n- 输出：TOP 5' },
+  '卤煮火烧':   { pain: ['门框胡同老店已成景点，游客与本地人比例失衡', '猪下水食材认知门槛高', '新店品质难超越老字号', '「没吃过卤煮就没来过北京」vs「实在接受不了」'], prompt: '请筛选卤煮火烧商家：\n- 标签含「卤煮」「老北京」「火烧」\n- 优先：有传承故事、本地人聚集\n- 输出：TOP 5' },
+  '创意甜品':   { pain: ['高颜值门店排队耗时', '限定款常常断货', '价格50-80元争议大', '社交平台种草与实物差距'], prompt: '请筛选创意甜品商家：\n- 评分 ≥ 4.6\n- 人均 40-80元\n- 标签含「甜品」「网红」「特色」\n- 输出：TOP 6' },
+  '小吊梨汤':   { pain: ['新中式饮品赛道拥挤', '传统配方与现代口感平衡难把握', '部分版本含糖量过高', '品牌化程度低'], prompt: '请筛选新中式饮品商家：\n- 标签含「梨汤」「新中式」「传统饮品」\n- 输出：TOP 5' }
+};
+
+var topicData = [
+  { title: '北京烤鸭避坑终极指南 · 2026本地版', reason: '热度第一，「避坑/本地推荐」框架传播力强，商业化转化效率极高。「关晓彤忽悠我」等真实标题已验证爆款潜力。', bars: [{label:'热点关联',val:96},{label:'痛点契合',val:90},{label:'供给匹配',val:88},{label:'传播潜力',val:94}] },
+  { title: '北京胡同美食地图 · 老字号不完全手册', reason: '胡同文化+老字号双重情感溢价，收藏率高，长尾传播周期超90天。', bars: [{label:'热点关联',val:82},{label:'痛点契合',val:94},{label:'供给匹配',val:76},{label:'传播潜力',val:89}] },
+  { title: '北京夜市烤串全攻略 · 从鼓楼到工体', reason: '夜市文化夏季强流量，供给资源丰富，周末场景转化率高。', bars: [{label:'热点关联',val:78},{label:'痛点契合',val:85},{label:'供给匹配',val:92},{label:'传播潜力',val:86}] },
+  { title: '新潮趋势：北京日料一人食 & 韩式融合测评', reason: '一人食赛道持续爆发，高颜值+精致感命中Z世代核心需求。', bars: [{label:'热点关联',val:74},{label:'痛点契合',val:80},{label:'供给匹配',val:78},{label:'传播潜力',val:83}] },
+  { title: '打工人续命轻食地图 · 北京CBD篇', reason: '午餐刚需场景，健康轻食全年稳定热度，春季轻食+古建咖啡组合精准触达25-35岁女性。', bars: [{label:'热点关联',val:72},{label:'痛点契合',val:88},{label:'供给匹配',val:82},{label:'传播潜力',val:80}] }
+];
+
+var canvasData = { w: 264, h: 200 };
+var hoveredBubble = null;
+
+function drawBubbles() {
+  var canvas = document.getElementById('bubble-canvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  bubbles.forEach(function(b, i) {
+    var x = b.cx * W, y = b.cy * H;
+    var hex = b.color;
+    var rgb = hexToRgb(hex);
+    var isSelected = selectedBubble && selectedBubble.name === b.name;
+    var isHovered = hoveredBubble && hoveredBubble.name === b.name;
+    var alpha = (isSelected || isHovered) ? 0.75 : 0.45;
+    ctx.beginPath();
+    ctx.arc(x, y, b.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + alpha + ')';
+    ctx.fill();
+    ctx.strokeStyle = isSelected ? hex : 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.8)';
+    ctx.lineWidth = isSelected ? 2.5 : 1.5;
+    ctx.stroke();
+    if (isSelected) {
+      ctx.beginPath(); ctx.arc(x, y, b.r + 5, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.3)';
+      ctx.lineWidth = 2; ctx.stroke();
+    }
+    ctx.fillStyle = isSelected ? hex : '#2C3E2D';
+    ctx.font = (b.r > 18 ? '11px' : '10px') + " 'PingFang SC', -apple-system, sans-serif";
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(b.name, x, y);
+  });
+}
+
+function hexToRgb(hex) {
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return {r:r,g:g,b:b};
+}
+
+function getBubbleAt(mx, my) {
+  var canvas = document.getElementById('bubble-canvas');
+  var rect = canvas.getBoundingClientRect();
+  var scaleX = canvas.width / rect.width, scaleY = canvas.height / rect.height;
+  var x = (mx - rect.left) * scaleX, y = (my - rect.top) * scaleY;
+  for (var i = bubbles.length - 1; i >= 0; i--) {
+    var b = bubbles[i];
+    var dx = x - b.cx * canvas.width, dy = y - b.cy * canvas.height;
+    if (Math.sqrt(dx*dx + dy*dy) <= b.r) return b;
+  }
+  return null;
+}
+
+document.getElementById('bubble-canvas').addEventListener('click', function(e) {
+  var b = getBubbleAt(e.clientX, e.clientY);
+  if (b) { selectedBubble = b; drawBubbles(); showRightContent(b); }
+});
+
+document.getElementById('bubble-canvas').addEventListener('mousemove', function(e) {
+  var b = getBubbleAt(e.clientX, e.clientY);
+  hoveredBubble = b || null;
+  this.style.cursor = b ? 'pointer' : 'default';
+  drawBubbles();
+});
+
+function showRightContent(bubble) {
+  document.getElementById('right-empty').style.display = 'none';
+  var rc = document.getElementById('right-content');
+  rc.style.display = 'block';
+  var pain = painData[bubble.name] || { pain: ['暂无痛点数据'], prompt: '暂无Prompt' };
+  var html = '';
+
+  // Block 1: 品类概览
+  html += '<div class="section-block" style="animation-delay:0s">';
+  html += '<div class="block-header"><div class="block-icon" style="background:' + bubble.color + '22">🔍</div><div><div class="block-title">' + bubble.name + '</div><div class="block-sub">热度指数 ' + bubble.heat + ' · ' + (bubble.cat==='traditional'?'地道京味':bubble.cat==='trend'?'新潮趋势':'夜市休闲') + '</div></div></div>';
+  html += '<div class="metrics-row">';
+  html += '<div class="metric-card"><div class="metric-val">' + bubble.heat + '</div><div class="metric-label">热度指数</div></div>';
+  html += '<div class="metric-card"><div class="metric-val" style="color:#FF7A5C">' + Math.round(bubble.heat * 0.92) + '</div><div class="metric-label">商业潜力</div></div>';
+  html += '<div class="metric-card"><div class="metric-val" style="color:#5BB8E8">' + Math.round(bubble.heat * 1.1) + '</div><div class="metric-label">内容热度</div></div>';
+  html += '</div></div>';
+
+  // Block 2: 痛点洞察
+  html += '<div class="section-block" style="animation-delay:0.06s">';
+  html += '<div class="block-header"><div class="block-icon" style="background:#FF7A5C22">💢</div><div><div class="block-title">痛点洞察</div><div class="block-sub">基于近30天UGC内容分析</div></div></div>';
+  html += '<div class="pain-list">';
+  pain.pain.forEach(function(p) { html += '<div class="pain-item">' + p + '</div>'; });
+  html += '</div></div>';
+
+  if (currentMode === 'commercial') {
+    // Block 3: 供给筛选 Prompt
+    html += '<div class="section-block" style="animation-delay:0.12s">';
+    html += '<div class="block-header"><div class="block-icon" style="background:#4A9B6F22">🤖</div><div><div class="block-title">供给筛选 Prompt</div><div class="block-sub">直接复制到美团供给系统使用</div></div></div>';
+    html += '<div class="prompt-box"><div class="prompt-label">🤖 供给筛选 Prompt</div><code class="prompt-code">' + pain.prompt + '</code></div></div>';
+  }
+
+  // Block 4: 选题推荐
+  html += '<div class="section-block" style="animation-delay:0.18s">';
+  html += '<div class="block-header"><div class="block-icon" style="background:#5BB8E822">✨</div><div><div class="block-title">推荐选题方案</div><div class="block-sub">AI基于热点+痛点生成 · 点击选题查看内容预览</div></div></div>';
+  html += '<div class="topic-grid">';
+  topicData.slice(0,3).forEach(function(t, i) {
+    html += '<div class="tc' + (i===0?' active':'') + '" onclick="selectTopic(this,' + i + ',\'' + bubble.name + '\')">';
+    html += '<div class="tc-num">NO.' + (i+1<10?'0'+(i+1):i+1) + '</div>';
+    html += '<div class="tc-body"><div class="tc-title">' + t.title + '</div><div class="tc-reason">' + t.reason + '</div></div>';
+    html += '<div class="tc-arrow">›</div></div>';
+  });
+  html += '</div>';
+  html += '<button class="btn-gen" id="btn-gen-content" onclick="showContentPreview(\'' + bubble.name + '\')">生成内容预览 →</button>';
+  html += '</div>';
+
+  html += '<div id="content-preview-block"></div>';
+
+  rc.innerHTML = html;
+}
+
+function selectTopic(el, idx, bubbleName) {
+  selectedTopicIdx = idx;
+  var all = el.parentElement.querySelectorAll('.tc');
+  all.forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+function showContentPreview(bubbleName) {
+  var t = topicData[selectedTopicIdx];
+  var html = '<div class="section-block" style="animation-delay:0s">';
+  html += '<div class="block-header"><div class="block-icon" style="background:#7EC8A422">📝</div><div><div class="block-title">内容预览</div><div class="block-sub">' + t.title + '</div></div></div>';
+  html += '<div class="preview-cover"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop" onerror="this.parentElement.style.background=\'linear-gradient(135deg,#4A9B6F,#7EC8A4)\';this.style.display=\'none\'">';
+  html += '<div class="preview-cover-text"><div class="preview-cover-title">' + t.title + '</div><div class="preview-cover-sub">三强横评 · 本地私藏清单 · 排队攻略全收录</div></div></div>';
+  html += '<div style="margin-bottom:12px;">';
+  t.bars.forEach(function(b){ html += '<div class="bar-row"><div class="bar-label">' + b.label + '</div><div class="bar-track"><div class="bar-fill" style="width:' + b.val + '%"></div></div><div class="bar-val">' + b.val + '</div></div>'; });
+  html += '</div>';
+  if (currentMode === 'commercial') {
+    html += '<div class="supply-grid">';
+    [['四季民福（故宫店）','综合第一','皮脆肉嫩，甜面酱自制。人均200-280元，建议提前预约。','★★★★★'],
+     ['利群烤鸭（胡同店）','老北京味儿','藏在胡同里的老店，酱香浓郁。人均180-250元。','★★★★★'],
+     ['鸭王（三里屯）','性价比优选','连锁品质稳定，人均150-200元，无需预约。','★★★★☆'],
+     ['大董烤鸭（工体）','高端体验','意境菜+烤鸭融合，人均350-500元，适合商务宴请。','★★★★☆']
+    ].forEach(function(s){ html += '<div class="supply-item"><div class="supply-name">' + s[0] + '</div><span class="supply-tag-badge">' + s[1] + '</span><div class="supply-desc-text">' + s[2] + '</div><div class="stars">' + s[3] + '</div></div>'; });
+    html += '</div>';
+  } else {
+    html += '<div style="padding:12px;background:var(--bg);border-radius:12px;border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6;">北京人吃烤鸭，根本不去全聚德。这是让无数外地朋友震惊的事实。真正被本地人反复推荐的，是四季民福、利群、鸭王这三家。从口味、性价比、排队时间三个维度，我们给你一份不被割韭菜的本地吃货版指南。</div>';
+  }
+  html += '</div>';
+  document.getElementById('content-preview-block').innerHTML = html;
+  document.getElementById('content-preview-block').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function toggleTag(el) { el.classList.toggle('active'); }
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('tab-commercial').classList.toggle('active', mode==='commercial');
+  document.getElementById('tab-content').classList.toggle('active', mode==='content');
+  if (selectedBubble) showRightContent(selectedBubble);
+}
+
+function onAnalyze() {
+  if (!selectedBubble) {
+    document.getElementById('canvas-hint').textContent = '✨ 分析就绪，点击气泡查看详情 →';
+  }
+}
+
+// Init
+window.onload = function() {
+  drawBubbles();
+  // 默认选中第一个品类
+  var first = bubbles[0];
+  if (first) { selectedBubble = first; drawBubbles(); showRightContent(first); }
+};
+</script>
+</body>
+</html>

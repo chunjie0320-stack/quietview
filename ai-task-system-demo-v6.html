@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI任务系统 V6</title>
+<style>
+:root {
+  --primary:#3370FF;--primary-dark:#245BDB;--primary-light:#F0F5FF;--primary-hover:#4080FF;
+  --secondary:#5856D6;--secondary-light:#F0F0FF;
+  --bg:#F5F7FA;--surface:#FFFFFF;--surface-hover:#F7F8FA;--surface-active:#F0F5FF;
+  --border:#DEE0E3;--border-light:#E5E6EB;--border-focus:#3370FF;
+  --text:#1F2329;--text-secondary:#646A73;--text-tertiary:#8F959E;--text-link:#3370FF;
+  --success:#00B42A;--success-light:#E8FFEA;--warning:#FF7D00;--warning-light:#FFF7E8;
+  --error:#F53F3F;--info:#3370FF;
+  --tag-draft:#8F959E;--tag-running:#00B42A;--tag-paused:#FF7D00;--tag-ended:#86909C;
+  --font:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;
+  --error-light:#FFEBE9;--info-light:#E5F8FF;
+  --radius-sm:4px;--radius-md:6px;--radius-lg:8px;
+  --font-mono:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg:0 4px 16px rgba(0,0,0,0.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);font-size:14px;line-height:1.29;letter-spacing:0;color:var(--text);background:var(--bg)}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select{font-family:inherit;font-size:14px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #3370FF;outline-offset:2px}
+
+.app{max-width:1440px;margin:0 auto;min-height:100vh}
+.header{height:52px;background:#FFFFFF;border-bottom:1px solid var(--border-light);display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:100}
+.header-title{font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px;letter-spacing:0;line-height:1.14}
+.logo{width:24px;height:24px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#FFFFFF}
+.header-tag{font-size:11px;background:var(--primary-light);color:var(--primary);padding:2px 8px;border-radius:var(--radius-sm);margin-left:4px}
+
+.tabs{height:44px;background:var(--surface);border-bottom:1px solid var(--border-light);display:flex;align-items:stretch;padding:0 24px;gap:32px}
+.tab-btn{position:relative;font-size:14px;letter-spacing:0;color:var(--text-secondary);transition:color .15s;padding:0 4px}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--text);font-weight:600}
+.tab-btn.active::after{content:'';position:absolute;bottom:0;left:4px;right:4px;height:2px;background:var(--primary);border-radius:1px 1px 0 0}
+.tabs-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+
+.btn-p{background:var(--primary);color:#FFFFFF;height:36px;padding:0 20px;border-radius:var(--radius-sm);font-weight:500;font-size:14px;letter-spacing:0;display:inline-flex;align-items:center;gap:4px;transition:all .2s ease}
+.btn-p:hover{background:var(--primary-hover)}
+.btn-s{background:transparent;color:var(--text-link);border:1px solid var(--text-link);height:32px;padding:0 16px;border-radius:var(--radius-sm);font-size:14px;display:inline-flex;align-items:center;gap:4px;transition:all .2s ease}
+.btn-s:hover{background:rgba(51,112,255,0.06)}
+.btn-t{background:transparent;color:var(--text-link);height:32px;padding:0 8px;font-size:14px;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+.btn-t:hover{text-decoration:underline}
+
+.content{padding:24px}
+.panel{display:none}.panel.on{display:block}
+.view{display:none}.view.on{display:block}
+
+/* Search Box */
+.search-box{display:flex;align-items:center;background:#FFFFFF;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 14px;height:36px;width:280px;transition:all .2s ease;gap:8px;flex-shrink:0}
+.search-box:focus-within{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1);background:#fff}
+.search-box .s-icon{color:var(--text-tertiary);font-size:14px;flex-shrink:0;line-height:1}
+.search-box .s-input{border:none;background:transparent;outline:none;font-size:14px;color:var(--text);width:100%;font-family:var(--font)}
+.search-box .s-input::placeholder{color:var(--text-tertiary)}
+.search-box .s-clear{display:none;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--text-tertiary);color:#fff;font-size:10px;cursor:pointer;flex-shrink:0}
+.search-box .s-clear:hover{background:var(--text-secondary)}
+.search-box .s-clear.show{display:flex}
+
+.task-list{display:flex;flex-direction:column;gap:0}
+
+/* Step1 */
+.s1-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s1-layout{display:flex;gap:24px;height:calc(100vh - 48px - 48px - 48px - 80px);min-height:520px}
+.chat-p{flex:0 0 60%;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.chat-hd{height:48px;padding:0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(0,0,0,0.06);font-weight:500}
+.chat-hd .dot{width:8px;height:8px;border-radius:50%;background:var(--success)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.msg{display:flex;gap:8px;max-width:85%}
+.msg.ai{align-self:flex-start}.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.msg.ai .avatar{background:var(--primary-light)}.msg.user .avatar{background:var(--primary);color:#FFFFFF}
+.bubble{padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.47;white-space:pre-wrap}
+.msg.ai .bubble{background:#F5F7FA;border-top-left-radius:2px}.msg.user .bubble{background:var(--primary-light);border-top-right-radius:2px}
+.chat-in{height:64px;padding:0 16px;display:flex;align-items:center;gap:8px;border-top:1px solid rgba(0,0,0,0.06)}
+.chat-input{flex:1;height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);outline:none;font-size:14px}
+.chat-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.send-btn{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px}
+.send-btn:hover{background:var(--primary-hover)}
+
+.elem-p{flex:0 0 40%;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.elem-hd{padding:16px;border-bottom:1px solid rgba(0,0,0,0.06);font-size:16px;font-weight:600;line-height:1.14}
+.elem-form{padding:16px;display:flex;flex-direction:column;gap:0}
+.elem-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.04)}
+.elem-row:last-child{border-bottom:none}
+.elem-row-label{width:72px;flex-shrink:0;font-size:13px;color:var(--text-secondary);text-align:right;font-weight:500}
+.elem-row-control{flex:1;display:flex;align-items:center;gap:8px}
+.elem-row-input{height:32px;padding:0 10px;border:1px solid var(--border);border-radius:4px;font-size:13px;outline:none;font-family:inherit;width:100%;max-width:260px;color:var(--text);background:#FFFFFF;transition:all 0.2s ease}
+.elem-row-input:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.elem-row-input::placeholder{color:var(--text-tertiary)}
+.elem-row-select{height:32px;padding:0 10px;border:1px solid var(--border);border-radius:4px;font-size:13px;background:#FFFFFF;cursor:pointer;outline:none;font-family:inherit;min-width:160px;color:var(--text);transition:all 0.2s ease}
+.elem-row-select:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.elem-row-date{height:32px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:13px;outline:none;font-family:inherit;color:var(--text);background:#FFFFFF;width:140px;transition:all 0.2s ease}
+.elem-row-date:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.elem-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--border);transition:background 0.3s ease}
+.elem-status.filled{background:var(--success)}
+.elem-ft{padding:16px;border-top:1px solid rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:8px}
+.prog-wrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)}
+.prog-track{flex:1;height:3px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
+.gen-wrap{text-align:center}
+
+/* ====== Step2: V5 Three-Column (s2- prefix) ====== */
+.s2-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s2-wrap{display:flex;flex-direction:column;height:calc(100vh - 48px - 48px - 48px - 80px);min-height:520px}
+.s2-layout{display:flex;flex:1;overflow:hidden;font-size:13px}
+.s2-lp{width:280px;min-width:280px;background:var(--surface);border-right:1px solid var(--border-light);display:flex;flex-direction:column}
+.s2-ph{padding:10px 14px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.s2-pt{font-size:13px;font-weight:600}
+.s2-pb{font-size:11px;background:var(--primary-light);color:var(--primary);padding:1px 6px;border-radius:var(--radius-sm)}
+.s2-lb{padding:12px 14px;overflow-y:auto;flex:1}
+.s2-fg{margin-bottom:10px}
+.s2-fl{display:block;font-size:12px;color:var(--text-secondary);margin-bottom:3px;font-weight:500}
+.s2-fc{width:100%;height:30px;padding:0 8px;border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:13px;color:var(--text);background:var(--surface);outline:none;font-family:inherit}
+.s2-fc:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(51,112,255,.1)}
+select.s2-fc{cursor:pointer;-webkit-appearance:auto;appearance:auto}
+.s2-pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:var(--radius-sm);background:var(--primary-light);color:var(--primary);margin-top:3px}
+.s2-cc{flex:1;min-width:0;background:var(--bg);border-right:1px solid var(--border-light);display:flex;flex-direction:column}
+.s2-ch{position:sticky;top:0;z-index:10;padding:10px 14px;background:var(--surface);border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.s2-ca{flex:1;position:relative;padding:20px 16px;background-image:radial-gradient(circle,#C9CDD4 .5px,transparent .5px);background-size:16px 16px;display:flex;flex-direction:column;align-items:center;overflow-y:auto}
+.s2-nd{background:var(--surface);border:1.5px solid var(--border-light);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .15s,box-shadow .15s;user-select:none}
+.s2-nd:hover{border-color:var(--primary)}
+.s2-nd.sel{border-color:var(--primary);box-shadow:0 0 0 2px rgba(51,112,255,.15)}
+.s2-ms{width:420px;padding:12px 16px;border-width:2px}
+.s2-ms .s2-nn{font-size:14px;font-weight:600;margin-bottom:5px}
+.s2-ms .s2-nm{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:#4E5969}
+.s2-ml{color:var(--text-tertiary);margin-right:2px}
+.s2-thr{display:flex;gap:4px;margin-top:5px}
+.s2-thr span{font-size:11px;padding:1px 6px;border-radius:var(--radius-sm);background:var(--primary-light);color:var(--primary)}
+.s2-cvs{width:420px;height:52px;flex-shrink:0}
+.s2-sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:420px}
+.s2-sn{padding:8px 10px}
+.s2-sn .s2-nn{font-size:12px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s2-sn .s2-nt{font-size:11px;color:var(--text-tertiary);margin-bottom:3px}
+.s2-sn .s2-tgs{display:flex;gap:4px}
+.s2-st{font-size:10px;padding:1px 5px;border-radius:var(--radius-sm)}
+.s2-st-d{background:#F2F3F5;color:var(--text-tertiary)}
+.s2-st-a{background:#E8FFEA;color:var(--success)}
+.s2-st-e{background:#FFF0E0;color:var(--warning)}
+.s2-ty{font-size:10px;padding:1px 5px;border-radius:var(--radius-sm);background:var(--primary-light);color:var(--primary)}
+.s2-rp{flex:1;min-width:420px;background:var(--surface);display:flex;flex-direction:column;overflow:hidden}
+.s2-rh{padding:10px 14px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:8px}
+.s2-ri{width:6px;height:6px;border-radius:50%;background:var(--primary)}
+.s2-rb{flex:1;overflow-y:auto;padding:14px 16px}
+.s2-sc{margin-bottom:14px}
+.s2-sh{font-size:12px;font-weight:600;padding-bottom:6px;border-bottom:1px solid var(--border-light);margin-bottom:8px}
+.s2-fr{display:flex;align-items:center;margin-bottom:7px}
+.s2-fr .s2-fl{width:72px;min-width:72px;margin-bottom:0;text-align:right;padding-right:8px}
+.s2-fr .s2-fc{flex:1}
+.s2-rw-list{display:flex;flex-direction:column;gap:8px}
+.s2-rw-card{border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:10px 12px;background:var(--bg)}
+.s2-rw-card:hover{border-color:var(--primary)}
+.s2-rw-hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.s2-rw-tier{font-size:13px;font-weight:600;color:var(--primary);min-width:36px}
+.s2-rw-type{font-size:11px;padding:1px 6px;border-radius:var(--radius-sm);background:var(--primary-light);color:var(--primary)}
+.s2-rw-name{font-size:12px;color:var(--text);margin-left:auto}
+.s2-rw-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;font-size:12px}
+.s2-rw-body .s2-rw-l{color:var(--text-tertiary);font-size:11px}
+.s2-rw-body .s2-rw-v{color:var(--text)}
+.s2-rw-persona{grid-column:1/-1;margin-top:2px;font-size:11px;color:#4E5969;line-height:1.6}
+.s2-rw-persona span{background:#F2F3F5;padding:1px 6px;border-radius:2px;margin-right:4px;display:inline-block;margin-bottom:2px}
+.s2-ab{display:inline-flex;align-items:center;font-size:12px;color:var(--primary);cursor:pointer;padding:5px 0;background:none;border:none;font-family:inherit}
+.s2-ab:hover{text-decoration:underline}
+.s2-del-btn{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.06);color:var(--text-tertiary);font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;line-height:1;transition:all .15s;font-family:inherit;padding:0}
+.s2-del-btn:hover{background:var(--error);color:#fff}
+.s2-rw-card{position:relative}
+.s2-sn{position:relative}
+.s2-add-form{border:1px dashed var(--primary);border-radius:var(--radius-sm);padding:12px;margin-top:8px;background:var(--primary-light);display:none}
+.s2-add-form.show{display:block}
+.s2-add-form .s2-af-row{display:flex;align-items:center;margin-bottom:6px;gap:8px}
+.s2-add-form .s2-af-label{width:72px;min-width:72px;font-size:12px;color:var(--text-secondary);text-align:right}
+.s2-add-form .s2-af-input{flex:1;height:28px;padding:0 8px;border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:12px;outline:none;font-family:inherit}
+.s2-add-form .s2-af-input:focus{border-color:var(--primary)}
+.s2-add-form select.s2-af-input{cursor:pointer}
+.s2-add-form .s2-af-actions{display:flex;gap:8px;margin-top:8px;justify-content:flex-end}
+.s2-add-form .s2-af-confirm{height:28px;padding:0 16px;background:var(--primary);color:#fff;border-radius:var(--radius-sm);font-size:12px;border:none;cursor:pointer;font-family:inherit}
+.s2-add-form .s2-af-confirm:hover{background:var(--primary-hover)}
+.s2-add-form .s2-af-cancel{height:28px;padding:0 16px;background:var(--surface);color:var(--text-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;cursor:pointer;font-family:inherit}
+.s2-add-sub-wrap{width:420px;text-align:center;margin-top:8px}
+.s2-tgr{display:inline-flex;border:1px solid var(--border-light);border-radius:var(--radius-sm);overflow:hidden}
+.s2-tb{padding:3px 10px;font-size:12px;cursor:pointer;border:none;background:var(--surface);color:#4E5969;font-family:inherit;transition:all .15s}
+.s2-tb.a-and{background:var(--success);color:#fff}
+.s2-tb.a-or{background:var(--warning);color:#fff}
+.s2-mt{display:flex;flex-wrap:wrap;gap:4px}
+.s2-mg{font-size:11px;padding:2px 8px;border-radius:var(--radius-sm);background:#F2F3F5;color:#4E5969}
+.s2-bdr{display:flex;align-items:center;gap:8px;padding:6px 0}
+.s2-bdr .s2-fl{width:72px;min-width:72px;text-align:right;padding-right:8px;margin:0}
+.s2-bdr .s2-fc{width:140px;flex:none}
+.s2-bu{font-size:12px;color:var(--text-tertiary)}
+.s2-eh{font-size:12px;color:var(--text-tertiary);padding:10px 0}
+.s2-ft{height:52px;min-height:52px;background:var(--surface);border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;padding:0 20px;gap:10px}
+
+/* Step3 */
+.s3-center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:24px}
+.s3-check{width:80px;height:80px;border-radius:50%;background:var(--success-light);display:flex;align-items:center;justify-content:center;font-size:40px;animation:s3Pop .5s cubic-bezier(.68,-.55,.27,1.55)}
+@keyframes s3Pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.s3-title{font-size:24px;font-weight:600;line-height:1.14}
+.s3-card{background:var(--surface);border-radius:var(--radius-md);padding:24px;width:480px;max-width:100%;box-shadow:var(--shadow-sm)}
+.s3-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.04)}
+.s3-row:last-child{border-bottom:none}
+.s3-row-l{color:var(--text-secondary)}.s3-row-r{font-weight:500}
+
+.hidden{display:none!important}
+
+/* Data Table */
+.data-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.data-table th{text-align:left;padding:10px 16px;font-size:13px;font-weight:600;color:var(--text-secondary);background:#FAFBFC;border-bottom:1px solid var(--border-light);white-space:nowrap}
+.data-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.04);vertical-align:middle}
+.data-table tbody tr:hover>td{background:var(--surface-hover)}
+.data-table tbody tr:last-child>td{border-bottom:none}
+.data-table tbody tr.expand-row:hover>td{background:transparent}
+
+.status-dot{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;white-space:nowrap}
+.status-dot::before{content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-dot.s-running{color:#00B42A}.status-dot.s-running::before{background:#00B42A}
+.status-dot.s-draft{color:#8F959E}.status-dot.s-draft::before{background:#8F959E}
+.status-dot.s-paused{color:#FF7D00}.status-dot.s-paused::before{background:#FF7D00}
+.status-dot.s-ended{color:#86909C}.status-dot.s-ended::before{background:#86909C}
+.status-dot.s-completed{color:var(--primary-dark)}.status-dot.s-completed::before{background:var(--primary-dark)}
+.status-dot.s-expired{color:var(--text-tertiary)}.status-dot.s-expired::before{background:var(--text-tertiary)}
+
+.op-link{color:var(--text-link);font-size:13px;cursor:pointer;padding:0 4px;background:none;border:none;font-family:var(--font)}
+.op-link:hover{text-decoration:underline}
+.op-link.danger{color:var(--error)}
+.op-sep{color:var(--border);font-size:12px;margin:0 2px;user-select:none}
+
+/* Tab2 */
+#tab-query{padding:24px;max-width:1440px;margin:0 auto}
+.form-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:13px;font-weight:500;color:var(--text-secondary)}
+.form-input{height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;outline:none;width:200px;font-family:var(--font)}
+.form-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.form-select{height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;background:#fff;cursor:pointer;outline:none;font-family:var(--font)}
+.form-btn{height:36px;padding:0 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:var(--font)}
+.form-btn-primary{background:var(--primary);color:#fff}.form-btn-primary:hover{background:var(--primary-hover)}
+.form-btn-default{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}.form-btn-default:hover{background:var(--surface-hover)}
+.section-panel{background:#FAFBFC;border:1px solid var(--border-light);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:20px}
+.section-title{font-size:14px;font-weight:600;margin-bottom:12px;color:var(--text)}
+.info-grid{display:flex;flex-wrap:wrap;gap:8px 32px}
+.info-item{display:flex;gap:6px;font-size:14px}
+.info-item .il{color:var(--text-secondary)}
+.info-item .iv{color:var(--text);font-weight:500}
+.info-tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:500}
+.info-tag-active{background:var(--success-light);color:var(--success)}
+.info-tag-signin{background:var(--primary-light);color:var(--primary-dark)}
+.info-tag-food{background:var(--warning-light);color:var(--warning)}
+.task-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.task-header-title{font-size:14px;font-weight:600}
+.expand-row>td{padding:0!important;border-bottom:1px solid rgba(0,0,0,0.04)}
+.expand-content{background:#FAFBFC;padding:16px 24px;display:none}
+.expand-content.open{display:block}
+.expand-content .mini-table{width:100%;border-collapse:collapse;font-size:13px}
+.expand-content .mini-table th{text-align:left;padding:6px 10px;font-size:12px;font-weight:600;color:var(--text-secondary);background:#F3F4F6;border-bottom:1px solid var(--border-light)}
+.expand-content .mini-table td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,0.04)}
+.expand-content .mini-table tr:last-child td{border-bottom:none}
+.checkin-text{font-size:13px;line-height:1.8;color:var(--text-secondary);margin-top:10px}
+.summary-line{font-size:13px;color:var(--text-secondary);padding:12px 0}
+.uq-loading{text-align:center;padding:60px 20px;display:none}
+.uq-loading .spinner-lg{width:32px;height:32px;border:3px solid var(--border-light);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.uq-loading-text{font-size:14px;color:var(--text-tertiary)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header"><div class="header-title"><div class="logo">⚡</div>AI任务系统<span class="header-tag">V6</span></div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">任务列表</button>
+    <button class="tab-btn" onclick="switchTab('query')">信息查询</button>
+    <div class="tabs-right" id="tabActions">
+      <div class="search-box" id="taskSearchBox">
+        <span class="s-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+        <input class="s-input" id="taskSearchInput" type="text" placeholder="搜索任务...">
+        <span class="s-clear" id="taskSearchClear">✕</span>
+      </div>
+      <button class="btn-p" onclick="goStep('s1')">+ 新建任务</button>
+    </div>
+  </div>
+
+  <div class="panel on" id="panel-list">
+    <div class="content">
+      <!-- Task List View -->
+      <div class="view on" id="v-list">
+        <div class="task-list" id="taskList"></div>
+      </div>
+
+      <!-- Step1: AI对话配置 -->
+      <div class="view" id="v-s1">
+        <div class="s1-top"><button class="btn-t" onclick="goStep('list')">← 返回列表</button><span style="color:var(--text-secondary);font-size:12px">Step 1 / 3 · AI对话配置</span></div>
+        <div class="s1-layout">
+          <div class="chat-p">
+            <div class="chat-hd"><div class="dot"></div>AI任务助手 · 在线</div>
+            <div class="chat-msgs" id="chatMsgs"></div>
+            <div class="chat-in"><input class="chat-input" placeholder="描述你的活动任务..." readonly><button class="send-btn">↑</button></div>
+          </div>
+          <div class="elem-p">
+            <div class="elem-hd">任务要素配置</div>
+            <div class="elem-form" id="elemForm"></div>
+            <div class="elem-ft">
+              <div class="prog-wrap"><span id="progText">已收集 0/6</span><div class="prog-track"><div class="prog-fill" id="progFill" style="width:0"></div></div></div>
+              <div class="gen-wrap" id="genWrap" style="display:none"><button class="btn-p" style="height:40px;padding:0 32px;font-size:14px" onclick="goStep('s2')">生成玩法方案</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step2: 策略引擎 (V5三栏) -->
+      <div class="view" id="v-s2">
+        <div class="s2-top"><button class="btn-t" onclick="goStep('s1')">← 返回对话</button><span style="color:var(--text-secondary);font-size:12px">Step 2 / 3 · 策略引擎 → 玩法生产</span></div>
+        <div class="s2-wrap">
+          <div class="s2-layout">
+            <!-- Left: AI Thinking + 对话 -->
+            <div class="s2-lp">
+              <div class="s2-ph"><span class="s2-pt">AI Thinking</span><span class="s2-pb">推理中</span></div>
+              <div class="s2-lb" style="display:flex;flex-direction:column;padding:0">
+                <!-- AI Thinking 区域 -->
+                <div class="s2-think" style="flex:1;overflow-y:auto;padding:12px 14px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12px;line-height:1.6;color:var(--text-secondary);background:#f9fafb">
+                  <div style="margin-bottom:8px;color:var(--text);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;opacity:.6">💭 Reasoning Chain</div>
+                  <div style="margin-bottom:6px">→ 用户意图：创建中医节气签到活动</div>
+                  <div style="margin-bottom:6px">→ 玩法类型识别：two_layer（大玩法+子任务）</div>
+                  <div style="margin-bottom:6px">→ 子任务数量：9个节气，周期各不同</div>
+                  <div style="margin-bottom:6px">→ 行为原子匹配：signIn × 9 + subPlayComplete</div>
+                  <div style="margin-bottom:6px">→ 奖励策略：3/5/9阶梯门槛，画像分组差异化</div>
+                  <div style="margin-bottom:6px">→ 预算分配：20w总额，3档按6:3:1比例</div>
+                  <div style="margin-bottom:6px;color:var(--primary)">✓ 方案生成完毕，已渲染至画布</div>
+                </div>
+                <!-- 对话输入框 -->
+                <div style="border-top:1px solid var(--border-light);padding:10px 12px;background:var(--surface)">
+                  <div style="display:flex;gap:6px">
+                    <input id="s2chatInput" type="text" placeholder="继续对话调整方案..." style="flex:1;height:32px;padding:0 10px;border:1px solid var(--border-light);border-radius:16px;font-size:12px;outline:none;font-family:inherit" onkeydown="if(event.key==='Enter')s2Send()">
+                    <button onclick="s2Send()" style="width:32px;height:32px;border-radius:50%;border:none;background:var(--primary);color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">↑</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Center: 任务画布 -->
+            <div class="s2-cc">
+              <div class="s2-ch"><span class="s2-pt">任务画布</span><span style="font-size:11px;color:var(--text-tertiary)">点击节点查看配置</span></div>
+              <div class="s2-ca">
+                <div class="s2-nd s2-ms sel" data-id="master" onclick="pick('master')">
+                  <div class="s2-nn">中医节气签到</div>
+                  <div class="s2-nm">
+                    <span><span class="s2-ml">周期</span>2026/4/1 ~ 8/31</span>
+                    <span><span class="s2-ml">行为</span>子任务完成</span>
+                    <span><span class="s2-ml">人群</span>全量用户</span>
+                  </div>
+                  <div class="s2-thr"><span>3次档</span><span>5次档</span><span>9次档</span></div>
+                </div>
+                <svg class="s2-cvs" id="s2svg" viewBox="0 0 420 52">
+                  <defs><marker id="s2dot" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="4" markerHeight="4"><circle cx="2" cy="2" r="1.5" fill="#C9CDD4"/></marker></defs>
+                </svg>
+                <div class="s2-sg" id="s2grid"></div>
+              </div>
+            </div>
+            <!-- Right: 配置面板 -->
+            <div class="s2-rp">
+              <div class="s2-rh"><div class="s2-ri"></div><span class="s2-pt" id="s2rT">中医节气签到 · 大玩法配置</span></div>
+              <div class="s2-rb" id="s2rB"></div>
+            </div>
+          </div>
+          <div class="s2-ft">
+            <button class="btn-p" style="height:40px;padding:0 32px;width:280px;text-align:center;display:flex;align-items:center;justify-content:center" onclick="goStep('s3')">确认方案并发布</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step3: 确认发布 -->
+      <div class="view" id="v-s3">
+        <div class="s3-center">
+          <div class="s3-check">✓</div>
+          <div class="s3-title">任务创建成功！</div>
+          <div class="s3-card">
+            <div class="s3-row"><span class="s3-row-l">任务名称</span><span class="s3-row-r">中医节气签到</span></div>
+            <div class="s3-row"><span class="s3-row-l">任务类型</span><span class="s3-row-r">节气签到（大玩法）</span></div>
+            <div class="s3-row"><span class="s3-row-l">活动时间</span><span class="s3-row-r">2026-04-01 ~ 2026-08-31</span></div>
+            <div class="s3-row"><span class="s3-row-l">目标人群</span><span class="s3-row-r">全量用户</span></div>
+            <div class="s3-row"><span class="s3-row-l">奖励方式</span><span class="s3-row-r">3档阶梯（奖励包/奖励包/抽奖）</span></div>
+            <div class="s3-row"><span class="s3-row-l">预算上限</span><span class="s3-row-r">¥200,000</span></div>
+            <div class="s3-row"><span class="s3-row-l">子任务数</span><span class="s3-row-r">9个节气（谷雨~处暑）</span></div>
+            <div class="s3-row"><span class="s3-row-l">状态</span><span class="s3-row-r" style="color:var(--success)">● 运行中</span></div>
+          </div>
+          <button class="btn-p" style="height:40px;padding:0 32px" onclick="backToList()">← 返回任务列表</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab2: 信息查询 -->
+  <div class="panel" id="panel-query" style="display:none">
+    <div id="tab-query">
+      <div class="section-panel">
+        <div class="section-title">查询条件</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">用户ID</label><input type="text" class="form-input" id="uqUserId" placeholder="请输入用户ID"></div>
+          <div class="form-group"><label class="form-label">手机号</label><input type="text" class="form-input" id="uqPhone" placeholder="请输入手机号"></div>
+          <div class="form-group"><label class="form-label">用户昵称</label><input type="text" class="form-input" id="uqNickname" placeholder="请输入用户昵称"></div>
+          <div class="form-group" style="flex-direction:row;gap:8px;align-items:flex-end">
+            <button class="form-btn form-btn-primary" id="uqSearchBtn">查询</button>
+            <button class="form-btn form-btn-default" id="uqResetBtn">重置</button>
+          </div>
+        </div>
+      </div>
+      <div class="uq-loading" id="uqLoading"><div class="spinner-lg"></div><div class="uq-loading-text">正在查询用户信息...</div></div>
+      <div id="uqResult" style="display:none">
+        <div class="section-panel" id="uqUserInfo"></div>
+        <div class="task-header-row">
+          <span class="task-header-title">参与的任务</span>
+          <select class="form-select" id="uqFilter" style="width:120px"><option value="all">全部</option><option value="running">进行中</option><option value="completed">已完成</option><option value="expired">已过期</option></select>
+        </div>
+        <div id="uqTaskTable"></div>
+        <div class="summary-line" id="uqSummary"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Task List Data (V4) ===== */
+var tasks = [
+  {id:1,name:'小满节气签到',status:'running',type:'连续签到',time:'2026-04-18 10:30',creator:'张三',users:12580,rate:'67.3%',rewards:8456},
+  {id:2,name:'芒种烤串挑战',status:'draft',type:'消费挑战',time:'2026-04-20 14:00',creator:'李四',users:0,rate:'0%',rewards:0},
+  {id:3,name:'夏至消暑任务',status:'paused',type:'浏览任务',time:'2026-04-15 09:15',creator:'王五',users:8920,rate:'45.1%',rewards:4023},
+  {id:4,name:'端午粽子集卡',status:'ended',type:'集卡活动',time:'2026-04-01 16:45',creator:'赵六',users:35210,rate:'82.5%',rewards:29048},
+  {id:5,name:'立夏尝鲜周',status:'running',type:'限时秒杀',time:'2026-04-22 11:00',creator:'孙七',users:6340,rate:'58.9%',rewards:3732}
+];
+var statusCfg = {
+  draft:{color:'#AEAEB2',bg:'#F5F5F7',label:'草稿'},
+  running:{color:'#34C759',bg:'#E8FAF0',label:'运行中'},
+  paused:{color:'#FF9500',bg:'#FFF4E5',label:'已暂停'},
+  ended:{color:'#8E8E93',bg:'#F5F5F7',label:'已结束'}
+};
+
+/* ===== Step1 Chat Data (V4) ===== */
+var elements = [
+  {key:'activityType', label:'活动类型', value:'', type:'select', options:['连续签到','累计签到','消费挑战','浏览任务','集卡活动','拉新裂变']},
+  {key:'targetAudience', label:'目标人群', value:'', type:'text', placeholder:'如：全量用户(18-45岁)'},
+  {key:'rewardType', label:'奖励方式', value:'', type:'select', options:['阶梯优惠券','固定优惠券','红包','积分','抽奖机会']},
+  {key:'timePeriod', label:'活动时间', value:'', type:'daterange', placeholder:'选择时间范围'},
+  {key:'triggerCondition', label:'触发条件', value:'', type:'text', placeholder:'如：每日签到+连续机制'},
+  {key:'budgetLimit', label:'预算上限', value:'', type:'text', placeholder:'如：¥50,000'}
+];
+var chatScript = [
+  {role:'ai',text:'你好！我是AI任务助手\n请描述你想创建的活动任务，我来帮你配置。'},
+  {role:'user',text:'我想做一个夏季签到活动，连续签到7天领券'},
+  {role:'ai',text:'好的！夏季签到活动是个好选择\n\n让我帮你确认几个核心要素：\n\n1️⃣ 活动类型：连续签到\n2️⃣ 目标人群：需要确认范围...',collect:'activityType',slotValue:'连续签到'},
+  {role:'user',text:'面向全量用户，18-45岁为主'},
+  {role:'ai',text:'收到！面向全量用户，核心年龄段18-45岁 ✅\n\n接下来确认奖励方式：\n建议采用阶梯式优惠券激励——\n签1天→5元，签3天→10元，签5天→15元，签7天→30元大券包\n\n你觉得这个方案如何？',collect:'targetAudience',slotValue:'全量用户(18-45岁)'},
+  {role:'user',text:'不错，就用这个阶梯券方案'},
+  {role:'ai',text:'阶梯券方案确认 ✅\n\n时间安排方面：\n📅 建议：2026年5月20日 ~ 6月5日（共17天窗口期）\n这样覆盖小满到芒种节气，契合夏季主题。',collect:'rewardType',slotValue:'阶梯优惠券'},
+  {role:'user',text:'时间OK，就这个'},
+  {role:'ai',text:'时间确认 ✅\n\n⚡ 触发条件：\n- 每日签到1次即算完成\n- 需连续签到，断签从头计\n- 签到时间窗口：每日 00:00 - 23:59',collect:'timePeriod',slotValue:'5.20-6.05'},
+  {role:'user',text:'可以，连续签到断签重置'},
+  {role:'ai',text:'触发条件确认 ✅\n\n💰 最后确认预算上限：\n按预估参与10万人、平均领券2.5张计算，\n建议预算上限设为 ¥50,000\n\n是否OK？',collect:'triggerCondition',slotValue:'连续签到+断签重置'},
+  {role:'user',text:'50000可以，就这样'},
+  {role:'ai',text:'所有要素收集完毕！\n\n📋 汇总：\n- 活动类型：连续签到\n- 目标人群：全量用户（18-45岁）\n- 奖励方式：阶梯优惠券（5/10/15/30元）\n- 时间周期：5.20-6.05\n- 触发条件：每日签到+连续机制\n- 预算上限：¥50,000\n\n点击右侧「生成玩法方案」进入策略引擎 →',collect:'budgetLimit',slotValue:'¥50,000'}
+];
+
+/* ===== Step2 Rewards Data (data-driven) ===== */
+var masterRewards=[
+  {tier:'3次',type:'奖励包',key:'PKG_TCM_TIER3',name:'节气3次档奖励包',qty:'20,000',method:'完成即发',personas:['流失用户→COUPON_8_LOST','新客→COUPON_5_NEW','默认→COUPON_5_DEFAULT']},
+  {tier:'5次',type:'奖励包',key:'PKG_TCM_TIER5',name:'节气5次档奖励包',qty:'10,000',method:'完成即发',personas:['流失用户→COUPON_15_LOST','新客→COUPON_10_NEW','默认→COUPON_10_DEFAULT']},
+  {tier:'9次',type:'抽奖机会',key:'LOTTERY_TCM_GRAND',name:'神秘大礼抽奖',qty:'500',method:'完成即发',personas:[]}
+];
+var s2SubCounter=0;
+
+/* ===== Step2 Node Data (V5) ===== */
+var s2D=[
+  {id:'guyu',n:'谷雨签到',t:'4/17 ~ 4/27',s:'active',d1:'2026-04-17',d2:'2026-04-27'},
+  {id:'lixia',n:'立夏签到',t:'5/5 ~ 5/15',s:'active',d1:'2026-05-05',d2:'2026-05-15'},
+  {id:'xiaoman',n:'小满签到',t:'5/20 ~ 5/30',s:'draft',d1:'2026-05-20',d2:'2026-05-30'},
+  {id:'mangzhong',n:'芒种签到',t:'6/5 ~ 6/15',s:'draft',d1:'2026-06-05',d2:'2026-06-15'},
+  {id:'xiazhi',n:'夏至签到',t:'6/21 ~ 7/1',s:'draft',d1:'2026-06-21',d2:'2026-07-01'},
+  {id:'xiaoshu',n:'小暑签到',t:'7/6 ~ 7/16',s:'draft',d1:'2026-07-06',d2:'2026-07-16'},
+  {id:'dashu',n:'大暑签到',t:'7/22 ~ 8/1',s:'draft',d1:'2026-07-22',d2:'2026-08-01'},
+  {id:'liqiu',n:'立秋签到',t:'8/7 ~ 8/17',s:'draft',d1:'2026-08-07',d2:'2026-08-17'},
+  {id:'chushu',n:'处暑签到',t:'8/22 ~ 8/31',s:'draft',d1:'2026-08-22',d2:'2026-08-31'}
+];
+var s2SL={active:'进行中',draft:'草稿',ended:'已结束'};
+var s2SC={active:'s2-st-a',draft:'s2-st-d',ended:'s2-st-e'};
+
+/* ===== Tab2 Mock Data (V4) ===== */
+var mockUserData = {
+  userId:'100892341', name:'小明同学', phone:'138****6789', registerTime:'2024-03-15',
+  tags:[{label:'活跃用户',cls:'uq-tag-active'},{label:'高频签到',cls:'uq-tag-signin'},{label:'美食达人',cls:'uq-tag-food'}],
+  tasks:[
+    {id:'t1',name:'小满节气签到',status:'running',statusLabel:'进行中',type:'连续签到',period:'5.20 - 6.05',
+     progress:{current:4,total:7,unit:'天',percent:57,detail:'当前连续: 4天　最长连续: 4天'},
+     rewards:[{icon:'✅',name:'Day3 签到奖励',desc:'满减券5元',status:'已领取 05-22',cls:'claimed'},{icon:'✅',name:'Day4 签到奖励',desc:'满减券5元',status:'已领取 05-23',cls:'claimed'},{icon:'⏳',name:'Day7 大奖',desc:'满减券15元',status:'未达成',cls:'pending'}],
+     checkin:[{date:'5.20',status:'checked'},{date:'5.21',status:'checked'},{date:'5.22',status:'checked'},{date:'5.23',status:'checked'},{date:'5.24',status:'unchecked'},{date:'5.25',status:'unchecked'},{date:'5.26',status:'unchecked'}]},
+    {id:'t2',name:'春季美食探店挑战',status:'completed',statusLabel:'已完成',type:'消费任务',period:'4.01 - 4.30',
+     progress:{current:3,total:3,unit:'笔订单',percent:100,detail:'累计消费: ¥186.5'},
+     rewards:[{icon:'✅',name:'首单奖励',desc:'满减券8元',status:'已领取 04-05',cls:'claimed'},{icon:'✅',name:'三单达成',desc:'满减券15元',status:'已领取 04-18',cls:'claimed'},{icon:'✅',name:'额外奖励',desc:'抽奖机会×1',status:'已使用 04-18',cls:'claimed'}],
+     checkin:null},
+    {id:'t3',name:'新春红包雨',status:'completed',statusLabel:'已完成',type:'限时活动',period:'2.01 - 2.14',
+     progress:{current:5,total:5,unit:'次参与',percent:100,detail:'累计获得红包: ¥23.5'},
+     rewards:[{icon:'✅',name:'首次参与',desc:'红包3元',status:'已领取 02-01',cls:'claimed'},{icon:'✅',name:'连续3天',desc:'红包5元',status:'已领取 02-03',cls:'claimed'},{icon:'✅',name:'满勤奖',desc:'红包15.5元',status:'已领取 02-14',cls:'claimed'}],
+     checkin:null},
+    {id:'t4',name:'元旦跨年打卡',status:'expired',statusLabel:'已过期',type:'打卡活动',period:'12.25 - 1.03',
+     progress:{current:3,total:7,unit:'天',percent:43,detail:'最长连续: 3天'},
+     rewards:[{icon:'✅',name:'打卡3天',desc:'代金券3元',status:'已领取 12-27',cls:'claimed'},{icon:'❌',name:'打卡7天',desc:'代金券10元',status:'未达成',cls:'failed'}],
+     checkin:null},
+    {id:'t5',name:'夏日饮品季',status:'running',statusLabel:'进行中',type:'消费任务',period:'5.15 - 6.15',
+     progress:{current:1,total:3,unit:'笔订单',percent:33,detail:'累计消费: ¥28.0'},
+     rewards:[{icon:'✅',name:'首单奖励',desc:'饮品券3元',status:'已领取 05-16',cls:'claimed'},{icon:'⏳',name:'三单达成',desc:'饮品券8元',status:'未达成',cls:'pending'}],
+     checkin:null}
+  ],
+  summary:{total:5,running:2,completed:2,expired:1,totalRewards:12,claimed:10,unclaimed:2}
+};
+
+/* ===== Tab Switch (V4) ===== */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===(tab==='list'?0:1))});
+  document.getElementById('panel-list').className = tab==='list'?'panel on':'panel';
+  document.getElementById('panel-list').style.display = tab==='list'?'':'none';
+  document.getElementById('panel-query').className = tab==='query'?'panel on':'panel';
+  document.getElementById('panel-query').style.display = tab==='query'?'':'none';
+  document.getElementById('tabActions').style.display = tab==='list'?'':'none';
+  if(tab==='list') goStep('list');
+}
+
+/* ===== Step Switch (V4) ===== */
+function goStep(v) {
+  ['v-list','v-s1','v-s2','v-s3'].forEach(function(id){document.getElementById(id).className='view'});
+  var map={list:'v-list',s1:'v-s1',s2:'v-s2',s3:'v-s3'};
+  document.getElementById(map[v]).className='view on';
+  document.getElementById('tabActions').style.display = v==='list'?'':'none';
+  if(v==='s1') startChat();
+  if(v==='s2') initStep2();
+}
+
+/* ===== Render Task List (V4) ===== */
+function renderTasks(filter) {
+  var html='<table class="data-table"><thead><tr>';
+  html+='<th>任务名称</th><th>状态</th><th>类型</th><th>创建时间</th><th>创建人</th><th>参与人数</th><th>完成率</th><th>奖励发放</th><th>操作</th>';
+  html+='</tr></thead><tbody>';
+  var filterVal = (filter || '').toLowerCase();
+  var hasRow = false;
+  tasks.forEach(function(t){
+    var s=statusCfg[t.status];
+    if(filterVal && t.name.toLowerCase().indexOf(filterVal) === -1) return;
+    hasRow = true;
+    var dotCls = 's-' + t.status;
+    html+='<tr>';
+    html+='<td style="font-weight:500">'+t.name+'</td>';
+    html+='<td><span class="status-dot '+dotCls+'">'+s.label+'</span></td>';
+    html+='<td>'+t.type+'</td>';
+    html+='<td style="color:var(--text-secondary);font-size:13px">'+t.time+'</td>';
+    html+='<td>'+t.creator+'</td>';
+    html+='<td>'+t.users.toLocaleString()+'</td>';
+    html+='<td>'+t.rate+'</td>';
+    html+='<td>'+t.rewards.toLocaleString()+'</td>';
+    html+='<td style="white-space:nowrap">';
+    html+='<button class="op-link">编辑</button><span class="op-sep">|</span>';
+    if(t.status==='running') html+='<button class="op-link">暂停</button><span class="op-sep">|</span>';
+    else if(t.status==='draft'||t.status==='paused') html+='<button class="op-link">启动</button><span class="op-sep">|</span>';
+    html+='<button class="op-link">复制</button><span class="op-sep">|</span>';
+    html+='<button class="op-link danger">删除</button>';
+    html+='</td></tr>';
+  });
+  if(!hasRow) html+='<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-tertiary)">暂无匹配任务</td></tr>';
+  html+='</tbody></table>';
+  document.getElementById('taskList').innerHTML=html;
+}
+
+/* ===== Task Search (V4) ===== */
+(function(){
+  var input = document.getElementById('taskSearchInput');
+  var clearBtn = document.getElementById('taskSearchClear');
+  input.addEventListener('keyup', function(){
+    var val = input.value.trim();
+    clearBtn.className = val ? 's-clear show' : 's-clear';
+    renderTasks(val);
+  });
+  clearBtn.addEventListener('click', function(){
+    input.value = '';
+    clearBtn.className = 's-clear';
+    renderTasks('');
+  });
+})();
+
+/* ===== Elements Form (V4) ===== */
+function renderElements() {
+  var html = '';
+  elements.forEach(function(e) {
+    html += '<div class="elem-row" id="er-' + e.key + '">';
+    html += '<span class="elem-status" id="es-' + e.key + '"></span>';
+    html += '<span class="elem-row-label">' + e.label + '</span>';
+    html += '<div class="elem-row-control">';
+    if (e.type === 'select') {
+      html += '<select class="elem-row-select" id="ec-' + e.key + '"><option value="">请选择</option>';
+      e.options.forEach(function(opt){ html += '<option value="' + opt + '">' + opt + '</option>'; });
+      html += '</select>';
+    } else if (e.type === 'daterange') {
+      html += '<input class="elem-row-date" type="date" id="ec-' + e.key + '-start" placeholder="开始日期">';
+      html += '<span style="color:var(--text-tertiary);font-size:12px">至</span>';
+      html += '<input class="elem-row-date" type="date" id="ec-' + e.key + '-end" placeholder="结束日期">';
+    } else {
+      html += '<input class="elem-row-input" type="text" id="ec-' + e.key + '" placeholder="' + (e.placeholder || '') + '">';
+    }
+    html += '</div></div>';
+  });
+  document.getElementById('elemForm').innerHTML = html;
+}
+
+/* ===== Chat Animation (V4) ===== */
+var chatIdx=0, collected=0;
+function startChat(){
+  chatIdx=0; collected=0;
+  document.getElementById('chatMsgs').innerHTML='';
+  document.getElementById('progText').textContent='已收集 0/6';
+  document.getElementById('progFill').style.width='0';
+  document.getElementById('genWrap').style.display='none';
+  elements.forEach(function(e){
+    e.value = '';
+    var statusDot = document.getElementById('es-' + e.key);
+    if(statusDot) statusDot.classList.remove('filled');
+    if(e.type === 'select') { var sel = document.getElementById('ec-' + e.key); if(sel) sel.value = ''; }
+    else if(e.type === 'daterange') { var s = document.getElementById('ec-' + e.key + '-start'); var d = document.getElementById('ec-' + e.key + '-end'); if(s) s.value = ''; if(d) d.value = ''; }
+    else { var inp = document.getElementById('ec-' + e.key); if(inp) inp.value = ''; }
+  });
+  nextMsg();
+}
+function nextMsg(){
+  if(chatIdx>=chatScript.length)return;
+  var m=chatScript[chatIdx];
+  var box=document.getElementById('chatMsgs');
+  var div=document.createElement('div');
+  div.className='msg '+m.role;
+  div.innerHTML='<div class="avatar">'+(m.role==='ai'?'🤖':'👤')+'</div><div class="bubble">'+m.text+'</div>';
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+  if(m.collect){
+    setTimeout(function(){
+      var statusDot = document.getElementById('es-' + m.collect);
+      if(statusDot) statusDot.classList.add('filled');
+      var elemObj = elements.find(function(e){ return e.key === m.collect; });
+      if(elemObj && m.slotValue) {
+        elemObj.value = m.slotValue;
+        if(elemObj.type === 'select') { var sel = document.getElementById('ec-' + m.collect); if(sel) sel.value = m.slotValue; }
+        else if(elemObj.type === 'daterange') { var startInput = document.getElementById('ec-' + m.collect + '-start'); var endInput = document.getElementById('ec-' + m.collect + '-end'); if(startInput && endInput) { startInput.value = '2026-05-20'; endInput.value = '2026-06-05'; } }
+        else { var inp = document.getElementById('ec-' + m.collect); if(inp) inp.value = m.slotValue; }
+      }
+      collected++;
+      document.getElementById('progText').textContent = '已收集 ' + collected + '/6';
+      document.getElementById('progFill').style.width = (collected/6*100) + '%';
+      if(collected >= 6) document.getElementById('genWrap').style.display = '';
+    }, 400);
+  }
+  chatIdx++;
+  if(chatIdx<chatScript.length) setTimeout(nextMsg, m.role==='ai'?1200:800);
+}
+
+/* ===== Step2: Build Grid & SVG (V5) ===== */
+var s2inited = false;
+function initStep2(){
+  if(s2inited) return;
+  s2inited = true;
+  s2RenderCanvas();
+  pick('master');
+}
+function s2RenderCanvas(){
+  var gEl=document.getElementById('s2grid');
+  gEl.innerHTML='';
+  s2D.forEach(function(t){
+    var d=document.createElement('div');
+    d.className='s2-nd s2-sn'+(s2cur===t.id?' sel':'');d.setAttribute('data-id',t.id);
+    d.onclick=function(){pick(t.id)};
+    d.innerHTML='<button class="s2-del-btn" onclick="event.stopPropagation();s2DelSub(\''+t.id+'\')" title="删除子任务">✕</button>'
+      +'<div class="s2-nn">'+t.n+'</div><div class="s2-nt">'+(t.t||'—')+'</div><div class="s2-tgs"><span class="s2-ty">签到</span><span class="s2-st '+s2SC[t.s]+'">'+s2SL[t.s]+'</span></div>';
+    gEl.appendChild(d);
+  });
+  // Add sub-task button
+  var addWrap=document.getElementById('s2AddSubWrap');
+  if(!addWrap){
+    addWrap=document.createElement('div');
+    addWrap.id='s2AddSubWrap';
+    addWrap.className='s2-add-sub-wrap';
+    addWrap.innerHTML='<button class="s2-ab" onclick="s2AddSub()">+ 新增子任务</button>';
+    var ca=document.querySelector('.s2-ca');
+    if(ca) ca.appendChild(addWrap);
+  }
+  // Recalculate grid columns based on count
+  var cols=Math.min(3,s2D.length);
+  if(cols<1)cols=1;
+  gEl.style.gridTemplateColumns='repeat('+cols+',1fr)';
+  s2DrawSVG();
+}
+function s2DrawSVG(){
+  var svg=document.getElementById('s2svg');
+  var cols=Math.min(3,s2D.length);
+  if(cols<1)cols=1;
+  var W=420,H=52,cx=W/2;
+  var cw=W/cols;var pts=[];
+  for(var c=0;c<cols;c++) pts.push(cw*c+cw/2);
+  var defs='<defs><marker id="s2dot" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="4" markerHeight="4"><circle cx="2" cy="2" r="1.5" fill="#C9CDD4"/></marker></defs>';
+  var lines='';
+  pts.forEach(function(x){
+    lines+='<line x1="'+cx+'" y1="4" x2="'+x+'" y2="'+(H-4)+'" stroke="#C9CDD4" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#s2dot)"/>';
+  });
+  lines+='<rect x="'+(cx-56)+'" y="'+(H/2-8)+'" width="112" height="16" rx="3" fill="#F7F8FA" stroke="#E5E6EB" stroke-width=".5"/>';
+  lines+='<text x="'+cx+'" y="'+(H/2+4)+'" text-anchor="middle" style="font-size:10px;fill:#86909C;font-family:inherit">子任务完成 → 计数+1</text>';
+  svg.innerHTML=defs+lines;
+}
+function s2DelSub(id){
+  if(s2D.length<=1){alert('至少保留一个子任务');return;}
+  s2D=s2D.filter(function(t){return t.id!==id});
+  if(s2cur===id) s2cur='master';
+  s2RenderCanvas();
+  pick(s2cur);
+}
+function s2AddSub(){
+  s2SubCounter++;
+  var newId='new_sub_'+s2SubCounter;
+  s2D.push({id:newId,n:'新任务-'+s2SubCounter,t:'',s:'draft',d1:'',d2:''});
+  s2RenderCanvas();
+  pick(newId);
+}
+
+/* ===== Step2: Node Pick & Render (V5) ===== */
+var s2cur='master';
+function pick(id){
+  s2cur=id;
+  document.querySelectorAll('.s2-nd').forEach(function(e){
+    e.classList.toggle('sel',e.getAttribute('data-id')===id);
+  });
+  render(id);
+}
+function render(id){
+  var tEl=document.getElementById('s2rT'),bEl=document.getElementById('s2rB');
+  if(id==='master'){
+    tEl.textContent='中医节气签到 · 大玩法配置';
+    bEl.innerHTML=s2masterCfg();
+  }else{
+    var t=s2D.find(function(x){return x.id===id});
+    tEl.textContent=t.n+' · 子任务配置';
+    bEl.innerHTML=s2subCfg(t);
+  }
+}
+function s2masterCfg(){
+  var rwHtml='';
+  masterRewards.forEach(function(r,i){
+    rwHtml+=s2rwCard(r.tier,r.type,r.key,r.name,r.qty,r.method,r.personas,i);
+  });
+  return '<div class="s2-sc"><div class="s2-sh">基础信息</div>'
+    +s2row('所属团队',s2sel(['活动运营组','增长策略组','品牌营销组'],'活动运营组'))
+    +s2row('活动名称',s2inp('中医节气签到'))
+    +s2row('活动周期',s2inp('2026-04-01 ~ 2026-08-31'))
+    +s2row('目标人群',s2sel(['全量用户','新客','流失用户','高价值用户'],'全量用户'))
+    +s2row('展示变量',s2inp('节气签到'))
+    +s2row('行为类型',s2sel(['子任务完成','签到','下单','浏览'],'子任务完成')+'<span class="s2-pill" style="margin-left:6px">subPlayComplete</span>')
+    +'</div>'
+    +'<div class="s2-sc"><div class="s2-sh">规则配置</div>'
+    +s2row('周期规则',s2sel(['整季累计','按月','按周','自定义周期'],'整季累计'))
+    +s2row('阶梯门槛',s2inp(masterRewards.map(function(r){return r.tier.replace('次','')}).join(', ')))
+    +s2row('连续性',s2sel(['累计（不要求连续）','连续','间隔'],'累计（不要求连续）'))
+    +s2row('每期上限',s2inp('9'))
+    +s2row('前置条件',s2sel(['无','下单','浏览','分享'],'无'))
+    +s2row('组合逻辑',s2sel(['无（单一任务）','AND','OR'],'无（单一任务）'))
+    +'</div>'
+    +'<div class="s2-sc"><div class="s2-sh">奖励配置</div>'
+    +'<div class="s2-rw-list" id="s2RwList">'+rwHtml+'</div>'
+    +'<button class="s2-ab" onclick="s2ShowAddReward()">+ 新增档位</button>'
+    +'<div class="s2-add-form" id="s2AddRewardForm">'
+    +'<div class="s2-af-row"><span class="s2-af-label">档位门槛</span><input class="s2-af-input" id="s2af-tier" placeholder="如：12次"></div>'
+    +'<div class="s2-af-row"><span class="s2-af-label">奖励类型</span><select class="s2-af-input" id="s2af-type"><option>奖励包</option><option>抽奖机会</option><option>红包</option><option>积分</option></select></div>'
+    +'<div class="s2-af-row"><span class="s2-af-label">奖励名称</span><input class="s2-af-input" id="s2af-name" placeholder="如：12次档大礼包"></div>'
+    +'<div class="s2-af-row"><span class="s2-af-label">奖励密钥</span><input class="s2-af-input" id="s2af-key" placeholder="如：PKG_TCM_TIER12"></div>'
+    +'<div class="s2-af-row"><span class="s2-af-label">发放数量</span><input class="s2-af-input" id="s2af-qty" placeholder="如：5,000"></div>'
+    +'<div class="s2-af-actions"><button class="s2-af-cancel" onclick="s2HideAddReward()">取消</button><button class="s2-af-confirm" onclick="s2ConfirmAddReward()">确认添加</button></div>'
+    +'</div>'
+    +'</div>'
+    +'<div class="s2-sc"><div class="s2-sh">预算</div>'
+    +'<div class="s2-bdr"><label class="s2-fl">总预算</label><input class="s2-fc" value="200,000"><span class="s2-bu">元</span></div>'
+    +'</div>';
+}
+function s2ShowAddReward(){var f=document.getElementById('s2AddRewardForm');if(f)f.classList.add('show');}
+function s2HideAddReward(){var f=document.getElementById('s2AddRewardForm');if(f){f.classList.remove('show');['s2af-tier','s2af-name','s2af-key','s2af-qty'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});}}
+function s2ConfirmAddReward(){
+  var tier=document.getElementById('s2af-tier').value.trim();
+  var type=document.getElementById('s2af-type').value;
+  var name=document.getElementById('s2af-name').value.trim();
+  var key=document.getElementById('s2af-key').value.trim();
+  var qty=document.getElementById('s2af-qty').value.trim();
+  if(!tier||!name||!key||!qty){alert('请填写所有字段');return;}
+  masterRewards.push({tier:tier,type:type,key:key,name:name,qty:qty,method:'完成即发',personas:[]});
+  s2HideAddReward();
+  render('master');
+}
+function s2DelReward(idx){
+  if(masterRewards.length<=1){alert('至少保留一个奖励档位');return;}
+  masterRewards.splice(idx,1);
+  render('master');
+}
+function s2rwCard(tier,type,key,name,qty,method,personas,idx){
+  var pHtml='';
+  if(personas.length){
+    pHtml='<div class="s2-rw-persona">'+personas.map(function(p){return '<span>'+p+'</span>'}).join('')+'</div>';
+  }else{
+    pHtml='<div class="s2-rw-persona" style="color:var(--text-tertiary)">— 无画像分组</div>';
+  }
+  var delBtn=typeof idx==='number'?'<button class="s2-del-btn" onclick="event.stopPropagation();s2DelReward('+idx+')" title="删除此档位">✕</button>':'';
+  return '<div class="s2-rw-card">'
+    +delBtn
+    +'<div class="s2-rw-hd"><span class="s2-rw-tier">'+tier+'</span><span class="s2-rw-type">'+type+'</span><span class="s2-rw-name">'+name+'</span></div>'
+    +'<div class="s2-rw-body">'
+    +'<div><div class="s2-rw-l">奖励密钥</div><div class="s2-rw-v">'+key+'</div></div>'
+    +'<div><div class="s2-rw-l">发放数量</div><div class="s2-rw-v">'+qty+'</div></div>'
+    +'<div><div class="s2-rw-l">发放方式</div><div class="s2-rw-v">'+method+'</div></div>'
+    +pHtml
+    +'</div></div>';
+}
+function s2subCfg(t){
+  return '<div class="s2-sc"><div class="s2-sh">基本信息</div>'
+    +s2row('任务名称',s2inp(t.n))
+    +s2row('时间范围',s2inp(t.d1+' ~ '+t.d2))
+    +s2row('行为类型',s2sel(['签到','下单','浏览','分享'],'签到'))
+    +'</div>'
+    +'<div class="s2-sc"><div class="s2-sh">规则配置</div>'
+    +s2row('周期规则',s2sel(['自定义周期','整季累计','按月','按周'],'自定义周期'))
+    +s2row('完成门槛',s2inp('1'))
+    +s2row('每期上限',s2inp('1'))
+    +s2row('连续性',s2sel(['累计','连续','间隔'],'累计'))
+    +'</div>'
+    +'<div class="s2-sc"><div class="s2-sh">前置条件</div>'
+    +'<div class="s2-fr"><label class="s2-fl">前置行为</label><div class="s2-mt"><span class="s2-mg">下单</span><span class="s2-mg">浏览</span></div></div>'
+    +s2row('前置门槛',s2inp('≥1次'))
+    +s2row('消耗模式',s2sel(['消耗型','非消耗型'],'消耗型'))
+    +s2row('行为归属',s2sel(['当前活动周期','全局','自定义时段'],'当前活动周期'))
+    +'<div class="s2-fr"><label class="s2-fl">组合逻辑</label><div class="s2-tgr"><button class="s2-tb" data-v="and" onclick="tgl(this)">AND</button><button class="s2-tb a-or" data-v="or" onclick="tgl(this)">OR</button></div></div>'
+    +'</div>'
+    +'<div class="s2-sc"><div class="s2-sh">奖励配置</div>'
+    +'<div class="s2-eh">本案例不配置奖励（系统支持子任务独立配置奖励）</div>'
+    +'<button class="s2-ab">+ 配置奖励</button>'
+    +'</div>';
+}
+function s2row(l,c){return '<div class="s2-fr"><label class="s2-fl">'+l+'</label>'+c+'</div>';}
+function s2inp(v){return '<input class="s2-fc" value="'+v+'">';}
+function s2sel(o,s){var h='<select class="s2-fc">';o.forEach(function(x){h+='<option'+(x===s?' selected':'')+'>'+x+'</option>';});return h+'</select>';}
+function s2Send(){
+  var inp=document.getElementById('s2chatInput');
+  var v=inp.value.trim();if(!v)return;
+  var box=document.querySelector('.s2-think');
+  box.innerHTML+='<div style="margin-bottom:6px;color:var(--primary)">👤 '+v+'</div>';
+  inp.value='';
+  setTimeout(function(){
+    box.innerHTML+='<div style="margin-bottom:6px">→ 已理解，正在调整方案...</div>';
+    setTimeout(function(){
+      box.innerHTML+='<div style="margin-bottom:6px;color:var(--primary)">✓ 方案已更新</div>';
+      box.scrollTop=box.scrollHeight;
+    },800);
+  },600);
+  box.scrollTop=box.scrollHeight;
+}
+function tgl(b){b.parentElement.querySelectorAll('.s2-tb').forEach(function(x){x.className='s2-tb'});b.classList.add(b.getAttribute('data-v')==='and'?'a-and':'a-or');}
+
+/* ===== Back to List (V4) ===== */
+function backToList(){
+  if(!tasks.find(function(t){return t.name==='中医节气签到'})){
+    tasks.unshift({id:99,name:'中医节气签到',status:'running',type:'节气签到',time:'2026-04-27 17:00',creator:'我',users:0,rate:'0%',rewards:0});
+  }
+  renderTasks();
+  goStep('list');
+}
+
+/* ===== Tab2: User Query (V4) ===== */
+function renderUserResult(data) {
+  var h = '<div class="section-title">用户信息</div><div class="info-grid">';
+  h += '<div class="info-item"><span class="il">用户ID:</span><span class="iv">' + data.userId + '</span></div>';
+  h += '<div class="info-item"><span class="il">昵称:</span><span class="iv">' + data.name + '</span></div>';
+  h += '<div class="info-item"><span class="il">手机:</span><span class="iv">' + data.phone + '</span></div>';
+  h += '<div class="info-item"><span class="il">注册时间:</span><span class="iv">' + data.registerTime + '</span></div>';
+  h += '</div>';
+  h += '<div style="display:flex;gap:8px;margin-top:10px;align-items:center"><span class="il" style="font-size:14px;color:var(--text-secondary)">标签:</span>';
+  var tagClsMap = {'uq-tag-active':'info-tag-active','uq-tag-signin':'info-tag-signin','uq-tag-food':'info-tag-food'};
+  data.tags.forEach(function(t){ var cls = tagClsMap[t.cls] || ''; h += '<span class="info-tag ' + cls + '">' + t.label + '</span>'; });
+  h += '</div>';
+  document.getElementById('uqUserInfo').innerHTML = h;
+  renderUserTasks(data.tasks, 'all');
+  var s = data.summary;
+  document.getElementById('uqSummary').textContent = '参与任务: ' + s.total + ' | 进行中: ' + s.running + ' | 已完成: ' + s.completed + ' | 已过期: ' + s.expired + ' | 累计奖励: ' + s.totalRewards + '项(已领' + s.claimed + '/未领' + s.unclaimed + ')';
+}
+
+function renderUserTasks(taskList, filter) {
+  var html = '<table class="data-table"><thead><tr><th>任务名称</th><th>状态</th><th>类型</th><th>任务周期</th><th>进度</th><th>奖励获取</th><th>操作</th></tr></thead><tbody>';
+  taskList.forEach(function(t, idx) {
+    if (filter !== 'all' && t.status !== filter) return;
+    var dotCls = t.status === 'running' ? 's-running' : t.status === 'completed' ? 's-completed' : 's-expired';
+    var claimed = 0, pending = 0;
+    t.rewards.forEach(function(r){ if(r.cls==='claimed') claimed++; else pending++; });
+    var rewardText = claimed + '已领';
+    if(pending > 0) rewardText += '/' + pending + (t.rewards.some(function(r){return r.cls==='pending'}) ? '待达成' : '未达成');
+    html += '<tr>';
+    html += '<td style="font-weight:500">' + t.name + '</td>';
+    html += '<td><span class="status-dot ' + dotCls + '">' + t.statusLabel + '</span></td>';
+    html += '<td>' + t.type + '</td>';
+    html += '<td style="font-size:13px;color:var(--text-secondary)">' + t.period + '</td>';
+    html += '<td style="font-size:13px">' + t.progress.current + '/' + t.progress.total + t.progress.unit + ' ' + t.progress.percent + '%</td>';
+    html += '<td style="font-size:13px">' + rewardText + '</td>';
+    html += '<td><button class="op-link" onclick="toggleExpand(\'uq-expand-' + idx + '\')">详情</button></td>';
+    html += '</tr>';
+    html += '<tr class="expand-row"><td colspan="7"><div class="expand-content" id="uq-expand-' + idx + '">';
+    html += '<table class="mini-table"><thead><tr><th>奖励名称</th><th>奖励内容</th><th>状态</th></tr></thead><tbody>';
+    t.rewards.forEach(function(r){ html += '<tr><td>' + r.icon + ' ' + r.name + '</td><td>' + r.desc + '</td><td>' + r.status + '</td></tr>'; });
+    html += '</tbody></table>';
+    if(t.checkin){
+      html += '<div class="checkin-text">签到记录: ';
+      t.checkin.forEach(function(c){ html += (c.status === 'checked' ? '✅' : '⬜') + c.date + ' '; });
+      html += '</div>';
+    }
+    html += '</div></td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('uqTaskTable').innerHTML = html;
+}
+
+function toggleExpand(id) {
+  var el = document.getElementById(id);
+  if(!el) return;
+  var isOpen = el.classList.contains('open');
+  document.querySelectorAll('.expand-content').forEach(function(e){ e.classList.remove('open'); });
+  if(!isOpen) el.classList.add('open');
+}
+
+document.getElementById('uqSearchBtn').addEventListener('click', function() {
+  var uid = document.getElementById('uqUserId').value.trim();
+  var phone = document.getElementById('uqPhone').value.trim();
+  var nick = document.getElementById('uqNickname').value.trim();
+  if (!uid && !phone && !nick) return;
+  document.getElementById('uqResult').style.display = 'none';
+  document.getElementById('uqLoading').style.display = 'block';
+  setTimeout(function() {
+    document.getElementById('uqLoading').style.display = 'none';
+    document.getElementById('uqResult').style.display = 'block';
+    renderUserResult(mockUserData);
+  }, 250);
+});
+document.getElementById('uqResetBtn').addEventListener('click', function() {
+  document.getElementById('uqUserId').value = '';
+  document.getElementById('uqPhone').value = '';
+  document.getElementById('uqNickname').value = '';
+  document.getElementById('uqResult').style.display = 'none';
+});
+['uqUserId','uqPhone','uqNickname'].forEach(function(id){
+  document.getElementById(id).addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('uqSearchBtn').click();
+  });
+});
+document.getElementById('uqFilter').addEventListener('change', function() {
+  renderUserTasks(mockUserData.tasks, this.value);
+});
+
+/* ===== Init ===== */
+renderTasks();
+renderElements();
+</script>
+</body>
+</html>

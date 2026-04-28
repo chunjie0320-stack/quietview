@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI任务系统 - Tab2 信息查询</title>
+<style>
+:root {
+  --primary: #FFC107;
+  --primary-dark: #FFA000;
+  --primary-light: #FFF3CD;
+  --primary-hover: #FFD54F;
+  --secondary: #FF6F00;
+  --secondary-light: #FFE0B2;
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --surface-hover: #FAFBFC;
+  --surface-active: #FFF8E1;
+  --border: #E8E8E8;
+  --border-light: #F0F0F0;
+  --text: #1D2129;
+  --text-secondary: #86909C;
+  --text-tertiary: #C9CDD4;
+  --success: #00B42A;
+  --success-light: #E8FFEA;
+  --warning: #FF7D00;
+  --warning-light: #FFF3E8;
+  --error: #F53F3F;
+  --error-light: #FFECE8;
+  --info: #3491FA;
+  --info-light: #E8F3FF;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-family); background: var(--bg); color: var(--text); font-size: 14px; line-height: 22px; }
+
+#tab-query { padding: 24px; max-width: 1440px; margin: 0 auto; }
+
+.sub-tab-bar { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; background: var(--surface); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 0 24px; }
+.sub-tab-item { padding: 14px 20px; font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 3px solid transparent; transition: all 150ms ease; white-space: nowrap; user-select: none; }
+.sub-tab-item:hover { color: var(--text); background: var(--surface-hover); }
+.sub-tab-item.active { color: var(--text); font-weight: 600; border-bottom-color: var(--primary); }
+
+.sub-tab-content { display: none; }
+.sub-tab-content.active { display: block; }
+
+.card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+.hidden { display: none !important; }
+
+.search-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; }
+.search-input { flex: 1; max-width: 400px; height: 36px; padding: 4px 16px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-family: var(--font-family); outline: none; transition: all 150ms ease; color: var(--text); }
+.search-input::placeholder { color: var(--text-tertiary); }
+.search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(255,193,7,0.2); }
+
+.btn-primary { height: 36px; padding: 0 20px; background: var(--primary); color: var(--text); border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 150ms ease; font-family: var(--font-family); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { height: 36px; padding: 0 20px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 150ms ease; font-family: var(--font-family); }
+.btn-secondary:hover { background: var(--surface-hover); }
+
+.user-profile-card { display: flex; gap: 20px; align-items: center; padding: 20px 24px; margin-bottom: 24px; }
+.user-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-light), var(--primary)); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.user-info { flex: 1; }
+.user-name { font-size: 16px; font-weight: 600; line-height: 24px; }
+.user-id-text { font-size: 12px; color: var(--text-secondary); line-height: 20px; margin-top: 2px; }
+.user-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 12px; font-weight: 500; }
+.tag-active { background: var(--success-light); color: var(--success); }
+.tag-silent { background: #F2F3F5; color: var(--text-secondary); }
+.tag-new { background: var(--info-light); color: var(--info); }
+.tag-price { background: var(--warning-light); color: var(--warning); }
+.tag-loyal { background: var(--primary-light); color: var(--primary-dark); }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.data-table thead th { background: var(--bg); padding: 12px 16px; text-align: left; font-weight: 500; color: var(--text-secondary); font-size: 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.data-table tbody tr { transition: background 150ms ease; cursor: pointer; }
+.data-table tbody tr:nth-child(even) { background: var(--surface-hover); }
+.data-table tbody tr:hover { background: var(--surface-active); }
+.data-table tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border-light); font-size: 14px; }
+.data-table tbody tr.selected { background: var(--primary-light) !important; }
+
+.status-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 12px; font-weight: 500; }
+.status-running { background: var(--success-light); color: var(--success); }
+.status-completed { background: var(--info-light); color: var(--info); }
+.status-paused { background: var(--warning-light); color: var(--warning); }
+
+.expand-icon { display: inline-block; width: 16px; font-size: 12px; color: var(--text-secondary); transition: transform 150ms ease; }
+.expand-icon.open { transform: rotate(90deg); }
+
+.calendar-detail { padding: 16px 24px 24px; background: var(--bg); border-top: 1px solid var(--border-light); }
+.calendar-detail-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 350px; }
+.calendar-header { font-size: 11px; color: var(--text-secondary); text-align: center; padding: 4px 0; font-weight: 500; }
+.calendar-day { aspect-ratio: 1; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border-light); }
+.calendar-day.signed { background: var(--success); color: #fff; border-color: var(--success); font-weight: 500; }
+.calendar-day.today { border-color: var(--primary); font-weight: 600; color: var(--text); }
+.calendar-day.empty { background: transparent; border-color: transparent; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-tertiary); }
+.empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state-text { font-size: 14px; color: var(--text-secondary); }
+
+.table-card { overflow: hidden; }
+
+/* Stats Cards */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card { padding: 16px 20px; position: relative; overflow: hidden; transition: all 300ms ease; }
+.stat-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+.stat-card:nth-child(1)::before { background: var(--primary); }
+.stat-card:nth-child(2)::before { background: var(--success); }
+.stat-card:nth-child(3)::before { background: var(--info); }
+.stat-card:nth-child(4)::before { background: var(--secondary); }
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.stat-label { font-size: 12px; color: var(--text-secondary); line-height: 20px; }
+.stat-value { font-size: 24px; font-weight: 600; line-height: 32px; margin-top: 4px; }
+.stat-trend { font-size: 12px; line-height: 20px; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.trend-up { color: var(--success); }
+.trend-down { color: var(--error); }
+
+.selector-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.selector-label { font-size: 14px; font-weight: 500; }
+.task-select { height: 36px; padding: 4px 16px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-family: var(--font-family); color: var(--text); background: var(--surface); outline: none; cursor: pointer; min-width: 280px; }
+.task-select:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(255,193,7,0.2); }
+
+.section-title { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+.funnel-section { padding: 24px; margin-bottom: 24px; }
+.funnel-chart { max-width: 700px; margin: 0 auto; }
+.funnel-stage { display: flex; align-items: center; gap: 16px; margin-bottom: 4px; }
+.funnel-bar-wrap { flex: 1; display: flex; justify-content: center; }
+.funnel-bar { height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--text); transition: all 300ms ease; position: relative; }
+.funnel-bar:hover { filter: brightness(1.05); box-shadow: var(--shadow-md); }
+.funnel-label { width: 50px; font-size: 13px; font-weight: 500; text-align: right; flex-shrink: 0; }
+.funnel-data { width: 200px; font-size: 13px; color: var(--text-secondary); flex-shrink: 0; }
+.funnel-data strong { color: var(--text); font-weight: 600; }
+.funnel-rate { display: inline-block; margin-left: 8px; padding: 1px 6px; background: var(--primary-light); border-radius: 10px; font-size: 11px; font-weight: 500; color: var(--primary-dark); }
+
+.chart-section { padding: 24px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 20px; height: 180px; padding: 0 8px; border-left: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-left: 40px; position: relative; }
+.bar-chart-y { position: absolute; left: -40px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; color: var(--text-secondary); pointer-events: none; }
+.bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 6px; }
+.bar { width: 36px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; background: linear-gradient(180deg, var(--primary), var(--primary-dark)); transition: all 300ms ease; position: relative; }
+.bar:hover { background: linear-gradient(180deg, var(--primary-hover), var(--primary)); box-shadow: var(--shadow-md); }
+.bar-value { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; white-space: nowrap; }
+.bar-label { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+
+/* Event Filters */
+.filter-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.filter-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-tag { display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 14px; font-size: 12px; font-weight: 500; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 150ms ease; user-select: none; }
+.filter-tag:hover { border-color: var(--primary); color: var(--text); }
+.filter-tag.active { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); }
+.filter-spacer { flex: 1; }
+.date-input { height: 32px; padding: 4px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 13px; font-family: var(--font-family); color: var(--text); outline: none; }
+.date-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(255,193,7,0.2); }
+
+.event-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 12px; font-weight: 500; }
+.event-signin { background: var(--primary-light); color: var(--primary-dark); }
+.event-reward { background: var(--success-light); color: var(--success); }
+.event-share { background: var(--info-light); color: var(--info); }
+.event-view { background: #F2F3F5; color: var(--text-secondary); }
+.event-invite { background: var(--secondary-light); color: var(--secondary); }
+.event-order { background: var(--warning-light); color: var(--warning); }
+.status-success { color: var(--success); font-weight: 600; }
+.status-fail { color: var(--error); font-weight: 600; }
+
+.pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--border-light); font-size: 13px; color: var(--text-secondary); }
+.page-nums { display: flex; gap: 4px; align-items: center; }
+.page-btn { min-width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-size: 13px; color: var(--text); transition: all 150ms ease; }
+.page-btn:hover { border-color: var(--primary); color: var(--primary-dark); }
+.page-btn.active { background: var(--primary); border-color: var(--primary); font-weight: 600; }
+.page-btn.disabled { color: var(--text-tertiary); cursor: not-allowed; border-color: var(--border-light); }
+.page-size-select { height: 32px; padding: 4px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: var(--font-family); color: var(--text); outline: none; cursor: pointer; }
+.page-info { display: flex; align-items: center; gap: 12px; }
+
+/* Alert Cards */
+.alert-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.alert-card { padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: all 300ms ease; }
+.alert-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.alert-icon { width: 44px; height: 44px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.alert-icon.red { background: var(--error-light); }
+.alert-icon.orange { background: var(--warning-light); }
+.alert-icon.amber { background: var(--secondary-light); }
+.alert-label { font-size: 13px; color: var(--text-secondary); line-height: 20px; }
+.alert-value { font-size: 24px; font-weight: 600; line-height: 32px; }
+.alert-unit { font-size: 13px; font-weight: 400; color: var(--text-secondary); margin-left: 2px; }
+
+.anomaly-interrupt { background: var(--error-light); color: var(--error); }
+.anomaly-fail { background: var(--warning-light); color: var(--warning); }
+.anomaly-duplicate { background: var(--secondary-light); color: var(--secondary); }
+
+.process-status { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 150ms ease; user-select: none; }
+.process-pending { background: var(--error-light); color: var(--error); }
+.process-done { background: var(--success-light); color: var(--success); }
+.process-ignored { background: #F2F3F5; color: var(--text-secondary); }
+.process-status:hover { opacity: 0.85; box-shadow: var(--shadow-sm); }
+
+.date-separator { color: var(--text-tertiary); font-size: 13px; line-height: 32px; }
+</style>
+</head>
+<body>
+
+<div id="tab-query">
+  <!-- Sub Tab Bar -->
+  <div class="sub-tab-bar">
+    <div class="sub-tab-item active" data-subtab="user-query">👤 用户查询</div>
+    <div class="sub-tab-item" data-subtab="task-analysis">📊 任务分析</div>
+    <div class="sub-tab-item" data-subtab="event-stream">📋 事件流水</div>
+    <div class="sub-tab-item" data-subtab="anomaly-monitor">⚠️ 异常监控</div>
+  </div>
+
+  <!-- ========== Sub Tab 1: 用户查询 ========== -->
+  <div class="sub-tab-content active" id="subtab-user-query">
+    <div class="search-bar">
+      <input type="text" class="search-input" id="userSearchInput" placeholder="输入用户ID或手机号搜索..." value="10086234" />
+      <button class="btn-primary" id="userSearchBtn">🔍 搜索</button>
+    </div>
+    <div id="userEmptyState" class="empty-state hidden">
+      <div class="empty-state-icon">🔍</div>
+      <div class="empty-state-text">输入用户ID或手机号查询用户信息</div>
+    </div>
+    <div id="userResult">
+      <div class="card user-profile-card">
+        <div class="user-avatar">👤</div>
+        <div class="user-info">
+          <div class="user-name">张三丰</div>
+          <div class="user-id-text">ID: 10086234 · 手机: 138****5678 · 注册: 2024-03-15</div>
+          <div class="user-tags">
+            <span class="tag tag-active">活跃用户</span>
+            <span class="tag tag-price">价格敏感</span>
+            <span class="tag tag-loyal">高忠诚度</span>
+            <span class="tag tag-new">新客转化</span>
+          </div>
+        </div>
+      </div>
+      <div class="card table-card">
+        <table class="data-table" id="userTaskTable">
+          <thead>
+            <tr>
+              <th style="width:30px"></th>
+              <th>任务名称</th>
+              <th>参与时间</th>
+              <th>当前进度</th>
+              <th>已领奖品</th>
+              <th>最后活跃时间</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="task-row" data-task="0">
+              <td><span class="expand-icon">▶</span></td>
+              <td>春日签到领红包</td>
+              <td>2026-03-01</td>
+              <td>签到第12天</td>
+              <td>5元红包×3, 优惠券×2</td>
+              <td>2026-04-24 09:32</td>
+              <td><span class="status-tag status-running">进行中</span></td>
+            </tr>
+            <tr class="calendar-row hidden" data-task-detail="0">
+              <td colspan="7" style="padding:0">
+                <div class="calendar-detail">
+                  <div class="calendar-detail-title">📅 签到日历 — 春日签到领红包（2026年4月）</div>
+                  <div class="calendar-grid" id="calendar0">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr class="task-row" data-task="1">
+              <td><span class="expand-icon">▶</span></td>
+              <td>美食探店打卡赛</td>
+              <td>2026-03-15</td>
+              <td>签到第8天</td>
+              <td>10元代金券×1</td>
+              <td>2026-04-22 14:15</td>
+              <td><span class="status-tag status-running">进行中</span></td>
+            </tr>
+            <tr class="calendar-row hidden" data-task-detail="1">
+              <td colspan="7" style="padding:0">
+                <div class="calendar-detail">
+                  <div class="calendar-detail-title">📅 签到日历 — 美食探店打卡赛（2026年4月）</div>
+                  <div class="calendar-grid" id="calendar1">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr class="task-row" data-task="2">
+              <td><span class="expand-icon">▶</span></td>
+              <td>邀好友得现金</td>
+              <td>2026-02-20</td>
+              <td>已完成</td>
+              <td>现金8.8元</td>
+              <td>2026-03-20 18:46</td>
+              <td><span class="status-tag status-completed">已完成</span></td>
+            </tr>
+            <tr class="calendar-row hidden" data-task-detail="2">
+              <td colspan="7" style="padding:0">
+                <div class="calendar-detail">
+                  <div class="calendar-detail-title">📅 签到日历 — 邀好友得现金（2026年3月）</div>
+                  <div class="calendar-grid" id="calendar2">
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Sub Tab 2: 任务分析 ========== -->
+  <div class="sub-tab-content" id="subtab-task-analysis">
+    <div class="selector-row">
+      <span class="selector-label">选择任务：</span>
+      <select class="task-select" id="analysisTaskSelect">
+        <option value="spring">春日签到领红包</option>
+        <option value="food">美食探店打卡赛</option>
+        <option value="invite">邀好友得现金</option>
+      </select>
+    </div>
+    <div class="stats-row">
+      <div class="card stat-card">
+        <div class="stat-label">总参与人数</div>
+        <div class="stat-value">35,847</div>
+        <div class="stat-trend trend-up">↑ 12.3% <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">完成率</div>
+        <div class="stat-value">68.2%</div>
+        <div class="stat-trend trend-up">↑ 3.5% <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">人均签到天数</div>
+        <div class="stat-value">5.3</div>
+        <div class="stat-trend trend-down">↓ 0.2 <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">奖励发放总额</div>
+        <div class="stat-value">12,560</div>
+        <div class="stat-trend trend-up">↑ 8.7% <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+    </div>
+
+    <!-- Funnel Chart -->
+    <div class="card funnel-section">
+      <div class="section-title">转化漏斗</div>
+      <div class="funnel-chart">
+        <div class="funnel-stage">
+          <div class="funnel-label">曝光</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%;background:#FFF3CD;">120,000</div></div>
+          <div class="funnel-data"><strong>120,000</strong></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">点击</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:57%;background:#FFE082;">68,400</div></div>
+          <div class="funnel-data"><strong>68,400</strong> <span class="funnel-rate">57.0%</span></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">参与</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:29.9%;background:#FFD54F;">35,847</div></div>
+          <div class="funnel-data"><strong>35,847</strong> <span class="funnel-rate">52.4%</span></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">完成</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:20.4%;background:#FFC107;">24,437</div></div>
+          <div class="funnel-data"><strong>24,437</strong> <span class="funnel-rate">68.2%</span></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">领奖</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:17.6%;background:#FFA000;color:#fff;">21,108</div></div>
+          <div class="funnel-data"><strong>21,108</strong> <span class="funnel-rate">86.4%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="card chart-section">
+      <div class="section-title">近7日参与趋势</div>
+      <div class="bar-chart">
+        <div class="bar-chart-y">
+          <span>6k</span><span>4.5k</span><span>3k</span><span>1.5k</span><span>0</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:65%;"><span class="bar-value">3,921</span></div>
+          <div class="bar-label">04/18</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:72%;"><span class="bar-value">4,328</span></div>
+          <div class="bar-label">04/19</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:58%;"><span class="bar-value">3,487</span></div>
+          <div class="bar-label">04/20</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:80%;"><span class="bar-value">4,812</span></div>
+          <div class="bar-label">04/21</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:93%;"><span class="bar-value">5,567</span></div>
+          <div class="bar-label">04/22</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:88%;"><span class="bar-value">5,284</span></div>
+          <div class="bar-label">04/23</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:85%;"><span class="bar-value">5,102</span></div>
+          <div class="bar-label">04/24</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Sub Tab 3: 事件流水 ========== -->
+  <div class="sub-tab-content" id="subtab-event-stream">
+    <div class="filter-bar">
+      <input type="text" class="search-input" placeholder="搜索用户ID / 任务名称..." style="max-width:260px;" />
+      <div class="filter-tags">
+        <span class="filter-tag active" data-type="all">全部</span>
+        <span class="filter-tag" data-type="signin">签到</span>
+        <span class="filter-tag" data-type="reward">领奖</span>
+        <span class="filter-tag" data-type="share">分享</span>
+        <span class="filter-tag" data-type="view">浏览</span>
+        <span class="filter-tag" data-type="invite">邀请</span>
+        <span class="filter-tag" data-type="order">下单</span>
+      </div>
+      <input type="date" class="date-input" value="2026-04-18" />
+      <span class="date-separator">至</span>
+      <input type="date" class="date-input" value="2026-04-24" />
+      <div class="filter-spacer"></div>
+      <button class="btn-secondary">📥 导出</button>
+    </div>
+    <div class="card table-card">
+      <table class="data-table" id="eventTable">
+        <thead>
+          <tr>
+            <th>用户ID</th>
+            <th>事件类型</th>
+            <th>任务名称</th>
+            <th>发生时间</th>
+            <th>详情</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>10086234</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-24 09:32:15</td><td>第12天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10086234</td><td><span class="event-tag event-reward">领奖</span></td><td>春日签到领红包</td><td>2026-04-24 09:32:18</td><td>获得5元红包</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10023891</td><td><span class="event-tag event-share">分享</span></td><td>美食探店打卡赛</td><td>2026-04-24 08:45:02</td><td>分享至微信</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10045672</td><td><span class="event-tag event-order">下单</span></td><td>春日签到领红包</td><td>2026-04-24 08:12:33</td><td>使用签到红包下单</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10078431</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-24 07:55:21</td><td>第7天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10091245</td><td><span class="event-tag event-invite">邀请</span></td><td>邀好友得现金</td><td>2026-04-23 22:18:44</td><td>邀请用户10099876</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10034567</td><td><span class="event-tag event-view">浏览</span></td><td>美食探店打卡赛</td><td>2026-04-23 21:30:12</td><td>浏览活动页</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10056789</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-23 20:10:05</td><td>第15天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10012345</td><td><span class="event-tag event-reward">领奖</span></td><td>邀好友得现金</td><td>2026-04-23 19:45:30</td><td>获得现金2.5元</td><td><span class="status-fail">✗ 失败</span></td></tr>
+          <tr><td>10067890</td><td><span class="event-tag event-share">分享</span></td><td>春日签到领红包</td><td>2026-04-23 18:22:17</td><td>分享至朋友圈</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10098765</td><td><span class="event-tag event-order">下单</span></td><td>美食探店打卡赛</td><td>2026-04-23 17:05:44</td><td>打卡消费订单</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10043210</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-23 16:30:09</td><td>第3天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10087654</td><td><span class="event-tag event-invite">邀请</span></td><td>邀好友得现金</td><td>2026-04-23 15:12:56</td><td>邀请用户10088123</td><td><span class="status-fail">✗ 失败</span></td></tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <div class="page-info">
+          <span>共 268 条</span>
+          <select class="page-size-select" id="eventPageSize">
+            <option value="10">10条/页</option>
+            <option value="20">20条/页</option>
+            <option value="50">50条/页</option>
+          </select>
+        </div>
+        <div class="page-nums">
+          <div class="page-btn disabled">&lt;</div>
+          <div class="page-btn active">1</div>
+          <div class="page-btn">2</div>
+          <div class="page-btn">3</div>
+          <div class="page-btn disabled">...</div>
+          <div class="page-btn">10</div>
+          <div class="page-btn">&gt;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Sub Tab 4: 异常监控 ========== -->
+  <div class="sub-tab-content" id="subtab-anomaly-monitor">
+    <div class="alert-row">
+      <div class="card alert-card">
+        <div class="alert-icon red">🔴</div>
+        <div>
+          <div class="alert-label">签到中断用户</div>
+          <div class="alert-value">128<span class="alert-unit">人</span></div>
+        </div>
+      </div>
+      <div class="card alert-card">
+        <div class="alert-icon orange">🟡</div>
+        <div>
+          <div class="alert-label">奖品发放失败</div>
+          <div class="alert-value">23<span class="alert-unit">次</span></div>
+        </div>
+      </div>
+      <div class="card alert-card">
+        <div class="alert-icon amber">🟠</div>
+        <div>
+          <div class="alert-label">重复领取拦截</div>
+          <div class="alert-value">7<span class="alert-unit">次</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card table-card">
+      <table class="data-table" id="anomalyTable">
+        <thead>
+          <tr>
+            <th>异常类型</th>
+            <th>用户ID</th>
+            <th>任务名称</th>
+            <th>发生时间</th>
+            <th>异常描述</th>
+            <th>处理状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10023891</td><td>春日签到领红包</td><td>2026-04-24 10:15:32</td><td>连续签到在第5天中断，疑似设备切换</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-fail">发放失败</span></td><td>10012345</td><td>邀好友得现金</td><td>2026-04-24 09:48:11</td><td>现金奖励发放超时，第三方接口503</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-duplicate">重复领取</span></td><td>10056789</td><td>春日签到领红包</td><td>2026-04-24 09:32:05</td><td>同一用户30秒内重复提交领奖请求</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10078431</td><td>美食探店打卡赛</td><td>2026-04-24 08:20:44</td><td>连续签到在第10天中断，用户投诉网络异常</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-fail">发放失败</span></td><td>10045672</td><td>春日签到领红包</td><td>2026-04-23 22:15:09</td><td>优惠券库存不足，发放失败</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10091245</td><td>春日签到领红包</td><td>2026-04-23 20:30:22</td><td>签到第8天中断，账号异地登录触发风控</td><td><span class="process-status process-ignored" onclick="toggleStatus(this)">已忽略</span></td></tr>
+          <tr><td><span class="event-tag anomaly-duplicate">重复领取</span></td><td>10034567</td><td>邀好友得现金</td><td>2026-04-23 18:50:33</td><td>多设备同时提交领奖，拦截第二次请求</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-fail">发放失败</span></td><td>10067890</td><td>美食探店打卡赛</td><td>2026-04-23 16:42:18</td><td>代金券系统维护中，发放请求被拒绝</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10098765</td><td>春日签到领红包</td><td>2026-04-23 14:08:55</td><td>连续签到在第3天中断，无后续活跃记录</td><td><span class="process-status process-ignored" onclick="toggleStatus(this)">已忽略</span></td></tr>
+          <tr><td><span class="event-tag anomaly-duplicate">重复领取</span></td><td>10043210</td><td>春日签到领红包</td><td>2026-04-23 12:25:41</td><td>API重试导致重复请求，已自动拦截</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== Sub Tab Switching =====
+document.querySelectorAll('.sub-tab-item').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.sub-tab-item').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.sub-tab-content').forEach(function(c) { c.classList.remove('active'); });
+    tab.classList.add('active');
+    var target = tab.getAttribute('data-subtab');
+    document.getElementById('subtab-' + target).classList.add('active');
+  });
+});
+
+// ===== User Search Toggle =====
+document.getElementById('userSearchBtn').addEventListener('click', function() {
+  var val = document.getElementById('userSearchInput').value.trim();
+  if (val) {
+    document.getElementById('userEmptyState').classList.add('hidden');
+    document.getElementById('userResult').classList.remove('hidden');
+  } else {
+    document.getElementById('userEmptyState').classList.remove('hidden');
+    document.getElementById('userResult').classList.add('hidden');
+  }
+});
+
+// ===== Task Row Expand/Collapse =====
+document.querySelectorAll('.task-row').forEach(function(row) {
+  row.addEventListener('click', function() {
+    var idx = row.getAttribute('data-task');
+    var detail = document.querySelector('[data-task-detail="' + idx + '"]');
+    var icon = row.querySelector('.expand-icon');
+    if (detail.classList.contains('hidden')) {
+      detail.classList.remove('hidden');
+      icon.classList.add('open');
+      row.classList.add('selected');
+    } else {
+      detail.classList.add('hidden');
+      icon.classList.remove('open');
+      row.classList.remove('selected');
+    }
+  });
+});
+
+// ===== Generate Calendar Grids =====
+function generateCalendar(containerId, year, month, signedDays) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  var headers = ['日','一','二','三','四','五','六'];
+  var html = '';
+  headers.forEach(function(h) { html += '<div class="calendar-header">' + h + '</div>'; });
+  var firstDay = new Date(year, month - 1, 1).getDay();
+  var daysInMonth = new Date(year, month, 0).getDate();
+  var today = new Date();
+  var todayDay = (today.getFullYear() === year && (today.getMonth() + 1) === month) ? today.getDate() : -1;
+  for (var i = 0; i < firstDay; i++) { html += '<div class="calendar-day empty"></div>'; }
+  for (var d = 1; d <= daysInMonth; d++) {
+    var cls = 'calendar-day';
+    if (signedDays.indexOf(d) !== -1) cls += ' signed';
+    if (d === todayDay) cls += ' today';
+    html += '<div class="' + cls + '">' + d + '</div>';
+  }
+  container.innerHTML = html;
+}
+
+generateCalendar('calendar0', 2026, 4, [1,2,3,5,6,7,8,10,11,12,14,15,17,18,19,20,21,22,24]);
+generateCalendar('calendar1', 2026, 4, [1,3,4,5,8,9,10,14,15,16,20,21,22]);
+generateCalendar('calendar2', 2026, 3, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]);
+
+// ===== Filter Tags Toggle =====
+document.querySelectorAll('.filter-tag').forEach(function(tag) {
+  tag.addEventListener('click', function() {
+    if (tag.getAttribute('data-type') === 'all') {
+      document.querySelectorAll('.filter-tag').forEach(function(t) { t.classList.remove('active'); });
+      tag.classList.add('active');
+    } else {
+      document.querySelector('.filter-tag[data-type="all"]').classList.remove('active');
+      tag.classList.toggle('active');
+      var anyActive = document.querySelectorAll('.filter-tag.active:not([data-type="all"])').length;
+      if (!anyActive) {
+        document.querySelector('.filter-tag[data-type="all"]').classList.add('active');
+      }
+    }
+  });
+});
+
+// ===== Pagination Click =====
+document.querySelectorAll('.page-btn:not(.disabled):not(.active)').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.page-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  });
+});
+
+// ===== Anomaly Status Toggle =====
+function toggleStatus(el) {
+  var states = [
+    { cls: 'process-pending', text: '待处理' },
+    { cls: 'process-done', text: '已处理' },
+    { cls: 'process-ignored', text: '已忽略' }
+  ];
+  var currentIdx = 0;
+  for (var i = 0; i < states.length; i++) {
+    if (el.classList.contains(states[i].cls)) { currentIdx = i; break; }
+  }
+  var nextIdx = (currentIdx + 1) % states.length;
+  el.classList.remove(states[currentIdx].cls);
+  el.classList.add(states[nextIdx].cls);
+  el.textContent = states[nextIdx].text;
+}
+</script>
+</body>
+</html>

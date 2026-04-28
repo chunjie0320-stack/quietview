@@ -1,0 +1,201 @@
+# task-atoms-snapshot.yaml
+# 来源：task-atoms.yaml 精简版（去掉冗余注释，保留核心字段）
+# 说明：供 AI 生成任务C端组件时快速索引能力边界
+
+# ============================================================
+# A. 行为事件原子 (Action Atoms)
+# ============================================================
+
+action_atoms:
+
+  - key: signIn
+    name: 签到
+    source_type: FRONTEND_PUSH
+    subtask_binding: false
+    config_items: [signInType, signInMode]
+    signInType_options: [CONSECUTIVE, CUMULATIVE, CALENDAR]
+    signInMode_options: [AUTO, MANUAL]
+    admission_rule: 一天仅能签到1次（写死）
+
+  - key: view
+    name: 浏览
+    source_type: FRONTEND_PUSH
+    subtask_binding: true
+    config_items: [viewUrl, viewDurationSec, dailyTimeSlot, limitPerCycle]
+
+  - key: share
+    name: 分享
+    source_type: FRONTEND_PUSH
+    subtask_binding: true
+    config_items: [shareType, shareUrl, sharePageId, shareTitle, shareDescription, shareImageUrl]
+
+  - key: subscribe
+    name: 订阅提醒
+    source_type: FRONTEND_PUSH
+    subtask_binding: true
+    config_items: [subscribeId]
+
+  - key: quanjing
+    name: 全景下单
+    source_type: MESSAGE_DRIVEN
+    subtask_binding: true
+    config_items: [sceneId, bizCode, orderAmount, delayJudge, dailyTimeSlot]
+    note: 达成规则必须配置 ts > $sys.taskRecvTs；bizCode 可配置任意业务线，当前已接入：外卖/酒店/门票/团好货
+
+  - key: invite
+    name: 邀请
+    source_type: FRONTEND_PUSH
+    subtask_binding: false
+    config_items: [inviterDailyLimit, inviterCycleLimit]
+
+  - key: boost
+    name: 助力
+    source_type: FRONTEND_PUSH
+    subtask_binding: false
+    config_items: [boosterDailyLimit, boosterCycleLimit, allowRepeatBoostSamePerson]
+
+  - key: vote
+    name: 投票
+    source_type: QUERY
+    subtask_binding: true
+    note: 达成规则必须配置 ts > $sys.taskRecvTs
+
+# ============================================================
+# B. 达成规则模式 (Rule Pattern Atoms)
+# ============================================================
+
+rule_patterns:
+  - key: COUNT_GTE
+    func: count($events.current) >= N
+  - key: COUNT_EQ
+    func: count($events.current) == N
+  - key: CONTINUOUS_DAYS_PUSH
+    func: eventContinuousOnlyOnceByDay($events.current) == true
+    applicable_events: [signIn, view, share]
+  - key: CONTINUOUS_DAYS_STREAM
+    func: eventContinuousDaysAtLeastOnce($events.current) >= N
+    applicable_events: [quanjing, vote]
+  - key: TIME_SLOT_FILTER
+    func: toHHmmss($ts) between [HH:MM:SS, HH:MM:SS]
+  - key: AFTER_RECV
+    condition: $ts > $sys.taskRecvTs
+  - key: BIZ_CODE_FILTER
+    condition: bizCode in [<任意业务线枚举，可按需扩展>]
+  - key: ORDER_AMOUNT_FILTER
+    condition: orderAmount >= threshold
+  - key: PERSONA_HIT
+    func: hitPersona($personaId) == 1
+
+# ============================================================
+# C. 奖励类型原子 (Reward Atoms)
+# ============================================================
+
+reward_atoms:
+  - key: COUPON
+    name: 优惠券/现金券
+  - key: POINT
+    name: 积分/任务分
+  - key: PHYSICAL
+    name: 实物奖励
+  - key: VIRTUAL_GOODS
+    name: 虚拟商品
+  - key: NO_PRIZE
+    name: 无奖励（prizeType=0）
+
+prize_moment_types:
+  - key: AUTO_ON_REACH
+    name: 达成即发（最常用）
+  - key: MANUAL
+    name: 手动领取
+  - key: DELAY_JUDGE
+    name: 延迟判定后发（防退单）
+
+# ============================================================
+# D. C端组件类型原子 (UI Component Atoms)
+# ============================================================
+
+component_atoms:
+  - key: SIGN_IN_CALENDAR
+    name: 签到日历组件
+    applicable_events: [signIn]
+  - key: PROGRESS_BAR_TASK
+    name: 进度条任务组件
+    applicable_events: [quanjing, view, share, vote]
+  - key: INVITE_BOOST_TASK
+    name: 邀请助力组件
+    applicable_events: [invite, boost]
+  - key: GENERAL_TASK
+    name: 通用任务组件
+    applicable_events: [ALL]
+
+# ============================================================
+# E. 循环周期原子 (Cycle Atoms)
+# ============================================================
+
+cycle_atoms:
+  - key: NO_CYCLE
+    desc: 不循环，任务只做一次
+  - key: DAILY
+    desc: 按自然日循环
+  - key: TIME_PERIOD
+    desc: 按N小时/N天循环（从领取时刻计）
+  - key: CONSECUTIVE_DAILY
+    desc: 每日连续，断则重置
+  - key: CUMULATIVE_RESET
+    desc: 累计完成后次日重置（最长60天）
+
+# ============================================================
+# F. 已沉淀任务模板索引 (Task Templates)
+# ============================================================
+
+task_templates:
+  - template_key: CONSECUTIVE_SIGN_IN
+    event_types: [signIn]
+    cycle: CONSECUTIVE_DAILY
+    component: SIGN_IN_CALENDAR
+
+  - template_key: CUMULATIVE_SIGN_IN
+    event_types: [signIn]
+    cycle: CUMULATIVE_RESET
+    component: SIGN_IN_CALENDAR
+
+  - template_key: CALENDAR_SIGN_IN
+    event_types: [signIn]
+    cycle: NO_CYCLE
+    component: SIGN_IN_CALENDAR
+
+  - template_key: VIEW_PAGE
+    event_types: [view]
+    cycle: DAILY
+    component: PROGRESS_BAR_TASK
+
+  - template_key: SHARE_PAGE
+    event_types: [share]
+    cycle: DAILY
+    component: PROGRESS_BAR_TASK
+
+  - template_key: INVITE_BOOST
+    event_types: [invite, boost]
+    cycle: TIME_PERIOD
+    component: INVITE_BOOST_TASK
+
+  - template_key: QUANJING_ORDER
+    event_types: [quanjing]
+    cycle: DAILY
+    component: PROGRESS_BAR_TASK
+
+  - template_key: QUANJING_ORDER_DELAY
+    event_types: [quanjing]
+    cycle: DAILY
+    note: 含延迟判定（防退单）
+    component: PROGRESS_BAR_TASK
+
+  - template_key: CONSECUTIVE_ORDER
+    event_types: [quanjing]
+    cycle: CONSECUTIVE_DAILY
+    component: PROGRESS_BAR_TASK
+
+  - template_key: VOTE_TASK
+    event_types: [vote]
+    cycle: NO_CYCLE
+    component: GENERAL_TASK

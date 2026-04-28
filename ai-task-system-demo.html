@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI任务系统</title>
+<style>
+:root {
+  --primary:#FFC107;--primary-dark:#FFA000;--primary-light:#FFF3CD;--primary-hover:#FFD54F;
+  --secondary:#FF6F00;--secondary-light:#FFE0B2;
+  --bg:#F7F8FA;--surface:#FFFFFF;--surface-hover:#FAFBFC;--surface-active:#FFF8E1;
+  --border:#E8E8E8;--border-light:#F0F0F0;--border-focus:#FFC107;
+  --text:#1D2129;--text-secondary:#86909C;--text-tertiary:#C9CDD4;--text-link:#FF6F00;
+  --success:#00B42A;--success-light:#E8FFEA;--warning:#FF7D00;--warning-light:#FFF3E8;
+  --error:#F53F3F;--info:#3491FA;
+  --tag-draft:#C9CDD4;--tag-running:#00B42A;--tag-paused:#FF7D00;--tag-ended:#86909C;
+  --font:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  --error-light:#FFECE8;--info-light:#E8F3FF;
+  --radius-sm:4px;--radius-md:8px;--radius-lg:12px;
+  --font-mono:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 24px rgba(0,0,0,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);font-size:14px;line-height:22px;color:var(--text);background:var(--bg)}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select{font-family:inherit;font-size:14px}
+
+.app{max-width:1440px;margin:0 auto;min-height:100vh}
+.header{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:100}
+.header-title{font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px}
+.logo{width:24px;height:24px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px}
+
+.tabs{height:48px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:stretch;padding:0 24px;gap:32px}
+.tab-btn{position:relative;font-size:14px;color:var(--text-secondary);transition:color .15s}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--text);font-weight:600}
+.tab-btn.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--primary);border-radius:3px 3px 0 0}
+.tabs-right{margin-left:auto;display:flex;align-items:center}
+.btn-p{background:var(--primary);color:var(--text);height:36px;padding:0 20px;border-radius:8px;font-weight:500;font-size:14px;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+.btn-p:hover{background:var(--primary-hover);box-shadow:var(--shadow-sm)}
+.btn-s{background:var(--surface);color:var(--text);border:1px solid var(--border);height:32px;padding:0 16px;border-radius:8px;font-size:14px;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+.btn-s:hover{background:var(--surface-hover)}
+.btn-t{background:transparent;color:var(--text-link);height:32px;padding:0 8px;font-size:14px;display:inline-flex;align-items:center;gap:4px}
+.btn-t:hover{background:var(--surface-active);border-radius:4px}
+.btn-icon{width:28px;height:28px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:14px}
+.btn-icon:hover{background:var(--surface-hover);color:var(--text)}
+
+.content{padding:24px}
+.panel{display:none}.panel.on{display:block}
+.view{display:none}.view.on{display:block}
+
+/* Task List */
+.task-list{display:flex;flex-direction:column;gap:12px}
+.task-card{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all .3s;min-height:96px}
+.task-card:hover{border-color:var(--primary-light);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.tc-bar{width:4px;flex-shrink:0}
+.tc-body{flex:1;padding:16px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tc-r1{display:flex;align-items:center;gap:8px}
+.tc-name{font-size:16px;font-weight:600;line-height:24px}
+.tc-tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:500}
+.tc-r2{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--text-secondary)}
+.tc-type{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;background:var(--primary-light);color:var(--secondary);font-size:11px;font-weight:500}
+.tc-r3{display:flex;align-items:center;gap:24px;font-size:12px;color:var(--text-secondary)}
+.tc-mv{color:var(--text);font-weight:500}
+.tc-actions{display:flex;align-items:center;gap:2px;padding:16px 16px 16px 0;flex-shrink:0}
+
+/* Step1 */
+.s1-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s1-layout{display:flex;gap:24px;height:calc(100vh - 56px - 48px - 48px - 80px);min-height:520px}
+.chat-p{flex:0 0 60%;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.chat-hd{height:48px;padding:0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border-light);font-weight:500}
+.chat-hd .dot{width:8px;height:8px;border-radius:50%;background:var(--success)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.msg{display:flex;gap:8px;max-width:85%}
+.msg.ai{align-self:flex-start}.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.msg.ai .avatar{background:var(--primary-light)}.msg.user .avatar{background:#E8F3FF;color:var(--info)}
+.bubble{padding:10px 14px;border-radius:12px;font-size:14px;line-height:22px;white-space:pre-wrap}
+.msg.ai .bubble{background:#F2F3F5;border-top-left-radius:4px}.msg.user .bubble{background:var(--primary-light);border-top-right-radius:4px}
+.chat-in{height:64px;padding:0 16px;display:flex;align-items:center;gap:8px;border-top:1px solid var(--border-light)}
+.chat-input{flex:1;height:36px;padding:0 12px;border:1px solid var(--border);border-radius:8px;outline:none;font-size:14px}
+.chat-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(255,193,7,.2)}
+.send-btn{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px}
+.send-btn:hover{background:var(--primary-hover)}
+
+.elem-p{flex:0 0 40%;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.elem-hd{padding:16px;border-bottom:1px solid var(--border-light);font-size:16px;font-weight:600}
+.elem-grid{flex:1;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-content:start}
+.elem-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px 8px;border:1px dashed var(--text-tertiary);border-radius:8px;text-align:center;transition:all .3s;min-height:90px}
+.elem-cell.lit{border-style:solid;border-color:var(--primary);background:var(--primary-light);animation:eLit .4s cubic-bezier(.68,-.55,.27,1.55)}
+@keyframes eLit{0%{transform:scale(.8);opacity:0}50%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+.elem-icon{font-size:24px}
+.elem-lbl{font-size:12px;color:var(--text-secondary);font-weight:500}
+.elem-cell.lit .elem-lbl{color:var(--text)}
+.elem-chk{display:none;font-size:11px;color:var(--success)}.elem-cell.lit .elem-chk{display:block}
+.elem-ft{padding:16px;border-top:1px solid var(--border-light);display:flex;flex-direction:column;gap:8px}
+.prog-wrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)}
+.prog-track{flex:1;height:4px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
+.gen-wrap{text-align:center}
+
+/* Step2 */
+.s2-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s2-layout{display:flex;gap:16px;height:calc(100vh - 56px - 48px - 48px - 80px);min-height:520px}
+.think-p{flex:0 0 35%;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.think-p::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--primary);border-radius:12px 0 0 12px}
+.think-hd{padding:12px 16px 12px 20px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border-light);font-size:14px;font-weight:500;cursor:pointer;user-select:none}
+.think-caret{transition:transform .3s}.think-hd.collapsed .think-caret{transform:rotate(-90deg)}
+.spinner{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.think-body{flex:1;overflow-y:auto;padding:16px 20px;font-family:var(--font-mono);font-size:13px;line-height:24px;color:var(--text-secondary);transition:max-height .3s,padding .3s}
+.think-body.collapsed{max-height:0!important;padding-top:0;padding-bottom:0;overflow:hidden}
+.think-body .hl{color:var(--primary);font-weight:600}
+.think-ft{padding:8px 20px;border-top:1px solid var(--border-light);font-size:12px;color:var(--text-tertiary)}
+
+.phone-wrap{flex:0 0 30%;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:center}
+.phone-lbl{font-size:12px;color:var(--text-secondary);font-weight:500}
+.phone-shell{width:310px;background:#1D2129;border-radius:40px;padding:12px;box-shadow:var(--shadow-lg);position:relative}
+.phone-notch{width:120px;height:24px;background:#1D2129;border-radius:0 0 14px 14px;position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:2}
+.phone-screen{width:100%;aspect-ratio:375/667;background:#FFF;border-radius:28px;overflow:hidden;position:relative}
+.phone-ct{width:100%;height:100%;overflow-y:auto}
+.ph-banner{background:linear-gradient(135deg,#FF6F00,#FFC107);color:#FFF;text-align:center;padding:32px 16px 20px;font-size:18px;font-weight:600}
+.ph-sub{font-size:11px;opacity:.85;margin-top:4px}
+.ph-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:14px 12px}
+.ph-day{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;border:1px solid var(--border-light);color:var(--text)}
+.ph-day.chk{background:var(--success);color:#FFF;border-color:var(--success)}
+.ph-day.now{border-color:var(--primary);background:var(--primary-light);font-weight:600}
+.ph-rewards{padding:0 12px 12px;display:flex;flex-direction:column;gap:6px}
+.ph-rr{display:flex;align-items:center;gap:6px;padding:8px 10px;background:#FAFBFC;border-radius:8px;font-size:11px}
+.ph-rb{padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;color:#FFF;background:var(--primary-dark);white-space:nowrap}
+.ph-rd{flex:1;color:var(--text-secondary)}
+.ph-rv{color:var(--error);font-weight:600}
+.ph-cta{margin:8px 12px 16px;height:36px;background:linear-gradient(135deg,#FF6F00,#FFC107);color:#FFF;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+
+.atom-p{flex:0 0 35%;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;overflow:hidden}
+.atom-hd{padding:12px 16px;border-bottom:1px solid var(--border-light);font-size:16px;font-weight:600}
+.atom-bd{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.atom-grp{border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.ag-hd{padding:8px 12px;background:#FAFBFC;font-size:12px;font-weight:600;color:var(--text-secondary);display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.5px}
+.ag-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#FFF}
+.ag-icon.bh{background:var(--info)}.ag-icon.ct{background:var(--warning)}.ag-icon.rw{background:var(--success)}
+.ar{padding:10px 12px;border-top:1px solid var(--border-light);display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12px}
+.ar-name{font-weight:500;color:var(--primary-dark);padding:2px 6px;background:var(--primary-light);border-radius:4px;font-size:11px}
+.ar-lbl{color:var(--text-secondary);white-space:nowrap}
+.ar-in{height:24px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;outline:none;min-width:60px}
+.ar-in:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(255,193,7,.2)}
+.ar-sel{height:24px;padding:0 6px;border:1px solid var(--border);border-radius:4px;font-size:12px;outline:none;background:#FFF;cursor:pointer}
+.ar-tog{position:relative;width:36px;height:20px;border-radius:10px;background:var(--border);cursor:pointer;transition:background .15s;display:inline-block}
+.ar-tog.on{background:var(--success)}
+.ar-tog::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#FFF;transition:transform .15s;box-shadow:var(--shadow-sm)}
+.ar-tog.on::after{transform:translateX(16px)}
+.conn{display:flex;justify-content:center;padding:4px 0}
+.conn-pill{height:28px;padding:0 12px;border-radius:14px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;border:1px solid var(--border);color:var(--text-secondary);transition:all .15s}
+.conn-pill.active{background:var(--primary);color:var(--text);border-color:var(--primary)}
+.add-rule{border:1px dashed var(--border);border-radius:8px;padding:10px;text-align:center;color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all .15s}
+.add-rule:hover{background:var(--primary-light);border-color:var(--primary);color:var(--text)}
+.atom-ft{padding:16px;border-top:1px solid var(--border-light);text-align:center}
+
+/* Step3 */
+.s3-center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:24px}
+.s3-check{width:80px;height:80px;border-radius:50%;background:var(--success-light);display:flex;align-items:center;justify-content:center;font-size:40px;animation:s3Pop .5s cubic-bezier(.68,-.55,.27,1.55)}
+@keyframes s3Pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.s3-title{font-size:24px;font-weight:600}
+.s3-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;width:480px;max-width:100%;box-shadow:var(--shadow-sm)}
+.s3-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px solid var(--border-light)}
+.s3-row:last-child{border-bottom:none}
+.s3-row-l{color:var(--text-secondary)}.s3-row-r{font-weight:500}
+
+/* ===== Tab2: Information Query Styles ===== */
+#tab-query { padding: 24px; max-width: 1440px; margin: 0 auto; }
+
+.sub-tab-bar { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; background: var(--surface); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 0 24px; }
+.sub-tab-item { padding: 14px 20px; font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 3px solid transparent; transition: all 150ms ease; white-space: nowrap; user-select: none; }
+.sub-tab-item:hover { color: var(--text); background: var(--surface-hover); }
+.sub-tab-item.active { color: var(--text); font-weight: 600; border-bottom-color: var(--primary); }
+
+.sub-tab-content { display: none; }
+.sub-tab-content.active { display: block; }
+
+.card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+.hidden { display: none !important; }
+
+.search-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; }
+.search-input { flex: 1; max-width: 400px; height: 36px; padding: 4px 16px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-family: var(--font-family); outline: none; transition: all 150ms ease; color: var(--text); }
+.search-input::placeholder { color: var(--text-tertiary); }
+.search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(255,193,7,0.2); }
+
+.btn-primary { height: 36px; padding: 0 20px; background: var(--primary); color: var(--text); border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 150ms ease; font-family: var(--font-family); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { height: 36px; padding: 0 20px; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 150ms ease; font-family: var(--font-family); }
+.btn-secondary:hover { background: var(--surface-hover); }
+
+.user-profile-card { display: flex; gap: 20px; align-items: center; padding: 20px 24px; margin-bottom: 24px; }
+.user-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-light), var(--primary)); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.user-info { flex: 1; }
+.user-name { font-size: 16px; font-weight: 600; line-height: 24px; }
+.user-id-text { font-size: 12px; color: var(--text-secondary); line-height: 20px; margin-top: 2px; }
+.user-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 12px; font-weight: 500; }
+.tag-active { background: var(--success-light); color: var(--success); }
+.tag-silent { background: #F2F3F5; color: var(--text-secondary); }
+.tag-new { background: var(--info-light); color: var(--info); }
+.tag-price { background: var(--warning-light); color: var(--warning); }
+.tag-loyal { background: var(--primary-light); color: var(--primary-dark); }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.data-table thead th { background: var(--bg); padding: 12px 16px; text-align: left; font-weight: 500; color: var(--text-secondary); font-size: 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.data-table tbody tr { transition: background 150ms ease; cursor: pointer; }
+.data-table tbody tr:nth-child(even) { background: var(--surface-hover); }
+.data-table tbody tr:hover { background: var(--surface-active); }
+.data-table tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border-light); font-size: 14px; }
+.data-table tbody tr.selected { background: var(--primary-light) !important; }
+
+.status-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 12px; font-weight: 500; }
+.status-running { background: var(--success-light); color: var(--success); }
+.status-completed { background: var(--info-light); color: var(--info); }
+.status-paused { background: var(--warning-light); color: var(--warning); }
+
+.expand-icon { display: inline-block; width: 16px; font-size: 12px; color: var(--text-secondary); transition: transform 150ms ease; }
+.expand-icon.open { transform: rotate(90deg); }
+
+.calendar-detail { padding: 16px 24px 24px; background: var(--bg); border-top: 1px solid var(--border-light); }
+.calendar-detail-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 350px; }
+.calendar-header { font-size: 11px; color: var(--text-secondary); text-align: center; padding: 4px 0; font-weight: 500; }
+.calendar-day { aspect-ratio: 1; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border-light); }
+.calendar-day.signed { background: var(--success); color: #fff; border-color: var(--success); font-weight: 500; }
+.calendar-day.today { border-color: var(--primary); font-weight: 600; color: var(--text); }
+.calendar-day.empty { background: transparent; border-color: transparent; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-tertiary); }
+.empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state-text { font-size: 14px; color: var(--text-secondary); }
+
+.table-card { overflow: hidden; }
+
+/* Stats Cards */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card { padding: 16px 20px; position: relative; overflow: hidden; transition: all 300ms ease; }
+.stat-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+.stat-card:nth-child(1)::before { background: var(--primary); }
+.stat-card:nth-child(2)::before { background: var(--success); }
+.stat-card:nth-child(3)::before { background: var(--info); }
+.stat-card:nth-child(4)::before { background: var(--secondary); }
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.stat-label { font-size: 12px; color: var(--text-secondary); line-height: 20px; }
+.stat-value { font-size: 24px; font-weight: 600; line-height: 32px; margin-top: 4px; }
+.stat-trend { font-size: 12px; line-height: 20px; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.trend-up { color: var(--success); }
+.trend-down { color: var(--error); }
+
+.selector-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.selector-label { font-size: 14px; font-weight: 500; }
+.task-select { height: 36px; padding: 4px 16px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-family: var(--font-family); color: var(--text); background: var(--surface); outline: none; cursor: pointer; min-width: 280px; }
+.task-select:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(255,193,7,0.2); }
+
+.section-title { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+.funnel-section { padding: 24px; margin-bottom: 24px; }
+.funnel-chart { max-width: 700px; margin: 0 auto; }
+.funnel-stage { display: flex; align-items: center; gap: 16px; margin-bottom: 4px; }
+.funnel-bar-wrap { flex: 1; display: flex; justify-content: center; }
+.funnel-bar { height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--text); transition: all 300ms ease; position: relative; }
+.funnel-bar:hover { filter: brightness(1.05); box-shadow: var(--shadow-md); }
+.funnel-label { width: 50px; font-size: 13px; font-weight: 500; text-align: right; flex-shrink: 0; }
+.funnel-data { width: 200px; font-size: 13px; color: var(--text-secondary); flex-shrink: 0; }
+.funnel-data strong { color: var(--text); font-weight: 600; }
+.funnel-rate { display: inline-block; margin-left: 8px; padding: 1px 6px; background: var(--primary-light); border-radius: 10px; font-size: 11px; font-weight: 500; color: var(--primary-dark); }
+
+.chart-section { padding: 24px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 20px; height: 180px; padding: 0 8px; border-left: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-left: 40px; position: relative; }
+.bar-chart-y { position: absolute; left: -40px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; color: var(--text-secondary); pointer-events: none; }
+.bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 6px; }
+.bar { width: 36px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; background: linear-gradient(180deg, var(--primary), var(--primary-dark)); transition: all 300ms ease; position: relative; }
+.bar:hover { background: linear-gradient(180deg, var(--primary-hover), var(--primary)); box-shadow: var(--shadow-md); }
+.bar-value { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; white-space: nowrap; }
+.bar-label { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+
+/* Event Filters */
+.filter-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.filter-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-tag { display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 14px; font-size: 12px; font-weight: 500; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 150ms ease; user-select: none; }
+.filter-tag:hover { border-color: var(--primary); color: var(--text); }
+.filter-tag.active { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); }
+.filter-spacer { flex: 1; }
+.date-input { height: 32px; padding: 4px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 13px; font-family: var(--font-family); color: var(--text); outline: none; }
+.date-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(255,193,7,0.2); }
+
+.event-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 12px; font-weight: 500; }
+.event-signin { background: var(--primary-light); color: var(--primary-dark); }
+.event-reward { background: var(--success-light); color: var(--success); }
+.event-share { background: var(--info-light); color: var(--info); }
+.event-view { background: #F2F3F5; color: var(--text-secondary); }
+.event-invite { background: var(--secondary-light); color: var(--secondary); }
+.event-order { background: var(--warning-light); color: var(--warning); }
+.status-success { color: var(--success); font-weight: 600; }
+.status-fail { color: var(--error); font-weight: 600; }
+
+.pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--border-light); font-size: 13px; color: var(--text-secondary); }
+.page-nums { display: flex; gap: 4px; align-items: center; }
+.page-btn { min-width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-size: 13px; color: var(--text); transition: all 150ms ease; }
+.page-btn:hover { border-color: var(--primary); color: var(--primary-dark); }
+.page-btn.active { background: var(--primary); border-color: var(--primary); font-weight: 600; }
+.page-btn.disabled { color: var(--text-tertiary); cursor: not-allowed; border-color: var(--border-light); }
+.page-size-select { height: 32px; padding: 4px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: var(--font-family); color: var(--text); outline: none; cursor: pointer; }
+.page-info { display: flex; align-items: center; gap: 12px; }
+
+/* Alert Cards */
+.alert-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.alert-card { padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: all 300ms ease; }
+.alert-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.alert-icon { width: 44px; height: 44px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.alert-icon.red { background: var(--error-light); }
+.alert-icon.orange { background: var(--warning-light); }
+.alert-icon.amber { background: var(--secondary-light); }
+.alert-label { font-size: 13px; color: var(--text-secondary); line-height: 20px; }
+.alert-value { font-size: 24px; font-weight: 600; line-height: 32px; }
+.alert-unit { font-size: 13px; font-weight: 400; color: var(--text-secondary); margin-left: 2px; }
+
+.anomaly-interrupt { background: var(--error-light); color: var(--error); }
+.anomaly-fail { background: var(--warning-light); color: var(--warning); }
+.anomaly-duplicate { background: var(--secondary-light); color: var(--secondary); }
+
+.process-status { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 12px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 150ms ease; user-select: none; }
+.process-pending { background: var(--error-light); color: var(--error); }
+.process-done { background: var(--success-light); color: var(--success); }
+.process-ignored { background: #F2F3F5; color: var(--text-secondary); }
+.process-status:hover { opacity: 0.85; box-shadow: var(--shadow-sm); }
+
+.date-separator { color: var(--text-tertiary); font-size: 13px; line-height: 32px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header"><div class="header-title"><div class="logo">⚡</div>AI任务系统</div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">任务列表</button>
+    <button class="tab-btn" onclick="switchTab('query')">信息查询</button>
+    <div class="tabs-right" id="tabActions"><button class="btn-p" onclick="goStep('s1')">+ 新建任务</button></div>
+  </div>
+
+  <div class="panel on" id="panel-list">
+    <div class="content">
+      <!-- Task List View -->
+      <div class="view on" id="v-list">
+        <div class="task-list" id="taskList"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="view" id="v-s1">
+        <div class="s1-top"><button class="btn-t" onclick="goStep('list')">← 返回列表</button><span style="color:var(--text-secondary);font-size:12px">Step 1 / 3 · AI对话配置</span></div>
+        <div class="s1-layout">
+          <div class="chat-p">
+            <div class="chat-hd"><div class="dot"></div>AI任务助手 · 在线</div>
+            <div class="chat-msgs" id="chatMsgs"></div>
+            <div class="chat-in"><input class="chat-input" placeholder="描述你的活动任务..." readonly><button class="send-btn">↑</button></div>
+          </div>
+          <div class="elem-p">
+            <div class="elem-hd">📋 任务要素收集</div>
+            <div class="elem-grid" id="elemGrid"></div>
+            <div class="elem-ft">
+              <div class="prog-wrap"><span id="progText">已收集 0/6</span><div class="prog-track"><div class="prog-fill" id="progFill" style="width:0"></div></div></div>
+              <div class="gen-wrap" id="genWrap" style="display:none"><button class="btn-p" style="height:40px;padding:0 32px;font-size:14px" onclick="goStep('s2')">🚀 生成玩法方案</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="view" id="v-s2">
+        <div class="s2-top"><button class="btn-t" onclick="goStep('s1')">← 返回对话</button><span style="color:var(--text-secondary);font-size:12px">Step 2 / 3 · 策略引擎 → 玩法生产</span></div>
+        <div class="s2-layout">
+          <div class="think-p">
+            <div class="think-hd" id="thinkHd" onclick="toggleThink()"><span class="think-caret">▼</span><div class="spinner"></div><span>策略推理中...</span></div>
+            <div class="think-body" id="thinkBody"></div>
+            <div class="think-ft">推理耗时 2.3s · 匹配 8 个原子</div>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone-lbl">📱 C端预览</div>
+            <div class="phone-shell">
+              <div class="phone-notch"></div>
+              <div class="phone-screen"><div class="phone-ct">
+                <div class="ph-banner">🌞 夏日签到乐<div class="ph-sub">连续签到7天，赢超值大券包</div></div>
+                <div class="ph-cal" id="phCal"></div>
+                <div class="ph-rewards">
+                  <div class="ph-rr"><div class="ph-rb">签1天</div><div class="ph-rd">签到奖励</div><div class="ph-rv">5元券</div></div>
+                  <div class="ph-rr"><div class="ph-rb">签3天</div><div class="ph-rd">连续签到奖励</div><div class="ph-rv">10元券</div></div>
+                  <div class="ph-rr"><div class="ph-rb">签5天</div><div class="ph-rd">坚持签到奖励</div><div class="ph-rv">15元券</div></div>
+                  <div class="ph-rr"><div class="ph-rb">签7天</div><div class="ph-rd">全勤大奖</div><div class="ph-rv">30元券包</div></div>
+                </div>
+                <div class="ph-cta">🔥 立即签到</div>
+              </div></div>
+            </div>
+          </div>
+          <div class="atom-p">
+            <div class="atom-hd">⚙️ 玩法原子配置</div>
+            <div class="atom-bd" id="atomBody"></div>
+            <div class="atom-ft"><button class="btn-p" style="height:40px;padding:0 32px;width:100%" onclick="goStep('s3')">✅ 确认方案并发布</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="view" id="v-s3">
+        <div class="s3-center">
+          <div class="s3-check">✓</div>
+          <div class="s3-title">任务创建成功！</div>
+          <div class="s3-card">
+            <div class="s3-row"><span class="s3-row-l">任务名称</span><span class="s3-row-r">夏日签到乐</span></div>
+            <div class="s3-row"><span class="s3-row-l">任务类型</span><span class="s3-row-r">连续签到</span></div>
+            <div class="s3-row"><span class="s3-row-l">活动时间</span><span class="s3-row-r">2026-05-20 ~ 2026-06-05</span></div>
+            <div class="s3-row"><span class="s3-row-l">目标人群</span><span class="s3-row-r">全量用户</span></div>
+            <div class="s3-row"><span class="s3-row-l">奖励方式</span><span class="s3-row-r">阶梯优惠券（5/10/15/30元）</span></div>
+            <div class="s3-row"><span class="s3-row-l">预算上限</span><span class="s3-row-r">¥50,000</span></div>
+            <div class="s3-row"><span class="s3-row-l">状态</span><span class="s3-row-r" style="color:var(--success)">● 运行中</span></div>
+          </div>
+          <button class="btn-p" style="height:40px;padding:0 32px" onclick="backToList()">← 返回任务列表</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab2 placeholder -->
+  <div class="panel" id="panel-query" style="display:none">
+    <div id="tab-query">
+  <!-- Sub Tab Bar -->
+  <div class="sub-tab-bar">
+    <div class="sub-tab-item active" data-subtab="user-query">👤 用户查询</div>
+    <div class="sub-tab-item" data-subtab="task-analysis">📊 任务分析</div>
+    <div class="sub-tab-item" data-subtab="event-stream">📋 事件流水</div>
+    <div class="sub-tab-item" data-subtab="anomaly-monitor">⚠️ 异常监控</div>
+  </div>
+
+  <!-- ========== Sub Tab 1: 用户查询 ========== -->
+  <div class="sub-tab-content active" id="subtab-user-query">
+    <div class="search-bar">
+      <input type="text" class="search-input" id="userSearchInput" placeholder="输入用户ID或手机号搜索..." value="10086234" />
+      <button class="btn-primary" id="userSearchBtn">🔍 搜索</button>
+    </div>
+    <div id="userEmptyState" class="empty-state hidden">
+      <div class="empty-state-icon">🔍</div>
+      <div class="empty-state-text">输入用户ID或手机号查询用户信息</div>
+    </div>
+    <div id="userResult">
+      <div class="card user-profile-card">
+        <div class="user-avatar">👤</div>
+        <div class="user-info">
+          <div class="user-name">张三丰</div>
+          <div class="user-id-text">ID: 10086234 · 手机: 138****5678 · 注册: 2024-03-15</div>
+          <div class="user-tags">
+            <span class="tag tag-active">活跃用户</span>
+            <span class="tag tag-price">价格敏感</span>
+            <span class="tag tag-loyal">高忠诚度</span>
+            <span class="tag tag-new">新客转化</span>
+          </div>
+        </div>
+      </div>
+      <div class="card table-card">
+        <table class="data-table" id="userTaskTable">
+          <thead>
+            <tr>
+              <th style="width:30px"></th>
+              <th>任务名称</th>
+              <th>参与时间</th>
+              <th>当前进度</th>
+              <th>已领奖品</th>
+              <th>最后活跃时间</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="task-row" data-task="0">
+              <td><span class="expand-icon">▶</span></td>
+              <td>春日签到领红包</td>
+              <td>2026-03-01</td>
+              <td>签到第12天</td>
+              <td>5元红包×3, 优惠券×2</td>
+              <td>2026-04-24 09:32</td>
+              <td><span class="status-tag status-running">进行中</span></td>
+            </tr>
+            <tr class="calendar-row hidden" data-task-detail="0">
+              <td colspan="7" style="padding:0">
+                <div class="calendar-detail">
+                  <div class="calendar-detail-title">📅 签到日历 — 春日签到领红包（2026年4月）</div>
+                  <div class="calendar-grid" id="calendar0">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr class="task-row" data-task="1">
+              <td><span class="expand-icon">▶</span></td>
+              <td>美食探店打卡赛</td>
+              <td>2026-03-15</td>
+              <td>签到第8天</td>
+              <td>10元代金券×1</td>
+              <td>2026-04-22 14:15</td>
+              <td><span class="status-tag status-running">进行中</span></td>
+            </tr>
+            <tr class="calendar-row hidden" data-task-detail="1">
+              <td colspan="7" style="padding:0">
+                <div class="calendar-detail">
+                  <div class="calendar-detail-title">📅 签到日历 — 美食探店打卡赛（2026年4月）</div>
+                  <div class="calendar-grid" id="calendar1">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr class="task-row" data-task="2">
+              <td><span class="expand-icon">▶</span></td>
+              <td>邀好友得现金</td>
+              <td>2026-02-20</td>
+              <td>已完成</td>
+              <td>现金8.8元</td>
+              <td>2026-03-20 18:46</td>
+              <td><span class="status-tag status-completed">已完成</span></td>
+            </tr>
+            <tr class="calendar-row hidden" data-task-detail="2">
+              <td colspan="7" style="padding:0">
+                <div class="calendar-detail">
+                  <div class="calendar-detail-title">📅 签到日历 — 邀好友得现金（2026年3月）</div>
+                  <div class="calendar-grid" id="calendar2">
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Sub Tab 2: 任务分析 ========== -->
+  <div class="sub-tab-content" id="subtab-task-analysis">
+    <div class="selector-row">
+      <span class="selector-label">选择任务：</span>
+      <select class="task-select" id="analysisTaskSelect">
+        <option value="spring">春日签到领红包</option>
+        <option value="food">美食探店打卡赛</option>
+        <option value="invite">邀好友得现金</option>
+      </select>
+    </div>
+    <div class="stats-row">
+      <div class="card stat-card">
+        <div class="stat-label">总参与人数</div>
+        <div class="stat-value">35,847</div>
+        <div class="stat-trend trend-up">↑ 12.3% <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">完成率</div>
+        <div class="stat-value">68.2%</div>
+        <div class="stat-trend trend-up">↑ 3.5% <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">人均签到天数</div>
+        <div class="stat-value">5.3</div>
+        <div class="stat-trend trend-down">↓ 0.2 <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">奖励发放总额</div>
+        <div class="stat-value">12,560</div>
+        <div class="stat-trend trend-up">↑ 8.7% <span style="color:var(--text-tertiary)">较上周</span></div>
+      </div>
+    </div>
+
+    <!-- Funnel Chart -->
+    <div class="card funnel-section">
+      <div class="section-title">转化漏斗</div>
+      <div class="funnel-chart">
+        <div class="funnel-stage">
+          <div class="funnel-label">曝光</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%;background:#FFF3CD;">120,000</div></div>
+          <div class="funnel-data"><strong>120,000</strong></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">点击</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:57%;background:#FFE082;">68,400</div></div>
+          <div class="funnel-data"><strong>68,400</strong> <span class="funnel-rate">57.0%</span></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">参与</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:29.9%;background:#FFD54F;">35,847</div></div>
+          <div class="funnel-data"><strong>35,847</strong> <span class="funnel-rate">52.4%</span></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">完成</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:20.4%;background:#FFC107;">24,437</div></div>
+          <div class="funnel-data"><strong>24,437</strong> <span class="funnel-rate">68.2%</span></div>
+        </div>
+        <div class="funnel-stage">
+          <div class="funnel-label">领奖</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:17.6%;background:#FFA000;color:#fff;">21,108</div></div>
+          <div class="funnel-data"><strong>21,108</strong> <span class="funnel-rate">86.4%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="card chart-section">
+      <div class="section-title">近7日参与趋势</div>
+      <div class="bar-chart">
+        <div class="bar-chart-y">
+          <span>6k</span><span>4.5k</span><span>3k</span><span>1.5k</span><span>0</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:65%;"><span class="bar-value">3,921</span></div>
+          <div class="bar-label">04/18</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:72%;"><span class="bar-value">4,328</span></div>
+          <div class="bar-label">04/19</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:58%;"><span class="bar-value">3,487</span></div>
+          <div class="bar-label">04/20</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:80%;"><span class="bar-value">4,812</span></div>
+          <div class="bar-label">04/21</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:93%;"><span class="bar-value">5,567</span></div>
+          <div class="bar-label">04/22</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:88%;"><span class="bar-value">5,284</span></div>
+          <div class="bar-label">04/23</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height:85%;"><span class="bar-value">5,102</span></div>
+          <div class="bar-label">04/24</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Sub Tab 3: 事件流水 ========== -->
+  <div class="sub-tab-content" id="subtab-event-stream">
+    <div class="filter-bar">
+      <input type="text" class="search-input" placeholder="搜索用户ID / 任务名称..." style="max-width:260px;" />
+      <div class="filter-tags">
+        <span class="filter-tag active" data-type="all">全部</span>
+        <span class="filter-tag" data-type="signin">签到</span>
+        <span class="filter-tag" data-type="reward">领奖</span>
+        <span class="filter-tag" data-type="share">分享</span>
+        <span class="filter-tag" data-type="view">浏览</span>
+        <span class="filter-tag" data-type="invite">邀请</span>
+        <span class="filter-tag" data-type="order">下单</span>
+      </div>
+      <input type="date" class="date-input" value="2026-04-18" />
+      <span class="date-separator">至</span>
+      <input type="date" class="date-input" value="2026-04-24" />
+      <div class="filter-spacer"></div>
+      <button class="btn-secondary">📥 导出</button>
+    </div>
+    <div class="card table-card">
+      <table class="data-table" id="eventTable">
+        <thead>
+          <tr>
+            <th>用户ID</th>
+            <th>事件类型</th>
+            <th>任务名称</th>
+            <th>发生时间</th>
+            <th>详情</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>10086234</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-24 09:32:15</td><td>第12天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10086234</td><td><span class="event-tag event-reward">领奖</span></td><td>春日签到领红包</td><td>2026-04-24 09:32:18</td><td>获得5元红包</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10023891</td><td><span class="event-tag event-share">分享</span></td><td>美食探店打卡赛</td><td>2026-04-24 08:45:02</td><td>分享至微信</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10045672</td><td><span class="event-tag event-order">下单</span></td><td>春日签到领红包</td><td>2026-04-24 08:12:33</td><td>使用签到红包下单</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10078431</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-24 07:55:21</td><td>第7天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10091245</td><td><span class="event-tag event-invite">邀请</span></td><td>邀好友得现金</td><td>2026-04-23 22:18:44</td><td>邀请用户10099876</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10034567</td><td><span class="event-tag event-view">浏览</span></td><td>美食探店打卡赛</td><td>2026-04-23 21:30:12</td><td>浏览活动页</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10056789</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-23 20:10:05</td><td>第15天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10012345</td><td><span class="event-tag event-reward">领奖</span></td><td>邀好友得现金</td><td>2026-04-23 19:45:30</td><td>获得现金2.5元</td><td><span class="status-fail">✗ 失败</span></td></tr>
+          <tr><td>10067890</td><td><span class="event-tag event-share">分享</span></td><td>春日签到领红包</td><td>2026-04-23 18:22:17</td><td>分享至朋友圈</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10098765</td><td><span class="event-tag event-order">下单</span></td><td>美食探店打卡赛</td><td>2026-04-23 17:05:44</td><td>打卡消费订单</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10043210</td><td><span class="event-tag event-signin">签到</span></td><td>春日签到领红包</td><td>2026-04-23 16:30:09</td><td>第3天签到</td><td><span class="status-success">✓ 成功</span></td></tr>
+          <tr><td>10087654</td><td><span class="event-tag event-invite">邀请</span></td><td>邀好友得现金</td><td>2026-04-23 15:12:56</td><td>邀请用户10088123</td><td><span class="status-fail">✗ 失败</span></td></tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <div class="page-info">
+          <span>共 268 条</span>
+          <select class="page-size-select" id="eventPageSize">
+            <option value="10">10条/页</option>
+            <option value="20">20条/页</option>
+            <option value="50">50条/页</option>
+          </select>
+        </div>
+        <div class="page-nums">
+          <div class="page-btn disabled">&lt;</div>
+          <div class="page-btn active">1</div>
+          <div class="page-btn">2</div>
+          <div class="page-btn">3</div>
+          <div class="page-btn disabled">...</div>
+          <div class="page-btn">10</div>
+          <div class="page-btn">&gt;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Sub Tab 4: 异常监控 ========== -->
+  <div class="sub-tab-content" id="subtab-anomaly-monitor">
+    <div class="alert-row">
+      <div class="card alert-card">
+        <div class="alert-icon red">🔴</div>
+        <div>
+          <div class="alert-label">签到中断用户</div>
+          <div class="alert-value">128<span class="alert-unit">人</span></div>
+        </div>
+      </div>
+      <div class="card alert-card">
+        <div class="alert-icon orange">🟡</div>
+        <div>
+          <div class="alert-label">奖品发放失败</div>
+          <div class="alert-value">23<span class="alert-unit">次</span></div>
+        </div>
+      </div>
+      <div class="card alert-card">
+        <div class="alert-icon amber">🟠</div>
+        <div>
+          <div class="alert-label">重复领取拦截</div>
+          <div class="alert-value">7<span class="alert-unit">次</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card table-card">
+      <table class="data-table" id="anomalyTable">
+        <thead>
+          <tr>
+            <th>异常类型</th>
+            <th>用户ID</th>
+            <th>任务名称</th>
+            <th>发生时间</th>
+            <th>异常描述</th>
+            <th>处理状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10023891</td><td>春日签到领红包</td><td>2026-04-24 10:15:32</td><td>连续签到在第5天中断，疑似设备切换</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-fail">发放失败</span></td><td>10012345</td><td>邀好友得现金</td><td>2026-04-24 09:48:11</td><td>现金奖励发放超时，第三方接口503</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-duplicate">重复领取</span></td><td>10056789</td><td>春日签到领红包</td><td>2026-04-24 09:32:05</td><td>同一用户30秒内重复提交领奖请求</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10078431</td><td>美食探店打卡赛</td><td>2026-04-24 08:20:44</td><td>连续签到在第10天中断，用户投诉网络异常</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-fail">发放失败</span></td><td>10045672</td><td>春日签到领红包</td><td>2026-04-23 22:15:09</td><td>优惠券库存不足，发放失败</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10091245</td><td>春日签到领红包</td><td>2026-04-23 20:30:22</td><td>签到第8天中断，账号异地登录触发风控</td><td><span class="process-status process-ignored" onclick="toggleStatus(this)">已忽略</span></td></tr>
+          <tr><td><span class="event-tag anomaly-duplicate">重复领取</span></td><td>10034567</td><td>邀好友得现金</td><td>2026-04-23 18:50:33</td><td>多设备同时提交领奖，拦截第二次请求</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-fail">发放失败</span></td><td>10067890</td><td>美食探店打卡赛</td><td>2026-04-23 16:42:18</td><td>代金券系统维护中，发放请求被拒绝</td><td><span class="process-status process-pending" onclick="toggleStatus(this)">待处理</span></td></tr>
+          <tr><td><span class="event-tag anomaly-interrupt">签到中断</span></td><td>10098765</td><td>春日签到领红包</td><td>2026-04-23 14:08:55</td><td>连续签到在第3天中断，无后续活跃记录</td><td><span class="process-status process-ignored" onclick="toggleStatus(this)">已忽略</span></td></tr>
+          <tr><td><span class="event-tag anomaly-duplicate">重复领取</span></td><td>10043210</td><td>春日签到领红包</td><td>2026-04-23 12:25:41</td><td>API重试导致重复请求，已自动拦截</td><td><span class="process-status process-done" onclick="toggleStatus(this)">已处理</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+  </div>
+</div>
+
+<script>
+/* ===== Data ===== */
+var tasks = [
+  {id:1,name:'小满节气签到',status:'running',type:'连续签到',time:'2026-04-18 10:30',creator:'张三',users:12580,rate:'67.3%',rewards:8456},
+  {id:2,name:'芒种烤串挑战',status:'draft',type:'消费挑战',time:'2026-04-20 14:00',creator:'李四',users:0,rate:'0%',rewards:0},
+  {id:3,name:'夏至消暑任务',status:'paused',type:'浏览任务',time:'2026-04-15 09:15',creator:'王五',users:8920,rate:'45.1%',rewards:4023},
+  {id:4,name:'端午粽子集卡',status:'ended',type:'集卡活动',time:'2026-04-01 16:45',creator:'赵六',users:35210,rate:'82.5%',rewards:29048},
+  {id:5,name:'立夏尝鲜周',status:'running',type:'限时秒杀',time:'2026-04-22 11:00',creator:'孙七',users:6340,rate:'58.9%',rewards:3732}
+];
+var statusCfg = {
+  draft:{color:'#C9CDD4',bg:'#F7F8FA',label:'草稿'},
+  running:{color:'#00B42A',bg:'#E8FFEA',label:'运行中'},
+  paused:{color:'#FF7D00',bg:'#FFF3E8',label:'已暂停'},
+  ended:{color:'#86909C',bg:'#F2F3F5',label:'已结束'}
+};
+var elements = [
+  {key:'activityType',icon:'🎯',label:'活动类型'},
+  {key:'targetAudience',icon:'👥',label:'目标人群'},
+  {key:'rewardType',icon:'🎁',label:'奖励方式'},
+  {key:'timePeriod',icon:'📅',label:'时间周期'},
+  {key:'triggerCondition',icon:'⚡',label:'触发条件'},
+  {key:'budgetLimit',icon:'💰',label:'预算上限'}
+];
+var chatScript = [
+  {role:'ai',text:'你好！我是AI任务助手 🤖\n请描述你想创建的活动任务，我来帮你配置。'},
+  {role:'user',text:'我想做一个夏季签到活动，连续签到7天领券'},
+  {role:'ai',text:'好的！夏季签到活动是个好选择 👍\n\n让我帮你确认几个核心要素：\n\n1️⃣ 活动类型：连续签到\n2️⃣ 目标人群：需要确认范围...',collect:'activityType'},
+  {role:'user',text:'面向全量用户，18-45岁为主'},
+  {role:'ai',text:'收到！面向全量用户，核心年龄段18-45岁 ✅\n\n接下来确认奖励方式：\n建议采用阶梯式优惠券激励——\n签1天→5元，签3天→10元，签5天→15元，签7天→30元大券包\n\n你觉得这个方案如何？',collect:'targetAudience'},
+  {role:'user',text:'不错，就用这个阶梯券方案'},
+  {role:'ai',text:'阶梯券方案确认 ✅\n\n时间安排方面：\n📅 建议：2026年5月20日 ~ 6月5日（共17天窗口期）\n这样覆盖小满到芒种节气，契合夏季主题。',collect:'rewardType'},
+  {role:'user',text:'时间OK，就这个'},
+  {role:'ai',text:'时间确认 ✅\n\n⚡ 触发条件：\n- 每日签到1次即算完成\n- 需连续签到，断签从头计\n- 签到时间窗口：每日 00:00 - 23:59',collect:'timePeriod'},
+  {role:'user',text:'可以，连续签到断签重置'},
+  {role:'ai',text:'触发条件确认 ✅\n\n💰 最后确认预算上限：\n按预估参与10万人、平均领券2.5张计算，\n建议预算上限设为 ¥50,000\n\n是否OK？',collect:'triggerCondition'},
+  {role:'user',text:'50000可以，就这样'},
+  {role:'ai',text:'所有要素收集完毕！🎉\n\n📋 汇总：\n- 活动类型：连续签到\n- 目标人群：全量用户（18-45岁）\n- 奖励方式：阶梯优惠券（5/10/15/30元）\n- 时间周期：5.20-6.05\n- 触发条件：每日签到+连续机制\n- 预算上限：¥50,000\n\n点击右侧「生成玩法方案」进入策略引擎 →',collect:'budgetLimit'}
+];
+
+var thinkLines = [
+  {text:'▶ 意图识别：连续签到 + 领券激励',hls:['连续签到','领券激励']},
+  {text:'▶ 匹配行为原子：',hls:[]},
+  {text:'  signIn（签到）',hls:['signIn']},
+  {text:'▶ 匹配约束原子：',hls:[]},
+  {text:'  time_window（7天窗口期）',hls:['time_window']},
+  {text:'  threshold_ladder（1/3/5/7天阶梯）',hls:['threshold_ladder']},
+  {text:'  cycle_period（每日重置）',hls:['cycle_period']},
+  {text:'  continuity_required（连续签到）',hls:['continuity_required']},
+  {text:'▶ 匹配奖励原子：',hls:[]},
+  {text:'  reward_slot（虚拟券×4档）',hls:['reward_slot']},
+  {text:'  reward_threshold_trigger（阶梯触发）',hls:['reward_threshold_trigger']},
+  {text:'▶ 推荐参数：奖励预算=¥50,000，人群=全量',hls:['¥50,000','全量']},
+  {text:'▶ 方案生成完毕 ✅',hls:[]}
+];
+
+/* ===== Tab Switch ===== */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===(tab==='list'?0:1))});
+  document.getElementById('panel-list').className = tab==='list'?'panel on':'panel';
+  document.getElementById('panel-list').style.display = tab==='list'?'':'none';
+  document.getElementById('panel-query').className = tab==='query'?'panel on':'panel';
+  document.getElementById('panel-query').style.display = tab==='query'?'':'none';
+  document.getElementById('tabActions').style.display = tab==='list'?'':'none';
+  if(tab==='list') goStep('list');
+}
+
+/* ===== View Switch ===== */
+function goStep(v) {
+  ['v-list','v-s1','v-s2','v-s3'].forEach(function(id){document.getElementById(id).className='view'});
+  var map={list:'v-list',s1:'v-s1',s2:'v-s2',s3:'v-s3'};
+  document.getElementById(map[v]).className='view on';
+  document.getElementById('tabActions').style.display = v==='list'?'':'none';
+  if(v==='s1') startChat();
+  if(v==='s2'){ startThinking(); }
+}
+
+/* ===== Render Task List ===== */
+function renderTasks() {
+  var html='';
+  tasks.forEach(function(t){
+    var s=statusCfg[t.status];
+    html+='<div class="task-card">'
+      +'<div class="tc-bar" style="background:'+s.color+'"></div>'
+      +'<div class="tc-body">'
+      +'<div class="tc-r1"><span class="tc-name">'+t.name+'</span><span class="tc-tag" style="color:'+s.color+';background:'+s.bg+'">'+s.label+'</span></div>'
+      +'<div class="tc-r2"><span class="tc-type">'+t.type+'</span><span>'+t.time+'</span><span>'+t.creator+'</span></div>'
+      +'<div class="tc-r3"><span class="tc-mv">👥 '+t.users.toLocaleString()+'</span> 参与<span class="tc-mv">📊 '+t.rate+'</span> 完成率<span class="tc-mv">🎁 '+t.rewards.toLocaleString()+'</span> 发放</div>'
+      +'</div>'
+      +'<div class="tc-actions">'
+      +'<button class="btn-icon" title="编辑">✏️</button>'
+      +'<button class="btn-icon" title="'+(t.status==='running'?'暂停':'启动')+'">⏸</button>'
+      +'<button class="btn-icon" title="复制">📋</button>'
+      +'<button class="btn-icon" title="删除">🗑</button>'
+      +'</div></div>';
+  });
+  document.getElementById('taskList').innerHTML=html;
+}
+
+/* ===== Render Elements Grid ===== */
+function renderElements() {
+  var html='';
+  elements.forEach(function(e){
+    html+='<div class="elem-cell" id="ec-'+e.key+'"><div class="elem-icon">'+e.icon+'</div><div class="elem-lbl">'+e.label+'</div><div class="elem-chk">✓</div></div>';
+  });
+  document.getElementById('elemGrid').innerHTML=html;
+}
+
+/* ===== Chat Animation ===== */
+var chatIdx=0, collected=0;
+function startChat(){
+  chatIdx=0;collected=0;
+  document.getElementById('chatMsgs').innerHTML='';
+  document.getElementById('progText').textContent='已收集 0/6';
+  document.getElementById('progFill').style.width='0';
+  document.getElementById('genWrap').style.display='none';
+  elements.forEach(function(e){document.getElementById('ec-'+e.key).classList.remove('lit')});
+  nextMsg();
+}
+function nextMsg(){
+  if(chatIdx>=chatScript.length)return;
+  var m=chatScript[chatIdx];
+  var box=document.getElementById('chatMsgs');
+  var div=document.createElement('div');
+  div.className='msg '+m.role;
+  div.innerHTML='<div class="avatar">'+(m.role==='ai'?'🤖':'👤')+'</div><div class="bubble">'+m.text+'</div>';
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+  if(m.collect){
+    setTimeout(function(){
+      document.getElementById('ec-'+m.collect).classList.add('lit');
+      collected++;
+      document.getElementById('progText').textContent='已收集 '+collected+'/6';
+      document.getElementById('progFill').style.width=(collected/6*100)+'%';
+      if(collected>=6){
+        document.getElementById('genWrap').style.display='';
+      }
+    },400);
+  }
+  chatIdx++;
+  if(chatIdx<chatScript.length) setTimeout(nextMsg, m.role==='ai'?1200:800);
+}
+
+/* ===== Phone Calendar ===== */
+function renderPhoneCal(){
+  var html='';
+  for(var i=1;i<=7;i++){
+    var cls='ph-day';
+    if(i<=3) cls+=' chk';
+    else if(i===4) cls+=' now';
+    html+='<div class="'+cls+'">'+( i<=3? '✓':'Day'+i)+'</div>';
+  }
+  document.getElementById('phCal').innerHTML=html;
+}
+
+/* ===== Thinking Typewriter ===== */
+function startThinking(){
+  var body=document.getElementById('thinkBody');
+  body.innerHTML='';
+  body.className='think-body';
+  document.getElementById('thinkHd').className='think-hd';
+  var lineIdx=0;
+  function typeLine(){
+    if(lineIdx>=thinkLines.length)return;
+    var ln=thinkLines[lineIdx];
+    var div=document.createElement('div');
+    div.style.marginBottom='4px';
+    var t=ln.text;
+    ln.hls.forEach(function(h){
+      t=t.replace(h,'<span class="hl">'+h+'</span>');
+    });
+    div.innerHTML=t;
+    body.appendChild(div);
+    body.scrollTop=body.scrollHeight;
+    lineIdx++;
+    setTimeout(typeLine,200);
+  }
+  typeLine();
+}
+function toggleThink(){
+  var hd=document.getElementById('thinkHd');
+  var bd=document.getElementById('thinkBody');
+  hd.classList.toggle('collapsed');
+  bd.classList.toggle('collapsed');
+}
+
+/* ===== Atom Config ===== */
+function renderAtoms(){
+  var html='';
+  // Behavior group
+  html+='<div class="atom-grp"><div class="ag-hd"><div class="ag-icon bh">B</div>行为原子</div>';
+  html+='<div class="ar"><span class="ar-name">signIn</span><span class="ar-lbl">类型</span><input class="ar-in" value="连续签到" style="width:80px"><span class="ar-lbl">目标</span><input class="ar-in" value="7" style="width:40px"><span class="ar-lbl">天</span></div>';
+  html+='</div>';
+  // Connector
+  html+='<div class="conn"><span class="conn-pill active">AND</span></div>';
+  // Constraint group
+  html+='<div class="atom-grp"><div class="ag-hd"><div class="ag-icon ct">C</div>约束原子</div>';
+  html+='<div class="ar"><span class="ar-name">time_window</span><span class="ar-lbl">开始</span><input class="ar-in" type="date" value="2026-05-20" style="width:130px"><span class="ar-lbl">结束</span><input class="ar-in" type="date" value="2026-06-05" style="width:130px"></div>';
+  html+='<div class="ar"><span class="ar-name">threshold_ladder</span><span class="ar-lbl">阶梯</span><input class="ar-in" value="1, 3, 5, 7" style="width:100px"><span class="ar-lbl">天</span></div>';
+  html+='<div class="ar"><span class="ar-name">cycle_period</span><span class="ar-lbl">周期</span><select class="ar-sel"><option>每日重置</option><option>每周重置</option><option>不重置</option></select></div>';
+  html+='<div class="ar"><span class="ar-name">continuity_required</span><span class="ar-lbl">需连续</span><div class="ar-tog on" onclick="this.classList.toggle(\'on\')"></div></div>';
+  html+='</div>';
+  // Connector
+  html+='<div class="conn"><span class="conn-pill active">AND</span></div>';
+  // Reward group
+  html+='<div class="atom-grp"><div class="ag-hd"><div class="ag-icon rw">R</div>奖励原子</div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 1</span><input class="ar-in" value="5元券" style="width:60px"><span class="ar-lbl">库存</span><input class="ar-in" value="50000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 2</span><input class="ar-in" value="10元券" style="width:60px"><span class="ar-lbl">库存</span><input class="ar-in" value="30000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 3</span><input class="ar-in" value="15元券" style="width:60px"><span class="ar-lbl">库存</span><input class="ar-in" value="20000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_slot</span><span class="ar-lbl">Slot 4</span><input class="ar-in" value="30元券包" style="width:70px"><span class="ar-lbl">库存</span><input class="ar-in" value="10000" style="width:60px"></div>';
+  html+='<div class="ar"><span class="ar-name">reward_threshold_trigger</span><span class="ar-lbl">触发</span><input class="ar-in" value="与阶梯关联" style="width:90px" readonly></div>';
+  html+='</div>';
+  // Add rule
+  html+='<div class="add-rule">+ 添加规则</div>';
+  document.getElementById('atomBody').innerHTML=html;
+}
+
+/* ===== Back to List (after publish) ===== */
+function backToList(){
+  // Add new task at top
+  if(!tasks.find(function(t){return t.name==='夏日签到乐'})){
+    tasks.unshift({id:99,name:'夏日签到乐',status:'running',type:'连续签到',time:'2026-04-24 21:50',creator:'我',users:0,rate:'0%',rewards:0});
+  }
+  renderTasks();
+  goStep('list');
+}
+
+/* ===== Init ===== */
+renderTasks();
+renderElements();
+renderPhoneCal();
+renderAtoms();
+
+/* ===== Tab2: Information Query Scripts ===== */
+// ===== Sub Tab Switching =====
+document.querySelectorAll('.sub-tab-item').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.sub-tab-item').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.sub-tab-content').forEach(function(c) { c.classList.remove('active'); });
+    tab.classList.add('active');
+    var target = tab.getAttribute('data-subtab');
+    document.getElementById('subtab-' + target).classList.add('active');
+  });
+});
+
+// ===== User Search Toggle =====
+document.getElementById('userSearchBtn').addEventListener('click', function() {
+  var val = document.getElementById('userSearchInput').value.trim();
+  if (val) {
+    document.getElementById('userEmptyState').classList.add('hidden');
+    document.getElementById('userResult').classList.remove('hidden');
+  } else {
+    document.getElementById('userEmptyState').classList.remove('hidden');
+    document.getElementById('userResult').classList.add('hidden');
+  }
+});
+
+// ===== Task Row Expand/Collapse =====
+document.querySelectorAll('.task-row').forEach(function(row) {
+  row.addEventListener('click', function() {
+    var idx = row.getAttribute('data-task');
+    var detail = document.querySelector('[data-task-detail="' + idx + '"]');
+    var icon = row.querySelector('.expand-icon');
+    if (detail.classList.contains('hidden')) {
+      detail.classList.remove('hidden');
+      icon.classList.add('open');
+      row.classList.add('selected');
+    } else {
+      detail.classList.add('hidden');
+      icon.classList.remove('open');
+      row.classList.remove('selected');
+    }
+  });
+});
+
+// ===== Generate Calendar Grids =====
+function generateCalendar(containerId, year, month, signedDays) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  var headers = ['日','一','二','三','四','五','六'];
+  var html = '';
+  headers.forEach(function(h) { html += '<div class="calendar-header">' + h + '</div>'; });
+  var firstDay = new Date(year, month - 1, 1).getDay();
+  var daysInMonth = new Date(year, month, 0).getDate();
+  var today = new Date();
+  var todayDay = (today.getFullYear() === year && (today.getMonth() + 1) === month) ? today.getDate() : -1;
+  for (var i = 0; i < firstDay; i++) { html += '<div class="calendar-day empty"></div>'; }
+  for (var d = 1; d <= daysInMonth; d++) {
+    var cls = 'calendar-day';
+    if (signedDays.indexOf(d) !== -1) cls += ' signed';
+    if (d === todayDay) cls += ' today';
+    html += '<div class="' + cls + '">' + d + '</div>';
+  }
+  container.innerHTML = html;
+}
+
+generateCalendar('calendar0', 2026, 4, [1,2,3,5,6,7,8,10,11,12,14,15,17,18,19,20,21,22,24]);
+generateCalendar('calendar1', 2026, 4, [1,3,4,5,8,9,10,14,15,16,20,21,22]);
+generateCalendar('calendar2', 2026, 3, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]);
+
+// ===== Filter Tags Toggle =====
+document.querySelectorAll('.filter-tag').forEach(function(tag) {
+  tag.addEventListener('click', function() {
+    if (tag.getAttribute('data-type') === 'all') {
+      document.querySelectorAll('.filter-tag').forEach(function(t) { t.classList.remove('active'); });
+      tag.classList.add('active');
+    } else {
+      document.querySelector('.filter-tag[data-type="all"]').classList.remove('active');
+      tag.classList.toggle('active');
+      var anyActive = document.querySelectorAll('.filter-tag.active:not([data-type="all"])').length;
+      if (!anyActive) {
+        document.querySelector('.filter-tag[data-type="all"]').classList.add('active');
+      }
+    }
+  });
+});
+
+// ===== Pagination Click =====
+document.querySelectorAll('.page-btn:not(.disabled):not(.active)').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.page-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  });
+});
+
+// ===== Anomaly Status Toggle =====
+function toggleStatus(el) {
+  var states = [
+    { cls: 'process-pending', text: '待处理' },
+    { cls: 'process-done', text: '已处理' },
+    { cls: 'process-ignored', text: '已忽略' }
+  ];
+  var currentIdx = 0;
+  for (var i = 0; i < states.length; i++) {
+    if (el.classList.contains(states[i].cls)) { currentIdx = i; break; }
+  }
+  var nextIdx = (currentIdx + 1) % states.length;
+  el.classList.remove(states[currentIdx].cls);
+  el.classList.add(states[nextIdx].cls);
+  el.textContent = states[nextIdx].text;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI任务系统</title>
+<style>
+:root {
+  --primary:#3370FF;--primary-dark:#245BDB;--primary-light:#F0F5FF;--primary-hover:#4080FF;
+  --secondary:#5856D6;--secondary-light:#F0F0FF;
+  --bg:#F5F7FA;--surface:#FFFFFF;--surface-hover:#F7F8FA;--surface-active:#F0F5FF;
+  --border:#DEE0E3;--border-light:#E5E6EB;--border-focus:#3370FF;
+  --text:#1F2329;--text-secondary:#646A73;--text-tertiary:#8F959E;--text-link:#3370FF;
+  --success:#00B42A;--success-light:#E8FFEA;--warning:#FF7D00;--warning-light:#FFF7E8;
+  --error:#F53F3F;--info:#3370FF;
+  --tag-draft:#8F959E;--tag-running:#00B42A;--tag-paused:#FF7D00;--tag-ended:#86909C;
+  --font:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;
+  --error-light:#FFEBE9;--info-light:#E5F8FF;
+  --radius-sm:4px;--radius-md:6px;--radius-lg:8px;
+  --font-mono:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg:0 4px 16px rgba(0,0,0,0.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);font-size:14px;line-height:1.29;letter-spacing:0;color:var(--text);background:var(--bg)}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select{font-family:inherit;font-size:14px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #3370FF;outline-offset:2px}
+
+.app{max-width:1440px;margin:0 auto;min-height:100vh}
+.header{height:52px;background:#FFFFFF;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:1px solid var(--border-light);display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:100}
+.header-title{font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px;letter-spacing:0;line-height:1.14}
+.logo{width:24px;height:24px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#FFFFFF}
+
+.tabs{height:44px;background:var(--surface);border-bottom:1px solid var(--border-light);display:flex;align-items:stretch;padding:0 24px;gap:32px}
+.tab-btn{position:relative;font-size:14px;letter-spacing:0;color:var(--text-secondary);transition:color .15s;padding:0 4px}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--text);font-weight:600}
+.tab-btn.active::after{content:'';position:absolute;bottom:0;left:4px;right:4px;height:2px;background:var(--primary);border-radius:1px 1px 0 0}
+.tabs-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+
+.btn-p{background:var(--primary);color:#FFFFFF;height:36px;padding:0 20px;border-radius:var(--radius-sm);font-weight:500;font-size:14px;letter-spacing:0;display:inline-flex;align-items:center;gap:4px;transition:all .2s ease}
+.btn-p:hover{background:var(--primary-hover);box-shadow:none}
+.btn-s{background:transparent;color:var(--text-link);border:1px solid var(--text-link);height:32px;padding:0 16px;border-radius:var(--radius-sm);font-size:14px;letter-spacing:0;display:inline-flex;align-items:center;gap:4px;transition:all .2s ease}
+.btn-s:hover{background:rgba(51,112,255,0.06)}
+.btn-t{background:transparent;color:var(--text-link);height:32px;padding:0 8px;font-size:14px;letter-spacing:0;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+.btn-t:hover{text-decoration:underline}
+.btn-icon{width:28px;height:28px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:14px}
+.btn-icon:hover{background:var(--surface-hover);color:var(--text)}
+
+.content{padding:24px}
+.panel{display:none}.panel.on{display:block}
+.view{display:none}.view.on{display:block}
+
+/* Search Box (Tab1) */
+.search-box{display:flex;align-items:center;background:#FFFFFF;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 14px;height:36px;width:280px;transition:all .2s ease;gap:8px;flex-shrink:0}
+.search-box:focus-within{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1);background:#fff}
+.search-box .s-icon{color:var(--text-tertiary);font-size:14px;flex-shrink:0;line-height:1}
+.search-box .s-input{border:none;background:transparent;outline:none;font-size:14px;color:var(--text);width:100%;font-family:var(--font);letter-spacing:0}
+.search-box .s-input::placeholder{color:var(--text-tertiary)}
+.search-box .s-clear{display:none;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--text-tertiary);color:#fff;font-size:10px;cursor:pointer;flex-shrink:0;line-height:1}
+.search-box .s-clear:hover{background:var(--text-secondary)}
+.search-box .s-clear.show{display:flex}
+
+/* Task List (table-based) */
+.task-list{display:flex;flex-direction:column;gap:0}
+
+/* Step1 */
+.s1-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s1-layout{display:flex;gap:24px;height:calc(100vh - 48px - 48px - 48px - 80px);min-height:520px}
+.chat-p{flex:0 0 60%;display:flex;flex-direction:column;background:var(--surface);border:none;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.chat-hd{height:48px;padding:0 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(0,0,0,0.06);font-weight:500;letter-spacing:0}
+.chat-hd .dot{width:8px;height:8px;border-radius:50%;background:var(--success)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.msg{display:flex;gap:8px;max-width:85%}
+.msg.ai{align-self:flex-start}.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.msg.ai .avatar{background:var(--primary-light)}.msg.user .avatar{background:var(--primary);color:#FFFFFF}
+.bubble{padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.47;letter-spacing:0;white-space:pre-wrap}
+.msg.ai .bubble{background:#F5F7FA;border-top-left-radius:2px}.msg.user .bubble{background:var(--primary-light);border-top-right-radius:2px}
+.chat-in{height:64px;padding:0 16px;display:flex;align-items:center;gap:8px;border-top:1px solid rgba(0,0,0,0.06)}
+.chat-input{flex:1;height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);outline:none;font-size:14px;letter-spacing:0}
+.chat-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.send-btn{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px}
+.send-btn:hover{background:var(--primary-hover)}
+
+.elem-p{flex:0 0 40%;display:flex;flex-direction:column;background:var(--surface);border:none;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.elem-hd{padding:16px;border-bottom:1px solid rgba(0,0,0,0.06);font-size:16px;font-weight:600;letter-spacing:0;line-height:1.14}
+.elem-form { padding: 16px; display: flex; flex-direction: column; gap: 0; }
+.elem-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.elem-row:last-child { border-bottom: none; }
+.elem-row-label { width: 72px; flex-shrink: 0; font-size: 13px; color: var(--text-secondary); text-align: right; font-weight: 500; }
+.elem-row-control { flex: 1; display: flex; align-items: center; gap: 8px; }
+.elem-row-input {
+  height: 32px; padding: 0 10px; border: 1px solid var(--border); border-radius: 4px;
+  font-size: 13px; outline: none; font-family: inherit; width: 100%; max-width: 260px;
+  color: var(--text); background: #FFFFFF;
+  transition: all 0.2s ease;
+}
+.elem-row-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(51,112,255,0.1); }
+.elem-row-input::placeholder { color: var(--text-tertiary); }
+.elem-row-select {
+  height: 32px; padding: 0 10px; border: 1px solid var(--border); border-radius: 4px;
+  font-size: 13px; background: #FFFFFF; cursor: pointer; outline: none; font-family: inherit;
+  min-width: 160px; color: var(--text);
+  transition: all 0.2s ease;
+}
+.elem-row-select:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(51,112,255,0.1); }
+.elem-row-date { 
+  height: 32px; padding: 0 8px; border: 1px solid var(--border); border-radius: 4px;
+  font-size: 13px; outline: none; font-family: inherit; color: var(--text); background: #FFFFFF;
+  width: 140px; transition: all 0.2s ease;
+}
+.elem-row-date:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(51,112,255,0.1); }
+/* Status indicator on each row */
+.elem-status { 
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: var(--border); transition: background 0.3s ease;
+}
+.elem-status.filled { background: var(--success); }
+.elem-ft{padding:16px;border-top:1px solid rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:8px}
+.prog-wrap{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0;color:var(--text-secondary)}
+.prog-track{flex:1;height:3px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--primary);border-radius:2px;transition:width .3s}
+.gen-wrap{text-align:center}
+
+/* Step2 */
+.s2-top{margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.s2-layout{display:flex;gap:16px;height:calc(100vh - 48px - 48px - 48px - 80px);min-height:520px}
+.think-p{flex:0 0 40%;background:var(--surface);border:none;border-radius:var(--radius-md);display:flex;flex-direction:column;overflow:hidden;position:relative;box-shadow:var(--shadow-sm)}
+.think-p::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--primary);border-radius:12px 0 0 12px}
+.think-hd{padding:12px 16px 12px 20px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(0,0,0,0.06);font-size:14px;font-weight:500;letter-spacing:0;cursor:pointer;user-select:none}
+.think-caret{transition:transform .3s}.think-hd.collapsed .think-caret{transform:rotate(-90deg)}
+.spinner{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.think-body{flex:1;overflow-y:auto;padding:16px 20px;font-family:var(--font-mono);font-size:13px;line-height:24px;color:var(--text-secondary);transition:max-height .3s,padding .3s;background:#F5F7FA}
+.think-body.collapsed{max-height:0!important;padding-top:0;padding-bottom:0;overflow:hidden}
+.think-body .hl{color:var(--primary);font-weight:600}
+.think-ft{padding:8px 20px;border-top:1px solid rgba(0,0,0,0.06);font-size:12px;letter-spacing:0;color:var(--text-tertiary)}
+
+
+
+.atom-p{flex:1;background:var(--surface);border:none;border-radius:var(--radius-md);display:flex;flex-direction:column;overflow:visible;box-shadow:var(--shadow-sm)}
+.atom-hd{padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.06);font-size:16px;font-weight:600;letter-spacing:0;line-height:1.14}
+.atom-bd{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.atom-ft{padding:16px;border-top:1px solid rgba(0,0,0,0.06);text-align:center}
+
+/* Atom Config V4: Analysis-style */
+.atom-section{margin-bottom:20px}
+.atom-section-hd{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:14px;font-weight:600;color:var(--text)}
+.atom-section-badge{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#FFFFFF}
+.atom-section-badge.behavior{background:#3370FF}
+.atom-section-badge.constraint{background:#FF7D00}
+.atom-section-badge.reward{background:#00B42A}
+.atom-field-group{background:#F7F8FA;border:1px solid var(--border-light);border-radius:6px;padding:12px 16px}
+.atom-field-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px}
+.atom-field-row + .atom-field-row{border-top:1px solid rgba(0,0,0,0.04)}
+.atom-field-label{width:80px;flex-shrink:0;font-size:13px;color:var(--text-secondary);text-align:right}
+.atom-field-value{flex:1;display:flex;align-items:center;gap:8px}
+.atom-field-tag{display:inline-flex;align-items:center;height:24px;padding:0 8px;background:#F0F5FF;border:1px solid #B8D4FF;border-radius:4px;font-size:12px;font-weight:500;color:#3370FF}
+.atom-field-input{height:28px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:13px;outline:none;font-family:inherit}
+.atom-field-input:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.atom-field-select{height:28px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:13px;background:#FFFFFF;cursor:pointer;outline:none}
+.atom-field-toggle{position:relative;width:32px;height:18px;border-radius:9px;background:var(--border);cursor:pointer;transition:background 0.15s;display:inline-block}
+.atom-field-toggle.on{background:#00B42A}
+.atom-field-toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#FFFFFF;transition:transform 0.15s;box-shadow:0 1px 2px rgba(0,0,0,0.1)}
+.atom-field-toggle.on::after{transform:translateX(14px)}
+.atom-logic-wrap{display:flex;flex-direction:column;gap:0}
+/* Bracket + logic switch layout */
+.atom-bracket-wrap{display:flex;align-items:stretch;position:relative;margin-left:4px}
+.atom-bracket-line{width:10px;flex-shrink:0;position:relative}
+.atom-bracket-line::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#C9CDD4;border-radius:1px}
+.atom-bracket-line::after{content:'';position:absolute;left:0;top:0;width:10px;height:3px;background:#C9CDD4}
+.atom-bracket-bottom{position:absolute;left:0;bottom:0;width:10px;height:3px;background:#C9CDD4}
+.atom-bracket-content{flex:1;min-width:0;padding-left:10px}
+.atom-bracket-content .atom-section{margin-bottom:0}
+.logic-switch-float{position:absolute;left:-33px;z-index:10;display:flex;flex-direction:column;border-radius:4px;overflow:hidden;cursor:pointer;user-select:none;box-shadow:0 1px 4px rgba(0,0,0,0.18)}
+.logic-switch-half{display:flex;align-items:center;justify-content:center;width:28px;height:20px;font-size:12px;font-weight:600;color:#FFFFFF;transition:all 0.15s}
+.logic-switch-half.active-and{background:#00B42A}
+.logic-switch-half.active-or{background:#FF7D00}
+.logic-switch-half.inactive{background:#E5E5E5;color:#999}
+.logic-switch-float:hover{opacity:0.9}
+.logic-divider{height:12px;position:relative}
+.atom-add-btn{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--primary);cursor:pointer;padding:8px 0;background:none;border:none;font-family:inherit}
+.atom-add-btn:hover{text-decoration:underline}
+
+/* Step3 */
+.s3-center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:24px}
+.s3-check{width:80px;height:80px;border-radius:50%;background:var(--success-light);display:flex;align-items:center;justify-content:center;font-size:40px;animation:s3Pop .5s cubic-bezier(.68,-.55,.27,1.55)}
+@keyframes s3Pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.s3-title{font-size:24px;font-weight:600;letter-spacing:0;line-height:1.14}
+.s3-card{background:var(--surface);border:none;border-radius:var(--radius-md);padding:24px;width:480px;max-width:100%;box-shadow:var(--shadow-sm)}
+.s3-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;letter-spacing:0;border-bottom:1px solid rgba(0,0,0,0.04)}
+.s3-row:last-child{border-bottom:none}
+.s3-row-l{color:var(--text-secondary)}.s3-row-r{font-weight:500}
+
+.hidden{display:none!important}
+
+/* ===== Data Table (shared) ===== */
+.data-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+.data-table th{text-align:left;padding:10px 16px;font-size:13px;font-weight:600;color:var(--text-secondary);background:#FAFBFC;border-bottom:1px solid var(--border-light);white-space:nowrap;letter-spacing:0}
+.data-table td{padding:12px 16px;font-size:14px;letter-spacing:0;border-bottom:1px solid rgba(0,0,0,0.04);vertical-align:middle}
+.data-table tbody tr:hover>td{background:var(--surface-hover)}
+.data-table tbody tr:last-child>td{border-bottom:none}
+.data-table tbody tr.expand-row:hover>td{background:transparent}
+
+/* Status Dot */
+.status-dot{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;white-space:nowrap}
+.status-dot::before{content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-dot.s-running{color:#00B42A}.status-dot.s-running::before{background:#00B42A}
+.status-dot.s-draft{color:#8F959E}.status-dot.s-draft::before{background:#8F959E}
+.status-dot.s-paused{color:#FF7D00}.status-dot.s-paused::before{background:#FF7D00}
+.status-dot.s-ended{color:#86909C}.status-dot.s-ended::before{background:#86909C}
+.status-dot.s-completed{color:var(--primary-dark)}.status-dot.s-completed::before{background:var(--primary-dark)}
+.status-dot.s-expired{color:var(--text-tertiary)}.status-dot.s-expired::before{background:var(--text-tertiary)}
+
+/* Op Links */
+.op-link{color:var(--text-link);font-size:13px;cursor:pointer;padding:0 4px;background:none;border:none;font-family:var(--font);letter-spacing:0}
+.op-link:hover{text-decoration:underline}
+.op-link.danger{color:var(--error)}
+.op-sep{color:var(--border);font-size:12px;margin:0 2px;user-select:none}
+
+/* ===== Tab2: Form Styles ===== */
+#tab-query{padding:24px;max-width:1440px;margin:0 auto}
+.form-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:13px;font-weight:500;color:var(--text-secondary);letter-spacing:0}
+.form-input{height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;letter-spacing:0;outline:none;width:200px;font-family:var(--font)}
+.form-input:focus{border-color:var(--border-focus);box-shadow:0 0 0 2px rgba(51,112,255,0.1)}
+.form-select{height:36px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;background:#fff;cursor:pointer;outline:none;font-family:var(--font)}
+.form-btn{height:36px;padding:0 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);letter-spacing:0}
+.form-btn-primary{background:var(--primary);color:#fff}.form-btn-primary:hover{background:var(--primary-hover)}
+.form-btn-default{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}.form-btn-default:hover{background:var(--surface-hover)}
+
+/* Section Panel */
+.section-panel{background:#FAFBFC;border:1px solid var(--border-light);border-radius:var(--radius-md);padding:16px 20px;margin-bottom:20px}
+.section-title{font-size:14px;font-weight:600;letter-spacing:0;margin-bottom:12px;color:var(--text)}
+.info-grid{display:flex;flex-wrap:wrap;gap:8px 32px}
+.info-item{display:flex;gap:6px;font-size:14px;letter-spacing:0}
+.info-item .il{color:var(--text-secondary)}
+.info-item .iv{color:var(--text);font-weight:500}
+.info-tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:500;letter-spacing:0}
+.info-tag-active{background:var(--success-light);color:var(--success)}
+.info-tag-signin{background:var(--primary-light);color:var(--primary-dark)}
+.info-tag-food{background:var(--warning-light);color:var(--warning)}
+
+/* Task Header Row */
+.task-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.task-header-title{font-size:14px;font-weight:600;letter-spacing:0}
+
+/* Expandable Row */
+.expand-row>td{padding:0!important;border-bottom:1px solid rgba(0,0,0,0.04)}
+.expand-content{background:#FAFBFC;padding:16px 24px;display:none}
+.expand-content.open{display:block}
+.expand-content .mini-table{width:100%;border-collapse:collapse;font-size:13px}
+.expand-content .mini-table th{text-align:left;padding:6px 10px;font-size:12px;font-weight:600;color:var(--text-secondary);background:#F3F4F6;border-bottom:1px solid var(--border-light)}
+.expand-content .mini-table td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,0.04)}
+.expand-content .mini-table tr:last-child td{border-bottom:none}
+.checkin-text{font-size:13px;line-height:1.8;color:var(--text-secondary);margin-top:10px}
+
+/* Summary Line */
+.summary-line{font-size:13px;color:var(--text-secondary);padding:12px 0;letter-spacing:0}
+
+/* Query states */
+.uq-loading{text-align:center;padding:60px 20px;display:none}
+.uq-loading .spinner-lg{width:32px;height:32px;border:3px solid var(--border-light);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+.uq-loading-text{font-size:14px;letter-spacing:0;color:var(--text-tertiary)}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header"><div class="header-title"><div class="logo">⚡</div>AI任务系统</div></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('list')">任务列表</button>
+    <button class="tab-btn" onclick="switchTab('query')">信息查询</button>
+    <div class="tabs-right" id="tabActions">
+      <div class="search-box" id="taskSearchBox">
+        <span class="s-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        <input class="s-input" id="taskSearchInput" type="text" placeholder="搜索任务...">
+        <span class="s-clear" id="taskSearchClear">✕</span>
+      </div>
+      <button class="btn-p" onclick="goStep('s1')">+ 新建任务</button>
+    </div>
+  </div>
+
+  <div class="panel on" id="panel-list">
+    <div class="content">
+      <div class="view on" id="v-list">
+        <div class="task-list" id="taskList"></div>
+      </div>
+      <div class="view" id="v-s1">
+        <div class="s1-top"><button class="btn-t" onclick="goStep('list')">← 返回列表</button><span style="color:var(--text-secondary);font-size:12px;letter-spacing:-0.12px">Step 1 / 3 · AI对话配置</span></div>
+        <div class="s1-layout">
+          <div class="chat-p">
+            <div class="chat-hd"><div class="dot"></div>AI任务助手 · 在线</div>
+            <div class="chat-msgs" id="chatMsgs"></div>
+            <div class="chat-in"><input class="chat-input" placeholder="描述你的活动任务..." readonly><button class="send-btn">↑</button></div>
+          </div>
+          <div class="elem-p">
+            <div class="elem-hd">任务要素配置</div>
+            <div class="elem-form" id="elemForm"></div>
+            <div class="elem-ft">
+              <div class="prog-wrap"><span id="progText">已收集 0/6</span><div class="prog-track"><div class="prog-fill" id="progFill" style="width:0"></div></div></div>
+              <div class="gen-wrap" id="genWrap" style="display:none"><button class="btn-p" style="height:40px;padding:0 32px;font-size:14px" onclick="goStep('s2')">生成玩法方案</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="view" id="v-s2">
+        <div class="s2-top"><button class="btn-t" onclick="goStep('s1')">← 返回对话</button><span style="color:var(--text-secondary);font-size:12px;letter-spacing:-0.12px">Step 2 / 3 · 策略引擎 → 玩法生产</span></div>
+        <div class="s2-layout">
+          <div class="think-p">
+            <div class="think-hd" id="thinkHd" onclick="toggleThink()"><span class="think-caret">▼</span><div class="spinner"></div><span>策略推理中...</span></div>
+            <div class="think-body" id="thinkBody"></div>
+            <div class="think-ft">推理耗时 2.3s · 匹配 12 个原子</div>
+          </div>
+
+          <div class="atom-p">
+            <div class="atom-hd">玩法原子配置</div>
+            <div class="atom-bd" id="atomBody"></div>
+            <div class="atom-ft"><button class="btn-p" style="height:40px;padding:0 32px;width:100%" onclick="goStep('s3')">确认方案并发布</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="view" id="v-s3">
+        <div class="s3-center">
+          <div class="s3-check">✓</div>
+          <div class="s3-title">任务创建成功！</div>
+          <div class="s3-card">
+            <div class="s3-row"><span class="s3-row-l">任务名称</span><span class="s3-row-r">夏日签到乐</span></div>
+            <div class="s3-row"><span class="s3-row-l">任务类型</span><span class="s3-row-r">连续签到</span></div>
+            <div class="s3-row"><span class="s3-row-l">活动时间</span><span class="s3-row-r">2026-05-20 ~ 2026-06-05</span></div>
+            <div class="s3-row"><span class="s3-row-l">目标人群</span><span class="s3-row-r">全量用户</span></div>
+            <div class="s3-row"><span class="s3-row-l">奖励方式</span><span class="s3-row-r">阶梯优惠券（5/10/15/30元）</span></div>
+            <div class="s3-row"><span class="s3-row-l">预算上限</span><span class="s3-row-r">¥50,000</span></div>
+            <div class="s3-row"><span class="s3-row-l">状态</span><span class="s3-row-r" style="color:var(--success)">● 运行中</span></div>
+          </div>
+          <button class="btn-p" style="height:40px;padding:0 32px" onclick="backToList()">← 返回任务列表</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab2: 用户任务信息查询 -->
+  <div class="panel" id="panel-query" style="display:none">
+    <div id="tab-query">
+      <div class="section-panel">
+        <div class="section-title">查询条件</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">用户ID</label>
+            <input type="text" class="form-input" id="uqUserId" placeholder="请输入用户ID">
+          </div>
+          <div class="form-group">
+            <label class="form-label">手机号</label>
+            <input type="text" class="form-input" id="uqPhone" placeholder="请输入手机号">
+          </div>
+          <div class="form-group">
+            <label class="form-label">用户昵称</label>
+            <input type="text" class="form-input" id="uqNickname" placeholder="请输入用户昵称">
+          </div>
+          <div class="form-group" style="flex-direction:row;gap:8px;align-items:flex-end">
+            <button class="form-btn form-btn-primary" id="uqSearchBtn">查询</button>
+            <button class="form-btn form-btn-default" id="uqResetBtn">重置</button>
+          </div>
+        </div>
+      </div>
+      <div class="uq-loading" id="uqLoading">
+        <div class="spinner-lg"></div>
+        <div class="uq-loading-text">正在查询用户信息...</div>
+      </div>
+      <div id="uqResult" style="display:none">
+        <div class="section-panel" id="uqUserInfo"></div>
+        <div class="task-header-row">
+          <span class="task-header-title">参与的任务</span>
+          <select class="form-select" id="uqFilter" style="width:120px">
+            <option value="all">全部</option>
+            <option value="running">进行中</option>
+            <option value="completed">已完成</option>
+            <option value="expired">已过期</option>
+          </select>
+        </div>
+        <div id="uqTaskTable"></div>
+        <div class="summary-line" id="uqSummary"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Data ===== */
+var tasks = [
+  {id:1,name:'小满节气签到',status:'running',type:'连续签到',time:'2026-04-18 10:30',creator:'张三',users:12580,rate:'67.3%',rewards:8456},
+  {id:2,name:'芒种烤串挑战',status:'draft',type:'消费挑战',time:'2026-04-20 14:00',creator:'李四',users:0,rate:'0%',rewards:0},
+  {id:3,name:'夏至消暑任务',status:'paused',type:'浏览任务',time:'2026-04-15 09:15',creator:'王五',users:8920,rate:'45.1%',rewards:4023},
+  {id:4,name:'端午粽子集卡',status:'ended',type:'集卡活动',time:'2026-04-01 16:45',creator:'赵六',users:35210,rate:'82.5%',rewards:29048},
+  {id:5,name:'立夏尝鲜周',status:'running',type:'限时秒杀',time:'2026-04-22 11:00',creator:'孙七',users:6340,rate:'58.9%',rewards:3732}
+];
+var statusCfg = {
+  draft:{color:'#AEAEB2',bg:'#F5F5F7',label:'草稿'},
+  running:{color:'#34C759',bg:'#E8FAF0',label:'运行中'},
+  paused:{color:'#FF9500',bg:'#FFF4E5',label:'已暂停'},
+  ended:{color:'#8E8E93',bg:'#F5F5F7',label:'已结束'}
+};
+var elements = [
+  {key:'activityType', label:'活动类型', value:'', type:'select', options:['连续签到','累计签到','消费挑战','浏览任务','集卡活动','拉新裂变']},
+  {key:'targetAudience', label:'目标人群', value:'', type:'text', placeholder:'如：全量用户(18-45岁)'},
+  {key:'rewardType', label:'奖励方式', value:'', type:'select', options:['阶梯优惠券','固定优惠券','红包','积分','抽奖机会']},
+  {key:'timePeriod', label:'活动时间', value:'', type:'daterange', placeholder:'选择时间范围'},
+  {key:'triggerCondition', label:'触发条件', value:'', type:'text', placeholder:'如：每日签到+连续机制'},
+  {key:'budgetLimit', label:'预算上限', value:'', type:'text', placeholder:'如：¥50,000'}
+];
+var chatScript = [
+  {role:'ai',text:'你好！我是AI任务助手\n请描述你想创建的活动任务，我来帮你配置。'},
+  {role:'user',text:'我想做一个夏季签到活动，连续签到7天领券'},
+  {role:'ai',text:'好的！夏季签到活动是个好选择\n\n让我帮你确认几个核心要素：\n\n1️⃣ 活动类型：连续签到\n2️⃣ 目标人群：需要确认范围...',collect:'activityType',slotValue:'连续签到'},
+  {role:'user',text:'面向全量用户，18-45岁为主'},
+  {role:'ai',text:'收到！面向全量用户，核心年龄段18-45岁 ✅\n\n接下来确认奖励方式：\n建议采用阶梯式优惠券激励——\n签1天→5元，签3天→10元，签5天→15元，签7天→30元大券包\n\n你觉得这个方案如何？',collect:'targetAudience',slotValue:'全量用户(18-45岁)'},
+  {role:'user',text:'不错，就用这个阶梯券方案'},
+  {role:'ai',text:'阶梯券方案确认 ✅\n\n时间安排方面：\n📅 建议：2026年5月20日 ~ 6月5日（共17天窗口期）\n这样覆盖小满到芒种节气，契合夏季主题。',collect:'rewardType',slotValue:'阶梯优惠券'},
+  {role:'user',text:'时间OK，就这个'},
+  {role:'ai',text:'时间确认 ✅\n\n⚡ 触发条件：\n- 每日签到1次即算完成\n- 需连续签到，断签从头计\n- 签到时间窗口：每日 00:00 - 23:59',collect:'timePeriod',slotValue:'5.20-6.05'},
+  {role:'user',text:'可以，连续签到断签重置'},
+  {role:'ai',text:'触发条件确认 ✅\n\n💰 最后确认预算上限：\n按预估参与10万人、平均领券2.5张计算，\n建议预算上限设为 ¥50,000\n\n是否OK？',collect:'triggerCondition',slotValue:'连续签到+断签重置'},
+  {role:'user',text:'50000可以，就这样'},
+  {role:'ai',text:'所有要素收集完毕！\n\n📋 汇总：\n- 活动类型：连续签到\n- 目标人群：全量用户（18-45岁）\n- 奖励方式：阶梯优惠券（5/10/15/30元）\n- 时间周期：5.20-6.05\n- 触发条件：每日签到+连续机制\n- 预算上限：¥50,000\n\n点击右侧「生成玩法方案」进入策略引擎 →',collect:'budgetLimit',slotValue:'¥50,000'}
+];
+
+var thinkLines = [
+  {text:'▶ 意图识别：节气签到 + 前置下单 + 阶梯奖励',hls:['节气签到','前置下单','阶梯奖励']},
+  {text:'▶ 结构判断：1个大玩法 + N个子活动',hls:['大玩法','子活动']},
+  {text:'▶ 匹配任务原子：',hls:[]},
+  {text:'  signIn（签到 — 主行为）',hls:['signIn']},
+  {text:'  order（下单 — 前置行为）',hls:['order']},
+  {text:'  pageView（浏览 — 前置行为）',hls:['pageView']},
+  {text:'  subPlayComplete（子活动完成 — 大玩法计数）',hls:['subPlayComplete']},
+  {text:'▶ 匹配规则原子：',hls:[]},
+  {text:'  precondition（前置条件：下单≥1 OR 浏览≥1）',hls:['precondition']},
+  {text:'    ├ 消耗模式：消耗型',hls:['消耗型']},
+  {text:'    └ 行为归属：当前活动周期',hls:['当前活动周期']},
+  {text:'  combo_logic（组合逻辑：OR）',hls:['combo_logic']},
+  {text:'  time_window（谷雨：4/17~4/27）',hls:['time_window']},
+  {text:'  threshold_ladder（3/5/9次阶梯）',hls:['threshold_ladder']},
+  {text:'  period_limit（每期上限：子活动1次）',hls:['period_limit']},
+  {text:'▶ 匹配奖励原子：',hls:[]},
+  {text:'  reward_slot × 3档（5元券/10元券/抽奖）',hls:['reward_slot']},
+  {text:'  user_segment（流失→加码、新客→标准）',hls:['user_segment']},
+  {text:'▶ 推荐参数：预算=¥50,000，人群=全量',hls:['¥50,000','全量']},
+  {text:'▶ 方案生成完毕 ✅（匹配 12 个原子）',hls:[]}
+];
+
+/* ===== Tab2 Mock Data ===== */
+var mockUserData = {
+  userId: '100892341',
+  name: '小明同学',
+  phone: '138****6789',
+  registerTime: '2024-03-15',
+  tags: [
+    {label:'活跃用户', cls:'uq-tag-active'},
+    {label:'高频签到', cls:'uq-tag-signin'},
+    {label:'美食达人', cls:'uq-tag-food'}
+  ],
+  tasks: [
+    {
+      id: 't1',
+      name: '小满节气签到',
+      status: 'running',
+      statusLabel: '进行中',
+      type: '连续签到',
+      period: '5.20 - 6.05',
+      progress: {
+        current: 4,
+        total: 7,
+        unit: '天',
+        percent: 57,
+        detail: '当前连续: 4天　最长连续: 4天'
+      },
+      rewards: [
+        {icon:'✅', name:'Day3 签到奖励', desc:'满减券5元', status:'已领取 05-22', cls:'claimed'},
+        {icon:'✅', name:'Day4 签到奖励', desc:'满减券5元', status:'已领取 05-23', cls:'claimed'},
+        {icon:'⏳', name:'Day7 大奖', desc:'满减券15元', status:'未达成', cls:'pending'}
+      ],
+      checkin: [
+        {date:'5.20', status:'checked'},
+        {date:'5.21', status:'checked'},
+        {date:'5.22', status:'checked'},
+        {date:'5.23', status:'checked'},
+        {date:'5.24', status:'unchecked'},
+        {date:'5.25', status:'unchecked'},
+        {date:'5.26', status:'unchecked'}
+      ]
+    },
+    {
+      id: 't2',
+      name: '春季美食探店挑战',
+      status: 'completed',
+      statusLabel: '已完成',
+      type: '消费任务',
+      period: '4.01 - 4.30',
+      progress: {
+        current: 3,
+        total: 3,
+        unit: '笔订单',
+        percent: 100,
+        detail: '累计消费: ¥186.5'
+      },
+      rewards: [
+        {icon:'✅', name:'首单奖励', desc:'满减券8元', status:'已领取 04-05', cls:'claimed'},
+        {icon:'✅', name:'三单达成', desc:'满减券15元', status:'已领取 04-18', cls:'claimed'},
+        {icon:'✅', name:'额外奖励', desc:'抽奖机会×1', status:'已使用 04-18', cls:'claimed'}
+      ],
+      checkin: null
+    },
+    {
+      id: 't3',
+      name: '新春红包雨',
+      status: 'completed',
+      statusLabel: '已完成',
+      type: '限时活动',
+      period: '2.01 - 2.14',
+      progress: {
+        current: 5,
+        total: 5,
+        unit: '次参与',
+        percent: 100,
+        detail: '累计获得红包: ¥23.5'
+      },
+      rewards: [
+        {icon:'✅', name:'首次参与', desc:'红包3元', status:'已领取 02-01', cls:'claimed'},
+        {icon:'✅', name:'连续3天', desc:'红包5元', status:'已领取 02-03', cls:'claimed'},
+        {icon:'✅', name:'满勤奖', desc:'红包15.5元', status:'已领取 02-14', cls:'claimed'}
+      ],
+      checkin: null
+    },
+    {
+      id: 't4',
+      name: '元旦跨年打卡',
+      status: 'expired',
+      statusLabel: '已过期',
+      type: '打卡活动',
+      period: '12.25 - 1.03',
+      progress: {
+        current: 3,
+        total: 7,
+        unit: '天',
+        percent: 43,
+        detail: '最长连续: 3天'
+      },
+      rewards: [
+        {icon:'✅', name:'打卡3天', desc:'代金券3元', status:'已领取 12-27', cls:'claimed'},
+        {icon:'❌', name:'打卡7天', desc:'代金券10元', status:'未达成', cls:'failed'}
+      ],
+      checkin: null
+    },
+    {
+      id: 't5',
+      name: '夏日饮品季',
+      status: 'running',
+      statusLabel: '进行中',
+      type: '消费任务',
+      period: '5.15 - 6.15',
+      progress: {
+        current: 1,
+        total: 3,
+        unit: '笔订单',
+        percent: 33,
+        detail: '累计消费: ¥28.0'
+      },
+      rewards: [
+        {icon:'✅', name:'首单奖励', desc:'饮品券3元', status:'已领取 05-16', cls:'claimed'},
+        {icon:'⏳', name:'三单达成', desc:'饮品券8元', status:'未达成', cls:'pending'}
+      ],
+      checkin: null
+    }
+  ],
+  summary: {
+    total: 5,
+    running: 2,
+    completed: 2,
+    expired: 1,
+    totalRewards: 12,
+    claimed: 10,
+    unclaimed: 2
+  }
+};
+
+/* ===== Tab Switch ===== */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===(tab==='list'?0:1))});
+  document.getElementById('panel-list').className = tab==='list'?'panel on':'panel';
+  document.getElementById('panel-list').style.display = tab==='list'?'':'none';
+  document.getElementById('panel-query').className = tab==='query'?'panel on':'panel';
+  document.getElementById('panel-query').style.display = tab==='query'?'':'none';
+  document.getElementById('tabActions').style.display = tab==='list'?'':'none';
+  if(tab==='list') goStep('list');
+}
+
+/* ===== View Switch ===== */
+function goStep(v) {
+  ['v-list','v-s1','v-s2','v-s3'].forEach(function(id){document.getElementById(id).className='view'});
+  var map={list:'v-list',s1:'v-s1',s2:'v-s2',s3:'v-s3'};
+  document.getElementById(map[v]).className='view on';
+  document.getElementById('tabActions').style.display = v==='list'?'':'none';
+  if(v==='s1') startChat();
+  if(v==='s2'){ startThinking(); }
+}
+
+/* ===== Render Task List ===== */
+function renderTasks(filter) {
+  var html='<table class="data-table"><thead><tr>';
+  html+='<th>任务名称</th><th>状态</th><th>类型</th><th>创建时间</th><th>创建人</th><th>参与人数</th><th>完成率</th><th>奖励发放</th><th>操作</th>';
+  html+='</tr></thead><tbody>';
+  var filterVal = (filter || '').toLowerCase();
+  var hasRow = false;
+  tasks.forEach(function(t){
+    var s=statusCfg[t.status];
+    if(filterVal && t.name.toLowerCase().indexOf(filterVal) === -1) return;
+    hasRow = true;
+    var dotCls = 's-' + t.status;
+    html+='<tr>';
+    html+='<td style="font-weight:500">'+t.name+'</td>';
+    html+='<td><span class="status-dot '+dotCls+'">'+s.label+'</span></td>';
+    html+='<td>'+t.type+'</td>';
+    html+='<td style="color:var(--text-secondary);font-size:13px">'+t.time+'</td>';
+    html+='<td>'+t.creator+'</td>';
+    html+='<td>'+t.users.toLocaleString()+'</td>';
+    html+='<td>'+t.rate+'</td>';
+    html+='<td>'+t.rewards.toLocaleString()+'</td>';
+    html+='<td style="white-space:nowrap">';
+    html+='<button class="op-link">编辑</button><span class="op-sep">|</span>';
+    if(t.status==='running'){
+      html+='<button class="op-link">暂停</button><span class="op-sep">|</span>';
+    } else if(t.status==='draft'||t.status==='paused'){
+      html+='<button class="op-link">启动</button><span class="op-sep">|</span>';
+    }
+    html+='<button class="op-link">复制</button><span class="op-sep">|</span>';
+    html+='<button class="op-link danger">删除</button>';
+    html+='</td></tr>';
+  });
+  if(!hasRow){
+    html+='<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-tertiary)">暂无匹配任务</td></tr>';
+  }
+  html+='</tbody></table>';
+  document.getElementById('taskList').innerHTML=html;
+}
+
+/* ===== Task Search (Tab1) ===== */
+(function(){
+  var input = document.getElementById('taskSearchInput');
+  var clearBtn = document.getElementById('taskSearchClear');
+  input.addEventListener('keyup', function(){
+    var val = input.value.trim();
+    clearBtn.className = val ? 's-clear show' : 's-clear';
+    renderTasks(val);
+  });
+  clearBtn.addEventListener('click', function(){
+    input.value = '';
+    clearBtn.className = 's-clear';
+    renderTasks('');
+  });
+})();
+
+/* ===== Render Elements Form ===== */
+function renderElements() {
+  var html = '';
+  elements.forEach(function(e) {
+    html += '<div class="elem-row" id="er-' + e.key + '">';
+    html += '<span class="elem-status" id="es-' + e.key + '"></span>';
+    html += '<span class="elem-row-label">' + e.label + '</span>';
+    html += '<div class="elem-row-control">';
+    if (e.type === 'select') {
+      html += '<select class="elem-row-select" id="ec-' + e.key + '">';
+      html += '<option value="">请选择</option>';
+      e.options.forEach(function(opt) {
+        html += '<option value="' + opt + '">' + opt + '</option>';
+      });
+      html += '</select>';
+    } else if (e.type === 'daterange') {
+      html += '<input class="elem-row-date" type="date" id="ec-' + e.key + '-start" placeholder="开始日期">';
+      html += '<span style="color:var(--text-tertiary);font-size:12px">至</span>';
+      html += '<input class="elem-row-date" type="date" id="ec-' + e.key + '-end" placeholder="结束日期">';
+    } else {
+      html += '<input class="elem-row-input" type="text" id="ec-' + e.key + '" placeholder="' + (e.placeholder || '') + '">';
+    }
+    html += '</div>';
+    html += '</div>';
+  });
+  document.getElementById('elemForm').innerHTML = html;
+}
+
+/* ===== Chat Animation ===== */
+var chatIdx=0, collected=0;
+function startChat(){
+  chatIdx=0; collected=0;
+  document.getElementById('chatMsgs').innerHTML='';
+  document.getElementById('progText').textContent='已收集 0/6';
+  document.getElementById('progFill').style.width='0';
+  document.getElementById('genWrap').style.display='none';
+  // Reset form controls
+  elements.forEach(function(e){
+    e.value = '';
+    var statusDot = document.getElementById('es-' + e.key);
+    if(statusDot) statusDot.classList.remove('filled');
+    if(e.type === 'select') {
+      var sel = document.getElementById('ec-' + e.key);
+      if(sel) sel.value = '';
+    } else if(e.type === 'daterange') {
+      var s = document.getElementById('ec-' + e.key + '-start');
+      var d = document.getElementById('ec-' + e.key + '-end');
+      if(s) s.value = '';
+      if(d) d.value = '';
+    } else {
+      var inp = document.getElementById('ec-' + e.key);
+      if(inp) inp.value = '';
+    }
+  });
+  nextMsg();
+}
+function nextMsg(){
+  if(chatIdx>=chatScript.length)return;
+  var m=chatScript[chatIdx];
+  var box=document.getElementById('chatMsgs');
+  var div=document.createElement('div');
+  div.className='msg '+m.role;
+  div.innerHTML='<div class="avatar">'+(m.role==='ai'?'🤖':'👤')+'</div><div class="bubble">'+m.text+'</div>';
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+  if(m.collect){
+    setTimeout(function(){
+      var statusDot = document.getElementById('es-' + m.collect);
+      if(statusDot) statusDot.classList.add('filled');
+      
+      // Find element config
+      var elemObj = elements.find(function(e){ return e.key === m.collect; });
+      if(elemObj && m.slotValue) {
+        elemObj.value = m.slotValue;
+        // Fill form control
+        if(elemObj.type === 'select') {
+          var sel = document.getElementById('ec-' + m.collect);
+          if(sel) sel.value = m.slotValue;
+        } else if(elemObj.type === 'daterange') {
+          // Parse "5.20-6.05" → date inputs
+          var startInput = document.getElementById('ec-' + m.collect + '-start');
+          var endInput = document.getElementById('ec-' + m.collect + '-end');
+          if(startInput && endInput) {
+            startInput.value = '2026-05-20';
+            endInput.value = '2026-06-05';
+          }
+        } else {
+          var inp = document.getElementById('ec-' + m.collect);
+          if(inp) inp.value = m.slotValue;
+        }
+      }
+      collected++;
+      document.getElementById('progText').textContent = '已收集 ' + collected + '/6';
+      document.getElementById('progFill').style.width = (collected/6*100) + '%';
+      if(collected >= 6) {
+        document.getElementById('genWrap').style.display = '';
+      }
+    }, 400);
+  }
+  chatIdx++;
+  if(chatIdx<chatScript.length) setTimeout(nextMsg, m.role==='ai'?1200:800);
+}
+
+/* ===== Thinking Typewriter ===== */
+function startThinking(){
+  var body=document.getElementById('thinkBody');
+  body.innerHTML='';
+  body.className='think-body';
+  document.getElementById('thinkHd').className='think-hd';
+  var lineIdx=0;
+  function typeLine(){
+    if(lineIdx>=thinkLines.length)return;
+    var ln=thinkLines[lineIdx];
+    var div=document.createElement('div');
+    div.style.marginBottom='4px';
+    var t=ln.text;
+    ln.hls.forEach(function(h){
+      t=t.replace(h,'<span class="hl">'+h+'</span>');
+    });
+    div.innerHTML=t;
+    body.appendChild(div);
+    body.scrollTop=body.scrollHeight;
+    lineIdx++;
+    setTimeout(typeLine,200);
+  }
+  typeLine();
+}
+function toggleThink(){
+  var hd=document.getElementById('thinkHd');
+  var bd=document.getElementById('thinkBody');
+  hd.classList.toggle('collapsed');
+  bd.classList.toggle('collapsed');
+}
+
+/* ===== Atom Config ===== */
+function renderAtoms(){
+  var html='';
+
+  // ========== 大玩法层 ==========
+  html+='<div style="margin-bottom:8px;font-size:13px;color:var(--text-secondary);font-weight:500;letter-spacing:0">📦 大玩法：中医节气签到（整季）</div>';
+
+  html+='<div class="atom-bracket-wrap">';
+  html+='<div class="atom-bracket-line"><div class="atom-bracket-bottom"></div></div>';
+  html+='<div class="atom-bracket-content">';
+
+  // Section T: 任务原子 — 子活动完成
+  html+='<div class="atom-section">';
+  html+='<div class="atom-section-hd"><span class="atom-section-badge behavior">T</span>任务原子</div>';
+  html+='<div class="atom-field-group">';
+  html+='<div class="atom-field-row"><span class="atom-field-label">原子类型</span><div class="atom-field-value"><select class="atom-field-select"><option value="subPlayComplete" selected>subPlayComplete(子活动完成)</option><option value="signIn">signIn(签到)</option><option value="order">order(下单)</option><option value="share">share(分享)</option><option value="pageView">pageView(浏览)</option><option value="invite">invite(邀请)</option><option value="assist">assist(助力)</option><option value="follow">follow(关注)</option></select><span style="color:var(--text-secondary);font-size:12px">→ 计数+1</span></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">关联子活动</span><div class="atom-field-value"><input class="atom-field-input" value="谷雨, 夏至, 芒种, 小暑" style="width:200px"></div></div>';
+  html+='</div>';
+  html+='</div>';
+
+  // Logic divider
+  html+='<div class="logic-divider"><div class="logic-switch-float" data-state="and" onclick="toggleLogic(this)" style="top:-8px"><div class="logic-switch-half active-and">且</div><div class="logic-switch-half inactive">或</div></div></div>';
+
+  // Section R1: 规则原子
+  html+='<div class="atom-section">';
+  html+='<div class="atom-section-hd"><span class="atom-section-badge constraint">R</span>规则原子</div>';
+  html+='<div class="atom-field-group">';
+  html+='<div class="atom-field-row"><span class="atom-field-label">活动时间</span><div class="atom-field-value"><span class="atom-field-tag">time_window</span><input class="atom-field-input" type="date" value="2026-04-01" style="width:130px"><span style="color:var(--text-secondary);font-size:12px">至</span><input class="atom-field-input" type="date" value="2026-08-31" style="width:130px"></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">周期规则</span><div class="atom-field-value"><span class="atom-field-tag">cycle_period</span><select class="atom-field-select"><option selected>整季累计</option><option>每月重置</option></select></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">阶梯门槛</span><div class="atom-field-value"><span class="atom-field-tag">threshold_ladder</span><input class="atom-field-input" value="3, 5, 9" style="width:80px"><span style="color:var(--text-secondary);font-size:12px">次（节气）</span></div></div>';
+  html+='</div>';
+  html+='</div>';
+
+  // Logic divider
+  html+='<div class="logic-divider"><div class="logic-switch-float" data-state="and" onclick="toggleLogic(this)" style="top:-8px"><div class="logic-switch-half active-and">且</div><div class="logic-switch-half inactive">或</div></div></div>';
+
+  // Section W: 奖励原子
+  html+='<div class="atom-section">';
+  html+='<div class="atom-section-hd"><span class="atom-section-badge reward">W</span>奖励原子</div>';
+  html+='<div class="atom-field-group">';
+  html+='<div class="atom-field-row"><span class="atom-field-label">3次档</span><div class="atom-field-value"><span class="atom-field-tag">reward_slot</span><select class="atom-field-select"><option selected>优惠券</option><option>积分</option><option>实物</option></select><input class="atom-field-input" value="5元券" style="width:60px"><span style="color:var(--text-secondary);font-size:12px">库存</span><input class="atom-field-input" value="50,000" style="width:60px"></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">5次档</span><div class="atom-field-value"><span class="atom-field-tag">reward_slot</span><select class="atom-field-select"><option selected>优惠券</option><option>积分</option><option>实物</option></select><input class="atom-field-input" value="10元券" style="width:60px"><span style="color:var(--text-secondary);font-size:12px">库存</span><input class="atom-field-input" value="30,000" style="width:60px"></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">9次档</span><div class="atom-field-value"><span class="atom-field-tag">reward_slot</span><select class="atom-field-select"><option>优惠券</option><option>积分</option><option>实物</option><option selected>抽奖机会</option></select><input class="atom-field-input" value="神秘大礼" style="width:70px"><span style="color:var(--text-secondary);font-size:12px">库存</span><input class="atom-field-input" value="1,000" style="width:60px"></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">画像分组</span><div class="atom-field-value"><span class="atom-field-tag" style="background:#FFF7E8;border-color:#FFD6A5;color:#FF7D00">user_segment</span><select class="atom-field-select"><option selected>流失用户加码</option><option>全量统一</option><option>自定义分组</option></select><span style="color:var(--text-secondary);font-size:12px">流失→面额×1.5</span></div></div>';
+  html+='</div>';
+  html+='<button class="atom-add-btn">+ 添加奖励档位</button>';
+  html+='</div>';
+
+  html+='</div>'; // close atom-bracket-content
+  html+='</div>'; // close atom-bracket-wrap
+
+  // ========== 子活动层（可折叠） ==========
+  html+='<div style="margin-top:20px;border-top:2px dashed var(--border);padding-top:16px">';
+  html+='<div style="margin-bottom:8px;font-size:13px;color:var(--text-secondary);font-weight:500;display:flex;align-items:center;gap:6px;cursor:pointer" onclick="var el=document.getElementById(\'subPlayDetail\');el.style.display=el.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.arrow\').textContent=el.style.display===\'none\'?\'▶\':\'▼\'">';
+  html+='<span class="arrow">▼</span> 📋 子活动配置（以谷雨为例，其他节气结构相同）</div>';
+  html+='<div id="subPlayDetail">';
+
+  html+='<div class="atom-bracket-wrap">';
+  html+='<div class="atom-bracket-line"><div class="atom-bracket-bottom"></div></div>';
+  html+='<div class="atom-bracket-content">';
+
+  // 子活动 — 前置条件
+  html+='<div class="atom-section">';
+  html+='<div class="atom-section-hd"><span class="atom-section-badge" style="background:#8B5CF6">P</span>前置条件</div>';
+  html+='<div class="atom-field-group">';
+  html+='<div class="atom-field-row"><span class="atom-field-label">前置行为</span><div class="atom-field-value"><select class="atom-field-select"><option value="order" selected>order(下单)</option><option value="signIn">signIn(签到)</option><option value="share">share(分享)</option><option value="pageView">pageView(浏览)</option><option value="invite">invite(邀请)</option><option value="assist">assist(助力)</option><option value="follow">follow(关注)</option></select><span style="color:var(--text-secondary);font-size:12px"> ≥</span><input class="atom-field-input" value="1" style="width:40px"><span style="color:var(--text-secondary);font-size:12px">次</span></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label"></span><div class="atom-field-value"><div class="logic-switch-float" data-state="or" onclick="toggleLogic(this)" style="position:relative;top:0;display:inline-flex"><div class="logic-switch-half inactive">且</div><div class="logic-switch-half active-or">或</div></div></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label"></span><div class="atom-field-value"><select class="atom-field-select"><option value="pageView" selected>pageView(浏览)</option><option value="signIn">signIn(签到)</option><option value="order">order(下单)</option><option value="share">share(分享)</option><option value="invite">invite(邀请)</option><option value="assist">assist(助力)</option><option value="follow">follow(关注)</option></select><span style="color:var(--text-secondary);font-size:12px"> ≥</span><input class="atom-field-input" value="1" style="width:40px"><span style="color:var(--text-secondary);font-size:12px">次</span></div></div>';
+  html+='<div class="atom-field-row" style="border-top:1px dashed rgba(0,0,0,0.08);margin-top:4px;padding-top:8px"><span class="atom-field-label">消耗模式</span><div class="atom-field-value"><select class="atom-field-select"><option value="consume" selected>消耗型</option><option value="check">校验型</option></select><span style="color:var(--text-secondary);font-size:12px">1次前置行为 = 1次签到资格，用完即止</span></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">行为归属</span><div class="atom-field-value"><select class="atom-field-select"><option selected>当前活动周期</option><option>全局</option></select><span style="color:var(--text-secondary);font-size:12px">谷雨期间的下单不带入夏至</span></div></div>';
+  html+='</div>';
+  html+='</div>';
+
+  // Logic divider
+  html+='<div class="logic-divider"><div class="logic-switch-float" data-state="and" onclick="toggleLogic(this)" style="top:-8px"><div class="logic-switch-half active-and">且</div><div class="logic-switch-half inactive">或</div></div></div>';
+
+  // 子活动 — 主行为
+  html+='<div class="atom-section">';
+  html+='<div class="atom-section-hd"><span class="atom-section-badge behavior">T</span>主行为</div>';
+  html+='<div class="atom-field-group">';
+  html+='<div class="atom-field-row"><span class="atom-field-label">原子类型</span><div class="atom-field-value"><select class="atom-field-select"><option value="signIn" selected>signIn(签到)</option><option value="order">order(下单)</option><option value="share">share(分享)</option><option value="pageView">pageView(浏览)</option><option value="invite">invite(邀请)</option><option value="assist">assist(助力)</option><option value="follow">follow(关注)</option></select></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">本期上限</span><div class="atom-field-value"><input class="atom-field-input" value="1" style="width:40px"><span style="color:var(--text-secondary);font-size:12px">次（整个谷雨只能签1次）</span></div></div>';
+  html+='</div>';
+  html+='</div>';
+
+  // Logic divider
+  html+='<div class="logic-divider"><div class="logic-switch-float" data-state="and" onclick="toggleLogic(this)" style="top:-8px"><div class="logic-switch-half active-and">且</div><div class="logic-switch-half inactive">或</div></div></div>';
+
+  // 子活动 — 规则
+  html+='<div class="atom-section">';
+  html+='<div class="atom-section-hd"><span class="atom-section-badge constraint">R</span>子活动规则</div>';
+  html+='<div class="atom-field-group">';
+  html+='<div class="atom-field-row"><span class="atom-field-label">活动时间</span><div class="atom-field-value"><span class="atom-field-tag">time_window</span><input class="atom-field-input" type="date" value="2026-04-17" style="width:130px"><span style="color:var(--text-secondary);font-size:12px">至</span><input class="atom-field-input" type="date" value="2026-04-27" style="width:130px"></div></div>';
+  html+='<div class="atom-field-row"><span class="atom-field-label">完成动作</span><div class="atom-field-value"><select class="atom-field-select"><option value="report" selected>上报子活动完成事件</option><option value="directReward">直接发奖</option><option value="triggerNext">触发下一任务</option></select><span style="color:var(--text-secondary);font-size:12px">签到完成 → 大玩法计数+1</span></div></div>';
+  html+='</div>';
+  html+='</div>';
+
+  html+='</div>'; // close atom-bracket-content
+  html+='</div>'; // close atom-bracket-wrap
+  html+='</div>'; // close subPlayDetail
+  html+='</div>'; // close dashed border wrapper
+
+  document.getElementById('atomBody').innerHTML=html;
+}
+
+// Position logic switches on the rail between sections
+function positionLogicSwitches(){
+  var rail=document.getElementById('atomLogicRail');
+  if(!rail) return;
+  rail.innerHTML='';
+  // 画真实竖线div
+  var lineDiv=document.createElement('div');
+  lineDiv.className='atom-logic-rail-line';
+  rail.appendChild(lineDiv);
+  var content=rail.nextElementSibling;
+  var sections=content.querySelectorAll('.atom-section');
+  if(sections.length<2) return;
+  var wrapRect=rail.parentElement.getBoundingClientRect();
+  for(var i=0;i<sections.length-1;i++){
+    var secA=sections[i];
+    var secB=sections[i+1];
+    var bottomA=secA.getBoundingClientRect().bottom-wrapRect.top;
+    var topB=secB.getBoundingClientRect().top-wrapRect.top;
+    var midY=(bottomA+topB)/2;
+    var sw=document.createElement('div');
+    sw.className='logic-switch';
+    sw.style.top=(midY-18)+'px';
+    sw.setAttribute('data-state','and');
+    sw.innerHTML='<div class="logic-switch-half active-and">且</div><div class="logic-switch-half inactive">或</div>';
+    sw.onclick=function(){toggleLogic(this)};
+    rail.appendChild(sw);
+  }
+}
+
+// Logic connector toggle: 且↔或
+function toggleLogic(el) {
+  var halves=el.querySelectorAll('.logic-switch-half');
+  if(el.getAttribute('data-state')==='and'){
+    el.setAttribute('data-state','or');
+    halves[0].className='logic-switch-half inactive';
+    halves[0].textContent='且';
+    halves[1].className='logic-switch-half active-or';
+    halves[1].textContent='或';
+  }else{
+    el.setAttribute('data-state','and');
+    halves[0].className='logic-switch-half active-and';
+    halves[0].textContent='且';
+    halves[1].className='logic-switch-half inactive';
+    halves[1].textContent='或';
+  }
+}
+
+/* ===== Back to List (after publish) ===== */
+function backToList(){
+  if(!tasks.find(function(t){return t.name==='夏日签到乐'})){
+    tasks.unshift({id:99,name:'夏日签到乐',status:'running',type:'连续签到',time:'2026-04-24 21:50',creator:'我',users:0,rate:'0%',rewards:0});
+  }
+  renderTasks();
+  goStep('list');
+}
+
+/* ===== Tab2: 用户任务查询 ===== */
+function renderUserResult(data) {
+  // User info section
+  var h = '<div class="section-title">用户信息</div><div class="info-grid">';
+  h += '<div class="info-item"><span class="il">用户ID:</span><span class="iv">' + data.userId + '</span></div>';
+  h += '<div class="info-item"><span class="il">昵称:</span><span class="iv">' + data.name + '</span></div>';
+  h += '<div class="info-item"><span class="il">手机:</span><span class="iv">' + data.phone + '</span></div>';
+  h += '<div class="info-item"><span class="il">注册时间:</span><span class="iv">' + data.registerTime + '</span></div>';
+  h += '</div>';
+  h += '<div style="display:flex;gap:8px;margin-top:10px;align-items:center"><span class="il" style="font-size:14px;color:var(--text-secondary)">标签:</span>';
+  var tagClsMap = {'uq-tag-active':'info-tag-active','uq-tag-signin':'info-tag-signin','uq-tag-food':'info-tag-food'};
+  data.tags.forEach(function(t){
+    var cls = tagClsMap[t.cls] || '';
+    h += '<span class="info-tag ' + cls + '">' + t.label + '</span>';
+  });
+  h += '</div>';
+  document.getElementById('uqUserInfo').innerHTML = h;
+
+  // Task table
+  renderUserTasks(data.tasks, 'all');
+
+  // Summary line
+  var s = data.summary;
+  document.getElementById('uqSummary').textContent = '参与任务: ' + s.total
+    + ' | 进行中: ' + s.running
+    + ' | 已完成: ' + s.completed
+    + ' | 已过期: ' + s.expired
+    + ' | 累计奖励: ' + s.totalRewards + '项(已领' + s.claimed + '/未领' + s.unclaimed + ')';
+}
+
+function renderUserTasks(taskList, filter) {
+  var html = '<table class="data-table"><thead><tr>';
+  html += '<th>任务名称</th><th>状态</th><th>类型</th><th>任务周期</th><th>进度</th><th>奖励获取</th><th>操作</th>';
+  html += '</tr></thead><tbody>';
+  taskList.forEach(function(t, idx) {
+    if (filter !== 'all' && t.status !== filter) return;
+    var dotCls = t.status === 'running' ? 's-running' : t.status === 'completed' ? 's-completed' : 's-expired';
+    // Compute reward summary
+    var claimed = 0, pending = 0;
+    t.rewards.forEach(function(r){ if(r.cls==='claimed') claimed++; else pending++; });
+    var rewardText = claimed + '已领';
+    if(pending > 0) rewardText += '/' + pending + (t.rewards.some(function(r){return r.cls==='pending'}) ? '待达成' : '未达成');
+
+    html += '<tr>';
+    html += '<td style="font-weight:500">' + t.name + '</td>';
+    html += '<td><span class="status-dot ' + dotCls + '">' + t.statusLabel + '</span></td>';
+    html += '<td>' + t.type + '</td>';
+    html += '<td style="font-size:13px;color:var(--text-secondary)">' + t.period + '</td>';
+    html += '<td style="font-size:13px">' + t.progress.current + '/' + t.progress.total + t.progress.unit + ' ' + t.progress.percent + '%</td>';
+    html += '<td style="font-size:13px">' + rewardText + '</td>';
+    html += '<td><button class="op-link" onclick="toggleExpand(\'uq-expand-' + idx + '\',this)">详情</button></td>';
+    html += '</tr>';
+
+    // Expandable row
+    html += '<tr class="expand-row"><td colspan="7"><div class="expand-content" id="uq-expand-' + idx + '">';
+    // Reward detail table
+    html += '<table class="mini-table"><thead><tr><th>奖励名称</th><th>奖励内容</th><th>状态</th></tr></thead><tbody>';
+    t.rewards.forEach(function(r){
+      html += '<tr><td>' + r.icon + ' ' + r.name + '</td><td>' + r.desc + '</td><td>' + r.status + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    // Checkin text
+    if(t.checkin){
+      html += '<div class="checkin-text">签到记录: ';
+      t.checkin.forEach(function(c){
+        html += (c.status === 'checked' ? '✅' : '⬜') + c.date + ' ';
+      });
+      html += '</div>';
+    }
+    html += '</div></td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('uqTaskTable').innerHTML = html;
+}
+
+function toggleExpand(id, btn) {
+  var el = document.getElementById(id);
+  if(!el) return;
+  var isOpen = el.classList.contains('open');
+  // Close all first
+  document.querySelectorAll('.expand-content').forEach(function(e){ e.classList.remove('open'); });
+  document.querySelectorAll('.op-link-active').forEach(function(b){ b.classList.remove('op-link-active'); });
+  if(!isOpen){
+    el.classList.add('open');
+  }
+}
+
+// Search handler
+document.getElementById('uqSearchBtn').addEventListener('click', function() {
+  var uid = document.getElementById('uqUserId').value.trim();
+  var phone = document.getElementById('uqPhone').value.trim();
+  var nick = document.getElementById('uqNickname').value.trim();
+  if (!uid && !phone && !nick) return;
+  document.getElementById('uqResult').style.display = 'none';
+  document.getElementById('uqLoading').style.display = 'block';
+  setTimeout(function() {
+    document.getElementById('uqLoading').style.display = 'none';
+    document.getElementById('uqResult').style.display = 'block';
+    renderUserResult(mockUserData);
+  }, 250);
+});
+
+document.getElementById('uqResetBtn').addEventListener('click', function() {
+  document.getElementById('uqUserId').value = '';
+  document.getElementById('uqPhone').value = '';
+  document.getElementById('uqNickname').value = '';
+  document.getElementById('uqResult').style.display = 'none';
+});
+
+['uqUserId','uqPhone','uqNickname'].forEach(function(id){
+  document.getElementById(id).addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('uqSearchBtn').click();
+  });
+});
+
+// Filter select
+document.getElementById('uqFilter').addEventListener('change', function() {
+  renderUserTasks(mockUserData.tasks, this.value);
+});
+
+/* ===== Init ===== */
+renderTasks();
+renderElements();
+renderAtoms();
+</script>
+</body>
+</html>

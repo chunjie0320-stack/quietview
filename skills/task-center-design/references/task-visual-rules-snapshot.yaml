@@ -1,0 +1,53 @@
+# task-visual-rules-snapshot.yaml
+# 来源：task-visual-rules.yaml 精简版
+# 说明：AI 生成组件时的视觉模式 + 强制约束索引
+
+visual_rules:
+
+  - component_key: SIGN_IN_CALENDAR
+    visual_pattern: grid_calendar
+    component_states:
+      - key: completed   # 已签到
+      - key: today       # 今日可签
+      - key: future      # 未来待签
+      - key: bonus_day   # 补签/特殊奖励日
+    locked_constraints:
+      cta_required: true              # 签到按钮不能删
+      state_tricolor_required: true   # 四种状态颜色必须可区分
+    allow_custom_override: true
+    override_owner: operator_self_service
+
+  - component_key: PROGRESS_BAR_TASK
+    visual_pattern: subtask_progress_list
+    component_states:
+      - key: todo        # 待完成
+      - key: in_progress # 进行中
+      - key: done        # 已完成
+    locked_constraints:
+      cta_required: true                 # 每个子任务须有行动按钮
+      progress_indicator_required: true  # 整体进度指示器不能删
+      state_tricolor_required: true      # 三态颜色必须可区分
+    allow_custom_override: true
+    override_owner: operator_self_service
+
+  - component_key: INVITE_BOOST_TASK
+    visual_pattern: invite_link_with_boost_list
+    component_states:
+      - key: pending     # 等待助力
+      - key: boosted     # 已助力
+      - key: completed   # 助力完成
+    locked_constraints:
+      invite_link_required: true    # 邀请链接入口不能删
+      boost_progress_required: true # 助力进度不能删
+    allow_custom_override: false
+    override_note: 邀请链接+助力进度是核心转化路径，外观锁定
+
+  - component_key: GENERAL_TASK
+    visual_pattern: minimal_card
+    component_states:
+      - key: todo  # 待完成
+      - key: done  # 已完成
+    locked_constraints:
+      cta_required: true  # 行动按钮不能删
+    allow_custom_override: true
+    override_owner: operator_self_service

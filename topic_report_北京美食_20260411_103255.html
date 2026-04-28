@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>北京美食 热点选题 · 商业化</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'PingFang SC','Noto Sans SC',sans-serif;background:#f7f8fa;color:#1a1a2e}
+  .header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:32px 40px}
+  .header h1{font-size:26px;font-weight:700;margin-bottom:6px}
+  .header p{opacity:.8;font-size:14px}
+  .container{max-width:1100px;margin:0 auto;padding:24px 20px}
+  .section{background:#fff;border-radius:16px;padding:24px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .section-title{font-size:16px;font-weight:700;margin-bottom:16px;color:#333;display:flex;align-items:center;gap:8px}
+  #bubble-canvas{width:100%;height:420px;border-radius:12px;background:#fafbff;border:1px solid #eee}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .card{border:1px solid #eef0f5;border-radius:12px;padding:18px;transition:box-shadow .2s}
+  .card:hover{box-shadow:0 4px 20px rgba(102,126,234,.15);border-color:#c5caff}
+  .card-num{font-size:11px;font-weight:700;color:#8b8fa8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+  .card-title{font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:10px;line-height:1.4}
+  .card-tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:6px}
+  .tag-heat{background:#fff0f0;color:#e05555}
+  .tag-data{background:#f0f7ff;color:#4477cc}
+  .card-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+  .card-examples{font-size:12px;color:#888}
+  .card-examples li{margin-bottom:4px;list-style:none;padding-left:12px;position:relative}
+  .card-examples li::before{content:"·";position:absolute;left:0;color:#667eea}
+  .insight-box{background:linear-gradient(135deg,#f8f9ff,#f0f4ff);border-left:4px solid #667eea;padding:16px 20px;border-radius:8px;font-size:14px;line-height:1.7;color:#444}
+  .meta-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .pill{font-size:12px;padding:4px 12px;border-radius:20px;background:#f0f2ff;color:#667eea;font-weight:600}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🔥 北京美食 热点选题报告</h1>
+  <p>会场目标：商业化 &nbsp;·&nbsp; 生成时间：2026-04-11 10:32</p>
+  <div class="meta-pills">
+    <span class="pill">春季</span><span class="pill">年轻女性</span>
+  </div>
+</div>
+<div class="container">
+
+  <div class='section'><div class='section-title'>💡 整体洞察</div><div class='insight-box'>春季北京美食商业化场景，核心机会在两个方向：<br><br>① 时令场景强化：「春日打卡餐厅」热度最高、转化最直接，配合外卖平台「春日限定」标签，可以把时令情绪转化为到店/外卖订单。XHS 已有高热内容，供给侧需要做好餐厅商家集中曝光。<br><br>② 差异化地域内容：「驻京办餐厅」和「北京特色小吃」是北京独特的内容资产，既能做内容种草，也能直接对接外卖地域特色商家。米其林性价比方向适合高客单商业化，但受众相对窄。<br><br>优先落地：春日打卡餐厅（时令高热）+ 北京小吃攻略（长尾稳定）组合。</div></div>
+
+  <div class="section">
+    <div class="section-title">📊 选题热力分布 <span style="font-size:12px;font-weight:400;color:#999">X轴=商业化潜力 / Y轴=传播力 / 气泡大小=热度</span></div>
+    <canvas id="bubble-canvas"></canvas>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📌 热点选题卡（共 5 个）</div>
+    <div class="cards-grid" id="cards-grid"></div>
+  </div>
+</div>
+
+<script>
+const TOPICS = [{x:88,y:65,r:9,label:"春日打卡餐厅",group:"时令场景",heat:90},{x:72,y:70,r:8,label:"北京特色小吃攻略",group:"地域特色",heat:82},{x:65,y:55,r:7,label:"驻京办餐厅深度探店",group:"地域特色",heat:76},{x:80,y:50,r:7,label:"米其林/必吃榜高性价比餐厅",group:"品质升级",heat:70},{x:70,y:65,r:6,label:"春季轻食/健康吃法",group:"时令场景",heat:65}];
+const CARDS  = [{"title": "春日打卡餐厅", "heat_signal": "多条高热帖聚焦春季餐厅推荐", "data_support": "XHS 直连:「北京适合春天去吃的15家餐厅」", "commercial_angle": "餐厅外卖/到店券捆绑：春日限定套餐、堂食优惠", "content_angle": "", "examples": ["春天来了，这15家北京餐厅不去后悔", "北京最适合春游顺路吃的餐厅，人均不超80", "4月北京，这几家馆子排队也值"], "heat_score": 90, "commercial_score": 88, "content_difficulty": 35, "group": "时令场景"}, {"title": "北京特色小吃攻略", "heat_signal": "多平台热门检索词，知乎/大众点评持续高热", "data_support": "catclaw 抓取:「北京15种地道必打卡小吃」、「40家必吃榜餐厅」", "commercial_angle": "外卖品类承接：卤煮/炒肝/爆肚外卖化，关联地域特色商家", "content_angle": "", "examples": ["北京人吃了20年，这10家老字号才叫真的", "外地人来北京必吃清单，这份最全", "卤煮加爆肚，北京早饭局的正确打开方式"], "heat_score": 82, "commercial_score": 72, "content_difficulty": 30, "group": "地域特色"}, {"title": "驻京办餐厅深度探店", "heat_signal": "「驻京办哪些是真好吃」XHS 高互动帖，差异化内容", "data_support": "XHS 直连:「别盲冲！驻京办哪些是真好吃」", "commercial_angle": "地域特色餐厅曝光：外省美食到店优惠券、外卖联动", "content_angle": "", "examples": ["北京驻京办餐厅真实测评，值不值得去", "在北京吃到全国各地的味道，驻京办攻略", "新疆驻京办的羊肉vs云南驻京办的汽锅鸡，谁赢？"], "heat_score": 76, "commercial_score": 65, "content_difficulty": 45, "group": "地域特色"}, {"title": "米其林/必吃榜高性价比餐厅", "heat_signal": "「北京米其林2025版人均200以下」XHS 高收藏帖", "data_support": "XHS 直连 + 大众点评必吃榜，持续检索热词", "commercial_angle": "高端餐厅外卖/代金券：米其林同款外卖、精品餐厅团购", "content_angle": "", "examples": ["北京米其林，人均不超200可以吃哪家", "大众点评必吃榜，哪些真的值？亲测排名", "花300块在北京吃到米其林水准，攻略来了"], "heat_score": 70, "commercial_score": 80, "content_difficulty": 50, "group": "品质升级"}, {"title": "春季轻食/健康吃法", "heat_signal": "「春天饭三件套建议全国普及」XHS 内容，季节契合度高", "data_support": "XHS:「春天饭三件套🍃建议全国普及」、「北京漂亮饭」", "commercial_angle": "轻食/沙拉外卖：春季限定低卡套餐、轻食品牌曝光", "content_angle": "", "examples": ["春天就该这样吃，北京轻食探店", "4月减脂餐，这几家北京轻食馆子好吃不腻", "「春天饭三件套」北京版，找到了！"], "heat_score": 65, "commercial_score": 70, "content_difficulty": 35, "group": "时令场景"}];
+const COLORS = ["#667eea","#f093fb","#4facfe","#43e97b","#fa709a","#f6d365"];
+
+// 气泡图
+(function(){
+  const canvas = document.getElementById('bubble-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width  = canvas.offsetWidth  * dpr;
+  canvas.height = canvas.offsetHeight * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
+  const PAD = 50;
+  const plotW = W - PAD * 2, plotH = H - PAD * 2;
+
+  ctx.strokeStyle = '#eee'; ctx.lineWidth = 1;
+  for(let i=0;i<=4;i++){
+    const x = PAD + i/4*plotW, y = PAD + i/4*plotH;
+    ctx.beginPath(); ctx.moveTo(x,PAD); ctx.lineTo(x,H-PAD); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(PAD,y); ctx.lineTo(W-PAD,y); ctx.stroke();
+  }
+
+  ctx.fillStyle='#bbb'; ctx.font='11px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('低商业化潜力',PAD,H-10); ctx.fillText('高商业化潜力',W-PAD,H-10);
+  ctx.save(); ctx.translate(14,H/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText('传播力',0,0); ctx.restore();
+
+  TOPICS.forEach((t,i)=>{
+    const cx = PAD + t.x/100 * plotW;
+    const cy = PAD + (1-t.y/100) * plotH;
+    const r  = t.r * 6 + 10;
+    const col = COLORS[i % COLORS.length];
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.fillStyle = col + '55'; ctx.fill();
+    ctx.strokeStyle = col; ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle='#333'; ctx.font=`bold ${Math.min(11,r/1.2)}px sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    const words = t.label.length>8 ? t.label.slice(0,8)+'…' : t.label;
+    ctx.fillText(words,cx,cy);
+  });
+})();
+
+// 选题卡
+const grid = document.getElementById('cards-grid');
+CARDS.forEach((c,i)=>{
+  const col = COLORS[i % COLORS.length];
+  const examples = (c.examples||[]).map(e=>`<li>${e}</li>`).join('');
+  const angle = c.commercial_angle || c.content_angle || '';
+  grid.innerHTML += `
+    <div class="card">
+      <div class="card-num">选题 ${String(i+1).padStart(2,'0')}</div>
+      <div class="card-title">${c.title||'未命名'}</div>
+      <span class="card-tag tag-heat">🔥 ${c.heat_signal||'热度中'}</span>
+      ${c.data_support?`<span class="card-tag tag-data">📊 ${c.data_support}</span>`:''}
+      ${angle?`<div class="card-desc" style="margin-top:8px">${angle}</div>`:''}
+      ${examples?`<ul class="card-examples">${examples}</ul>`:''}
+    </div>`;
+});
+</script>
+</body>
+</html>

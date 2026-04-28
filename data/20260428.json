@@ -1,6 +1,6 @@
 {
   "date": "20260428",
-  "generated_at": "2026-04-28T14:01:34.129649",
+  "generated_at": "2026-04-28T18:01:03.339887",
   "news": [
     {
       "time": "11:24",
@@ -244,6 +244,26 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "你看看、你看看",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488386&idx=1&sn=c41277dc2aff35e86ea966364f4a2861&chksm=fa1a9607cd6d1f11960dcfefea84b4fff6f1dffdabdae8a10828de25a1bf4c1b794308b52116#rd",
+      "time": "16:13",
+      "timestamp": 1777364035,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "财躺平",
+      "title": "捐赠人须知+捐赠入口",
+      "digest": "全网最透明的模式",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488386&idx=2&sn=644cb1854d67069ea3a1a15764875a61&chksm=fa1a9607cd6d1f1158137d2edc8afcc78795ca4ba35e8b31fc2ad442e34b3bd73938da264e32#rd",
+      "time": "16:13",
+      "timestamp": 1777364035,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "谁也逃不过台积电",

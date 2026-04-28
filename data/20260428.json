@@ -1,9 +1,115 @@
 {
   "date": "20260428",
-  "generated_at": "2026-04-28T08:01:12.738809",
+  "generated_at": "2026-04-28T08:02:39.521535",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "阿里视频模型 HappyHorse 开启灰测，悟空已率先接入",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，阿里「欢乐马」正式上线，抢先实测这匹「黑马」",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "AI「看不懂」、「做不好」视频的问题，混元用「MTSS」解决了",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "世界模型双冠王诞生！国产世界模型力压谷歌、英伟达等持续领跑",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ACL 2026 | 中科大&上海AILab揭示强化学习后训练的Scaling Law",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "芒果传媒与爱诗科技达成战略合作，全栈AI视频能力接入芒果内容生态",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Anthropic又「惹祸」？大写「HERMES.md」触发计费Bug，偷偷扣光用户200美元",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 | 谷歌DeepMind重磅开源多模态TIPSv2：实现Patch-Text对齐的最优表现",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "小雨智造与北航共建实验室，创始人乔忠良：工业落地比人形奇观更具正义性",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "让孩子画作活起来，用放大镜识万物，给台灯装灵魂……京东JoyInside打造AI硬件时代“超级基础设施”",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Agentic World Modeling: Foundations, Capabilities, Laws, and Beyond",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22748"
+    },
+    {
+      "title": "Rethinking Math Reasoning Evaluation: A Robust LLM-as-a-Judge Framework Beyond Symbolic Rigidity",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22597"
+    },
+    {
+      "title": "QuantClaw: Precision Where It Matters for OpenClaw",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22577"
+    },
+    {
+      "title": "On the Hybrid Nature of ABPMS Process Frames and its Implications on Automated Process Discovery",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22455"
+    },
+    {
+      "title": "Superminds Test: Actively Evaluating Collective Intelligence of Agent Society via Probing Agents",
+      "body": "",
+      "time": "2026/04/28",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.22452"
+    }
+  ],
   "miao_notice": [
     {
       "content": "# 喵子告知\n\n今天行业面安静得有点反常——没有重磅资讯，没有关键人物发声。但安静本身就是信号。\n\n经验告诉喵子，市场噪音突然降低，往往意味着两种情况：要么大家在等一个靴子落地（财报季、政策窗口、重大产品发布前的静默期），要么资金和注意力正在悄悄换方向，只是还没浮到水面上。现在刚好处在Q1财报密集披露前夕，各家都在憋着。\n\n**喵子建议：越是没消息的时候，越别闲着。** 回头检查一下自己的持仓逻辑和关注清单，等信号出来再临时反应就晚了。安静的早晨适合磨刀。🐱",

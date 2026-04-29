@@ -1,6 +1,6 @@
 {
   "date": "20260429",
-  "generated_at": "2026-04-29T08:01:43.106120",
+  "generated_at": "2026-04-29T08:03:19.431868",
   "news": [],
   "voice": [
     {
@@ -24,7 +24,78 @@
       "text_color": "#1565c0"
     }
   ],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "Learning to Rotate: Temporal and Semantic Rotary Encoding for Sequential Modeling",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24717"
+    },
+    {
+      "title": "Case-Specific Rubrics for Clinical AI Evaluation: Methodology, Validation, and LLM-Clinician Agreement Across 823 Encounters",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24710"
+    },
+    {
+      "title": "Can Current Agents Close the Discovery-to-Application Gap? A Case Study in Minecraft",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24697"
+    },
+    {
+      "title": "Governing What You Cannot Observe: Adaptive Runtime Governance for Autonomous AI Agents",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24686"
+    },
+    {
+      "title": "The Price of Agreement: Measuring LLM Sycophancy in Agentic Financial Applications",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.24668"
+    },
+    {
+      "title": "The Optimal Sample Complexity of Multiclass and List Learning",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24749"
+    },
+    {
+      "title": "Conflict-Aware Harmonized Rotational Gradient for Multiscale Kinetic Regimes",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24745"
+    },
+    {
+      "title": "Learning to Think from Multiple Thinkers",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24737"
+    },
+    {
+      "title": "SpecRLBench: A Benchmark for Generalization in Specification-Guided Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24729"
+    },
+    {
+      "title": "Scalable Hyperparameter-Divergent Ensemble Training with Automatic Learning Rate Exploration for Large Models",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.24708"
+    }
+  ],
   "miao_notice": [
     {
       "content": "**喵子告知**\n\n今天行业面上没有重大新信号释放，属于信息真空期。但越是这种时候，越要警惕两件事：一是市场可能在酝酿变盘，安静往往是暴风雨前奏；二是别被\"没消息\"骗到放松，该盯的仓位和止损线照常盯。\n\n喵子的建议：信息空窗期最适合做两件事——复盘自己持仓的底层逻辑还成不成立，以及提前想好如果下一个大消息来了，你的应对预案是什么。别等子弹飞过来才想躲。🐱",

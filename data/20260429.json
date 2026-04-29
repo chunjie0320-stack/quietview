@@ -1,6 +1,6 @@
 {
   "date": "20260429",
-  "generated_at": "2026-04-29T14:00:53.859703",
+  "generated_at": "2026-04-29T18:00:51.363057",
   "news": [
     {
       "time": "11:10",
@@ -244,6 +244,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "建议卖掉",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488395&idx=1&sn=e9d3e978f2383dc46c0033c98e7f2247&chksm=fa1a960ecd6d1f18cbeb98b4b87ab196820b2a2a3bd43b99870a5cd028ee00e05d805250f60e#rd",
+      "time": "15:29",
+      "timestamp": 1777447773,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "“求真”可能是投资者最需要的品质",

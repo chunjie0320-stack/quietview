@@ -1,6 +1,6 @@
 {
   "date": "20260429",
-  "generated_at": "2026-04-29T12:01:04.476759",
+  "generated_at": "2026-04-29T12:01:32.788346",
   "news": [
     {
       "time": "07:02",
@@ -124,6 +124,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "“求真”可能是投资者最需要的品质",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489506&idx=1&sn=d5ccd967342c0c1ffac9f8fa53a8ae09&chksm=fe58f546c92f7c50957914a69197cb2ff263be962afec819d43df003a051e71a3949b4817784#rd",
+      "time": "08:55",
+      "timestamp": 1777424154,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "中金点睛",
       "title": "中金：联合解读政治局会议",

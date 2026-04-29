@@ -1,8 +1,29 @@
 {
   "date": "20260429",
-  "generated_at": "2026-04-29T06:00:19.210661",
+  "generated_at": "2026-04-29T08:01:43.106120",
   "news": [],
-  "voice": [],
+  "voice": [
+    {
+      "source": "中金点睛",
+      "title": "中金：联合解读政治局会议",
+      "digest": "政治局会议对经济和金融市场具体可能如何影响？中金公司总量以及行业为您联合解读。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834651&idx=1&sn=23e95d485c3804ec0f77fa6e664093c1&chksm=eadd3adcddaab3ca39c1638546ea83fbf0eedf2764ed8bc12e50408121f09236c5ade423a543#rd",
+      "time": "08:01",
+      "timestamp": 1777420868,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球金融科技 | 海外预测市场：机制、格局与趋势",
+      "digest": "我们讨论预测市场的机制、格局、趋势三个核心问题。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834651&idx=2&sn=3e8a8f7324c8d9201c3df5fcd3e9ec82&chksm=eadd3adcddaab3ca41f42014a2a0632e7a4d9450e9ad36ad9205e02f1173cb9635642edba775#rd",
+      "time": "08:01",
+      "timestamp": 1777420868,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [],
   "miao_notice": [
     {

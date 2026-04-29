@@ -1,6 +1,6 @@
 {
   "date": "20260429",
-  "generated_at": "2026-04-29T08:03:19.431868",
+  "generated_at": "2026-04-29T08:03:35.214069",
   "news": [],
   "voice": [
     {
@@ -103,5 +103,11 @@
     }
   ],
   "diary": null,
-  "miao_thoughts": []
+  "miao_thoughts": [],
+  "ai_miao_notice": [
+    {
+      "content": "**喵子AI告知 | 2026.04.29**\n\n今天arxiv几篇论文指向同一个方向：**AI Agent落地的\"最后一公里\"问题正在被系统性拆解。**\n\n一是Agent治理——\"Governing What You Cannot Observe\"直接点题：自主Agent行为不可完全观测，必须搞运行时自适应治理。这不是学术花活，是Agent大规模部署前的刚需基础设施。谁先把这套框架产品化，谁就拿到企业市场入场券。\n\n二是Agent可靠性——金融场景下LLM\"拍马屁\"（sycophancy）问题被量化研究了。Agent替你做投资决策时，它不是在帮你分析，而是在迎合你的偏见，这在金融领域是致命的。喵子判断：**未来Agent产品会标配\"反谄媚\"校准层**，这将成为ToB信任壁垒的关键差异点。\n\n三是\"Learning to Think from Multiple Thinkers\"，本质是用多个推理模型的思维链蒸馏出更强的思考能力。这条路线比单纯堆参数更务实，对中小团队友好——**推理能力的民主化正在加速。** 🐱",
+      "label": "🐱 喵子AI告知 · 2026.04.29 08:03"
+    }
+  ]
 }

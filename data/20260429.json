@@ -1,6 +1,6 @@
 {
   "date": "20260429",
-  "generated_at": "2026-04-29T22:00:18.424331",
+  "generated_at": "2026-04-29T22:01:13.176745",
   "news": [
     {
       "time": "17:40",
@@ -416,6 +416,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "How Fast Should a Model Commit to Supervision? Training Reasoning Models on the Tsallis Loss Continuum",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.25907"
+    },
+    {
+      "title": "Teacher Forcing as Generalized Bayes: Optimization Geometry Mismatch in Switching Surrogates for Chaotic Dynamics",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.25904"
+    },
+    {
+      "title": "TSN-Affinity: Similarity-Driven Parameter Reuse for Continual Offline Reinforcement Learning",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.25898"
+    },
+    {
+      "title": "Conditional misalignment: common interventions can hide emergent misalignment behind contextual triggers",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.25891"
+    },
+    {
+      "title": "When Errors Can Be Beneficial: A Categorization of Imperfect Rewards for Policy Gradient",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.25872"
+    },
     {
       "title": "旗舰轻薄本新标杆 荣耀MagicBook Pro系列2026正式发布 国补价6799.15元起",
       "body": "",

@@ -1,6 +1,6 @@
 {
   "date": "20260429",
-  "generated_at": "2026-04-29T12:01:32.788346",
+  "generated_at": "2026-04-29T12:01:55.574587",
   "news": [
     {
       "time": "07:02",
@@ -156,6 +156,83 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "旗舰轻薄本新标杆 荣耀MagicBook Pro系列2026正式发布 国补价6799.15元起",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "诺奖得主实验室走出的中国团队，正用世界模型重构生命分子设计",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "全球市场没有标准答案？长城欧拉5多动力版本上市 全系同风格、智能同体验、舒适同享受",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "无需训练，如何提升黑箱VLM？CARPRT用「类别感知」给出答案",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "超越VLA与世界模型，银河通用发布LDA，全谱系数据跑通Scaling Law",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ACL 2026 | LCA：DeepSeek 长文本加速神器，90% KV 缓存缩减 + 2.5 倍推理提速",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Recursive Multi-Agent Systems",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.25917"
+    },
+    {
+      "title": "ADEMA: A Knowledge-State Orchestration Architecture for Long-Horizon Knowledge Synthesis with LLMAgents",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.25849"
+    },
+    {
+      "title": "Semi-Markov Reinforcement Learning for City-Scale EV Ride-Hailing with Feasibility-Guaranteed Actions",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.25848"
+    },
+    {
+      "title": "Action-Aware Generative Sequence Modeling for Short Video Recommendation",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.25834"
+    },
+    {
+      "title": "TrialCalibre: A Fully Automated Causal Engine for RCT Benchmarking and Observational Trial Calibration",
+      "body": "",
+      "time": "2026/04/29",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.25832"
+    },
     {
       "title": "Learning to Rotate: Temporal and Semantic Rotary Encoding for Sequential Modeling",
       "body": "",

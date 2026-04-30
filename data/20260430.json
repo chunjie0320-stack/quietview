@@ -1,6 +1,6 @@
 {
   "date": "20260430",
-  "generated_at": "2026-04-30T12:01:43.595628",
+  "generated_at": "2026-04-30T12:03:04.513493",
   "news": [
     {
       "time": "07:47",
@@ -166,6 +166,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Bian Que: An Agentic Framework with Flexible Skill Arrangement for Online System Operations",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.26805"
+    },
+    {
+      "title": "FutureWorld: A Live Environment for Training Predictive Agents with Real-World Outcome Rewards",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.26733"
+    },
+    {
+      "title": "SciHorizon-DataEVA: An Agentic System for AI-Readiness Evaluation of Heterogeneous Scientific Data",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.26645"
+    },
+    {
+      "title": "When to Vote, When to Rewrite: Disagreement-Guided Strategy Routing for Test-Time Scaling",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.26644"
+    },
+    {
+      "title": "Human-in-the-Loop Benchmarking of Heterogeneous LLMs for Automated Competency Assessment in Secondary Level Mathematics",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2604.26607"
+    },
     {
       "title": "线下见！CVPR 2026北京论文分享会启动，来现场聊透前沿视觉",
       "body": "",

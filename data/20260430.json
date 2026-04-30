@@ -1,6 +1,6 @@
 {
   "date": "20260430",
-  "generated_at": "2026-04-30T18:16:32.410745",
+  "generated_at": "2026-04-30T22:01:07.301412",
   "news": [
     {
       "time": "17:36",
@@ -364,6 +364,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "腾讯别学Meta，小扎还是太超前",
+      "digest": "整个Meta业绩会以及后面的小会，小扎和CFO Susan都没能解答（justify）公司千亿美金资本支出的合",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486848&idx=1&sn=c7eef77778d0ef785c7582fc663772f7&chksm=c331ebd3f44662c579b3bf57a30fede9473e4a6c83f3cd101a94ed7cc1d6f7f2cd9ec381bcbe#rd",
+      "time": "18:49",
+      "timestamp": 1777546149,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
     {
       "source": "财躺平",
       "title": "全是好消息！",

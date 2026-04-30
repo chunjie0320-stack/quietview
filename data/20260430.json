@@ -1,8 +1,39 @@
 {
   "date": "20260430",
-  "generated_at": "2026-04-30T06:00:15.016027",
+  "generated_at": "2026-04-30T08:00:51.332243",
   "news": [],
-  "voice": [],
+  "voice": [
+    {
+      "source": "中金点睛",
+      "title": "中金：美联储降息之路更加漫长",
+      "digest": "年内加息可能性较低，但降息之路也将更加漫长，下一次降息或推迟至第四季度。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834754&idx=1&sn=7b74f4aafa1a607c82dc17230b70e64c&chksm=eadd3a45ddaab3538f480856f2b0a6adf512ddfda502d1edbfb408ff1e9f1859bf98e14cfefb#rd",
+      "time": "07:58",
+      "timestamp": 1777507118,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：沃什能否“打开宽松局面”？",
+      "digest": "理论上可以降息两次，实际需要特朗普配合",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834754&idx=2&sn=e96e10d9de7051b2bbc2341651962bc7&chksm=eadd3a45ddaab35378215bcca4c2ede94f726bbe73e4a8931fe193b61f9aca43a477294a9f55#rd",
+      "time": "07:58",
+      "timestamp": 1777507118,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | Cloud Next 26：TPU v8发布，芯片及网络的精益化再升级",
+      "digest": "从产业链维度来看，我们继续看好光通信、芯片定制服务、存储、晶圆代工等核心投资方向。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834754&idx=3&sn=afc848a4857a7e9649a34a563d97087d&chksm=eadd3a45ddaab3530b548931ade5c72eb0c455c6e6f965cfa9f05c822274fbbed088c9d3ef55#rd",
+      "time": "07:58",
+      "timestamp": 1777507118,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [],
   "miao_notice": [
     {

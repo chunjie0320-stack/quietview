@@ -1,6 +1,6 @@
 {
   "date": "20260430",
-  "generated_at": "2026-04-30T14:01:03.285426",
+  "generated_at": "2026-04-30T18:00:56.381238",
   "news": [
     {
       "time": "11:33",
@@ -244,6 +244,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "全是好消息！",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488400&idx=1&sn=ac4301202dbabc88138e58a9623cd03a&chksm=fa1a9615cd6d1f032188e1a14591d3a59469668070799df7ca9383acf5feed1fbfe1fa435272#rd",
+      "time": "14:26",
+      "timestamp": 1777530411,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "茅台好喝到底是一个“事实”还是“观点”？",

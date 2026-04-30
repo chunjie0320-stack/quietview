@@ -1,6 +1,6 @@
 {
   "date": "20260430",
-  "generated_at": "2026-04-30T12:01:13.534703",
+  "generated_at": "2026-04-30T12:01:43.595628",
   "news": [
     {
       "time": "07:47",
@@ -124,6 +124,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "茅台好喝到底是一个“事实”还是“观点”？",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489508&idx=1&sn=cbb9df54a180ad26763699f515dc920f&chksm=fe58f540c92f7c563ccaecd704a94607be864fa5a0ae951fba4bdbfa674dc576b7bf9e97f2e0#rd",
+      "time": "09:35",
+      "timestamp": 1777512959,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "中金点睛",
       "title": "中金：美联储降息之路更加漫长",

@@ -1,6 +1,6 @@
 {
   "date": "20260430",
-  "generated_at": "2026-04-30T18:00:56.381238",
+  "generated_at": "2026-04-30T18:02:19.425773",
   "news": [
     {
       "time": "11:33",
@@ -296,6 +296,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Hyper Input Convex Neural Networks for Shape Constrained Learning and Optimal Transport",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.26942"
+    },
+    {
+      "title": "A Note on How to Remove the $\\ln\\ln T$ Term from the Squint Bound",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.26926"
+    },
+    {
+      "title": "On the Learning Curves of Revenue Maximization",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.26922"
+    },
+    {
+      "title": "Causal Learning with Neural Assemblies",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.26919"
+    },
+    {
+      "title": "Multiple Additive Neural Networks for Structured and Unstructured Data",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2604.26888"
+    },
     {
       "title": "Bian Que: An Agentic Framework with Flexible Skill Arrangement for Online System Operations",
       "body": "",

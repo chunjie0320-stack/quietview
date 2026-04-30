@@ -1,6 +1,6 @@
 {
   "date": "20260430",
-  "generated_at": "2026-04-30T08:00:51.332243",
+  "generated_at": "2026-04-30T08:03:24.825079",
   "news": [],
   "voice": [
     {
@@ -34,7 +34,78 @@
       "text_color": "#1565c0"
     }
   ],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "线下见！CVPR 2026北京论文分享会启动，来现场聊透前沿视觉",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ACL 2026｜Doc-V*：读100页文档不如只翻对5页，80页场景「暴打」RAG 10个点",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "中国科学院打造“磐石100”模型体系，引领人工智能赋能科学研究迈入平台化高效协同时代",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "腾讯开源手机端离线翻译模型，仅0.4G，支持33种语言",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "SentiPulse 发布 SentiCat：当 Agent开始“建立关系” ，AI进入下一阶段",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "DR-Venus开源：仅用10K开放数据，4B小模型挑战深度研究Agent前沿",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "TPAMI 2026 | 中科大查正军团队提出SkyFind，以百万级新基准开启空中视觉语言新范式",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "5.2万星项目Ghostty逃离GitHub！",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "VEGA-3D：释放视频生成模型中的隐式3D知识，重塑3D场景理解与具身交互",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "癌症管理进入「大模型」时代：Nature子刊综述揭示AI基础模型的现状与未来",
+      "body": "",
+      "time": "2026/04/30",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    }
+  ],
   "miao_notice": [
     {
       "content": "「喵子告知」\n\n今天资讯和行业声音都是空的，但空本身也是信号。\n\n四月最后一天，五一长假前最后一个交易日窗口。市场进入\"真空期\"——没有重磅政策落地、没有龙头发声，说明各方都在观望和消化。这种时候往往是情绪最容易被突发事件左右的节点。\n\n喵子的判断：静默不等于平静。假期期间海外市场照常运转，持仓过节的要做好波动预案，轻仓的别急着上车。没消息的日子，管住手就是最好的操作。🐱",

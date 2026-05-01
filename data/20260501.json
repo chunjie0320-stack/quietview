@@ -1,6 +1,6 @@
 {
   "date": "20260501",
-  "generated_at": "2026-05-01T12:02:00.103463",
+  "generated_at": "2026-05-01T12:02:57.585670",
   "news": [
     {
       "time": "06:32",
@@ -123,7 +123,38 @@
       "link": "https://www.cls.cn/detail/2361653"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "中金点睛",
+      "title": "中金 | 年报&一季报总结：整体盈利改善，结构亮点增多",
+      "digest": "财务报表进一步确认基本面回升，但分化特征较为明显，关注景气成长和周期改善两个维度。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834971&idx=1&sn=6006282f1589b2a4fb604eedc0128640&chksm=eadd3b9cddaab28a64e93eed8fbbbc7f7006c589ff96e66c1be348efe5e320df9b6e8ec4ea08#rd",
+      "time": "09:54",
+      "timestamp": 1777600454,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金研究 | 本周精选：宏观、策略",
+      "digest": "中金点睛“本周精选”栏目将带您回顾本周深受读者欢迎的研究报告。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834971&idx=2&sn=19c07e91b6b07f94f64f1bba54c050e2&chksm=eadd3b9cddaab28ab1acfc7b5ee79818d23c79a04d2aeb906a493059792a7502e8ecd4d4371a#rd",
+      "time": "09:54",
+      "timestamp": 1777600454,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "为什么说比亚迪是不符合巴菲特的投资审美的？",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489510&idx=1&sn=f1772deac06eb8ae1ace9b8186e34ac8&chksm=fe58f542c92f7c5470dcef6e4790d567d3fffb264427899c69ba3d9c02361a9803caaeca1802#rd",
+      "time": "09:22",
+      "timestamp": 1777598534,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "ai_voice": [
     {
       "title": "Salesforce is crowdsourcing its AI roadmap — with customers",

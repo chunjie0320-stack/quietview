@@ -1,6 +1,6 @@
 {
   "date": "20260501",
-  "generated_at": "2026-05-01T18:16:26.158025",
+  "generated_at": "2026-05-01T22:00:16.383115",
   "news": [
     {
       "time": "16:47",
@@ -364,6 +364,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "谷歌为什么能翻盘？人家是科技公司，不是互联网公司",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486858&idx=1&sn=88ffd41a6b2d0fe3a4ab9376e76391d7&chksm=c331ebd9f44662cfe9d68c113349348431c56beee62281e1116d90b4f443e81bb9e03b2f87ca#rd",
+      "time": "18:25",
+      "timestamp": 1777631127,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
     {
       "source": "中金点睛",
       "title": "中金 | 年报&一季报总结：整体盈利改善，结构亮点增多",

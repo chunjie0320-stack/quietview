@@ -1,9 +1,31 @@
 {
   "date": "20260503",
-  "generated_at": "2026-05-03T08:00:21.930785",
+  "generated_at": "2026-05-03T08:01:04.335118",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "这套题，GPT-5.5、Opus 4.7加起来没考到「1分」，人类却拿了满分100？",
+      "body": "",
+      "time": "2026/05/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ACL 2026 | RouteMoA：无需预推理的动态路由，实现高效多智能体混合",
+      "body": "",
+      "time": "2026/05/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，小扎买了一家机器人公司，要做人形机器人的「安卓平台」",
+      "body": "",
+      "time": "2026/05/03",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

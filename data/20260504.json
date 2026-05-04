@@ -1,6 +1,6 @@
 {
   "date": "20260504",
-  "generated_at": "2026-05-04T18:01:46.694954",
+  "generated_at": "2026-05-04T18:02:20.557213",
   "news": [
     {
       "time": "10:02",
@@ -244,7 +244,78 @@
     }
   ],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "Position: agentic AI orchestration should be Bayes-consistent",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.00742"
+    },
+    {
+      "title": "To Call or Not to Call: A Framework to Assess and Optimize LLM Tool Calling",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.00737"
+    },
+    {
+      "title": "Learn where to Click from Yourself: On-Policy Self-Distillation for GUI Grounding",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.00642"
+    },
+    {
+      "title": "Instance-Aware Parameter Configuration in Bilevel Late Acceptance Hill Climbing for the Electric Capacitated Vehicle Routing Problem",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.00572"
+    },
+    {
+      "title": "On the Role of Artificial Intelligence in Human-Machine Symbiosis",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.00440"
+    },
+    {
+      "title": "Generating Statistical Charts with Validation-Driven LLM Workflows",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00800"
+    },
+    {
+      "title": "RunAgent: Interpreting Natural-Language Plans with Constraint-Guided Execution",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00798"
+    },
+    {
+      "title": "SAVGO: Learning State-Action Value Geometry with Cosine Similarity for Continuous Control",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00787"
+    },
+    {
+      "title": "Observable Performance Does Not Fully Reflect System Organization: A Multi-Level Analysis of Gait Dynamics Under Occlusal Constraint",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00778"
+    },
+    {
+      "title": "Meritocratic Fairness in Budgeted Combinatorial Multi-armed Bandits via Shapley Values",
+      "body": "",
+      "time": "2026/05/04",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00762"
+    }
+  ],
   "miao_notice": [
     {
       "content": "**喵子告知**\n\n今天亚太市场集体狂欢——韩国KOSPI涨4%、台股涨4.5%、台积电涨6.6%、SK海力士涨10%破万亿韩元市值，港股电力设备也在爆拉。核心驱动力是半导体+AI算力叙事继续升温（Anthropic那笔15亿合资也是佐证），加上中东局势出现\"缓和预期\"——特朗普派1.5万人疏导霍尔木兹海峡被困船只，原油应声跌2.75%。\n\n但喵子提醒：伊朗已经放话，美国干涉霍尔木兹将被视为违反停火。这意味着油价短期下跌可能是\"假摔\"，地缘风险并未真正解除。黄金站稳4600、比特币回到8万，避险资产依然硬挺，说明聪明钱并没有真放松。\n\n一句话：科技股追涨可以，但别把\"疏导\"当成\"和平\"。仓位管理比方向判断更重要。",

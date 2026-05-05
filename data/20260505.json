@@ -1,9 +1,45 @@
 {
   "date": "20260505",
-  "generated_at": "2026-05-05T08:01:22.886521",
+  "generated_at": "2026-05-05T08:02:27.712126",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "Generating Statistical Charts with Validation-Driven LLM Workflows",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00800"
+    },
+    {
+      "title": "RunAgent: Interpreting Natural-Language Plans with Constraint-Guided Execution",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00798"
+    },
+    {
+      "title": "SAVGO: Learning State-Action Value Geometry with Cosine Similarity for Continuous Control",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00787"
+    },
+    {
+      "title": "Observable Performance Does Not Fully Reflect System Organization: A Multi-Level Analysis of Gait Dynamics Under Occlusal Constraint",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00778"
+    },
+    {
+      "title": "Meritocratic Fairness in Budgeted Combinatorial Multi-armed Bandits via Shapley Values",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.00762"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

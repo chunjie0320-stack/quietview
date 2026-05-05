@@ -1,6 +1,6 @@
 {
   "date": "20260505",
-  "generated_at": "2026-05-05T12:02:02.511320",
+  "generated_at": "2026-05-05T12:03:30.193360",
   "news": [
     {
       "time": "05:01",
@@ -125,6 +125,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Standing on the Shoulders of Giants: Stabilized Knowledge Distillation for Cross--Language Code Clone Detection",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.02860"
+    },
+    {
+      "title": "HAAS: A Policy-Aware Framework for Adaptive Task Allocation Between Humans and Artificial Intelligence Systems",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.02832"
+    },
+    {
+      "title": "Compress Then Adapt? No, Do It Together via Task-aware Union of Subspaces",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.02829"
+    },
+    {
+      "title": "First-Order Efficiency for Probabilistic Value Estimation via A Statistical Viewpoint",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.02827"
+    },
+    {
+      "title": "SCPRM: A Schema-aware Cumulative Process Reward Model for Knowledge Graph Question Answering",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.02819"
+    },
+    {
+      "title": "SpecKV: Adaptive Speculative Decoding with Compression-Aware Gamma Selection",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.02888"
+    },
+    {
+      "title": "Unsupervised Machine Learning for Detecting Structural Anomalies in European Regional Statistics",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.02884"
+    },
+    {
+      "title": "Enhancing RL Generalizability in Robotics through SHAP Analysis of Algorithms and Hyperparameters",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.02867"
+    },
+    {
+      "title": "Trust, but Verify: Peeling Low-Bit Transformer Networks for Training Monitoring",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.02853"
+    },
+    {
+      "title": "A Closed-Form Persistence-Landmark Pipeline for Certified Point-Cloud and Graph Classification",
+      "body": "",
+      "time": "2026/05/05",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.02836"
+    },
     {
       "title": "Generating Statistical Charts with Validation-Driven LLM Workflows",
       "body": "",

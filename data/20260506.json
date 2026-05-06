@@ -1,6 +1,6 @@
 {
   "date": "20260506",
-  "generated_at": "2026-05-06T12:02:40.435745",
+  "generated_at": "2026-05-06T12:04:14.557646",
   "news": [
     {
       "time": "06:59",
@@ -125,6 +125,20 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "VLA不够了？触觉，将改写具身智能新格局",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 | 救命，手机Live Photo重选封面终于不糊了",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
     {
       "title": "Standing on the Shoulders of Giants: Stabilized Knowledge Distillation for Cross--Language Code Clone Detection",
       "body": "",

@@ -1,6 +1,6 @@
 {
   "date": "20260506",
-  "generated_at": "2026-05-06T18:00:36.831569",
+  "generated_at": "2026-05-06T18:02:21.925161",
   "news": [
     {
       "time": "11:25",
@@ -245,6 +245,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "OpenSeeker-v2: Pushing the Limits of Search Agents with Informative and High-Difficulty Trajectories",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04036"
+    },
+    {
+      "title": "Redefining AI Red Teaming in the Agentic Era: From Weeks to Hours",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04019"
+    },
+    {
+      "title": "SymptomAI: Towards a Conversational AI Agent for Everyday Symptom Assessment",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04012"
+    },
+    {
+      "title": "An Agent-Oriented Pluggable Experience-RAG Skill for Experience-Driven Retrieval Strategy Orchestration",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.03989"
+    },
+    {
+      "title": "From Intent to Execution: Composing Agentic Workflows with Agent Recommendation",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.03986"
+    },
+    {
+      "title": "A Closed-Form Adaptive-Landmark Kernel for Certified Point-Cloud and Graph Classification",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.04046"
+    },
+    {
+      "title": "Flow Sampling: Learning to Sample from Unnormalized Densities via Denoising Conditional Processes",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.03984"
+    },
+    {
+      "title": "Pretrained Model Representations as Acquisition Signals for Active Learning of MLIPs",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.03964"
+    },
+    {
+      "title": "Transformers with Selective Access to Early Representations",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.03953"
+    },
+    {
+      "title": "Integrating Feature Correlation in Differential Privacy with Applications in DP-ERM",
+      "body": "",
+      "time": "2026/05/06",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.03945"
+    },
     {
       "title": "VLA不够了？触觉，将改写具身智能新格局",
       "body": "",

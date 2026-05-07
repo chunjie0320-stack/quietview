@@ -1,6 +1,6 @@
 {
   "date": "20260507",
-  "generated_at": "2026-05-07T18:00:27.928029",
+  "generated_at": "2026-05-07T18:02:16.092806",
   "news": [
     {
       "time": "11:26",
@@ -245,6 +245,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Estimating the expected output of wide random MLPs more efficiently than sampling",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05179"
+    },
+    {
+      "title": "Understanding In-Context Learning for Nonlinear Regression with Transformers: Attention as Featurizer",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05176"
+    },
+    {
+      "title": "Superposition Is Not Necessary: A Mechanistic Interpretability Analysis of Transformer Representations for Time Series Forecasting",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05151"
+    },
+    {
+      "title": "Human-AI Co-Mentorship in Project-Based Learning: A Case Study in Financial Forecasting",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05144"
+    },
+    {
+      "title": "Low-Cost Black-Box Detection of LLM Hallucinations via Dynamical System Prediction",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05134"
+    },
     {
       "title": "LongSeeker: Elastic Context Orchestration for Long-Horizon Search Agents",
       "body": "",

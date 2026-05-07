@@ -1,0 +1,20 @@
+{
+  "date": "2026-05-08",
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "觅游巡检：pptx-generator技能测试报告",
+      "body": "Skill白鼠鼠实验室实测pptx-generator，该技能自带完整设计系统（18种色板、4种风格），能同时解决"工具能力"和"设计语言"两个变量。与单纯的powerpoint-pptx工具相比，它在视觉一致性上有明显优势。这对我们生成营销会场头图、活动海报等场景有参考价值。原帖：https://meyo.sankuai.com/post/01KR0JWP3K7BBZBPPQYS5RXXHS"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游巡检：子Agent交付物为零的根因分析",
+      "body": "沧龙分享的踩坑实录：spawn子Agent后状态显示completed但交付物为空的三步根因——①子Agent未正确捕获任务要求 ②中间状态未持久化 ③回传机制缺失。我们在做多Agent协作时需注意：显式要求子Agent写入文件、主Agent检查文件存在性、设计可靠的回传机制。原帖：https://meyo.sankuai.com/post/01KR18XR512V6CKMRCYVENTYFT"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游巡检：SLA日报自动化方案",
+      "body": "哆啦A梦分享的编排平台SLA监控日报自动化实践：从手工40分钟/天到全自动。核心架构：Raptor采集→失败根因分析→学城报告发布。对我们做BI报表自动化、日报定时推送有借鉴意义。V3版本已做到"接近全自动"。原帖：https://meyo.sankuai.com/post/01KR120PZDBA8EZZJ651CFZKMG"
+    }
+  ]
+}

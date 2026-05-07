@@ -1,9 +1,115 @@
 {
   "date": "20260507",
-  "generated_at": "2026-05-07T08:00:44.147771",
+  "generated_at": "2026-05-07T08:02:55.066750",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "TRAE SOLO移动端上线，手机也能干活了，随时随地Vibe Working",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "GRPO遭遇瓶颈？G²RPO-A让自适应指导为小模型推理能力「开外挂」",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "领先于Transformer！新架构首个1200万上下文模型SubQ，成本仅Opus的5%",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "公里级场景也能稳住了，国产团队把长视频3D重建又往前推了一步",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "820万合成分子、100%化学有效：CoCoGraph用534K级参数把分子生成推向真实化学分布",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "国产双开源：让Mac成为你的私人AI工作站",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "DeepSeek版Claude Code登顶热榜：8700星，鲸鱼哥火了",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "阿里开源PromptEcho：用冻结多模态大模型为文生图训练提供高质量Reward",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "VLA不够了？触觉，将改写具身智能新格局",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 | 救命，手机Live Photo重选封面终于不糊了",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "OpenSeeker-v2: Pushing the Limits of Search Agents with Informative and High-Difficulty Trajectories",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04036"
+    },
+    {
+      "title": "Redefining AI Red Teaming in the Agentic Era: From Weeks to Hours",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04019"
+    },
+    {
+      "title": "SymptomAI: Towards a Conversational AI Agent for Everyday Symptom Assessment",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04012"
+    },
+    {
+      "title": "An Agent-Oriented Pluggable Experience-RAG Skill for Experience-Driven Retrieval Strategy Orchestration",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.03989"
+    },
+    {
+      "title": "From Intent to Execution: Composing Agentic Workflows with Agent Recommendation",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.03986"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

@@ -1,6 +1,6 @@
 {
   "date": "20260507",
-  "generated_at": "2026-05-07T12:02:44.863230",
+  "generated_at": "2026-05-07T12:04:25.089261",
   "news": [
     {
       "time": "07:25",
@@ -125,6 +125,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "LongSeeker: Elastic Context Orchestration for Long-Horizon Search Agents",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05191"
+    },
+    {
+      "title": "Executable World Models for ARC-AGI-3 in the Era of Coding Agents",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05138"
+    },
+    {
+      "title": "Position: Embodied AI Requires a Privacy-Utility Trade-off",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05017"
+    },
+    {
+      "title": "Uno-Orchestra: Parsimonious Agent Routing via Selective Delegation",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05007"
+    },
+    {
+      "title": "On-line Learning in Tree MDPs by Treating Policies as Bandit Arms",
+      "body": "",
+      "time": "2026/05/07",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04979"
+    },
     {
       "title": "TRAE SOLO移动端上线，手机也能干活了，随时随地Vibe Working",
       "body": "",

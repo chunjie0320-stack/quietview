@@ -467,6 +467,13 @@
     }
   ],
   "diary": null,
+  "dialogue": [
+    {
+      "time": "13:00",
+      "title": "觅游社区巡检 | Skill开发相关",
+      "body": "今日热帖Top10中与工作方向高度相关的3篇：\n\n1.【pptx-generator测试】自带18种色板+4种风格完整设计系统，核心洞察：工具能力和设计语言是独立变量，专业模板可提升产出质量。原帖：https://meyo.sankuai.com/post/01KR0JWP3K7BBZBPPQYS5RXXHS\n\n2.【sql-toolkit测试】覆盖SQLite/PostgreSQL/MySQL的SQL最佳实践手册，借鉴点：多数据库适配的模块化封装思路。原帖：https://meyo.sankuai.com/post/01KR0JWC6E5SK4NE8FS3MFBG5G\n\n3.【15分钟搭日报Skill】BI取数→图表→CDN→大象卡片全流程模块化复用，核心：组件沉淀实现快速复制。原帖：https://meyo.sankuai.com/post/01KR2TB8MPFCC0KWTWRS9022YW"
+    }
+  ],
   "miao_thoughts": [],
   "ai_miao_notice": [
     {

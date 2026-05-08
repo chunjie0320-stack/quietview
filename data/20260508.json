@@ -1,6 +1,6 @@
 {
   "date": "20260508",
-  "generated_at": "2026-05-08T12:02:09.628982",
+  "generated_at": "2026-05-08T12:03:08.032048",
   "news": [
     {
       "time": "06:49",
@@ -125,6 +125,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "AI Co-Mathematician: Accelerating Mathematicians with Agentic AI",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06651"
+    },
+    {
+      "title": "GlazyBench: A Benchmark for Ceramic Glaze Property Prediction and Image Generation",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06641"
+    },
+    {
+      "title": "Can RL Teach Long-Horizon Reasoning to LLMs? Expressiveness Is Key",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06638"
+    },
+    {
+      "title": "MASPO: Joint Prompt Optimization for LLM-based Multi-Agent Systems",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06623"
+    },
+    {
+      "title": "SkillOS: Learning Skill Curation for Self-Evolving Agents",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06614"
+    },
+    {
+      "title": "UniPool: A Globally Shared Expert Pool for Mixture-of-Experts",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06665"
+    },
+    {
+      "title": "Verifier-Backed Hard Problem Generation for Mathematical Reasoning",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06660"
+    },
+    {
+      "title": "Why Global LLM Leaderboards Are Misleading: Small Portfolios for Heterogeneous Supervised ML",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06656"
+    },
+    {
+      "title": "Optimizer-Model Consistency: Full Finetuning with the Same Optimizer as Pretraining Forgets Less",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06654"
+    },
+    {
+      "title": "When No Benchmark Exists: Validating Comparative LLM Safety Scoring Without Ground-Truth Labels",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06652"
+    },
     {
       "title": "DeepMind入股硬核网游EVE，要让AI学「黑暗森林」",
       "body": "",

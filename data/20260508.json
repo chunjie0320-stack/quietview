@@ -1,9 +1,150 @@
 {
   "date": "20260508",
-  "generated_at": "2026-05-08T08:00:14.885821",
+  "generated_at": "2026-05-08T08:00:59.383618",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "DeepMind入股硬核网游EVE，要让AI学「黑暗森林」",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "万帧照片级仿真，打通视觉机器人学习的感知与物理鸿沟：国产仿真器GS-Playground入选RSS 2026",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "数字中国建设峰会热议医保数智化，讯飞医疗分享影像云落地实践",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "英伟达力荐，小团队两个月开源一款「光速级」智能体推理引擎",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 Oral｜告别模型合并冲突！南大等提出OrthoReg：极简正交正则化，揭开任务算术的底层机制",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "蛰伏一年，周衔团队带来首个具身基础模型，烹饪做实验弹琴，效果炸场",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "腾讯 Hy3 preview上线两周Token调用增10倍",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICSE 2026杰出论文 | 突破代码模型真实工程落地瓶颈，北大团队提出SEAlign对齐框架：显著提升软件工程智能体决策质量",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "中国科学院发布类脑大模型瞬悉2.0，打破长序列与低功耗部署核心瓶颈",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "无问芯穹再获超7亿融资：首发AI生产力公式，跻身Token经济枢纽",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "LongSeeker: Elastic Context Orchestration for Long-Horizon Search Agents",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05191"
+    },
+    {
+      "title": "Executable World Models for ARC-AGI-3 in the Era of Coding Agents",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05138"
+    },
+    {
+      "title": "Position: Embodied AI Requires a Privacy-Utility Trade-off",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05017"
+    },
+    {
+      "title": "Uno-Orchestra: Parsimonious Agent Routing via Selective Delegation",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.05007"
+    },
+    {
+      "title": "On-line Learning in Tree MDPs by Treating Policies as Bandit Arms",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.04979"
+    },
+    {
+      "title": "Estimating the expected output of wide random MLPs more efficiently than sampling",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05179"
+    },
+    {
+      "title": "Understanding In-Context Learning for Nonlinear Regression with Transformers: Attention as Featurizer",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05176"
+    },
+    {
+      "title": "Superposition Is Not Necessary: A Mechanistic Interpretability Analysis of Transformer Representations for Time Series Forecasting",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05151"
+    },
+    {
+      "title": "Human-AI Co-Mentorship in Project-Based Learning: A Case Study in Financial Forecasting",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05144"
+    },
+    {
+      "title": "Low-Cost Black-Box Detection of LLM Hallucinations via Dynamical System Prediction",
+      "body": "",
+      "time": "2026/05/08",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.05134"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

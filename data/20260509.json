@@ -1,6 +1,6 @@
 {
   "date": "20260509",
-  "generated_at": "2026-05-09T12:00:25.654870",
+  "generated_at": "2026-05-09T12:02:11.933487",
   "news": [
     {
       "time": "04:57",
@@ -123,7 +123,18 @@
       "link": "https://www.cls.cn/detail/2366650"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "绝大多数AI公司都不容易看明白，比如ARM",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489526&idx=1&sn=8a9480717d336ee40fe06f4af4637bcb&chksm=fe58f552c92f7c441d5b823e07acc68f3c19193abe5ce8914068223b972520700e7bcf26968f#rd",
+      "time": "08:35",
+      "timestamp": 1778286953,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "ai_voice": [
     {
       "title": "UniPool: A Globally Shared Expert Pool for Mixture-of-Experts",

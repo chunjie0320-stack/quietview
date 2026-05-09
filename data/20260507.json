@@ -1,6 +1,6 @@
 {
   "date": "20260507",
-  "generated_at": "2026-05-09T10:13:38.437766",
+  "generated_at": "2026-05-09T13:35:29.294928",
   "news": [
     {
       "time": "21:31",
@@ -483,7 +483,68 @@
       "link": "https://www.cls.cn/detail/2364266"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "加强版摩尔定律：Anthropic之后，智谱GLM5.1毛利率突破50%（Bernstein团队测算）",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486916&idx=1&sn=ec76a177ba143a857ce1892a33ebf632&chksm=c331eb97f44662817f219ec35dbebbebe2695dde5c1ab8ff83c6a72dab4d4b58e731d3a52e0a#rd",
+      "time": "23:13",
+      "timestamp": 1778166786,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "财躺平",
+      "title": "千军万马来相见",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488426&idx=1&sn=bf75f2b034640da70958ad627010fbab&chksm=fa1a962fcd6d1f3954c3327d2b8457dbfd8432575f7bb2ec2d821de013e108d14e0608b24a95#rd",
+      "time": "19:04",
+      "timestamp": 1778151878,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "该不该“做空”百度？",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489522&idx=1&sn=757ea04ecf04055110435296f1eeba09&chksm=fe58f556c92f7c40b0851f100afd34c70ad93f5d7feb7e1ce0761b2bf8fe3adceff70909f494#rd",
+      "time": "08:55",
+      "timestamp": 1778115317,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：不可忽视的“美元便利”周期 | 漫长的周期系列（三）",
+      "digest": "本篇报告是“漫长的周期”系列第三篇，此前两篇研究货币政策如何超常规、中国利率底部在哪，本篇聚焦“美元便利”周期。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835350&idx=1&sn=82526eca557e7489eb2f53505da08537&chksm=eadd3811ddaab107779fb491e6c07f7bd17388c217a5cc34de149f6979d5fcb657c7da616bef#rd",
+      "time": "07:30",
+      "timestamp": 1778110254,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 零售新语#1：社区生鲜，难而正确的大生意",
+      "digest": "生鲜作为居民一日三餐的核心，不仅是竞争激烈的流量入口级品类，其背后更承载着三十年来中国零售行业商业模式创新迭代的缩影。纵观行业发展时间轴，横跨国内海外市场，连锁化、近场化都是生鲜零售演进的大势所趋。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835350&idx=2&sn=d25b03e3c8c36af51ff1b0c2b68bd62a&chksm=eadd3811ddaab1074985a73b13339345862bfdb3bc3c43295b1f19ae26adfde74c3c5fa8e148#rd",
+      "time": "07:30",
+      "timestamp": 1778110254,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 化妆品行业专题之七：海外美妆龙头缘何反攻",
+      "digest": "2025年以来，海外美妆龙头中国区表现持续修复，打破国货过去两年份额提升势头，市场普遍关心外资品牌缘何“卷土重来”？是短期反弹还是趋势性反攻？国内市场竞争格局后续又该如何展望？我们将在本文集中探讨。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835350&idx=3&sn=831c4c39466af0f12be8a398f240a009&chksm=eadd3811ddaab1075ce315d431b640032b25b20cd6c729f680eb293bf84bc85adeca3f297728#rd",
+      "time": "07:30",
+      "timestamp": 1778110254,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [
     {
       "title": "Estimating the expected output of wide random MLPs more efficiently than sampling",

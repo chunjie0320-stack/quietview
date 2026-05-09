@@ -1,6 +1,6 @@
 {
   "date": "20260502",
-  "generated_at": "2026-05-02T22:07:48.558194",
+  "generated_at": "2026-05-09T10:12:32.233434",
   "news": [
     {
       "time": "19:01",
@@ -483,7 +483,48 @@
       "link": "https://www.cls.cn/detail/2362021"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "阿里和腾讯，当下谁的逻辑更顺",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486867&idx=1&sn=6fcfa81faf711624f749ab10a165e9cc&chksm=c331ebc0f44662d6c9affefc4abae411da423516faa77f20e75fa4b9d7e08da113516fc36a09#rd",
+      "time": "19:41",
+      "timestamp": 1777722088,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "劳动节不劳动，简单聊聊需求",
+      "digest": "分享一篇文章：",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489512&idx=1&sn=b465a8bfdf5c151659d40c6bf86b4099&chksm=fe58f54cc92f7c5a0c796592ba84842ce2687505dbe7ce29d54ad31c3f89f23725948e89dd8b#rd",
+      "time": "10:05",
+      "timestamp": 1777687525,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "五一投研不打烊 | 中金点睛5大投研Skill正式上线",
+      "digest": "7×24长效陪伴，五一尽享随心投研",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834972&idx=1&sn=071f47fb59a0d9bce12c57731bf49a40&chksm=eadd3b9bddaab28de8208b1c553d6fdac6dfe3b350fc86d5cb3503a5e5cb48e0a9fbddb7b948#rd",
+      "time": "08:24",
+      "timestamp": 1777681443,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "诚邀体验 | 中金点睛数字化投研平台",
+      "digest": "即刻体验，解锁数智投研",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247834972&idx=2&sn=fe45bcdf1262bb54b24ed68ed60f3950&chksm=eadd3b9bddaab28d14337e93e7b9ed13d76b99124be16aa28167ec438380f913da1a946cefdb#rd",
+      "time": "08:24",
+      "timestamp": 1777681443,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [],
   "miao_notice": [
     {

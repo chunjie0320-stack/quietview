@@ -1,6 +1,6 @@
 {
   "date": "20260503",
-  "generated_at": "2026-05-04T03:01:47.689657",
+  "generated_at": "2026-05-09T10:12:49.088869",
   "news": [
     {
       "time": "19:15",
@@ -483,7 +483,18 @@
       "link": "https://www.cls.cn/detail/2362205"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "Anthropic毛利率已超70%，AI价值链开始向下游迁移",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486879&idx=1&sn=6c234081e1fbc9609a9f868a6d767cc6&chksm=c331ebccf44662da1e812189c61a6ad9580237160e52e09b78940e76892ea43c634210e48638#rd",
+      "time": "17:07",
+      "timestamp": 1777799257,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    }
+  ],
   "ai_voice": [
     {
       "title": "这套题，GPT-5.5、Opus 4.7加起来没考到「1分」，人类却拿了满分100？",

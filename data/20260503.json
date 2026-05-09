@@ -1,6 +1,6 @@
 {
   "date": "20260503",
-  "generated_at": "2026-05-09T10:12:49.088869",
+  "generated_at": "2026-05-09T13:30:36.981822",
   "news": [
     {
       "time": "19:15",
@@ -484,6 +484,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "小镇见闻",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489514&idx=1&sn=181e8bb153b5c5fdba8c7d0b219308e7&chksm=fe58f54ec92f7c5880d8805b22beb55e87867c920a19401d80809d0ddf092992e28bb83bc944#rd",
+      "time": "10:13",
+      "timestamp": 1777774438,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "卓哥投研笔记",
       "title": "Anthropic毛利率已超70%，AI价值链开始向下游迁移",

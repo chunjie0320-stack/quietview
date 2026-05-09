@@ -1,6 +1,6 @@
 {
   "date": "20260508",
-  "generated_at": "2026-05-09T10:13:50.327365",
+  "generated_at": "2026-05-09T13:36:40.546051",
   "news": [
     {
       "time": "21:38",
@@ -483,7 +483,58 @@
       "link": "https://www.cls.cn/detail/2365377"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "破案！快手涨的还是可灵ARR",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486923&idx=1&sn=3cad67dcd7849f37faf4ec134455c55e&chksm=c331eb98f446628e079433ae86f5de476b33ed6e3fba864a32848291ed39fa95cfa964a5a76a#rd",
+      "time": "17:29",
+      "timestamp": 1778232599,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "财躺平",
+      "title": "最近涨的头晕目眩！",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488433&idx=1&sn=35b99a8b1aa311dbc839ff58ca255352&chksm=fa1a9634cd6d1f227c75b6958e09651632157483fe31f89c520bbe1a8bc08f02947073d3ae3a#rd",
+      "time": "16:13",
+      "timestamp": 1778228005,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "为什么很多厉害的企业家做投资会失败？",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489524&idx=1&sn=ea189cd2dc1f05ef614a3e0e1865d2dc&chksm=fe58f550c92f7c463d6e52479b97cf75afa148bd56c14272c8186f242d10a5d185870e0a993c#rd",
+      "time": "10:24",
+      "timestamp": 1778207070,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 资产配置手册：全球资产100年",
+      "digest": "本文深度分析过去100年16个国家20种资产的投资机会与风险来源，打破市场流行认知误区，揭示全球资产运行的底层逻辑。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835616&idx=1&sn=cc07c0050d1076dd5effd1ff3eb4070a&chksm=eadd3927ddaab031fc596565fc00c39d9a0e127d75f34557d8ad27376e43a5177e9c08ed26ee#rd",
+      "time": "07:39",
+      "timestamp": 1778197167,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 赛道型与画线派：二级债基投资启示录",
+      "digest": "二级债基行业格局通览；画线派与赛道型二级债基优选思路",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835616&idx=2&sn=fe4ece7527faa4f828c75780a4341e60&chksm=eadd3927ddaab031cde532f90694fb38b86159414f1aed5e6c6cd73673b840670f741324e86b#rd",
+      "time": "07:39",
+      "timestamp": 1778197167,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [
     {
       "title": "AI Co-Mathematician: Accelerating Mathematicians with Agentic AI",

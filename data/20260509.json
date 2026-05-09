@@ -1,9 +1,45 @@
 {
   "date": "20260509",
-  "generated_at": "2026-05-09T08:00:18.570825",
+  "generated_at": "2026-05-09T08:01:55.599578",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "UniPool: A Globally Shared Expert Pool for Mixture-of-Experts",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06665"
+    },
+    {
+      "title": "Verifier-Backed Hard Problem Generation for Mathematical Reasoning",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06660"
+    },
+    {
+      "title": "Why Global LLM Leaderboards Are Misleading: Small Portfolios for Heterogeneous Supervised ML",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06656"
+    },
+    {
+      "title": "Optimizer-Model Consistency: Full Finetuning with the Same Optimizer as Pretraining Forgets Less",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06654"
+    },
+    {
+      "title": "When No Benchmark Exists: Validating Comparative LLM Safety Scoring Without Ground-Truth Labels",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06652"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

@@ -1,6 +1,6 @@
 {
   "date": "20260505",
-  "generated_at": "2026-05-09T10:13:13.809471",
+  "generated_at": "2026-05-09T13:33:05.908981",
   "news": [
     {
       "time": "21:29",
@@ -483,7 +483,28 @@
       "link": "https://www.cls.cn/detail/2362723"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "阿里估值是世界级难题",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486899&idx=1&sn=1df2c53c5f5f852e952e4158766fe299&chksm=c331ebe0f44662f6c56d463b4fc26e834cfebabc4e1fbcbf78958ad04d7219beefa607504f36#rd",
+      "time": "23:21",
+      "timestamp": 1777994512,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "非共识往往来自于对公司更本质的理解",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489518&idx=1&sn=b34c796b92314ea409cbde240bb05a20&chksm=fe58f54ac92f7c5c6b2b657994edc73d33311c199dd8fde8f4d27a7146981dc1c81eaa11c87c#rd",
+      "time": "10:30",
+      "timestamp": 1777948206,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "ai_voice": [
     {
       "title": "Standing on the Shoulders of Giants: Stabilized Knowledge Distillation for Cross--Language Code Clone Detection",

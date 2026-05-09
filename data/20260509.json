@@ -1,6 +1,6 @@
 {
   "date": "20260509",
-  "generated_at": "2026-05-09T12:02:11.933487",
+  "generated_at": "2026-05-09T12:04:51.235282",
   "news": [
     {
       "time": "04:57",
@@ -136,6 +136,55 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "波士顿动力和谷歌DeepMind为机器人带来具身AI推理",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "OpenAI翁家翌：梯度之外，下一个AI训练范式有着落了？",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "曝DeepSeek融资500亿元：梁文锋自掏四成，估值飙至3500亿",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "VLA的PyTorch时刻已至！港科大联手社区开源StarVLA：一个框架揭秘所有主流VLA",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "百度发布文心 5.1：搜索能力登顶国内，预训练成本仅为业界 6%",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "WWW 2026｜让MoE路由拥有「记忆」：RMS-MoE用检索记忆协同实现更高效专家调度",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "上智院联合复旦等开源 BARD-VL：多模态Diffusion模型新SOTA",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
     {
       "title": "UniPool: A Globally Shared Expert Pool for Mixture-of-Experts",
       "body": "",

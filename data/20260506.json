@@ -1,6 +1,6 @@
 {
   "date": "20260506",
-  "generated_at": "2026-05-09T10:13:26.292955",
+  "generated_at": "2026-05-09T13:34:17.770229",
   "news": [
     {
       "time": "21:35",
@@ -483,7 +483,78 @@
       "link": "https://www.cls.cn/detail/2363235"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "美团过得还好吗",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486904&idx=1&sn=80642224cd7ef46aef9a062455ba4f11&chksm=c331ebebf44662fd44e0d8d18491865ee4463e949ede64f30f32e14815c988d3bb029a1959b0#rd",
+      "time": "23:03",
+      "timestamp": 1778079829,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "财躺平",
+      "title": "赶紧别玩了！",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488418&idx=1&sn=437834095b61edf7c954f2e7fbec6e9b&chksm=fa1a9627cd6d1f316f5047ed91e33b15d7298bb5d57c3ee3322cb9e20cf2b7aaf7ee61970043#rd",
+      "time": "15:32",
+      "timestamp": 1778052731,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "强品牌是非你不可",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489520&idx=1&sn=b1969c702a126491a884bc27f5d70aee&chksm=fe58f554c92f7c42e87baee32830847e3f64284a640237b40e3500c25907e1762c760b9a63b3#rd",
+      "time": "09:02",
+      "timestamp": 1778029343,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：一文看懂五一假期数据",
+      "digest": "本文将从零售、旅游酒店及餐饮、传媒互联网行业角度对五一假期数据进行解读。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835325&idx=1&sn=0adf871c69fb11b6972d0e2117140535&chksm=eadd387addaab16cf02e85b4c4e1d5b476ad232ef2aa8f883a81a4ae279931e46f2b329906a5#rd",
+      "time": "07:34",
+      "timestamp": 1778024098,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：五一假期，市场关注哪些热点？",
+      "digest": "综合内外部环境，我们认为A股市场在节后有望延续小长假之前的震荡上行态势，中期看，924以来的稳进行情仍在继续，建议聚焦景气主线与周期改善机遇。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835325&idx=2&sn=7b603e98d3928ec797892f58167834f2&chksm=eadd387addaab16c0218a4c15046adce4f2438ecb6ae30faefee8796ada5b3d9559a0385b3ca#rd",
+      "time": "07:34",
+      "timestamp": 1778024098,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 5月行业配置：预期与验证的分岔口",
+      "digest": "我们认为成长行情的决定因素在于高景气的产业趋势和盈利兑现，其重要性往往超出宏观、估值、资金等其它因素。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835325&idx=3&sn=b82edc0f05593f6e6107cb946d131b7d&chksm=eadd387addaab16c355e060ec7153e987c7df6e3740ad66ec6987ae93628059c5271157d5722#rd",
+      "time": "07:34",
+      "timestamp": 1778024098,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 • 全球研究 | 印尼宏观市场在重构中的核心叙事",
+      "digest": "我们认为印尼经济仍具备一定的韧性，主要得益于高煤炭能源自给率（可考虑征收出口税以保障国内供应）和丰富的生物燃料资源（作为全球最大棕榈油生产国，正提前推动B50生物柴油政策落地以减少柴油进口）。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247835325&idx=4&sn=616257b03ebc2870e74bfa6915b639bb&chksm=eadd387addaab16c78a85a98bd0bd7b7b9f334b13729405815a9edb0dd9865be360a01cfd055#rd",
+      "time": "07:34",
+      "timestamp": 1778024098,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
   "ai_voice": [
     {
       "title": "OpenSeeker-v2: Pushing the Limits of Search Agents with Informative and High-Difficulty Trajectories",

@@ -1,6 +1,6 @@
 {
   "date": "20260509",
-  "generated_at": "2026-05-09T18:01:38.684348",
+  "generated_at": "2026-05-09T18:03:10.853455",
   "news": [
     {
       "time": "10:44",
@@ -256,6 +256,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "AI Co-Mathematician: Accelerating Mathematicians with Agentic AI",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06651"
+    },
+    {
+      "title": "GlazyBench: A Benchmark for Ceramic Glaze Property Prediction and Image Generation",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06641"
+    },
+    {
+      "title": "Can RL Teach Long-Horizon Reasoning to LLMs? Expressiveness Is Key",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06638"
+    },
+    {
+      "title": "MASPO: Joint Prompt Optimization for LLM-based Multi-Agent Systems",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06623"
+    },
+    {
+      "title": "SkillOS: Learning Skill Curation for Self-Evolving Agents",
+      "body": "",
+      "time": "2026/05/09",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06614"
+    },
     {
       "title": "波士顿动力和谷歌DeepMind为机器人带来具身AI推理",
       "body": "",

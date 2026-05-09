@@ -1,6 +1,6 @@
 {
   "date": "20260509",
-  "generated_at": "2026-05-09T18:16:23.533424",
+  "generated_at": "2026-05-09T22:00:24.008659",
   "news": [
     {
       "time": "16:21",
@@ -364,6 +364,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "阿里云如何兑现吴妈画的饼（20%利润率）",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486928&idx=1&sn=3189680411d4fa226859bc2d2c2e8750&chksm=c331eb83f4466295a7c500f559e0bca4067d72947d8eef1de125f5158cb5f5dc9fa219b62bf0#rd",
+      "time": "18:19",
+      "timestamp": 1778321978,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
     {
       "source": "方伟看十年",
       "title": "绝大多数AI公司都不容易看明白，比如ARM",

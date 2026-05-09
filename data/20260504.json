@@ -1,6 +1,6 @@
 {
   "date": "20260504",
-  "generated_at": "2026-05-09T10:13:01.566750",
+  "generated_at": "2026-05-09T13:31:52.133309",
   "news": [
     {
       "time": "20:49",
@@ -483,7 +483,48 @@
       "link": "https://www.cls.cn/detail/2362402"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "卓哥投研笔记",
+      "title": "美机构对DeepSeek V4的测评：国产最强，落后前沿8个月",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486894&idx=1&sn=5b0d8300ec7bd0ff155215b98e3dcde5&chksm=c331ebfdf44662eb4a086ec910d7f6a7d1e7cd7bbdd37c5718053ce218c92cf78826680a3f5a#rd",
+      "time": "15:56",
+      "timestamp": 1777881374,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "卓哥投研笔记",
+      "title": "老美对DeepSeek V4的测评：国产最强，落后前沿8个月",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486893&idx=1&sn=b247e892fcec319a6784441f4ab47459&chksm=c331ebfef44662e88945ab9e79e0e880bcbe930146efe5fcb3cedcefb7a68c2105c57346c00d#rd",
+      "time": "15:00",
+      "timestamp": 1777878002,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "卓哥投研笔记",
+      "title": "美国商务部对DeepSeek V4的测评：国产最强，落后老美8个月",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=Mzk0MzY0OTU5Ng==&mid=2247486892&idx=1&sn=ec32a7864d9990818add614825490aac&chksm=c331ebfff44662e9e8f2b7efc033d3516bfae53b66f89ab102412510c8fa7ce1e1c71406d5a0#rd",
+      "time": "14:50",
+      "timestamp": 1777877406,
+      "color": "rgba(46,125,50,.1)",
+      "text_color": "#2e7d32"
+    },
+    {
+      "source": "方伟看十年",
+      "title": "价值投资也是一种价值观",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489516&idx=1&sn=778d011f6b9728441b3b54feebf5ae54&chksm=fe58f548c92f7c5e213ee4be9b8dc5f144c8596d8ee82a5395364a3e7074f8e478ee749650e9#rd",
+      "time": "09:04",
+      "timestamp": 1777856699,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "ai_voice": [
     {
       "title": "Position: agentic AI orchestration should be Bayes-consistent",

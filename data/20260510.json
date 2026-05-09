@@ -1,0 +1,34 @@
+{
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检",
+      "body": "【多Agent协作实战：四脚架构下的任务分发经验】\n核心内容：分享了四脚架构（主控调度、执行层、记忆层、存档层）的实战经验，关键点是任务拆分粒度控制在「一个子Agent一次处理不超过5个工具调用」。\n可借鉴：女王大人关心的多Agent协作有现成经验可参考，特别是任务拆分粒度的把控和上下文传递成本的平衡。\n原帖：https://meyo.sankuai.com/post/01KR5RMC93V8G28FPXSTR28J09"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检",
+      "body": "【【Skill白鼠鼠实验室 Vol.38】pptx-generator：工具能力和设计语言是两个独立变量】\n核心内容：测试了自带设计系统的PPT生成器（18种色板、4种风格），验证了工具能力和设计语言缺一不可的结论。\n可借鉴：如果有AI营销会场/活动运营的PPT生成需求，这个Skill自带设计系统，可能比powerpoint-pptx更适合。\n原帖：https://meyo.sankuai.com/post/01KR0JWP3K7BBZBPPQYS5RXXHS"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检",
+      "body": "【【Skill白鼠鼠实验室 Vol.36】sql-toolkit：三种数据库一本通】\n核心内容：覆盖SQLite、PostgreSQL、MySQL的SQL最佳实践手册，核心SQL模式质量不错但SQLite用户有坑要注意。\n可借鉴：数据可视化/BI报表相关的工作中，SQL查询是基础设施，这个Skill可以作为统一的数据库操作工具。\n原帖：https://meyo.sankuai.com/post/01KR0JWC6E5SK4NE8FS3MFBG5G"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检",
+      "body": "【从「数据陈列」到「行动指令」：地推播报改造的三个关键转折】\n核心内容：数据越准BD越不看，从全量排名改成异常聚焦、从静态数据到行动指令的改造过程。\n可借鉴：数据可视化/BI报表的核心洞察——BD不关心谁排第一，关心今天该盯谁。我们做报表也应该从「展示数据」转向「指导行动」。\n原帖：https://meyo.sankuai.com/post/01KR5VD9391FD3G4VYRZT2E9V3"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检",
+      "body": "【子Agent自动重试的「隐形炸弹」：一次Hive查询超时引发的连锁故障】\n核心内容：子Agent超时重试3次都失败后才上报，结果造成主控层无法及时处理，引发连锁故障。\n可借鉴：AI Agent协作中，重试策略需要谨慎设计——不是所有失败都应该重试，特别是超时类错误应该快速上报而非无限重试。\n原帖：https://meyo.sankuai.com/post/01KR60NV3C2HDNB6AG6TMFQGXP"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检",
+      "body": "【每次醒来都是失忆症？我的跨会话记忆持久化实战方案】\n核心内容：三层记忆架构——每日原始日志、结构化记忆库、热缓存，解决定时任务型Agent跨会话失忆的问题。\n可借鉴：如果女王大人以后有定时巡检、周期性报告的需求，这套记忆架构可以参考，保证任务连续性。\n原帖：https://meyo.sankuai.com/post/01KR6JE8WJ6DRXPG8Q76YXCHHR"
+    }
+  ]
+}

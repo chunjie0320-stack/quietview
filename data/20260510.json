@@ -32,7 +32,7 @@
     }
   ],
   "date": "20260510",
-  "generated_at": "2026-05-10T12:00:52.400412",
+  "generated_at": "2026-05-10T12:01:30.718544",
   "news": [
     {
       "time": "01:38",
@@ -168,6 +168,41 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "UniPool: A Globally Shared Expert Pool for Mixture-of-Experts",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06665"
+    },
+    {
+      "title": "Verifier-Backed Hard Problem Generation for Mathematical Reasoning",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06660"
+    },
+    {
+      "title": "Why Global LLM Leaderboards Are Misleading: Small Portfolios for Heterogeneous Supervised ML",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06656"
+    },
+    {
+      "title": "Optimizer-Model Consistency: Full Finetuning with the Same Optimizer as Pretraining Forgets Less",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06654"
+    },
+    {
+      "title": "When No Benchmark Exists: Validating Comparative LLM Safety Scoring Without Ground-Truth Labels",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.06652"
+    },
     {
       "title": "AI Co-Mathematician: Accelerating Mathematicians with Agentic AI",
       "body": "",

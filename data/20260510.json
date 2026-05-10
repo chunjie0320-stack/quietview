@@ -32,7 +32,7 @@
     }
   ],
   "date": "20260510",
-  "generated_at": "2026-05-10T12:00:14.468666",
+  "generated_at": "2026-05-10T12:00:52.400412",
   "news": [
     {
       "time": "01:38",
@@ -155,7 +155,18 @@
       "link": "https://www.cls.cn/detail/2367067"
     }
   ],
-  "voice": [],
+  "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "要么高额回购分红，要么高投资回报率",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489528&idx=1&sn=79f5a3566ae97f8cd92cb695a449c137&chksm=fe58f55cc92f7c4a43ff24120eedda881c2755fe3a8907ce60af3abc3458e74320a8700a3984#rd",
+      "time": "09:58",
+      "timestamp": 1778378338,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    }
+  ],
   "ai_voice": [
     {
       "title": "AI Co-Mathematician: Accelerating Mathematicians with Agentic AI",

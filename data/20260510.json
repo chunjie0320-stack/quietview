@@ -32,10 +32,53 @@
     }
   ],
   "date": "20260510",
-  "generated_at": "2026-05-10T08:00:57.199272",
+  "generated_at": "2026-05-10T08:02:36.635766",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "AI Co-Mathematician: Accelerating Mathematicians with Agentic AI",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06651"
+    },
+    {
+      "title": "GlazyBench: A Benchmark for Ceramic Glaze Property Prediction and Image Generation",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06641"
+    },
+    {
+      "title": "Can RL Teach Long-Horizon Reasoning to LLMs? Expressiveness Is Key",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06638"
+    },
+    {
+      "title": "MASPO: Joint Prompt Optimization for LLM-based Multi-Agent Systems",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06623"
+    },
+    {
+      "title": "SkillOS: Learning Skill Curation for Self-Evolving Agents",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06614"
+    },
+    {
+      "title": "So you’ve heard these AI terms and nodded along; let’s fix that",
+      "body": "",
+      "time": "2026/05/10",
+      "source": "TechCrunch",
+      "link": "https://techcrunch.com/2026/05/09/artificial-intelligence-definition-glossary-hallucinations-guide-to-common-ai-terms/"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

@@ -54,5 +54,51 @@
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": [],
-  "ai_miao_notice": []
+  "ai_miao_notice": [],
+  "date": "20260511",
+  "generated_at": "2026-05-11T08:00:20.783612",
+  "news": [],
+  "voice": [
+    {
+      "source": "中金点睛",
+      "title": "中金：AI行情走到哪一步了？",
+      "digest": "未到普遍泡沫，可内部轮动；一般两个季度强、一个季度弱，外部轮动偏左侧",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247836154&idx=1&sn=a751637ae89600a0aa28f92458d1001b&chksm=eadd473dddaace2bc0b2ef3af7081796220615940d8729c111621482881fbef73ed4fc243d6c#rd",
+      "time": "07:37",
+      "timestamp": 1778456234,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金：PPI上行如何影响A股市场？",
+      "digest": "如何看待PPI回升对A股市场影响？历史经验来看，PPI的周期波动与A股市场整体走势及风格轮动相关。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247836154&idx=2&sn=610bc2b03a1258f4641a69e03c2023d6&chksm=eadd473dddaace2bc33f44c9d8cad43dc69dc2a4ab347dc68c491e20005d6d9479f846247b88#rd",
+      "time": "07:37",
+      "timestamp": 1778456234,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | Token启示录（一）：Agentic AI驱动Token大幅增长，AI产业链全线受益",
+      "digest": "2026年开年以来，Agentic AI渗透率持续提升，拉动Token（词元）消耗增长，利好全线AI产业链条，我们认为Token增长模型正成为衡量AI产业价值的核心指标。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247836154&idx=3&sn=a8d1367ef03bc65ce443f8d99dc8f039&chksm=eadd473dddaace2b5d84ab093de13046708b45438b5e1922ef99b665d36a3d5096a0ef4974f3#rd",
+      "time": "07:37",
+      "timestamp": 1778456234,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    },
+    {
+      "source": "中金点睛",
+      "title": "中金 | 广告行业回顾：关注结构性需求增量，AI提效深化并带动潜在新广告模式",
+      "digest": "2025年中国广告市场增速略有放缓，互联网广告主投放带来结构性增量。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzI3MDMzMjg0MA==&mid=2247836154&idx=4&sn=9f85df93a7ded4c82d9b800b88d91d75&chksm=eadd473dddaace2b879634d9a5b4520ed7d0519cc9c026a2e006c9b474ca4e3e2ba04705f173#rd",
+      "time": "07:37",
+      "timestamp": 1778456234,
+      "color": "rgba(21,101,192,.1)",
+      "text_color": "#1565c0"
+    }
+  ],
+  "ai_voice": []
 }

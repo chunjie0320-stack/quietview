@@ -70,7 +70,7 @@
     }
   ],
   "date": "20260511",
-  "generated_at": "2026-05-11T12:02:24.233575",
+  "generated_at": "2026-05-11T12:02:45.855549",
   "news": [
     {
       "time": "06:54",
@@ -246,6 +246,76 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "VecCISC: Improving Confidence-Informed Self-Consistency with Reasoning Trace Clustering and Candidate Answer Selection",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08070"
+    },
+    {
+      "title": "Rubric-Grounded RL: Structured Judge Rewards for Generalizable Reasoning",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08061"
+    },
+    {
+      "title": "MPD$^2$-Router: Mask-aware Multi-expert Prior-regularized Dual-head Deferral Router in Glaucoma Screening and Diagnosis",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08024"
+    },
+    {
+      "title": "Reason to Play: Behavioral and Brain Alignment Between Frontier LRMs and Human Game Learners",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08019"
+    },
+    {
+      "title": "Learning CLI Agents with Structured Action Credit under Selective Observation",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08013"
+    },
+    {
+      "title": "Zero-Shot Imagined Speech Decoding via Imagined-to-Listened MEG Mapping",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08075"
+    },
+    {
+      "title": "GRAPHLCP: Structure-Aware Localized Conformal Prediction on Graphs",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08074"
+    },
+    {
+      "title": "Reinforcement Learning for Exponential Utility: Algorithms and Convergence in Discounted MDPs",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08053"
+    },
+    {
+      "title": "Beyond Pairs: Your Language Model is Secretly Optimizing a Preference Graph",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08037"
+    },
+    {
+      "title": "Don't Get Your Kroneckers in a Twist: Gaussian Processes on High-Dimensional Incomplete Grids",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08036"
+    },
     {
       "title": "具身智能来时路：谷歌RT1、2，SayCan作者Ted Xiao复盘机器人学习三大时代",
       "body": "",

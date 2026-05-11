@@ -56,7 +56,7 @@
   "miao_thoughts": [],
   "ai_miao_notice": [],
   "date": "20260511",
-  "generated_at": "2026-05-11T08:00:20.783612",
+  "generated_at": "2026-05-11T08:01:14.690047",
   "news": [],
   "voice": [
     {
@@ -100,5 +100,83 @@
       "text_color": "#1565c0"
     }
   ],
-  "ai_voice": []
+  "ai_voice": [
+    {
+      "title": "具身智能来时路：谷歌RT1、2，SayCan作者Ted Xiao复盘机器人学习三大时代",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "图灵奖得主Sutton新作：用一个1967年的公式，解决流式强化学习一大缺陷",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "告别Prompt抽卡和评分通胀：一个让AI游戏真正「机制化迭代」的框架",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "菲尔兹奖得主用AI解出博士级数学题，然后他开始为博士生们发愁了",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "别再把长文切碎了，HiLight让AI直接在原文里划重点",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "业界首个视觉世界模型综述：迈向更高智能的视觉范式",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "AI Co-Mathematician: Accelerating Mathematicians with Agentic AI",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06651"
+    },
+    {
+      "title": "GlazyBench: A Benchmark for Ceramic Glaze Property Prediction and Image Generation",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06641"
+    },
+    {
+      "title": "Can RL Teach Long-Horizon Reasoning to LLMs? Expressiveness Is Key",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06638"
+    },
+    {
+      "title": "MASPO: Joint Prompt Optimization for LLM-based Multi-Agent Systems",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06623"
+    },
+    {
+      "title": "SkillOS: Learning Skill Curation for Self-Evolving Agents",
+      "body": "",
+      "time": "2026/05/11",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.06614"
+    }
+  ]
 }

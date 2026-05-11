@@ -86,7 +86,7 @@
     }
   ],
   "date": "20260511",
-  "generated_at": "2026-05-11T18:16:24.163061",
+  "generated_at": "2026-05-11T22:00:19.024557",
   "news": [
     {
       "time": "17:27",
@@ -450,6 +450,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "当时的嘲讽声好大",
+      "digest": "再讲一遍",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488443&idx=1&sn=c816617b0d9e57a11f40cfabdd99fb4d&chksm=fa1a963ecd6d1f28b60dd20c3d5c149ac66446973c8c5971bd772b2be839030cd4cb91609fef#rd",
+      "time": "18:35",
+      "timestamp": 1778495705,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "价值投资会让你知道对错",

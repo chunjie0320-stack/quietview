@@ -70,7 +70,7 @@
     }
   ],
   "date": "20260511",
-  "generated_at": "2026-05-11T12:00:44.925071",
+  "generated_at": "2026-05-11T12:02:24.233575",
   "news": [
     {
       "time": "06:54",
@@ -194,6 +194,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "价值投资会让你知道对错",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489530&idx=1&sn=3de9bcca97339fa1a398b7369af23c11&chksm=fe58f55ec92f7c48efe1c5978f6ec9bf1cb4b058ffd1c185308835474c369db12223f35cd45d#rd",
+      "time": "09:03",
+      "timestamp": 1778461431,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "中金点睛",
       "title": "中金：AI行情走到哪一步了？",

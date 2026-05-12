@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260512",
-  "generated_at": "2026-05-12T12:01:06.291258",
+  "generated_at": "2026-05-12T12:01:31.069704",
   "news": [
     {
       "time": "06:58",
@@ -131,6 +131,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "方伟看十年",
+      "title": "顶级科技公司应该要像顶级消费品",
+      "digest": "分享一篇文章。",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzU5NzAzMDg1OQ==&mid=2247489532&idx=1&sn=ac1b439c107eb3f83967e477d0a0b081&chksm=fe58f558c92f7c4e332cac7b69d51e93f22694f093e80cf62ab62916dca691f1b6752423c743#rd",
+      "time": "08:28",
+      "timestamp": 1778545738,
+      "color": "rgba(106,27,154,.1)",
+      "text_color": "#6a1b9a"
+    },
     {
       "source": "中金点睛",
       "title": "中金：AI不是泡沫，就业也无大忧 ——可以两全吗",

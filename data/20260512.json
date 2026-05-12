@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260512",
-  "generated_at": "2026-05-12T08:00:16.614531",
+  "generated_at": "2026-05-12T08:00:36.658485",
   "news": [],
   "voice": [
     {
@@ -41,7 +41,141 @@
       "text_color": "#1565c0"
     }
   ],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "鹿明机器人完成数亿元A1及A2轮融资，产业巨头深度参与，累计融资近10亿元",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "打不过AI就加入？他辍学MIT，要把人类意识装进芯片，创造「数字生命」",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Siggraph 26 | 视频版Vision-Banana来了？大一统框架UniVidX刷新多项视频任务SOTA",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Suno不再是唯一答案，企业开始选择这个国产AI音乐",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026｜拒绝大力出奇迹，PRISM框架让dLLM也能高效Test-Time Scaling",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "AI4S 引领材料革新｜5月张江AI创新小镇，邀您共赴这场 AI for Materials 闭门之约",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "这样问DeepSeek，能「偷」到数据？",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 | 别卷推理了！当前大模型 STEM 短板在于「视觉感知」，代码才是破局关键",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "腾讯6篇论文被ICDE 2026录用 ，聚焦数据库系统多项底层难题",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "VecCISC: Improving Confidence-Informed Self-Consistency with Reasoning Trace Clustering and Candidate Answer Selection",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08070"
+    },
+    {
+      "title": "Rubric-Grounded RL: Structured Judge Rewards for Generalizable Reasoning",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08061"
+    },
+    {
+      "title": "MPD$^2$-Router: Mask-aware Multi-expert Prior-regularized Dual-head Deferral Router in Glaucoma Screening and Diagnosis",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08024"
+    },
+    {
+      "title": "Reason to Play: Behavioral and Brain Alignment Between Frontier LRMs and Human Game Learners",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08019"
+    },
+    {
+      "title": "Learning CLI Agents with Structured Action Credit under Selective Observation",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.08013"
+    },
+    {
+      "title": "Zero-Shot Imagined Speech Decoding via Imagined-to-Listened MEG Mapping",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08075"
+    },
+    {
+      "title": "GRAPHLCP: Structure-Aware Localized Conformal Prediction on Graphs",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08074"
+    },
+    {
+      "title": "Reinforcement Learning for Exponential Utility: Algorithms and Convergence in Discounted MDPs",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08053"
+    },
+    {
+      "title": "Beyond Pairs: Your Language Model is Secretly Optimizing a Preference Graph",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08037"
+    },
+    {
+      "title": "Don't Get Your Kroneckers in a Twist: Gaussian Processes on High-Dimensional Incomplete Grids",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.08036"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

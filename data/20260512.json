@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260512",
-  "generated_at": "2026-05-12T12:01:31.069704",
+  "generated_at": "2026-05-12T12:01:51.214074",
   "news": [
     {
       "time": "06:58",
@@ -173,6 +173,76 @@
     }
   ],
   "ai_voice": [
+    {
+      "title": "Shepherd: A Runtime Substrate Empowering Meta-Agents with a Formalized Execution Trace",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10913"
+    },
+    {
+      "title": "Remember the Decision, Not the Description: A Rate-Distortion Framework for Agent Memory",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10870"
+    },
+    {
+      "title": "BenchCAD: A Comprehensive, Industry-Standard Benchmark for Programmatic CAD",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10865"
+    },
+    {
+      "title": "The Generalized Turing Test: A Foundation for Comparing Intelligence",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10851"
+    },
+    {
+      "title": "From Controlled to the Wild: Evaluation of Pentesting Agents for the Real-World",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10834"
+    },
+    {
+      "title": "Variational Inference for Lévy Process-Driven SDEs via Neural Tilting",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10934"
+    },
+    {
+      "title": "DECO: Sparse Mixture-of-Experts with Dense-Comparable Performance on End-Side Devices",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10933"
+    },
+    {
+      "title": "Dynamic Skill Lifecycle Management for Agentic Reinforcement Learning",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10923"
+    },
+    {
+      "title": "Optimal and Scalable MAPF via Multi-Marginal Optimal Transport and Schrödinger Bridges",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10917"
+    },
+    {
+      "title": "Revisiting Policy Gradients for Restricted Policy Classes: Escaping Myopic Local Optima with $k$-step Policy Gradients",
+      "body": "",
+      "time": "2026/05/12",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10909"
+    },
     {
       "title": "鹿明机器人完成数亿元A1及A2轮融资，产业巨头深度参与，累计融资近10亿元",
       "body": "",

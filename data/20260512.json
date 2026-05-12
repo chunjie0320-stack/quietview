@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260512",
-  "generated_at": "2026-05-12T14:00:51.555178",
+  "generated_at": "2026-05-12T18:00:44.307063",
   "news": [
     {
       "time": "11:01",
@@ -251,6 +251,16 @@
     }
   ],
   "voice": [
+    {
+      "source": "财躺平",
+      "title": "又来降温？",
+      "digest": "",
+      "link": "http://mp.weixin.qq.com/s?__biz=MzUyNTU4NzY5MA==&mid=2247488452&idx=1&sn=74874c45291971b49d9a77f30accbfba&chksm=fa1a9641cd6d1f573eb22f40cad990f693a09dadf284d031799517d70547cba8b68b45a2f45a#rd",
+      "time": "16:38",
+      "timestamp": 1778575133,
+      "color": "rgba(224,123,57,.12)",
+      "text_color": "#e07b39"
+    },
     {
       "source": "方伟看十年",
       "title": "顶级科技公司应该要像顶级消费品",

@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260513",
-  "generated_at": "2026-05-13T12:01:15.278705",
+  "generated_at": "2026-05-13T12:01:35.118684",
   "news": [
     {
       "time": "06:50",
@@ -132,6 +132,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "ToolCUA: Towards Optimal GUI-Tool Path Orchestration for Computer Use Agents",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12481"
+    },
+    {
+      "title": "Reward Hacking in Rubric-Based Reinforcement Learning",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12474"
+    },
+    {
+      "title": "Towards Affordable Energy: A Gymnasium Environment for Electric Utility Demand-Response Programs",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12462"
+    },
+    {
+      "title": "CAAFC: Chronological Actionable Automated Fact-Checker for misinformation / non-factual hallucination detection and correction",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12436"
+    },
+    {
+      "title": "Formalize, Don't Optimize: The Heuristic Trap in LLM-Generated Combinatorial Solvers",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12421"
+    },
+    {
+      "title": "Pion: A Spectrum-Preserving Optimizer via Orthogonal Equivalence Transformation",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12492"
+    },
+    {
+      "title": "Learning, Fast and Slow: Towards LLMs That Adapt Continually",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12484"
+    },
+    {
+      "title": "Beyond GRPO and On-Policy Distillation: An Empirical Sparse-to-Dense Reward Principle for Language-Model Post-Training",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12483"
+    },
+    {
+      "title": "MEME: Multi-entity & Evolving Memory Evaluation",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12477"
+    },
+    {
+      "title": "Routers Learn the Geometry of Their Experts: Geometric Coupling in Sparse Mixture-of-Experts",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12476"
+    },
     {
       "title": "OpenAI 前 CTO 的创业模型首秀，与面壁智能「撞车」了",
       "body": "",

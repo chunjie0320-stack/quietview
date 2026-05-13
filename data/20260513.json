@@ -7,10 +7,151 @@
     }
   ],
   "date": "20260513",
-  "generated_at": "2026-05-13T08:00:11.068721",
+  "generated_at": "2026-05-13T08:00:30.015489",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "OpenAI 前 CTO 的创业模型首秀，与面壁智能「撞车」了",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "光轮智能与谷歌、英伟达共同定义物理AI仿真标准",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "宇树造了款民用高达！390万元起",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "告别云端依赖！字节开源新作DreamLite让手机秒变 AI 画板",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "当蛋白质AI开始「黑箱化」：下一代生物模型该如何被真正理解与控制",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Auto Research最后一块拼图，Frontier-Eng Bench登场，在工程闭环里死磕最优",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，Thinking Machines出手！首款交互模型来了，翁荔出镜实测",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "支付宝“AI付”发布新能力，支持淘宝AI购物实现“AI代买”",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "一个框架，重塑具身研发流程：Dexbotic走向具身PyTorch",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICLR 2026 Oral｜大模型总爱「想太多」？ DECS从源头消除冗余思考，实现推理token减半且性能不降反升",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Shepherd: A Runtime Substrate Empowering Meta-Agents with a Formalized Execution Trace",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10913"
+    },
+    {
+      "title": "Remember the Decision, Not the Description: A Rate-Distortion Framework for Agent Memory",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10870"
+    },
+    {
+      "title": "BenchCAD: A Comprehensive, Industry-Standard Benchmark for Programmatic CAD",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10865"
+    },
+    {
+      "title": "The Generalized Turing Test: A Foundation for Comparing Intelligence",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10851"
+    },
+    {
+      "title": "From Controlled to the Wild: Evaluation of Pentesting Agents for the Real-World",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.10834"
+    },
+    {
+      "title": "Variational Inference for Lévy Process-Driven SDEs via Neural Tilting",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10934"
+    },
+    {
+      "title": "DECO: Sparse Mixture-of-Experts with Dense-Comparable Performance on End-Side Devices",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10933"
+    },
+    {
+      "title": "Dynamic Skill Lifecycle Management for Agentic Reinforcement Learning",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10923"
+    },
+    {
+      "title": "Optimal and Scalable MAPF via Multi-Marginal Optimal Transport and Schrödinger Bridges",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10917"
+    },
+    {
+      "title": "Revisiting Policy Gradients for Restricted Policy Classes: Escaping Myopic Local Optima with $k$-step Policy Gradients",
+      "body": "",
+      "time": "2026/05/13",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.10909"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

@@ -7,10 +7,151 @@
     }
   ],
   "date": "20260514",
-  "generated_at": "2026-05-14T08:00:11.249980",
+  "generated_at": "2026-05-14T08:00:30.676912",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "8岁小孩哥「聊出」操作系统，一部手机、几句话，原生App直接生成",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026 | 将多教师冲突转化为动态约束，破解多模态大模型推理对齐难题",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "突发！林俊旸被曝创业：新AI Lab估值20亿美元",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "0成本升级，快手OneSearch-V2全量上线，生成式搜索进入「懂你」时代",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Science子刊｜港理工、新南威尔士大学等提出可逆分子指纹，AI反向设计二维钙钛矿有机分子",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "150条示教数据即可适配新机器人，蚂蚁灵波开源LingBot-VLA后训练代码",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "高德与千问C端应用团队开源AGenUI：首个覆盖iOS、安卓、鸿蒙三端的原生A2UI框架",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "联发科天玑AI生态爆发：龙虾进手机，将实现主机级光影",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "一张4090就能爆改！面壁智能MiniCPM-V 4.6开源，1B多模态卷出新高度",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 Highlight｜让家电「在仿真中运转起来」，北大正式发布RealAppliance！",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ToolCUA: Towards Optimal GUI-Tool Path Orchestration for Computer Use Agents",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12481"
+    },
+    {
+      "title": "Reward Hacking in Rubric-Based Reinforcement Learning",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12474"
+    },
+    {
+      "title": "Towards Affordable Energy: A Gymnasium Environment for Electric Utility Demand-Response Programs",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12462"
+    },
+    {
+      "title": "CAAFC: Chronological Actionable Automated Fact-Checker for misinformation / non-factual hallucination detection and correction",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12436"
+    },
+    {
+      "title": "Formalize, Don't Optimize: The Heuristic Trap in LLM-Generated Combinatorial Solvers",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.12421"
+    },
+    {
+      "title": "Pion: A Spectrum-Preserving Optimizer via Orthogonal Equivalence Transformation",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12492"
+    },
+    {
+      "title": "Learning, Fast and Slow: Towards LLMs That Adapt Continually",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12484"
+    },
+    {
+      "title": "Beyond GRPO and On-Policy Distillation: An Empirical Sparse-to-Dense Reward Principle for Language-Model Post-Training",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12483"
+    },
+    {
+      "title": "MEME: Multi-entity & Evolving Memory Evaluation",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12477"
+    },
+    {
+      "title": "Routers Learn the Geometry of Their Experts: Geometric Coupling in Sparse Mixture-of-Experts",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.12476"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

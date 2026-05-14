@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260514",
-  "generated_at": "2026-05-14T12:01:39.732440",
+  "generated_at": "2026-05-14T12:02:07.791443",
   "news": [
     {
       "time": "06:45",
@@ -132,6 +132,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Quantifying Sensitivity for Tree Ensembles: A symbolic and compositional approach",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.13830"
+    },
+    {
+      "title": "History Anchors: How Prior Behavior Steers LLM Decisions Toward Unsafe Actions",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.13825"
+    },
+    {
+      "title": "Harnessing Agentic Evolution",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.13821"
+    },
+    {
+      "title": "Senses Wide Shut: A Representation-Action Gap in Omnimodal LLMs",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.13737"
+    },
+    {
+      "title": "ScioMind: Cognitively Grounded Multi-Agent Social Simulation with Anchoring-Based Belief Dynamics and Dynamic Profiles",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.13725"
+    },
+    {
+      "title": "Topology-Preserving Neural Operator Learning via Hodge Decomposition",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.13834"
+    },
+    {
+      "title": "QLAM: A Quantum Long-Attention Memory Approach to Long-Sequence Token Modeling",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.13833"
+    },
+    {
+      "title": "Reducing cross-sample prediction churn in scientific machine learning",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.13826"
+    },
+    {
+      "title": "Uncertainty-Driven Anomaly Detection for Psychotic Relapse Using Smartwatches: Forecasting and Multi-Task Learning Fusion",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.13816"
+    },
+    {
+      "title": "Provable Quantization with Randomized Hadamard Transform",
+      "body": "",
+      "time": "2026/05/14",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.13810"
+    },
     {
       "title": "8岁小孩哥「聊出」操作系统，一部手机、几句话，原生App直接生成",
       "body": "",

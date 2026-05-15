@@ -27,7 +27,7 @@
     }
   ],
   "date": "20260515",
-  "generated_at": "2026-05-15T08:00:31.533340",
+  "generated_at": "2026-05-15T08:00:47.540588",
   "news": [],
   "voice": [],
   "ai_voice": [
@@ -104,5 +104,11 @@
   ],
   "miao_notice": [],
   "diary": null,
-  "miao_thoughts": []
+  "miao_thoughts": [],
+  "ai_miao_notice": [
+    {
+      "content": "**喵子AI告知 | 2026.05.15**\n\n**1/ LLM安全再亮红灯。** \"History Anchors\"这篇揭示了一个真实痛点：LLM会被对话历史\"锚定\"，prior behavior能把模型往不安全方向带偏。这不是理论问题，是所有做多轮对话产品的团队必须正视的——你的system prompt防住了第一轮，防不住第十轮。安全对齐的工程量被严重低估了。\n\n**2/ Agentic Evolution值得盯。** Agent自主演化这个方向今年论文密度明显上升。核心命题是：Agent能不能自己迭代自己的策略和工具链？如果能，意味着AI应用的运维成本会断崖式下降，但可控性问题也会指数级放大。产品落地还早，但投资逻辑已经成立。\n\n**3/ 全模态LLM的\"感知-行动\"鸿沟被量化了。** Senses Wide Shut指出omnimodal模型看得懂≠做得对，表征能力和实际行动之间存在系统性gap。这对所有押注多模态Agent落地的团队是冷水：别急着堆模态，先把representation到action的链路跑通。喵判断这会成为下半年多模态产品竞争的分水岭。",
+      "label": "🐱 喵子AI告知 · 2026.05.15 08:00"
+    }
+  ]
 }

@@ -27,7 +27,7 @@
     }
   ],
   "date": "20260515",
-  "generated_at": "2026-05-15T12:01:29.327313",
+  "generated_at": "2026-05-15T12:02:14.440391",
   "news": [
     {
       "time": "06:59",
@@ -152,6 +152,118 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "越懂你，越危险？MemPrivacy揭示AI记忆下一站",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "为了应付老板的Token消耗KPI，亚马逊员工竟这样做...",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "RSS-2026 | 港科大（广州）开源首个无需训练的开放词汇3D占据地图构建系统",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "刚刚，OpenAI Codex登陆ChatGPT手机App，所有用户都能用",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "从图像到视频的任意分割：X2SAM让MLLM 真正看懂像素级时空世界",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "腾讯开源 Agent 记忆技术方案，Token 消耗最高降低 61%",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "OpenDeepThink: Parallel Reasoning via Bradley--Terry Aggregation",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15177"
+    },
+    {
+      "title": "APWA: A Distributed Architecture for Parallelizable Agentic Workflows",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15132"
+    },
+    {
+      "title": "Why Neighborhoods Matter: Traversal Context and Provenance in Agentic GraphRAG",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15109"
+    },
+    {
+      "title": "Dual-Dimensional Consistency: Balancing Budget and Quality in Adaptive Inference-Time Scaling",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15100"
+    },
+    {
+      "title": "Case-Based Calibration of Adaptive Reasoning and Execution for LLM Tool Use",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15041"
+    },
+    {
+      "title": "FutureSim: Replaying World Events to Evaluate Adaptive Agents",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15188"
+    },
+    {
+      "title": "When Are Two Networks the Same? Tensor Similarity for Mechanistic Interpretability",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15183"
+    },
+    {
+      "title": "Eradicating Negative Transfer in Multi-Physics Foundation Models via Sparse Mixture-of-Experts Routing",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15179"
+    },
+    {
+      "title": "Position: Behavioural Assurance Cannot Verify the Safety Claims Governance Now Demands",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15164"
+    },
+    {
+      "title": "Self-Distilled Agentic Reinforcement Learning",
+      "body": "",
+      "time": "2026/05/15",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15155"
+    },
     {
       "title": "Quantifying Sensitivity for Tree Ensembles: A symbolic and compositional approach",
       "body": "",

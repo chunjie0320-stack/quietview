@@ -7,10 +7,151 @@
     }
   ],
   "date": "20260516",
-  "generated_at": "2026-05-16T08:00:12.573352",
+  "generated_at": "2026-05-16T08:00:34.126349",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "50.98万元开售：具身智能旗舰SUV理想L9 Livis来了",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "吴恩达炮轰「AI就业末日论」：贩卖失业焦虑，其实就是一门生意",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "从智能体到赛博员工，生产力智能涌现",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "百灵开源旗舰推理模型 Ring-2.6-1T，“双档”推理强度可按需切换",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "成立一年，从行业非共识到舞台中心，自主具身大模型跑出中国速度",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "让锂离子走得更均匀！复旦团队提出面向固态聚合物电解质新设计",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "突发｜arXiv严惩「用AI不核查」行为，违者拉黑一年，连坐所有作者",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "D-OPSD: 将OPSD引入扩散模型，让少步扩散模型「边跑边学」，还能学会新概念",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "越懂你，越危险？MemPrivacy揭示AI记忆下一站",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "为了应付老板的Token消耗KPI，亚马逊员工竟这样做...",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "OpenDeepThink: Parallel Reasoning via Bradley--Terry Aggregation",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15177"
+    },
+    {
+      "title": "APWA: A Distributed Architecture for Parallelizable Agentic Workflows",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15132"
+    },
+    {
+      "title": "Why Neighborhoods Matter: Traversal Context and Provenance in Agentic GraphRAG",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15109"
+    },
+    {
+      "title": "Dual-Dimensional Consistency: Balancing Budget and Quality in Adaptive Inference-Time Scaling",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15100"
+    },
+    {
+      "title": "Case-Based Calibration of Adaptive Reasoning and Execution for LLM Tool Use",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15041"
+    },
+    {
+      "title": "FutureSim: Replaying World Events to Evaluate Adaptive Agents",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15188"
+    },
+    {
+      "title": "When Are Two Networks the Same? Tensor Similarity for Mechanistic Interpretability",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15183"
+    },
+    {
+      "title": "Eradicating Negative Transfer in Multi-Physics Foundation Models via Sparse Mixture-of-Experts Routing",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15179"
+    },
+    {
+      "title": "Position: Behavioural Assurance Cannot Verify the Safety Claims Governance Now Demands",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15164"
+    },
+    {
+      "title": "Self-Distilled Agentic Reinforcement Learning",
+      "body": "",
+      "time": "2026/05/16",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.15155"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

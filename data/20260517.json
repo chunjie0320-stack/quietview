@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260517",
-  "generated_at": "2026-05-17T12:00:35.970780",
+  "generated_at": "2026-05-17T12:01:00.062054",
   "news": [
     {
       "time": "00:39",
@@ -124,6 +124,48 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "CASCADE：让Agent在部署任务流中进行在线经验学习",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "这一次，不比炫技，比谁更能「干活」",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Anthropic又整活，卡片大小的电脑也跑上Claude Code了",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "机器人为什么需要世界模型？世界顶尖机构联合综述震撼发布",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "「具身大一统」不是口号：北京人形再度登顶WorldArena，拿下双冠王",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026 | 告别「利用率崩溃」：GIPO开启大模型强化学习高效训练新方法",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
     {
       "title": "OpenDeepThink: Parallel Reasoning via Bradley--Terry Aggregation",
       "body": "",

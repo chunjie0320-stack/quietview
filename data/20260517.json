@@ -7,10 +7,46 @@
     }
   ],
   "date": "20260517",
-  "generated_at": "2026-05-17T08:00:12.016407",
+  "generated_at": "2026-05-17T08:00:33.349691",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "OpenDeepThink: Parallel Reasoning via Bradley--Terry Aggregation",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15177"
+    },
+    {
+      "title": "APWA: A Distributed Architecture for Parallelizable Agentic Workflows",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15132"
+    },
+    {
+      "title": "Why Neighborhoods Matter: Traversal Context and Provenance in Agentic GraphRAG",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15109"
+    },
+    {
+      "title": "Dual-Dimensional Consistency: Balancing Budget and Quality in Adaptive Inference-Time Scaling",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15100"
+    },
+    {
+      "title": "Case-Based Calibration of Adaptive Reasoning and Execution for LLM Tool Use",
+      "body": "",
+      "time": "2026/05/17",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15041"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

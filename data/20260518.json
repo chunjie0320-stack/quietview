@@ -32,10 +32,116 @@
     }
   ],
   "date": "20260518",
-  "generated_at": "2026-05-18T08:00:11.657167",
+  "generated_at": "2026-05-18T08:00:29.208595",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "大语言模型为什么能像人一样说话和思考？",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 Oral | 清华+阿里发布ViT³：解锁「视觉TTT」新架构，突破Transformer复杂度瓶颈",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "一个月狂烧130万美元！龙虾之父自曝token账单，费用OpenAI全包",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "「世界模型」究竟是什么？一文看懂其前世今生与百亿赌局",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "花了1000倍的token，效果可能却没有更好：AI Agent的“隐性账单”长什么样",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CASCADE：让Agent在部署任务流中进行在线经验学习",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "这一次，不比炫技，比谁更能「干活」",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Anthropic又整活，卡片大小的电脑也跑上Claude Code了",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "机器人为什么需要世界模型？世界顶尖机构联合综述震撼发布",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "「具身大一统」不是口号：北京人形再度登顶WorldArena，拿下双冠王",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "OpenDeepThink: Parallel Reasoning via Bradley--Terry Aggregation",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15177"
+    },
+    {
+      "title": "APWA: A Distributed Architecture for Parallelizable Agentic Workflows",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15132"
+    },
+    {
+      "title": "Why Neighborhoods Matter: Traversal Context and Provenance in Agentic GraphRAG",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15109"
+    },
+    {
+      "title": "Dual-Dimensional Consistency: Balancing Budget and Quality in Adaptive Inference-Time Scaling",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15100"
+    },
+    {
+      "title": "Case-Based Calibration of Adaptive Reasoning and Execution for LLM Tool Use",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.15041"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

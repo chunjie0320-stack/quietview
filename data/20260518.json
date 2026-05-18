@@ -32,7 +32,7 @@
     }
   ],
   "date": "20260518",
-  "generated_at": "2026-05-18T12:01:25.227933",
+  "generated_at": "2026-05-18T12:01:51.667519",
   "news": [
     {
       "time": "06:29",
@@ -157,6 +157,41 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "Prospective multi-pathogen disease forecasting using autonomous LLM-guided tree search",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16238"
+    },
+    {
+      "title": "FORGE: Self-Evolving Agent Memory With No Weight Updates via Population Broadcast",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16233"
+    },
+    {
+      "title": "Fully Open Meditron: An Auditable Pipeline for Clinical LLMs",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16215"
+    },
+    {
+      "title": "Confirming Correct, Missing the Rest: LLM Tutoring Agents Struggle Where Feedback Matters Most",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16207"
+    },
+    {
+      "title": "Context, Reasoning, and Hierarchy: A Cost-Performance Study of Compound LLM Agent Design in an Adversarial POMDP",
+      "body": "",
+      "time": "2026/05/18",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16205"
+    },
     {
       "title": "大语言模型为什么能像人一样说话和思考？",
       "body": "",

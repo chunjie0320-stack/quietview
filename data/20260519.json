@@ -1,9 +1,115 @@
 {
   "date": "20260519",
-  "generated_at": "2026-05-19T08:00:17.792689",
+  "generated_at": "2026-05-19T08:00:38.102557",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "王云鹤眼中的Harness：复杂优化问题，AGI灵魂争夺之战",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026 | 只用少量Thinking Tokens，大模型依然能深度思考",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "断崖第一！深度机智Z-WM再夺WorldArena冠军",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026 ｜让大模型边想边说：这篇文章把「何时开口」变成可学习策略",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "瞄准空间智能核心资源：如祺出行发布AI数据版图，以高价值场景数据切入世界模型训练",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "从「差一点」的肽出发：ApexGO把抗生素优化变成一条可闭环推进的生成式路线，成功率可达85%",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "豆包上线博物馆讲解模式，官方合作覆盖超20家头部博物馆",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "消费级具身智能跨越式新品：算力提升1000倍，对标英伟达Jetson Thor芯片，成本仅1/10！",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "「虾马」之后，openJiuwen社区发布JiuwenSwarm，引领蜂群智能体新架构，开启「养蜂」时代",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026 | 华为GTS提出AI训练数据新方法，Amazon/Google作者团队「光速跟进」：难度自适应训练正在成为新范式",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Prospective multi-pathogen disease forecasting using autonomous LLM-guided tree search",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16238"
+    },
+    {
+      "title": "FORGE: Self-Evolving Agent Memory With No Weight Updates via Population Broadcast",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16233"
+    },
+    {
+      "title": "Fully Open Meditron: An Auditable Pipeline for Clinical LLMs",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16215"
+    },
+    {
+      "title": "Confirming Correct, Missing the Rest: LLM Tutoring Agents Struggle Where Feedback Matters Most",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16207"
+    },
+    {
+      "title": "Context, Reasoning, and Hierarchy: A Cost-Performance Study of Compound LLM Agent Design in an Adversarial POMDP",
+      "body": "",
+      "time": "2026/05/19",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.16205"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

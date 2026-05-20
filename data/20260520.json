@@ -7,10 +7,151 @@
     }
   ],
   "date": "20260520",
-  "generated_at": "2026-05-20T08:00:12.862826",
+  "generated_at": "2026-05-20T08:00:37.803588",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "AMD AI开发者大会首次在中国举行：打造开放共赢生态，携手共育创新人才",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "HyperEyes：从「搜得更深」到「搜得更宽」，并行多模态搜索智能体的效率革命",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "[TPAMI2026] 华中科技大学新成果MuSc-V2：多模态零样本工业缺陷检测新技术，让机器学会“互评”找缺陷，颠覆工业质检！",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "华为软挑赛以实战淬炼AI人才，促进青年开发者成长",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "DeepMind华人研究员Lun Wang离职，「评估」成制约模型能力飞跃的瓶颈",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "10万token自然语言推理，让30B-A3B模型站上奥赛金牌线",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "从卖token到卖结果，这些公司开始让AI背KPI了",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "LLM近期重大架构进化一览：从Gemma 4到DeepSeek V4",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026 | 突破3DGS光度多义性瓶颈：北航/新国立提出AmbiSuR，重塑高保真3D几何重建",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "清华大学发布ProteinOPD：面向蛋白质设计的高效多目标偏好对齐框架",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Actionable World Representation",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.18743"
+    },
+    {
+      "title": "What Does the AI Doctor Value? Auditing Pluralism in the Clinical Ethics of Language Models",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.18738"
+    },
+    {
+      "title": "SkillGenBench: Benchmarking Skill Generation Pipelines for LLM Agents",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.18693"
+    },
+    {
+      "title": "Democratizing Large-Scale Re-Optimization with LLM-Guided Model Patches",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.18692"
+    },
+    {
+      "title": "Learning Quantifiable Visual Explanations Without Ground-Truth",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.18681"
+    },
+    {
+      "title": "General Preference Reinforcement Learning",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.18721"
+    },
+    {
+      "title": "Distilling Tabular Foundation Models for Structured Health Data",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.18702"
+    },
+    {
+      "title": "Learning Normal Representations for Blood Biomarkers",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.18701"
+    },
+    {
+      "title": "Ensembling Tabular Foundation Models - A Diversity Ceiling And A Calibration Trap",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.18696"
+    },
+    {
+      "title": "COOPO: Cyclic Offline-Online Policy Optimization Algorithm",
+      "body": "",
+      "time": "2026/05/20",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.18675"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

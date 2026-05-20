@@ -2585,8 +2585,12 @@ renderNav('invest');
         var main = document.getElementById('main');
         if (main) main.insertBefore(panel, main.firstChild);
       }
-      // 重新渲染导航
+      // 重新渲染导航并切到今天
       renderNav('invest');
+      showPanel('panel-daily-brief-' + dateStr);
+    } else {
+      // 今天已存在于静态NAV_DATA，确保默认选中今天
+      showPanel('panel-daily-brief-' + dateStr);
     }
   })();
 

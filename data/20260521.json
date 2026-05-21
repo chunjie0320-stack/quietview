@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260521",
-  "generated_at": "2026-05-21T12:01:39.370858",
+  "generated_at": "2026-05-21T12:02:01.182857",
   "news": [
     {
       "time": "07:05",
@@ -132,6 +132,76 @@
   ],
   "voice": [],
   "ai_voice": [
+    {
+      "title": "DeepWeb-Bench: A Deep Research Benchmark Demanding Massive Cross-Source Evidence and Long-Horizon Derivation",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.21482"
+    },
+    {
+      "title": "AiraXiv: An AI-Driven Open-Access Platform for Human and AI Scientists",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.21481"
+    },
+    {
+      "title": "Mind the Sim-to-Real Gap & Think Like a Scientist",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.21458"
+    },
+    {
+      "title": "PALS: Power-Aware LLM Serving for Mixture-of-Experts Models",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.21427"
+    },
+    {
+      "title": "Teaching AI Through Benchmark Construction: QuestBench as a Course-Based Practice for Accountable Knowledge Work",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.21413"
+    },
+    {
+      "title": "Variance Reduction for Expectations with Diffusion Teachers",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.21489"
+    },
+    {
+      "title": "Equilibrium Reasoners: Learning Attractors Enables Scalable Reasoning",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.21488"
+    },
+    {
+      "title": "Quantifying Hyperparameter Transfer and the Importance of Embedding Layer Learning Rate",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.21486"
+    },
+    {
+      "title": "EvoStruct: Bridging Evolutionary and Structural Priors for Antibody CDR Design via Protein Language Model Adaptation",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.21485"
+    },
+    {
+      "title": "Is Fixing Schema Graphs Necessary? Full-Resolution Graph Structure Learning for Relational Deep Learning",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.21475"
+    },
     {
       "title": "AI硬件迈入Agent时代：未来智能发布viaim讯飞智能体耳机",
       "body": "",

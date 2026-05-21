@@ -7,10 +7,151 @@
     }
   ],
   "date": "20260521",
-  "generated_at": "2026-05-21T08:00:13.163998",
+  "generated_at": "2026-05-21T08:00:41.269335",
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "AI硬件迈入Agent时代：未来智能发布viaim讯飞智能体耳机",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "全球排名前三，复旦自进化Harness Engineering让GPT‑5.4再涨7个点",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "长三角破局：技术跑进无人区，产业链如何跟上？",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "AMD Yes！苏姿丰现身上海，与李开复发布大模型算力",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "火山引擎携Seedance 2.0亮相戛纳，中国AI视频技术走向全球",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "2026 字节跳动奖学金启动！首次开放全球申请，奖励名额增加",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "520，遇见国产「新模王」Qwen3.7-Max！",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026｜表格异常检测能否告别「one-for-one」？OFA-TAD迈向one-for-all通用异常检测新范式",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Nature丨Google和FutureHouse同日登刊，把AI科学助理推到科研前线",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "趋境科技完成数亿元 Pre-A 轮融资，加速建设高品质 AI Token 生产基础设施",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "A Methodology for Selecting and Composing Runtime Architecture Patterns for Production LLM Agents",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.20173"
+    },
+    {
+      "title": "HaorFloodAlert: Deseasonalized ML Ensemble for 72-Hour Flood Prediction in Bangladesh Haor Wetlands",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.20167"
+    },
+    {
+      "title": "Not Every Rubric Teaches Equally: Policy-Aware Rubric Rewards for RLVR",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.20164"
+    },
+    {
+      "title": "Using Aristotle API for AI-Assisted Theorem Proving in Lean 4: A Formalisation Case Study of the Grasshopper Problem",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.20120"
+    },
+    {
+      "title": "Neurosymbolic Learning for Inference-Time Argumentation",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.20098"
+    },
+    {
+      "title": "Atoms of Thought: Universal EEG Representation Learning with Microstates",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.20182"
+    },
+    {
+      "title": "SAGE: Scalable Automatic Gating Ensemble for Confident Negative Harvesting in Fraud Detection",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.20157"
+    },
+    {
+      "title": "When Does Model Collapse Occur in Structured Interactive Learning?",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.20151"
+    },
+    {
+      "title": "TrajTok: Adaptive Spatial Tokenization for Trajectory Representation Learning",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.20134"
+    },
+    {
+      "title": "Toto 2.0: Time Series Forecasting Enters the Scaling Era",
+      "body": "",
+      "time": "2026/05/21",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.20119"
+    }
+  ],
   "miao_notice": [],
   "diary": null,
   "miao_thoughts": []

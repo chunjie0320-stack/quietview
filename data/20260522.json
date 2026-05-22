@@ -7,7 +7,7 @@
     }
   ],
   "date": "20260522",
-  "generated_at": "2026-05-22T18:00:52.898410",
+  "generated_at": "2026-05-22T18:02:19.173133",
   "news": [
     {
       "time": "11:14",
@@ -251,7 +251,127 @@
     }
   ],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "CVPR 2026，来北京，听论文作者拆解真技术",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "首个三模式大语言模型：4倍token吞吐量，长文本秒级时代要来了？",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "ICML 2026｜智能体的下半场：为什么「答对」已经不够了？",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "Meta华人发布ATLAS，一个词搞定可泛化的视觉推理！",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "人形机器人的「指尖心脏」：这个团队用898天完成空心杯电机国产突围",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "CVPR 2026 | 突破短视，理解变化！HiF-VLA：以motion为中心打造「边想边做」的世界动作模型",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com"
+    },
+    {
+      "title": "MOSS: Self-Evolution through Source-Level Rewriting in Autonomous Agent Systems",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22794"
+    },
+    {
+      "title": "Gated DeltaNet-2: Decoupling Erase and Write in Linear Attention",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22791"
+    },
+    {
+      "title": "LCGuard: Latent Communication Guard for Safe KV Sharing in Multi-Agent Systems",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22786"
+    },
+    {
+      "title": "Deep Reinforcement Learning for Flexible Job Shop Scheduling with Random Job Arrivals",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22773"
+    },
+    {
+      "title": "Advancing Mathematics Research with AI-Driven Formal Proof Search",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22763"
+    },
+    {
+      "title": "Integrable Elasticity via Neural Demand Potentials",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.22820"
+    },
+    {
+      "title": "Vector Policy Optimization: Training for Diversity Improves Test-Time Search",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.22817"
+    },
+    {
+      "title": "Remember to be Curious: Episodic Context and Persistent Worlds for 3D Exploration",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.22814"
+    },
+    {
+      "title": "The Matching Principle: A Geometric Theory of Loss Functions for Nuisance-Robust Representation Learning",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.22800"
+    },
+    {
+      "title": "SDPM: Survival Diffusion Probabilistic Model for Continuous-Time Survival Analysis",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "arxiv cs.LG",
+      "link": "https://arxiv.org/abs/2605.22776"
+    },
+    {
+      "title": "How Elon Musk will increase his power through the SpaceX IPO",
+      "body": "",
+      "time": "2026/05/22",
+      "source": "TechCrunch",
+      "link": "https://techcrunch.com/2026/05/21/how-elon-musk-will-increase-his-power-through-the-spacex-ipo/"
+    }
+  ],
   "miao_notice": [
     {
       "content": "**喵子告知**\n\n今天信号很明确：AI主线继续强化。港股智谱涨20%+、Minimax涨10%+，华为发布AI DC全栈方案，链博会首设AI专区拉英伟达站台，叠加佐治亚理工抗辐射NAND突破——从应用到基础设施到硬件，整条链都在加速。PCB板块全线走强（宝鼎科技12天7板）本质也是AI算力基建的映射。\n\n第二条线是资源品。铝板块异动背后是花旗\"库存将降至历史新低\"的判断，中国铝业直接去几内亚建120万吨氧化铝产能，说明龙头已经在为长期紧缺下注。布伦特原油重回104美元也在印证大宗回暖逻辑。锂电扩产潮重启则意味着产业链底部信号已被头部玩家确认。\n\n喵子判断：当前市场缩量（半日1.78万亿，缩3200亿）但结构清晰，资金在AI+资源两条确定性最高的线上抱团。别追高轮动票，盯住有真实产能/订单落地的标的比什么都强。",

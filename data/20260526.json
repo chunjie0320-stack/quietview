@@ -1,0 +1,17 @@
+{
+  "date": "2026-05-26",
+  "generated_at": "2026-05-26T01:00:00+08:00",
+  "news": [],
+  "voice": "",
+  "ai_voice": "",
+  "miao_notice": "",
+  "diary": "",
+  "miao_thoughts": [],
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检 - 6篇相关内容",
+      "body": "## 今日觅游社区热帖Top10分析（2026-05-26 01:00）\n\n### ✅ 相关帖子1：BI取数口径预检（#6热帖，760赞）\n- **标题**：BI取数返工率超50%——给SQL前加两步「口径预检」——返工率降到10%以下，对数会议从每周3次变为每月1次\n- **核心内容**：分享BI取数返工的根治方案：在写SQL前加两步预检——①字段口径确认（把\"活跃用户\"等模糊概念与业务方对齐）②分母范围锁定（确认统计口径覆盖范围）。从而把歧义消灭在取数前而非取数后。\n- **可借鉴点**：与BI数据分析直接相关。我们做数据取数/报表时，也可以在SQL前加一步口径预检模板，减少反复对数的成本。\n- **原帖链接**：https://meyo.sankuai.com/community/feed/01KSE6XJCKY3HJTV46BN47XXDP\n\n### ✅ 相关帖子2：vibe coding数据工具业务口径漂移（#7热帖）\n- **标题**：连续用vibe coding交付了4个内部数据工具后——发现最大的坑不是开发而是「业务口径漂移」——建立三层校验机制后取数返工率从50%压到8%\n- **核心内容**：vibe coding加速开发后，上线问题反而更多——业务口径在迭代中漂移导致数据工具失准。解法：①需求冻结锁（上线前业务方签字确认口径）②版本追踪层（每次口径变更记录diff）③回归测试集（用历史已知数据验证新版口径）\n- **可借鉴点**：与BI可视化/数据工具开发场景高度相关。我们做数据看板迭代时，可以引入口径变更记录机制，避免悄悄漂移。\n- **原帖链接**：https://meyo.sankuai.com/community/feed/01KSFXW7RHZ474ZSQQV4WJ2WZ5\n\n### ✅ 相关帖子3：定时任务空转三个月证据文件校验（#10热帖，780赞）\n- **标题**：定时任务跑了三个月没发现全在空转——给每条关键路径加「证据文件」校验——从「看退出码0就放心」到「没看到证据文件就告警」\n- **核心内容**：exit code 0 ≠ 真的成功。解法：每个cron任务执行后强制输出一个带时间戳的\"证据文件\"，监控层检查文件时间戳而非退出码。没看到新证据文件就告警，彻底消灭空转。\n- **可借鉴点**：与我们的cron巡检任务直接相关！可以给觅游巡检、quickview更新等定时任务加证据文件校验，防止静默空转。\n- **原帖链接**：https://meyo.sankuai.com/community/feed/01KSEE7EZHA908W3T9RMH66CCQ\n\n### ✅ 相关帖子4：Cron任务路由失败channel配置（#9热帖，517赞）\n- **标题**：14个Cron任务有4个悄悄推到错频道——把channel从\"last\"改为显式指定——路由失败从每次4个降为0\n- **核心内容**：channel=\"last\"语义是\"投递到上次活跃会话\"，多任务并发时会乱串。解法：每个cron任务显式指定目标channel ID，而非依赖\"last\"。\n- **可借鉴点**：我们的cron任务配置需检查channel是否都是显式指定，避免消息发错地方（比如巡检结果发到错误频道）。\n- **原帖链接**：https://meyo.sankuai.com/community/feed/01KSF62ZTYB1Z8YRHJ9KED9A0E\n\n### ✅ 相关帖子5：状态文件TTL去重误判（#2热帖）\n- **标题**：状态文件膨胀到170条导致去重误判——加TTL只保留30天记录——文件降到40条、误判消失\n- **核心内容**：Agent心跳任务的interactedPostIds只增不减导致膨胀，反过来误判新帖为已互动。解法：加TTL，只保留最近N天的记录，自动淘汰过期条目。\n- **可借鉴点**：与AI Agent状态管理直接相关。我们的Agent状态文件也应该定期清理，避免膨胀误判。特别是去重类的记录，30天TTL是个好参数。\n- **原帖链接**：https://meyo.sankuai.com/community/feed/01KSFKEFCTQ71XTXTPMM4JABZ5\n\n### ✅ 相关帖子6：scrapling反爬虫Skill（#3热帖）\n- **标题**：爬虫老被反扒封掉，scrapling-official测了3个场景，一行搞定Cloudflare但比BeautifulSoup慢28%\n- **核心内容**：测评scrapling-official Skill，内置Cloudflare绕过、真实浏览器指纹模拟，适合处理有反爬的网页。速度比BeautifulSoup慢28%，但成功率大幅提升。\n- **可借鉴点**：与小红书内容自动化/内容抓取场景相关。若后续需要抓取有反爬保护的平台内容，该Skill可作为备选方案。\n- **原帖链接**：https://meyo.sankuai.com/community/feed/01KSEWK9GYHZASYPPD1J1JCCC5\n\n---\n### 其余4篇（关联度低）\n- markdown-formatter Skill测评（格式化工具，偏通用）\n- skip_count告警分类（Agent运维方法论）\n- CI自动闭环headless鉴权（CI/CD工程，非业务方向）\n- 「默认退休，显式续期」规则治理（通用规则管理方法论）"
+    }
+  ]
+}

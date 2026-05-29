@@ -2533,6 +2533,18 @@ nav{padding:12px 0;flex:1}
 })();
 
 // ── 导航数据 ─────────────────────────────────────────
+// XSS 防护：全局 HTML 转义函数
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(str) {
+  if (!str) return '';
+  var s = String(str).trim();
+  if (!/^https?:\/\//i.test(s)) return '#';
+  return s.replace(/"/g,'&quot;');
+}
+
 var NAV_DATA = {
   invest: [
     {
@@ -2690,6 +2702,101 @@ function showPanel(panelId) {
     p.classList.remove('active');
   });
   var target = document.getElementById(panelId);
+  // 动态创建 panel（历史日期懒加载）
+  if (!target && panelId.indexOf('panel-daily-brief-') === 0) {
+    var dStr = panelId.replace('panel-daily-brief-', '');
+    var yr = dStr.substring(0,4);
+    var mo = dStr.substring(4,6);
+    var da = dStr.substring(6,8);
+    var panel = document.createElement('div');
+    panel.className = 'content-panel';
+    panel.id = panelId;
+    panel.innerHTML = [
+      '<div class="page-header">',
+      '  <h1>每日简报</h1>',
+      '  <div class="sub">' + yr + '.' + mo + '.' + da + ' · 行业资讯 &amp; 行业声音</div>',
+      '  <div class="page-header-divider"></div>',
+      '</div>',
+      '<div class="card">',
+      '  <div id="miao-notice-' + dStr + '" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">',
+      '    <span class="miao-bubble-label">🐱 喵子告知 · 加载中…</span>',
+      '    <span>数据加载中，请稍候…</span>',
+      '  </div>',
+      '  <div class="two-col">',
+      '    <div>',
+      '      <div class="col-title">行业资讯<span class="col-count-badge" id="news-count-' + dStr + '">· 0</span></div>',
+      '      <div class="timeline" id="timeline-news-' + dStr + '">',
+      '        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>',
+      '      </div>',
+      '    </div>',
+      '    <div class="two-col-divider"></div>',
+      '    <div>',
+      '      <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-' + dStr + '">· 0</span></div>',
+      '      <div class="timeline" id="timeline-voice-' + dStr + '">',
+      '        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>',
+      '      </div>',
+      '    </div>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+    var main = document.getElementById('main');
+    if (main) main.appendChild(panel);
+    target = panel;
+    // 加载该日数据
+    (function(ds) {
+      fetch('data/' + ds + '.json')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(data) {
+          if (!data) {
+            var notice = document.querySelector('#miao-notice-' + ds);
+            if (notice) notice.innerHTML = '<span style="color:#aaa">该日无数据</span>';
+            return;
+          }
+          // 渲染声音
+          var vc = document.querySelector('#timeline-voice-' + ds);
+          if (vc && data.voice) {
+            vc.innerHTML = data.voice.map(function(item) {
+              return '<div class="tl-item"><div class="tl-dot"></div>'
+                + '<div class="tl-time">' + escHtml(item.time) + '</div>'
+                + '<div class="tl-tag" style="background:' + escHtml(item.color||'') + ';color:' + escHtml(item.text_color||'') + ';">' + escHtml(item.source) + '</div>'
+                + '<div class="tl-title">' + escHtml(item.title) + '</div>'
+                + (item.digest ? '<div class="tl-body">' + escHtml(item.digest) + '</div>' : '')
+                + (item.link ? '<a class="tl-source" href="' + escAttr(item.link) + '" target="_blank">→ 阅读原文</a>' : '')
+                + '</div>';
+            }).join('');
+            var vb = document.querySelector('#voice-count-' + ds);
+            if (vb) vb.textContent = '· ' + data.voice.length;
+          }
+          // 渲染资讯
+          var nc = document.querySelector('#timeline-news-' + ds);
+          if (nc && data.news) {
+            nc.innerHTML = data.news.map(function(item) {
+              return '<div class="tl-item"><div class="tl-dot"></div>'
+                + '<div class="tl-time">' + escHtml(item.time) + '</div>'
+                + '<div class="tl-tag">' + escHtml(item.tag||item.source||'财联社') + '</div>'
+                + '<div class="tl-title">' + escHtml(item.title) + '</div>'
+                + (item.body ? '<div class="tl-body">' + escHtml(item.body) + '</div>' : '')
+                + (item.link ? '<a class="tl-source" href="' + escAttr(item.link) + '" target="_blank">→ ' + escHtml(item.source||'原文') + '</a>' : '')
+                + '</div>';
+            }).join('');
+            var nb = document.querySelector('#news-count-' + ds);
+            if (nb) nb.textContent = '· ' + data.news.length;
+          }
+          // 渲染喵子告知
+          var mn = document.querySelector('#miao-notice-' + ds);
+          if (mn && data.miao_notice) {
+            var notices = Array.isArray(data.miao_notice) ? data.miao_notice : [data.miao_notice];
+            mn.innerHTML = notices.map(function(item) {
+              return '<div class="miao-notice-item" style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.15);">'
+                + '<span class="miao-bubble-label">' + escHtml(item.label) + '</span>'
+                + '<div class="miao-notice-body">' + escHtml(item.content) + '</div>'
+                + '</div>';
+            }).join('');
+          }
+        })
+        .catch(function(e) { console.warn('数据加载失败: ' + ds, e); });
+    })(dStr);
+  }
   if (target) target.classList.add('active');
   renderNav(currentTab);
   // init charts if market board
@@ -2810,6 +2917,40 @@ renderNav('invest');
       showPanel('panel-daily-brief-' + dateStr);
     }
   })();
+
+  // fetch index.json 加载所有历史日期到左侧导航
+  fetch('data/index.json')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(indexData) {
+      if (!indexData || !indexData.dates) return;
+      var dailyBriefGroup = (NAV_DATA['invest'] || []).find(function(t) { return t.id === 'daily-brief'; });
+      if (!dailyBriefGroup) return;
+      var existingIds = {};
+      dailyBriefGroup.children.forEach(function(c) { existingIds[c.id] = true; });
+      // 按日期降序插入所有缺失的日期
+      indexData.dates.forEach(function(d) {
+        var entryId = 'daily-brief-' + d;
+        if (existingIds[entryId]) return;
+        var m = d.substring(4,6);
+        var day = d.substring(6,8);
+        var entry = {
+          id: entryId,
+          label: m + '月' + day + '日',
+          panel: 'panel-daily-brief-' + d
+        };
+        dailyBriefGroup.children.push(entry);
+        existingIds[entryId] = true;
+      });
+      // 按日期降序排列
+      dailyBriefGroup.children.sort(function(a, b) {
+        return b.id.localeCompare(a.id);
+      });
+      // 重新渲染导航
+      renderNav('invest');
+      // 确保今天选中
+      showPanel('panel-daily-brief-' + dateStr);
+    })
+    .catch(function(e) { console.warn('index.json 加载失败', e); });
 
   // fetch 今日数据 JSON
   fetch('data/' + dateStr + '.json')

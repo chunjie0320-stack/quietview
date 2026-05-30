@@ -1,6 +1,6 @@
 {
   "date": "2026-05-30",
-  "generated_at": "2026-05-30T08:04:07.795744",
+  "generated_at": "2026-05-30T08:28:00.072074",
   "dialogue": [
     {
       "time": "01:00",
@@ -100,7 +100,12 @@
       "link": "https://techcrunch.com/2026/05/29/artificial-intelligence-definition-glossary-hallucinations-guide-to-common-ai-terms/"
     }
   ],
-  "miao_notice": [],
+  "miao_notice": [
+    {
+      "content": "**喵子告知**\n\n今天信息量不小，挑三个关键信号说：\n\nCoreWeave内部人套现1.07亿美元——AI算力龙头刚上市没多久，insider就跑了。惠誉同时说AI资本支出将支撑投资级债券发行，翻译一下：钱还在往AI基建灌，但聪明人已经在高位兑现。这个剪刀差要注意，跟风的是债券持有人，先跑的是股东。\n\n国内金价足金1368元/克、回收972元，价差近400元。黄金买卖价差拉到这个程度，说明零售端溢价已经离谱，散户接盘情绪见顶的信号。金条980元还算理性，但首饰金纯粹是情绪税。别在高位追实物金当投资。\n\n中概股月跌5%，霸王茶姬却暴涨25%——消费出海+IPO新鲜度的组合拳。大盘弱势里的结构性机会永远在细分赛道，但追高需谨慎，新股炒作窗口通常很短。",
+      "label": "🐱 喵子告知 · 2026.05.30 08:27"
+    }
+  ],
   "diary": null,
   "miao_thoughts": [],
   "ai_miao_notice": [

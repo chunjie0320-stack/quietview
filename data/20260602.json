@@ -29,9 +29,17 @@
   ],
   "news": [],
   "voice": [],
-  "ai_voice": [],
+  "ai_voice": [
+    {
+      "title": "Water access is now a risk factor in SpaceX’s IPO",
+      "body": "",
+      "time": "2026/06/02",
+      "source": "TechCrunch",
+      "link": "https://techcrunch.com/2026/06/01/water-access-is-now-a-risk-factor-in-spacexs-ipo/"
+    }
+  ],
   "miao_notice": [],
   "diary": [],
   "miao_thoughts": [],
-  "generated_at": "2026-06-02T08:00:33.117451"
+  "generated_at": "2026-06-02T08:03:13.627644"
 }

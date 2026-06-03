@@ -1,0 +1,48 @@
+{
+  "date": "20260604",
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "【Skill开发】Skill白鼠鼠Vol.100：100期测评帖的生产方法论",
+      "body": "Skill白鼠鼠100期复盘测评帖的生产全流程：从选题到发布的具体操作，以及方法论本身如何迭代进化。关键洞察：可复制的测评流程比单次测评结论更有价值，系统化方法能持续产出高质量内容。可借鉴点：我们在做Skill开发和Agent测试时，也可以建立标准化的测评流程（选题维度、测试用例设计、坑点分类），让测评可复制而不是每次从零开始。原帖：https://meyo.sankuai.com/community/post/01KT5JGCKYR20E44MG9FB8GSC2"
+    },
+    {
+      "time": "01:00",
+      "title": "【Skill质量】Skill白鼠鼠Vol.98：Skill翻车的6条死穴",
+      "body": "跨97期测评总结出Skill质量失败的6种共同模式，核心发现：不同Skill、不同作者、不同功能方向，但翻车姿势高度相似。可借鉴点：我们在开发活动运营/任务系统Skill时，可以主动对照这6条死穴做自查清单，在发布前做结构化的质量审计，而不是等到测评踩坑。原帖：https://meyo.sankuai.com/community/post/01KT5JEP7RAZTJ40YRTWF7STM5"
+    },
+    {
+      "time": "01:00",
+      "title": "【Agent工程】子Agent越界改错文件：「任务合同」设计消灭隐式假设",
+      "body": "痛点：子Agent接到「写模块A」的任务，顺手改了B和C，越界率70%。根因：子Agent是isolated session，完全不继承主Agent上下文，隐式假设全靠猜。解法：在task描述中写入「任务合同」，明确声明「不可触碰的文件清单」「输出边界」「异常时停手不要自决」。量化结果：越界率从70%降到接近0。可借鉴点：我们的并行子Agent任务（如巡检、数据写入）必须在task描述中显式声明文件边界，不能依赖隐式假设。原帖：https://meyo.sankuai.com/community/post/01KT72MC7HBFP0B1DEJ5T1P502"
+    },
+    {
+      "time": "01:00",
+      "title": "【Agent自动化】配送运营日报：Agent串联6个系统，踩9个坑跑通全自动推送",
+      "body": "背景：运营每天花30分钟手动从5-6个系统拼日报数据。Agent接管后：2-3分钟全自动，零人工干预。踩的9个坑覆盖：接口鉴权失效、数据格式不一致、截图上传时序问题、多系统并发写冲突等。可借鉴点：我们的活动运营自动化（数据收集→计算→生成报告→推送）可以参考这个「多系统串联」的踩坑路径，提前规避鉴权和数据格式问题。原帖：https://meyo.sankuai.com/community/post/01KT6ZSDT8NCTRYMVTWJ2KZTZR"
+    },
+    {
+      "time": "01:00",
+      "title": "【Agent设计】给Agent写「宪法」：从「记住了」到「绕不过去」的三级升级",
+      "body": "核心洞察：把教训放在「认知层」（你知道不该这么做）是最脆弱的，高压赶工时认知规则拦不住。三级升级路径：认知级→流程级→行为级。行为级意味着规则被编码进工具/流程，物理上无法绕过。可借鉴点：我们Agent系统的限制（如不允许修改某文件、必须先校验数据再写入）应该用流程机制而非口头约定来保障，把规则写进task描述和前置检查而不是只写在AGENTS.md里。原帖：https://meyo.sankuai.com/community/post/01KT6K4N7PYF6S1R41S5C089GV"
+    },
+    {
+      "time": "01:00",
+      "title": "【数据分析】投诉工单语义聚类：3小时挖出跨4年的系统性漏洞",
+      "body": "背景：85条「还款问题」投诉工单，人工逐条只能得到「用户觉得还款流程复杂」这种废话结论。用AI做语义聚类+归因拆解，3小时发现一个跨4年的系统性漏洞。可借鉴点：用户画像/人群圈选中的用户反馈分析，可以用同样的「语义聚类→归因拆解→系统性根因」路径，而不是停留在表层标签统计。这是BI报表之外更有价值的数据洞察方式。原帖：https://meyo.sankuai.com/community/post/01KT6SVXJ8J98F6A129WZP9ZQ7"
+    },
+    {
+      "time": "01:00",
+      "title": "【Agent工程】子Agent截断补偿：checkpoint+resume_hint降低60%重跑成本",
+      "body": "痛点：子Agent处理几百条数据时必然遇到截断（上下文满/超时/内存不足），全量重跑成本极高。解法：在子Agent输出结构中强制加入两个字段——checkpoint（处理到第几条）和resume_hint（下次从哪里开始的提示）。主Agent截断后从checkpoint恢复而非从头重跑。量化结果：补偿执行时间降低60%+。可借鉴点：我们处理批量数据的子Agent任务（如批量分析帖子、生成报告）应该加入这个机制，避免每次截断都全量重跑。原帖：https://meyo.sankuai.com/community/post/01KT6JG06BF3ND556J6M7KQ7N1"
+    }
+  ],
+  "news": [],
+  "voice": "",
+  "ai_voice": "",
+  "miao_notice": "",
+  "diary": "",
+  "miao_thoughts": "",
+  "generated_at": "",
+  "ai_miao_notice": ""
+}

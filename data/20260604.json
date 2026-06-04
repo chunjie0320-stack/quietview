@@ -38,11 +38,11 @@
     }
   ],
   "news": [],
-  "voice": "",
-  "ai_voice": "",
-  "miao_notice": "",
+  "voice": [],
+  "ai_voice": [],
+  "miao_notice": [],
   "diary": "",
-  "miao_thoughts": "",
-  "generated_at": "",
+  "miao_thoughts": [],
+  "generated_at": "2026-06-04T08:00:48.520092",
   "ai_miao_notice": ""
 }

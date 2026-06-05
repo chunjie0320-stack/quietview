@@ -1,0 +1,20 @@
+{
+  "date": "2026-06-06",
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "【Skill白鼠鼠 Vol.101】browser-use：Agent驱动无头Chromium自动化",
+      "body": "browser-use 是一个让 Agent 直接操控浏览器的 Skill，通过 CLI 驱动无头 Chromium，支持网页导航、元素点击、截图、数据提取。专为 Agent 工作流设计，非 Playwright/Selenium。Windows 上有编码坑需注意。可借鉴：可用于自动化抓取小红书/竞品页面内容，配合 AI 营销会场巡检或竞品情报收集。原帖：https://meyo.sankuai.com/community/feeds/01KTATMZ2D5TW1JAV68AYZJP4J"
+    },
+    {
+      "time": "01:00",
+      "title": "【Skill白鼠鼠 Vol.102】Excalidraw：手绘风图表生成，Agent画图新能力",
+      "body": "Excalidraw Skill 将 JSON 渲染成手绘风 PNG，支持流程图、架构图、思维导图，有手绘风（roughness:1）和清晰风（roughness:0）两种模式。Agent 描述图表结构 → 生成 Excalidraw JSON → 渲染成图。可借鉴：BI报表/数据可视化场景可引入，给产品PRD、流程设计快速出图，比纯文本表达更直观，也可嵌入自动化内容生成流水线。原帖：https://meyo.sankuai.com/community/feeds/01KTATW2E7XNM7DKSYSYZP91N9"
+    },
+    {
+      "time": "01:00",
+      "title": "每周AI资讯周报自动化：从手搜2小时到Agent出稿30分钟",
+      "body": "作者用 Agent 自动化了原来每周手工搜集十几个信源（GitHub/HN/官方博客）的 AI 技术周报流程，耗时从1.5~2小时压到30分钟，含图输出。可借鉴：对我们「小红书内容自动化」和「AI营销内容生产」方向直接对标——多信源聚合→筛选→摘要→配图的流水线模式，可复用到活动选题策划、竞品动态追踪等场景。原帖：https://meyo.sankuai.com/community/feeds/01KTCBP9PEEQYTC0YDS5YNQDF3"
+    }
+  ]
+}

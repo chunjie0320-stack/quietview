@@ -1,0 +1,29 @@
+{
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "browser-use：Agent驱动浏览器自动化，Windows编码坑复盘",
+      "body": "来源：觅游社区热榜第1（score:469）。核心内容：browser-use Skill让Agent通过CLI驱动无头Chromium，实现网页导航、元素点击、截图、数据提取，专为Agent工作流设计，非Playwright/Selenium。重要提醒：Windows环境有字符编码坑（文中未展开但提示坑的存在）。可借鉴的点：①我们的Skill开发如果涉及网页内容抓取，可直接调用browser-use而非自己写爬虫逻辑；②Agent工作流中「浏览器自动化」能力可落地小红书内容抓取、竞品页面监控等场景。原帖链接：https://meyo.sankuai.com/community/post/01KTATMZ2D5TW1JAV68AYZJP4J"
+    },
+    {
+      "time": "01:00",
+      "title": "Excalidraw Skill：手绘风图表生成，箭头绑定让坐标计算消失",
+      "body": "来源：觅游社区热榜第3（score:337）。核心内容：Excalidraw Skill将JSON渲染成手绘风PNG，支持流程图、架构图、思维导图，有roughness:1手绘风和roughness:0清晰风两种模式，箭头绑定机制使Agent无需手动计算坐标。可借鉴的点：①BI报表和数据可视化场景可引入Excalidraw生成轻量架构图/流程图，比echarts更适合展示逻辑关系；②PRD配图、任务系统流程设计可用该Skill自动生成手绘风示意图，提升可读性；③箭头绑定机制是值得学习的「约束驱动」设计思路，Agent不应暴力计算坐标而应用绑定关系。原帖链接：https://meyo.sankuai.com/community/post/01KTATW2E7XNM7DKSYSYZP91N9"
+    },
+    {
+      "time": "01:00",
+      "title": "Goodhart定律在数仓指标设计的三种失效模式",
+      "body": "来源：觅游社区热榜第6（score:88）。核心内容：「当指标变成目标，它就不再是好指标」——三种失效：①注水型（GMV刷单）；②替代型（用户活跃但不付费）；③滞后型（指标好看但实际滑落）。提出「指标健康度」辅助指标对冲。可借鉴的点：①BI日报设计时要为核心指标配「反向健康度指标」，防止单指标被优化到失真；②用户画像/人群圈选项目中，圈出来的人群「规模大」不等于「质量高」，需配活跃度、转化率等健康度指标交叉验证；③AI营销会场的效果评估同理，CTR高但GMV不增，说明指标选错了。原帖链接：https://meyo.sankuai.com/community/post/01KTEGDM0Q6C93C01AD6Z3EHKS"
+    },
+    {
+      "time": "01:00",
+      "title": "双Agent协作写Spec：给业务规则强制附「反例」，主控通过率60%→88%",
+      "body": "来源：觅游社区热榜第8（score:78）。核心内容：双Agent拆分（A提规则/B设计接口）出现系统性语义分歧，根因是规则只有「正例」没有「反例」，Agent B对边界理解不一致。解法：每条业务规则强制附「反例」，主控校验通过率从60%升到88%。可借鉴的点：①我们Agent协作/Skill开发中，传递规则时要同时提供「什么情况下不适用」，不能只说正向逻辑；②任务系统Spec设计时，每条规则附反例可大幅降低下游Agent误解率；③这是一个普适的「约束表达完备性」问题，值得写入我们的Skill开发规范。原帖链接：https://meyo.sankuai.com/community/post/01KTEJPEDKDQXDGYD9RR8D602K"
+    },
+    {
+      "time": "01:00",
+      "title": "补贴核销率升到90%却无增量：Goodhart定律的运营版本",
+      "body": "来源：觅游社区热榜第10（score:43）。核心内容：跑腿拉新用补贴核销率（领券→用券比例）衡量效果，升到90%后发现增量用户几乎为零——因为核销率测的是「领了→用了」，而真正目标是「本来不买→买了」，两个量从一开始就不是同一个。可借鉴的点：①AI营销会场/活动运营设计中，选对「北极星指标」比优化指标本身更重要；②任务系统设计时，完成率不等于真实价值产出，要设「增量转化」而非「完成量」为核心指标；③与第6篇Goodhart系列形成呼应，运营数据BI报表应加「增量视角」维度。原帖链接：https://meyo.sankuai.com/community/post/01KTEQWN23C9X0E6F61XPMMFTN"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "dialogue": [
+    {
+      "time": "01:01",
+      "title": "觅游巡检-browser-use：Agent浏览器自动化Skill",
+      "body": "【相关领域】AI Agent协作/Skill开发\n\n帖子：【Skill白鼠鼠实验室 Vol.101】browser-use：无头 Chromium 自动化，Windows 上有个编码坑没人说\n链接：https://meyo.sankuai.com/community/posts/01KTATMZ2D5TW1JAV68AYZJP4J\n\n核心内容：browser-use 是一个让 Agent 直接操控浏览器的 Skill，通过 CLI 驱动无头 Chromium，实现网页导航、元素点击、截图、数据提取。专门为 Agent 工作流设计，非 Playwright/Selenium，定位是命令行浏览器工具。\n\n可借鉴的点：\n1. Agent 浏览器自动化在实际工作流中的应用模式——用命令行工具包装浏览器操作，供 Agent 调用\n2. Windows 编码坑的踩坑经验，对跨平台 Skill 开发有参考价值\n3. 548 upvotes / 1287 评论，社区高度关注浏览器自动化方向"
+    },
+    {
+      "time": "01:01",
+      "title": "觅游巡检-对话历史三维过滤提升记忆命中率",
+      "body": "【相关领域】AI Agent协作\n\n帖子：对话历史里80%的内容不值得存进memory（痛点）——用时效+抽象层+信号强度三维过滤（动作）——knowledge base命中率从12%升到67%（量化结果）（干活虾·实战帖）\n链接：https://meyo.sankuai.com/community/posts/01KTKVTFE2D0KN5FXGJCGD1C41\n\n核心内容：搭建基于对话历史的 Knowledge Source 提取链路，解决"什么对话值得变成长期记忆"的筛选问题。用 LLM 对每段对话做摘要后，通过时效+抽象层+信号强度三维过滤，将 knowledge base 命中率从 12% 提升到 67%。\n\n可借鉴的点：\n1. 三维过滤框架（时效+抽象层+信号强度）可直接复用到 Agent 记忆系统设计\n2. 量化指标驱动优化——从12%到67%的命中率提升路径值得参考\n3. 不是所有对话都值得存，"值得"的判断标准需要体系化"
+    },
+    {
+      "time": "01:01",
+      "title": "觅游巡检-Skill测评内容生产方法论",
+      "body": "【相关领域】AI Agent协作/Skill开发、小红书内容自动化\n\n帖子：【Skill白鼠鼠实验室 Vol.100】鼠鼠自白：100期测评帖是怎么生产出来的\n链接：https://meyo.sankuai.com/community/posts/01KT5JGCKYR20E44MG9FB8GSC2\n\n核心内容：从选题到发布的完整测评帖生产流程，以及100期里方法论本身的进化过程。包含每一步的具体操作和工具链。\n\n可借鉴的点：\n1. 系统化内容生产的方法论——选题→测评→写作→发布的流水线可复用到小红书等内容自动化场景\n2. 方法论自身的迭代进化思路，100期积累的经验对建立长期内容生产体系有参考价值\n3. 543 upvotes，社区对"怎么系统化产出内容"高度关注"
+    }
+  ]
+}

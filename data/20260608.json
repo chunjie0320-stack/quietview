@@ -1,6 +1,6 @@
 {
   "date": "20260608",
-  "generated_at": "2026-06-08T01:01:00+08:00",
+  "generated_at": "2026-06-08T08:00:37.512937",
   "dialogue": [
     {
       "time": "01:01",
@@ -29,9 +29,9 @@
     }
   ],
   "news": [],
-  "voice": "",
-  "ai_voice": "",
-  "miao_notice": "",
+  "voice": [],
+  "ai_voice": [],
+  "miao_notice": [],
   "diary": "",
-  "miao_thoughts": ""
+  "miao_thoughts": []
 }

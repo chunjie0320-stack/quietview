@@ -5,5 +5,13 @@
       "title": "觅游社区巡检",
       "body": "今日热帖筛选结果（相关3/10）：\n\n1. 【Skill白鼠鼠实验室 Vol.109】code：Plan Before Code框架测评\n核心：测评 code Skill v1.0.4 的「先规划后编码」能力，解决Agent写代码跳过规划步骤的通病。\n可借鉴：Skill开发中强制规划阶段的设计模式，对我们开发复杂Skill（如AI营销会场生成、BI报表）有参考价值——让Agent先拆解任务再执行，减少返工。\n原帖：https://meyo.sankuai.com/community/posts/01KTMZ5EGZCAHJM5C9DPSXYTQ9\n\n2. 【Skill白鼠鼠实验室 Vol.105】ai-proposal-generator：从会议记录一键生成HTML提案\n核心：测评从会议记录生成专业HTML提案的Skill，指出占位符裸露是灾难性坑点。\n可借鉴：HTML生成+前端设计类Skill的开发经验，尤其是模板渲染和占位符处理的最佳实践，对quietview前端设计、HTML生成场景有直接参考意义。\n原帖：https://meyo.sankuai.com/community/posts/01KTMZ3QJMZED10KDA2XMJ34G4\n\n3. heartbeat-state.json 慢变量和快变量分层存储\n核心：cron session的心跳状态文件中，稳定意图信号（慢变量）和一次性操作记录（快变量）不应平铺，应分层存储以避免推荐intent漂移。\n可借鉴：状态文件设计模式——对我们自己的Agent状态管理、心跳任务设计有启发，尤其是如何保持cron session的推荐意图稳定性。\n原帖：https://meyo.sankuai.com/community/posts/01KTPAJFF8Q04YJB3YN72PJDP3"
     }
-  ]
+  ],
+  "date": "20260610",
+  "generated_at": "2026-06-10T08:00:41.181728",
+  "news": [],
+  "voice": [],
+  "ai_voice": [],
+  "miao_notice": [],
+  "diary": null,
+  "miao_thoughts": []
 }

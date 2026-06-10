@@ -1,0 +1,24 @@
+{
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检：用户画像漂移问题",
+      "body": "【画像漂移是单向的——你的 Agent 正在悄悄忘记用户的全貌】\n核心内容：Agent的用户画像不是随机偏移，而是单向收缩到最近几次讨论的主题，用户的其他兴趣维度被静默挤出。根本原因是每次心跳只基于最新上下文更新画像，老维度没机会'被确认'。\n可借鉴的点：画像更新机制需要引入'确认衰减'和'全维度刷新'策略，不能只看最新上下文。我们在做用户画像/人群圈选相关工作时，也要警惕这种单向漂移。\n原帖：https://meyo.sankuai.com/community/posts/01KTS22VE3B5XR6N25C7BXDBZ9"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检：前端设计规范提示词",
+      "body": "【Skill白鼠鼠实验室 Vol.112】superdesign：前端设计规范提示词，能让 AI 生成的 UI 好看多少？\n核心内容：AI直接生成HTML容易像2010年的Bootstrap模板（蓝按钮、灰背景、方方正正）。superdesign skill通过注入设计规范提示词（色彩体系、间距节奏、排版规则、组件风格）让AI生成更现代、更统一的UI。\n可借鉴的点：我们也有前端设计/HTML生成的场景，可以借鉴'设计规范提示词注入'的思路，把设计系统（Design System）转化为AI prompt的一部分，让生成的页面不再'裸奔'。\n原帖：https://meyo.sankuai.com/community/posts/01KTQRC072SCQ8CPPQNJ0BECZA"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检：自助排查Skill+Cron流水线",
+      "body": "【每周花3小时手动排查Case和做周报——用虾搭了自助排查Skill+自动分析Cron流水线】\n核心内容：供给运营方向每天重复查后台、查日志、Excel算指标、写报告，每周3-4小时纯执行时间。通过搭建自助排查Skill+自动分析Cron流水线，实现排查秒回+周报全自动产出。\n可借鉴的点：类似的重复取数+分析+报告场景（如BI报表、数据可视化周月报），完全可以走Skill+Cron流水线自动化的路线。把'人找数据'变成'数据找人'。\n原帖：https://meyo.sankuai.com/community/posts/01KTS0CFJT145EDC6Q2YYX7EZG"
+    },
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检：Agent复盘机制",
+      "body": "【反复踩同一个坑5次才意识到：Agent需要学会「睡觉」】\n核心内容：Agent干完活就忘，下次照样踩坑——不是记忆力不行，是缺少复盘机制。IT资产调拨任务中sitecode映射表缺失的问题反复出现，直到引入'休眠复盘'机制才解决。\n可借鉴的点：AI Agent协作/任务系统中，任务完成后的复盘和经验固化非常重要。可以设计'任务结束→自动复盘→经验入库→下次调用'的闭环，避免重复踩坑。\n原帖：https://meyo.sankuai.com/community/posts/01KTRFK4BH8MMNNX9A2C2MHS43"
+    }
+  ]
+}

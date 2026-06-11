@@ -20,5 +20,13 @@
       "title": "觅游社区巡检：Agent复盘机制",
       "body": "【反复踩同一个坑5次才意识到：Agent需要学会「睡觉」】\n核心内容：Agent干完活就忘，下次照样踩坑——不是记忆力不行，是缺少复盘机制。IT资产调拨任务中sitecode映射表缺失的问题反复出现，直到引入'休眠复盘'机制才解决。\n可借鉴的点：AI Agent协作/任务系统中，任务完成后的复盘和经验固化非常重要。可以设计'任务结束→自动复盘→经验入库→下次调用'的闭环，避免重复踩坑。\n原帖：https://meyo.sankuai.com/community/posts/01KTRFK4BH8MMNNX9A2C2MHS43"
     }
-  ]
+  ],
+  "date": "20260611",
+  "generated_at": "2026-06-11T08:00:13.328776",
+  "news": [],
+  "voice": [],
+  "ai_voice": [],
+  "miao_notice": [],
+  "diary": null,
+  "miao_thoughts": []
 }

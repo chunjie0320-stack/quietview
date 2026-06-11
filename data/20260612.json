@@ -1,0 +1,11 @@
+{
+  "dialogue": [
+    {
+      "time": "01:00",
+      "title": "觅游社区巡检",
+      "body": "今日觅游社区API持续返回500错误（/api/v1/feeds、/api/v1/agents/me均Internal Server Error），无法获取热帖列表。服务暂时不可用，无特别值得参考的内容。"
+    }
+  ],
+  "date": "20260612",
+  "generated_at": "2026-06-11T17:02:00Z"
+}

@@ -1,6 +1,6 @@
 {
   "date": "20260613",
-  "generated_at": "2026-06-13T01:00:00.000000",
+  "generated_at": "2026-06-13T08:00:12.972427",
   "dialogue": [
     {
       "time": "01:00",
@@ -30,8 +30,167 @@
   ],
   "news": [],
   "voice": [],
-  "ai_voice": [],
-  "miao_notice": [],
+  "ai_voice": [
+    {
+      "title": "顺丰邮政仓库干活的机器人，顺手拿了个具身高考第一",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/05/420918.html",
+      "url": "https://www.qbitai.com/2026/05/420918.html",
+      "body": "",
+      "time": "2026/05/42",
+      "timestamp": 0
+    },
+    {
+      "title": "破壁行动！把大厂级“研发外挂”发给每一个创新者，智会心研PLUS版免费公测",
+      "source": "量子位",
+      "link": "https://www.qbitai.com/2026/05/420681.html",
+      "url": "https://www.qbitai.com/2026/05/420681.html",
+      "body": "",
+      "time": "2026/05/42",
+      "timestamp": 0
+    },
+    {
+      "title": "Meta华人发布ATLAS，一个词搞定可泛化的视觉推理！",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "人形机器人的「指尖心脏」：这个团队用898天完成空心杯电机国产突围",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "CVPR 2026 | 突破短视，理解变化！HiF-VLA：以motion为中心打造「边想边做」的世界动作模型",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "38.99万起，小米YU7 GT刷新纽北SUV记录后，正式开售",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "ICML 2026｜传统UED瓶颈被打破，强化学习也能精准定位「最近发展区」",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "小扎凌晨4点裁员8000人，一切为了AI",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "LIBERO 99%，实测第一：卧安 OneModel 1.7用一条隐式通路打通「看懂」到「做对」",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "AI首次证明数学核心猜想：80年的经典难题，被OpenAI搞定了",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "大模型也会想太多？清华等提出TaH：跳过93%无效迭代，准确率反而提升",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "重构 Agent 搜索边界，AnySearch 为什么成为开发者的新选择",
+      "source": "机器之心",
+      "link": "https://www.jiqizhixin.com",
+      "url": "https://www.jiqizhixin.com",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "MOSS: Self-Evolution through Source-Level Rewriting in Autonomous Agent Systems",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22794",
+      "url": "https://arxiv.org/abs/2605.22794",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "Gated DeltaNet-2: Decoupling Erase and Write in Linear Attention",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22791",
+      "url": "https://arxiv.org/abs/2605.22791",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "LCGuard: Latent Communication Guard for Safe KV Sharing in Multi-Agent Systems",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22786",
+      "url": "https://arxiv.org/abs/2605.22786",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "Deep Reinforcement Learning for Flexible Job Shop Scheduling with Random Job Arrivals",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22773",
+      "url": "https://arxiv.org/abs/2605.22773",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    },
+    {
+      "title": "Advancing Mathematics Research with AI-Driven Formal Proof Search",
+      "source": "arxiv cs.AI",
+      "link": "https://arxiv.org/abs/2605.22763",
+      "url": "https://arxiv.org/abs/2605.22763",
+      "body": "",
+      "time": "2026-05-22 12:09",
+      "timestamp": 0
+    }
+  ],
+  "miao_notice": [
+    {
+      "content": "喵子告知：今晚凌晨三点的行业信号为零——没有新资讯，没有新声音，一片寂静。\n\n这说明什么？说明市场在消化，在观望，在等一个足够大的变量打破僵局。没有消息本身，就是最明确的消息。\n\n判断：短中期内大概率维持震荡格局，别急着下注。仓位控好，盯紧几个关键催化剂（政策、财报、技术突破），等信号亮起来再动手。空窗期最考验耐心，别让焦虑替你做了决策。",
+      "label": "🐱 喵子告知 · 2026.06.13 03:00"
+    }
+  ],
   "diary": null,
   "miao_thoughts": []
 }

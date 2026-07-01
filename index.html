@@ -3574,83 +3574,9 @@ renderNav('invest');
 })();
 </script>
 
-<!-- 动态数据加载：fetch 今日 JSON，渲染行业声音/资讯/喵子告知 -->
+<!-- 动态数据加载：不再自动生成新日期，仅加载已有历史数据 -->
 <script>
 (function() {
-  var today = new Date();
-  var dateStr = today.getFullYear() +
-    String(today.getMonth() + 1).padStart(2, '0') +
-    String(today.getDate()).padStart(2, '0');
-
-  // 如果 NAV_DATA 里没有今日日期，自动追加 tab 并创建 panel 容器
-  (function ensureTodayTab() {
-    var investTabs = NAV_DATA['invest'] || [];
-    // 检查 daily-brief children 里是否已有今天（静态NAV_DATA已含时跳过）
-    var dailyBriefGroup = investTabs.find(function(t) { return t.id === 'daily-brief'; });
-    var existsInChildren = dailyBriefGroup && dailyBriefGroup.children &&
-      dailyBriefGroup.children.some(function(c) { return c.id === 'daily-brief-' + dateStr; });
-    var exists = existsInChildren;
-    if (!exists) {
-      var todayEntry = {
-        id: 'daily-brief-' + dateStr,
-        label: String(today.getMonth() + 1).padStart(2, '0') + '月' + String(today.getDate()).padStart(2, '0') + '日',
-        panel: 'panel-daily-brief-' + dateStr
-      };
-      if (dailyBriefGroup && dailyBriefGroup.children) {
-        dailyBriefGroup.children.unshift(todayEntry);
-      } else {
-        investTabs.unshift(todayEntry);
-      }
-      NAV_DATA['invest'] = investTabs;
-
-      // 创建 panel 容器（如果不存在）
-      if (!document.getElementById('panel-daily-brief-' + dateStr)) {
-        var panel = document.createElement('div');
-        panel.className = 'content-panel';
-        panel.id = 'panel-daily-brief-' + dateStr;
-        panel.innerHTML = [
-          '<div class="page-header">',
-          '  <h1>每日简报</h1>',
-          '  <div class="sub">' + today.getFullYear() + '.' +
-              String(today.getMonth()+1).padStart(2,'0') + '.' +
-              String(today.getDate()).padStart(2,'0') +
-              ' · 行业资讯 &amp; 行业声音</div>',
-          '  <div class="page-header-divider"></div>',
-          '</div>',
-          '<div class="card">',
-          '  <div id="miao-notice-' + dateStr + '" class="miao-bubble" style="margin-bottom:24px;border-radius:12px;max-height:420px;overflow-y:auto;">',
-          '    <span class="miao-bubble-label">🐱 喵子告知 · 加载中…</span>',
-          '    <span>数据加载中，请稍候…</span>',
-          '  </div>',
-          '  <div class="two-col">',
-          '    <div>',
-          '      <div class="col-title">行业资讯<span class="col-count-badge" id="news-count-' + dateStr + '">· 0</span></div>',
-          '      <div class="timeline" id="timeline-news-' + dateStr + '">',
-          '        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>',
-          '      </div>',
-          '    </div>',
-          '    <div class="two-col-divider"></div>',
-          '    <div>',
-          '      <div class="col-title">行业声音<span class="col-count-badge" id="voice-count-' + dateStr + '">· 0</span></div>',
-          '      <div class="timeline" id="timeline-voice-' + dateStr + '">',
-          '        <div class="tl-item"><div class="tl-dot"></div><div class="tl-title" style="color:#aaa">加载中…</div></div>',
-          '      </div>',
-          '    </div>',
-          '  </div>',
-          '</div>'
-        ].join('\n');
-        var main = document.getElementById('main');
-        if (main) main.insertBefore(panel, main.firstChild);
-      }
-      // 重新渲染导航并切到今天
-      renderNav('invest');
-      showPanel('panel-daily-brief-' + dateStr);
-    } else {
-      // 今天已存在于静态NAV_DATA，确保默认选中今天
-      showPanel('panel-daily-brief-' + dateStr);
-    }
-  })();
-
   // fetch index.json 加载所有历史日期到左侧导航
   fetch('data/index.json')
     .then(function(r) { return r.ok ? r.json() : null; })
@@ -3680,76 +3606,11 @@ renderNav('invest');
       });
       // 重新渲染导航
       renderNav('invest');
-      // 确保今天选中
-      showPanel('panel-daily-brief-' + dateStr);
+      // 默认选中最新日期（而不是今天）
+      var latest = dailyBriefGroup.children[0];
+      if (latest) showPanel(latest.panel);
     })
     .catch(function(e) { console.warn('index.json 加载失败', e); });
-
-  // fetch 今日数据 JSON
-  fetch('data/' + dateStr + '.json')
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(data) {
-      if (!data) return; // JSON 文件不存在，静态内容兜底
-      renderVoice(data.voice || []);
-      renderNews(data.news || []);
-      renderMiaoNotice(data.miao_notice);
-    })
-    .catch(function(e) { console.warn('数据加载失败，显示静态内容', e); });
-
-  function renderVoice(items) {
-    var container = document.querySelector('#timeline-voice-' + dateStr);
-    if (!container) return;
-    container.innerHTML = items.map(function(item) {
-      return [
-        '<div class="tl-item">',
-        '  <div class="tl-dot"></div>',
-        '  <div class="tl-time">' + escHtml(item.time) + '</div>',
-        '  <div class="tl-tag" style="background:' + escHtml(item.color || '') + ';color:' + escHtml(item.text_color || '') + ';">' + escHtml(item.source) + '</div>',
-        '  <div class="tl-title">' + escHtml(item.title) + '</div>',
-        item.digest ? '  <div class="tl-body">' + escHtml(item.digest) + '</div>' : '',
-        item.link ? '  <a class="tl-source" href="' + escAttr(item.link) + '" target="_blank">→ 阅读原文</a>' : '',
-        '</div>'
-      ].join('\n');
-    }).join('');
-    var badge = document.querySelector('#voice-count-' + dateStr);
-    if (badge) badge.textContent = '· ' + items.length;
-  }
-
-  function renderNews(items) {
-    var container = document.querySelector('#timeline-news-' + dateStr);
-    if (!container) return;
-    container.innerHTML = items.map(function(item) {
-      return [
-        '<div class="tl-item">',
-        '  <div class="tl-dot"></div>',
-        '  <div class="tl-time">' + escHtml(item.time) + '</div>',
-        '  <div class="tl-tag">' + escHtml(item.tag || item.source || '财联社') + '</div>',
-        '  <div class="tl-title">' + escHtml(item.title) + '</div>',
-        item.body ? '  <div class="tl-body">' + escHtml(item.body) + '</div>' : '',
-        item.link ? '  <a class="tl-source" href="' + escAttr(item.link) + '" target="_blank">→ ' + escHtml(item.source||'原文') + '</a>' : '',
-        '</div>'
-      ].join('\n');
-    }).join('');
-    var badge = document.querySelector('#news-count-' + dateStr);
-    if (badge) badge.textContent = '· ' + items.length;
-  }
-
-  function renderMiaoNotice(notice) {
-    if (!notice) return;
-    // 优先使用带日期后缀的 id，回退到通用 #miao-notice（20260325 panel）
-    var el = document.querySelector('#miao-notice-' + dateStr) || document.querySelector('#miao-notice');
-    if (!el) return;
-    // 兼容单对象和数组
-    var items = Array.isArray(notice) ? notice : [notice];
-    el.innerHTML = items.map(function(item) {
-      return '<div class="miao-notice-item" style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.15);">'
-        + '<span class="miao-bubble-label">' + escHtml(item.label) + '</span>'
-        + '<div class="miao-notice-body">' + escHtml(item.content) + '</div>'
-        + '</div>';
-    }).join('');
-  }
-
-  // XSS 防护：HTML 转义
   function escHtml(str) {
     if (!str) return '';
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
